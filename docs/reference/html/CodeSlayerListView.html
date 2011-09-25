@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerListView</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerGroups.html" title="CodeSlayerGroups">
+<link rel="next" href="CodeSlayerMenuBarEditor.html" title="CodeSlayerMenuBarEditor">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerGroups.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerMenuBarEditor.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerListView.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerListView.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerListView.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerListView.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#CodeSlayerListView.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="CodeSlayerListView">
+<a name="CodeSlayerListView"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerListView.top_of_page"></a>CodeSlayerListView</span></h2>
+<p>CodeSlayerListView — The generic list widget used throughout CodeSlayer.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="CodeSlayerListView.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-listview.h&gt;
+
+                    <a class="link" href="CodeSlayerListView.html#CodeSlayerListView-struct" title="CodeSlayerListView">CodeSlayerListView</a>;
+                    <a class="link" href="CodeSlayerListView.html#CodeSlayerListViewClass" title="CodeSlayerListViewClass">CodeSlayerListViewClass</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerListView.html#codeslayer-list-view-new" title="codeslayer_list_view_new ()">codeslayer_list_view_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerListView.html#codeslayer-list-view-add-text" title="codeslayer_list_view_add_text ()">codeslayer_list_view_add_text</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerListView.html" title="CodeSlayerListView"><span class="type">CodeSlayerListView</span></a> *list_view</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="CodeSlayerListView.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
+                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkHBox.html">GtkHBox</a>
+                                       +----CodeSlayerListView
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="CodeSlayerListView.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+CodeSlayerListView implements
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1" title="Signals">
+<a name="CodeSlayerListView.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="CodeSlayerListView.html#CodeSlayerListView-list-changed" title='The "list-changed" signal'>list-changed</a>"                                   : Run Last / No Recursion / No Hooks
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="CodeSlayerListView.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="CodeSlayerListView.details"></a><h2>Details</h2>
+<div class="refsect2" title="CodeSlayerListView">
+<a name="CodeSlayerListView-struct"></a><h3>CodeSlayerListView</h3>
+<pre class="programlisting">typedef struct _CodeSlayerListView CodeSlayerListView;</pre>
+</div>
+<hr>
+<div class="refsect2" title="CodeSlayerListViewClass">
+<a name="CodeSlayerListViewClass"></a><h3>CodeSlayerListViewClass</h3>
+<pre class="programlisting">typedef struct {
+  GtkHBoxClass parent_class;
+  
+  void (*list_changed) (CodeSlayerListView *list_view);
+} CodeSlayerListViewClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_list_view_new ()">
+<a name="codeslayer-list-view-new"></a><h3>codeslayer_list_view_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_list_view_new            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerListView.html" title="CodeSlayerListView"><span class="type">CodeSlayerListView</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="CodeSlayerListView.html" title="CodeSlayerListView"><span class="type">CodeSlayerListView</span></a>. 
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_list_view_add_text ()">
+<a name="codeslayer-list-view-add-text"></a><h3>codeslayer_list_view_add_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_list_view_add_text       (<em class="parameter"><code><a class="link" href="CodeSlayerListView.html" title="CodeSlayerListView"><span class="type">CodeSlayerListView</span></a> *list_view</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="CodeSlayerListView.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "list-changed" signal'>
+<a name="CodeSlayerListView-list-changed"></a><h3>The <code class="literal">"list-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerListView.html" title="CodeSlayerListView"><span class="type">CodeSlayerListView</span></a> *codeslayerlistview,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : Run Last / No Recursion / No Hooks</pre>
+<p>
+The ::list-changed signal is emitted when the list values are
+edited, added, or removed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerlistview</code></em> :</span></p></td>
+<td>the list view that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

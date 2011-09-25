@@ -1,0 +1,589 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerProjects</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection">
+<link rel="next" href="CodeSlayerSearchPage.html" title="CodeSlayerSearchPage">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerProjectsSelection.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerSearchPage.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerProjects.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerProjects.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerProjects.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerProjects.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#CodeSlayerProjects.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="CodeSlayerProjects">
+<a name="CodeSlayerProjects"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerProjects.top_of_page"></a>CodeSlayerProjects</span></h2>
+<p>CodeSlayerProjects — The tree view that contains the projects.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="CodeSlayerProjects.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-projects-tree.h&gt;
+
+                    <a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-struct" title="CodeSlayerProjects">CodeSlayerProjects</a>;
+                    <a class="link" href="CodeSlayerProjects.html#CodeSlayerProjectsClass" title="CodeSlayerProjectsClass">CodeSlayerProjectsClass</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-new" title="codeslayer_projects_new ()">codeslayer_projects_new</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *project_properties</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-load-group" title="codeslayer_projects_load_group ()">codeslayer_projects_load_group</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-add-project" title="codeslayer_projects_add_project ()">codeslayer_projects_add_project</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-select-document" title="codeslayer_projects_select_document ()">codeslayer_projects_select_document</a> (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-add-popup-item" title="codeslayer_projects_add_popup_item ()">codeslayer_projects_add_popup_item</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-remove-popup-item" title="codeslayer_projects_remove_popup_item ()">codeslayer_projects_remove_popup_item</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-search-find" title="codeslayer_projects_search_find ()">codeslayer_projects_search_find</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="CodeSlayerProjects.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
+                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
+                                       +----CodeSlayerProjects
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="CodeSlayerProjects.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+CodeSlayerProjects implements
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1" title="Signals">
+<a name="CodeSlayerProjects.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-copy-file-folder" title='The "copy-file-folder" signal'>copy-file-folder</a>"                               : Run Last / No Recursion / Action / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-cut-file-folder" title='The "cut-file-folder" signal'>cut-file-folder</a>"                                : Run Last / No Recursion / Action / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-delete-file-folder" title='The "delete-file-folder" signal'>delete-file-folder</a>"                             : Run Last / No Recursion / Action / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-file-path-renamed" title='The "file-path-renamed" signal'>file-path-renamed</a>"                              : Run Last / No Recursion / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-find-projects" title='The "find-projects" signal'>find-projects</a>"                                  : Run Last / No Recursion / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-open-document" title='The "open-document" signal'>open-document</a>"                                  : Run Last / No Recursion / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-paste-file-folder" title='The "paste-file-folder" signal'>paste-file-folder</a>"                              : Run Last / No Recursion / Action / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-project-modified" title='The "project-modified" signal'>project-modified</a>"                               : Run Last / No Recursion / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-properties-opened" title='The "properties-opened" signal'>properties-opened</a>"                              : Run Last / No Recursion / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-properties-saved" title='The "properties-saved" signal'>properties-saved</a>"                               : Run Last / No Recursion / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-remove-project" title='The "remove-project" signal'>remove-project</a>"                                 : Run Last / No Recursion / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-rename-file-folder" title='The "rename-file-folder" signal'>rename-file-folder</a>"                             : Run Last / No Recursion / Action / No Hooks
+  "<a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-search-find" title='The "search-find" signal'>search-find</a>"                                    : Run Last / No Recursion / Action / No Hooks
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="CodeSlayerProjects.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="CodeSlayerProjects.details"></a><h2>Details</h2>
+<div class="refsect2" title="CodeSlayerProjects">
+<a name="CodeSlayerProjects-struct"></a><h3>CodeSlayerProjects</h3>
+<pre class="programlisting">typedef struct _CodeSlayerProjects CodeSlayerProjects;</pre>
+</div>
+<hr>
+<div class="refsect2" title="CodeSlayerProjectsClass">
+<a name="CodeSlayerProjectsClass"></a><h3>CodeSlayerProjectsClass</h3>
+<pre class="programlisting">typedef struct {
+  GtkVBoxClass parent_class;
+
+  void (*remove_project) (CodeSlayerProjects *projects);
+  void (*project_modified) (CodeSlayerProjects *projects);
+  void (*open_document) (CodeSlayerProjects *projects);
+  void (*file_path_renamed) (CodeSlayerProjects *projects);
+  void (*cut_file_folder) (CodeSlayerProjects *projects);
+  void (*copy_file_folder) (CodeSlayerProjects *projects);
+  void (*paste_file_folder) (CodeSlayerProjects *projects);
+  void (*rename_file_folder) (CodeSlayerProjects *projects);
+  void (*delete_file_folder) (CodeSlayerProjects *projects);
+  void (*find_projects) (CodeSlayerProjects *projects);
+  void (*search_find) (CodeSlayerProjects *projects);
+  void (*properties_opened) (CodeSlayerProjects *projects);
+  void (*properties_saved) (CodeSlayerProjects *projects);
+} CodeSlayerProjectsClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_projects_new ()">
+<a name="codeslayer-projects-new"></a><h3>codeslayer_projects_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_projects_new             (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *project_properties</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>groups</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>project_properties</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>. 
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_projects_load_group ()">
+<a name="codeslayer-projects-load-group"></a><h3>codeslayer_projects_load_group ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_load_group      (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
+<p>
+Load the group projects into the tree.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> to load into the tree.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_projects_add_project ()">
+<a name="codeslayer-projects-add-project"></a><h3>codeslayer_projects_add_project ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_add_project     (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);</pre>
+<p>
+Add the project to the tree.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>project</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> to add to the tree.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_projects_select_document ()">
+<a name="codeslayer-projects-select-document"></a><h3>codeslayer_projects_select_document ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_projects_select_document (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> is TRUE if the file can be selected in the tree.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_projects_add_popup_item ()">
+<a name="codeslayer-projects-add-popup-item"></a><h3>codeslayer_projects_add_popup_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_add_popup_item  (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_projects_remove_popup_item ()">
+<a name="codeslayer-projects-remove-popup-item"></a><h3>codeslayer_projects_remove_popup_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_remove_popup_item
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_projects_search_find ()">
+<a name="codeslayer-projects-search-find"></a><h3>codeslayer_projects_search_find ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_search_find     (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="CodeSlayerProjects.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "copy-file-folder" signal'>
+<a name="CodeSlayerProjects-copy-file-folder"></a><h3>The <code class="literal">"copy-file-folder"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojectstree,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)                   : Run Last / No Recursion / Action / No Hooks</pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::copy-file-folder signal is a request to copy the file/folder in the tree.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprojectstree</code></em> :</span></p></td>
+<td>the tree that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "cut-file-folder" signal'>
+<a name="CodeSlayerProjects-cut-file-folder"></a><h3>The <code class="literal">"cut-file-folder"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojectstree,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)                   : Run Last / No Recursion / Action / No Hooks</pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::cut-file-folder signal is a request to cut the file/folder from the tree.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprojectstree</code></em> :</span></p></td>
+<td>the tree that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "delete-file-folder" signal'>
+<a name="CodeSlayerProjects-delete-file-folder"></a><h3>The <code class="literal">"delete-file-folder"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojectstree,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)                   : Run Last / No Recursion / Action / No Hooks</pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::delete-file-folder signal is a request to rename the file/folder.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprojectstree</code></em> :</span></p></td>
+<td>the tree that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "file-path-renamed" signal'>
+<a name="CodeSlayerProjects-file-path-renamed"></a><h3>The <code class="literal">"file-path-renamed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojectstree,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>              *arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>              *arg2,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)                   : Run Last / No Recursion / No Hooks</pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::file-path-renamed signal is invoked after a file/folder is renamed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprojectstree</code></em> :</span></p></td>
+<td>the tree that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "find-projects" signal'>
+<a name="CodeSlayerProjects-find-projects"></a><h3>The <code class="literal">"find-projects"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>              *arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : Run Last / No Recursion / No Hooks</pre>
+</div>
+<hr>
+<div class="refsect2" title='The "open-document" signal'>
+<a name="CodeSlayerProjects-open-document"></a><h3>The <code class="literal">"open-document"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojectstree,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)                   : Run Last / No Recursion / No Hooks</pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::open-document signal is a request to open the document in the notebook.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprojectstree</code></em> :</span></p></td>
+<td>the tree that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "paste-file-folder" signal'>
+<a name="CodeSlayerProjects-paste-file-folder"></a><h3>The <code class="literal">"paste-file-folder"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojectstree,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)                   : Run Last / No Recursion / Action / No Hooks</pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::paste-file-folder signal is a request to paste the file/folder that was
+previously cut or copied.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprojectstree</code></em> :</span></p></td>
+<td>the tree that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "project-modified" signal'>
+<a name="CodeSlayerProjects-project-modified"></a><h3>The <code class="literal">"project-modified"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : Run Last / No Recursion / No Hooks</pre>
+</div>
+<hr>
+<div class="refsect2" title='The "properties-opened" signal'>
+<a name="CodeSlayerProjects-properties-opened"></a><h3>The <code class="literal">"properties-opened"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojectstree,
+                                                        <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a>  *arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)                   : Run Last / No Recursion / No Hooks</pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::properties-opened signal is a activated when the properties is opened.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprojectstree</code></em> :</span></p></td>
+<td>the tree that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "properties-saved" signal'>
+<a name="CodeSlayerProjects-properties-saved"></a><h3>The <code class="literal">"properties-saved"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
+                                                        <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a>  *arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : Run Last / No Recursion / No Hooks</pre>
+</div>
+<hr>
+<div class="refsect2" title='The "remove-project" signal'>
+<a name="CodeSlayerProjects-remove-project"></a><h3>The <code class="literal">"remove-project"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojectstree,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)                   : Run Last / No Recursion / No Hooks</pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::remove-project signal is a request for the project to be 
+removed from the group.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprojectstree</code></em> :</span></p></td>
+<td>the tree that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "rename-file-folder" signal'>
+<a name="CodeSlayerProjects-rename-file-folder"></a><h3>The <code class="literal">"rename-file-folder"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojectstree,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)                   : Run Last / No Recursion / Action / No Hooks</pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::rename-file-folder signal is a request to rename the file/folder.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprojectstree</code></em> :</span></p></td>
+<td>the tree that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "search-find" signal'>
+<a name="CodeSlayerProjects-search-find"></a><h3>The <code class="literal">"search-find"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojectstree,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)                   : Run Last / No Recursion / Action / No Hooks</pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::search-find signal is a request to open up the search dialog.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprojectstree</code></em> :</span></p></td>
+<td>the tree that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# List of source files which contain translatable strings.
+codeslayer/codeslayer-group-properties.c
+codeslayer/codeslayer-menubar-editor.c
+codeslayer/codeslayer-menubar-groups.c
+codeslayer/codeslayer-menubar-help.c
+codeslayer/codeslayer-menubar-projects.c
+codeslayer/codeslayer-menubar-search.c
+codeslayer/codeslayer-menubar-tools.c
+codeslayer/codeslayer-menubar-view.c
+codeslayer/codeslayer-notebook.c
+codeslayer/codeslayer-notebook-page.c
+codeslayer/codeslayer-notebook-tab.c
+codeslayer/codeslayer-notebook-search.c
+codeslayer/codeslayer-plugins.c
+codeslayer/codeslayer-plugins-selector.c
+codeslayer/codeslayer-preferences-editor.c
+codeslayer/codeslayer-preferences-projects.c
+codeslayer/codeslayer-preferences-theme.c
+codeslayer/codeslayer-preferences-misc.c
+codeslayer/codeslayer-preferences-listview.c
+codeslayer/codeslayer-preferences.c
+codeslayer/codeslayer-projects.c
+codeslayer/codeslayer-search-page.c
+codeslayer/codeslayer-search-tab.c
+codeslayer/codeslayer-search.c

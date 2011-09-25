@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+    <!ENTITY version SYSTEM "version.xml">
+    <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<book id="index">
+  <bookinfo>
+    <title>CodeSlayer Reference Manual</title>
+    <releaseinfo>for CodeSlayer &version;</releaseinfo>
+  </bookinfo>
+
+  <chapter>
+    <title>API Reference</title>
+    <xi:include href="xml/codeslayer-abstract-pane.xml"/>
+    <xi:include href="xml/codeslayer-bottom-pane.xml"/>
+    <xi:include href="xml/codeslayer-document.xml"/>
+    <xi:include href="xml/codeslayer-editor.xml"/>
+    <xi:include href="xml/codeslayer-engine.xml"/>
+    <xi:include href="xml/codeslayer-group-properties.xml"/>
+    <xi:include href="xml/codeslayer-group.xml"/>
+    <xi:include href="xml/codeslayer-groups.xml"/>
+    <xi:include href="xml/codeslayer-listview.xml"/>
+    <xi:include href="xml/codeslayer-menubar-editor.xml"/>
+    <xi:include href="xml/codeslayer-menubar-groups.xml"/>
+    <xi:include href="xml/codeslayer-menubar-help.xml"/>
+    <xi:include href="xml/codeslayer-menubar-projects.xml"/>
+    <xi:include href="xml/codeslayer-menubar-search.xml"/>
+    <xi:include href="xml/codeslayer-menubar-tools.xml"/>
+    <xi:include href="xml/codeslayer-menubar-view.xml"/>
+    <xi:include href="xml/codeslayer-menubar.xml"/>
+    <xi:include href="xml/codeslayer-menuitem.xml"/>
+    <xi:include href="xml/codeslayer-notebook-page.xml"/>
+    <xi:include href="xml/codeslayer-notebook-pane.xml"/>
+    <xi:include href="xml/codeslayer-notebook-search.xml"/>
+    <xi:include href="xml/codeslayer-notebook-tab.xml"/>
+    <xi:include href="xml/codeslayer-notebook.xml"/>
+    <xi:include href="xml/codeslayer-plugin.xml"/>
+    <xi:include href="xml/codeslayer-plugins-selector.xml"/>
+    <xi:include href="xml/codeslayer-plugins.xml"/>
+    <xi:include href="xml/codeslayer-preferences-editor.xml"/>
+    <xi:include href="xml/codeslayer-preferences-listview.xml"/>
+    <xi:include href="xml/codeslayer-preferences-misc.xml"/>
+    <xi:include href="xml/codeslayer-preferences-projects.xml"/>
+    <xi:include href="xml/codeslayer-preferences-theme.xml"/>
+    <xi:include href="xml/codeslayer-preferences.xml"/>
+    <xi:include href="xml/codeslayer-project-properties.xml"/>
+    <xi:include href="xml/codeslayer-project.xml"/>
+    <xi:include href="xml/codeslayer-projects-selection.xml"/>
+    <xi:include href="xml/codeslayer-projects.xml"/>
+    <xi:include href="xml/codeslayer-search-page.xml"/>
+    <xi:include href="xml/codeslayer-search-tab.xml"/>
+    <xi:include href="xml/codeslayer-search.xml"/>
+    <xi:include href="xml/codeslayer-side-pane.xml"/>
+    <xi:include href="xml/codeslayer.xml"/>
+  </chapter>
+  <chapter id="object-tree">
+    <title>Object Hierarchy</title>
+     <xi:include href="xml/tree_index.sgml"/>
+  </chapter>
+  <index id="api-index-full">
+    <title>API Index</title>
+    <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
+</book>

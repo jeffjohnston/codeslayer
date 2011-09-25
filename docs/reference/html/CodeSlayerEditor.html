@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerEditor</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerDocument.html" title="CodeSlayerDocument">
+<link rel="next" href="CodeSlayerEngine.html" title="CodeSlayerEngine">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerDocument.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerEngine.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerEditor.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerEditor.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerEditor.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerEditor.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#CodeSlayerEditor.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="CodeSlayerEditor">
+<a name="CodeSlayerEditor"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerEditor.top_of_page"></a>CodeSlayerEditor</span></h2>
+<p>CodeSlayerEditor — The view to edit a document.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="CodeSlayerEditor.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-editor.h&gt;
+
+                    <a class="link" href="CodeSlayerEditor.html#CodeSlayerEditor-struct" title="CodeSlayerEditor">CodeSlayerEditor</a>;
+                    <a class="link" href="CodeSlayerEditor.html#CodeSlayerEditorClass" title="CodeSlayerEditorClass">CodeSlayerEditorClass</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerEditor.html#codeslayer-editor-new" title="codeslayer_editor_new ()">codeslayer_editor_new</a>               (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerEditor.html#codeslayer-editor-scroll-to-line" title="codeslayer_editor_scroll_to_line ()">codeslayer_editor_scroll_to_line</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> *editor</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> line_number</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerEditor.html#codeslayer-editor-sync-preferences" title="codeslayer_editor_sync_preferences ()">codeslayer_editor_sync_preferences</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> *editor</code></em>);
+<a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="returnvalue">CodeSlayerDocument</span></a>* <a class="link" href="CodeSlayerEditor.html#codeslayer-editor-get-document" title="codeslayer_editor_get_document ()">codeslayer_editor_get_document</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> *editor</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="CodeSlayerEditor.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkTextView.html">GtkTextView</a>
+                                 +----<a href="/usr/share/gtk-doc/html/gtksourceview-2.0/GtkSourceView.html">GtkSourceView</a>
+                                       +----CodeSlayerEditor
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="CodeSlayerEditor.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+CodeSlayerEditor implements
+ AtkImplementorIface and  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1" title="Signals">
+<a name="CodeSlayerEditor.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="CodeSlayerEditor.html#CodeSlayerEditor-copy-lines" title='The "copy-lines" signal'>copy-lines</a>"                                     : Run Last / No Recursion / Action / No Hooks
+  "<a class="link" href="CodeSlayerEditor.html#CodeSlayerEditor-to-lowercase" title='The "to-lowercase" signal'>to-lowercase</a>"                                   : Run Last / No Recursion / Action / No Hooks
+  "<a class="link" href="CodeSlayerEditor.html#CodeSlayerEditor-to-uppercase" title='The "to-uppercase" signal'>to-uppercase</a>"                                   : Run Last / No Recursion / Action / No Hooks
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="CodeSlayerEditor.description"></a><h2>Description</h2>
+<p>
+Extends the <a href="/usr/share/gtk-doc/html/gtksourceview-2.0/GtkSourceView.html"><span class="type">GtkSourceView</span></a> to further enhance how a document can be edited.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="CodeSlayerEditor.details"></a><h2>Details</h2>
+<div class="refsect2" title="CodeSlayerEditor">
+<a name="CodeSlayerEditor-struct"></a><h3>CodeSlayerEditor</h3>
+<pre class="programlisting">typedef struct _CodeSlayerEditor CodeSlayerEditor;</pre>
+</div>
+<hr>
+<div class="refsect2" title="CodeSlayerEditorClass">
+<a name="CodeSlayerEditorClass"></a><h3>CodeSlayerEditorClass</h3>
+<pre class="programlisting">typedef struct {
+  GtkSourceViewClass parent_class;
+
+  void (*copy_lines) (CodeSlayerEditor *editor);
+  void (*to_uppercase) (CodeSlayerEditor *editor);
+  void (*to_lowercase) (CodeSlayerEditor *editor);
+} CodeSlayerEditorClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_editor_new ()">
+<a name="codeslayer-editor-new"></a><h3>codeslayer_editor_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_editor_new               (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
+<td>the document for this editor.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a>. 
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_editor_scroll_to_line ()">
+<a name="codeslayer-editor-scroll-to-line"></a><h3>codeslayer_editor_scroll_to_line ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_editor_scroll_to_line    (<em class="parameter"><code><a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> *editor</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> line_number</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>editor</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>line_number</code></em> :</span></p></td>
+<td>the line to scroll to within the editor.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_editor_sync_preferences ()">
+<a name="codeslayer-editor-sync-preferences"></a><h3>codeslayer_editor_sync_preferences ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_editor_sync_preferences  (<em class="parameter"><code><a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> *editor</code></em>);</pre>
+<p>
+Apply the <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> settings to the current editor.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>editor</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_editor_get_document ()">
+<a name="codeslayer-editor-get-document"></a><h3>codeslayer_editor_get_document ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="returnvalue">CodeSlayerDocument</span></a>* codeslayer_editor_get_document      (<em class="parameter"><code><a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> *editor</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="CodeSlayerEditor.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "copy-lines" signal'>
+<a name="CodeSlayerEditor-copy-lines"></a><h3>The <code class="literal">"copy-lines"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> *editor,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)      : Run Last / No Recursion / Action / No Hooks</pre>
+<p>
+The ::copy-lines signal enables the (Ctrl + Shift + Down) keystroke to copy
+the currently selected lines.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>editor</code></em> :</span></p></td>
+<td>the editor that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "to-lowercase" signal'>
+<a name="CodeSlayerEditor-to-lowercase"></a><h3>The <code class="literal">"to-lowercase"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> *editor,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)      : Run Last / No Recursion / Action / No Hooks</pre>
+<p>
+The ::to-lowercase signal enables the (Ctrl + L) keystroke to lowercase the 
+selected text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>editor</code></em> :</span></p></td>
+<td>the editor that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title='The "to-uppercase" signal'>
+<a name="CodeSlayerEditor-to-uppercase"></a><h3>The <code class="literal">"to-uppercase"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> *editor,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)      : Run Last / No Recursion / Action / No Hooks</pre>
+<p>
+The ::to-uppercase signal enables the (Ctrl + U) keystroke to uppercase 
+the selected text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>editor</code></em> :</span></p></td>
+<td>the editor that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

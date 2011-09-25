@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerMenuItem</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">
+<link rel="next" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerMenuBar.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerNotebookPage.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerMenuItem.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerMenuItem.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerMenuItem.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerMenuItem.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#CodeSlayerMenuItem.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="CodeSlayerMenuItem">
+<a name="CodeSlayerMenuItem"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerMenuItem.top_of_page"></a>CodeSlayerMenuItem</span></h2>
+<p>CodeSlayerMenuItem — The menu item.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="CodeSlayerMenuItem.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-menuitem.h&gt;
+
+                    <a class="link" href="CodeSlayerMenuItem.html#CodeSlayerMenuItem-struct" title="CodeSlayerMenuItem">CodeSlayerMenuItem</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerMenuItem.html#codeslayer-menu-item-new" title="codeslayer_menu_item_new ()">codeslayer_menu_item_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerMenuItem.html#codeslayer-menu-item-new-with-label" title="codeslayer_menu_item_new_with_label ()">codeslayer_menu_item_new_with_label</a> (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="CodeSlayerMenuItem.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBin.html">GtkBin</a>
+                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkItem.html">GtkItem</a>
+                                       +----<a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html">GtkMenuItem</a>
+                                             +----CodeSlayerMenuItem
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="CodeSlayerMenuItem.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+CodeSlayerMenuItem implements
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/GtkActivatable.html">GtkActivatable</a>.</p>
+</div>
+<div class="refsect1" title="Signals">
+<a name="CodeSlayerMenuItem.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="CodeSlayerMenuItem.html#CodeSlayerMenuItem-projects-menu-selected" title='The "projects-menu-selected" signal'>projects-menu-selected</a>"                         : Run Last / No Recursion / No Hooks
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="CodeSlayerMenuItem.description"></a><h2>Description</h2>
+<p>
+This is used for the projects popup menu. Classes that implement this should
+bind to the projects-menu-selected signal.
+</p>
+</div>
+<div class="refsect1" title="Details">
+<a name="CodeSlayerMenuItem.details"></a><h2>Details</h2>
+<div class="refsect2" title="CodeSlayerMenuItem">
+<a name="CodeSlayerMenuItem-struct"></a><h3>CodeSlayerMenuItem</h3>
+<pre class="programlisting">typedef struct _CodeSlayerMenuItem CodeSlayerMenuItem;</pre>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_menu_item_new ()">
+<a name="codeslayer-menu-item-new"></a><h3>codeslayer_menu_item_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_menu_item_new            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a>. 
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_menu_item_new_with_label ()">
+<a name="codeslayer-menu-item-new-with-label"></a><h3>codeslayer_menu_item_new_with_label ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_menu_item_new_with_label (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>label</code></em> :</span></p></td>
+<td>the text for the menu item
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a>. 
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="CodeSlayerMenuItem.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "projects-menu-selected" signal'>
+<a name="CodeSlayerMenuItem-projects-menu-selected"></a><h3>The <code class="literal">"projects-menu-selected"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a> *menuitem,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            selections,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)       : Run Last / No Recursion / No Hooks</pre>
+<p>
+The ::projects-menu-selected signal is a request once the menu item is selected.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menuitem</code></em> :</span></p></td>
+<td>the menuitem that received the signal
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selections</code></em> :</span></p></td>
+<td>the <a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a> objects
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

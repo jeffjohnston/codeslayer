@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Encoding=UTF-8
+Name=CodeSlayer Source Editor
+Comment=A lightweight source code editor
+Exec=codeslayer
+Icon=codeslayer.png
+Terminal=false
+Categories=GTK;Development;IDE;
+StartupNotify=true

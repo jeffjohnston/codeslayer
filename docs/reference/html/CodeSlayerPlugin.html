@@ -1,0 +1,537 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerPlugin</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">
+<link rel="next" href="CodeSlayerPluginsSelector.html" title="CodeSlayerPluginsSelector">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerNotebook.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerPluginsSelector.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerPlugin.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerPlugin.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerPlugin.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerPlugin.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry" title="CodeSlayerPlugin">
+<a name="CodeSlayerPlugin"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerPlugin.top_of_page"></a>CodeSlayerPlugin</span></h2>
+<p>CodeSlayerPlugin — Represents the plugin.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="CodeSlayerPlugin.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-plugin.h&gt;
+
+                    <a class="link" href="CodeSlayerPlugin.html#CodeSlayerPlugin-struct" title="CodeSlayerPlugin">CodeSlayerPlugin</a>;
+                    <a class="link" href="CodeSlayerPlugin.html#CodeSlayerPluginClass" title="CodeSlayerPluginClass">CodeSlayerPluginClass</a>;
+<a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="returnvalue">CodeSlayerPlugin</span></a>*   <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-new" title="codeslayer_plugin_new ()">codeslayer_plugin_new</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-get-lib" title="codeslayer_plugin_get_lib ()">codeslayer_plugin_get_lib</a>           (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-set-lib" title="codeslayer_plugin_set_lib ()">codeslayer_plugin_set_lib</a>           (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *lib</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-get-version" title="codeslayer_plugin_get_version ()">codeslayer_plugin_get_version</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-set-version" title="codeslayer_plugin_set_version ()">codeslayer_plugin_set_version</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *version</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-get-name" title="codeslayer_plugin_get_name ()">codeslayer_plugin_get_name</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-set-name" title="codeslayer_plugin_set_name ()">codeslayer_plugin_set_name</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-get-description" title="codeslayer_plugin_get_description ()">codeslayer_plugin_get_description</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-set-description" title="codeslayer_plugin_set_description ()">codeslayer_plugin_set_description</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *description</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-get-authors" title="codeslayer_plugin_get_authors ()">codeslayer_plugin_get_authors</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-set-authors" title="codeslayer_plugin_set_authors ()">codeslayer_plugin_set_authors</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *authors</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-get-copyright" title="codeslayer_plugin_get_copyright ()">codeslayer_plugin_get_copyright</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-set-copyright" title="codeslayer_plugin_set_copyright ()">codeslayer_plugin_set_copyright</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *copyright</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-get-website" title="codeslayer_plugin_get_website ()">codeslayer_plugin_get_website</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-set-website" title="codeslayer_plugin_set_website ()">codeslayer_plugin_set_website</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *website</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-is-configurable" title="codeslayer_plugin_is_configurable ()">codeslayer_plugin_is_configurable</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-get-enabled" title="codeslayer_plugin_get_enabled ()">codeslayer_plugin_get_enabled</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-set-enabled" title="codeslayer_plugin_set_enabled ()">codeslayer_plugin_set_enabled</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-set-data" title="codeslayer_plugin_set_data ()">codeslayer_plugin_set_data</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-activate" title="codeslayer_plugin_activate ()">codeslayer_plugin_activate</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-deactivate" title="codeslayer_plugin_deactivate ()">codeslayer_plugin_deactivate</a>        (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugin.html#codeslayer-plugin-configure" title="codeslayer_plugin_configure ()">codeslayer_plugin_configure</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="CodeSlayerPlugin.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----CodeSlayerPlugin
+</pre>
+</div>
+<div class="refsect1" title="Properties">
+<a name="CodeSlayerPlugin.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="CodeSlayerPlugin.html#CodeSlayerPlugin--authors" title='The "authors" property'>authors</a>"                  <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="CodeSlayerPlugin.html#CodeSlayerPlugin--copyright" title='The "copyright" property'>copyright</a>"                <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="CodeSlayerPlugin.html#CodeSlayerPlugin--description" title='The "description" property'>description</a>"              <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="CodeSlayerPlugin.html#CodeSlayerPlugin--enabled" title='The "enabled" property'>enabled</a>"                  <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="CodeSlayerPlugin.html#CodeSlayerPlugin--lib" title='The "lib" property'>lib</a>"                      <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="CodeSlayerPlugin.html#CodeSlayerPlugin--name" title='The "name" property'>name</a>"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="CodeSlayerPlugin.html#CodeSlayerPlugin--version" title='The "version" property'>version</a>"                  <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="CodeSlayerPlugin.html#CodeSlayerPlugin--website" title='The "website" property'>website</a>"                  <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="CodeSlayerPlugin.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="CodeSlayerPlugin.details"></a><h2>Details</h2>
+<div class="refsect2" title="CodeSlayerPlugin">
+<a name="CodeSlayerPlugin-struct"></a><h3>CodeSlayerPlugin</h3>
+<pre class="programlisting">typedef struct _CodeSlayerPlugin CodeSlayerPlugin;</pre>
+</div>
+<hr>
+<div class="refsect2" title="CodeSlayerPluginClass">
+<a name="CodeSlayerPluginClass"></a><h3>CodeSlayerPluginClass</h3>
+<pre class="programlisting">typedef struct {
+  GObjectClass parent_class;
+} CodeSlayerPluginClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_new ()">
+<a name="codeslayer-plugin-new"></a><h3>codeslayer_plugin_new ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="returnvalue">CodeSlayerPlugin</span></a>*   codeslayer_plugin_new               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>. 
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_get_lib ()">
+<a name="codeslayer-plugin-get-lib"></a><h3>codeslayer_plugin_get_lib ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        codeslayer_plugin_get_lib           (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the shared library that will be loaded.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_set_lib ()">
+<a name="codeslayer-plugin-set-lib"></a><h3>codeslayer_plugin_set_lib ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_set_lib           (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *lib</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>lib</code></em> :</span></p></td>
+<td>the lib to set.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_get_version ()">
+<a name="codeslayer-plugin-get-version"></a><h3>codeslayer_plugin_get_version ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        codeslayer_plugin_get_version       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the version of the shared library.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_set_version ()">
+<a name="codeslayer-plugin-set-version"></a><h3>codeslayer_plugin_set_version ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_set_version       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *version</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>version</code></em> :</span></p></td>
+<td>the version to set.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_get_name ()">
+<a name="codeslayer-plugin-get-name"></a><h3>codeslayer_plugin_get_name ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        codeslayer_plugin_get_name          (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the human readable name of the plugin.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_set_name ()">
+<a name="codeslayer-plugin-set-name"></a><h3>codeslayer_plugin_set_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_set_name          (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_get_description ()">
+<a name="codeslayer-plugin-get-description"></a><h3>codeslayer_plugin_get_description ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        codeslayer_plugin_get_description   (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the plugin description.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_set_description ()">
+<a name="codeslayer-plugin-set-description"></a><h3>codeslayer_plugin_set_description ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_set_description   (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *description</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_get_authors ()">
+<a name="codeslayer-plugin-get-authors"></a><h3>codeslayer_plugin_get_authors ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        codeslayer_plugin_get_authors       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the plugin authors.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_set_authors ()">
+<a name="codeslayer-plugin-set-authors"></a><h3>codeslayer_plugin_set_authors ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_set_authors       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *authors</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_get_copyright ()">
+<a name="codeslayer-plugin-get-copyright"></a><h3>codeslayer_plugin_get_copyright ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        codeslayer_plugin_get_copyright     (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the plugin copyright.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_set_copyright ()">
+<a name="codeslayer-plugin-set-copyright"></a><h3>codeslayer_plugin_set_copyright ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_set_copyright     (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *copyright</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_get_website ()">
+<a name="codeslayer-plugin-get-website"></a><h3>codeslayer_plugin_get_website ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        codeslayer_plugin_get_website       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the plugin website.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_set_website ()">
+<a name="codeslayer-plugin-set-website"></a><h3>codeslayer_plugin_set_website ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_set_website       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *website</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_is_configurable ()">
+<a name="codeslayer-plugin-is-configurable"></a><h3>codeslayer_plugin_is_configurable ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_plugin_is_configurable   (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> is TRUE if the plugin can be configured.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_get_enabled ()">
+<a name="codeslayer-plugin-get-enabled"></a><h3>codeslayer_plugin_get_enabled ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_plugin_get_enabled       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> is TRUE if the plugin is active.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_set_enabled ()">
+<a name="codeslayer-plugin-set-enabled"></a><h3>codeslayer_plugin_set_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_set_enabled       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>enabled</code></em> :</span></p></td>
+<td>is TRUE if the plugin is active.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_set_data ()">
+<a name="codeslayer-plugin-set-data"></a><h3>codeslayer_plugin_set_data ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_set_data          (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *data</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> object.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_activate ()">
+<a name="codeslayer-plugin-activate"></a><h3>codeslayer_plugin_activate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_activate          (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<p>
+Open the library and resolve the symbols.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_deactivate ()">
+<a name="codeslayer-plugin-deactivate"></a><h3>codeslayer_plugin_deactivate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_deactivate        (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_plugin_configure ()">
+<a name="codeslayer-plugin-configure"></a><h3>codeslayer_plugin_configure ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugin_configure         (<em class="parameter"><code><a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> *plugin</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>plugin</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a>.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="CodeSlayerPlugin.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "authors" property'>
+<a name="CodeSlayerPlugin--authors"></a><h3>The <code class="literal">"authors"</code> property</h3>
+<pre class="programlisting">  "authors"                  <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>Authors.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2" title='The "copyright" property'>
+<a name="CodeSlayerPlugin--copyright"></a><h3>The <code class="literal">"copyright"</code> property</h3>
+<pre class="programlisting">  "copyright"                <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>Copyright.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2" title='The "description" property'>
+<a name="CodeSlayerPlugin--description"></a><h3>The <code class="literal">"description"</code> property</h3>
+<pre class="programlisting">  "description"              <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>Description.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2" title='The "enabled" property'>
+<a name="CodeSlayerPlugin--enabled"></a><h3>The <code class="literal">"enabled"</code> property</h3>
+<pre class="programlisting">  "enabled"                  <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<p>
+Whether or not the plugin is enabled.
+</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2" title='The "lib" property'>
+<a name="CodeSlayerPlugin--lib"></a><h3>The <code class="literal">"lib"</code> property</h3>
+<pre class="programlisting">  "lib"                      <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>Lib.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2" title='The "name" property'>
+<a name="CodeSlayerPlugin--name"></a><h3>The <code class="literal">"name"</code> property</h3>
+<pre class="programlisting">  "name"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>Name.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2" title='The "version" property'>
+<a name="CodeSlayerPlugin--version"></a><h3>The <code class="literal">"version"</code> property</h3>
+<pre class="programlisting">  "version"                  <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>Version.</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2" title='The "website" property'>
+<a name="CodeSlayerPlugin--website"></a><h3>The <code class="literal">"website"</code> property</h3>
+<pre class="programlisting">  "website"                  <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>Website.</p>
+<p>Default value: ""</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

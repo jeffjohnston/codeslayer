@@ -1,0 +1,87 @@
+#include <codeslayer/codeslayer-abstract-pane.h>
+#include <codeslayer/codeslayer-bottom-pane.h>
+#include <codeslayer/codeslayer-document.h>
+#include <codeslayer/codeslayer-editor.h>
+#include <codeslayer/codeslayer-engine.h>
+#include <codeslayer/codeslayer-group-properties.h>
+#include <codeslayer/codeslayer-group.h>
+#include <codeslayer/codeslayer-groups.h>
+#include <codeslayer/codeslayer-listview.h>
+#include <codeslayer/codeslayer-marshaller.h>
+#include <codeslayer/codeslayer-menubar-editor.h>
+#include <codeslayer/codeslayer-menubar-groups.h>
+#include <codeslayer/codeslayer-menubar-help.h>
+#include <codeslayer/codeslayer-menubar-projects.h>
+#include <codeslayer/codeslayer-menubar-search.h>
+#include <codeslayer/codeslayer-menubar-tools.h>
+#include <codeslayer/codeslayer-menubar-view.h>
+#include <codeslayer/codeslayer-menubar.h>
+#include <codeslayer/codeslayer-menuitem.h>
+#include <codeslayer/codeslayer-notebook-page.h>
+#include <codeslayer/codeslayer-notebook-pane.h>
+#include <codeslayer/codeslayer-notebook-search.h>
+#include <codeslayer/codeslayer-notebook-tab.h>
+#include <codeslayer/codeslayer-notebook.h>
+#include <codeslayer/codeslayer-plugin.h>
+#include <codeslayer/codeslayer-plugins-selector.h>
+#include <codeslayer/codeslayer-plugins.h>
+#include <codeslayer/codeslayer-preferences-editor.h>
+#include <codeslayer/codeslayer-preferences-listview.h>
+#include <codeslayer/codeslayer-preferences-misc.h>
+#include <codeslayer/codeslayer-preferences-projects.h>
+#include <codeslayer/codeslayer-preferences-theme.h>
+#include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-project-properties.h>
+#include <codeslayer/codeslayer-project.h>
+#include <codeslayer/codeslayer-projects-selection.h>
+#include <codeslayer/codeslayer-projects.h>
+#include <codeslayer/codeslayer-repository.h>
+#include <codeslayer/codeslayer-search-page.h>
+#include <codeslayer/codeslayer-search-tab.h>
+#include <codeslayer/codeslayer-search.h>
+#include <codeslayer/codeslayer-side-pane.h>
+#include <codeslayer/codeslayer-tearoff.h>
+#include <codeslayer/codeslayer-utils.h>
+#include <codeslayer/codeslayer.h>
+
+codeslayer_abstract_pane_get_type
+codeslayer_bottom_pane_get_type
+codeslayer_document_get_type
+codeslayer_editor_get_type
+codeslayer_engine_get_type
+codeslayer_group_properties_get_type
+codeslayer_group_get_type
+codeslayer_groups_get_type
+codeslayer_list_view_get_type
+codeslayer_menubar_editor_get_type
+codeslayer_menubar_groups_get_type
+codeslayer_menubar_help_get_type
+codeslayer_menubar_projects_get_type
+codeslayer_menubar_search_get_type
+codeslayer_menubar_tools_get_type
+codeslayer_menubar_view_get_type
+codeslayer_menubar_get_type
+codeslayer_menu_item_get_type
+codeslayer_notebook_page_get_type
+codeslayer_notebook_pane_get_type
+codeslayer_notebook_search_get_type
+codeslayer_notebook_tab_get_type
+codeslayer_notebook_get_type
+codeslayer_plugin_get_type
+codeslayer_plugins_selector_get_type
+codeslayer_plugins_get_type
+codeslayer_preferences_editor_get_type
+codeslayer_preferences_list_view_get_type
+codeslayer_preferences_misc_get_type
+codeslayer_preferences_projects_get_type
+codeslayer_preferences_theme_get_type
+codeslayer_preferences_get_type
+codeslayer_project_properties_get_type
+codeslayer_project_get_type
+codeslayer_projects_selection_get_type
+codeslayer_projects_get_type
+codeslayer_search_page_get_type
+codeslayer_search_tab_get_type
+codeslayer_search_get_type
+codeslayer_side_pane_get_type
+codeslayer_get_type

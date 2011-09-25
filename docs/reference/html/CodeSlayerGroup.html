@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerGroup</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerGroupProperties.html" title="CodeSlayerGroupProperties">
+<link rel="next" href="CodeSlayerGroups.html" title="CodeSlayerGroups">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerGroupProperties.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerGroups.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerGroup.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerGroup.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerGroup.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerGroup.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry" title="CodeSlayerGroup">
+<a name="CodeSlayerGroup"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerGroup.top_of_page"></a>CodeSlayerGroup</span></h2>
+<p>CodeSlayerGroup — Contains the projects.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Synopsis">
+<a name="CodeSlayerGroup.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-group.h&gt;
+
+                    <a class="link" href="CodeSlayerGroup.html#CodeSlayerGroup-struct" title="CodeSlayerGroup">CodeSlayerGroup</a>;
+                    <a class="link" href="CodeSlayerGroup.html#CodeSlayerGroupClass" title="CodeSlayerGroupClass">CodeSlayerGroupClass</a>;
+<a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="returnvalue">CodeSlayerGroup</span></a>*    <a class="link" href="CodeSlayerGroup.html#codeslayer-group-new" title="codeslayer_group_new ()">codeslayer_group_new</a>                (<em class="parameter"><code><span class="type">void</span></code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        <a class="link" href="CodeSlayerGroup.html#codeslayer-group-get-name" title="codeslayer_group_get_name ()">codeslayer_group_get_name</a>           (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerGroup.html#codeslayer-group-set-name" title="codeslayer_group_set_name ()">codeslayer_group_set_name</a>           (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="CodeSlayerGroup.html#codeslayer-group-get-projects" title="codeslayer_group_get_projects ()">codeslayer_group_get_projects</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerGroup.html#codeslayer-group-set-projects" title="codeslayer_group_set_projects ()">codeslayer_group_set_projects</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *projects</code></em>);
+<a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a>*  <a class="link" href="CodeSlayerGroup.html#codeslayer-group-find-project" title="codeslayer_group_find_project ()">codeslayer_group_find_project</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *project_key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerGroup.html#codeslayer-group-add-project" title="codeslayer_group_add_project ()">codeslayer_group_add_project</a>        (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerGroup.html#codeslayer-group-remove-project" title="codeslayer_group_remove_project ()">codeslayer_group_remove_project</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerGroup.html#codeslayer-group-contains-project" title="codeslayer_group_contains_project ()">codeslayer_group_contains_project</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerGroup.html#codeslayer-group-add-lib" title="codeslayer_group_add_lib ()">codeslayer_group_add_lib</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *lib</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerGroup.html#codeslayer-group-contains-lib" title="codeslayer_group_contains_lib ()">codeslayer_group_contains_lib</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *lib</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="CodeSlayerGroup.html#codeslayer-group-get-libs" title="codeslayer_group_get_libs ()">codeslayer_group_get_libs</a>           (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerGroup.html#codeslayer-group-remove-lib" title="codeslayer_group_remove_lib ()">codeslayer_group_remove_lib</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *lib</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerGroup.html#codeslayer-group-set-libs" title="codeslayer_group_set_libs ()">codeslayer_group_set_libs</a>           (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *libs</code></em>);
+#define             <a class="link" href="CodeSlayerGroup.html#CODESLAYER-GROUP-CONF:CAPS" title="CODESLAYER_GROUP_CONF">CODESLAYER_GROUP_CONF</a>
+#define             <a class="link" href="CodeSlayerGroup.html#CODESLAYER-GROUP-LIBS:CAPS" title="CODESLAYER_GROUP_LIBS">CODESLAYER_GROUP_LIBS</a>
+</pre>
+</div>
+<div class="refsect1" title="Object Hierarchy">
+<a name="CodeSlayerGroup.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----CodeSlayerGroup
+</pre>
+</div>
+<div class="refsect1" title="Properties">
+<a name="CodeSlayerGroup.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="CodeSlayerGroup.html#CodeSlayerGroup--libs" title='The "libs" property'>libs</a>"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
+  "<a class="link" href="CodeSlayerGroup.html#CodeSlayerGroup--name" title='The "name" property'>name</a>"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="CodeSlayerGroup.html#CodeSlayerGroup--projects" title='The "projects" property'>projects</a>"                 <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="CodeSlayerGroup.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1" title="Details">
+<a name="CodeSlayerGroup.details"></a><h2>Details</h2>
+<div class="refsect2" title="CodeSlayerGroup">
+<a name="CodeSlayerGroup-struct"></a><h3>CodeSlayerGroup</h3>
+<pre class="programlisting">typedef struct _CodeSlayerGroup CodeSlayerGroup;</pre>
+</div>
+<hr>
+<div class="refsect2" title="CodeSlayerGroupClass">
+<a name="CodeSlayerGroupClass"></a><h3>CodeSlayerGroupClass</h3>
+<pre class="programlisting">typedef struct {
+  GObjectClass parent_class;
+} CodeSlayerGroupClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_new ()">
+<a name="codeslayer-group-new"></a><h3>codeslayer_group_new ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="returnvalue">CodeSlayerGroup</span></a>*    codeslayer_group_new                (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>. 
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_get_name ()">
+<a name="codeslayer-group-get-name"></a><h3>codeslayer_group_get_name ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        codeslayer_group_get_name           (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the text to display for the group.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_set_name ()">
+<a name="codeslayer-group-set-name"></a><h3>codeslayer_group_set_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_group_set_name           (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the text to display for the group.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_get_projects ()">
+<a name="codeslayer-group-get-projects"></a><h3>codeslayer_group_get_projects ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              codeslayer_group_get_projects       (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The list of <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> objects within the group.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_set_projects ()">
+<a name="codeslayer-group-set-projects"></a><h3>codeslayer_group_set_projects ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_group_set_projects       (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *projects</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
+<td>the list of <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> objects to add to the group.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_find_project ()">
+<a name="codeslayer-group-find-project"></a><h3>codeslayer_group_find_project ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a>*  codeslayer_group_find_project       (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *project_key</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>project_key</code></em> :</span></p></td>
+<td>the key of the <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> to find.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the project found by project_key. Will return NULL if the 
+         project specified by project_key is not found.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_add_project ()">
+<a name="codeslayer-group-add-project"></a><h3>codeslayer_group_add_project ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_group_add_project        (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>project</code></em> :</span></p></td>
+<td>the <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> to add to the group.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_remove_project ()">
+<a name="codeslayer-group-remove-project"></a><h3>codeslayer_group_remove_project ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_group_remove_project     (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>project</code></em> :</span></p></td>
+<td>the <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> to remove from the group.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_contains_project ()">
+<a name="codeslayer-group-contains-project"></a><h3>codeslayer_group_contains_project ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_group_contains_project   (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>project</code></em> :</span></p></td>
+<td>the <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> to check.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_add_lib ()">
+<a name="codeslayer-group-add-lib"></a><h3>codeslayer_group_add_lib ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_group_add_lib            (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *lib</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>lib</code></em> :</span></p></td>
+<td>the lib to add.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_contains_lib ()">
+<a name="codeslayer-group-contains-lib"></a><h3>codeslayer_group_contains_lib ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_group_contains_lib       (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *lib</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>lib</code></em> :</span></p></td>
+<td>the lib to find.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> is TRUE if the lib is found in the group.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_get_libs ()">
+<a name="codeslayer-group-get-libs"></a><h3>codeslayer_group_get_libs ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              codeslayer_group_get_libs           (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The list of <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> lib objects within the group.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_remove_lib ()">
+<a name="codeslayer-group-remove-lib"></a><h3>codeslayer_group_remove_lib ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_group_remove_lib         (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *lib</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>lib</code></em> :</span></p></td>
+<td>the lib to remove.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="codeslayer_group_set_libs ()">
+<a name="codeslayer-group-set-libs"></a><h3>codeslayer_group_set_libs ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_group_set_libs           (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *libs</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>libs</code></em> :</span></p></td>
+<td>the list of <a class="link" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin"><span class="type">CodeSlayerPlugin</span></a> lib objects to add to the group.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" title="CODESLAYER_GROUP_CONF">
+<a name="CODESLAYER-GROUP-CONF:CAPS"></a><h3>CODESLAYER_GROUP_CONF</h3>
+<pre class="programlisting">#define CODESLAYER_GROUP_CONF "group.conf"
+</pre>
+</div>
+<hr>
+<div class="refsect2" title="CODESLAYER_GROUP_LIBS">
+<a name="CODESLAYER-GROUP-LIBS:CAPS"></a><h3>CODESLAYER_GROUP_LIBS</h3>
+<pre class="programlisting">#define CODESLAYER_GROUP_LIBS "libs"
+</pre>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="CodeSlayerGroup.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "libs" property'>
+<a name="CodeSlayerGroup--libs"></a><h3>The <code class="literal">"libs"</code> property</h3>
+<pre class="programlisting">  "libs"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
+<p>
+The list of libs in the group.
+</p>
+</div>
+<hr>
+<div class="refsect2" title='The "name" property'>
+<a name="CodeSlayerGroup--name"></a><h3>The <code class="literal">"name"</code> property</h3>
+<pre class="programlisting">  "name"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p>
+The text that will be displayed for the group.
+</p>
+<p>Default value: ""</p>
+</div>
+<hr>
+<div class="refsect2" title='The "projects" property'>
+<a name="CodeSlayerGroup--projects"></a><h3>The <code class="literal">"projects"</code> property</h3>
+<pre class="programlisting">  "projects"                 <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
+<p>
+The list of projects in the group.
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>
