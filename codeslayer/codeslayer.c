@@ -49,7 +49,7 @@ static void editor_removed_action            (CodeSlayer        *codeslayer,
                                               GtkWidget         *child,
                                               guint              page_num);
 static void editor_switched_action           (CodeSlayer        *codeslayer,
-                                              GtkNotebookPage   *child,
+                                              GtkWidget         *child,
                                               guint              page_num);
 
 #define CODESLAYER_GET_PRIVATE(obj) \
@@ -750,7 +750,7 @@ editor_removed_action (CodeSlayer  *codeslayer,
 
 static void
 editor_switched_action (CodeSlayer      *codeslayer, 
-                        GtkNotebookPage *notebook_page,
+                        GtkWidget       *notebook_page,
                         guint            page_num)
 {
   CodeSlayerPrivate *priv;

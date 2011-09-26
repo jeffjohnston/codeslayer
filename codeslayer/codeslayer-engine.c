@@ -92,10 +92,10 @@ static void rename_file_path_action            (CodeSlayerEngine       *engine,
                                                 gchar                  *file_path,
                                                 gchar                  *renamed_file_path);
 static void switch_page_action                 (CodeSlayerEngine       *engine,
-                                                GtkNotebookPage        *page, 
+                                                GtkWidget              *page, 
                                                 guint                   page_num);
 static void page_removed_action                (CodeSlayerEngine       *engine,
-                                                GtkNotebookPage        *page, 
+                                                GtkWidget              *page, 
                                                 guint                   page_num);
 static void show_preferences_action            (CodeSlayerEngine       *engine);
 static void show_plugins_action                (CodeSlayerEngine       *engine);
@@ -674,7 +674,7 @@ close_editor_action (CodeSlayerEngine *engine)
 
 static void
 switch_page_action (CodeSlayerEngine *engine, 
-                    GtkNotebookPage  *page,
+                    GtkWidget        *page,
                     guint             page_num)
 {
   CodeSlayerEnginePrivate *priv;
@@ -695,7 +695,7 @@ switch_page_action (CodeSlayerEngine *engine,
 
 static void
 page_removed_action (CodeSlayerEngine *engine, 
-                     GtkNotebookPage  *page,
+                     GtkWidget        *page,
                      guint             removed_page_num)
 {
   CodeSlayerEnginePrivate *priv;

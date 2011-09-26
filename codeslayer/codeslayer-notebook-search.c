@@ -372,8 +372,8 @@ add_find_entry (CodeSlayerNotebookSearch *notebook_search)
   find_store = gtk_list_store_new (COLUMNS, G_TYPE_STRING);
   priv->find_store = find_store;
 
-  find_entry = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (find_store), 
-                                                   TEXT);
+  find_entry = gtk_combo_box_text_new_with_entry ();
+  gtk_combo_box_set_model (GTK_COMBO_BOX (find_entry), GTK_TREE_MODEL (find_store));
   entry_set_text (find_entry, find_store, "");                                                   
   gtk_widget_set_size_request (find_entry, 250, -1);                                                   
   priv->find_entry = find_entry;
@@ -519,8 +519,8 @@ add_replace_entry (CodeSlayerNotebookSearch *notebook_search)
   replace_store = gtk_list_store_new (COLUMNS, G_TYPE_STRING);
   priv->replace_store = replace_store;
 
-  replace_entry = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (replace_store), 
-                                                      TEXT);
+  replace_entry = gtk_combo_box_text_new_with_entry ();
+  gtk_combo_box_set_model (GTK_COMBO_BOX (replace_entry), GTK_TREE_MODEL (replace_store));
   entry_set_text (replace_entry, replace_store, "");
   gtk_widget_set_size_request (replace_entry, 250, -1);                                                   
   priv->replace_entry = replace_entry;
@@ -1075,7 +1075,7 @@ entry_get_current_text (GtkWidget    *entry,
       return result;
     }
   
-  return gtk_combo_box_get_active_text (GTK_COMBO_BOX (entry));
+  return gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (entry));
 }
 
 static void

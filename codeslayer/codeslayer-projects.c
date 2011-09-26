@@ -1161,7 +1161,7 @@ create_project_properties_dialog (CodeSlayerProjects *projects)
                                         
   content_area = gtk_dialog_get_content_area (GTK_DIALOG (properties_dialog));
   gtk_dialog_set_default_response (GTK_DIALOG (properties_dialog), GTK_RESPONSE_OK);
-  gtk_dialog_set_has_separator (GTK_DIALOG (properties_dialog), FALSE);
+  /*gtk_dialog_set_has_separator (GTK_DIALOG (properties_dialog), FALSE);*/
   priv->properties_dialog = properties_dialog;
   
   gtk_container_add (GTK_CONTAINER (content_area), priv->project_properties);
@@ -1755,7 +1755,7 @@ create_destination (GFile       *source,
                                             
       content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-      gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+      /*gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);*/
 
       hbox = gtk_hbox_new (FALSE, 0);
 
@@ -2330,7 +2330,7 @@ show_popup_menu (CodeSlayerProjects *projects,
       GList *items;
       GList *tmp;
 
-      gtk_widget_hide_all (priv->menu);
+      gtk_widget_hide (priv->menu);
     
       if (priv->ccp->sources == NULL)
         gtk_widget_set_sensitive (priv->paste_item, FALSE);
