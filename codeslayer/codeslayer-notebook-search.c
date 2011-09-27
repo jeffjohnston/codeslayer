@@ -637,7 +637,7 @@ static gboolean
 entry_keypress_action (CodeSlayerNotebookSearch *notebook_search,
                        GdkEventKey              *event)
 {
-  if (event->keyval == GDK_Escape)
+  if (event->keyval == GDK_KEY_Escape)
     close_search_action (notebook_search);
 
   return FALSE;

@@ -127,19 +127,19 @@ add_menu_items (CodeSlayerMenuBarView *menubar_view)
   fullscreen_window_item = gtk_check_menu_item_new_with_label (_("Full Screen"));
   priv->fullscreen_window_item = fullscreen_window_item;
   gtk_widget_add_accelerator (fullscreen_window_item, "activate", 
-                              priv->accel_group, GDK_F11, 0, GTK_ACCEL_VISIBLE);
+                              priv->accel_group, GDK_KEY_F11, 0, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), fullscreen_window_item);
 
   show_bottom_pane_item = gtk_check_menu_item_new_with_label (_("Bottom Pane"));
   priv->show_bottom_pane_item = show_bottom_pane_item;
   gtk_widget_add_accelerator (show_bottom_pane_item, "activate", 
-                              priv->accel_group, GDK_F12, 0, GTK_ACCEL_VISIBLE);
+                              priv->accel_group, GDK_KEY_F12, 0, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), show_bottom_pane_item);
 
   show_side_pane_item = gtk_check_menu_item_new_with_label (_("Side Pane"));
   priv->show_side_pane_item = show_side_pane_item;
   gtk_widget_add_accelerator (show_side_pane_item, "activate", 
-                              priv->accel_group, GDK_F12, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+                              priv->accel_group, GDK_KEY_F12, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), show_side_pane_item);
 
   draw_spaces_item = gtk_check_menu_item_new_with_label (_("Draw Spaces"));

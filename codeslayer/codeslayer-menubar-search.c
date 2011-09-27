@@ -135,13 +135,13 @@ add_menu_items (CodeSlayerMenuBarSearch *menubar_search)
   find_next_menu_item = gtk_menu_item_new_with_label (_("Find Next"));
   priv->find_next_menu_item = find_next_menu_item;
   gtk_widget_add_accelerator (find_next_menu_item, "activate", priv->accel_group,
-                              GDK_G, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+                              GDK_KEY_G, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_next_menu_item);
 
   find_previous_menu_item = gtk_menu_item_new_with_label (_("Find Previous"));
   priv->find_previous_menu_item = find_previous_menu_item;
   gtk_widget_add_accelerator (find_previous_menu_item,  "activate",
-                              priv->accel_group, GDK_G,
+                              priv->accel_group, GDK_KEY_G,
                               GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                               GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_previous_menu_item);
@@ -149,7 +149,7 @@ add_menu_items (CodeSlayerMenuBarSearch *menubar_search)
   find_incremental_menu_item = gtk_menu_item_new_with_label (_("Find Incremental"));
   priv->find_incremental_menu_item = find_incremental_menu_item;
   gtk_widget_add_accelerator (find_incremental_menu_item,  "activate",
-                              priv->accel_group, GDK_K,
+                              priv->accel_group, GDK_KEY_K,
                               GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_incremental_menu_item);
 
@@ -162,7 +162,7 @@ add_menu_items (CodeSlayerMenuBarSearch *menubar_search)
   find_projects_menu_item = gtk_menu_item_new_with_label (_("Find In Projects"));
   priv->find_projects_menu_item = find_projects_menu_item;
   gtk_widget_add_accelerator (find_projects_menu_item, "activate",
-                              priv->accel_group, GDK_F,
+                              priv->accel_group, GDK_KEY_F,
                               GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                               GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_projects_menu_item);

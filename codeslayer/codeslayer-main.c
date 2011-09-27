@@ -36,7 +36,6 @@
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer.h>
 #include <codeslayer/codeslayer-utils.h>
-#include <codeslayer/codeslayer-tearoff.h>
 
 typedef struct
 {
@@ -141,9 +140,6 @@ main (int   argc,
   
   set_visbility_of_panes (&context);
   
-  g_signal_connect (G_OBJECT (context.window), "create-window",
-                    G_CALLBACK (codeslayer_tearoff_window), NULL);
-                        
   gtk_main ();
   gdk_threads_leave ();
 

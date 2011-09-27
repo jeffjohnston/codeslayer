@@ -106,7 +106,7 @@ codeslayer_notebook_pane_class_init (CodeSlayerNotebookPaneClass *klass)
 
   binding_set = gtk_binding_set_by_class (klass);
 
-  gtk_binding_entry_add_signal (binding_set, GDK_F3, 0, "find-next", 0);
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_F3, 0, "find-next", 0);
 
   gobject_class->get_property = codeslayer_notebook_pane_get_property;
   gobject_class->set_property = codeslayer_notebook_pane_set_property;

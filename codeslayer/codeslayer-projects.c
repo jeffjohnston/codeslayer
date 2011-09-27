@@ -417,17 +417,17 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
 
   binding_set = gtk_binding_set_by_class (klass);
 
-  gtk_binding_entry_add_signal (binding_set, GDK_X, GDK_CONTROL_MASK,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_X, GDK_CONTROL_MASK,
                                 "cut-file-folder", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_C, GDK_CONTROL_MASK,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_C, GDK_CONTROL_MASK,
                                 "copy-file-folder", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_V, GDK_CONTROL_MASK,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_V, GDK_CONTROL_MASK,
                                 "paste-file-folder", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_R, GDK_CONTROL_MASK,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_R, GDK_CONTROL_MASK,
                                 "rename-file-folder", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_F, GDK_CONTROL_MASK,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_F, GDK_CONTROL_MASK,
                                 "search-find", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_Delete, 0,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_Delete, 0,
                                 "delete-file-folder", 0);
 
   g_type_class_add_private (klass, sizeof (CodeSlayerProjectsPrivate));

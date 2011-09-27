@@ -19,6 +19,7 @@
 #include <codeslayer/codeslayer-abstract-pane.h>
 #include <codeslayer/codeslayer-projects.h>
 #include <codeslayer/codeslayer-utils.h>
+#include <codeslayer/codeslayer-tearoff.h>
 
 /**
  * SECTION:codeslayer-abstract-pane
@@ -136,6 +137,9 @@ codeslayer_abstract_pane_create_notebook (CodeSlayerAbstractPane *abstract_pane)
   
   g_signal_connect_swapped (G_OBJECT (priv->notebook), "page-added",
                             G_CALLBACK (page_added_action), abstract_pane);
+                            
+  g_signal_connect (G_OBJECT (priv->notebook), "create-window",
+                    G_CALLBACK (codeslayer_tearoff_window), NULL);
 }
 
 void

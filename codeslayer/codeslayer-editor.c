@@ -126,13 +126,13 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
 
   binding_set = gtk_binding_set_by_class (klass);
 
-  gtk_binding_entry_add_signal (binding_set, GDK_Down,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_Down,
                                 GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                                 "copy-lines", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_U, 
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_U, 
                                 GDK_CONTROL_MASK,
                                 "to-uppercase", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_L, 
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_L, 
                                 GDK_CONTROL_MASK,
                                 "to-lowercase", 0);
 

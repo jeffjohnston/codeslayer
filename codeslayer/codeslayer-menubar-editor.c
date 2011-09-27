@@ -132,7 +132,7 @@ add_menu_items (CodeSlayerMenuBarEditor *menubar_editor)
   save_all_menu_item = gtk_menu_item_new_with_label (_("Save All"));
   priv->save_all_menu_item = save_all_menu_item;
   gtk_widget_add_accelerator (save_all_menu_item, "activate", priv->accel_group,
-                              GDK_S, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
+                              GDK_KEY_S, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                               GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), save_all_menu_item);
 
