@@ -206,17 +206,8 @@ codeslayer_search_tab_new (gboolean closeable)
       gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
       gtk_button_set_focus_on_click (GTK_BUTTON (button), FALSE);
       image = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
-      gtk_container_add (GTK_CONTAINER (button), image);
-
-      gtk_rc_parse_string ("style \"my-button-style\"\n"
-                           "{\n"
-                           "  GtkWidget::focus-padding = 0\n"
-                           "  GtkWidget::focus-line-width = 0\n"
-                           "  xthickness = 0\n"
-                           "  ythickness = 0\n"
-                           "}\n"
-                           "widget \"*.my-close-button\" style \"my-button-style\"");
-      gtk_widget_set_name (button, "my-close-button");
+      gtk_container_add (GTK_CONTAINER (button), image);      
+      codeslayer_utils_style_close_button (button);
 
       g_signal_connect_swapped (G_OBJECT (button), "clicked",
                                 G_CALLBACK (close_page_action), search_tab);

@@ -1,5 +1,5 @@
 AC_PREREQ(2.59)
-AC_INIT([CodeSlayer], [1.5.1], [jeff.johnston.mn@gmail.com], [codeslayer], [http://codeslayer.org])
+AC_INIT([CodeSlayer], [2.0.0], [jeff.johnston.mn@gmail.com], [codeslayer], [http://codeslayer.org])
 AM_INIT_AUTOMAKE
 
 AC_ARG_ENABLE(codeslayer-dev,
@@ -30,14 +30,14 @@ AM_GLIB_GNU_GETTEXT
 AC_PROG_INTLTOOL
 
 # Dependencies
-GTK_REQUIRED_VERSION=2.20.0
+GTK_REQUIRED_VERSION=3.0.0
 
 AC_SUBST(GTK_REQUIRED_VERSION)
 
 PKG_CHECK_MODULES(CODESLAYER, [
-    glib-2.0 >= 2.24.0
-    gtk+-2.0 >= $GTK_REQUIRED_VERSION
-    gtksourceview-2.0 >= 2.10.0
+    glib-2.0 >= 2.28.0
+    gtk+-3.0 >= $GTK_REQUIRED_VERSION
+    gtksourceview-3.0 >= 3.0.0
 ])
 
 AC_CONFIG_FILES([

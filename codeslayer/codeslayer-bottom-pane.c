@@ -17,6 +17,7 @@
  */
 
 #include <codeslayer/codeslayer-bottom-pane.h>
+#include <codeslayer/codeslayer-utils.h>
 
 /**
  * SECTION:codeslayer-bottom-pane
@@ -103,17 +104,8 @@ create_close_button (CodeSlayerBottomPane *bottom_pane)
   gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
   gtk_button_set_focus_on_click (GTK_BUTTON (button), FALSE);
   gtk_container_add (GTK_CONTAINER (button), image);
+  codeslayer_utils_style_close_button (button);
 
-  gtk_rc_parse_string ("style \"my-button-style\"\n"
-                       "{\n"
-                       "  GtkWidget::focus-padding = 0\n"
-                       "  GtkWidget::focus-line-width = 0\n"
-                       "  xthickness = 0\n"
-                       "  ythickness = 0\n"
-                       "}\n"
-                       "widget \"*.my-close-button\" style \"my-button-style\"");
-  gtk_widget_set_name (button, "my-close-button");
-  
   gtk_box_pack_end (GTK_BOX (hbox), button, FALSE, FALSE, 5);
 
   g_signal_connect_swapped (G_OBJECT (button), "button-press-event",

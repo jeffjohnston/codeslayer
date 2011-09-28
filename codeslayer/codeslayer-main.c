@@ -191,7 +191,7 @@ create_project_properties (Context *context)
   context->project_properties = project_properties;
   
   /* take control of the reference otherwise the dialog will */
-  g_object_ref_sink (GTK_OBJECT (context->project_properties));
+  g_object_ref_sink (context->project_properties);
 }
 
 static void 

@@ -552,3 +552,24 @@ codeslayer_utils_get_gobjects (GType        type,
   g_markup_parse_context_free (context);
   return results;
 }
+
+void
+codeslayer_utils_style_close_button (GtkWidget *button)
+{
+  GtkCssProvider *provider;
+  provider = gtk_css_provider_new ();
+  gtk_css_provider_load_from_data (provider,
+                                   "#my-close-button {\n"
+                                   " -GtkButton-default-border : 0;\n"
+                                   " -GtkButton-default-outside-border : 0;\n"
+                                   " -GtkButton-inner-border: 0;\n"
+                                   " -GtkWidget-focus-line-width: 0px;\n"
+                                   " -GtkWidget-focus-padding: 0px;\n"
+                                   " padding: 0;}",
+                                   -1, NULL);
+  gtk_style_context_add_provider (gtk_widget_get_style_context (button),
+                                  GTK_STYLE_PROVIDER (provider),
+                                  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  gtk_widget_set_name (button, "my-close-button");
+  g_object_unref (provider);
+}

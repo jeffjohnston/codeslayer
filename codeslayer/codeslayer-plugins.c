@@ -198,7 +198,7 @@ codeslayer_plugins_run_dialog (CodeSlayerPlugins *plugins,
 {
   GtkWidget *dialog;
   GtkWidget *content_area;
-  GtkWidget *plugins_installed;
+  GtkWidget *plugins_selector;
   
   dialog = gtk_dialog_new_with_buttons (_("Plugins"), 
                                         NULL,
@@ -212,8 +212,8 @@ codeslayer_plugins_run_dialog (CodeSlayerPlugins *plugins,
 
   gtk_widget_set_size_request (content_area, 350, 400);
 
-  plugins_installed = codeslayer_plugins_selector_new (plugins, group);
-  gtk_container_add (GTK_CONTAINER (content_area), plugins_installed);
+  plugins_selector = codeslayer_plugins_selector_new (plugins, group);
+  gtk_box_pack_start (GTK_BOX (content_area), plugins_selector, TRUE, TRUE, 0);  
 
   gtk_widget_show_all (content_area);
 

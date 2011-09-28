@@ -6,6 +6,6 @@ includedir=@includedir@
 Name: @PACKAGE_NAME@
 Description: CodeSlayer Editor
 Version: @PACKAGE_VERSION@
-Requires: gtk+-2.0 >= @GTK_REQUIRED_VERSION@
+Requires: gtk+-3.0 >= @GTK_REQUIRED_VERSION@
 Libs: -L${libdir} -lcodeslayer
 Cflags: -I${includedir}/lcodeslayer

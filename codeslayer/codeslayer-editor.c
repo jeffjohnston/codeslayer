@@ -56,7 +56,7 @@ struct _CodeSlayerEditorPrivate
   CodeSlayerPreferences *preferences;
 };
 
-G_DEFINE_TYPE (CodeSlayerEditor, codeslayer_editor, GTK_TYPE_SOURCE_VIEW)
+G_DEFINE_TYPE (CodeSlayerEditor, codeslayer_editor, GTK_SOURCE_TYPE_VIEW)
       
 enum
 {
@@ -459,7 +459,7 @@ codeslayer_editor_sync_preferences (CodeSlayerEditor *editor)
   if (fontname)
     g_free (fontname);
   
-  gtk_widget_modify_font (GTK_WIDGET (editor), font_description);
+  gtk_widget_override_font (GTK_WIDGET (editor), font_description);
   pango_font_description_free (font_description);
   
   /* word wrap */

@@ -484,7 +484,7 @@ codeslayer_add_to_menubar (CodeSlayer  *codeslayer,
   CodeSlayerPrivate *priv;
   g_return_if_fail (IS_CODESLAYER (codeslayer));
   priv = CODESLAYER_GET_PRIVATE (codeslayer); 
-  g_object_ref_sink (GTK_OBJECT (menuitem));  
+  g_object_ref_sink (menuitem);  
   codeslayer_menubar_add_tools_item (priv->menubar, GTK_WIDGET (menuitem));
 }                              
 
@@ -524,7 +524,7 @@ codeslayer_add_to_projects_popup (CodeSlayer  *codeslayer,
   g_return_if_fail (IS_CODESLAYER (codeslayer));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   
-  g_object_ref_sink (GTK_OBJECT (menuitem));
+  g_object_ref_sink (menuitem);
       
   codeslayer_projects_add_popup_item (priv->projects, GTK_WIDGET (menuitem));
 }                                      

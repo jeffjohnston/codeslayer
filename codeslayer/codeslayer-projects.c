@@ -464,15 +464,15 @@ codeslayer_projects_init (CodeSlayerProjects *projects)
                                         G_TYPE_STRING, 
                                         G_TYPE_POINTER);
 
-  priv->project_pixbuf = gtk_widget_render_icon (GTK_WIDGET (projects), 
-                                                 GTK_STOCK_HARDDISK, 
-                                                 GTK_ICON_SIZE_BUTTON, NULL);
-  priv->folder_pixbuf = gtk_widget_render_icon (GTK_WIDGET (projects), 
-                                                GTK_STOCK_DIRECTORY,
-                                                GTK_ICON_SIZE_BUTTON, NULL);
-  priv->text_pixbuf = gtk_widget_render_icon (GTK_WIDGET (projects), 
-                                              GTK_STOCK_FILE,
-                                              GTK_ICON_SIZE_BUTTON, NULL);
+  priv->project_pixbuf = gtk_widget_render_icon_pixbuf (GTK_WIDGET (projects), 
+                                                        GTK_STOCK_HARDDISK, 
+                                                        GTK_ICON_SIZE_BUTTON);
+  priv->folder_pixbuf = gtk_widget_render_icon_pixbuf (GTK_WIDGET (projects), 
+                                                       GTK_STOCK_DIRECTORY,
+                                                       GTK_ICON_SIZE_BUTTON);
+  priv->text_pixbuf = gtk_widget_render_icon_pixbuf (GTK_WIDGET (projects), 
+                                                     GTK_STOCK_FILE,
+                                                     GTK_ICON_SIZE_BUTTON);
 
   sortable = GTK_TREE_SORTABLE (priv->treestore);
   gtk_tree_sortable_set_sort_func (sortable, FILE_NAME, sort_iter_compare_func, 
@@ -2257,7 +2257,7 @@ get_file_path_from_iter (GtkTreeModel      *model,
   GtkTreeIter parent;
   GtkTreeIter child = *iter;
 
-  if (!VALID_ITER (iter, GTK_TREE_STORE (model)))
+  if (iter == NULL)
     return NULL;
     
   folder_path = codeslayer_project_get_folder_path (project);

@@ -486,7 +486,7 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   gtk_widget_set_size_request (content_area, 350, -1);
   notebook = gtk_notebook_new ();
   gtk_container_set_border_width (GTK_CONTAINER (notebook), 2);
-  gtk_container_add (GTK_CONTAINER (content_area), notebook);
+  gtk_box_pack_start (GTK_BOX (content_area), notebook, TRUE, TRUE, 0);  
   
   preferences_editor = codeslayer_preferences_editor_new (preferences);
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_editor, 

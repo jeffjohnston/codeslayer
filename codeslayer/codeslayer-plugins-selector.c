@@ -82,6 +82,8 @@ static void
 codeslayer_plugins_selector_init (CodeSlayerPluginsSelector *plugins_selector)
 {
   gtk_container_set_border_width (GTK_CONTAINER (plugins_selector), 2);
+  gtk_box_set_homogeneous (GTK_BOX (plugins_selector), FALSE);
+  gtk_box_set_spacing (GTK_BOX (plugins_selector), 0);
   add_plugins_list (plugins_selector);
   add_plugins_buttons (plugins_selector);
 }
@@ -104,7 +106,9 @@ codeslayer_plugins_selector_new (CodeSlayerPlugins *plugins,
   priv = CODESLAYER_PLUGINS_SELECTOR_GET_PRIVATE (plugins_selector);
   priv->plugins = plugins;
   priv->group = group;
+  
   load_plugins (CODESLAYER_PLUGINS_SELECTOR (plugins_selector));
+  
   return plugins_selector;
 }
 
@@ -149,9 +153,6 @@ add_plugins_list (CodeSlayerPluginsSelector *plugins_selector)
   
   priv = CODESLAYER_PLUGINS_SELECTOR_GET_PRIVATE (plugins_selector);
   
-  gtk_box_set_homogeneous (GTK_BOX (plugins_selector), FALSE);
-  gtk_box_set_spacing (GTK_BOX (plugins_selector), 0);
-
   store = gtk_list_store_new (COLUMNS, G_TYPE_BOOLEAN, 
                               G_TYPE_STRING, G_TYPE_POINTER);
   priv->store = store;
@@ -190,8 +191,7 @@ add_plugins_list (CodeSlayerPluginsSelector *plugins_selector)
   scrolled_window = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                   GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_container_add (GTK_CONTAINER (scrolled_window),
-                     GTK_WIDGET (tree));
+  gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (tree));
 
   gtk_box_pack_start (GTK_BOX (plugins_selector),
                       GTK_WIDGET (scrolled_window), TRUE, TRUE, 0);

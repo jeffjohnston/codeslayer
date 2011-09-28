@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <gtksourceview/gtksourceiter.h>
 #include <gdk/gdkkeysyms.h>
 #include <codeslayer/codeslayer-notebook-search.h>
 #include <codeslayer/codeslayer-notebook.h>
@@ -314,31 +313,22 @@ codeslayer_notebook_search_replace (CodeSlayerNotebookSearch *notebook_search)
 static void
 add_close_button (CodeSlayerNotebookSearch *notebook_search)
 {
-  GtkWidget *close_button;
-  GtkWidget *close_image;
+  GtkWidget *button;
+  GtkWidget *image;
   
-  close_button = gtk_button_new ();
+  button = gtk_button_new ();
 
-  gtk_button_set_relief (GTK_BUTTON (close_button), GTK_RELIEF_NONE);
-  gtk_button_set_focus_on_click (GTK_BUTTON (close_button), FALSE);
-  close_image = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
-  gtk_container_add (GTK_CONTAINER (close_button), close_image);
-  gtk_widget_set_can_focus (close_button, FALSE);
+  gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
+  gtk_button_set_focus_on_click (GTK_BUTTON (button), FALSE);
+  image = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_can_focus (button, FALSE);
+  codeslayer_utils_style_close_button (button);
 
-  gtk_rc_parse_string ("style \"my-button-style\"\n"
-                       "{\n"
-                       "  GtkWidget::focus-padding = 0\n"
-                       "  GtkWidget::focus-line-width = 0\n"
-                       "  xthickness = 0\n"
-                       "  ythickness = 0\n"
-                       "}\n"
-                       "widget \"*.my-close-button\" style \"my-button-style\"");
-  gtk_widget_set_name (close_button, "my-close-button");
-
-  g_signal_connect_swapped (G_OBJECT (close_button), "clicked",
+  g_signal_connect_swapped (G_OBJECT (button), "clicked",
                             G_CALLBACK (close_search_action), notebook_search);
 
-  gtk_table_attach (GTK_TABLE (notebook_search), close_button, 
+  gtk_table_attach (GTK_TABLE (notebook_search), button, 
                     0, 1, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
 }
 
@@ -1005,11 +995,11 @@ backward_search (const gchar *find,
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
   if (is_active (priv->match_case_button))
-      result = gtk_source_iter_backward_search (start, find, 0, begin, end, NULL);
+      result = gtk_text_iter_backward_search (start, find, 0, begin, end, NULL);
   else
-      result = gtk_source_iter_backward_search (start, find,
-                                                GTK_SOURCE_SEARCH_CASE_INSENSITIVE,
-                                                begin, end, NULL);
+      result = gtk_text_iter_backward_search (start, find,
+                                              GTK_TEXT_SEARCH_CASE_INSENSITIVE,
+                                              begin, end, NULL);
 
   if (result && is_active (priv->match_entire_word_button))
     {
@@ -1037,11 +1027,11 @@ forward_search (const gchar              *find,
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
   if (is_active (priv->match_case_button))
-      result = gtk_source_iter_forward_search (start, find, 0, begin, end, NULL);
+      result = gtk_text_iter_forward_search (start, find, 0, begin, end, NULL);
   else
-      result = gtk_source_iter_forward_search (start, find,
-                                               GTK_SOURCE_SEARCH_CASE_INSENSITIVE,
-                                               begin, end, NULL);
+      result = gtk_text_iter_forward_search (start, find,
+                                             GTK_TEXT_SEARCH_CASE_INSENSITIVE,
+                                             begin, end, NULL);
 
   if (result && is_active (priv->match_entire_word_button))
     {

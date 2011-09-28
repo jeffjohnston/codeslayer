@@ -156,7 +156,7 @@ add_menu_items (CodeSlayerMenuBarSearch *menubar_search)
   replace_menu_item = gtk_menu_item_new_with_label (_("Replace"));
   priv->replace_menu_item = replace_menu_item;
   gtk_widget_add_accelerator (replace_menu_item, "activate", priv->accel_group,
-                              GDK_H, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+                              GDK_KEY_H, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), replace_menu_item);
 
   find_projects_menu_item = gtk_menu_item_new_with_label (_("Find In Projects"));

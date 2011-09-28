@@ -26,8 +26,6 @@
 
 G_BEGIN_DECLS
 
-#define VALID_ITER(iter, tree_store) ((iter)!= NULL && (iter)->user_data != NULL && ((GtkTreeStore*)(tree_store))->stamp == (iter)->stamp)
-
 #define _(String) gettext (String)
 #define gettext_noop(String) String
 #define N_(String) gettext_noop(String)
@@ -60,7 +58,7 @@ gchar*    codeslayer_utils_create_key                    (void);
 gboolean  codeslayer_utils_has_text                      (const gchar *string);
 GList*    codeslayer_utils_deep_strcopy                  (GList       *list);
 
-void      codeslayer_utils_save_gobjects                 (GList     *objects,
+void      codeslayer_utils_save_gobjects                 (GList       *objects,
                                                           const gchar *file_path, 
                                                           gpointer name, ...);
                                                           
@@ -68,6 +66,7 @@ GList*    codeslayer_utils_get_gobjects                  (GType        type,
                                                           gboolean     floating,
                                                           const gchar *file_path, 
                                                           gpointer name, ...);
+void      codeslayer_utils_style_close_button            (GtkWidget   *widget);
                                                           
 
 G_END_DECLS
