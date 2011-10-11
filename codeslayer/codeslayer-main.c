@@ -106,11 +106,11 @@ main (int   argc,
   verify_plugins_dir_exists ();
   verify_configuration_dir_exists ();
   
+  create_window (&context);
+
   create_preferences (&context);
 
   create_plugins (&context);
-
-  create_window (&context);
 
   load_application_preferences (&context);
 
@@ -150,7 +150,7 @@ static void
 create_preferences (Context *context)
 {
   CodeSlayerPreferences *preferences;
-  preferences = codeslayer_preferences_new ();
+  preferences = codeslayer_preferences_new (context->window);
   context->preferences = preferences;
 }
 
@@ -158,7 +158,7 @@ static void
 create_plugins (Context *context)
 {
   CodeSlayerPlugins *plugins;
-  plugins = codeslayer_plugins_new ();
+  plugins = codeslayer_plugins_new (context->window);
   context->plugins = plugins;
 }
 
@@ -198,9 +198,10 @@ static void
 create_projects (Context *context)
 {
   GtkWidget *projects;
-  projects = codeslayer_projects_new (context->preferences, 
-                                                context->groups, 
-                                                context->project_properties);
+  projects = codeslayer_projects_new (context->window,
+                                      context->preferences, 
+                                      context->groups, 
+                                      context->project_properties);
   context->projects = projects;
 }
 

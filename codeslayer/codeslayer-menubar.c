@@ -667,16 +667,16 @@ codeslayer_menubar_new (GtkWidget             *window,
   menubar_view = codeslayer_menubar_view_new (menu, accel_group);
   priv->menubar_view = menubar_view;
 
-  menubar_groups = codeslayer_menubar_groups_new (menu, accel_group, groups);
+  menubar_groups = codeslayer_menubar_groups_new (window, menu, accel_group, groups);
   priv->menubar_groups = menubar_groups;
 
-  menubar_projects = codeslayer_menubar_projects_new (menu, accel_group, preferences);
+  menubar_projects = codeslayer_menubar_projects_new (window, menu, accel_group, preferences);
   priv->menubar_projects = menubar_projects;
 
   menubar_tools = codeslayer_menubar_tools_new (menu, accel_group);
   priv->menubar_tools = menubar_tools;
 
-  menu_help = codeslayer_menubar_help_new (menu, accel_group);
+  menu_help = codeslayer_menubar_help_new (window, menu, accel_group);
 
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menubar_editor);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menubar_search);

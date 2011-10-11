@@ -40,6 +40,7 @@ typedef struct _CodeSlayerPluginsPrivate CodeSlayerPluginsPrivate;
 
 struct _CodeSlayerPluginsPrivate
 {
+  GtkWidget *window;
   GList *list;
 };
 
@@ -83,10 +84,15 @@ codeslayer_plugins_finalize (CodeSlayerPlugins *plugins)
  * Returns: a new #CodeSlayerPlugins. 
  */
 CodeSlayerPlugins*
-codeslayer_plugins_new ()
+codeslayer_plugins_new (GtkWidget *window)
 {
+  CodeSlayerPluginsPrivate *priv;
   CodeSlayerPlugins *plugins;
+
   plugins = g_object_new (codeslayer_plugins_get_type (), NULL);
+  priv = CODESLAYER_PLUGINS_GET_PRIVATE (plugins);
+  priv->window = window;
+  
   return plugins;
 }
 
@@ -196,12 +202,15 @@ void
 codeslayer_plugins_run_dialog (CodeSlayerPlugins *plugins, 
                                CodeSlayerGroup   *group)
 {
+  CodeSlayerPluginsPrivate *priv;
   GtkWidget *dialog;
   GtkWidget *content_area;
   GtkWidget *plugins_selector;
   
+  priv = CODESLAYER_PLUGINS_GET_PRIVATE (plugins);
+
   dialog = gtk_dialog_new_with_buttons (_("Plugins"), 
-                                        NULL,
+                                        GTK_WINDOW (priv->window),
                                         GTK_DIALOG_MODAL,
                                         GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                         NULL);

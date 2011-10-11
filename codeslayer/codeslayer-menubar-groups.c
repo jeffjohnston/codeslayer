@@ -50,6 +50,7 @@ typedef struct _CodeSlayerMenuBarGroupsPrivate CodeSlayerMenuBarGroupsPrivate;
 
 struct _CodeSlayerMenuBarGroupsPrivate
 {
+  GtkWidget        *window;
   CodeSlayerGroups *groups;
   GtkAccelGroup    *accel_group;
   GSList           *radio_group;
@@ -99,9 +100,10 @@ codeslayer_menubar_groups_finalize (CodeSlayerMenuBarGroups *menubar_groups)
  * Returns: a new #CodeSlayerMenuBarGroups. 
  */
 GtkWidget*
-codeslayer_menubar_groups_new (GtkWidget         *menubar, 
-                               GtkAccelGroup     *accel_group,
-                               CodeSlayerGroups  *groups)
+codeslayer_menubar_groups_new (GtkWidget        *window, 
+                               GtkWidget        *menubar, 
+                               GtkAccelGroup    *accel_group,
+                               CodeSlayerGroups *groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
   GtkWidget *menubar_groups;
@@ -109,6 +111,7 @@ codeslayer_menubar_groups_new (GtkWidget         *menubar,
   menubar_groups = g_object_new (codeslayer_menubar_groups_get_type (), NULL);
   priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
 
+  priv->window = window;
   priv->menubar = menubar;
   priv->accel_group = accel_group;
   priv->groups = groups;
@@ -275,7 +278,7 @@ new_group_action (CodeSlayerMenuBarGroups *menubar_groups)
   priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
   
   dialog = gtk_dialog_new_with_buttons (_("New Group"), 
-                                        NULL,
+                                        GTK_WINDOW (priv->window),
                                         GTK_DIALOG_MODAL,
                                         GTK_STOCK_CANCEL,
                                         GTK_RESPONSE_CANCEL,
@@ -336,7 +339,7 @@ remove_group_action (CodeSlayerMenuBarGroups *menubar_groups)
                       " group?",
                       NULL);
   
-  dialog = gtk_message_dialog_new (NULL,
+  dialog = gtk_message_dialog_new (GTK_WINDOW (priv->window),
                                    GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_WARNING,
                                    GTK_BUTTONS_OK_CANCEL,
@@ -377,7 +380,7 @@ group_properties_action (CodeSlayerMenuBarGroups *menubar_groups)
   group_properties = codeslayer_group_properties_new (active_group);
 
   dialog = gtk_dialog_new_with_buttons (_("Group Properties"), 
-                                        NULL,
+                                        GTK_WINDOW (priv->window),
                                         GTK_DIALOG_MODAL,
                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                         GTK_STOCK_OK, GTK_RESPONSE_OK,

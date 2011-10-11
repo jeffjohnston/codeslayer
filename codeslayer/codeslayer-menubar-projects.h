@@ -45,7 +45,8 @@ struct _CodeSlayerMenuBarProjectsClass
 
 GType codeslayer_menubar_projects_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_menubar_projects_new  (GtkWidget             *menubar, 
+GtkWidget*  codeslayer_menubar_projects_new  (GtkWidget             *window, 
+                                              GtkWidget             *menubar, 
                                               GtkAccelGroup         *accel_group, 
                                               CodeSlayerPreferences *preferences);
 

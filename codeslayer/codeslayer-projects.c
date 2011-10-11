@@ -119,6 +119,7 @@ typedef struct
 
 struct _CodeSlayerProjectsPrivate
 {
+  GtkWidget             *window;
   CodeSlayerPreferences *preferences;
   CodeSlayerGroups      *groups;
   GtkWidget             *project_properties;
@@ -624,7 +625,8 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
  * Returns: a new #CodeSlayerProjects. 
  */
 GtkWidget*
-codeslayer_projects_new (CodeSlayerPreferences *preferences, 
+codeslayer_projects_new (GtkWidget             *window, 
+                         CodeSlayerPreferences *preferences, 
                          CodeSlayerGroups      *groups, 
                          GtkWidget             *project_properties)
 {
@@ -635,6 +637,7 @@ codeslayer_projects_new (CodeSlayerPreferences *preferences,
   
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   
+  priv->window = window;
   priv->groups = groups;
   priv->preferences = preferences;
   priv->plugins = NULL;
@@ -1084,15 +1087,17 @@ codeslayer_projects_add_project (CodeSlayerProjects *projects,
 static void
 remove_project_action (CodeSlayerProjects *projects)
 {
+  CodeSlayerProjectsPrivate *priv;
   GtkWidget *dialog;
   gint response;
-  CodeSlayerProjectsPrivate *priv;
   GtkTreeModel *tree_model;
   GtkTreeSelection *tree_selection;
   GList *selected_rows;
   GList *tmp;
   
-  dialog = gtk_message_dialog_new (NULL, 
+  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
+
+  dialog = gtk_message_dialog_new (GTK_WINDOW (priv->window), 
                                    GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_WARNING,
                                    GTK_BUTTONS_OK_CANCEL,
@@ -1110,7 +1115,6 @@ remove_project_action (CodeSlayerProjects *projects)
 
   /* confirmed that will remove the project */
 
-  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   tree_model = GTK_TREE_MODEL (priv->treestore);
 
   tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->treeview));
@@ -1151,7 +1155,7 @@ create_project_properties_dialog (CodeSlayerProjects *projects)
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
 
   properties_dialog = gtk_dialog_new_with_buttons (_("Project Properties"), 
-                                                  NULL,
+                                                  GTK_WINDOW (priv->window),
                                                   GTK_DIALOG_MODAL,
                                                   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                                   GTK_STOCK_OK, GTK_RESPONSE_OK,

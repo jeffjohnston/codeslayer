@@ -44,7 +44,8 @@ struct _CodeSlayerMenuBarHelpClass
 
 GType codeslayer_menubar_help_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_menubar_help_new  (GtkWidget     *menubar, 
+GtkWidget*  codeslayer_menubar_help_new  (GtkWidget     *window,
+                                          GtkWidget     *menubar, 
                                           GtkAccelGroup *accel_group);
 
 G_END_DECLS

@@ -48,7 +48,8 @@ struct _CodeSlayerMenuBarGroupsClass
 
 GType codeslayer_menubar_groups_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_menubar_groups_new             (GtkWidget                *menubar, 
+GtkWidget*  codeslayer_menubar_groups_new             (GtkWidget                *window, 
+                                                       GtkWidget                *menubar, 
                                                        GtkAccelGroup            *accel_group,
                                                        CodeSlayerGroups         *groups);
 void        codeslayer_menubar_groups_refresh_groups  (CodeSlayerMenuBarGroups  *menubar_groups,

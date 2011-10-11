@@ -31,7 +31,7 @@ static void codeslayer_menubar_help_init        (CodeSlayerMenuBarHelp      *men
 static void codeslayer_menubar_help_finalize    (CodeSlayerMenuBarHelp      *menubar_help);
 
 static void add_menu_items                      (CodeSlayerMenuBarHelp      *menubar_help);
-static void about_action                        (void);
+static void about_action                        (CodeSlayerMenuBarHelp      *menubar_help);
 
 #define CODESLAYER_MENUBAR_HELP_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENUBAR_HELP_TYPE, CodeSlayerMenuBarHelpPrivate))
@@ -40,6 +40,7 @@ typedef struct _CodeSlayerMenuBarHelpPrivate CodeSlayerMenuBarHelpPrivate;
 
 struct _CodeSlayerMenuBarHelpPrivate
 {
+  GtkWidget     *window;
   GtkAccelGroup *accel_group;
   GtkWidget     *menubar;
   GtkWidget     *menu;
@@ -85,7 +86,8 @@ codeslayer_menubar_help_finalize (CodeSlayerMenuBarHelp *menubar_help)
  * Returns: a new #CodeSlayerMenuBarHelp. 
  */
 GtkWidget*
-codeslayer_menubar_help_new (GtkWidget     *menubar, 
+codeslayer_menubar_help_new (GtkWidget     *window, 
+                             GtkWidget     *menubar, 
                              GtkAccelGroup *accel_group)
 {
   CodeSlayerMenuBarHelpPrivate *priv;
@@ -94,6 +96,7 @@ codeslayer_menubar_help_new (GtkWidget     *menubar,
   menubar_help = g_object_new (codeslayer_menubar_help_get_type (), NULL);
   priv = CODESLAYER_MENUBAR_HELP_GET_PRIVATE (menubar_help);
 
+  priv->window = window;
   priv->menubar = menubar;
   priv->accel_group = accel_group;
 
@@ -115,13 +118,17 @@ add_menu_items (CodeSlayerMenuBarHelp *menubar_help)
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), about_menu_item);
 
   g_signal_connect_swapped (G_OBJECT (about_menu_item), "activate",
-                            G_CALLBACK (about_action), NULL);
+                            G_CALLBACK (about_action), menubar_help);
 }
 
 static void
-about_action ()
+about_action (CodeSlayerMenuBarHelp *menubar_help)
 {
-  GtkWidget *dialog;
+  CodeSlayerMenuBarHelpPrivate *priv;
+  priv = CODESLAYER_MENUBAR_HELP_GET_PRIVATE (menubar_help);
+
+
+  /*GtkWidget *dialog;
   dialog = gtk_about_dialog_new ();
   gtk_about_dialog_set_program_name (GTK_ABOUT_DIALOG (dialog), PACKAGE_NAME);
   gtk_about_dialog_set_version (GTK_ABOUT_DIALOG (dialog), PACKAGE_VERSION);
@@ -130,5 +137,13 @@ about_action ()
   gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (dialog), PACKAGE_URL);
   gtk_about_dialog_set_website_label (GTK_ABOUT_DIALOG (dialog), PACKAGE_URL);
   gtk_dialog_run (GTK_DIALOG (dialog));
-  gtk_widget_destroy (GTK_WIDGET (dialog));
+  gtk_widget_destroy (GTK_WIDGET (dialog));*/
+  
+  gtk_show_about_dialog (GTK_WINDOW (priv->window), 
+                         "program-name", PACKAGE_NAME,
+                         "version", PACKAGE_VERSION,
+                         "copyright", "(C) 2010 Jeff Johnston",
+                         "comments", "A lightweight code editor.",
+                         "website", PACKAGE_URL,
+                         NULL);
 }

@@ -81,7 +81,7 @@ struct _CodeSlayerPreferencesClass
 
 GType codeslayer_preferences_get_type (void) G_GNUC_CONST;
 
-CodeSlayerPreferences*  codeslayer_preferences_new          (void);
+CodeSlayerPreferences*  codeslayer_preferences_new          (GtkWidget             *window);
 
 gint                    codeslayer_preferences_get_integer  (CodeSlayerPreferences *preferences, 
                                                              gchar                 *key);

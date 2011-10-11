@@ -53,6 +53,7 @@ typedef struct _CodeSlayerPreferencesPrivate CodeSlayerPreferencesPrivate;
 
 struct _CodeSlayerPreferencesPrivate
 {
+  GtkWidget *window;
   GKeyFile *keyfile;
 };
 
@@ -185,10 +186,16 @@ codeslayer_preferences_finalize (CodeSlayerPreferences *preferences)
  * Returns: a new #CodeSlayerPreferences. 
  */
 CodeSlayerPreferences*
-codeslayer_preferences_new (void)
+codeslayer_preferences_new (GtkWidget *window)
 {
-  return CODESLAYER_PREFERENCES (g_object_new (codeslayer_preferences_get_type (), 
-                                        NULL));
+  CodeSlayerPreferencesPrivate *priv;
+  CodeSlayerPreferences *preferences;
+
+  preferences = g_object_new (codeslayer_preferences_get_type (), NULL);
+  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
+  priv->window = window;
+  
+  return preferences;
 }
 
 /**
@@ -465,6 +472,7 @@ get_conf_path (void)
 void
 codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
 {
+  CodeSlayerPreferencesPrivate *priv;  
   GtkWidget *dialog;
   GtkWidget *content_area;
   GtkWidget *preferences_editor;
@@ -473,8 +481,10 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   GtkWidget *preferences_misc;
   GtkWidget *notebook;
   
+  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
+
   dialog = gtk_dialog_new_with_buttons (_("Preferences"), 
-                                        NULL,
+                                        GTK_WINDOW (priv->window),
                                         GTK_DIALOG_MODAL,
                                         GTK_STOCK_CLOSE,
                                         GTK_RESPONSE_OK,

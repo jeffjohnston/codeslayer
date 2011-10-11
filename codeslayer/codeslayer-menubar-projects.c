@@ -43,6 +43,7 @@ typedef struct _CodeSlayerMenuBarProjectsPrivate CodeSlayerMenuBarProjectsPrivat
 
 struct _CodeSlayerMenuBarProjectsPrivate
 {
+  GtkWidget     *window;
   GtkAccelGroup *accel_group;
   GtkWidget     *menubar;
   GtkWidget     *menu;
@@ -90,7 +91,8 @@ codeslayer_menubar_projects_finalize (CodeSlayerMenuBarProjects *menubar_project
  * Returns: a new #CodeSlayerMenuBarProjects. 
  */
 GtkWidget*
-codeslayer_menubar_projects_new (GtkWidget             *menubar, 
+codeslayer_menubar_projects_new (GtkWidget             *window, 
+                                 GtkWidget             *menubar, 
                                  GtkAccelGroup         *accel_group, 
                                  CodeSlayerPreferences *preferences)
 {
@@ -100,6 +102,7 @@ codeslayer_menubar_projects_new (GtkWidget             *menubar,
   menubar_projects = g_object_new (codeslayer_menubar_projects_get_type (), NULL);
   priv = CODESLAYER_MENUBAR_PROJECTS_GET_PRIVATE (menubar_projects);
 
+  priv->window = window;
   priv->menubar = menubar;
   priv->accel_group = accel_group;
 
@@ -162,7 +165,7 @@ add_project_action (CodeSlayerMenuBarProjects *menubar_projects)
   priv = CODESLAYER_MENUBAR_PROJECTS_GET_PRIVATE (menubar_projects);
   
   dialog = gtk_file_chooser_dialog_new (_("Select Project"), 
-                                        NULL,
+                                        GTK_WINDOW (priv->window),
                                         GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
                                         GTK_STOCK_CANCEL,
                                         GTK_RESPONSE_CANCEL,

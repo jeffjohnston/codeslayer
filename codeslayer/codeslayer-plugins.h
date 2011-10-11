@@ -49,7 +49,7 @@ struct _CodeSlayerPluginsClass
 
 GType codeslayer_plugins_get_type (void) G_GNUC_CONST;
 
-CodeSlayerPlugins*  codeslayer_plugins_new                 (void);
+CodeSlayerPlugins*  codeslayer_plugins_new                 (GtkWidget         *window);
 
 void                codeslayer_plugins_load                (CodeSlayerPlugins *plugins, 
                                                             GObject           *data);
