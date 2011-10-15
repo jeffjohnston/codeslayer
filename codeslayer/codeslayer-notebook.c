@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include "encoding.h"
 #include <codeslayer/codeslayer-notebook.h>
 #include <codeslayer/codeslayer-notebook-tab.h>
 #include <codeslayer/codeslayer-notebook-page.h>
@@ -49,6 +50,9 @@ static void buffer_changed_action           (CodeSlayerNotebook      *notebook);
 static gboolean has_clean_buffer            (CodeSlayerNotebook      *notebook, 
                                              gint                     page);
 static void preferences_changed_action      (CodeSlayerNotebook      *notebook);
+
+static gchar* get_utf8_text                  (const gchar            *file_path);
+
 
 #define CODESLAYER_NOTEBOOK_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_NOTEBOOK_TYPE, CodeSlayerNotebookPrivate))
@@ -152,7 +156,6 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   GtkWidget *notebook_tab;
   gint page_num;
   gchar *contents;
-  gsize bytes;
   gint line_number;
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
@@ -165,12 +168,15 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   editor = codeslayer_editor_new (document, priv->preferences);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
 
-  g_file_get_contents (file_path, &contents, &bytes, NULL);
-
-  gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
-  gtk_text_buffer_set_text (GTK_TEXT_BUFFER (buffer), contents, -1);
-  gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
-  gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
+  contents = get_utf8_text (file_path);
+  if (contents != NULL)
+    {
+      gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
+      gtk_text_buffer_set_text (GTK_TEXT_BUFFER (buffer), contents, -1);
+      gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
+      gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
+      g_free (contents);
+    }
 
   notebook_page = codeslayer_notebook_page_new (editor, document);
 
@@ -201,7 +207,6 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
                             G_CALLBACK (buffer_changed_action), notebook);
 
   g_free (file_name);
-  g_free (contents);
 
   gtk_widget_show_all (GTK_WIDGET (notebook_tab));
   gtk_widget_show_all (GTK_WIDGET (notebook_page));
@@ -212,6 +217,36 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   line_number = codeslayer_document_get_line_number (document);
   if (line_number > 0)
     codeslayer_editor_scroll_to_line (CODESLAYER_EDITOR (editor), line_number);
+}
+
+static gchar* 
+get_utf8_text (const gchar *file_path) 
+{
+  gchar *contents;
+	gsize bytes;
+	const gchar *charset;
+	gchar *result;
+	gint lineend;
+	
+	if (!g_file_get_contents (file_path, &contents, &bytes, NULL)) 
+    return NULL;	    
+	
+	lineend = detect_line_ending (contents);
+	if (lineend != LF)
+	  convert_line_ending_to_lf (contents);
+	
+  charset = detect_charset (contents);
+	if (charset == NULL)
+    charset = get_default_charset ();
+    
+  if (g_strcmp0 (charset, "UTF-8") == 0)
+    return contents;
+  
+  result = g_convert (contents, -1, "UTF-8", charset, NULL, NULL, NULL);
+	  
+  g_free(contents);
+  
+  return result;
 }
 
 /**

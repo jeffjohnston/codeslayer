@@ -99,6 +99,8 @@ libcodeslayer_la_SOURCES = \
     codeslayer-plugins-selector.c \
     codeslayer-plugins.c \
     codeslayer-tearoff.c \
+    encoding.c \
+    encoding.h \
     codeslayer.c
 
 libcodeslayer_la_CPPFLAGS = -I$(top_srcdir)
