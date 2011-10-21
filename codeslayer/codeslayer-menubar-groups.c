@@ -54,6 +54,7 @@ struct _CodeSlayerMenuBarGroupsPrivate
   CodeSlayerGroups *groups;
   GtkAccelGroup    *accel_group;
   GSList           *radio_group;
+  GList            *radio_items;
   GtkWidget        *menubar;
   GtkWidget        *menu;
   GtkWidget        *remove_group_item;
@@ -80,12 +81,20 @@ codeslayer_menubar_groups_init (CodeSlayerMenuBarGroups *menubar_groups)
   
   menu = gtk_menu_new ();
   priv->menu = menu;
+  priv->radio_group = NULL;
+  priv->radio_items = NULL;
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menubar_groups), menu);
 }
 
 static void
 codeslayer_menubar_groups_finalize (CodeSlayerMenuBarGroups *menubar_groups)
 {
+  CodeSlayerMenuBarGroupsPrivate *priv;
+  priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
+
+  if (priv->radio_items != NULL)
+    g_list_free (priv->radio_items);
+
   G_OBJECT_CLASS (codeslayer_menubar_groups_parent_class)->finalize (G_OBJECT (menubar_groups));
 }
 
@@ -202,6 +211,8 @@ add_groups (CodeSlayerMenuBarGroups *menubar_groups,
       radio_item = gtk_radio_menu_item_new_with_label (priv->radio_group, group_name);
       gtk_menu_shell_insert (GTK_MENU_SHELL (priv->menu), radio_item, i);
       priv->radio_group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (radio_item));
+      
+      priv->radio_items = g_list_append (priv->radio_items, radio_item);
 
       if (group == codeslayer_groups_get_active_group (groups))
         {
@@ -232,18 +243,24 @@ codeslayer_menubar_groups_refresh_groups (CodeSlayerMenuBarGroups *menubar_group
                                           CodeSlayerGroups        *groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
-  GSList *radio_group;
+  GList *radio_items;
   
   priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
-
-  radio_group = priv->radio_group;
-  while (radio_group != NULL)
+  
+  radio_items = priv->radio_items;
+  while (radio_items != NULL)
     {
-      GtkWidget *radio_item = radio_group->data;
+      GtkWidget *radio_item = radio_items->data;
       gtk_container_remove (GTK_CONTAINER (priv->menu), radio_item);
-      radio_group = g_slist_next (radio_group);
+      radio_items = g_list_next (radio_items);
     }
+
+  if (priv->radio_items != NULL)
+    g_list_free (priv->radio_items);
+  
+  priv->radio_items = NULL;
   priv->radio_group = NULL;
+
   add_groups (menubar_groups, groups);
 }
 
