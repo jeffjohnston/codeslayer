@@ -78,7 +78,6 @@ static void build_file_icon_action              (GtkEntry                *build_
                                                  GtkEntryIconPosition     icon_pos, 
                                                  GdkEvent                *event,
                                                  CodeSlayerProjects      *projects);
-static CodeSlayerProject* get_selected_project  (CodeSlayerProjects      *projects);                                               
 static void remove_project_action               (CodeSlayerProjects      *projects);
 static void new_folder_action                   (CodeSlayerProjects      *projects);
 static void new_file_action                     (CodeSlayerProjects      *projects);
@@ -98,6 +97,7 @@ static gboolean is_popup_item_showable          (CodeSlayerProjects      *projec
                                                  GtkWidget               *popup_menu_item);
 static GList* get_selections                    (CodeSlayerProjects      *projects);
 static void reorder_plugins                     (CodeSlayerProjects      *projects);
+static CodeSlayerProject* get_selected_project  (CodeSlayerProjects      *projects);                                               
 
 #define CODESLAYER_PROJECTS_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROJECTS_TYPE, CodeSlayerProjectsPrivate))
@@ -1283,37 +1283,6 @@ build_file_icon_action (GtkEntry             *build_entry,
   gtk_widget_destroy (GTK_WIDGET (dialog));  
 }
 
-static CodeSlayerProject*
-get_selected_project (CodeSlayerProjects *projects)
-{
-  CodeSlayerProjectsPrivate *priv;
-  CodeSlayerProject *project;
-  GtkTreeModel *tree_model;
-  GtkTreeSelection *tree_selection;
-  GList *selected_rows;
-  GList *tmp;
-  
-  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-
-  project = NULL;
-  tree_model = GTK_TREE_MODEL (priv->treestore);
-
-  tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->treeview));
-  selected_rows = gtk_tree_selection_get_selected_rows (tree_selection, &tree_model);
-  tmp = selected_rows;
-  if (tmp != NULL)
-    {
-      GtkTreeIter iter;
-      GtkTreePath *tree_path = tmp->data;
-      gtk_tree_model_get_iter (tree_model, &iter, tree_path);
-      gtk_tree_model_get (tree_model, &iter, PROJECT, &project, -1);
-      gtk_tree_path_free (tree_path);
-    }
-  g_list_free (selected_rows);
-  
-  return project;
-}
-
 static void
 project_properties_action (CodeSlayerProjects *projects)
 {
@@ -2432,6 +2401,37 @@ get_file_path_from_iter (GtkTreeModel      *model,
     }
 
   return g_string_free (result, FALSE);
+}
+
+static CodeSlayerProject*
+get_selected_project (CodeSlayerProjects *projects)
+{
+  CodeSlayerProjectsPrivate *priv;
+  CodeSlayerProject *project;
+  GtkTreeModel *tree_model;
+  GtkTreeSelection *tree_selection;
+  GList *selected_rows;
+  GList *tmp;
+  
+  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
+
+  project = NULL;
+  tree_model = GTK_TREE_MODEL (priv->treestore);
+
+  tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->treeview));
+  selected_rows = gtk_tree_selection_get_selected_rows (tree_selection, &tree_model);
+  tmp = selected_rows;
+  if (tmp != NULL)
+    {
+      GtkTreeIter iter;
+      GtkTreePath *tree_path = tmp->data;
+      gtk_tree_model_get_iter (tree_model, &iter, tree_path);
+      gtk_tree_model_get (tree_model, &iter, PROJECT, &project, -1);
+      gtk_tree_path_free (tree_path);
+    }
+  g_list_free (selected_rows);
+  
+  return project;
 }
 
 /* 
