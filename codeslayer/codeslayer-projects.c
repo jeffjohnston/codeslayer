@@ -35,65 +35,69 @@
  * @include: codeslayer/codeslayer-projects.h
  */
 
-static void codeslayer_projects_class_init    (CodeSlayerProjectsClass *klass);
-static void codeslayer_projects_init          (CodeSlayerProjects      *projects);
-static void codeslayer_projects_finalize      (CodeSlayerProjects      *projects);
+static void codeslayer_projects_class_init      (CodeSlayerProjectsClass *klass);
+static void codeslayer_projects_init            (CodeSlayerProjects      *projects);
+static void codeslayer_projects_finalize        (CodeSlayerProjects      *projects);
 
-static gboolean treeview_row_expanded         (CodeSlayerProjects      *projects, 
-                                               GtkTreeIter             *iter, 
-                                               GtkTreePath             *path);
-static gint sort_iter_compare_func            (GtkTreeModel            *model, 
-                                               GtkTreeIter             *a, 
-                                               GtkTreeIter             *b, 
-                                               gpointer                 userdata);
-static void add_project                       (CodeSlayerProject       *project, 
-                                               CodeSlayerProjects      *projects);
-static gboolean select_document               (CodeSlayerDocument      *document, 
-                                               CodeSlayerProjects      *projects);
+static gboolean treeview_row_expanded           (CodeSlayerProjects      *projects, 
+                                                 GtkTreeIter             *iter, 
+                                                 GtkTreePath             *path);
+static gint sort_iter_compare_func              (GtkTreeModel            *model, 
+                                                 GtkTreeIter             *a, 
+                                                 GtkTreeIter             *b, 
+                                                 gpointer                 userdata);
+static void add_project                         (CodeSlayerProject       *project, 
+                                                 CodeSlayerProjects      *projects);
+static gboolean select_document                 (CodeSlayerDocument      *document, 
+                                                 CodeSlayerProjects      *projects);
 
-static void append_treestore_children         (CodeSlayerProjects      *projects, 
-                                               CodeSlayerProject       *project, 
-                                               GtkTreeIter              iter, 
-                                               const gchar             *folder_path);
-static gboolean is_file_shown                 (CodeSlayerPreferences   *preferences, 
-                                               const char              *file_name, 
-                                               GFileType                file_type);
-static gboolean open_document                 (CodeSlayerProjects      *projects, 
-                                               GtkTreeIter             *path, 
-                                               GtkTreeViewColumn       *column);
-static void edited_action                     (CodeSlayerProjects      *projects, 
-                                               gchar                   *path, 
-                                               gchar                   *new_text);
-static void editing_canceled_action           (CodeSlayerProjects      *projects);
-static GFile *create_destination              (GFile                   *source, 
-                                               const gchar             *file_path);
-static gchar *get_file_path_from_iter         (GtkTreeModel            *model, 
-                                               GtkTreeIter             *child, 
-                                               CodeSlayerProject       *project);
-static gboolean show_popup_menu               (CodeSlayerProjects      *projects, 
-                                               GdkEventButton          *event);
-static void create_project_properties_dialog  (CodeSlayerProjects      *projects);
-static void add_to_project_properties         (CodeSlayerProjects      *projects);
-
-static void remove_project_action             (CodeSlayerProjects      *projects);
-static void new_folder_action                 (CodeSlayerProjects      *projects);
-static void new_file_action                   (CodeSlayerProjects      *projects);
-static void cut_action                        (CodeSlayerProjects      *projects);
-static void copy_action                       (CodeSlayerProjects      *projects);
-static void paste_action                      (CodeSlayerProjects      *projects);
-static void rename_action                     (CodeSlayerProjects      *projects);
-static void move_to_trash_action              (CodeSlayerProjects      *projects);
-static void refresh_action                    (CodeSlayerProjects      *projects);
-static void project_properties_action         (CodeSlayerProjects      *projects);
-static void tools_action                      (GtkMenuItem             *menuitem, 
-                                               CodeSlayerProjects      *projects);
-static void activate_tools_item               (CodeSlayerProjects      *projects,
-                                               GtkWidget               *menuitem);
-static GList* get_showable_popup_items        (CodeSlayerProjects      *projects);
-static gboolean is_popup_item_showable        (CodeSlayerProjects      *projects, 
-                                               GtkWidget               *popup_menu_item);
-static GList* get_selections                  (CodeSlayerProjects      *projects);
-static void reorder_plugins                   (CodeSlayerProjects      *projects);
+static void append_treestore_children           (CodeSlayerProjects      *projects, 
+                                                 CodeSlayerProject       *project, 
+                                                 GtkTreeIter              iter, 
+                                                 const gchar             *folder_path);
+static gboolean is_file_shown                   (CodeSlayerPreferences   *preferences, 
+                                                 const char              *file_name, 
+                                                 GFileType                file_type);
+static gboolean open_document                   (CodeSlayerProjects      *projects, 
+                                                 GtkTreeIter             *path, 
+                                                 GtkTreeViewColumn       *column);
+static void edited_action                       (CodeSlayerProjects      *projects, 
+                                                 gchar                   *path, 
+                                                 gchar                   *new_text);
+static void editing_canceled_action             (CodeSlayerProjects      *projects);
+static GFile *create_destination                (GFile                   *source, 
+                                                 const gchar             *file_path);
+static gchar *get_file_path_from_iter           (GtkTreeModel            *model, 
+                                                 GtkTreeIter             *child, 
+                                                 CodeSlayerProject       *project);
+static gboolean show_popup_menu                 (CodeSlayerProjects      *projects, 
+                                                 GdkEventButton          *event);
+static void create_project_properties_dialog    (CodeSlayerProjects      *projects);
+static void add_to_project_properties           (CodeSlayerProjects      *projects);
+static void build_file_icon_action              (GtkEntry                *build_entry, 
+                                                 GtkEntryIconPosition     icon_pos, 
+                                                 GdkEvent                *event,
+                                                 CodeSlayerProjects      *projects);
+static CodeSlayerProject* get_selected_project  (CodeSlayerProjects      *projects);                                               
+static void remove_project_action               (CodeSlayerProjects      *projects);
+static void new_folder_action                   (CodeSlayerProjects      *projects);
+static void new_file_action                     (CodeSlayerProjects      *projects);
+static void cut_action                          (CodeSlayerProjects      *projects);
+static void copy_action                         (CodeSlayerProjects      *projects);
+static void paste_action                        (CodeSlayerProjects      *projects);
+static void rename_action                       (CodeSlayerProjects      *projects);
+static void move_to_trash_action                (CodeSlayerProjects      *projects);
+static void refresh_action                      (CodeSlayerProjects      *projects);
+static void project_properties_action           (CodeSlayerProjects      *projects);
+static void tools_action                        (GtkMenuItem             *menuitem, 
+                                                 CodeSlayerProjects      *projects);
+static void activate_tools_item                 (CodeSlayerProjects      *projects,
+                                                 GtkWidget               *menuitem);
+static GList* get_showable_popup_items          (CodeSlayerProjects      *projects);
+static gboolean is_popup_item_showable          (CodeSlayerProjects      *projects, 
+                                                 GtkWidget               *popup_menu_item);
+static GList* get_selections                    (CodeSlayerProjects      *projects);
+static void reorder_plugins                     (CodeSlayerProjects      *projects);
 
 #define CODESLAYER_PROJECTS_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROJECTS_TYPE, CodeSlayerProjectsPrivate))
@@ -126,6 +130,7 @@ struct _CodeSlayerProjectsPrivate
   GtkWidget             *properties_dialog;
   GtkWidget             *name_entry;
   GtkWidget             *folder_entry;
+  GtkWidget             *build_entry;
   GtkBindingSet         *binding_set;
   GtkWidget             *scrolled_window;
   GtkWidget             *treeview;
@@ -1180,10 +1185,12 @@ add_to_project_properties (CodeSlayerProjects *projects)
   GtkWidget *name_entry;
   GtkWidget *folder_label;
   GtkWidget *folder_entry;
+  GtkWidget *build_label;
+  GtkWidget *build_entry;
   
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
 
-  table = gtk_table_new (2, 2, FALSE);
+  table = gtk_table_new (3, 2, FALSE);
 
   name_label = gtk_label_new (_("Name:"));
   gtk_misc_set_alignment (GTK_MISC (name_label), 1, .5);
@@ -1210,8 +1217,101 @@ add_to_project_properties (CodeSlayerProjects *projects)
   gtk_table_attach (GTK_TABLE (table), folder_entry, 1, 2, 1, 2,
                     GTK_FILL | GTK_EXPAND | GTK_SHRINK, GTK_FILL, 4, 1);
                     
+  build_label = gtk_label_new (_("Build File:"));
+  gtk_label_set_width_chars (GTK_LABEL (build_label), 10);
+  gtk_misc_set_alignment (GTK_MISC (build_label), .97, .50);
+  gtk_table_attach (GTK_TABLE (table), build_label, 0, 1, 2, 3, 
+                    GTK_FILL, GTK_FILL, 4, 1);
+
+  build_entry = gtk_entry_new ();
+  priv->build_entry = build_entry;
+  gtk_entry_set_width_chars (GTK_ENTRY (build_entry), 50);
+  gtk_entry_set_icon_from_stock (GTK_ENTRY (build_entry), 
+                                 GTK_ENTRY_ICON_SECONDARY, GTK_STOCK_DIRECTORY);
+  gtk_table_attach (GTK_TABLE (table), build_entry, 1, 2, 2, 3,
+                    GTK_FILL | GTK_EXPAND | GTK_SHRINK, GTK_FILL, 4, 1);
+                    
+  g_signal_connect (G_OBJECT (build_entry), "icon-press",
+                    G_CALLBACK (build_file_icon_action), projects);
+                    
   codeslayer_project_properties_add (CODESLAYER_PROJECT_PROPERTIES (priv->project_properties), 
                                       table, _("Project"));
+}
+
+static void 
+build_file_icon_action (GtkEntry             *build_entry, 
+                        GtkEntryIconPosition  icon_pos, 
+                        GdkEvent             *event,
+                        CodeSlayerProjects   *projects)
+{
+  GtkWidget *dialog;
+  GtkFileFilter *filter;
+  gint response;
+  const gchar *folder_path;
+  
+  dialog = gtk_file_chooser_dialog_new ("Select Build File", 
+                                        NULL,
+                                        GTK_FILE_CHOOSER_ACTION_OPEN,
+                                        GTK_STOCK_CANCEL,
+                                        GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OPEN,
+                                        GTK_RESPONSE_OK, 
+                                        NULL);
+
+  filter = gtk_file_filter_new ();
+  gtk_file_filter_add_pattern (filter, "*.ac");
+  gtk_file_filter_add_pattern (filter, "*.in");
+  gtk_file_filter_add_pattern (filter, "*.xml");
+  gtk_file_chooser_set_filter (GTK_FILE_CHOOSER(dialog), filter);
+  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+  folder_path = codeslayer_project_get_folder_path (get_selected_project (projects));
+  gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER(dialog), folder_path);
+
+  response = gtk_dialog_run (GTK_DIALOG (dialog));
+  if (response == GTK_RESPONSE_OK)
+    {
+      GFile *file;
+      char *file_path;
+      file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog));
+      file_path = g_file_get_path (file);
+      gtk_entry_set_text (build_entry, file_path);
+      g_free (file_path);
+      g_object_unref (file);
+    }
+
+  gtk_widget_destroy (GTK_WIDGET (dialog));  
+}
+
+static CodeSlayerProject*
+get_selected_project (CodeSlayerProjects *projects)
+{
+  CodeSlayerProjectsPrivate *priv;
+  CodeSlayerProject *project;
+  GtkTreeModel *tree_model;
+  GtkTreeSelection *tree_selection;
+  GList *selected_rows;
+  GList *tmp;
+  
+  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
+
+  project = NULL;
+  tree_model = GTK_TREE_MODEL (priv->treestore);
+
+  tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->treeview));
+  selected_rows = gtk_tree_selection_get_selected_rows (tree_selection, &tree_model);
+  tmp = selected_rows;
+  if (tmp != NULL)
+    {
+      GtkTreeIter iter;
+      GtkTreePath *tree_path = tmp->data;
+      gtk_tree_model_get_iter (tree_model, &iter, tree_path);
+      gtk_tree_model_get (tree_model, &iter, PROJECT, &project, -1);
+      gtk_tree_path_free (tree_path);
+    }
+  g_list_free (selected_rows);
+  
+  return project;
 }
 
 static void
@@ -1235,6 +1335,7 @@ project_properties_action (CodeSlayerProjects *projects)
       CodeSlayerProject *project;
       GtkTreeIter iter;
       gint response;
+      const gchar *build_file;
       
       GtkTreePath *tree_path = tmp->data;
 
@@ -1248,6 +1349,10 @@ project_properties_action (CodeSlayerProjects *projects)
       gtk_entry_set_text (GTK_ENTRY (priv->folder_entry),
                           codeslayer_project_get_folder_path (project));
 
+      build_file = codeslayer_project_get_build_file (project);
+      if (build_file != NULL)
+        gtk_entry_set_text (GTK_ENTRY (priv->build_entry), build_file);
+
       g_signal_emit_by_name((gpointer)projects, "properties-opened", project);
 
       gtk_widget_show_all (priv->properties_dialog);
@@ -1255,10 +1360,11 @@ project_properties_action (CodeSlayerProjects *projects)
       response = gtk_dialog_run (GTK_DIALOG (priv->properties_dialog));
       if (response == GTK_RESPONSE_OK)
         {
-          const gchar *text = gtk_entry_get_text (GTK_ENTRY (priv->name_entry));
-          if (g_strcmp0 (text, codeslayer_project_get_name (project)) != 0)
+          const gchar *name_text = gtk_entry_get_text (GTK_ENTRY (priv->name_entry));
+          const gchar *build_text = gtk_entry_get_text (GTK_ENTRY (priv->build_entry));
+          if (g_strcmp0 (name_text, codeslayer_project_get_name (project)) != 0)
             {
-              gchar *name = g_strdup (text);
+              gchar *name = g_strdup (name_text);
               name = g_strstrip (name);
 
               codeslayer_project_set_name (project, name);
@@ -1266,6 +1372,17 @@ project_properties_action (CodeSlayerProjects *projects)
               g_signal_emit_by_name ((gpointer) projects, "project-modified", project);
 
               gtk_tree_store_set (GTK_TREE_STORE (tree_model), &iter, FILE_NAME, name, -1);
+
+              g_free (name);
+            }
+          else if (g_strcmp0 (build_text, codeslayer_project_get_build_file (project)) != 0)
+            {
+              gchar *name = g_strdup (build_text);
+              name = g_strstrip (name);
+
+              codeslayer_project_set_build_file (project, name);
+
+              g_signal_emit_by_name ((gpointer) projects, "project-modified", project);
 
               g_free (name);
             }

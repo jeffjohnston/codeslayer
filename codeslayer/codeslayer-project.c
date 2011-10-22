@@ -47,6 +47,7 @@ struct _CodeSlayerProjectPrivate
   gchar *name;
   gchar *key;
   gchar *folder_path;
+  gchar *build_file;
 };
 
 enum
@@ -54,7 +55,8 @@ enum
   PROP_0,
   PROP_NAME,
   PROP_KEY,
-  PROP_FOLDER_PATH
+  PROP_FOLDER_PATH,
+  PROP_BUILD_FILE
 };
 
 G_DEFINE_TYPE (CodeSlayerProject, codeslayer_project, G_TYPE_OBJECT)
@@ -92,7 +94,7 @@ codeslayer_project_class_init (CodeSlayerProjectClass *klass)
                                    PROP_KEY,
                                    g_param_spec_string ("key", 
                                                         "Key",
-                                                        "Key Object", "",
+                                                        "Key", "",
                                                         G_PARAM_READWRITE));
 
   /**
@@ -104,7 +106,19 @@ codeslayer_project_class_init (CodeSlayerProjectClass *klass)
                                    PROP_FOLDER_PATH,
                                    g_param_spec_string ("folder_path",
                                                         "Folder Path",
-                                                        "Folder Path Object",
+                                                        "Folder Path",
+                                                        "",
+                                                        G_PARAM_READWRITE));
+  /**
+	 * CodeSlayerProject:build_file:
+	 *
+	 * The (optional) file that is used to build the project.
+	 */
+  g_object_class_install_property (gobject_class, 
+                                   PROP_BUILD_FILE,
+                                   g_param_spec_string ("build_file",
+                                                        "Build File",
+                                                        "Build File",
                                                         "",
                                                         G_PARAM_READWRITE));
 }
@@ -138,6 +152,11 @@ codeslayer_project_finalize (CodeSlayerProject *project)
       g_free (priv->folder_path);
       priv->folder_path = NULL;
     }
+  if (priv->build_file)
+    {
+      g_free (priv->build_file);
+      priv->build_file = NULL;
+    }
   G_OBJECT_CLASS (codeslayer_project_parent_class)->finalize (G_OBJECT (project));
 }
 
@@ -164,6 +183,9 @@ codeslayer_project_get_property (GObject    *object,
     case PROP_FOLDER_PATH:
       g_value_set_string (value, priv->folder_path);
       break;
+    case PROP_BUILD_FILE:
+      g_value_set_string (value, priv->build_file);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -189,6 +211,9 @@ codeslayer_project_set_property (GObject      *object,
       break;
     case PROP_FOLDER_PATH:
       codeslayer_project_set_folder_path (project, g_value_get_string (value));
+      break;
+    case PROP_BUILD_FILE:
+      codeslayer_project_set_build_file (project, g_value_get_string (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -302,4 +327,35 @@ codeslayer_project_set_folder_path (CodeSlayerProject *project,
       priv->folder_path = NULL;
     }
   priv->folder_path = g_strdup (folder_path);
+}
+
+/**
+ * codeslayer_project_get_build_file:
+ * @project: a #CodeSlayerProject.
+ *
+ * Returns: the build file for the project.
+ */
+const gchar*
+codeslayer_project_get_build_file (CodeSlayerProject *project)
+{
+  return CODESLAYER_PROJECT_GET_PRIVATE (project)->build_file;
+}
+
+/**
+ * codeslayer_project_set_build_file:
+ * @project: a #CodeSlayerDocument.
+ * @build_file: the build file for the project.
+ */
+void
+codeslayer_project_set_build_file (CodeSlayerProject *project,
+                                   const gchar       *build_file)
+{
+  CodeSlayerProjectPrivate *priv;
+  priv = CODESLAYER_PROJECT_GET_PRIVATE (project);
+  if (priv->build_file)
+    {
+      g_free (priv->build_file);
+      priv->build_file = NULL;
+    }
+  priv->build_file = g_strdup (build_file);
 }
