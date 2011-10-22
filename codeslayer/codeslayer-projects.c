@@ -1331,29 +1331,23 @@ project_properties_action (CodeSlayerProjects *projects)
         {
           const gchar *name_text = gtk_entry_get_text (GTK_ENTRY (priv->name_entry));
           const gchar *build_text = gtk_entry_get_text (GTK_ENTRY (priv->build_entry));
-          if (g_strcmp0 (name_text, codeslayer_project_get_name (project)) != 0)
+          if (g_strcmp0 (name_text, codeslayer_project_get_name (project)) != 0 || 
+              g_strcmp0 (build_text, codeslayer_project_get_build_file (project)) != 0)
             {
-              gchar *name = g_strdup (name_text);
-              name = g_strstrip (name);
+              gchar *name_strip = g_strdup (name_text);
+              gchar *build_strip = g_strdup (build_text);
+              name_strip = g_strstrip (name_strip);
+              build_strip = g_strstrip (build_strip);
 
-              codeslayer_project_set_name (project, name);
+              codeslayer_project_set_name (project, name_strip);
+              codeslayer_project_set_build_file (project, build_strip);
 
               g_signal_emit_by_name ((gpointer) projects, "project-modified", project);
 
-              gtk_tree_store_set (GTK_TREE_STORE (tree_model), &iter, FILE_NAME, name, -1);
+              gtk_tree_store_set (GTK_TREE_STORE (tree_model), &iter, FILE_NAME, name_strip, -1);
 
-              g_free (name);
-            }
-          else if (g_strcmp0 (build_text, codeslayer_project_get_build_file (project)) != 0)
-            {
-              gchar *name = g_strdup (build_text);
-              name = g_strstrip (name);
-
-              codeslayer_project_set_build_file (project, name);
-
-              g_signal_emit_by_name ((gpointer) projects, "project-modified", project);
-
-              g_free (name);
+              g_free (name_strip);
+              g_free (build_strip);
             }
             
           g_signal_emit_by_name((gpointer)projects, "properties-saved", project);
