@@ -121,7 +121,7 @@ add_table (CodeSlayerGroupProperties *group_properties)
   gtk_table_attach (GTK_TABLE (table), name_entry, 1, 2, 0, 1,
                     GTK_FILL | GTK_EXPAND | GTK_SHRINK, GTK_FILL, 4, 1);
 
-  folder_label = gtk_label_new (_("Folder Path:"));
+  folder_label = gtk_label_new (_("Folder:"));
   gtk_label_set_width_chars (GTK_LABEL (folder_label), 10);
   gtk_misc_set_alignment (GTK_MISC (folder_label), .97, .50);
   gtk_table_attach (GTK_TABLE (table), folder_label, 0, 1, 1, 2, 

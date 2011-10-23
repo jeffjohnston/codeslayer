@@ -47,7 +47,8 @@ struct _CodeSlayerProjectPrivate
   gchar *name;
   gchar *key;
   gchar *folder_path;
-  gchar *build_file;
+  gchar *build_file_path;
+  gchar *source_folders_path;
 };
 
 enum
@@ -56,7 +57,8 @@ enum
   PROP_NAME,
   PROP_KEY,
   PROP_FOLDER_PATH,
-  PROP_BUILD_FILE
+  PROP_BUILD_FILE_PATH,
+  PROP_SOURCE_FOLDERS_PATH
 };
 
 G_DEFINE_TYPE (CodeSlayerProject, codeslayer_project, G_TYPE_OBJECT)
@@ -109,16 +111,30 @@ codeslayer_project_class_init (CodeSlayerProjectClass *klass)
                                                         "Folder Path",
                                                         "",
                                                         G_PARAM_READWRITE));
+
   /**
-	 * CodeSlayerProject:build_file:
+	 * CodeSlayerProject:build_file_path:
 	 *
 	 * The (optional) file that is used to build the project.
 	 */
   g_object_class_install_property (gobject_class, 
-                                   PROP_BUILD_FILE,
-                                   g_param_spec_string ("build_file",
-                                                        "Build File",
-                                                        "Build File",
+                                   PROP_BUILD_FILE_PATH,
+                                   g_param_spec_string ("build_file_path",
+                                                        "Build File Path",
+                                                        "Build File Path",
+                                                        "",
+                                                        G_PARAM_READWRITE));
+
+  /**
+	 * CodeSlayerProject:source_folders_path:
+	 *
+	 * The (optional) file that is used to build the project.
+	 */
+  g_object_class_install_property (gobject_class, 
+                                   PROP_SOURCE_FOLDERS_PATH,
+                                   g_param_spec_string ("source_folders_path",
+                                                        "Source Folders Path",
+                                                        "Source Folders Path",
                                                         "",
                                                         G_PARAM_READWRITE));
 }
@@ -152,10 +168,15 @@ codeslayer_project_finalize (CodeSlayerProject *project)
       g_free (priv->folder_path);
       priv->folder_path = NULL;
     }
-  if (priv->build_file)
+  if (priv->build_file_path)
     {
-      g_free (priv->build_file);
-      priv->build_file = NULL;
+      g_free (priv->build_file_path);
+      priv->build_file_path = NULL;
+    }
+  if (priv->source_folders_path)
+    {
+      g_free (priv->source_folders_path);
+      priv->source_folders_path = NULL;
     }
   G_OBJECT_CLASS (codeslayer_project_parent_class)->finalize (G_OBJECT (project));
 }
@@ -183,8 +204,11 @@ codeslayer_project_get_property (GObject    *object,
     case PROP_FOLDER_PATH:
       g_value_set_string (value, priv->folder_path);
       break;
-    case PROP_BUILD_FILE:
-      g_value_set_string (value, priv->build_file);
+    case PROP_BUILD_FILE_PATH:
+      g_value_set_string (value, priv->build_file_path);
+      break;
+    case PROP_SOURCE_FOLDERS_PATH:
+      g_value_set_string (value, priv->source_folders_path);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -212,8 +236,11 @@ codeslayer_project_set_property (GObject      *object,
     case PROP_FOLDER_PATH:
       codeslayer_project_set_folder_path (project, g_value_get_string (value));
       break;
-    case PROP_BUILD_FILE:
-      codeslayer_project_set_build_file (project, g_value_get_string (value));
+    case PROP_BUILD_FILE_PATH:
+      codeslayer_project_set_build_file_path (project, g_value_get_string (value));
+      break;
+    case PROP_SOURCE_FOLDERS_PATH:
+      codeslayer_project_set_source_folders_path (project, g_value_get_string (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -330,32 +357,63 @@ codeslayer_project_set_folder_path (CodeSlayerProject *project,
 }
 
 /**
- * codeslayer_project_get_build_file:
+ * codeslayer_project_get_build_file_path:
  * @project: a #CodeSlayerProject.
  *
  * Returns: the build file for the project.
  */
 const gchar*
-codeslayer_project_get_build_file (CodeSlayerProject *project)
+codeslayer_project_get_build_file_path (CodeSlayerProject *project)
 {
-  return CODESLAYER_PROJECT_GET_PRIVATE (project)->build_file;
+  return CODESLAYER_PROJECT_GET_PRIVATE (project)->build_file_path;
 }
 
 /**
- * codeslayer_project_set_build_file:
+ * codeslayer_project_set_build_file_path:
  * @project: a #CodeSlayerDocument.
- * @build_file: the build file for the project.
+ * @build_file_path: the build file for the project.
  */
 void
-codeslayer_project_set_build_file (CodeSlayerProject *project,
-                                   const gchar       *build_file)
+codeslayer_project_set_build_file_path (CodeSlayerProject *project,
+                                        const gchar       *build_file_path)
 {
   CodeSlayerProjectPrivate *priv;
   priv = CODESLAYER_PROJECT_GET_PRIVATE (project);
-  if (priv->build_file)
+  if (priv->build_file_path)
     {
-      g_free (priv->build_file);
-      priv->build_file = NULL;
+      g_free (priv->build_file_path);
+      priv->build_file_path = NULL;
     }
-  priv->build_file = g_strdup (build_file);
+  priv->build_file_path = g_strdup (build_file_path);
+}
+
+/**
+ * codeslayer_project_get_source_folders_path:
+ * @project: a #CodeSlayerProject.
+ *
+ * Returns: the source folders for the project.
+ */
+const gchar*
+codeslayer_project_get_source_folders_path (CodeSlayerProject *project)
+{
+  return CODESLAYER_PROJECT_GET_PRIVATE (project)->source_folders_path;
+}
+
+/**
+ * codeslayer_project_set_source_folders_path:
+ * @project: a #CodeSlayerDocument.
+ * @source_folders_path: the source folders for the project.
+ */
+void
+codeslayer_project_set_source_folders_path (CodeSlayerProject *project,
+                                            const gchar       *source_folders_path)
+{
+  CodeSlayerProjectPrivate *priv;
+  priv = CODESLAYER_PROJECT_GET_PRIVATE (project);
+  if (priv->source_folders_path)
+    {
+      g_free (priv->source_folders_path);
+      priv->source_folders_path = NULL;
+    }
+  priv->source_folders_path = g_strdup (source_folders_path);
 }

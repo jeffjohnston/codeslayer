@@ -44,20 +44,23 @@ struct _CodeSlayerProjectClass
 
 GType codeslayer_project_get_type (void) G_GNUC_CONST;
 
-CodeSlayerProject  *codeslayer_project_new             (void);
+CodeSlayerProject  *codeslayer_project_new                     (void);
 
-const gchar*       codeslayer_project_get_name         (CodeSlayerProject *project);
-void               codeslayer_project_set_name         (CodeSlayerProject *project,
-                                                        const gchar       *name);
-const gchar*       codeslayer_project_get_key          (CodeSlayerProject *project);
-void               codeslayer_project_set_key          (CodeSlayerProject *project,
-                                                        const gchar       *key);
-const gchar*       codeslayer_project_get_folder_path  (CodeSlayerProject *project);
-void               codeslayer_project_set_folder_path  (CodeSlayerProject *project,
-                                                        const gchar       *folder_path);
-const gchar*       codeslayer_project_get_build_file   (CodeSlayerProject *project);
-void               codeslayer_project_set_build_file   (CodeSlayerProject *project,
-                                                        const gchar       *build_file);
+const gchar*       codeslayer_project_get_name                 (CodeSlayerProject *project);
+void               codeslayer_project_set_name                 (CodeSlayerProject *project,
+                                                                const gchar       *name);
+const gchar*       codeslayer_project_get_key                  (CodeSlayerProject *project);
+void               codeslayer_project_set_key                  (CodeSlayerProject *project,
+                                                                const gchar       *key);
+const gchar*       codeslayer_project_get_folder_path          (CodeSlayerProject *project);
+void               codeslayer_project_set_folder_path          (CodeSlayerProject *project,
+                                                                const gchar       *folder_path);
+const gchar*       codeslayer_project_get_build_file_path      (CodeSlayerProject *project);
+void               codeslayer_project_set_build_file_path      (CodeSlayerProject *project,
+                                                                const gchar       *build_file_path);
+const gchar*       codeslayer_project_get_source_folders_path  (CodeSlayerProject *project);
+void               codeslayer_project_set_source_folders_path  (CodeSlayerProject *project,
+                                                                const gchar       *source_folders_path);
 
 G_END_DECLS
 

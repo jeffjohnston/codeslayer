@@ -358,7 +358,8 @@ codeslayer_repository_get_projects (CodeSlayerGroup *group)
                                             "name", G_TYPE_STRING, 
                                             "key", G_TYPE_STRING, 
                                             "folder_path", G_TYPE_STRING, 
-                                            "build_file", G_TYPE_STRING, 
+                                            "build_file_path", G_TYPE_STRING, 
+                                            "source_folders_path", G_TYPE_STRING, 
                                             NULL);
 
   g_free (file_path);
@@ -385,7 +386,8 @@ codeslayer_repository_save_projects (CodeSlayerGroup *group)
                                   "name", G_TYPE_STRING, 
                                   "key", G_TYPE_STRING, 
                                   "folder_path", G_TYPE_STRING, 
-                                  "build_file", G_TYPE_STRING, 
+                                  "build_file_path", G_TYPE_STRING, 
+                                  "source_folders_path", G_TYPE_STRING, 
                                   NULL);
 
   g_free (file_path);
