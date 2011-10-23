@@ -670,9 +670,11 @@ search_projects (CodeSlayerSearchPage *search_page,
       CodeSlayerProject *project;
       GList *search_files = NULL;
       const gchar *folder_path;
+      gchar *folder_path_expanded;
       
       project = projects->data;
       folder_path = codeslayer_project_get_folder_path (project);
+      folder_path_expanded = g_strconcat (folder_path, G_DIR_SEPARATOR_S, NULL);
       
       if (priv->file_paths)
         {
@@ -682,7 +684,7 @@ search_projects (CodeSlayerSearchPage *search_page,
 
           while (*tmp != NULL)
             {
-              if (g_str_has_prefix (*tmp, folder_path))
+              if (g_str_has_prefix (*tmp, folder_path_expanded))
                 {
                   GFile *file;
                   file = g_file_new_for_path (*tmp);
@@ -709,6 +711,7 @@ search_projects (CodeSlayerSearchPage *search_page,
           g_list_free (search_files);
         }
 
+      g_free (folder_path_expanded);
       projects = g_list_next (projects);
     }
 }
