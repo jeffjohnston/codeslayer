@@ -710,11 +710,17 @@ codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer,
   while (projects != NULL)
     {
       CodeSlayerProject *project = projects->data;
+      gchar *expanded_path;
       const gchar *folder_path = codeslayer_project_get_folder_path (project);
+      expanded_path = g_strconcat (folder_path, G_DIR_SEPARATOR_S, NULL);
       
-      if (g_str_has_prefix (file_path, folder_path))
-        return project;
+      if (g_str_has_prefix (file_path, expanded_path))
+        {
+          g_free (expanded_path);
+          return project;
+        }
       
+      g_free (expanded_path);
       projects = g_list_next (projects);
     }
   
