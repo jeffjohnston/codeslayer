@@ -146,6 +146,8 @@ codeslayer_project_init (CodeSlayerProject *project)
   priv = CODESLAYER_PROJECT_GET_PRIVATE (project);
   priv->name = NULL;
   priv->key = NULL;
+  priv->build_file_path = NULL;
+  priv->source_folders_path = NULL;
 }
 
 static void

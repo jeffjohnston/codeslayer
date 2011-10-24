@@ -131,11 +131,7 @@ GtkAccelGroup*            codeslayer_get_menubar_accel_group         (CodeSlayer
 
 CodeSlayerGroup*          codeslayer_get_active_group                (CodeSlayer                  *codeslayer);
 
-gchar*                    codeslayer_get_active_group_file_path      (CodeSlayer                  *codeslayer);
-
 gchar*                    codeslayer_get_active_group_folder_path    (CodeSlayer                  *codeslayer);
-
-gchar*                    codeslayer_get_configuration_file_path     (CodeSlayer                  *codeslayer);
 
 gchar*                    codeslayer_get_configuration_folder_path   (CodeSlayer                  *codeslayer);
 

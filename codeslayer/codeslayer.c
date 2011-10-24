@@ -617,26 +617,6 @@ codeslayer_get_active_group (CodeSlayer *codeslayer)
 }
 
 /**
- * codeslayer_get_active_group_file_path:
- * @codeslayer: a #CodeSlayer.
- *
- * The file path to where you should place project configuration files.
- * 
- * DEPRECATED: you should use the newer codeslayer_get_active_group_folder_path()
- *
- * Returns: a newly-allocated string that must be freed with g_free().
- */
-gchar*
-codeslayer_get_active_group_file_path (CodeSlayer *codeslayer)
-{
-  CodeSlayerGroup *group;
-  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  group = codeslayer_get_active_group (codeslayer);
-  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, GROUPS,
-                           codeslayer_group_get_name (group), NULL);
-}
-
-/**
  * codeslayer_get_active_group_folder_path:
  * @codeslayer: a #CodeSlayer.
  *
@@ -652,24 +632,6 @@ codeslayer_get_active_group_folder_path (CodeSlayer *codeslayer)
   group = codeslayer_get_active_group (codeslayer);
   return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, GROUPS,
                            codeslayer_group_get_name (group), NULL);
-}
-
-/**
- * codeslayer_get_configuration_file_path:
- * @codeslayer: a #CodeSlayer.
- *
- * The file path to where you should place plugin configuration files.
- * 
- * DEPRECATED: you should use the newer codeslayer_get_configuration_folder_path()
- *
- * Returns: a newly-allocated string that must be freed with g_free().
- */
-gchar*
-codeslayer_get_configuration_file_path (CodeSlayer *codeslayer)
-{
-  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, 
-                           PLUGINS, CONFIGURATION, NULL);
 }
 
 /**
