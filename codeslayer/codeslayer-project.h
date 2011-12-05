@@ -55,12 +55,6 @@ void               codeslayer_project_set_key                  (CodeSlayerProjec
 const gchar*       codeslayer_project_get_folder_path          (CodeSlayerProject *project);
 void               codeslayer_project_set_folder_path          (CodeSlayerProject *project,
                                                                 const gchar       *folder_path);
-const gchar*       codeslayer_project_get_build_file_path      (CodeSlayerProject *project);
-void               codeslayer_project_set_build_file_path      (CodeSlayerProject *project,
-                                                                const gchar       *build_file_path);
-const gchar*       codeslayer_project_get_source_folders_path  (CodeSlayerProject *project);
-void               codeslayer_project_set_source_folders_path  (CodeSlayerProject *project,
-                                                                const gchar       *source_folders_path);
 
 G_END_DECLS
 
