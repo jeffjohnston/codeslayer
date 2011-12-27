@@ -53,19 +53,21 @@ gboolean  codeslayer_utils_contains_element              (GList       *list,
 gboolean  codeslayer_utils_contains_element_with_suffix  (GList       *list, 
                                                           const gchar *string);                                                          
 gchar*    codeslayer_utils_to_lowercase                  (gchar       *string);
-
 gchar*    codeslayer_utils_create_key                    (void);
 gboolean  codeslayer_utils_has_text                      (const gchar *string);
 GList*    codeslayer_utils_deep_strcopy                  (GList       *list);
 
+GList*   codeslayer_utils_deserialize_gobjects           (GType        type,
+                                                          gboolean     floating,
+                                                          const gchar *contents,
+                                                          gpointer name, ...);
 void      codeslayer_utils_save_gobjects                 (GList       *objects,
                                                           const gchar *file_path, 
                                                           gpointer name, ...);
-                                                          
 GList*    codeslayer_utils_get_gobjects                  (GType        type,
                                                           gboolean     floating,
-                                                          const gchar *file_path, 
-                                                          gpointer name, ...);
+                                                          gchar       *file_path,
+                                                          gpointer  name, ...);
 void      codeslayer_utils_style_close_button            (GtkWidget   *widget);
                                                           
 

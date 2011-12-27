@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <codeslayer/codeslayer-utils.h>
+#include <codeslayer/codeslayer-xml.h>
 #include <codeslayer/codeslayer-preferences.h>
 
 gint
@@ -332,228 +333,6 @@ codeslayer_utils_deep_strcopy (GList *list)
 }
 
 void
-codeslayer_utils_save_gobjects (GList       *objects,
-                                const gchar *file_path, 
-                                gpointer     name, ...)
-{
-  va_list var_arg;
-  
-  GString *xml;
-  GFile *file;
-  gchar *contents;
-  
-  xml = g_string_new ("<");
-  xml = g_string_append (xml, name);
-  xml = g_string_append (xml, "s>\n");
-  
-  while (objects != NULL)
-    {
-      GObject *object = objects->data;
-      gchar *property;
-      GType type;
-
-      va_start (var_arg, name);
-      
-      xml = g_string_append (xml, "\t<");
-      xml = g_string_append (xml, name);
-      
-      do 
-        {
-          property = va_arg (var_arg, gchar*);
-          if (property != NULL)
-            {
-              type = va_arg (var_arg, GType);
-              
-              if (type == G_TYPE_STRING)
-                {
-                  gchar *val;
-                  gchar *attr; 
-                  g_object_get (object, property, &val, NULL);  
-                  xml = g_string_append (xml, " ");
-                  xml = g_string_append (xml, property);
-                  attr = g_markup_printf_escaped ("=\"%s", val);
-                  xml = g_string_append (xml, attr);
-                  xml = g_string_append (xml, "\"");
-                  g_free (val);         
-                  g_free (attr);         
-                }              
-              else if (type == G_TYPE_BOOLEAN)
-                {
-                  gboolean val;
-                  gchar *attr; 
-                  g_object_get (object, property, &val, NULL);  
-                  xml = g_string_append (xml, " ");
-                  xml = g_string_append (xml, property);
-                  attr = g_markup_printf_escaped ("=\"%d", val);
-                  xml = g_string_append (xml, attr);
-                  xml = g_string_append (xml, "\"");
-                  g_free (attr);         
-                }              
-              else if (type == G_TYPE_INT)
-                {
-                  gint val;
-                  gchar *attr; 
-                  g_object_get (object, property, &val, NULL);  
-                  xml = g_string_append (xml, " ");
-                  xml = g_string_append (xml, property);
-                  attr = g_markup_printf_escaped ("=\"%d", val);
-                  xml = g_string_append (xml, attr);
-                  xml = g_string_append (xml, "\"");
-                  g_free (attr);         
-                }              
-            }
-        }
-      while (property != NULL);
-      
-      xml = g_string_append (xml, "/>\n");
-
-      va_end (var_arg);
-      
-      objects = g_list_next (objects);
-    }
-
-  xml = g_string_append (xml, "</");
-  xml = g_string_append (xml, name);
-  xml = g_string_append (xml, "s>");
-
-  file = g_file_new_for_path (file_path);
-  if (!g_file_query_exists (file, NULL))
-    {
-      GFileIOStream *stream;           
-      stream = g_file_create_readwrite (file, G_FILE_CREATE_NONE, NULL, NULL);
-      if (g_io_stream_close (G_IO_STREAM (stream), NULL, NULL))
-        g_object_unref (stream);
-    }
-
-  contents = g_string_free (xml, FALSE);
-
-  g_file_set_contents (file_path, contents, -1, NULL);
-
-  g_object_unref (file);
-  g_free (contents);
-}
-
-typedef struct
-{
-  GList      *list;
-  GHashTable *args;
-  gchar      *name;
-  GType       type;
-  gboolean    floating;
-} XmlData;
-
-static void 
-xml_start (GMarkupParseContext *context,
-           const gchar         *element_name,
-           const gchar         **attribute_names,
-           const gchar         **attribute_values,
-           gpointer             data,
-           GError              **error)
-{
-  XmlData *xml_data = data;
-  const gchar** names = attribute_names;
-  const gchar** values = attribute_values;
-  
-  if (g_strcmp0 (element_name, (gchar*)xml_data->name) == 0)
-    {
-      GObject *object;
-      object = g_object_new (xml_data->type, NULL);
-      
-      for (; *names; names++, values++)
-        {
-          GType *type;
-          type = g_hash_table_lookup (xml_data->args, *names);
-          if (type != NULL) /*here for backwards compatibility with file format change*/
-            {
-              if (*type == G_TYPE_STRING)
-                g_object_set (object, *names, *values, NULL);
-              else if (*type == G_TYPE_BOOLEAN)
-                g_object_set (object, *names, atoi(*values), NULL);
-            }
-        }
-        
-      if (xml_data->floating)
-        g_object_force_floating (object);        
-        
-      xml_data->list = g_list_prepend (xml_data->list, object);
-    }
-}
-
-static void
-xml_err (GMarkupParseContext *context,
-         GError              *error,
-         gpointer             data)
-{
-  g_critical ("object configuration error %s", error->message);
-}
-
-static gboolean
-xml_remove (gpointer key,
-            gpointer value)
-{
-  g_free (key);
-  g_free (value);
-  return TRUE;
-}
-                       
-GList*
-codeslayer_utils_get_gobjects (GType        type,
-                               gboolean     floating,
-                               const gchar *file_path,
-                               gpointer     name, ...)
-{
-  GMarkupParser parser = { xml_start, NULL, NULL, NULL, xml_err };
-  GMarkupParseContext *context;
-  GList *results = NULL;
-  gchar *content;
-  XmlData *xml_data;
-  va_list var_arg;
-  gchar *property;
-      
-  if (!g_file_get_contents (file_path, &content, NULL, NULL))
-    return NULL;
-    
-  xml_data = g_malloc (sizeof (XmlData));
-  xml_data->list = NULL;
-  xml_data->args = NULL;
-  xml_data->type = type;
-  xml_data->floating = floating;
-  xml_data->name = (gchar*)name;
-  
-  va_start (var_arg, name);
-  
-  xml_data->args = g_hash_table_new ((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal);
-  
-  do 
-    {
-      property = va_arg (var_arg, gchar*);
-      if (property != NULL)
-        {
-          GType type;
-          GType *type_copy;
-          type = va_arg (var_arg, GType);
-          type_copy = g_malloc (sizeof (GType));
-          *type_copy = type;
-          g_hash_table_insert (xml_data->args, g_strdup (property), type_copy);
-        }
-    }
-  while (property != NULL);
-
-  context = g_markup_parse_context_new (&parser, 0, xml_data, NULL);
-  g_markup_parse_context_parse (context, content, -1, NULL);
-  
-  results = g_list_copy (xml_data->list);
-
-  g_list_free (xml_data->list);
-  g_hash_table_foreach_remove (xml_data->args, (GHRFunc) xml_remove, NULL);
-  g_hash_table_destroy (xml_data->args);
-  g_free (xml_data);
-  g_free (content);
-  g_markup_parse_context_free (context);
-  return results;
-}
-
-void
 codeslayer_utils_style_close_button (GtkWidget *button)
 {
   GtkCssProvider *provider;
@@ -572,4 +351,83 @@ codeslayer_utils_style_close_button (GtkWidget *button)
                                   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
   gtk_widget_set_name (button, "my-close-button");
   g_object_unref (provider);
+}
+
+GList*
+codeslayer_utils_deserialize_gobjects (GType        type,
+                                       gboolean     floating,
+                                       const gchar *contents,
+                                       gpointer     name, ...)
+{
+  GList *results = NULL;
+  GHashTable *table;
+  va_list var_arg;
+
+  va_start (var_arg, name);  
+  table = codeslayer_xml_create_hashtable (var_arg);
+  va_end (var_arg);
+
+  results = codeslayer_xml_deserialize_gobjects (type, floating, contents, (gchar*)name, table);
+
+  codeslayer_xml_free_hashtable (table);
+  
+  return results;
+}                                       
+
+GList*
+codeslayer_utils_get_gobjects (GType     type,
+                               gboolean  floating,
+                               gchar    *file_path,
+                               gpointer  name, ...)
+{
+  GList *results = NULL;
+  GHashTable *table;
+  va_list var_arg;
+  gchar *contents;
+
+  if (!g_file_get_contents (file_path, &contents, NULL, NULL))
+    return NULL;
+    
+  va_start (var_arg, name);  
+  table = codeslayer_xml_create_hashtable (var_arg);
+  va_end (var_arg);
+
+  results = codeslayer_xml_deserialize_gobjects (type, floating, contents, (gchar*)name, table);
+
+  g_free (contents);
+  codeslayer_xml_free_hashtable (table);
+  
+  return results;
+}
+
+void
+codeslayer_utils_save_gobjects (GList       *objects,
+                                const gchar *file_path, 
+                                gpointer     name, ...)
+{
+  gchar *contents;
+  GHashTable *table;
+  va_list var_arg;
+  GFile *file;
+
+  file = g_file_new_for_path (file_path);
+  if (!g_file_query_exists (file, NULL))
+    {
+      GFileIOStream *stream;           
+      stream = g_file_create_readwrite (file, G_FILE_CREATE_NONE, NULL, NULL);
+      if (g_io_stream_close (G_IO_STREAM (stream), NULL, NULL))
+        g_object_unref (stream);
+    }
+
+  va_start (var_arg, name);
+  table = codeslayer_xml_create_hashtable (var_arg);
+  va_end (var_arg);
+  
+  contents = codeslayer_xml_serialize_gobjects (objects, name, table);
+
+  g_file_set_contents (file_path, contents, -1, NULL);
+
+  g_object_unref (file);
+  g_free (contents);
+  codeslayer_xml_free_hashtable (table);
 }

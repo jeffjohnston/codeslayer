@@ -46,6 +46,7 @@ pkginclude_HEADERS = \
     codeslayer-search-page.h \
     codeslayer-search-tab.h \
     codeslayer-utils.h \
+    codeslayer-xml.h \
     codeslayer-marshaller.h \
     codeslayer-plugin.h \
     codeslayer-plugins-selector.h \
@@ -94,6 +95,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-search-page.c \
     codeslayer-search-tab.c \
     codeslayer-utils.c \
+    codeslayer-xml.c \
     codeslayer-marshaller.c \
     codeslayer-plugin.c \
     codeslayer-plugins-selector.c \
