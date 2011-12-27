@@ -101,7 +101,7 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
                                    g_param_spec_int ("line_number",
                                                      "Line Number",
                                                      "Line Number", 
-                                                     0, 0, 0,
+                                                     0, 100000, 0,
                                                      G_PARAM_READWRITE));
 
   /**

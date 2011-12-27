@@ -132,13 +132,13 @@ codeslayer_xml_serialize_gobjects (GList      *objects,
             {
               gint val;
               gchar *attr; 
-              g_object_get (object, property, &val, NULL);  
+              g_object_get (object, property, &val, NULL);
               xml = g_string_append (xml, " ");
               xml = g_string_append (xml, property);
               attr = g_markup_printf_escaped ("=\"%d", val);
               xml = g_string_append (xml, attr);
               xml = g_string_append (xml, "\"");
-              g_free (attr);         
+              g_free (attr);
             }
                         
           list = g_list_next (list);          
@@ -214,6 +214,8 @@ xml_start (GMarkupParseContext *context,
                 g_object_set (object, *names, *values, NULL);
               else if (*type == G_TYPE_BOOLEAN)
                 g_object_set (object, *names, atoi(*values), NULL);
+              else if (*type == G_TYPE_INT)
+                g_object_set (object, *names, atoi(*values), NULL);                
             }
         }
         

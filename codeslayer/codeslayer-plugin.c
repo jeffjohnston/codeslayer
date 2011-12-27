@@ -391,8 +391,7 @@ codeslayer_plugin_activate (CodeSlayerPlugin *plugin)
       return;  
     }
 
-  activate ((gpointer) priv->data);
-  
+  activate ((gpointer) priv->data);  
 }
 
 /**
