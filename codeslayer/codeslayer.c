@@ -341,7 +341,7 @@ GList*
 codeslayer_get_all_editors (CodeSlayer *codeslayer)
 {
   CodeSlayerPrivate *priv;
-  GList *results;
+  GList *results = NULL;
   gint pages;
   gint i;
   
