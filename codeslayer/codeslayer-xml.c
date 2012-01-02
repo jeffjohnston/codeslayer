@@ -180,6 +180,7 @@ codeslayer_xml_deserialize_gobjects (GType        type,
   g_markup_parse_context_parse (context, content, -1, NULL);
   
   results = g_list_copy (xml_data->list);
+  results = g_list_reverse (results);
 
   g_list_free (xml_data->list);
   g_free (xml_data);
