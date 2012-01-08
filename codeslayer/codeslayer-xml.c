@@ -18,6 +18,7 @@
 
 #include <stdlib.h>
 #include <codeslayer/codeslayer-xml.h>
+#include <codeslayer/codeslayer-utils.h>
 
 static void xml_start                     (GMarkupParseContext *context,
                                            const gchar         *element_name,
@@ -212,11 +213,29 @@ xml_start (GMarkupParseContext *context,
           if (type != NULL) /*here for backwards compatibility with file format change*/
             {
               if (*type == G_TYPE_STRING)
-                g_object_set (object, *names, *values, NULL);
-              else if (*type == G_TYPE_BOOLEAN)
-                g_object_set (object, *names, atoi(*values), NULL);
-              else if (*type == G_TYPE_INT)
-                g_object_set (object, *names, atoi(*values), NULL);                
+                {
+                  gchar *quot;
+                  gchar *apos;
+                  gchar *lt;
+                  gchar *gt;
+                  gchar *amp;
+                  quot = codeslayer_utils_strreplace (*values, "&quot;", "\"");
+                  apos = codeslayer_utils_strreplace (quot, "&apos;", "'");
+                  lt = codeslayer_utils_strreplace (apos, "&lt;", "<");
+                  gt = codeslayer_utils_strreplace (lt, "&gt;", ">");
+                  amp = codeslayer_utils_strreplace (gt, "&amp;", "&");
+                  
+                  g_object_set (object, *names, amp, NULL);
+                  g_free (quot);
+                  g_free (apos);
+                  g_free (lt);
+                  g_free (gt);
+                  g_free (amp);
+                }
+              else if (*type == G_TYPE_BOOLEAN || *type == G_TYPE_INT)
+                {
+                  g_object_set (object, *names, atoi(*values), NULL);
+                }
             }
         }
         
