@@ -30,7 +30,8 @@ typedef struct _CodeSlayerCompletionProposalPrivate CodeSlayerCompletionProposal
 
 struct _CodeSlayerCompletionProposalPrivate
 {
-  gchar *name;
+  gchar *label;
+  gchar *text;
 };
 
 G_DEFINE_TYPE (CodeSlayerCompletionProposal, codeslayer_completion_proposal, G_TYPE_OBJECT)
@@ -51,13 +52,45 @@ codeslayer_completion_proposal_init (CodeSlayerCompletionProposal *proposal)
 static void
 codeslayer_completion_proposal_finalize (CodeSlayerCompletionProposal *proposal)
 {
+  CodeSlayerCompletionProposalPrivate *priv;
+  priv = CODESLAYER_COMPLETION_PROPOSAL_GET_PRIVATE (proposal);
+
+  if (priv->label != NULL)
+    g_free (priv->label);
+    
+  if (priv->text != NULL)
+    g_free (priv->text);
+
   G_OBJECT_CLASS (codeslayer_completion_proposal_parent_class)->finalize (G_OBJECT (proposal));
 }
 
 CodeSlayerCompletionProposal*
-codeslayer_completion_proposal_new ()
+codeslayer_completion_proposal_new (gchar *label, 
+                                    gchar *text)
 {
+  CodeSlayerCompletionProposalPrivate *priv;
   CodeSlayerCompletionProposal *proposal;
+
   proposal = CODESLAYER_COMPLETION_PROPOSAL (g_object_new (codeslayer_completion_proposal_get_type (), NULL));
+  priv = CODESLAYER_COMPLETION_PROPOSAL_GET_PRIVATE (proposal);
+  priv->label = g_strdup (label);
+  priv->text = g_strdup (text);
+
   return proposal;
+}
+
+const gchar*
+codeslayer_completion_proposal_get_label (CodeSlayerCompletionProposal *proposal)
+{
+  CodeSlayerCompletionProposalPrivate *priv;
+  priv = CODESLAYER_COMPLETION_PROPOSAL_GET_PRIVATE (proposal);
+  return priv->label;
+}
+
+const gchar*
+codeslayer_completion_proposal_get_text (CodeSlayerCompletionProposal *proposal)
+{
+  CodeSlayerCompletionProposalPrivate *priv;
+  priv = CODESLAYER_COMPLETION_PROPOSAL_GET_PRIVATE (proposal);
+  return priv->text;
 }

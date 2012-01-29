@@ -45,14 +45,14 @@ codeslayer_completion_provider_class_init (gpointer page)
 
 gboolean 
 codeslayer_completion_provider_has_match (CodeSlayerCompletionProvider *provider, 
-                                          GtkTextIter                  *iter)
+                                          GtkTextIter                   iter)
 {
   return CODESLAYER_COMPLETION_PROVIDER_GET_INTERFACE (provider)->has_match (provider, iter);
 }
 
 GList*  
 codeslayer_completion_provider_get_proposals (CodeSlayerCompletionProvider *provider, 
-                                              GtkTextIter                  *iter)
+                                              GtkTextIter                   iter)
 {
   return CODESLAYER_COMPLETION_PROVIDER_GET_INTERFACE (provider)->get_proposals (provider, iter);
 }

@@ -18,10 +18,15 @@
 
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-completion.h>
+#include <codeslayer/codeslayer-completion-provider.h>
+#include <codeslayer/codeslayer-completion-proposal.h>
 
-static void codeslayer_completion_class_init  (CodeSlayerCompletionClass *klass);
-static void codeslayer_completion_init        (CodeSlayerCompletion      *completion);
-static void codeslayer_completion_finalize    (CodeSlayerCompletion      *completion);
+static void codeslayer_completion_class_init  (CodeSlayerCompletionClass    *klass);
+static void codeslayer_completion_init        (CodeSlayerCompletion         *completion);
+static void codeslayer_completion_finalize    (CodeSlayerCompletion         *completion);
+
+static void process_proposals                 (CodeSlayerCompletionProvider *provider, 
+                                               GtkTextIter                   iter);
                                        
 #define CODESLAYER_COMPLETION_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_COMPLETION_TYPE, CodeSlayerCompletionPrivate))
@@ -76,22 +81,46 @@ codeslayer_completion_add_provider  (CodeSlayerCompletion         *completion,
 
 void
 codeslayer_completion_invoke (CodeSlayerCompletion *completion, 
-                              GtkTextIter          *iter)
+                              GtkTextIter           iter)
 {
-
   CodeSlayerCompletionPrivate *priv;
   GList *list;
   
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
-
+  
   list = priv->providers;
   while (list != NULL)
     {
       CodeSlayerCompletionProvider *provider = list->data;
-
-      codeslayer_completion_provider_has_match (provider, iter);
-      codeslayer_completion_provider_get_proposals (provider, iter);
-        
+      if (codeslayer_completion_provider_has_match (provider, iter))
+        process_proposals (provider, iter);
       list = g_list_next (list);
     }
+}
+
+static void
+process_proposals (CodeSlayerCompletionProvider *provider, 
+                   GtkTextIter                   iter)
+{
+  GList *proposals;
+  GList *list;
+
+  proposals = codeslayer_completion_provider_get_proposals (provider, iter);
+  list = proposals;
+  
+  g_print ("*****************************************************************\n");
+
+  while (list != NULL)
+    {
+      CodeSlayerCompletionProposal *proposal = list->data;
+      const gchar *label;
+      label = codeslayer_completion_proposal_get_label (proposal);
+      
+      g_print ("label %s \n", label);
+
+      list = g_list_next (list);
+    }
+    
+  g_list_foreach (proposals, (GFunc)g_object_unref, NULL);
+  g_list_free (proposals);
 }

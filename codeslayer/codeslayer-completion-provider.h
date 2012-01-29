@@ -35,16 +35,16 @@ struct _CodeSlayerCompletionProviderInterface
 {
   GTypeInterface parent;
   
-  gboolean (*has_match) (CodeSlayerCompletionProvider *provider, GtkTextIter *iter);
-  GList* (*get_proposals) (CodeSlayerCompletionProvider *provider, GtkTextIter *iter);
+  gboolean (*has_match) (CodeSlayerCompletionProvider *provider, GtkTextIter iter);
+  GList* (*get_proposals) (CodeSlayerCompletionProvider *provider, GtkTextIter iter);
 };
 
 GType codeslayer_completion_provider_get_type (void);
 
 gboolean  codeslayer_completion_provider_has_match      (CodeSlayerCompletionProvider *provider, 
-                                                         GtkTextIter                  *iter);
+                                                         GtkTextIter                   iter);
 GList*    codeslayer_completion_provider_get_proposals  (CodeSlayerCompletionProvider *provider, 
-                                                         GtkTextIter                  *iter);
+                                                         GtkTextIter                   iter);
 
 G_END_DECLS
 

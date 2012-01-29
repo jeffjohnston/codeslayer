@@ -51,7 +51,7 @@ void                   codeslayer_completion_add_provider  (CodeSlayerCompletion
                                                             CodeSlayerCompletionProvider *provider);
 
 void                   codeslayer_completion_invoke        (CodeSlayerCompletion         *completion, 
-                                                            GtkTextIter                  *iter);
+                                                            GtkTextIter                   iter);
 
 G_END_DECLS
 

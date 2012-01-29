@@ -45,7 +45,11 @@ struct _CodeSlayerCompletionProposalClass
 
 GType codeslayer_completion_proposal_get_type (void) G_GNUC_CONST;
 
-CodeSlayerCompletionProposal*  codeslayer_completion_proposal_new  (void);
+CodeSlayerCompletionProposal*  codeslayer_completion_proposal_new        (gchar *label, 
+                                                                          gchar *text);
+
+const gchar*                   codeslayer_completion_proposal_get_label  (CodeSlayerCompletionProposal *proposal);
+const gchar*                   codeslayer_completion_proposal_get_text   (CodeSlayerCompletionProposal *proposal);
                                                     
 G_END_DECLS
 
