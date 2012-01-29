@@ -7,6 +7,9 @@ lib_LTLIBRARIES = libcodeslayer.la
 
 pkginclude_HEADERS = \
     codeslayer-engine.h \
+    codeslayer-completion.h \
+    codeslayer-completion-provider.h \
+    codeslayer-completion-proposal.h \
     codeslayer-abstract-pane.h \
     codeslayer-side-pane.h \
     codeslayer-bottom-pane.h \
@@ -56,6 +59,9 @@ pkginclude_HEADERS = \
     
 libcodeslayer_la_SOURCES = \
     codeslayer-engine.c \
+    codeslayer-completion.c \
+    codeslayer-completion-provider.c \
+    codeslayer-completion-proposal.c \
     codeslayer-abstract-pane.c \
     codeslayer-side-pane.c \
     codeslayer-bottom-pane.c \

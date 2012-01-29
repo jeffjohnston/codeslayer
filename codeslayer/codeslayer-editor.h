@@ -23,6 +23,7 @@
 #include <gtksourceview/gtksourceview.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-completion-provider.h>
 
 G_BEGIN_DECLS
 
@@ -47,18 +48,20 @@ struct _CodeSlayerEditorClass
   void (*copy_lines) (CodeSlayerEditor *editor);
   void (*to_uppercase) (CodeSlayerEditor *editor);
   void (*to_lowercase) (CodeSlayerEditor *editor);
+  void (*completion) (CodeSlayerEditor *editor);
 };
 
 GType codeslayer_editor_get_type (void) G_GNUC_CONST;
 
-GtkWidget*           codeslayer_editor_new               (CodeSlayerDocument    *document,
-                                                          CodeSlayerPreferences *preferences);
+GtkWidget*           codeslayer_editor_new                      (CodeSlayerDocument           *document,
+                                                                 CodeSlayerPreferences        *preferences);
 
-void                 codeslayer_editor_scroll_to_line    (CodeSlayerEditor      *editor,
-                                                          gint                   line_number);
-void                 codeslayer_editor_sync_preferences  (CodeSlayerEditor      *editor);
-
-CodeSlayerDocument*  codeslayer_editor_get_document      (CodeSlayerEditor      *editor);
+void                 codeslayer_editor_scroll_to_line           (CodeSlayerEditor             *editor,
+                                                                 gint                          line_number);
+void                 codeslayer_editor_sync_preferences         (CodeSlayerEditor             *editor);
+CodeSlayerDocument*  codeslayer_editor_get_document             (CodeSlayerEditor             *editor);
+void                 codeslayer_editor_add_completion_provider  (CodeSlayerEditor             *editor, 
+                                                                 CodeSlayerCompletionProvider *provider);
 
 G_END_DECLS
 

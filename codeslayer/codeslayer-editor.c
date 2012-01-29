@@ -24,6 +24,7 @@
 #include <codeslayer/codeslayer-editor.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-utils.h>
+#include <codeslayer/codeslayer-completion.h>
 
 /**
  * SECTION:codeslayer-editor
@@ -39,12 +40,15 @@ static void codeslayer_editor_init            (CodeSlayerEditor      *editor);
 static void codeslayer_editor_finalize        (CodeSlayerEditor      *editor);
 
 static GtkSourceBuffer* create_source_buffer  (const gchar           *file_name);
+static gboolean key_press_action              (CodeSlayerEditor      *editor,
+                                               GdkEventKey           *event);
 static void copy_lines_action                 (CodeSlayerEditor      *editor);
 static void to_uppercase_action               (CodeSlayerEditor      *editor);
 static void to_lowercase_action               (CodeSlayerEditor      *editor);
+static void completion_action                 (CodeSlayerEditor      *editor);
 static void change_case                       (CodeSlayerEditor      *editor,
                                                GString* (*convert) (GString*));
-
+                                               
 #define CODESLAYER_EDITOR_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_EDITOR_TYPE, CodeSlayerEditorPrivate))
 
@@ -54,6 +58,7 @@ struct _CodeSlayerEditorPrivate
 {
   CodeSlayerDocument    *document;
   CodeSlayerPreferences *preferences;
+  CodeSlayerCompletion  *completion;
 };
 
 G_DEFINE_TYPE (CodeSlayerEditor, codeslayer_editor, GTK_SOURCE_TYPE_VIEW)
@@ -63,6 +68,7 @@ enum
   COPY_LINES,
   TO_UPPERCASE,
   TO_LOWERCASE,
+  COMPLETION,
   LAST_SIGNAL
 };
 
@@ -76,6 +82,7 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
   klass->copy_lines = copy_lines_action;
   klass->to_uppercase = to_uppercase_action;
   klass->to_lowercase = to_lowercase_action;
+  klass->completion = completion_action;
 
   /**
 	 * CodeSlayerEditor::copy-lines
@@ -122,6 +129,21 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
+  /**
+	 * CodeSlayerEditor::completion
+	 * @editor: the editor that received the signal
+	 *
+	 * The ::completion signal enables the (Ctrl + Space) keystroke to invoke the
+	 * completion widget.
+	 */
+  codeslayer_editor_signals[COMPLETION] =
+    g_signal_new ("completion", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
+                  G_STRUCT_OFFSET (CodeSlayerEditorClass, completion),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_editor_finalize;
 
   binding_set = gtk_binding_set_by_class (klass);
@@ -135,6 +157,9 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
   gtk_binding_entry_add_signal (binding_set, GDK_KEY_L, 
                                 GDK_CONTROL_MASK,
                                 "to-lowercase", 0);
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_space, 
+                                GDK_CONTROL_MASK,
+                                "completion", 0);
 
   g_type_class_add_private (klass, sizeof (CodeSlayerEditorPrivate));
 }
@@ -142,12 +167,20 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
 static void
 codeslayer_editor_init (CodeSlayerEditor *editor)
 {
-  /* CodeSlayerEditorPrivate *priv = CODESLAYER_EDITOR_GET_PRIVATE(editor); */
+  CodeSlayerEditorPrivate *priv;
+  priv = CODESLAYER_EDITOR_GET_PRIVATE(editor);
+  priv->completion = NULL;
 }
 
 static void
 codeslayer_editor_finalize (CodeSlayerEditor *editor)
 {
+  CodeSlayerEditorPrivate *priv;
+  priv = CODESLAYER_EDITOR_GET_PRIVATE(editor);
+  
+  if (priv->completion != NULL)
+    g_object_unref (priv->completion);
+
   G_OBJECT_CLASS (codeslayer_editor_parent_class)->finalize (G_OBJECT (editor));
 }
 
@@ -185,6 +218,9 @@ codeslayer_editor_new (CodeSlayerDocument    *document,
 
   codeslayer_editor_sync_preferences (CODESLAYER_EDITOR (editor));
 
+  g_signal_connect_swapped (G_OBJECT (editor), "key-press-event",
+                            G_CALLBACK (key_press_action), editor);  
+
   return editor;
 }
 
@@ -194,6 +230,19 @@ codeslayer_editor_get_document (CodeSlayerEditor *editor)
   CodeSlayerEditorPrivate *priv;
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   return priv->document;
+}
+
+void
+codeslayer_editor_add_completion_provider (CodeSlayerEditor             *editor, 
+                                           CodeSlayerCompletionProvider *provider)
+{
+  CodeSlayerEditorPrivate *priv;
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+
+  if (priv->completion == NULL)
+    priv->completion = codeslayer_completion_new ();
+    
+  codeslayer_completion_add_provider (priv->completion, provider);
 }
 
 static GtkSourceBuffer*
@@ -357,6 +406,58 @@ codeslayer_editor_scroll_to_line (CodeSlayerEditor *editor,
 
   gtk_text_buffer_place_cursor (buffer, &iter);
 }
+
+static void
+completion_action (CodeSlayerEditor *editor)
+{
+  /*CodeSlayerEditorPrivate *priv;*/
+  /*GtkTextBuffer *buffer;
+  GtkTextMark *mark;
+  GtkTextIter iter;*/
+  
+  /*priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);*/
+  
+  /*buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  mark = gtk_text_buffer_get_insert (buffer);
+  gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);*/
+
+  /*if (priv->completion != NULL)
+    codeslayer_completion_invoke (priv->completion, NULL);*/
+}
+
+static gboolean
+key_press_action (CodeSlayerEditor *editor,
+                  GdkEventKey      *event)
+{
+  CodeSlayerEditorPrivate *priv;
+  GtkTextBuffer *buffer;
+  GtkTextMark *mark;
+  GtkTextIter iter;
+  
+  GtkTextIter start;
+  gchar *text;
+
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  mark = gtk_text_buffer_get_insert (buffer);
+  gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);
+
+  start = iter;
+  
+  gtk_text_iter_backward_char (&start);
+  
+  text = gtk_text_iter_get_text (&start, &iter);
+  
+  g_print ("key_press_action %s\n", text);
+
+  g_free (text);    
+
+  if (priv->completion != NULL)
+    codeslayer_completion_invoke (priv->completion, &iter);
+
+  return FALSE;
+}                  
 
 /**
  * codeslayer_editor_sync_preferences:
