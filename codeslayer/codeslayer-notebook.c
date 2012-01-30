@@ -61,6 +61,7 @@ typedef struct _CodeSlayerNotebookPrivate CodeSlayerNotebookPrivate;
 
 struct _CodeSlayerNotebookPrivate
 {
+  GtkWindow             *window;
   CodeSlayerPreferences *preferences;
 };
 
@@ -116,13 +117,15 @@ codeslayer_notebook_finalize (CodeSlayerNotebook *notebook)
  * Returns: a new #CodeSlayerNotebook. 
  */
 GtkWidget*
-codeslayer_notebook_new (CodeSlayerPreferences *preferences)
+codeslayer_notebook_new (GtkWindow             *window, 
+                         CodeSlayerPreferences *preferences)
 {
   CodeSlayerNotebookPrivate *priv;
   GtkWidget *notebook;
   notebook = g_object_new (codeslayer_notebook_get_type (), NULL);
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
   priv->preferences = preferences;
+  priv->window = window;
   
   preferences_changed_action (CODESLAYER_NOTEBOOK (notebook));
   
@@ -165,7 +168,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   file_path = codeslayer_document_get_file_path (document);
   file_name = g_path_get_basename (file_path);
 
-  editor = codeslayer_editor_new (document, priv->preferences);
+  editor = codeslayer_editor_new (priv->window, document, priv->preferences);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
 
   contents = get_utf8_text (file_path);

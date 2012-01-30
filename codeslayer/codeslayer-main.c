@@ -212,7 +212,7 @@ create_notebook (Context *context)
   GtkWidget *notebook_search;
   GtkWidget *notebook_pane;
 
-  notebook = codeslayer_notebook_new (context->preferences);
+  notebook = codeslayer_notebook_new (GTK_WINDOW (context->window), context->preferences);
   context->notebook = notebook;
   
   notebook_search = codeslayer_notebook_search_new (notebook);

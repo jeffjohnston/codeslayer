@@ -56,6 +56,7 @@ typedef struct _CodeSlayerEditorPrivate CodeSlayerEditorPrivate;
 
 struct _CodeSlayerEditorPrivate
 {
+  GtkWindow             *window;
   CodeSlayerDocument    *document;
   CodeSlayerPreferences *preferences;
   CodeSlayerCompletion  *completion;
@@ -194,7 +195,8 @@ codeslayer_editor_finalize (CodeSlayerEditor *editor)
  * Returns: a new #CodeSlayerEditor. 
  */
 GtkWidget*
-codeslayer_editor_new (CodeSlayerDocument    *document,
+codeslayer_editor_new (GtkWindow             *window, 
+                       CodeSlayerDocument    *document,
                        CodeSlayerPreferences *preferences)
 {
   CodeSlayerEditorPrivate *priv;
@@ -207,6 +209,7 @@ codeslayer_editor_new (CodeSlayerDocument    *document,
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   priv->document = document;
   priv->preferences = preferences;
+  priv->window = window;
   
   file_path = codeslayer_document_get_file_path (document);
   file_name = g_path_get_basename (file_path);
@@ -240,7 +243,7 @@ codeslayer_editor_add_completion_provider (CodeSlayerEditor             *editor,
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
 
   if (priv->completion == NULL)
-    priv->completion = codeslayer_completion_new ();
+    priv->completion = codeslayer_completion_new (priv->window);
     
   codeslayer_completion_add_provider (priv->completion, provider);
 }
@@ -422,7 +425,7 @@ completion_action (CodeSlayerEditor *editor)
   gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);
 
   if (priv->completion != NULL)
-    codeslayer_completion_invoke (priv->completion, iter);
+    codeslayer_completion_invoke (priv->completion, GTK_TEXT_VIEW (editor), iter);
 }
 
 static gboolean
@@ -447,7 +450,7 @@ key_press_action (CodeSlayerEditor *editor,
     codeslayer_completion_invoke (priv->completion, iter);*/
 
   return FALSE;
-}                  
+}
 
 /**
  * codeslayer_editor_sync_preferences:

@@ -51,7 +51,8 @@ struct _CodeSlayerNotebookClass
 GType
 codeslayer_notebook_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_notebook_new                (CodeSlayerPreferences *preferences);
+GtkWidget*  codeslayer_notebook_new                (GtkWindow             *window,
+                                                    CodeSlayerPreferences *preferences);
 
 void        codeslayer_notebook_add_editor         (CodeSlayerNotebook    *notebook, 
                                                     CodeSlayerDocument    *document);
