@@ -205,8 +205,8 @@ move_window (CodeSlayerCompletion *completion,
                                          
   gdk_window_get_origin (win, &x, &y);                                         
   gtk_window_move (GTK_WINDOW (priv->popup), win_x + x, win_y + y + buf_loc.height);                                         
-  /*gtk_window_present (GTK_WINDOW (priv->popup));*/
   gtk_widget_show_all (priv->popup);
+  /*gtk_window_present (GTK_WINDOW (priv->popup));*/
 }
 
 static void
