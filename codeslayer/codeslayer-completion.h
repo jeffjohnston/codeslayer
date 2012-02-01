@@ -52,8 +52,8 @@ void                   codeslayer_completion_show          (CodeSlayerCompletion
                                                             GtkTextView                  *text_view,
                                                             GtkTextIter                   iter);
 void                   codeslayer_completion_hide          (CodeSlayerCompletion         *completion);
-void                   codeslayer_completion_toggle_up     (CodeSlayerCompletion         *completion);
-void                   codeslayer_completion_toggle_down   (CodeSlayerCompletion         *completion);
+gboolean               codeslayer_completion_toggle_up     (CodeSlayerCompletion         *completion);
+gboolean               codeslayer_completion_toggle_down   (CodeSlayerCompletion         *completion);
 
 G_END_DECLS
 

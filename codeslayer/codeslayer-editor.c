@@ -45,6 +45,8 @@ static gboolean scroll_action                 (CodeSlayerEditor      *editor,
                                                GdkEvent              *event);                                               
 static gboolean click_action                  (CodeSlayerEditor      *editor,
                                                GdkEvent              *event);                                               
+static gboolean screen_action                 (CodeSlayerEditor      *editor,  
+                                               GdkEvent              *event);
 static GtkSourceBuffer* create_source_buffer  (const gchar           *file_name);
 static void copy_lines_action                 (CodeSlayerEditor      *editor);
 static void to_uppercase_action               (CodeSlayerEditor      *editor);
@@ -234,6 +236,9 @@ codeslayer_editor_new (GtkWindow             *window,
   g_signal_connect_swapped (G_OBJECT (editor), "button-press-event",
                             G_CALLBACK (click_action), editor);
 
+  g_signal_connect_swapped (G_OBJECT (editor), "leave-notify-event",
+                            G_CALLBACK (screen_action), editor);
+
   return editor;
 }
 
@@ -294,16 +299,10 @@ key_press_action (CodeSlayerEditor *editor,
     }
     
   if (event->keyval == GDK_KEY_Up)
-    {
-      codeslayer_completion_toggle_up (priv->completion);
-      return TRUE;    
-    }
+    return codeslayer_completion_toggle_up (priv->completion);
       
   if (event->keyval == GDK_KEY_Down)
-    {
-      codeslayer_completion_toggle_down (priv->completion);
-      return TRUE;    
-    }
+    return codeslayer_completion_toggle_down (priv->completion);
       
   /*GtkTextBuffer *buffer;
   GtkTextMark *mark;
@@ -338,6 +337,19 @@ click_action (CodeSlayerEditor *editor,
   CodeSlayerEditorPrivate *priv;
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
 
+  if (priv->completion != NULL)
+    codeslayer_completion_hide (priv->completion);
+
+  return FALSE;
+}               
+
+static gboolean
+screen_action (CodeSlayerEditor *editor,  
+               GdkEvent         *event)
+{
+  CodeSlayerEditorPrivate *priv;
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+  
   if (priv->completion != NULL)
     codeslayer_completion_hide (priv->completion);
 

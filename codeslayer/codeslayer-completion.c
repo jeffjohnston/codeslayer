@@ -148,7 +148,7 @@ codeslayer_completion_hide (CodeSlayerCompletion *completion)
     gtk_widget_hide (priv->popup);
 }
 
-void
+gboolean
 codeslayer_completion_toggle_up (CodeSlayerCompletion *completion)
 {
   CodeSlayerCompletionPrivate *priv;
@@ -158,6 +158,9 @@ codeslayer_completion_toggle_up (CodeSlayerCompletion *completion)
   GtkTreePath *path;
 
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
+  
+  if (!gtk_widget_get_visible (priv->popup))
+    return FALSE;
   
   tree_model = GTK_TREE_MODEL (priv->store);
   
@@ -173,9 +176,12 @@ codeslayer_completion_toggle_up (CodeSlayerCompletion *completion)
     }
 
   gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->tree), path, NULL, FALSE);
+  
+  return TRUE;
 }
 
-void codeslayer_completion_toggle_down (CodeSlayerCompletion *completion)
+gboolean 
+codeslayer_completion_toggle_down (CodeSlayerCompletion *completion)
 {
   CodeSlayerCompletionPrivate *priv;
   GtkTreeModel *tree_model;
@@ -184,6 +190,9 @@ void codeslayer_completion_toggle_down (CodeSlayerCompletion *completion)
   GtkTreePath *path;
 
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
+  
+  if (!gtk_widget_get_visible (priv->popup))
+    return FALSE;
   
   tree_model = GTK_TREE_MODEL (priv->store);
   
@@ -199,6 +208,8 @@ void codeslayer_completion_toggle_down (CodeSlayerCompletion *completion)
     }
 
   gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->tree), path, NULL, FALSE);
+  
+  return TRUE;
 }
 
 static void
