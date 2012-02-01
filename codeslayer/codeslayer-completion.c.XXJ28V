@@ -151,54 +151,23 @@ codeslayer_completion_hide (CodeSlayerCompletion *completion)
 void
 codeslayer_completion_toggle_up (CodeSlayerCompletion *completion)
 {
-  CodeSlayerCompletionPrivate *priv;
-  GtkTreeModel *tree_model;
-  GtkTreeSelection *selection;
-  GtkTreeIter iter;
-  GtkTreePath *path;
 
-  priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
-  
-  tree_model = GTK_TREE_MODEL (priv->store);
-  
-  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));  
-  if (gtk_tree_selection_get_selected (selection, &tree_model, &iter))
-    {
-      path = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->store), &iter);
-      gtk_tree_path_prev (path);
-    }
-  else
-    {
-      path = gtk_tree_path_new_from_string ("1");      
-    }
-
-  gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->tree), path, NULL, FALSE);
 }
 
 void codeslayer_completion_toggle_down (CodeSlayerCompletion *completion)
 {
   CodeSlayerCompletionPrivate *priv;
-  GtkTreeModel *tree_model;
   GtkTreeSelection *selection;
-  GtkTreeIter iter;
-  GtkTreePath *path;
+  GtkTreePath path;
 
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
-  
-  tree_model = GTK_TREE_MODEL (priv->store);
-  
-  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));  
-  if (gtk_tree_selection_get_selected (selection, &tree_model, &iter))
-    {
-      path = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->store), &iter);
-      gtk_tree_path_next (path);
-    }
-  else
-    {
-      path = gtk_tree_path_new_from_string ("1");      
-    }
 
-  gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->tree), path, NULL, FALSE);
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree));
+  gtk_tree_selection_select_path (selection, &path);
+  gtk_tree_view_set_cursor (GTK_TREE_VIEW (tree), &path,
+                                                         GtkTreeViewColumn *focus_column,
+                                                         gboolean start_editing);                                                         
+
 }
 
 static void
