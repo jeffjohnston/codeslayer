@@ -212,6 +212,25 @@ codeslayer_completion_toggle_down (CodeSlayerCompletion *completion)
   return TRUE;
 }
 
+gboolean
+codeslayer_completion_mouse_within_popup (CodeSlayerCompletion *completion)
+{
+  CodeSlayerCompletionPrivate *priv;
+  GdkWindow *window;
+  gint x, y, w, h;
+  
+  priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
+  
+  if (priv->popup == NULL)
+    return FALSE;
+    
+  window = gtk_widget_get_window (priv->popup);
+  gdk_window_get_pointer (window, &x, &y, NULL);
+  w = gdk_window_get_width (window);
+  h = gdk_window_get_height (window);
+  return x > 0 && x <= w && y > 0 && y <= h;
+}                                     
+
 static void
 create_window (CodeSlayerCompletion *completion)
 {
@@ -277,7 +296,6 @@ move_window (CodeSlayerCompletion *completion,
   gdk_window_get_origin (win, &x, &y);                                         
   gtk_window_move (GTK_WINDOW (priv->popup), win_x + x, win_y + y + buf_loc.height);                                         
   gtk_widget_show_all (priv->popup);
-  /*gtk_window_present (GTK_WINDOW (priv->popup));*/
 }
 
 static void

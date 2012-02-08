@@ -45,15 +45,16 @@ struct _CodeSlayerCompletionClass
 
 GType codeslayer_completion_get_type (void) G_GNUC_CONST;
 
-CodeSlayerCompletion*  codeslayer_completion_new           (GtkWindow                    *window);
-void                   codeslayer_completion_add_provider  (CodeSlayerCompletion         *completion, 
-                                                            CodeSlayerCompletionProvider *provider);
-void                   codeslayer_completion_show          (CodeSlayerCompletion         *completion,
-                                                            GtkTextView                  *text_view,
-                                                            GtkTextIter                   iter);
-void                   codeslayer_completion_hide          (CodeSlayerCompletion         *completion);
-gboolean               codeslayer_completion_toggle_up     (CodeSlayerCompletion         *completion);
-gboolean               codeslayer_completion_toggle_down   (CodeSlayerCompletion         *completion);
+CodeSlayerCompletion*  codeslayer_completion_new                 (GtkWindow                    *window);
+void                   codeslayer_completion_add_provider        (CodeSlayerCompletion         *completion, 
+                                                                  CodeSlayerCompletionProvider *provider);
+void                   codeslayer_completion_show                (CodeSlayerCompletion         *completion,
+                                                                  GtkTextView                  *text_view,
+                                                                  GtkTextIter                   iter);
+void                   codeslayer_completion_hide                (CodeSlayerCompletion         *completion);
+gboolean               codeslayer_completion_toggle_up           (CodeSlayerCompletion         *completion);
+gboolean               codeslayer_completion_toggle_down         (CodeSlayerCompletion         *completion);
+gboolean               codeslayer_completion_mouse_within_popup  (CodeSlayerCompletion         *completion);
 
 G_END_DECLS
 

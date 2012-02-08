@@ -43,10 +43,10 @@ static gboolean key_press_action              (CodeSlayerEditor      *editor,
                                                GdkEventKey           *event);
 static gboolean scroll_action                 (CodeSlayerEditor      *editor,
                                                GdkEvent              *event);                                               
-static gboolean click_action                  (CodeSlayerEditor      *editor,
+static gboolean button_press_action           (CodeSlayerEditor      *editor,
                                                GdkEvent              *event);                                               
-static gboolean screen_action                 (CodeSlayerEditor      *editor,  
-                                               GdkEvent              *event);
+static void screen_action                     (CodeSlayerEditor      *editor,
+                                               GtkStateFlags          flags);
 static GtkSourceBuffer* create_source_buffer  (const gchar           *file_name);
 static void copy_lines_action                 (CodeSlayerEditor      *editor);
 static void to_uppercase_action               (CodeSlayerEditor      *editor);
@@ -234,9 +234,9 @@ codeslayer_editor_new (GtkWindow             *window,
                             G_CALLBACK (scroll_action), editor);
 
   g_signal_connect_swapped (G_OBJECT (editor), "button-press-event",
-                            G_CALLBACK (click_action), editor);
+                            G_CALLBACK (button_press_action), editor);
 
-  g_signal_connect_swapped (G_OBJECT (editor), "leave-notify-event",
+  g_signal_connect_swapped (G_OBJECT (editor), "state-flags-changed",
                             G_CALLBACK (screen_action), editor);
 
   return editor;
@@ -331,7 +331,7 @@ scroll_action (CodeSlayerEditor *editor,
 }               
 
 static gboolean
-click_action (CodeSlayerEditor *editor,  
+button_press_action (CodeSlayerEditor *editor,  
                GdkEvent         *event)
 {
   CodeSlayerEditorPrivate *priv;
@@ -343,18 +343,17 @@ click_action (CodeSlayerEditor *editor,
   return FALSE;
 }               
 
-static gboolean
+static void
 screen_action (CodeSlayerEditor *editor,  
-               GdkEvent         *event)
+               GtkStateFlags     flags) 
 {
   CodeSlayerEditorPrivate *priv;
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   
-  if (priv->completion != NULL)
+  if (priv->completion != NULL && 
+      !codeslayer_completion_mouse_within_popup (priv->completion))
     codeslayer_completion_hide (priv->completion);
-
-  return FALSE;
-}               
+}
 
 static GtkSourceBuffer*
 create_source_buffer (const gchar *file_name)
