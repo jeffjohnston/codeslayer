@@ -308,6 +308,9 @@ process_proposals (CodeSlayerCompletion         *completion,
   GList *list;
 
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
+  
+  if (priv->store != NULL)
+    gtk_list_store_clear (priv->store);
 
   proposals = codeslayer_completion_provider_get_proposals (provider, iter);
   list = proposals;
