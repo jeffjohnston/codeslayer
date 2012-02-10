@@ -40,11 +40,12 @@ typedef struct _CodeSlayerCompletionPrivate CodeSlayerCompletionPrivate;
 
 struct _CodeSlayerCompletionPrivate
 {
-  GList              *providers;
-  GtkWindow          *window;
-  GtkWidget          *popup;
-  GtkWidget          *tree;
-  GtkListStore       *store;
+  GList        *providers;
+  GtkWindow    *window;
+  GtkWidget    *popup;
+  GtkWidget    *tree;
+  GtkListStore *store;
+  GtkTextMark  *mark;
 };
 
 enum
@@ -117,24 +118,43 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
                             GtkTextIter           iter)
 {
   CodeSlayerCompletionPrivate *priv;
-  GList *list;
-  
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
   
-  list = priv->providers;
-  while (list != NULL)
+  if (priv->popup != NULL && 
+      gtk_widget_get_visible (priv->popup))
     {
-      CodeSlayerCompletionProvider *provider = list->data;
-      if (codeslayer_completion_provider_has_match (provider, iter))
+      GtkTextBuffer *buffer;
+      GtkTextIter start;
+      gchar *text;
+      
+      buffer = gtk_text_view_get_buffer (text_view);
+      gtk_text_buffer_get_iter_at_mark (buffer, &start, priv->mark);
+      text = gtk_text_buffer_get_text (buffer, &start, &iter, FALSE);
+      
+      g_print ("text %s\n", text);
+    }
+  else
+    {
+      GList *list;
+      list = priv->providers;
+      while (list != NULL)
         {
-          if (priv->popup == NULL)
-            create_window (completion);
+          CodeSlayerCompletionProvider *provider = list->data;
+          if (codeslayer_completion_provider_has_match (provider, iter))
+            {
+              GtkTextBuffer *buffer;
+              buffer = gtk_text_view_get_buffer (text_view);
+              priv->mark = gtk_text_buffer_create_mark (buffer, NULL, &iter, TRUE);
             
-          move_window (completion, text_view, iter);
-            
-          process_proposals (completion, provider, iter);
+              if (priv->popup == NULL)
+                create_window (completion);
+                
+              move_window (completion, text_view, iter);
+                
+              process_proposals (completion, provider, iter);
+            }
+          list = g_list_next (list);
         }
-      list = g_list_next (list);
     }
 }
 
@@ -143,8 +163,7 @@ codeslayer_completion_hide (CodeSlayerCompletion *completion)
 {
   CodeSlayerCompletionPrivate *priv;
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
-  if (priv->popup != NULL && 
-      gtk_widget_get_visible (priv->popup))
+  if (priv->popup != NULL && gtk_widget_get_visible (priv->popup))
     gtk_widget_hide (priv->popup);
 }
 

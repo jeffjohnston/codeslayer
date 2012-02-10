@@ -92,12 +92,12 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
   klass->completion = completion_action;
 
   /**
-	 * CodeSlayerEditor::copy-lines
-	 * @editor: the editor that received the signal
-	 *
-	 * The ::copy-lines signal enables the (Ctrl + Shift + Down) keystroke to copy 
-	 * the currently selected lines.
-	 */
+   * CodeSlayerEditor::copy-lines
+   * @editor: the editor that received the signal
+   *
+   * The ::copy-lines signal enables the (Ctrl + Shift + Down) keystroke to copy 
+   * the currently selected lines.
+   */
   codeslayer_editor_signals[COPY_LINES] =
     g_signal_new ("copy-lines", 
                   G_TYPE_FROM_CLASS (klass),
@@ -107,12 +107,12 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerEditor::to-uppercase
-	 * @editor: the editor that received the signal
-	 *
-	 * The ::to-uppercase signal enables the (Ctrl + U) keystroke to uppercase 
-	 * the selected text.
-	 */
+   * CodeSlayerEditor::to-uppercase
+   * @editor: the editor that received the signal
+   *
+   * The ::to-uppercase signal enables the (Ctrl + U) keystroke to uppercase 
+   * the selected text.
+   */
   codeslayer_editor_signals[TO_UPPERCASE] =
     g_signal_new ("to-uppercase", 
                   G_TYPE_FROM_CLASS (klass),
@@ -122,12 +122,12 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerEditor::to-lowercase
-	 * @editor: the editor that received the signal
-	 *
-	 * The ::to-lowercase signal enables the (Ctrl + L) keystroke to lowercase the 
-	 * selected text.
-	 */
+   * CodeSlayerEditor::to-lowercase
+   * @editor: the editor that received the signal
+   *
+   * The ::to-lowercase signal enables the (Ctrl + L) keystroke to lowercase the 
+   * selected text.
+   */
   codeslayer_editor_signals[TO_LOWERCASE] =
     g_signal_new ("to-lowercase", 
                   G_TYPE_FROM_CLASS (klass),
@@ -137,12 +137,12 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerEditor::completion
-	 * @editor: the editor that received the signal
-	 *
-	 * The ::completion signal enables the (Ctrl + Space) keystroke to invoke the
-	 * completion widget.
-	 */
+   * CodeSlayerEditor::completion
+   * @editor: the editor that received the signal
+   *
+   * The ::completion signal enables the (Ctrl + Space) keystroke to invoke the
+   * completion widget.
+   */
   codeslayer_editor_signals[COMPLETION] =
     g_signal_new ("completion", 
                   G_TYPE_FROM_CLASS (klass),
@@ -286,6 +286,10 @@ key_press_action (CodeSlayerEditor *editor,
                   GdkEventKey      *event)
 {
   CodeSlayerEditorPrivate *priv;
+  GtkTextBuffer *buffer;
+  GtkTextMark *mark;
+  GtkTextIter iter;
+
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   
   if (priv->completion == NULL)
@@ -295,7 +299,7 @@ key_press_action (CodeSlayerEditor *editor,
       event->is_modifier == 1)
     {
       codeslayer_completion_hide (priv->completion);
-      return FALSE;    
+      return FALSE;
     }
     
   if (event->keyval == GDK_KEY_Up)
@@ -304,15 +308,12 @@ key_press_action (CodeSlayerEditor *editor,
   if (event->keyval == GDK_KEY_Down)
     return codeslayer_completion_toggle_down (priv->completion);
       
-  /*GtkTextBuffer *buffer;
-  GtkTextMark *mark;
-  GtkTextIter iter;
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
   mark = gtk_text_buffer_get_insert (buffer);
   gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);
 
   if (priv->completion != NULL)
-    codeslayer_completion_show (priv->completion, iter);*/
+    codeslayer_completion_show (priv->completion, GTK_TEXT_VIEW (editor), iter);
 
   return FALSE;
 }
