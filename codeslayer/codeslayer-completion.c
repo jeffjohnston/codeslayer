@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <string.h>
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-completion.h>
 #include <codeslayer/codeslayer-completion-provider.h>
@@ -29,8 +30,13 @@ static void create_window                     (CodeSlayerCompletion         *com
 static void move_window                       (CodeSlayerCompletion         *completion, 
                                                GtkTextView                  *text_view, 
                                                GtkTextIter                   iter);
-static void show_proposals                    (CodeSlayerCompletion         *completion);                                               
-static void filter_proposals                  (CodeSlayerCompletion         *completion,
+static void resize_window                     (CodeSlayerCompletion         *completion, 
+                                               GtkTextView                  *text_view,
+                                               GtkTextIter                   iter);
+static void add_proposals                     (CodeSlayerCompletion         *completion,
+                                               gchar                        *filter);                                               
+static void add_proposal                      (CodeSlayerCompletionProposal *proposal, 
+                                               GtkListStore                 *store, 
                                                gchar                        *filter);
                                        
 #define CODESLAYER_COMPLETION_GET_PRIVATE(obj) \
@@ -43,6 +49,7 @@ struct _CodeSlayerCompletionPrivate
   GList        *providers;
   GtkWindow    *window;
   GtkWidget    *popup;
+  GtkWidget    *scrolled_window;
   GtkWidget    *tree;
   GtkListStore *store;
   GtkTextMark  *mark;
@@ -149,17 +156,7 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
       CodeSlayerCompletionProvider *provider = list->data;
       if (codeslayer_completion_provider_has_match (provider, iter))
         {
-          GtkTextBuffer *buffer;
           GList *proposals;
-
-          buffer = gtk_text_view_get_buffer (text_view);
-          priv->mark = gtk_text_buffer_create_mark (buffer, NULL, &iter, TRUE);
-          
-          if (priv->popup == NULL)
-            create_window (completion);
-            
-          move_window (completion, text_view, iter);
-          
           proposals = codeslayer_completion_provider_get_proposals (provider, iter);
           priv->proposals = g_list_concat (priv->proposals, proposals);
         }
@@ -167,7 +164,19 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
     }
     
   if (priv->proposals != NULL)
-    show_proposals (completion);
+    {
+      GtkTextBuffer *buffer;
+      buffer = gtk_text_view_get_buffer (text_view);
+      priv->mark = gtk_text_buffer_create_mark (buffer, NULL, &iter, TRUE);
+
+      if (priv->popup == NULL)
+        create_window (completion);
+        
+      add_proposals (completion, NULL);
+      resize_window (completion, text_view, iter);
+      move_window (completion, text_view, iter);
+      gtk_widget_show_all (priv->popup);
+    }
 }
 
 void
@@ -179,26 +188,22 @@ codeslayer_completion_filter (CodeSlayerCompletion *completion,
   
   GtkTextBuffer *buffer;
   GtkTextIter start;
-  GtkTextIter end;
   gchar *filter;
 
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
 
-  end = iter;
+  if (priv->store != NULL)
+    gtk_list_store_clear (priv->store);
 
   buffer = gtk_text_view_get_buffer (text_view);
   gtk_text_buffer_get_iter_at_mark (buffer, &start, priv->mark);
   
-  /*if (event->keyval == GDK_KEY_Left)
-    gtk_text_iter_backward_char (&end);
-  else
-    gtk_text_iter_forward_char (&end);*/
-
-  filter = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
-
+  filter = gtk_text_buffer_get_text (buffer, &start, &iter, FALSE);
   if (filter != NULL)
     {
-      filter_proposals (completion, filter);
+      add_proposals (completion, filter);
+      resize_window (completion, text_view, iter);
+      gtk_widget_show_all (priv->popup);
       g_free (filter);
     }
 }
@@ -244,7 +249,7 @@ codeslayer_completion_toggle_up (CodeSlayerCompletion *completion)
     }
   else
     {
-      path = gtk_tree_path_new_from_string ("1");      
+      path = gtk_tree_path_new_from_string ("0");      
     }
 
   gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->tree), path, NULL, FALSE);
@@ -276,7 +281,7 @@ codeslayer_completion_toggle_down (CodeSlayerCompletion *completion)
     }
   else
     {
-      path = gtk_tree_path_new_from_string ("1");      
+      path = gtk_tree_path_new_from_string ("0");      
     }
 
   gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->tree), path, NULL, FALSE);
@@ -307,7 +312,6 @@ static void
 create_window (CodeSlayerCompletion *completion)
 {
   CodeSlayerCompletionPrivate *priv;
-  GtkWidget *scrolled_window;
   GtkTreeViewColumn *column;
   GtkCellRenderer *renderer;
   
@@ -316,7 +320,7 @@ create_window (CodeSlayerCompletion *completion)
   priv->popup = gtk_window_new (GTK_WINDOW_TOPLEVEL);  
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (priv->popup), TRUE);
   gtk_window_set_skip_pager_hint (GTK_WINDOW (priv->popup), TRUE);
-  gtk_window_set_decorated (GTK_WINDOW (priv->popup), FALSE);  
+  gtk_window_set_decorated (GTK_WINDOW (priv->popup), FALSE);
   gtk_window_set_transient_for (GTK_WINDOW (priv->popup), priv->window);
   gtk_window_set_destroy_with_parent (GTK_WINDOW (priv->popup), TRUE);  
   
@@ -328,18 +332,48 @@ create_window (CodeSlayerCompletion *completion)
   g_object_unref (priv->store);
   
   column = gtk_tree_view_column_new ();
+  gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
   renderer = gtk_cell_renderer_text_new ();
   gtk_tree_view_column_pack_start (column, renderer, FALSE);
   gtk_tree_view_column_add_attribute (column, renderer, "text", LABEL);
   gtk_tree_view_append_column (GTK_TREE_VIEW (priv->tree), column);
   
-  scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+  priv->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
                                   GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (priv->tree));
-  gtk_widget_set_size_request (scrolled_window, 400, 300);
+  gtk_container_add (GTK_CONTAINER (priv->scrolled_window), GTK_WIDGET (priv->tree));
+  gtk_container_add (GTK_CONTAINER (priv->popup), priv->scrolled_window);
+}
 
-  gtk_container_add (GTK_CONTAINER (priv->popup), scrolled_window);
+static void
+resize_window (CodeSlayerCompletion *completion, 
+               GtkTextView          *text_view,
+               GtkTextIter           iter)
+{
+  CodeSlayerCompletionPrivate *priv;
+  GtkRequisition requisition;
+  gint width;
+  gint height;
+  gint slider_width;
+  GtkWidget *vscrollbar;
+  
+  priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
+
+  gtk_widget_get_preferred_size (priv->tree, &requisition, NULL);
+
+  vscrollbar = gtk_scrolled_window_get_vscrollbar (GTK_SCROLLED_WINDOW (priv->scrolled_window));
+
+  gtk_widget_style_get (vscrollbar, "slider-width", &slider_width, NULL);
+
+  width = requisition.width + slider_width + 2;
+  if (width > 500)
+    width = 500;
+
+  height = requisition.height + slider_width + 2;
+  if (height > 300)
+    height = 300;
+
+  gtk_window_resize (GTK_WINDOW (priv->popup), width, height);
 }
 
 static void
@@ -371,41 +405,42 @@ move_window (CodeSlayerCompletion *completion,
 }
 
 static void
-show_proposals (CodeSlayerCompletion *completion)
+add_proposals (CodeSlayerCompletion *completion, 
+               gchar                *filter)
 {
   CodeSlayerCompletionPrivate *priv;
   GList *list;
 
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
   
-  list = priv->proposals;
-  
+  list = priv->proposals;  
   while (list != NULL)
     {
       CodeSlayerCompletionProposal *proposal = list->data;
-      const gchar *label;
-      const gchar *text;
-      GtkTreeIter tree_iter;
-
-      label = codeslayer_completion_proposal_get_label (proposal);
-      text = codeslayer_completion_proposal_get_text (proposal);
-      
-      gtk_list_store_append (priv->store, &tree_iter);
-      gtk_list_store_set (priv->store, &tree_iter, 
-                          LABEL, label, 
-                          TEXT, text, 
-                          -1);
-      
+      add_proposal (proposal, priv->store, filter);
       list = g_list_next (list);
     }
 }
 
 static void
-filter_proposals (CodeSlayerCompletion *completion, 
-                  gchar                *filter)
+add_proposal (CodeSlayerCompletionProposal *proposal, 
+              GtkListStore                 *store, 
+              gchar                        *filter)
 {
-  /*CodeSlayerCompletionPrivate *priv;
-  priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);*/
+  const gchar *label;
+  const gchar *text;
+  GtkTreeIter tree_iter;
+  
+  label = codeslayer_completion_proposal_get_label (proposal);
 
-  g_print ("filter %s\n", filter);
+  if (filter != NULL && !g_str_has_prefix (label, filter))
+    return;
+
+  text = codeslayer_completion_proposal_get_text (proposal);
+
+  gtk_list_store_append (store, &tree_iter);
+  gtk_list_store_set (store, &tree_iter, 
+                      LABEL, label, 
+                      TEXT, text, 
+                      -1);
 }
