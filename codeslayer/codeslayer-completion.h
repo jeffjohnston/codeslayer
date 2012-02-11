@@ -51,7 +51,11 @@ void                   codeslayer_completion_add_provider        (CodeSlayerComp
 void                   codeslayer_completion_show                (CodeSlayerCompletion         *completion,
                                                                   GtkTextView                  *text_view,
                                                                   GtkTextIter                   iter);
+void                   codeslayer_completion_filter              (CodeSlayerCompletion         *completion,
+                                                                  GtkTextView                  *text_view,
+                                                                  GtkTextIter                   iter);
 void                   codeslayer_completion_hide                (CodeSlayerCompletion         *completion);
+gboolean               codeslayer_completion_get_visible         (CodeSlayerCompletion         *completion);
 gboolean               codeslayer_completion_toggle_up           (CodeSlayerCompletion         *completion);
 gboolean               codeslayer_completion_toggle_down         (CodeSlayerCompletion         *completion);
 gboolean               codeslayer_completion_mouse_within_popup  (CodeSlayerCompletion         *completion);
