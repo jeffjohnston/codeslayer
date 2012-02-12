@@ -39,6 +39,7 @@ static void codeslayer_editor_class_init      (CodeSlayerEditorClass *klass);
 static void codeslayer_editor_init            (CodeSlayerEditor      *editor);
 static void codeslayer_editor_finalize        (CodeSlayerEditor      *editor);
 
+static void row_selected_action               (CodeSlayerEditor      *editor);
 static gboolean key_press_action              (CodeSlayerEditor      *editor,
                                                GdkEventKey           *event);
 static gboolean key_release_action            (CodeSlayerEditor      *editor,
@@ -263,7 +264,12 @@ codeslayer_editor_add_completion_provider (CodeSlayerEditor             *editor,
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
 
   if (priv->completion == NULL)
-    priv->completion = codeslayer_completion_new (priv->window);
+    {
+      priv->completion = codeslayer_completion_new (priv->window);
+      
+      g_signal_connect_swapped (G_OBJECT (priv->completion), "row-selected",
+                                G_CALLBACK (row_selected_action), editor);
+    }
     
   codeslayer_completion_add_provider (priv->completion, provider);
 }
@@ -287,6 +293,24 @@ completion_action (CodeSlayerEditor *editor)
     codeslayer_completion_show (priv->completion, GTK_TEXT_VIEW (editor), iter);
 }
 
+static void
+row_selected_action (CodeSlayerEditor *editor)
+{
+  CodeSlayerEditorPrivate *priv;
+  GtkTextBuffer *buffer;
+  GtkTextMark *mark;
+  GtkTextIter iter;
+
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  mark = gtk_text_buffer_get_insert (buffer);
+  gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);
+  
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+
+  codeslayer_completion_select (priv->completion, GTK_TEXT_VIEW (editor), iter);
+  codeslayer_completion_hide (priv->completion);
+}
+  
 static gboolean
 key_press_action (CodeSlayerEditor *editor,
                   GdkEventKey      *event)
@@ -302,6 +326,21 @@ key_press_action (CodeSlayerEditor *editor,
     {
       codeslayer_completion_hide (priv->completion);
       return FALSE;
+    }
+
+  if (event->keyval == GDK_KEY_Return)
+    {
+      GtkTextBuffer *buffer;
+      GtkTextMark *mark;
+      GtkTextIter iter;
+
+      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+      mark = gtk_text_buffer_get_insert (buffer);
+      gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);
+
+      codeslayer_completion_select (priv->completion, GTK_TEXT_VIEW (editor), iter);
+      codeslayer_completion_hide (priv->completion);
+      return TRUE;
     }
     
   if (event->keyval == GDK_KEY_Up)

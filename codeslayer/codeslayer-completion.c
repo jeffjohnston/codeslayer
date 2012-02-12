@@ -38,6 +38,9 @@ static void add_proposals                     (CodeSlayerCompletion         *com
 static void add_proposal                      (CodeSlayerCompletionProposal *proposal, 
                                                GtkListStore                 *store, 
                                                gchar                        *filter);
+static void row_activated_action              (CodeSlayerCompletion         *completion,
+                                               GtkTreePath                  *path,
+                                               GtkTreeViewColumn            *column);
                                        
 #define CODESLAYER_COMPLETION_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_COMPLETION_TYPE, CodeSlayerCompletionPrivate))
@@ -64,11 +67,35 @@ enum
 };
 
 G_DEFINE_TYPE (CodeSlayerCompletion, codeslayer_completion, G_TYPE_OBJECT)
+
+enum
+{
+  ROW_SELECTED,
+  LAST_SIGNAL
+};
+
+static guint codeslayer_completion_signals[LAST_SIGNAL] = { 0 };      
      
 static void 
 codeslayer_completion_class_init (CodeSlayerCompletionClass *klass)
 {
-  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+  GObjectClass *gobject_class;
+
+  /**
+   * CodeSlayerCompletion::row-selected
+   * @completion: the completion that received the signal
+   *
+   * The ::row-selected signal enables the current selection to be set in the editor.
+   */
+  codeslayer_completion_signals[ROW_SELECTED] =
+    g_signal_new ("row-selected", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
+                  G_STRUCT_OFFSET (CodeSlayerCompletionClass, row_selected),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_completion_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerCompletionPrivate));
 }
@@ -209,6 +236,50 @@ codeslayer_completion_filter (CodeSlayerCompletion *completion,
 }
 
 void
+codeslayer_completion_select (CodeSlayerCompletion *completion, 
+                              GtkTextView          *text_view, 
+                              GtkTextIter           iter)
+{
+  CodeSlayerCompletionPrivate *priv;
+  GtkTreeSelection *tree_selection;
+  GtkTreeModel *tree_model;
+  GList *selected_rows = NULL;
+  GList *tmp = NULL;  
+  
+  priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
+
+  tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
+  tree_model = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->tree));
+  selected_rows = gtk_tree_selection_get_selected_rows (tree_selection, &tree_model);
+
+  tmp = selected_rows;
+  
+  if (tmp != NULL)
+    {
+      GtkTreeIter treeiter;
+      GtkTextIter start;
+      gchar *text;
+      GtkTextBuffer *buffer;
+      GtkTreePath *tree_path = tmp->data;
+
+      buffer = gtk_text_view_get_buffer (text_view);
+      gtk_tree_model_get_iter (tree_model, &treeiter, tree_path);
+      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &treeiter, TEXT, &text, -1);
+
+      gtk_text_buffer_begin_user_action (buffer);
+      gtk_text_buffer_get_iter_at_mark (buffer, &start, priv->mark);
+      gtk_text_buffer_delete (buffer, &start, &iter);
+      gtk_text_buffer_insert (buffer, &start, text, -1);
+      gtk_text_buffer_end_user_action (buffer);
+    
+      g_free (text);
+      gtk_tree_path_free (tree_path);
+    }
+
+  g_list_free (selected_rows);
+}
+
+void
 codeslayer_completion_hide (CodeSlayerCompletion *completion)
 {
   CodeSlayerCompletionPrivate *priv;
@@ -345,6 +416,9 @@ create_window (CodeSlayerCompletion *completion)
   gtk_container_add (GTK_CONTAINER (priv->scrolled_window), GTK_WIDGET (priv->tree));
   gtk_container_add (GTK_CONTAINER (priv->popup), priv->scrolled_window);
   
+  g_signal_connect_swapped (G_OBJECT (priv->tree), "row-activated",
+                            G_CALLBACK (row_activated_action), completion);
+  
   /*add some styling to the tree*/
   
   provider = gtk_css_provider_new ();
@@ -464,3 +538,11 @@ add_proposal (CodeSlayerCompletionProposal *proposal,
                       TEXT, text, 
                       -1);
 }
+
+static void
+row_activated_action (CodeSlayerCompletion *completion,
+                      GtkTreePath          *path,
+                      GtkTreeViewColumn    *column)
+{
+  g_signal_emit_by_name ((gpointer) completion, "row-selected");
+}                     

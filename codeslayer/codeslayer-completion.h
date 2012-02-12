@@ -41,6 +41,7 @@ struct _CodeSlayerCompletion
 struct _CodeSlayerCompletionClass
 {
   GObjectClass parent_class;
+  void (*row_selected) (CodeSlayerCompletion *completion);
 };
 
 GType codeslayer_completion_get_type (void) G_GNUC_CONST;
@@ -53,6 +54,9 @@ void                   codeslayer_completion_show                (CodeSlayerComp
                                                                   GtkTextIter                   iter);
 void                   codeslayer_completion_filter              (CodeSlayerCompletion         *completion,
                                                                   GtkTextView                  *text_view,
+                                                                  GtkTextIter                   iter);
+void                   codeslayer_completion_select              (CodeSlayerCompletion         *completion,
+                                                                  GtkTextView                  *text_view, 
                                                                   GtkTextIter                   iter);
 void                   codeslayer_completion_hide                (CodeSlayerCompletion         *completion);
 gboolean               codeslayer_completion_get_visible         (CodeSlayerCompletion         *completion);
