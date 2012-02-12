@@ -314,6 +314,7 @@ create_window (CodeSlayerCompletion *completion)
   CodeSlayerCompletionPrivate *priv;
   GtkTreeViewColumn *column;
   GtkCellRenderer *renderer;
+  GtkCssProvider *provider;
   
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
 
@@ -322,7 +323,7 @@ create_window (CodeSlayerCompletion *completion)
   gtk_window_set_skip_pager_hint (GTK_WINDOW (priv->popup), TRUE);
   gtk_window_set_decorated (GTK_WINDOW (priv->popup), FALSE);
   gtk_window_set_transient_for (GTK_WINDOW (priv->popup), priv->window);
-  gtk_window_set_destroy_with_parent (GTK_WINDOW (priv->popup), TRUE);  
+  gtk_window_set_destroy_with_parent (GTK_WINDOW (priv->popup), TRUE); 
   
   priv->store = gtk_list_store_new (COLUMNS, G_TYPE_STRING, G_TYPE_STRING);
   priv->tree =  gtk_tree_view_new ();
@@ -343,6 +344,25 @@ create_window (CodeSlayerCompletion *completion)
                                   GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
   gtk_container_add (GTK_CONTAINER (priv->scrolled_window), GTK_WIDGET (priv->tree));
   gtk_container_add (GTK_CONTAINER (priv->popup), priv->scrolled_window);
+  
+  /*add some styling to the tree*/
+  
+  provider = gtk_css_provider_new ();
+  gtk_css_provider_load_from_data (provider,
+                                   "#my-tree {\n"
+                                   " border-bottom-color: #ccc;\n"
+                                   " border-left-color: #ccc;\n"
+                                   " border-right-color: #ccc;\n"
+                                   " border-bottom-width : 1;\n"
+                                   " border-left-width : 1;\n"
+                                   " border-right-width : 1;\n"
+                                   " border-style : solid;\n"
+                                   "}", -1, NULL);
+  gtk_style_context_add_provider (gtk_widget_get_style_context (priv->tree),
+                                  GTK_STYLE_PROVIDER (provider),
+                                  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  gtk_widget_set_name (priv->tree, "my-tree");
+  g_object_unref (provider);
 }
 
 static void
