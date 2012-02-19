@@ -324,6 +324,7 @@ codeslayer_completion_toggle_up (CodeSlayerCompletion *completion)
     }
 
   gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->tree), path, NULL, FALSE);
+  gtk_tree_path_free (path);
   
   return TRUE;
 }
@@ -352,10 +353,11 @@ codeslayer_completion_toggle_down (CodeSlayerCompletion *completion)
     }
   else
     {
-      path = gtk_tree_path_new_from_string ("0");      
+      path = gtk_tree_path_new_from_string ("0");
     }
 
   gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->tree), path, NULL, FALSE);
+  gtk_tree_path_free (path);
   
   return TRUE;
 }
