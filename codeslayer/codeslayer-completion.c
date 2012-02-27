@@ -56,7 +56,6 @@ struct _CodeSlayerCompletionPrivate
   GtkWidget    *scrolled_window;
   GtkWidget    *tree;
   GtkListStore *store;
-  GtkTextMark  *mark;
   GList        *proposals;
 };
 
@@ -64,6 +63,7 @@ enum
 {
   LABEL = 0,
   TEXT,
+  PROPOSAL,
   COLUMNS
 };
 
@@ -94,7 +94,7 @@ codeslayer_completion_class_init (CodeSlayerCompletionClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
                   G_STRUCT_OFFSET (CodeSlayerCompletionClass, row_selected),
                   NULL, NULL, 
-                  g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_completion_finalize;
@@ -193,10 +193,6 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
     
   if (priv->proposals != NULL)
     {
-      GtkTextBuffer *buffer;
-      buffer = gtk_text_view_get_buffer (text_view);
-      priv->mark = gtk_text_buffer_create_mark (buffer, NULL, &iter, TRUE);
-
       if (priv->popup == NULL)
         create_window (completion);
         
@@ -248,15 +244,20 @@ codeslayer_completion_select (CodeSlayerCompletion *completion,
       GtkTreeIter treeiter;
       GtkTextIter start;
       gchar *text;
+      CodeSlayerCompletionProposal *proposal;
       GtkTextBuffer *buffer;
+      GtkTextMark *mark;
       GtkTreePath *tree_path = tmp->data;
 
       buffer = gtk_text_view_get_buffer (text_view);
       gtk_tree_model_get_iter (tree_model, &treeiter, tree_path);
-      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &treeiter, TEXT, &text, -1);
-
+      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &treeiter,
+                          PROPOSAL, &proposal,
+                          TEXT, &text, -1);
+                          
+      mark = codeslayer_completion_proposal_get_mark (proposal);
       gtk_text_buffer_begin_user_action (buffer);
-      gtk_text_buffer_get_iter_at_mark (buffer, &start, priv->mark);
+      gtk_text_buffer_get_iter_at_mark (buffer, &start, mark);
       gtk_text_buffer_delete (buffer, &start, &iter);
       gtk_text_buffer_insert (buffer, &start, text, -1);
       gtk_text_buffer_end_user_action (buffer);
@@ -492,9 +493,6 @@ add_proposals (CodeSlayerCompletion *completion,
           GtkTextMark *mark;
           
           mark = codeslayer_completion_proposal_get_mark (proposal);
-          if (mark == NULL)
-            mark = priv->mark;
-          
           buffer = gtk_text_view_get_buffer (text_view);
           gtk_text_buffer_get_iter_at_mark (buffer, &start, mark);
           filter = gtk_text_buffer_get_text (buffer, &start, iter, FALSE);
@@ -525,6 +523,7 @@ add_proposal (CodeSlayerCompletionProposal *proposal,
   gtk_list_store_set (store, &tree_iter, 
                       LABEL, label, 
                       TEXT, text, 
+                      PROPOSAL, proposal,
                       -1);
 }
 
@@ -533,5 +532,5 @@ row_activated_action (CodeSlayerCompletion *completion,
                       GtkTreePath          *path,
                       GtkTreeViewColumn    *column)
 {
-  g_signal_emit_by_name ((gpointer) completion, "row-selected", NULL);
+  g_signal_emit_by_name ((gpointer) completion, "row-selected");
 }                     

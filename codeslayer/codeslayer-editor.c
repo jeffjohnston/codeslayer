@@ -40,8 +40,7 @@ static void codeslayer_editor_class_init      (CodeSlayerEditorClass        *kla
 static void codeslayer_editor_init            (CodeSlayerEditor             *editor);
 static void codeslayer_editor_finalize        (CodeSlayerEditor             *editor);
 
-static void row_selected_action               (CodeSlayerEditor             *editor, 
-                                               CodeSlayerCompletionProposal *proposal);
+static void row_selected_action               (CodeSlayerEditor             *editor);
 static gboolean key_press_action              (CodeSlayerEditor             *editor,
                                                GdkEventKey                  *event);
 static gboolean key_release_action            (CodeSlayerEditor             *editor,
@@ -296,14 +295,13 @@ completion_action (CodeSlayerEditor *editor)
 }
 
 static void
-row_selected_action (CodeSlayerEditor             *editor, 
-                     CodeSlayerCompletionProposal *proposal)
+row_selected_action (CodeSlayerEditor *editor)
 {
   CodeSlayerEditorPrivate *priv;
   GtkTextBuffer *buffer;
   GtkTextMark *mark;
   GtkTextIter iter;
-
+  
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
   mark = gtk_text_buffer_get_insert (buffer);
   gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);
