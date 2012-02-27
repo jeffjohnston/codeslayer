@@ -20,6 +20,7 @@
 #define	__CODESLAYER_COMPLETION_PROVIDER_H__
 
 #include <gtk/gtk.h>
+#include <codeslayer/codeslayer-completion-proposals.h>
 
 G_BEGIN_DECLS
 
@@ -36,15 +37,15 @@ struct _CodeSlayerCompletionProviderInterface
   GTypeInterface parent;
   
   gboolean (*has_match) (CodeSlayerCompletionProvider *provider, GtkTextIter iter);
-  GList* (*get_proposals) (CodeSlayerCompletionProvider *provider, GtkTextIter iter);
+  CodeSlayerCompletionProposals* (*get_proposals) (CodeSlayerCompletionProvider *provider, GtkTextIter iter);
 };
 
 GType codeslayer_completion_provider_get_type (void);
 
-gboolean  codeslayer_completion_provider_has_match      (CodeSlayerCompletionProvider *provider, 
-                                                         GtkTextIter                   iter);
-GList*    codeslayer_completion_provider_get_proposals  (CodeSlayerCompletionProvider *provider, 
-                                                         GtkTextIter                   iter);
+gboolean                        codeslayer_completion_provider_has_match      (CodeSlayerCompletionProvider *provider, 
+                                                                               GtkTextIter                   iter);
+CodeSlayerCompletionProposals*  codeslayer_completion_provider_get_proposals  (CodeSlayerCompletionProvider *provider, 
+                                                                               GtkTextIter                   iter);
 
 G_END_DECLS
 

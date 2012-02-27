@@ -56,7 +56,7 @@ struct _CodeSlayerCompletionPrivate
   GtkWidget    *tree;
   GtkListStore *store;
   GtkTextMark  *mark;
-  GList        *proposals;
+  GList        *list;
 };
 
 enum
@@ -114,11 +114,11 @@ codeslayer_completion_finalize (CodeSlayerCompletion *completion)
   CodeSlayerCompletionPrivate *priv;
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion); 
 
-  if (priv->proposals != NULL)
+  if (priv->list != NULL)
     {
-      g_list_foreach (priv->proposals, (GFunc)g_object_unref, NULL);
-      g_list_free (priv->proposals);
-      priv->proposals = NULL;
+      g_list_foreach (priv->list, (GFunc)g_object_unref, NULL);
+      g_list_free (priv->list);
+      priv->list = NULL;
     }
 
   if (priv->store != NULL)
@@ -163,34 +163,34 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
                             GtkTextIter           iter)
 {
   CodeSlayerCompletionPrivate *priv;
-  GList *list;
+  GList *providers;
 
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
       
-  if (priv->proposals != NULL)
+  if (priv->list != NULL)
     {
-      g_list_foreach (priv->proposals, (GFunc)g_object_unref, NULL);
-      g_list_free (priv->proposals);
-      priv->proposals = NULL;
+      g_list_foreach (priv->list, (GFunc)g_object_unref, NULL);
+      g_list_free (priv->list);
+      priv->list = NULL;
     }
 
   if (priv->store != NULL)
     gtk_list_store_clear (priv->store);
 
-  list = priv->providers;
-  while (list != NULL)
+  providers = priv->providers;
+  while (providers != NULL)
     {
-      CodeSlayerCompletionProvider *provider = list->data;
+      CodeSlayerCompletionProvider *provider = providers->data;
       if (codeslayer_completion_provider_has_match (provider, iter))
         {
-          GList *proposals;
+          CodeSlayerCompletionProposals *proposals;
           proposals = codeslayer_completion_provider_get_proposals (provider, iter);
-          priv->proposals = g_list_concat (priv->proposals, proposals);
+          priv->list = g_list_prepend (priv->list, proposals);
         }
-      list = g_list_next (list);
+      providers = g_list_next (providers);
     }
     
-  if (priv->proposals != NULL)
+  if (priv->list != NULL)
     {
       GtkTextBuffer *buffer;
       buffer = gtk_text_view_get_buffer (text_view);
@@ -489,11 +489,18 @@ add_proposals (CodeSlayerCompletion *completion,
 
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
   
-  list = priv->proposals;  
+  list = priv->list;  
   while (list != NULL)
     {
-      CodeSlayerCompletionProposal *proposal = list->data;
-      add_proposal (proposal, priv->store, filter);
+      CodeSlayerCompletionProposals *proposals = list->data;
+      GList *tmp;
+      tmp = codeslayer_completion_proposals_get_list (proposals);
+      while (tmp != NULL)
+        {
+          CodeSlayerCompletionProposal *proposal = tmp->data;
+          add_proposal (proposal, priv->store, filter);
+          tmp = g_list_next (tmp);
+        }
       list = g_list_next (list);
     }
 }

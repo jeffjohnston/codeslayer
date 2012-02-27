@@ -20,7 +20,6 @@
 #define	__CODESLAYER_COMPLETION_PROPOSAL_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer.h>
 
 G_BEGIN_DECLS
 
