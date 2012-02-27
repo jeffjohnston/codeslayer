@@ -42,6 +42,8 @@ static void add_proposal                      (CodeSlayerCompletionProposal *pro
 static void row_activated_action              (CodeSlayerCompletion         *completion,
                                                GtkTreePath                  *path,
                                                GtkTreeViewColumn            *column);
+static gint sort_proposals                    (CodeSlayerCompletionProposal *proposal1, 
+                                               CodeSlayerCompletionProposal *proposal2);
                                        
 #define CODESLAYER_COMPLETION_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_COMPLETION_TYPE, CodeSlayerCompletionPrivate))
@@ -193,6 +195,8 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
     
   if (priv->proposals != NULL)
     {
+      priv->proposals = g_list_sort (priv->proposals, (GCompareFunc) sort_proposals);
+    
       if (priv->popup == NULL)
         create_window (completion);
         
@@ -201,6 +205,17 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
       move_window (completion, text_view, iter);
       gtk_widget_show_all (priv->popup);
     }
+}
+
+static gint                
+sort_proposals (CodeSlayerCompletionProposal *proposal1, 
+                CodeSlayerCompletionProposal *proposal2)
+{
+  const gchar *label1;
+  const gchar *label2;
+  label1 = codeslayer_completion_proposal_get_label (proposal1);
+  label2 = codeslayer_completion_proposal_get_label (proposal2);  
+  return g_strcmp0 (label1, label2);
 }
 
 void
