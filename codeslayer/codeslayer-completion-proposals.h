@@ -50,6 +50,9 @@ CodeSlayerCompletionProposals*  codeslayer_completion_proposals_new           (v
 GList*                          codeslayer_completion_proposals_get_list      (CodeSlayerCompletionProposals *proposals);
 void                            codeslayer_completion_proposals_set_list      (CodeSlayerCompletionProposals *proposals, 
                                                                                GList                         *list);
+GtkTextMark*                    codeslayer_completion_proposals_get_mark      (CodeSlayerCompletionProposals *proposals);
+void                            codeslayer_completion_proposals_set_mark      (CodeSlayerCompletionProposals *proposals, 
+                                                                               GtkTextMark                   *mark);
 void                            codeslayer_completion_proposals_add_proposal  (CodeSlayerCompletionProposals *proposals, 
                                                                                CodeSlayerCompletionProposal  *proposal);
 

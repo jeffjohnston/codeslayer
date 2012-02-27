@@ -34,7 +34,8 @@ static void resize_window                     (CodeSlayerCompletion         *com
                                                GtkTextView                  *text_view,
                                                GtkTextIter                   iter);
 static void add_proposals                     (CodeSlayerCompletion         *completion,
-                                               gchar                        *filter);                                               
+                                               GtkTextView                  *text_view,
+                                               GtkTextIter                  *iter);
 static void add_proposal                      (CodeSlayerCompletionProposal *proposal, 
                                                GtkListStore                 *store, 
                                                gchar                        *filter);
@@ -199,7 +200,7 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
       if (priv->popup == NULL)
         create_window (completion);
         
-      add_proposals (completion, NULL);
+      add_proposals (completion, NULL, NULL);
       resize_window (completion, text_view, iter);
       move_window (completion, text_view, iter);
       gtk_widget_show_all (priv->popup);
@@ -213,26 +214,14 @@ codeslayer_completion_filter (CodeSlayerCompletion *completion,
 {
   CodeSlayerCompletionPrivate *priv;
   
-  GtkTextBuffer *buffer;
-  GtkTextIter start;
-  gchar *filter;
-
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
 
   if (priv->store != NULL)
     gtk_list_store_clear (priv->store);
 
-  buffer = gtk_text_view_get_buffer (text_view);
-  gtk_text_buffer_get_iter_at_mark (buffer, &start, priv->mark);
-  
-  filter = gtk_text_buffer_get_text (buffer, &start, &iter, FALSE);
-  if (filter != NULL)
-    {
-      add_proposals (completion, filter);
-      resize_window (completion, text_view, iter);
-      gtk_widget_show_all (priv->popup);
-      g_free (filter);
-    }
+  add_proposals (completion, text_view, &iter);
+  resize_window (completion, text_view, iter);
+  gtk_widget_show_all (priv->popup);
 }
 
 void
@@ -482,7 +471,8 @@ move_window (CodeSlayerCompletion *completion,
 
 static void
 add_proposals (CodeSlayerCompletion *completion, 
-               gchar                *filter)
+               GtkTextView          *text_view,
+               GtkTextIter          *iter)
 {
   CodeSlayerCompletionPrivate *priv;
   GList *list;
@@ -493,7 +483,24 @@ add_proposals (CodeSlayerCompletion *completion,
   while (list != NULL)
     {
       CodeSlayerCompletionProposals *proposals = list->data;
+      gchar *filter = NULL;
       GList *tmp;
+      
+      if (text_view != NULL)
+        {
+          GtkTextBuffer *buffer;
+          GtkTextIter start;
+          GtkTextMark *mark;
+          
+          mark = codeslayer_completion_proposals_get_mark (proposals);
+          if (mark == NULL)
+            mark = priv->mark;
+          
+          buffer = gtk_text_view_get_buffer (text_view);
+          gtk_text_buffer_get_iter_at_mark (buffer, &start, mark);
+          filter = gtk_text_buffer_get_text (buffer, &start, iter, FALSE);
+        }
+      
       tmp = codeslayer_completion_proposals_get_list (proposals);
       while (tmp != NULL)
         {

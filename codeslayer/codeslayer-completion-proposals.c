@@ -45,13 +45,15 @@ typedef struct _CodeSlayerCompletionProposalsPrivate CodeSlayerCompletionProposa
 
 struct _CodeSlayerCompletionProposalsPrivate
 {
-  GList *list;
+  GList       *list;
+  GtkTextMark *mark;
 };
 
 enum
 {
   PROP_0,
-  PROP_LIST
+  PROP_LIST,
+  PROP_MARK
 };
 
 G_DEFINE_TYPE (CodeSlayerCompletionProposals, codeslayer_completion_proposals, G_TYPE_OBJECT)
@@ -71,13 +73,25 @@ codeslayer_completion_proposals_class_init (CodeSlayerCompletionProposalsClass *
   /**
 	 * CodeSlayerCompletionProposals:list:
 	 *
-	 * The list of #CodeSlayerGroup objects in the manager.
+	 * The list of #CodeSlayerCompletionProposal objects.
 	 */
   g_object_class_install_property (gobject_class, 
                                    PROP_LIST,
                                    g_param_spec_pointer ("list", 
                                                          "List", 
                                                          "List Object",
+                                                         G_PARAM_READWRITE));
+
+  /**
+	 * CodeSlayerCompletionProposals:mark:
+	 *
+	 * The GtkTextMark.
+	 */
+  g_object_class_install_property (gobject_class, 
+                                   PROP_MARK,
+                                   g_param_spec_pointer ("mark", 
+                                                         "Mark", 
+                                                         "Mark Object",
                                                          G_PARAM_READWRITE));
 }
 
@@ -87,6 +101,7 @@ codeslayer_completion_proposals_init (CodeSlayerCompletionProposals *proposals)
   CodeSlayerCompletionProposalsPrivate *priv;
   priv = CODESLAYER_COMPLETION_PROPOSALS_GET_PRIVATE (proposals);
   priv->list = NULL;
+  priv->mark = NULL;
 }
 
 static void
@@ -119,6 +134,9 @@ codeslayer_completion_proposals_get_property (GObject    *object,
     case PROP_LIST:
       g_value_set_pointer (value, priv->list);
       break;
+    case PROP_MARK:
+      g_value_set_pointer (value, priv->mark);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -138,6 +156,9 @@ codeslayer_completion_proposals_set_property (GObject      *object,
     {
     case PROP_LIST:
       codeslayer_completion_proposals_set_list (proposals, g_value_get_pointer (value));
+      break;
+    case PROP_MARK:
+      codeslayer_completion_proposals_set_mark (proposals, g_value_get_pointer (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -184,6 +205,34 @@ codeslayer_completion_proposals_set_list (CodeSlayerCompletionProposals *proposa
   priv->list = list;
   g_list_foreach (priv->list, (GFunc) g_object_ref_sink, NULL);
 }
+
+/**
+ * codeslayer_completion_proposals_get_mark:
+ * @proposals: a #CodeSlayerCompletionProposals.
+ *
+ * Returns: The GtkTextMark that starts the completion list.
+ */
+GtkTextMark*
+codeslayer_completion_proposals_get_mark (CodeSlayerCompletionProposals *proposals)
+{
+  CodeSlayerCompletionProposalsPrivate *priv;
+  priv = CODESLAYER_COMPLETION_PROPOSALS_GET_PRIVATE (proposals);
+  return priv->mark;
+}
+
+/**
+ * codeslayer_completion_proposals_set_mark:
+ * @proposals: a #CodeSlayerCompletionProposals.
+ * @mark: The GtkTextMark that starts the completion list.
+ */
+void
+codeslayer_completion_proposals_set_mark (CodeSlayerCompletionProposals *proposals, 
+                                          GtkTextMark                   *mark)
+{
+  CodeSlayerCompletionProposalsPrivate *priv;
+  priv = CODESLAYER_COMPLETION_PROPOSALS_GET_PRIVATE (proposals);
+  priv->mark = mark;
+}                                          
 
 /**
  * codeslayer_completion_proposals_add_proposal:

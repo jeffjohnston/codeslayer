@@ -34,12 +34,12 @@ typedef struct _CodeSlayerCompletionProposalClass CodeSlayerCompletionProposalCl
 
 struct _CodeSlayerCompletionProposal
 {
-  GObject parent_instance;
+  GInitiallyUnowned parent_instance;
 };
 
 struct _CodeSlayerCompletionProposalClass
 {
-  GObjectClass parent_class;
+  GInitiallyUnownedClass parent_class;
 };
 
 GType codeslayer_completion_proposal_get_type (void) G_GNUC_CONST;
