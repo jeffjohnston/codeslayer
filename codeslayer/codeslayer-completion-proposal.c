@@ -30,8 +30,9 @@ typedef struct _CodeSlayerCompletionProposalPrivate CodeSlayerCompletionProposal
 
 struct _CodeSlayerCompletionProposalPrivate
 {
-  gchar *label;
-  gchar *text;
+  gchar       *label;
+  gchar       *text;
+  GtkTextMark *mark;
 };
 
 G_DEFINE_TYPE (CodeSlayerCompletionProposal, codeslayer_completion_proposal, G_TYPE_OBJECT)
@@ -65,8 +66,9 @@ codeslayer_completion_proposal_finalize (CodeSlayerCompletionProposal *proposal)
 }
 
 CodeSlayerCompletionProposal*
-codeslayer_completion_proposal_new (gchar *label, 
-                                    gchar *text)
+codeslayer_completion_proposal_new (gchar       *label, 
+                                    gchar       *text, 
+                                    GtkTextMark *mark)
 {
   CodeSlayerCompletionProposalPrivate *priv;
   CodeSlayerCompletionProposal *proposal;
@@ -75,6 +77,7 @@ codeslayer_completion_proposal_new (gchar *label,
   priv = CODESLAYER_COMPLETION_PROPOSAL_GET_PRIVATE (proposal);
   priv->label = g_strdup (label);
   priv->text = g_strdup (text);
+  priv->mark = mark;
 
   return proposal;
 }
@@ -93,4 +96,12 @@ codeslayer_completion_proposal_get_text (CodeSlayerCompletionProposal *proposal)
   CodeSlayerCompletionProposalPrivate *priv;
   priv = CODESLAYER_COMPLETION_PROPOSAL_GET_PRIVATE (proposal);
   return priv->text;
+}
+
+GtkTextMark*
+codeslayer_completion_proposal_get_mark (CodeSlayerCompletionProposal *proposal)
+{
+  CodeSlayerCompletionProposalPrivate *priv;
+  priv = CODESLAYER_COMPLETION_PROPOSAL_GET_PRIVATE (proposal);
+  return priv->mark;
 }

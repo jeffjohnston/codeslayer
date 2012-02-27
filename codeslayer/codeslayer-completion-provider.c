@@ -50,7 +50,7 @@ codeslayer_completion_provider_has_match (CodeSlayerCompletionProvider *provider
   return CODESLAYER_COMPLETION_PROVIDER_GET_INTERFACE (provider)->has_match (provider, iter);
 }
 
-CodeSlayerCompletionProposals*  
+GList*  
 codeslayer_completion_provider_get_proposals (CodeSlayerCompletionProvider *provider, 
                                               GtkTextIter                   iter)
 {

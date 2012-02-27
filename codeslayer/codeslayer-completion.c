@@ -57,7 +57,7 @@ struct _CodeSlayerCompletionPrivate
   GtkWidget    *tree;
   GtkListStore *store;
   GtkTextMark  *mark;
-  GList        *list;
+  GList        *proposals;
 };
 
 enum
@@ -94,7 +94,7 @@ codeslayer_completion_class_init (CodeSlayerCompletionClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
                   G_STRUCT_OFFSET (CodeSlayerCompletionClass, row_selected),
                   NULL, NULL, 
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+                  g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_completion_finalize;
@@ -115,11 +115,11 @@ codeslayer_completion_finalize (CodeSlayerCompletion *completion)
   CodeSlayerCompletionPrivate *priv;
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion); 
 
-  if (priv->list != NULL)
+  if (priv->proposals != NULL)
     {
-      g_list_foreach (priv->list, (GFunc)g_object_unref, NULL);
-      g_list_free (priv->list);
-      priv->list = NULL;
+      g_list_foreach (priv->proposals, (GFunc)g_object_unref, NULL);
+      g_list_free (priv->proposals);
+      priv->proposals = NULL;
     }
 
   if (priv->store != NULL)
@@ -168,11 +168,11 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
 
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
       
-  if (priv->list != NULL)
+  if (priv->proposals != NULL)
     {
-      g_list_foreach (priv->list, (GFunc)g_object_unref, NULL);
-      g_list_free (priv->list);
-      priv->list = NULL;
+      g_list_foreach (priv->proposals, (GFunc)g_object_unref, NULL);
+      g_list_free (priv->proposals);
+      priv->proposals = NULL;
     }
 
   if (priv->store != NULL)
@@ -184,14 +184,14 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
       CodeSlayerCompletionProvider *provider = providers->data;
       if (codeslayer_completion_provider_has_match (provider, iter))
         {
-          CodeSlayerCompletionProposals *proposals;
+          GList *proposals;
           proposals = codeslayer_completion_provider_get_proposals (provider, iter);
-          priv->list = g_list_prepend (priv->list, proposals);
+          priv->proposals = g_list_concat (priv->proposals, proposals);
         }
       providers = g_list_next (providers);
     }
     
-  if (priv->list != NULL)
+  if (priv->proposals != NULL)
     {
       GtkTextBuffer *buffer;
       buffer = gtk_text_view_get_buffer (text_view);
@@ -475,16 +475,15 @@ add_proposals (CodeSlayerCompletion *completion,
                GtkTextIter          *iter)
 {
   CodeSlayerCompletionPrivate *priv;
-  GList *list;
+  GList *proposals;
 
   priv = CODESLAYER_COMPLETION_GET_PRIVATE (completion);
   
-  list = priv->list;  
-  while (list != NULL)
+  proposals = priv->proposals;  
+  while (proposals != NULL)
     {
-      CodeSlayerCompletionProposals *proposals = list->data;
+      CodeSlayerCompletionProposal *proposal = proposals->data;
       gchar *filter = NULL;
-      GList *tmp;
       
       if (text_view != NULL)
         {
@@ -492,7 +491,7 @@ add_proposals (CodeSlayerCompletion *completion,
           GtkTextIter start;
           GtkTextMark *mark;
           
-          mark = codeslayer_completion_proposals_get_mark (proposals);
+          mark = codeslayer_completion_proposal_get_mark (proposal);
           if (mark == NULL)
             mark = priv->mark;
           
@@ -500,15 +499,9 @@ add_proposals (CodeSlayerCompletion *completion,
           gtk_text_buffer_get_iter_at_mark (buffer, &start, mark);
           filter = gtk_text_buffer_get_text (buffer, &start, iter, FALSE);
         }
-      
-      tmp = codeslayer_completion_proposals_get_list (proposals);
-      while (tmp != NULL)
-        {
-          CodeSlayerCompletionProposal *proposal = tmp->data;
-          add_proposal (proposal, priv->store, filter);
-          tmp = g_list_next (tmp);
-        }
-      list = g_list_next (list);
+
+      add_proposal (proposal, priv->store, filter);
+      proposals = g_list_next (proposals);
     }
 }
 
@@ -540,5 +533,5 @@ row_activated_action (CodeSlayerCompletion *completion,
                       GtkTreePath          *path,
                       GtkTreeViewColumn    *column)
 {
-  g_signal_emit_by_name ((gpointer) completion, "row-selected");
+  g_signal_emit_by_name ((gpointer) completion, "row-selected", NULL);
 }                     
