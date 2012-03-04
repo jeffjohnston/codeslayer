@@ -18,6 +18,13 @@
 
 #include <codeslayer/codeslayer-completion-provider.h>
 
+/**
+ * SECTION:codeslayer-completion-provider
+ * @short_description: Create proposals for the completion window.
+ * @title: CodeSlayerCompletionProvider
+ * @include: codeslayer/codeslayer-completion-provider.h
+ */
+
 static void codeslayer_completion_provider_class_init (gpointer provider);
 
 GType
@@ -43,6 +50,13 @@ codeslayer_completion_provider_class_init (gpointer page)
 {
 }
 
+/**
+ * codeslayer_completion_provider_has_match:
+ * @provider: a #CodeSlayerCompletionProvider.
+ * @iter: the place that the completion starts.
+ *
+ * Returns: is TRUE if there is a match at this point in the editor.
+ */
 gboolean 
 codeslayer_completion_provider_has_match (CodeSlayerCompletionProvider *provider, 
                                           GtkTextIter                   iter)
@@ -50,6 +64,13 @@ codeslayer_completion_provider_has_match (CodeSlayerCompletionProvider *provider
   return CODESLAYER_COMPLETION_PROVIDER_GET_INTERFACE (provider)->has_match (provider, iter);
 }
 
+/**
+ * codeslayer_completion_provider_get_proposals:
+ * @provider: a #CodeSlayerCompletionProvider.
+ * @iter: the place that the completion starts.
+ *
+ * Returns: a list of #CodeSlayerCompletionProposal objects.
+ */
 GList*  
 codeslayer_completion_provider_get_proposals (CodeSlayerCompletionProvider *provider, 
                                               GtkTextIter                   iter)

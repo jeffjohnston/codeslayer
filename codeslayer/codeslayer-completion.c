@@ -22,6 +22,13 @@
 #include <codeslayer/codeslayer-completion-provider.h>
 #include <codeslayer/codeslayer-completion-proposal.h>
 
+/**
+ * SECTION:codeslayer-completion
+ * @short_description: The completion window.
+ * @title: CodeSlayerCompletion
+ * @include: codeslayer/codeslayer-completion.h
+ */
+
 static void codeslayer_completion_class_init  (CodeSlayerCompletionClass    *klass);
 static void codeslayer_completion_init        (CodeSlayerCompletion         *completion);
 static void codeslayer_completion_finalize    (CodeSlayerCompletion         *completion);
@@ -137,6 +144,14 @@ codeslayer_completion_finalize (CodeSlayerCompletion *completion)
   G_OBJECT_CLASS (codeslayer_completion_parent_class)->finalize (G_OBJECT (completion));
 }
 
+/**
+ * codeslayer_completion_new:
+ * @window: a #GtkWindow.
+ *
+ * Creates a new #CodeSlayerCompletion.
+ *
+ * Returns: a new #CodeSlayerCompletion. 
+ */
 CodeSlayerCompletion*
 codeslayer_completion_new (GtkWindow *window)
 {
@@ -150,6 +165,13 @@ codeslayer_completion_new (GtkWindow *window)
   return completion;
 }
 
+/**
+ * codeslayer_completion_add_provider:
+ * @completion: a #CodeSlayerCompletion.
+ * @provider: a #CodeSlayerCompletionProvider.
+ *
+ * Add a #CodeSlayerCompletionProvider to the completion.
+ */
 void
 codeslayer_completion_add_provider  (CodeSlayerCompletion         *completion, 
                                      CodeSlayerCompletionProvider *provider)
@@ -160,6 +182,12 @@ codeslayer_completion_add_provider  (CodeSlayerCompletion         *completion,
   priv->providers = g_list_append (priv->providers, provider);
 }                                     
 
+/**
+ * codeslayer_completion_show:
+ * @completion: a #CodeSlayerCompletion.
+ * @text_view: a #GtkTextView.
+ * @iter: a #GtkTextIter.
+ */
 void
 codeslayer_completion_show (CodeSlayerCompletion *completion, 
                             GtkTextView          *text_view,
@@ -218,6 +246,12 @@ sort_proposals (CodeSlayerCompletionProposal *proposal1,
   return g_strcmp0 (label1, label2);
 }
 
+/**
+ * codeslayer_completion_filter:
+ * @completion: a #CodeSlayerCompletion.
+ * @text_view: a #GtkTextView.
+ * @iter: a #GtkTextIter.
+ */
 void
 codeslayer_completion_filter (CodeSlayerCompletion *completion, 
                               GtkTextView          *text_view,
@@ -235,6 +269,12 @@ codeslayer_completion_filter (CodeSlayerCompletion *completion,
   gtk_widget_show_all (priv->popup);
 }
 
+/**
+ * codeslayer_completion_select:
+ * @completion: a #CodeSlayerCompletion.
+ * @text_view: a #GtkTextView.
+ * @iter: a #GtkTextIter.
+ */
 void
 codeslayer_completion_select (CodeSlayerCompletion *completion, 
                               GtkTextView          *text_view, 
@@ -284,6 +324,10 @@ codeslayer_completion_select (CodeSlayerCompletion *completion,
   g_list_free (selected_rows);
 }
 
+/**
+ * codeslayer_completion_hide:
+ * @completion: a #CodeSlayerCompletion.
+ */
 void
 codeslayer_completion_hide (CodeSlayerCompletion *completion)
 {
@@ -293,6 +337,12 @@ codeslayer_completion_hide (CodeSlayerCompletion *completion)
     gtk_widget_hide (priv->popup);
 }
 
+/**
+ * codeslayer_completion_hide:
+ * @completion: a #CodeSlayerCompletion.
+ *
+ * Returns: is TRUE if the completion is visible. 
+ */
 gboolean
 codeslayer_completion_get_visible (CodeSlayerCompletion *completion)
 {
@@ -301,6 +351,12 @@ codeslayer_completion_get_visible (CodeSlayerCompletion *completion)
   return priv->popup != NULL && gtk_widget_get_visible (priv->popup);
 }
 
+/**
+ * codeslayer_completion_hide:
+ * @completion: a #CodeSlayerCompletion.
+ *
+ * Returns: is TRUE if able to toggle up. 
+ */
 gboolean
 codeslayer_completion_toggle_up (CodeSlayerCompletion *completion)
 {
@@ -334,6 +390,12 @@ codeslayer_completion_toggle_up (CodeSlayerCompletion *completion)
   return TRUE;
 }
 
+/**
+ * codeslayer_completion_hide:
+ * @completion: a #CodeSlayerCompletion.
+ *
+ * Returns: is TRUE if able to toggle down. 
+ */
 gboolean 
 codeslayer_completion_toggle_down (CodeSlayerCompletion *completion)
 {
@@ -367,6 +429,12 @@ codeslayer_completion_toggle_down (CodeSlayerCompletion *completion)
   return TRUE;
 }
 
+/**
+ * codeslayer_completion_hide:
+ * @completion: a #CodeSlayerCompletion.
+ *
+ * Returns: is TRUE if the mouse is within the completion window. 
+ */
 gboolean
 codeslayer_completion_mouse_within_popup (CodeSlayerCompletion *completion)
 {
@@ -514,6 +582,10 @@ add_proposals (CodeSlayerCompletion *completion,
         }
 
       add_proposal (proposal, priv->store, filter);
+
+      if (filter != NULL)
+        g_free (filter);
+      
       proposals = g_list_next (proposals);
     }
 }

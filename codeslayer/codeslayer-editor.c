@@ -249,6 +249,12 @@ codeslayer_editor_new (GtkWindow             *window,
   return editor;
 }
 
+/**
+ * codeslayer_editor_get_document:
+ * @editor: a #CodeSlayerEditor..
+ *
+ * Returns: the #CodeSlayerDocument that represents this editor.
+ */
 CodeSlayerDocument*  
 codeslayer_editor_get_document (CodeSlayerEditor *editor)
 {
@@ -257,6 +263,13 @@ codeslayer_editor_get_document (CodeSlayerEditor *editor)
   return priv->document;
 }
 
+/**
+ * codeslayer_editor_add_completion_provider:
+ * @editor: a #CodeSlayerEditor..
+ * @provider: a #CodeSlayerCompletionProvider.
+ *
+ * Add the provider to find possible matches for the completion window. 
+ */
 void
 codeslayer_editor_add_completion_provider (CodeSlayerEditor             *editor, 
                                            CodeSlayerCompletionProvider *provider)

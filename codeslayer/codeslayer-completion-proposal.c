@@ -19,6 +19,13 @@
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-completion-proposal.h>
 
+/**
+ * SECTION:codeslayer-completion-proposal
+ * @short_description: A proposal for the completion window.
+ * @title: CodeSlayerCompletionProposal
+ * @include: codeslayer/codeslayer-completion-proposal.h
+ */
+
 static void codeslayer_completion_proposal_class_init  (CodeSlayerCompletionProposalClass *klass);
 static void codeslayer_completion_proposal_init        (CodeSlayerCompletionProposal      *proposal);
 static void codeslayer_completion_proposal_finalize    (CodeSlayerCompletionProposal      *proposal);
@@ -65,6 +72,16 @@ codeslayer_completion_proposal_finalize (CodeSlayerCompletionProposal *proposal)
   G_OBJECT_CLASS (codeslayer_completion_proposal_parent_class)->finalize (G_OBJECT (proposal));
 }
 
+/**
+ * codeslayer_completion_proposal_new:
+ * @label: the text to show up in the completion window.
+ * @text: the text that will be used as the completion result.
+ * @mark: a #GtkTextMark that marks the place that the completion starts.
+ *
+ * Creates a new #CodeSlayerCompletionProposal.
+ *
+ * Returns: a new #CodeSlayerCompletionProposal. 
+ */
 CodeSlayerCompletionProposal*
 codeslayer_completion_proposal_new (const gchar *label, 
                                     const gchar *text, 
@@ -82,6 +99,12 @@ codeslayer_completion_proposal_new (const gchar *label,
   return proposal;
 }
 
+/**
+ * codeslayer_completion_proposal_get_label:
+ * @proposal: a #CodeSlayerCompletionProposal.
+ *
+ * Returns: the text to show up in the completion window.
+ */
 const gchar*
 codeslayer_completion_proposal_get_label (CodeSlayerCompletionProposal *proposal)
 {
@@ -90,6 +113,12 @@ codeslayer_completion_proposal_get_label (CodeSlayerCompletionProposal *proposal
   return priv->label;
 }
 
+/**
+ * codeslayer_completion_proposal_get_text:
+ * @proposal: a #CodeSlayerCompletionProposal.
+ *
+ * Returns: the text that will be used as the completion result.
+ */
 const gchar*
 codeslayer_completion_proposal_get_text (CodeSlayerCompletionProposal *proposal)
 {
@@ -98,6 +127,12 @@ codeslayer_completion_proposal_get_text (CodeSlayerCompletionProposal *proposal)
   return priv->text;
 }
 
+/**
+ * codeslayer_completion_proposal_get_mark:
+ * @proposal: a #CodeSlayerCompletionProposal.
+ *
+ * Returns: a #GtkTextMark that marks the place that the completion starts.
+ */
 GtkTextMark*
 codeslayer_completion_proposal_get_mark (CodeSlayerCompletionProposal *proposal)
 {
