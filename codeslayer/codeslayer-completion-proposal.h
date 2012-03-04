@@ -44,13 +44,13 @@ struct _CodeSlayerCompletionProposalClass
 
 GType codeslayer_completion_proposal_get_type (void) G_GNUC_CONST;
 
-CodeSlayerCompletionProposal*  codeslayer_completion_proposal_new        (gchar                        *label,
-                                                                          gchar                        *text,
+CodeSlayerCompletionProposal*  codeslayer_completion_proposal_new        (const gchar                  *label,
+                                                                          const gchar                  *text,
                                                                           GtkTextMark                  *mark);
 
 const gchar*                   codeslayer_completion_proposal_get_label  (CodeSlayerCompletionProposal *proposal);
 const gchar*                   codeslayer_completion_proposal_get_text   (CodeSlayerCompletionProposal *proposal);
-GtkTextMark*                   codeslayer_completion_proposal_get_mark  (CodeSlayerCompletionProposal *proposal);
+GtkTextMark*                   codeslayer_completion_proposal_get_mark   (CodeSlayerCompletionProposal *proposal);
                                                     
 G_END_DECLS
 

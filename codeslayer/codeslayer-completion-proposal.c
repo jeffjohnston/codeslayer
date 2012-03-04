@@ -66,8 +66,8 @@ codeslayer_completion_proposal_finalize (CodeSlayerCompletionProposal *proposal)
 }
 
 CodeSlayerCompletionProposal*
-codeslayer_completion_proposal_new (gchar       *label, 
-                                    gchar       *text, 
+codeslayer_completion_proposal_new (const gchar *label, 
+                                    const gchar *text, 
                                     GtkTextMark *mark)
 {
   CodeSlayerCompletionProposalPrivate *priv;
