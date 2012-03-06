@@ -92,7 +92,7 @@ codeslayer_completion_proposal_new (const gchar *label,
 
   proposal = CODESLAYER_COMPLETION_PROPOSAL (g_object_new (codeslayer_completion_proposal_get_type (), NULL));
   priv = CODESLAYER_COMPLETION_PROPOSAL_GET_PRIVATE (proposal);
-  priv->label = g_strdup (label);
+  priv->label = g_strstrip(g_strdup (label));
   priv->text = g_strdup (text);
   priv->mark = mark;
 
