@@ -63,6 +63,7 @@ struct _CodeSlayerClass
   GObjectClass parent_class;
   
   void (*editor_saved) (CodeSlayer *codeslayer);
+  void (*editors_all_saved) (CodeSlayer *codeslayer);
   void (*editor_added) (CodeSlayer *codeslayer);
   void (*editor_removed) (CodeSlayer *codeslayer);
   void (*editor_switched) (CodeSlayer *codeslayer);

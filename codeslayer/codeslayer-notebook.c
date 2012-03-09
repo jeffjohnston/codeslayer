@@ -50,9 +50,9 @@ static void buffer_changed_action           (CodeSlayerNotebook      *notebook);
 static gboolean has_clean_buffer            (CodeSlayerNotebook      *notebook, 
                                              gint                     page);
 static void preferences_changed_action      (CodeSlayerNotebook      *notebook);
-
-static gchar* get_utf8_text                  (const gchar            *file_path);
-
+static gchar* get_utf8_text                 (const gchar             *file_path);
+static GtkWidget* save_editor               (CodeSlayerNotebook      *notebook, 
+                                             gint                     page_num);
 
 #define CODESLAYER_NOTEBOOK_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_NOTEBOOK_TYPE, CodeSlayerNotebookPrivate))
@@ -68,6 +68,7 @@ struct _CodeSlayerNotebookPrivate
 enum
 {
   EDITOR_SAVED,
+  EDITORS_ALL_SAVED,
   LAST_SIGNAL
 };
 
@@ -91,6 +92,21 @@ codeslayer_notebook_class_init (CodeSlayerNotebookClass *klass)
                   G_STRUCT_OFFSET (CodeSlayerNotebookClass, editor_saved), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
+
+  /**
+	 * CodeSlayerNotebook::editors-all-saved
+	 * @codeslayernotebook: the notebook that received the signal
+	 * @editors: a #GList of #CodeSlayerEditor objects that were saved
+	 *
+	 * The ::editors-all-saved signal is emitted when all the editors have been saved successfully
+	 */
+  codeslayer_notebook_signals[EDITORS_ALL_SAVED] =
+    g_signal_new ("editors-all-saved", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerNotebookClass, editors_all_saved), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_notebook_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerNotebookPrivate));
@@ -262,8 +278,56 @@ void
 codeslayer_notebook_save_editor (CodeSlayerNotebook *notebook, 
                                  gint                page_num)
 {
-  GtkWidget *notebook_page;
+  GList *editors = NULL;
   GtkWidget *editor;
+  
+  editor = save_editor (notebook, page_num);
+  
+  if (editor != NULL)
+    editors = g_list_prepend (editors, editor);
+  
+  if (editors != NULL)
+    {
+      g_signal_emit_by_name((gpointer)notebook, "editors-all-saved", editors);
+      g_list_free (editors);
+    }
+}
+
+/**
+ * codeslayer_notebook_save_all_editors:
+ * @notebook: a #CodeSlayerNotebook.
+ */
+void
+codeslayer_notebook_save_all_editors (CodeSlayerNotebook *notebook)
+{
+  GList *editors = NULL;
+  gint pages;
+  gint i;
+  
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
+
+  for (i = 0; i < pages; i++)
+    {
+      GtkWidget *editor;
+      editor = save_editor (notebook, i);
+      if (editor != NULL)
+        editors = g_list_prepend (editors, editor);
+    }
+  
+  if (editors != NULL)
+    {
+      editors = g_list_reverse (editors);
+      g_signal_emit_by_name((gpointer)notebook, "editors-all-saved", editors);
+      g_list_free (editors);
+    }
+}
+
+static GtkWidget*
+save_editor (CodeSlayerNotebook *notebook, 
+             gint                page_num)
+{
+  GtkWidget *notebook_page;
+  GtkWidget *editor = NULL;
   GtkTextBuffer *buffer;
   GtkWidget *notebook_tab;
   
@@ -290,7 +354,7 @@ codeslayer_notebook_save_editor (CodeSlayerNotebook *notebook,
       if (!g_file_set_contents (file_path, contents, -1, NULL))
         {
           g_free (contents);
-          return;
+          return NULL;
         }
       g_free (contents);
           
@@ -301,22 +365,8 @@ codeslayer_notebook_save_editor (CodeSlayerNotebook *notebook,
   notebook_tab = gtk_notebook_get_tab_label (GTK_NOTEBOOK (notebook),
                                              GTK_WIDGET (notebook_page));
   codeslayer_notebook_tab_show_buffer_clean (CODESLAYER_NOTEBOOK_TAB (notebook_tab));
-}
-
-/**
- * codeslayer_notebook_save_all_editors:
- * @notebook: a #CodeSlayerNotebook.
- */
-void
-codeslayer_notebook_save_all_editors (CodeSlayerNotebook *notebook)
-{
-  gint pages;
-  gint i;
   
-  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
-
-  for (i = 0; i < pages; i++)
-    codeslayer_notebook_save_editor (notebook, i);
+  return editor;
 }
 
 /**

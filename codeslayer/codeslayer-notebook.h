@@ -44,6 +44,7 @@ struct _CodeSlayerNotebookClass
   GtkNotebookClass parent_class;
 
   void (*editor_saved) (CodeSlayerNotebook *notebook);
+  void (*editors_all_saved) (CodeSlayerNotebook *notebook);
   void (*editor_selection) (CodeSlayerNotebook *notebook);
   void (*editor_undo_redo) (CodeSlayerNotebook *notebook);
 };

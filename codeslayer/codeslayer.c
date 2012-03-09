@@ -38,6 +38,8 @@ static void codeslayer_finalize              (CodeSlayer        *codeslayer);
 
 static void editor_saved_action              (CodeSlayer        *codeslayer,
                                               CodeSlayerEditor  *editor);
+static void editors_all_saved_action         (CodeSlayer        *codeslayer,
+                                              GList             *editors);
 static void project_properties_opened_action (CodeSlayer        *codeslayer,
                                               CodeSlayerProject *project);
 static void project_properties_closed_action (CodeSlayer        *codeslayer,
@@ -71,6 +73,7 @@ struct _CodeSlayerPrivate
 enum
 {
   EDITOR_SAVED,
+  EDITORS_ALL_SAVED,
   EDITOR_ADDED,
   EDITOR_REMOVED,
   EDITOR_SWITCHED,
@@ -100,6 +103,21 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_STRUCT_OFFSET (CodeSlayerClass, editor_saved), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
+
+  /**
+	 * CodeSlayer::editors-all-saved
+	 * @codeslayer: the plugin that received the signal
+	 * @editors: a #GList of #CodeSlayerEditor objects that were saved
+	 *
+	 * The ::editors-all-saved signal is emitted when all the editors have been saved successfully
+	 */
+  codeslayer_signals[EDITORS_ALL_SAVED] =
+    g_signal_new ("editors-all-saved", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerClass, editors_all_saved), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
 	 * CodeSlayer::editor-added
@@ -221,6 +239,9 @@ codeslayer_new (CodeSlayerMenuBar           *menubar,
   
   g_signal_connect_swapped (G_OBJECT (notebook), "editor-saved",
                             G_CALLBACK (editor_saved_action), codeslayer);
+  
+  g_signal_connect_swapped (G_OBJECT (notebook), "editors-all-saved",
+                            G_CALLBACK (editors_all_saved_action), codeslayer);
   
   g_signal_connect_swapped (G_OBJECT (projects), "properties-opened",
                             G_CALLBACK (project_properties_opened_action), codeslayer);
@@ -694,6 +715,13 @@ editor_saved_action (CodeSlayer       *codeslayer,
                      CodeSlayerEditor *editor)                     
 {
   g_signal_emit_by_name((gpointer)codeslayer, "editor-saved", editor);
+}
+
+static void
+editors_all_saved_action (CodeSlayer *codeslayer,
+                          GList      *editors)
+{
+  g_signal_emit_by_name((gpointer)codeslayer, "editors-all-saved", editors);
 }
 
 static void
