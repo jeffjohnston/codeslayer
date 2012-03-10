@@ -714,14 +714,14 @@ static void
 editor_saved_action (CodeSlayer       *codeslayer,
                      CodeSlayerEditor *editor)                     
 {
-  g_signal_emit_by_name((gpointer)codeslayer, "editor-saved", editor);
+  g_signal_emit_by_name ((gpointer)codeslayer, "editor-saved", editor);
 }
 
 static void
 editors_all_saved_action (CodeSlayer *codeslayer,
                           GList      *editors)
 {
-  g_signal_emit_by_name((gpointer)codeslayer, "editors-all-saved", editors);
+  g_signal_emit_by_name ((gpointer)codeslayer, "editors-all-saved", editors);
 }
 
 static void
@@ -731,7 +731,7 @@ editor_added_action (CodeSlayer  *codeslayer,
 {
   GtkWidget *editor;
   editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name((gpointer)codeslayer, "editor-added", editor);
+  g_signal_emit_by_name ((gpointer)codeslayer, "editor-added", editor);
 }
 
 static void      
@@ -741,7 +741,7 @@ editor_removed_action (CodeSlayer  *codeslayer,
 {
   GtkWidget *editor;
   editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name((gpointer)codeslayer, "editor-removed", editor);
+  g_signal_emit_by_name ((gpointer)codeslayer, "editor-removed", editor);
 }
 
 static void
@@ -755,14 +755,14 @@ editor_switched_action (CodeSlayer      *codeslayer,
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);  
   editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name((gpointer)codeslayer, "editor-switched", editor);
+  g_signal_emit_by_name ((gpointer)codeslayer, "editor-switched", editor);
 }
 
 static void 
 project_properties_opened_action (CodeSlayer        *codeslayer,
                                   CodeSlayerProject *project)
 {
-  g_signal_emit_by_name((gpointer)codeslayer, "project-properties-opened", project);
+  g_signal_emit_by_name ((gpointer)codeslayer, "project-properties-opened", project);
 }                                  
 
 static void 
