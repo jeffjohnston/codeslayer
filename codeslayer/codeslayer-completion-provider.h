@@ -41,8 +41,6 @@ struct _CodeSlayerCompletionProviderInterface
 
 GType codeslayer_completion_provider_get_type (void);
 
-gboolean  codeslayer_completion_provider_has_match      (CodeSlayerCompletionProvider *provider, 
-                                                         GtkTextIter                   iter);
 GList*    codeslayer_completion_provider_get_proposals  (CodeSlayerCompletionProvider *provider, 
                                                          GtkTextIter                   iter);
 

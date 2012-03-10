@@ -214,10 +214,10 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
   while (providers != NULL)
     {
       CodeSlayerCompletionProvider *provider = providers->data;
-      if (codeslayer_completion_provider_has_match (provider, iter))
+      GList *proposals;
+      proposals = codeslayer_completion_provider_get_proposals (provider, iter);
+      if (proposals != NULL)
         {
-          GList *proposals;
-          proposals = codeslayer_completion_provider_get_proposals (provider, iter);
           add_proposals (completion, proposals);
           g_list_free (proposals);
         }
