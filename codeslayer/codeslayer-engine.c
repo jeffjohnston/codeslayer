@@ -780,25 +780,25 @@ search_find_projects_action (CodeSlayerEngine *engine,
 
   if (!gtk_widget_get_visible (priv->search))
     {
-      search_width = codeslayer_preferences_get_integer (priv->preferences,
-                                                         CODESLAYER_PREFERENCES_SEARCH_WIDTH);
+      search_width = codeslayer_settings_get_integer (priv->settings,
+                                                      CODESLAYER_SETTINGS_SEARCH_WIDTH);
       if (search_width < 0)
         search_width = 600;
         
-      search_height = codeslayer_preferences_get_integer (priv->preferences,
-                                                          CODESLAYER_PREFERENCES_SEARCH_HEIGHT);
+      search_height = codeslayer_settings_get_integer (priv->settings,
+                                                       CODESLAYER_SETTINGS_SEARCH_HEIGHT);
       if (search_height < 0)
         search_height = 350;
         
       gtk_window_set_default_size (GTK_WINDOW (priv->search), search_width, search_height);
 
-      search_x = codeslayer_preferences_get_integer (priv->preferences,
-                                                     CODESLAYER_PREFERENCES_SEARCH_X);
+      search_x = codeslayer_settings_get_integer (priv->settings,
+                                                  CODESLAYER_SETTINGS_SEARCH_X);
       if (search_x < 0)
         search_x = 10;
         
-      search_y = codeslayer_preferences_get_integer (priv->preferences,
-                                                     CODESLAYER_PREFERENCES_SEARCH_Y);
+      search_y = codeslayer_settings_get_integer (priv->settings,
+                                                  CODESLAYER_SETTINGS_SEARCH_Y);
       if (search_y < 0)
         search_y = 10;        
 
@@ -827,20 +827,20 @@ close_search_action (CodeSlayerEngine *engine,
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
   gtk_window_get_size (GTK_WINDOW (priv->search), &width, &height);
-  codeslayer_preferences_set_integer (priv->preferences,
-                                      CODESLAYER_PREFERENCES_SEARCH_WIDTH,
-                                      width);
-  codeslayer_preferences_set_integer (priv->preferences,
-                                      CODESLAYER_PREFERENCES_SEARCH_HEIGHT,
-                                      height);
+  codeslayer_settings_set_integer (priv->settings,
+                                   CODESLAYER_SETTINGS_SEARCH_WIDTH,
+                                   width);
+  codeslayer_settings_set_integer (priv->settings,
+                                   CODESLAYER_SETTINGS_SEARCH_HEIGHT,
+                                   height);
 
   gtk_window_get_position (GTK_WINDOW (priv->search), &x, &y);
-  codeslayer_preferences_set_integer (priv->preferences,
-                                      CODESLAYER_PREFERENCES_SEARCH_X, x);
-  codeslayer_preferences_set_integer (priv->preferences,
-                                      CODESLAYER_PREFERENCES_SEARCH_Y, y);
+  codeslayer_settings_set_integer (priv->settings,
+                                   CODESLAYER_SETTINGS_SEARCH_X, x);
+  codeslayer_settings_set_integer (priv->settings,
+                                   CODESLAYER_SETTINGS_SEARCH_Y, y);
 
-  codeslayer_preferences_save (priv->preferences);
+  codeslayer_settings_save (priv->settings);
   
   gtk_widget_hide (priv->search);
 

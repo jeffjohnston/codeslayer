@@ -185,7 +185,7 @@ create_window (Context *context)
   gtk_window_set_default_icon_name ("codeslayer");
 
   gtk_window_set_title (GTK_WINDOW (window),
-                        CODESLAYER_PREFERENCES_MAIN_TITLE);
+                        CODESLAYER_SETTINGS_MAIN_TITLE);
   gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 
   g_signal_connect (G_OBJECT (window), "destroy", 
