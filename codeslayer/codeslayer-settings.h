@@ -54,11 +54,6 @@ struct _CodeSlayerSettings
 struct _CodeSlayerSettingsClass
 {
   GObjectClass parent_class;
-
-  void (*editor_settings_changed) (CodeSlayerSettings *settings);
-  void (*notebook_settings_changed) (CodeSlayerSettings *settings);
-  void (*side_pane_settings_changed) (CodeSlayerSettings *settings);
-  void (*bottom_pane_settings_changed) (CodeSlayerSettings *settings);
 };
 
 GType codeslayer_settings_get_type (void) G_GNUC_CONST;

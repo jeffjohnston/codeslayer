@@ -52,86 +52,11 @@ struct _CodeSlayerSettingsPrivate
   GKeyFile *keyfile;
 };
 
-enum
-{
-  EDITOR_SETTINGS_CHANGED,
-  NOTEBOOK_SETTINGS_CHANGED,
-  SIDE_PANE_SETTINGS_CHANGED,
-  BOTTOM_PANE_SETTINGS_CHANGED,
-  LAST_SIGNAL
-};
-
-static guint codeslayer_settings_signals[LAST_SIGNAL] = { 0 };
-
 G_DEFINE_TYPE (CodeSlayerSettings, codeslayer_settings, G_TYPE_OBJECT)
 
 static void 
 codeslayer_settings_class_init (CodeSlayerSettingsClass *klass)
 {
-  /**
-	 * CodeSlayerSettings::editor-settings-changed
-	 * @codeslayersettings: the preference that received the signal
-	 *
-	 * The ::editor-settings-changed signal lets all observers know that 
-	 * something in the settings, related to the 
-	 * #CodeSlayerEditor, changed.
-	 */
-  codeslayer_settings_signals[EDITOR_SETTINGS_CHANGED] =
-    g_signal_new ("editor-settings-changed", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerSettingsClass, editor_settings_changed), 
-                  NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
-  /**
-	 * CodeSlayerSettings::notebook-settings-changed
-	 * @codeslayersettings: the preference that received the signal
-	 *
-	 * The ::notebook-settings-changed signal lets all observers know that 
-	 * something in the settings, related to the 
-	 * #CodeSlayerNotebook, changed.
-	 */
-  codeslayer_settings_signals[NOTEBOOK_SETTINGS_CHANGED] =
-    g_signal_new ("notebook-settings-changed", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerSettingsClass, notebook_settings_changed), 
-                  NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
-  /**
-	 * CodeSlayerSettings::side-pane-settings-changed
-	 * @codeslayersettings: the preference that received the signal
-	 *
-	 * The ::side-pane-settings-changed signal lets all observers know that 
-	 * something in the settings, related to the 
-	 * #CodeSlayerSidePane, changed.
-	 */
-  codeslayer_settings_signals[SIDE_PANE_SETTINGS_CHANGED] =
-    g_signal_new ("side-pane-settings-changed", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerSettingsClass, side_pane_settings_changed), 
-                  NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
-  /**
-	 * CodeSlayerSettings::bottom-pane-settings-changed
-	 * @codeslayersettings: the preference that received the signal
-	 *
-	 * The ::bottom-pane-settings-changed signal lets all observers know that 
-	 * something in the settings, related to the 
-	 * #CodeSlayerSidePane, changed.
-	 */
-  codeslayer_settings_signals[BOTTOM_PANE_SETTINGS_CHANGED] =
-    g_signal_new ("bottom-pane-settings-changed", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerSettingsClass, bottom_pane_settings_changed), 
-                  NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_settings_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerSettingsPrivate));
 }
