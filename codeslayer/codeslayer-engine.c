@@ -116,6 +116,7 @@ typedef struct _CodeSlayerEnginePrivate CodeSlayerEnginePrivate;
 struct _CodeSlayerEnginePrivate
 {
   GtkWindow             *window;
+  CodeSlayerSettings    *settings;
   CodeSlayerPreferences *preferences;
   CodeSlayerPlugins     *plugins;
   GtkWidget             *search;
@@ -168,6 +169,7 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
  */
 CodeSlayerEngine*
 codeslayer_engine_new (GtkWindow             *window,
+                       CodeSlayerSettings    *settings,
                        CodeSlayerPreferences *preferences,
                        CodeSlayerPlugins     *plugins,
                        CodeSlayerGroups      *groups,
@@ -184,6 +186,7 @@ codeslayer_engine_new (GtkWindow             *window,
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
   priv->window = window;
+  priv->settings = settings;
   priv->preferences = preferences;
   priv->plugins = plugins;
   priv->groups = groups;
@@ -880,16 +883,16 @@ toggle_side_pane_action (CodeSlayerEngine *engine)
   if (gtk_widget_get_visible (GTK_WIDGET(priv->side_pane)))
     {
       gtk_widget_hide (GTK_WIDGET(priv->side_pane));
-      codeslayer_preferences_set_boolean (priv->preferences, 
-                                          CODESLAYER_PREFERENCES_SIDE_PANE_VISIBLE,
-                                          FALSE);
+      codeslayer_settings_set_boolean (priv->settings, 
+                                       CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE,
+                                       FALSE);
     }
   else
     {
       gtk_widget_show (GTK_WIDGET(priv->side_pane));
-      codeslayer_preferences_set_boolean (priv->preferences, 
-                                          CODESLAYER_PREFERENCES_SIDE_PANE_VISIBLE,
-                                          TRUE);
+      codeslayer_settings_set_boolean (priv->settings, 
+                                       CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE,
+                                       TRUE);
     }
 }
 
@@ -899,9 +902,9 @@ open_side_pane_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   gtk_widget_show (GTK_WIDGET(priv->side_pane));
-  codeslayer_preferences_set_boolean (priv->preferences, 
-                                      CODESLAYER_PREFERENCES_SIDE_PANE_VISIBLE,
-                                      TRUE);
+  codeslayer_settings_set_boolean (priv->settings, 
+                                   CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE,
+                                   TRUE);
 }
 
 static void
@@ -910,9 +913,9 @@ close_side_pane_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   gtk_widget_hide (GTK_WIDGET(priv->side_pane));
-  codeslayer_preferences_set_boolean (priv->preferences, 
-                                      CODESLAYER_PREFERENCES_SIDE_PANE_VISIBLE,
-                                      FALSE);
+  codeslayer_settings_set_boolean (priv->settings, 
+                                   CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE,
+                                   FALSE);
 }
 
 static void
@@ -924,16 +927,16 @@ toggle_bottom_pane_action (CodeSlayerEngine *engine)
   if (gtk_widget_get_visible (GTK_WIDGET(priv->bottom_pane)))
     {
       gtk_widget_hide (GTK_WIDGET(priv->bottom_pane));
-      codeslayer_preferences_set_boolean (priv->preferences, 
-                                          CODESLAYER_PREFERENCES_BOTTOM_PANE_VISIBLE,
-                                          FALSE);
+      codeslayer_settings_set_boolean (priv->settings, 
+                                       CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
+                                       FALSE);
     }
   else
     {
       gtk_widget_show (GTK_WIDGET(priv->bottom_pane));
-      codeslayer_preferences_set_boolean (priv->preferences, 
-                                          CODESLAYER_PREFERENCES_BOTTOM_PANE_VISIBLE,
-                                          TRUE);
+      codeslayer_settings_set_boolean (priv->settings, 
+                                       CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
+                                       TRUE);
     }
 }
 
@@ -943,9 +946,9 @@ open_bottom_pane_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   gtk_widget_show (GTK_WIDGET(priv->bottom_pane));
-  codeslayer_preferences_set_boolean (priv->preferences, 
-                                      CODESLAYER_PREFERENCES_BOTTOM_PANE_VISIBLE,
-                                      TRUE);
+  codeslayer_settings_set_boolean (priv->settings, 
+                                   CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
+                                   TRUE);
 }
 
 static void
@@ -954,9 +957,9 @@ close_bottom_pane_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   gtk_widget_hide (GTK_WIDGET(priv->bottom_pane));
-  codeslayer_preferences_set_boolean (priv->preferences, 
-                                      CODESLAYER_PREFERENCES_BOTTOM_PANE_VISIBLE,
-                                      FALSE);
+  codeslayer_settings_set_boolean (priv->settings, 
+                                   CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
+                                   FALSE);
 }
 
 static void

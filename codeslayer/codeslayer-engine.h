@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 
 #include <codeslayer/codeslayer-groups.h>
+#include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-plugins.h>
 
@@ -49,6 +50,7 @@ struct _CodeSlayerEngineClass
 GType codeslayer_engine_get_type (void) G_GNUC_CONST;
 
 CodeSlayerEngine*  codeslayer_engine_new                 (GtkWindow              *window,
+                                                          CodeSlayerSettings    *settings,
                                                           CodeSlayerPreferences  *preferences,
                                                           CodeSlayerPlugins      *plugins,
                                                           CodeSlayerGroups       *groups,

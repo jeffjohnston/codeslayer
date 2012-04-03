@@ -32,6 +32,7 @@
 #include <codeslayer/codeslayer-groups.h>
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer-repository.h>
+#include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer.h>
@@ -40,6 +41,7 @@
 typedef struct
 {
   GtkWidget *window;
+  CodeSlayerSettings *settings;
   CodeSlayerPreferences *preferences;
   GtkWidget *projects;
   GtkWidget *project_properties;
@@ -58,33 +60,34 @@ typedef struct
 
 Context context;
 
-static void create_preferences                 (Context     *context);
-static void create_plugins                     (Context     *context);
-static void create_window                      (Context     *context);
-static void create_groups                      (Context     *context);
-static void create_menu                        (Context     *context);
-static void create_projects                    (Context     *context);
-static void create_project_properties          (Context     *context);
-static void create_side_and_bottom_pane        (Context     *context);
-static void create_notebook                    (Context     *context);
-static void create_engine                      (Context     *context);
-static void load_plugins                       (Context     *context);
-static void create_paned_containers            (Context     *context);
-static void pack_window                        (Context     *context);
-static void set_visbility_of_panes             (Context     *context);
-static void destroy                            (GtkWidget   *window, 
-                                                Context     *context);
-static gboolean delete_event                   (GtkWidget   *window, 
-                                                GdkEvent    *event,
-                                                Context     *context);
-static void load_application_preferences       (Context     *context);
-static void save_application_preferences       (Context     *context);
-static void quit_application_action            (Context     *context);
-static void verify_home_dir_exists             (void);
-static void verify_groups_dir_exists           (void);
-static void verify_groups_conf_exists          (void);
-static void verify_plugins_dir_exists          (void);
-static void verify_configuration_dir_exists    (void);
+static void create_settings                  (Context     *context);
+static void create_preferences               (Context     *context);
+static void create_plugins                   (Context     *context);
+static void create_window                    (Context     *context);
+static void create_groups                    (Context     *context);
+static void create_menu                      (Context     *context);
+static void create_projects                  (Context     *context);
+static void create_project_properties        (Context     *context);
+static void create_side_and_bottom_pane      (Context     *context);
+static void create_notebook                  (Context     *context);
+static void create_engine                    (Context     *context);
+static void load_plugins                     (Context     *context);
+static void create_paned_containers          (Context     *context);
+static void pack_window                      (Context     *context);
+static void set_visbility_of_panes           (Context     *context);
+static void destroy                          (GtkWidget   *window, 
+                                              Context     *context);
+static gboolean delete_event                 (GtkWidget   *window, 
+                                              GdkEvent    *event,
+                                              Context     *context);
+static void load_application_settings        (Context     *context);
+static void save_application_settings        (Context     *context);
+static void quit_application_action          (Context     *context);
+static void verify_home_dir_exists           (void);
+static void verify_groups_dir_exists         (void);
+static void verify_groups_conf_exists        (void);
+static void verify_plugins_dir_exists        (void);
+static void verify_configuration_dir_exists  (void);
 
 int
 main (int   argc, 
@@ -108,11 +111,13 @@ main (int   argc,
   
   create_window (&context);
 
+  create_settings (&context);
+
   create_preferences (&context);
 
   create_plugins (&context);
 
-  load_application_preferences (&context);
+  load_application_settings (&context);
 
   create_groups (&context);
 
@@ -144,6 +149,14 @@ main (int   argc,
   gdk_threads_leave ();
 
   return 0;
+}
+
+static void
+create_settings (Context *context)
+{
+  CodeSlayerSettings *settings;
+  settings = codeslayer_settings_new ();
+  context->settings = settings;
 }
 
 static void
@@ -245,6 +258,7 @@ create_engine (Context *context)
   CodeSlayerEngine *engine;
   
   engine = codeslayer_engine_new (GTK_WINDOW (context->window), 
+                                  context->settings, 
                                   context->preferences, 
                                   context->plugins, 
                                   context->groups,
@@ -309,8 +323,8 @@ create_paned_containers (Context *context)
   gtk_paned_pack1 (GTK_PANED (hpaned), GTK_WIDGET (context->side_pane), FALSE, FALSE);
   gtk_paned_pack2 (GTK_PANED (hpaned), GTK_WIDGET (context->notebook_pane), TRUE, FALSE);
 
-  hpaned_position = codeslayer_preferences_get_integer (context->preferences,
-                                                        CODESLAYER_PREFERENCES_HPANED_POSITION);
+  hpaned_position = codeslayer_settings_get_integer (context->settings,
+                                                     CODESLAYER_SETTINGS_HPANED_POSITION);
   if (hpaned_position == -1)
     hpaned_position = 250;
 
@@ -319,8 +333,8 @@ create_paned_containers (Context *context)
   gtk_paned_pack1 (GTK_PANED (vpaned), GTK_WIDGET (hpaned), TRUE, FALSE);
   gtk_paned_pack2 (GTK_PANED (vpaned), GTK_WIDGET (context->bottom_pane), FALSE, FALSE);
 
-  vpaned_position = codeslayer_preferences_get_integer (context->preferences,
-                                                        CODESLAYER_PREFERENCES_VPANED_POSITION);
+  vpaned_position = codeslayer_settings_get_integer (context->settings,
+                                                     CODESLAYER_SETTINGS_VPANED_POSITION);
   if (vpaned_position == -1)
     vpaned_position = 250;
 
@@ -346,13 +360,13 @@ set_visbility_of_panes (Context *context)
   gboolean show_side_pane;
   gboolean show_bottom_pane;
 
-  show_side_pane = codeslayer_preferences_get_boolean (context->preferences,
-                                                       CODESLAYER_PREFERENCES_SIDE_PANE_VISIBLE);
+  show_side_pane = codeslayer_settings_get_boolean (context->settings,
+                                                    CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE);
   gtk_widget_set_visible (gtk_paned_get_child1 (GTK_PANED(context->hpaned)), 
                                                 show_side_pane);
 
-  show_bottom_pane = codeslayer_preferences_get_boolean (context->preferences,
-                                                         CODESLAYER_PREFERENCES_BOTTOM_PANE_VISIBLE);
+  show_bottom_pane = codeslayer_settings_get_boolean (context->settings,
+                                                      CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE);
   gtk_widget_set_visible (gtk_paned_get_child2 (GTK_PANED(context->vpaned)), 
                                                 show_bottom_pane);
 }
@@ -362,6 +376,7 @@ destroy (GtkWidget *window,
          Context   *context)
 {
   g_object_unref (context->preferences);
+  g_object_unref (context->settings);
   g_object_unref (context->engine);
   g_object_unref (context->groups);
   g_object_unref (context->plugins);
@@ -381,7 +396,7 @@ delete_event (GtkWidget *window,
   if (!codeslayer_engine_close_active_group (context->engine))
     return TRUE;
 
-  save_application_preferences (context);
+  save_application_settings (context);
   codeslayer_repository_save_groups (context->groups);
   codeslayer_plugins_deactivate (context->plugins);
   return FALSE;
@@ -393,28 +408,28 @@ quit_application_action (Context *context)
   if (!codeslayer_engine_close_active_group (context->engine))
     return;
   
-  save_application_preferences (context);
+  save_application_settings (context);
   codeslayer_plugins_deactivate (context->plugins);
   gtk_widget_destroy (context->window);
 }
 
 static void
-load_application_preferences (Context *context)
+load_application_settings (Context *context)
 {
   gint window_width;
   gint window_height;
   gint window_x;
   gint window_y;
 
-  window_width = codeslayer_preferences_get_integer (context->preferences,
-                                                     CODESLAYER_PREFERENCES_WINDOW_WIDTH);
+  window_width = codeslayer_settings_get_integer (context->settings,
+                                                     CODESLAYER_SETTINGS_WINDOW_WIDTH);
   if (window_width < 0)
     {
       window_width = 800;
     }
   
-  window_height = codeslayer_preferences_get_integer (context->preferences,
-                                                      CODESLAYER_PREFERENCES_WINDOW_HEIGHT);
+  window_height = codeslayer_settings_get_integer (context->settings,
+                                                      CODESLAYER_SETTINGS_WINDOW_HEIGHT);
   if (window_height < 0)
     {
       window_height = 600;
@@ -422,15 +437,15 @@ load_application_preferences (Context *context)
     
   gtk_window_set_default_size (GTK_WINDOW (context->window), window_width, window_height);
 
-  window_x = codeslayer_preferences_get_integer (context->preferences,
-                                                 CODESLAYER_PREFERENCES_WINDOW_X);
+  window_x = codeslayer_settings_get_integer (context->settings,
+                                                 CODESLAYER_SETTINGS_WINDOW_X);
   if (window_x < 0)
     {
       window_x = 10;
     }
     
-  window_y = codeslayer_preferences_get_integer (context->preferences,
-                                                 CODESLAYER_PREFERENCES_WINDOW_Y);
+  window_y = codeslayer_settings_get_integer (context->settings,
+                                                 CODESLAYER_SETTINGS_WINDOW_Y);
   if (window_y < 0)
     {
       window_y = 10;
@@ -440,7 +455,7 @@ load_application_preferences (Context *context)
 }
 
 static void
-save_application_preferences (Context *context)
+save_application_settings (Context *context)
 {
   gint width;
   gint height;
@@ -449,30 +464,30 @@ save_application_preferences (Context *context)
   gint position;
 
   gtk_window_get_size (GTK_WINDOW (context->window), &width, &height);
-  codeslayer_preferences_set_integer (context->preferences,
-                                      CODESLAYER_PREFERENCES_WINDOW_WIDTH,
+  codeslayer_settings_set_integer (context->settings,
+                                      CODESLAYER_SETTINGS_WINDOW_WIDTH,
                                       width);
-  codeslayer_preferences_set_integer (context->preferences,
-                                      CODESLAYER_PREFERENCES_WINDOW_HEIGHT,
+  codeslayer_settings_set_integer (context->settings,
+                                      CODESLAYER_SETTINGS_WINDOW_HEIGHT,
                                       height);
 
   gtk_window_get_position (GTK_WINDOW (context->window), &x, &y);
-  codeslayer_preferences_set_integer (context->preferences,
-                                      CODESLAYER_PREFERENCES_WINDOW_X, x);
-  codeslayer_preferences_set_integer (context->preferences,
-                                      CODESLAYER_PREFERENCES_WINDOW_Y, y);
+  codeslayer_settings_set_integer (context->settings,
+                                      CODESLAYER_SETTINGS_WINDOW_X, x);
+  codeslayer_settings_set_integer (context->settings,
+                                      CODESLAYER_SETTINGS_WINDOW_Y, y);
 
   position = gtk_paned_get_position (GTK_PANED (context->hpaned));
-  codeslayer_preferences_set_integer (context->preferences,
-                                      CODESLAYER_PREFERENCES_HPANED_POSITION,
+  codeslayer_settings_set_integer (context->settings,
+                                      CODESLAYER_SETTINGS_HPANED_POSITION,
                                       position);
 
   position = gtk_paned_get_position (GTK_PANED (context->vpaned));
-  codeslayer_preferences_set_integer (context->preferences,
-                                      CODESLAYER_PREFERENCES_VPANED_POSITION,
+  codeslayer_settings_set_integer (context->settings,
+                                      CODESLAYER_SETTINGS_VPANED_POSITION,
                                       position);
 
-  codeslayer_preferences_save (context->preferences);
+  codeslayer_settings_save (context->settings);
 }
 
 static void
