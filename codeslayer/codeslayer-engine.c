@@ -464,6 +464,7 @@ new_group_action (CodeSlayerEngine *engine,
 
   codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
   codeslayer_projects_load_group (CODESLAYER_PROJECTS (priv->projects), group);
+  codeslayer_preferences_load (priv->preferences, group);
 }
 
 static void
