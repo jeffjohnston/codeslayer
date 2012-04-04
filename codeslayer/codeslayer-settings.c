@@ -323,6 +323,5 @@ verify_conf_exists ()
 static gchar *
 get_conf_path (void)
 {
-  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, "codeslayer.settings", 
-                           NULL);
+  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, CODESLAYER_CONF, NULL);
 }

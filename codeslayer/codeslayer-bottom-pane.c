@@ -82,7 +82,9 @@ codeslayer_bottom_pane_new (CodeSlayerPreferences *preferences)
   
   create_close_button (CODESLAYER_BOTTOM_PANE (bottom_pane));
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (bottom_pane));
-  codeslayer_abstract_pane_sync_preferences (CODESLAYER_ABSTRACT_PANE (bottom_pane));
+
+  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-settings",
+                            G_CALLBACK ( codeslayer_abstract_pane_sync_preferences), CODESLAYER_ABSTRACT_PANE (bottom_pane));
 
   g_signal_connect_swapped (G_OBJECT (preferences), "bottom-pane-settings-changed",
                             G_CALLBACK (codeslayer_abstract_pane_sync_preferences), bottom_pane);

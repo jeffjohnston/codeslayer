@@ -121,11 +121,7 @@ main (int   argc,
 
   create_groups (&context);
 
-  g_print ("here\n");
-
   create_menu (&context);
-
-  g_print ("there\n");
 
   create_notebook (&context);
 
