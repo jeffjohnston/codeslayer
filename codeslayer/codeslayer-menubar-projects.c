@@ -31,8 +31,7 @@ static void codeslayer_menubar_projects_init        (CodeSlayerMenuBarProjects  
 static void codeslayer_menubar_projects_finalize    (CodeSlayerMenuBarProjects      *menubar_projects);
 
 static void add_menu_items                          (CodeSlayerMenuBarProjects      *menubar_projects);
-static void apply_preferences                       (CodeSlayerMenuBarProjects      *menubar_projects, 
-                                                     CodeSlayerPreferences          *preferences);
+static void initialize_preferences_action           (CodeSlayerMenuBarProjects      *menubar_projects);
 static void add_project_action                      (CodeSlayerMenuBarProjects      *menubar_projects);
 static void sync_with_editor_action                 (CodeSlayerMenuBarProjects      *menubar_projects);
 
@@ -43,11 +42,12 @@ typedef struct _CodeSlayerMenuBarProjectsPrivate CodeSlayerMenuBarProjectsPrivat
 
 struct _CodeSlayerMenuBarProjectsPrivate
 {
-  GtkWidget     *window;
-  GtkAccelGroup *accel_group;
-  GtkWidget     *menubar;
-  GtkWidget     *menu;
-  GtkWidget     *sync_with_editor_item;
+  GtkWidget             *window;
+  CodeSlayerPreferences *preferences;
+  GtkAccelGroup         *accel_group;
+  GtkWidget             *menubar;
+  GtkWidget             *menu;
+  GtkWidget             *sync_with_editor_item;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarProjects, codeslayer_menubar_projects, GTK_TYPE_MENU_ITEM)
@@ -105,10 +105,12 @@ codeslayer_menubar_projects_new (GtkWidget             *window,
   priv->window = window;
   priv->menubar = menubar;
   priv->accel_group = accel_group;
+  priv->preferences = preferences;
 
   add_menu_items (CODESLAYER_MENUBAR_PROJECTS (menubar_projects));
 
-  apply_preferences (CODESLAYER_MENUBAR_PROJECTS (menubar_projects), preferences);
+  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-settings",
+                            G_CALLBACK (initialize_preferences_action), CODESLAYER_MENUBAR_PROJECTS (menubar_projects));
 
   return menubar_projects;
 }
@@ -140,15 +142,14 @@ add_menu_items (CodeSlayerMenuBarProjects *menubar_projects)
 }
 
 static void
-apply_preferences (CodeSlayerMenuBarProjects *menubar_projects, 
-                   CodeSlayerPreferences     *preferences)
+initialize_preferences_action (CodeSlayerMenuBarProjects *menubar_projects)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   gboolean sync_with_editor;
   
   priv = CODESLAYER_MENUBAR_PROJECTS_GET_PRIVATE (menubar_projects);
   
-  sync_with_editor = codeslayer_preferences_get_boolean (preferences, 
+  sync_with_editor = codeslayer_preferences_get_boolean (priv->preferences, 
                                                          CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR);
 
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item), 
@@ -192,8 +193,11 @@ sync_with_editor_action (CodeSlayerMenuBarProjects *menubar_projects)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   gboolean sync_with_editor;
+  
   priv = CODESLAYER_MENUBAR_PROJECTS_GET_PRIVATE (menubar_projects);
+  
   sync_with_editor = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item));
   codeslayer_menubar_sync_projects_with_editor (CODESLAYER_MENUBAR (priv->menubar),
-                                                sync_with_editor);                                                
+                                                sync_with_editor);
+  codeslayer_preferences_save (priv->preferences);
 }

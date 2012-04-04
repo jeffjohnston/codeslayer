@@ -80,8 +80,8 @@ static void destroy                          (GtkWidget   *window,
 static gboolean delete_event                 (GtkWidget   *window, 
                                               GdkEvent    *event,
                                               Context     *context);
-static void load_application_settings        (Context     *context);
-static void save_application_settings        (Context     *context);
+static void load_settings                    (Context     *context);
+static void save_settings                    (Context     *context);
 static void quit_application_action          (Context     *context);
 static void verify_home_dir_exists           (void);
 static void verify_groups_dir_exists         (void);
@@ -114,14 +114,18 @@ main (int   argc,
   create_settings (&context);
 
   create_preferences (&context);
-
+  
   create_plugins (&context);
 
-  load_application_settings (&context);
+  load_settings (&context);
 
   create_groups (&context);
 
+  g_print ("here\n");
+
   create_menu (&context);
+
+  g_print ("there\n");
 
   create_notebook (&context);
 
@@ -396,7 +400,7 @@ delete_event (GtkWidget *window,
   if (!codeslayer_engine_close_active_group (context->engine))
     return TRUE;
 
-  save_application_settings (context);
+  save_settings (context);
   codeslayer_repository_save_groups (context->groups);
   codeslayer_plugins_deactivate (context->plugins);
   return FALSE;
@@ -408,13 +412,13 @@ quit_application_action (Context *context)
   if (!codeslayer_engine_close_active_group (context->engine))
     return;
   
-  save_application_settings (context);
+  save_settings (context);
   codeslayer_plugins_deactivate (context->plugins);
   gtk_widget_destroy (context->window);
 }
 
 static void
-load_application_settings (Context *context)
+load_settings (Context *context)
 {
   gint window_width;
   gint window_height;
@@ -455,7 +459,7 @@ load_application_settings (Context *context)
 }
 
 static void
-save_application_settings (Context *context)
+save_settings (Context *context)
 {
   gint width;
   gint height;

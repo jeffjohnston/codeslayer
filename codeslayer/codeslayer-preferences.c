@@ -33,28 +33,27 @@
  * users home directory under a .codeslayer folder.
  */
 
-static void codeslayer_preferences_class_init (CodeSlayerPreferencesClass *klass);
+static void codeslayer_preferences_class_init  (CodeSlayerPreferencesClass *klass);
+static void codeslayer_preferences_init        (CodeSlayerPreferences      *preferences);
+static void codeslayer_preferences_finalize    (CodeSlayerPreferences      *preferences);
 
-static gboolean verify_conf_exists (void);
-
-static void codeslayer_preferences_class_init     (CodeSlayerPreferencesClass *klass);
-static void codeslayer_preferences_init           (CodeSlayerPreferences      *preferences);
-static void codeslayer_preferences_finalize       (CodeSlayerPreferences      *preferences);
-
-static void set_defaults                          (CodeSlayerPreferences      *preferences);
-static gchar *get_conf_path                       (void);
+static gboolean verify_conf_exists             (CodeSlayerPreferences      *preferences);
+static void set_defaults                       (CodeSlayerPreferences      *preferences);
+static gchar *get_conf_path                    (CodeSlayerPreferences      *preferences);
 
 #define CODESLAYER_PREFERENCES_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PREFERENCES_TYPE, CodeSlayerPreferencesPrivate))
 
 #define MAIN "main"
+#define GROUPS "groups"
 
 typedef struct _CodeSlayerPreferencesPrivate CodeSlayerPreferencesPrivate;
 
 struct _CodeSlayerPreferencesPrivate
 {
-  GtkWidget *window;
-  GKeyFile *keyfile;
+  GtkWidget       *window;
+  GKeyFile        *keyfile;
+  CodeSlayerGroup *group;
 };
 
 enum
@@ -63,6 +62,7 @@ enum
   NOTEBOOK_SETTINGS_CHANGED,
   SIDE_PANE_SETTINGS_CHANGED,
   BOTTOM_PANE_SETTINGS_CHANGED,
+  INITIALIZE_SETTINGS,
   LAST_SIGNAL
 };
 
@@ -137,6 +137,22 @@ codeslayer_preferences_class_init (CodeSlayerPreferencesClass *klass)
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
+  /**
+	 * CodeSlayerPreferences::initialize-settings
+	 * @codeslayerpreferences: the preference that received the signal
+	 *
+	 * The ::initialize-settings signal lets all observers know that 
+	 * the preferences need to be applied.
+	 * #CodeSlayerSidePane, changed.
+	 */
+  codeslayer_preferences_signals[INITIALIZE_SETTINGS] =
+    g_signal_new ("initialize-settings", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, initialize_settings), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_preferences_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerPreferencesPrivate));
 }
@@ -145,21 +161,8 @@ static void
 codeslayer_preferences_init (CodeSlayerPreferences *preferences)
 {
   CodeSlayerPreferencesPrivate *priv;
-  gboolean conf_exists;
-  GKeyFile *keyfile;
-  gchar *conf;
-  
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  conf_exists = verify_conf_exists ();
-  keyfile = g_key_file_new ();
-
-  conf = get_conf_path ();
-  g_key_file_load_from_file (keyfile, conf, G_KEY_FILE_NONE, NULL);
-  priv->keyfile = keyfile;
-  g_free (conf);
-
-  if (!conf_exists)
-    set_defaults (preferences);
+  priv->keyfile = NULL;
 }
 
 static void
@@ -343,6 +346,45 @@ codeslayer_preferences_set_string (CodeSlayerPreferences *preferences,
 }
 
 /**
+ * codeslayer_preferences_load:
+ * @preferences: a #CodeSlayerPreferences.
+ * @group: a #CodeSlayerGroup.
+ *
+ * Load the group preferences.
+ */
+void
+codeslayer_preferences_load (CodeSlayerPreferences *preferences, 
+                             CodeSlayerGroup       *group)
+{
+  CodeSlayerPreferencesPrivate *priv;
+  gboolean conf_exists;
+  GKeyFile *keyfile;
+  gchar *conf;
+  
+  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
+  priv->group = group;
+  
+  if (priv->keyfile)
+    {
+      g_key_file_free (priv->keyfile);
+      priv->keyfile = NULL;
+    }
+  
+  conf_exists = verify_conf_exists (preferences);
+  keyfile = g_key_file_new ();
+
+  conf = get_conf_path (preferences);
+  g_key_file_load_from_file (keyfile, conf, G_KEY_FILE_NONE, NULL);
+  priv->keyfile = keyfile;
+  g_free (conf);
+
+  if (!conf_exists)
+    set_defaults (preferences);
+    
+  g_signal_emit_by_name ((gpointer) preferences, "initialize-settings");
+}                             
+
+/**
  * codeslayer_preferences_save:
  * @preferences: a #CodeSlayerPreferences.
  *
@@ -360,7 +402,7 @@ codeslayer_preferences_save (CodeSlayerPreferences *preferences)
 
   data = g_key_file_to_data (priv->keyfile, &size, NULL);
 
-  conf_path = get_conf_path ();
+  conf_path = get_conf_path (preferences);
 
   g_file_set_contents (conf_path, data, size, NULL);
 
@@ -426,13 +468,13 @@ set_defaults (CodeSlayerPreferences *preferences)
 }
 
 static gboolean
-verify_conf_exists ()
+verify_conf_exists (CodeSlayerPreferences *preferences)
 {
   gboolean result = TRUE;
   gchar *conf_path;
   GFile *conf_file;
 
-  conf_path = get_conf_path ();
+  conf_path = get_conf_path (preferences);
   conf_file = g_file_new_for_path (conf_path);
   if (!g_file_query_exists (conf_file, NULL))
     {
@@ -450,11 +492,18 @@ verify_conf_exists ()
   return result;
 }
 
-static gchar *
-get_conf_path (void)
+static gchar*
+get_conf_path (CodeSlayerPreferences *preferences)
 {
-  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, CODESLAYER_CONF, 
-                           NULL);
+  CodeSlayerPreferencesPrivate *priv;
+  const gchar *group_name;
+
+  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
+
+  group_name = codeslayer_group_get_name (priv->group);
+
+  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, GROUPS,
+                           group_name, CODESLAYER_CONF, NULL);
 }
 
 /**

@@ -20,6 +20,7 @@
 #define __CODESLAYER_PREFERENCES_H__
 
 #include <gtk/gtk.h>
+#include <codeslayer/codeslayer-group.h>
 
 G_BEGIN_DECLS
 
@@ -64,6 +65,7 @@ struct _CodeSlayerPreferencesClass
   void (*notebook_settings_changed) (CodeSlayerPreferences *preferences);
   void (*side_pane_settings_changed) (CodeSlayerPreferences *preferences);
   void (*bottom_pane_settings_changed) (CodeSlayerPreferences *preferences);
+  void (*initialize_settings) (CodeSlayerPreferences *preferences);
 };
 
 GType codeslayer_preferences_get_type (void) G_GNUC_CONST;
@@ -90,6 +92,8 @@ gchar*                  codeslayer_preferences_get_string   (CodeSlayerPreferenc
 void                    codeslayer_preferences_set_string   (CodeSlayerPreferences *preferences, 
                                                              gchar                 *key,
                                                              const gchar           *value);
+void                    codeslayer_preferences_load         (CodeSlayerPreferences *preferences, 
+                                                             CodeSlayerGroup       *group);
 void                    codeslayer_preferences_save         (CodeSlayerPreferences *preferences);
 void                    codeslayer_preferences_run_dialog   (CodeSlayerPreferences *preferences);
 

@@ -51,8 +51,7 @@ static void codeslayer_engine_class_init       (CodeSlayerEngineClass  *klass);
 static void codeslayer_engine_init             (CodeSlayerEngine       *engine);
 static void codeslayer_engine_finalize         (CodeSlayerEngine       *engine);
 
-static void apply_preferences                  (CodeSlayerEngine       *engine, 
-                                                CodeSlayerPreferences  *preferences);
+static void initialize_preferences_action      (CodeSlayerEngine       *engine);
 static void group_changed_action               (CodeSlayerEngine       *engine, 
                                                 gchar                  *group_name);
 static void new_group_action                   (CodeSlayerEngine       *engine,
@@ -198,8 +197,9 @@ codeslayer_engine_new (GtkWindow             *window,
   priv->bottom_pane = bottom_pane;
   priv->search = NULL;
   
-  apply_preferences (CODESLAYER_ENGINE (engine), preferences);
-  
+  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-settings",
+                            G_CALLBACK (initialize_preferences_action), engine);
+
   g_signal_connect_swapped (G_OBJECT (menubar), "group-changed",
                             G_CALLBACK (group_changed_action), engine);
   
@@ -309,12 +309,11 @@ codeslayer_engine_new (GtkWindow             *window,
 }
 
 static void
-apply_preferences (CodeSlayerEngine      *engine, 
-                   CodeSlayerPreferences *preferences)
+initialize_preferences_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  priv->sync_projects_with_editor = codeslayer_preferences_get_boolean (preferences, 
+  priv->sync_projects_with_editor = codeslayer_preferences_get_boolean (priv->preferences, 
                                                                         CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR);
 }
 
@@ -373,6 +372,7 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
   active_group = codeslayer_groups_get_active_group (priv->groups);
+  codeslayer_preferences_load (priv->preferences, active_group);
   
   if (codeslayer_group_get_libs (active_group) == NULL)
     {

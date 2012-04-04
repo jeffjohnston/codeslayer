@@ -72,7 +72,7 @@ codeslayer_side_pane_new (CodeSlayerPreferences *preferences)
   side_pane = g_object_new (codeslayer_side_pane_get_type (), NULL);
   
   codeslayer_abstract_pane_set_preferences (CODESLAYER_ABSTRACT_PANE (side_pane), 
-                                       preferences);
+                                            preferences);
   
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (side_pane));
   codeslayer_abstract_pane_sync_preferences (CODESLAYER_ABSTRACT_PANE (side_pane));
