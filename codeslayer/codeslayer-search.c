@@ -115,13 +115,16 @@ codeslayer_search_init (CodeSlayerSearch *search)
 {
   CodeSlayerSearchPrivate *priv;
   GtkWidget *vbox;
+  GtkWidget *button_box;
   GtkWidget *notebook;
+  GtkWidget *close_button;
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
   
   gtk_window_set_title (GTK_WINDOW (search), _("Search"));  
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (search), TRUE);
   gtk_window_set_skip_pager_hint (GTK_WINDOW (search), TRUE);
+  gtk_container_set_border_width (GTK_CONTAINER (search), 3);
   
   vbox = gtk_vbox_new (FALSE, 0);
   priv->vbox = vbox;
@@ -130,6 +133,13 @@ codeslayer_search_init (CodeSlayerSearch *search)
   priv->notebook = notebook;
   
   gtk_box_pack_start (GTK_BOX(vbox), notebook, TRUE, TRUE, 2);
+  
+  button_box = gtk_hbutton_box_new ();
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (button_box), GTK_BUTTONBOX_END);
+  gtk_container_set_border_width (GTK_CONTAINER (button_box), 4);
+  close_button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
+  gtk_box_pack_start (GTK_BOX(button_box), close_button, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX(vbox), button_box, FALSE, FALSE, 0);
 
   gtk_container_add (GTK_CONTAINER (search), vbox);
 }

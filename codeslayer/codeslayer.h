@@ -35,7 +35,6 @@
 #include <codeslayer/codeslayer-menuitem.h>
 #include <codeslayer/codeslayer-completion.h>
 #include <codeslayer/codeslayer-completion-provider.h>
-#include <codeslayer/codeslayer-completion-proposals.h>
 #include <codeslayer/codeslayer-completion-proposal.h>
 
 G_BEGIN_DECLS

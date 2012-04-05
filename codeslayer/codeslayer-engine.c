@@ -390,7 +390,6 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
     }
   
   documents = codeslayer_repository_get_documents (active_group);
-  documents = g_list_reverse (documents);
 
   codeslayer_projects_load_group (CODESLAYER_PROJECTS (priv->projects), active_group);
   
