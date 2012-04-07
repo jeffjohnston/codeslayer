@@ -45,6 +45,7 @@ static void codeslayer_search_set_property  (GObject               *object,
                                              guint                  prop_id,
                                              const GValue          *value,
                                              GParamSpec            *pspec);                                             
+static void close_action                    (CodeSlayerSearch      *search);
 static void close_search_page_action        (CodeSlayerSearchTab   *search_tab,
                                              CodeSlayerSearch      *search);                                             
 static void open_document_action            (CodeSlayerSearch      *search,
@@ -67,6 +68,7 @@ struct _CodeSlayerSearchPrivate
 enum
 {
   SELECT_DOCUMENT,
+  CLOSE,
   LAST_SIGNAL
 };
 
@@ -101,6 +103,22 @@ codeslayer_search_class_init (CodeSlayerSearchClass *klass)
                   G_STRUCT_OFFSET (CodeSlayerSearchClass, select_document),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
+
+  /**
+	 * CodeSlayerSearchPage::close
+	 * @codeslayersearch: the search that received the signal
+	 *
+	 * Note: for internal use only.
+	 *
+	 * The ::close signal is a request to close the search box.
+	 */
+  codeslayer_search_signals[CLOSE] =
+    g_signal_new ("close", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerSearchClass, close),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_search_finalize;
   
@@ -140,6 +158,9 @@ codeslayer_search_init (CodeSlayerSearch *search)
   close_button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
   gtk_box_pack_start (GTK_BOX(button_box), close_button, FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX(vbox), button_box, FALSE, FALSE, 0);
+  
+  g_signal_connect_swapped (G_OBJECT (close_button), "clicked",
+                            G_CALLBACK (close_action), CODESLAYER_SEARCH (search));
 
   gtk_container_add (GTK_CONTAINER (search), vbox);
 }
@@ -333,4 +354,10 @@ open_document_action (CodeSlayerSearch   *search,
                       CodeSlayerDocument *document)
 {
   g_signal_emit_by_name ((gpointer) search, "select-document", document);
+}
+
+static void
+close_action (CodeSlayerSearch *search)
+{
+  g_signal_emit_by_name ((gpointer) search, "close");
 }

@@ -44,6 +44,7 @@ struct _CodeSlayerSearchClass
   GtkWindowClass parent_class;
 
   void (*select_document) (CodeSlayerSearch *search);
+  void (*close) (CodeSlayerSearch *search);
 };
 
 GType codeslayer_search_get_type (void) G_GNUC_CONST;

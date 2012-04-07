@@ -771,7 +771,7 @@ search_find_projects_action (CodeSlayerEngine *engine,
 
       gtk_window_set_type_hint (GTK_WINDOW (priv->search), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-      g_signal_connect_swapped (G_OBJECT (priv->search), "delete_event",
+      g_signal_connect_swapped (G_OBJECT (priv->search), "close",
                                 G_CALLBACK (close_search_action), engine);
                         
       g_signal_connect_swapped (G_OBJECT (priv->search), "select-document",
@@ -800,7 +800,7 @@ search_find_projects_action (CodeSlayerEngine *engine,
       search_y = codeslayer_settings_get_integer (priv->settings,
                                                   CODESLAYER_SETTINGS_SEARCH_Y);
       if (search_y < 0)
-        search_y = 10;        
+        search_y = 10;
 
       gtk_window_move (GTK_WINDOW (priv->search), search_x, search_y);
     }
