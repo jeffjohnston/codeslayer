@@ -58,11 +58,11 @@ struct _CodeSlayerPreferencesPrivate
 
 enum
 {
-  EDITOR_SETTINGS_CHANGED,
-  NOTEBOOK_SETTINGS_CHANGED,
-  SIDE_PANE_SETTINGS_CHANGED,
-  BOTTOM_PANE_SETTINGS_CHANGED,
-  INITIALIZE_SETTINGS,
+  EDITOR_PREFERENCES_CHANGED,
+  NOTEBOOK_PREFERENCES_CHANGED,
+  SIDE_PANE_PREFERENCES_CHANGED,
+  BOTTOM_PANE_PREFERENCES_CHANGED,
+  INITIALIZE_PREFERENCES,
   LAST_SIGNAL
 };
 
@@ -74,82 +74,82 @@ static void
 codeslayer_preferences_class_init (CodeSlayerPreferencesClass *klass)
 {
   /**
-	 * CodeSlayerPreferences::editor-settings-changed
+	 * CodeSlayerPreferences::editor-preferences-changed
 	 * @codeslayerpreferences: the preference that received the signal
 	 *
-	 * The ::editor-settings-changed signal lets all observers know that 
+	 * The ::editor-preferences-changed signal lets all observers know that 
 	 * something in the preferences, related to the 
 	 * #CodeSlayerEditor, changed.
 	 */
-  codeslayer_preferences_signals[EDITOR_SETTINGS_CHANGED] =
-    g_signal_new ("editor-settings-changed", 
+  codeslayer_preferences_signals[EDITOR_PREFERENCES_CHANGED] =
+    g_signal_new ("editor-preferences-changed", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, editor_settings_changed), 
+                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, editor_preferences_changed), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerPreferences::notebook-settings-changed
+	 * CodeSlayerPreferences::notebook-preferences-changed
 	 * @codeslayerpreferences: the preference that received the signal
 	 *
-	 * The ::notebook-settings-changed signal lets all observers know that 
+	 * The ::notebook-preferences-changed signal lets all observers know that 
 	 * something in the preferences, related to the 
 	 * #CodeSlayerNotebook, changed.
 	 */
-  codeslayer_preferences_signals[NOTEBOOK_SETTINGS_CHANGED] =
-    g_signal_new ("notebook-settings-changed", 
+  codeslayer_preferences_signals[NOTEBOOK_PREFERENCES_CHANGED] =
+    g_signal_new ("notebook-preferences-changed", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, notebook_settings_changed), 
+                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, notebook_preferences_changed), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerPreferences::side-pane-settings-changed
+	 * CodeSlayerPreferences::side-pane-preferences-changed
 	 * @codeslayerpreferences: the preference that received the signal
 	 *
-	 * The ::side-pane-settings-changed signal lets all observers know that 
+	 * The ::side-pane-preferences-changed signal lets all observers know that 
 	 * something in the preferences, related to the 
 	 * #CodeSlayerSidePane, changed.
 	 */
-  codeslayer_preferences_signals[SIDE_PANE_SETTINGS_CHANGED] =
-    g_signal_new ("side-pane-settings-changed", 
+  codeslayer_preferences_signals[SIDE_PANE_PREFERENCES_CHANGED] =
+    g_signal_new ("side-pane-preferences-changed", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, side_pane_settings_changed), 
+                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, side_pane_preferences_changed), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerPreferences::bottom-pane-settings-changed
+	 * CodeSlayerPreferences::bottom-pane-preferences-changed
 	 * @codeslayerpreferences: the preference that received the signal
 	 *
-	 * The ::bottom-pane-settings-changed signal lets all observers know that 
+	 * The ::bottom-pane-preferences-changed signal lets all observers know that 
 	 * something in the preferences, related to the 
 	 * #CodeSlayerSidePane, changed.
 	 */
-  codeslayer_preferences_signals[BOTTOM_PANE_SETTINGS_CHANGED] =
-    g_signal_new ("bottom-pane-settings-changed", 
+  codeslayer_preferences_signals[BOTTOM_PANE_PREFERENCES_CHANGED] =
+    g_signal_new ("bottom-pane-preferences-changed", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, bottom_pane_settings_changed), 
+                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, bottom_pane_preferences_changed), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerPreferences::initialize-settings
+	 * CodeSlayerPreferences::initialize-preferences
 	 * @codeslayerpreferences: the preference that received the signal
 	 *
-	 * The ::initialize-settings signal lets all observers know that 
+	 * The ::initialize-preferences signal lets all observers know that 
 	 * the preferences need to be applied.
 	 * #CodeSlayerSidePane, changed.
 	 */
-  codeslayer_preferences_signals[INITIALIZE_SETTINGS] =
-    g_signal_new ("initialize-settings", 
+  codeslayer_preferences_signals[INITIALIZE_PREFERENCES] =
+    g_signal_new ("initialize-preferences", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, initialize_settings), 
+                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, initialize_preferences), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -382,7 +382,7 @@ codeslayer_preferences_load (CodeSlayerPreferences *preferences,
   if (!conf_exists)
     set_defaults (preferences);
     
-  g_signal_emit_by_name ((gpointer) preferences, "initialize-settings");
+  g_signal_emit_by_name ((gpointer) preferences, "initialize-preferences");
 }                             
 
 /**

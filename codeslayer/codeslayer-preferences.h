@@ -61,11 +61,11 @@ struct _CodeSlayerPreferencesClass
 {
   GObjectClass parent_class;
 
-  void (*editor_settings_changed) (CodeSlayerPreferences *preferences);
-  void (*notebook_settings_changed) (CodeSlayerPreferences *preferences);
-  void (*side_pane_settings_changed) (CodeSlayerPreferences *preferences);
-  void (*bottom_pane_settings_changed) (CodeSlayerPreferences *preferences);
-  void (*initialize_settings) (CodeSlayerPreferences *preferences);
+  void (*editor_preferences_changed) (CodeSlayerPreferences *preferences);
+  void (*notebook_preferences_changed) (CodeSlayerPreferences *preferences);
+  void (*side_pane_preferences_changed) (CodeSlayerPreferences *preferences);
+  void (*bottom_pane_preferences_changed) (CodeSlayerPreferences *preferences);
+  void (*initialize_preferences) (CodeSlayerPreferences *preferences);
 };
 
 GType codeslayer_preferences_get_type (void) G_GNUC_CONST;

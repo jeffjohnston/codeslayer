@@ -76,10 +76,10 @@ codeslayer_side_pane_new (CodeSlayerPreferences *preferences)
   
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (side_pane));
 
-  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-settings",
+  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
                             G_CALLBACK ( codeslayer_abstract_pane_sync_preferences), CODESLAYER_ABSTRACT_PANE (side_pane));
   
-  g_signal_connect_swapped (G_OBJECT (preferences), "side-pane-settings-changed",
+  g_signal_connect_swapped (G_OBJECT (preferences), "side-pane-preferences-changed",
                             G_CALLBACK (codeslayer_abstract_pane_sync_preferences), side_pane);
 
   return side_pane;

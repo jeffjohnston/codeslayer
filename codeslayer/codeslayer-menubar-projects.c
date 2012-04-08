@@ -110,7 +110,7 @@ codeslayer_menubar_projects_new (GtkWidget             *window,
 
   add_menu_items (CODESLAYER_MENUBAR_PROJECTS (menubar_projects));
 
-  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-settings",
+  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
                             G_CALLBACK (initialize_preferences_action), CODESLAYER_MENUBAR_PROJECTS (menubar_projects));
 
   return menubar_projects;

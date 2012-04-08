@@ -144,10 +144,10 @@ codeslayer_notebook_new (GtkWindow             *window,
   priv->preferences = preferences;
   priv->window = window;
   
-  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-settings",
+  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
                             G_CALLBACK (preferences_changed_action), CODESLAYER_NOTEBOOK (notebook));
   
-  g_signal_connect_swapped (G_OBJECT (preferences), "notebook-settings-changed",
+  g_signal_connect_swapped (G_OBJECT (preferences), "notebook-preferences-changed",
                             G_CALLBACK (preferences_changed_action), CODESLAYER_NOTEBOOK (notebook));
   
   return notebook;

@@ -56,23 +56,23 @@ codeslayer_preferences_utils_content_area (GtkBox *tab,
 void
 codeslayer_preferences_utils_notify_editors (CodeSlayerPreferences *preferences)
 {
-  g_signal_emit_by_name ((gpointer) preferences, "editor-settings-changed");
+  g_signal_emit_by_name ((gpointer) preferences, "editor-preferences-changed");
 }
 
 void
 codeslayer_preferences_utils_notify_notebook (CodeSlayerPreferences *preferences)
 {
-  g_signal_emit_by_name ((gpointer) preferences, "notebook-settings-changed");
+  g_signal_emit_by_name ((gpointer) preferences, "notebook-preferences-changed");
 }
 
 void
 codeslayer_preferences_utils_notify_side_pane (CodeSlayerPreferences *preferences)
 {
-  g_signal_emit_by_name ((gpointer) preferences, "side-pane-settings-changed");
+  g_signal_emit_by_name ((gpointer) preferences, "side-pane-preferences-changed");
 }
 
 void
 codeslayer_preferences_utils_notify_bottom_pane (CodeSlayerPreferences *preferences)
 {
-  g_signal_emit_by_name ((gpointer) preferences, "bottom-pane-settings-changed");
+  g_signal_emit_by_name ((gpointer) preferences, "bottom-pane-preferences-changed");
 }

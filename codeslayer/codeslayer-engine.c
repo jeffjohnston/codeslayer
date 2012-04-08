@@ -198,7 +198,7 @@ codeslayer_engine_new (GtkWindow             *window,
   priv->bottom_pane = bottom_pane;
   priv->search = NULL;
   
-  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-settings",
+  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
                             G_CALLBACK (initialize_preferences_action), engine);
 
   g_signal_connect_swapped (G_OBJECT (menubar), "group-changed",
@@ -297,7 +297,7 @@ codeslayer_engine_new (GtkWindow             *window,
   g_signal_connect_swapped (G_OBJECT (priv->notebook), "page-removed",
                             G_CALLBACK (page_removed_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (preferences), "editor-settings-changed",
+  g_signal_connect_swapped (G_OBJECT (preferences), "editor-preferences-changed",
                             G_CALLBACK (editor_preferences_changed_action), engine);
                     
   g_signal_connect_swapped (G_OBJECT (priv->side_pane), "notify::visible",
