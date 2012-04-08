@@ -1,5 +1,8 @@
 #include <codeslayer/codeslayer-abstract-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
+#include <codeslayer/codeslayer-completion-proposal.h>
+#include <codeslayer/codeslayer-completion-provider.h>
+#include <codeslayer/codeslayer-completion.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-editor.h>
 #include <codeslayer/codeslayer-engine.h>
@@ -7,7 +10,6 @@
 #include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-groups.h>
 #include <codeslayer/codeslayer-listview.h>
-#include <codeslayer/codeslayer-marshaller.h>
 #include <codeslayer/codeslayer-menubar-editor.h>
 #include <codeslayer/codeslayer-menubar-groups.h>
 #include <codeslayer/codeslayer-menubar-help.h>
@@ -35,17 +37,18 @@
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-projects-selection.h>
 #include <codeslayer/codeslayer-projects.h>
-#include <codeslayer/codeslayer-repository.h>
 #include <codeslayer/codeslayer-search-page.h>
 #include <codeslayer/codeslayer-search-tab.h>
 #include <codeslayer/codeslayer-search.h>
+#include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-side-pane.h>
-#include <codeslayer/codeslayer-tearoff.h>
-#include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer.h>
 
 codeslayer_abstract_pane_get_type
 codeslayer_bottom_pane_get_type
+codeslayer_completion_proposal_get_type
+codeslayer_completion_provider_get_type
+codeslayer_completion_get_type
 codeslayer_document_get_type
 codeslayer_editor_get_type
 codeslayer_engine_get_type
@@ -83,5 +86,6 @@ codeslayer_projects_get_type
 codeslayer_search_page_get_type
 codeslayer_search_tab_get_type
 codeslayer_search_get_type
+codeslayer_settings_get_type
 codeslayer_side_pane_get_type
 codeslayer_get_type

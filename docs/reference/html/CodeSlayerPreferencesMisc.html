@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerPreferencesMisc</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerPreferencesListView.html" title="CodeSlayerPreferencesListView">
 <link rel="next" href="CodeSlayerPreferencesProjects.html" title="CodeSlayerPreferencesProjects">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -30,7 +30,7 @@
                   <a href="#CodeSlayerPreferencesMisc.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
 </td></tr>
 </table>
-<div class="refentry" title="CodeSlayerPreferencesMisc">
+<div class="refentry">
 <a name="CodeSlayerPreferencesMisc"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,56 +39,46 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="CodeSlayerPreferencesMisc.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">
 #include &lt;codeslayer/codeslayer-preferences-misc.h&gt;
 
-                    <a class="link" href="CodeSlayerPreferencesMisc.html#CodeSlayerPreferencesMisc-struct" title="CodeSlayerPreferencesMisc">CodeSlayerPreferencesMisc</a>;
-                    <a class="link" href="CodeSlayerPreferencesMisc.html#CodeSlayerPreferencesMiscClass" title="CodeSlayerPreferencesMiscClass">CodeSlayerPreferencesMiscClass</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerPreferencesMisc.html#codeslayer-preferences-misc-new" title="codeslayer_preferences_misc_new ()">codeslayer_preferences_misc_new</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);
+struct              <a class="link" href="CodeSlayerPreferencesMisc.html#CodeSlayerPreferencesMisc-struct" title="struct CodeSlayerPreferencesMisc">CodeSlayerPreferencesMisc</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerPreferencesMisc.html#codeslayer-preferences-misc-new" title="codeslayer_preferences_misc_new ()">codeslayer_preferences_misc_new</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="CodeSlayerPreferencesMisc.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
-                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
-                                       +----CodeSlayerPreferencesMisc
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
+                                 +----CodeSlayerPreferencesMisc
 </pre>
 </div>
-<div class="refsect1" title="Implemented Interfaces">
+<div class="refsect1">
 <a name="CodeSlayerPreferencesMisc.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerPreferencesMisc implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="CodeSlayerPreferencesMisc.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="CodeSlayerPreferencesMisc.details"></a><h2>Details</h2>
-<div class="refsect2" title="CodeSlayerPreferencesMisc">
-<a name="CodeSlayerPreferencesMisc-struct"></a><h3>CodeSlayerPreferencesMisc</h3>
-<pre class="programlisting">typedef struct _CodeSlayerPreferencesMisc CodeSlayerPreferencesMisc;</pre>
+<div class="refsect2">
+<a name="CodeSlayerPreferencesMisc-struct"></a><h3>struct CodeSlayerPreferencesMisc</h3>
+<pre class="programlisting">struct CodeSlayerPreferencesMisc;</pre>
 </div>
 <hr>
-<div class="refsect2" title="CodeSlayerPreferencesMiscClass">
-<a name="CodeSlayerPreferencesMiscClass"></a><h3>CodeSlayerPreferencesMiscClass</h3>
-<pre class="programlisting">typedef struct {
-  GtkVBoxClass parent_class;
-} CodeSlayerPreferencesMiscClass;
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="codeslayer_preferences_misc_new ()">
+<div class="refsect2">
 <a name="codeslayer-preferences-misc-new"></a><h3>codeslayer_preferences_misc_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_preferences_misc_new     (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_preferences_misc_new     (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerPreferencesMisc.html" title="CodeSlayerPreferencesMisc"><span class="type">CodeSlayerPreferencesMisc</span></a>.
 </p>
@@ -97,13 +87,11 @@ Creates a new <a class="link" href="CodeSlayerPreferencesMisc.html" title="CodeS
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> a new <a class="link" href="CodeSlayerPreferencesMisc.html" title="CodeSlayerPreferencesMisc"><span class="type">CodeSlayerPreferencesMisc</span></a>. 
-</td>
+<td>a new <a class="link" href="CodeSlayerPreferencesMisc.html" title="CodeSlayerPreferencesMisc"><span class="type">CodeSlayerPreferencesMisc</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -112,6 +100,6 @@ Creates a new <a class="link" href="CodeSlayerPreferencesMisc.html" title="CodeS
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

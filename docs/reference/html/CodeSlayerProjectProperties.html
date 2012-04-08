@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerProjectProperties</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">
 <link rel="next" href="CodeSlayerProject.html" title="CodeSlayerProject">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -30,7 +30,7 @@
                   <a href="#CodeSlayerProjectProperties.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
 </td></tr>
 </table>
-<div class="refentry" title="CodeSlayerProjectProperties">
+<div class="refentry">
 <a name="CodeSlayerProjectProperties"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,62 +39,52 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="CodeSlayerProjectProperties.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">
 #include &lt;codeslayer/codeslayer-project-properties.h&gt;
 
-                    <a class="link" href="CodeSlayerProjectProperties.html#CodeSlayerProjectProperties-struct" title="CodeSlayerProjectProperties">CodeSlayerProjectProperties</a>;
-                    <a class="link" href="CodeSlayerProjectProperties.html#CodeSlayerProjectPropertiesClass" title="CodeSlayerProjectPropertiesClass">CodeSlayerProjectPropertiesClass</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerProjectProperties.html#codeslayer-project-properties-new" title="codeslayer_project_properties_new ()">codeslayer_project_properties_new</a>   (<em class="parameter"><code><span class="type">void</span></code></em>);
+struct              <a class="link" href="CodeSlayerProjectProperties.html#CodeSlayerProjectProperties-struct" title="struct CodeSlayerProjectProperties">CodeSlayerProjectProperties</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerProjectProperties.html#codeslayer-project-properties-new" title="codeslayer_project_properties_new ()">codeslayer_project_properties_new</a>   (<em class="parameter"><code><span class="type">void</span></code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjectProperties.html#codeslayer-project-properties-add" title="codeslayer_project_properties_add ()">codeslayer_project_properties_add</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a> *project_properties</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjectProperties.html#codeslayer-project-properties-remove" title="codeslayer_project_properties_remove ()">codeslayer_project_properties_remove</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a> *project_properties</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="CodeSlayerProjectProperties.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
-                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
-                                       +----CodeSlayerProjectProperties
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
+                                 +----CodeSlayerProjectProperties
 </pre>
 </div>
-<div class="refsect1" title="Implemented Interfaces">
+<div class="refsect1">
 <a name="CodeSlayerProjectProperties.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerProjectProperties implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="CodeSlayerProjectProperties.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="CodeSlayerProjectProperties.details"></a><h2>Details</h2>
-<div class="refsect2" title="CodeSlayerProjectProperties">
-<a name="CodeSlayerProjectProperties-struct"></a><h3>CodeSlayerProjectProperties</h3>
-<pre class="programlisting">typedef struct _CodeSlayerProjectProperties CodeSlayerProjectProperties;</pre>
+<div class="refsect2">
+<a name="CodeSlayerProjectProperties-struct"></a><h3>struct CodeSlayerProjectProperties</h3>
+<pre class="programlisting">struct CodeSlayerProjectProperties;</pre>
 </div>
 <hr>
-<div class="refsect2" title="CodeSlayerProjectPropertiesClass">
-<a name="CodeSlayerProjectPropertiesClass"></a><h3>CodeSlayerProjectPropertiesClass</h3>
-<pre class="programlisting">typedef struct {
-  GtkVBoxClass parent_class;
-} CodeSlayerProjectPropertiesClass;
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="codeslayer_project_properties_new ()">
+<div class="refsect2">
 <a name="codeslayer-project-properties-new"></a><h3>codeslayer_project_properties_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_project_properties_new   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_project_properties_new   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a>.
 </p>
@@ -102,17 +92,16 @@ Creates a new <a class="link" href="CodeSlayerProjectProperties.html" title="Cod
 <col align="left" valign="top">
 <tbody><tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> a new <a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a>. 
-</td>
+<td>a new <a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_project_properties_add ()">
+<div class="refsect2">
 <a name="codeslayer-project-properties-add"></a><h3>codeslayer_project_properties_add ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_project_properties_add   (<em class="parameter"><code><a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a> *project_properties</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);</pre>
 <p>
 Add the widget to the project properties.
 </p>
@@ -121,24 +110,21 @@ Add the widget to the project properties.
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>project_properties</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.
-</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>title</code></em> :</span></p></td>
-<td>the title for the tab.
-</td>
+<td>the title for the tab.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_project_properties_remove ()">
+<div class="refsect2">
 <a name="codeslayer-project-properties-remove"></a><h3>codeslayer_project_properties_remove ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_project_properties_remove
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a> *project_properties</code></em>,
@@ -151,13 +137,11 @@ Remove the widget from the project properties.
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>project_properties</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.
-</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -166,6 +150,6 @@ Remove the widget from the project properties.
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

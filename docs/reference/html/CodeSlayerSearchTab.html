@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerSearchTab</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerSearchPage.html" title="CodeSlayerSearchPage">
 <link rel="next" href="CodeSlayerSearch.html" title="CodeSlayerSearch">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
                   <a href="#CodeSlayerSearchTab.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" title="CodeSlayerSearchTab">
+<div class="refentry">
 <a name="CodeSlayerSearchTab"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -43,84 +43,72 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="CodeSlayerSearchTab.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">
 #include &lt;codeslayer/codeslayer-search-tab.h&gt;
 
-                    <a class="link" href="CodeSlayerSearchTab.html#CodeSlayerSearchTab-struct" title="CodeSlayerSearchTab">CodeSlayerSearchTab</a>;
-                    <a class="link" href="CodeSlayerSearchTab.html#CodeSlayerSearchTabClass" title="CodeSlayerSearchTabClass">CodeSlayerSearchTabClass</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerSearchTab.html#codeslayer-search-tab-new" title="codeslayer_search_tab_new ()">codeslayer_search_tab_new</a>           (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> closeable</code></em>);
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerSearchTab.html#codeslayer-search-tab-get-search-page" title="codeslayer_search_tab_get_search_page ()">codeslayer_search_tab_get_search_page</a>
+struct              <a class="link" href="CodeSlayerSearchTab.html#CodeSlayerSearchTab-struct" title="struct CodeSlayerSearchTab">CodeSlayerSearchTab</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerSearchTab.html#codeslayer-search-tab-new" title="codeslayer_search_tab_new ()">codeslayer_search_tab_new</a>           (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> closeable</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerSearchTab.html#codeslayer-search-tab-get-search-page" title="codeslayer_search_tab_get_search_page ()">codeslayer_search_tab_get_search_page</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a> *search_tab</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSearchTab.html#codeslayer-search-tab-set-search-page" title="codeslayer_search_tab_set_search_page ()">codeslayer_search_tab_set_search_page</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a> *search_tab</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *search_page</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSearchTab.html#codeslayer-search-tab-set-label-name" title="codeslayer_search_tab_set_label_name ()">codeslayer_search_tab_set_label_name</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a> *search_tab</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSearchTab.html#codeslayer-search-tab-set-tooltip" title="codeslayer_search_tab_set_tooltip ()">codeslayer_search_tab_set_tooltip</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a> *search_tab</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tooltip</code></em>);
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tooltip</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="CodeSlayerSearchTab.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
-                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkHBox.html">GtkHBox</a>
-                                       +----CodeSlayerSearchTab
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkHBox.html">GtkHBox</a>
+                                 +----CodeSlayerSearchTab
 </pre>
 </div>
-<div class="refsect1" title="Implemented Interfaces">
+<div class="refsect1">
 <a name="CodeSlayerSearchTab.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerSearchTab implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
 </div>
-<div class="refsect1" title="Properties">
+<div class="refsect1">
 <a name="CodeSlayerSearchTab.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="CodeSlayerSearchTab.html#CodeSlayerSearchTab--search-page" title='The "search-page" property'>search-page</a>"              <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
+  "<a class="link" href="CodeSlayerSearchTab.html#CodeSlayerSearchTab--search-page" title='The "search-page" property'>search-page</a>"              <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
 </pre>
 </div>
-<div class="refsect1" title="Signals">
+<div class="refsect1">
 <a name="CodeSlayerSearchTab.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="CodeSlayerSearchTab.html#CodeSlayerSearchTab-close-page" title='The "close-page" signal'>close-page</a>"                                     : Run Last / No Recursion / No Hooks
+  "<a class="link" href="CodeSlayerSearchTab.html#CodeSlayerSearchTab-close-page" title='The "close-page" signal'>close-page</a>"                                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="CodeSlayerSearchTab.description"></a><h2>Description</h2>
 <p>
 The tab is appended to the search page as a way to give the page a 
 label. The tab itself allows a page to be closed.
 </p>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="CodeSlayerSearchTab.details"></a><h2>Details</h2>
-<div class="refsect2" title="CodeSlayerSearchTab">
-<a name="CodeSlayerSearchTab-struct"></a><h3>CodeSlayerSearchTab</h3>
-<pre class="programlisting">typedef struct _CodeSlayerSearchTab CodeSlayerSearchTab;</pre>
+<div class="refsect2">
+<a name="CodeSlayerSearchTab-struct"></a><h3>struct CodeSlayerSearchTab</h3>
+<pre class="programlisting">struct CodeSlayerSearchTab;</pre>
 </div>
 <hr>
-<div class="refsect2" title="CodeSlayerSearchTabClass">
-<a name="CodeSlayerSearchTabClass"></a><h3>CodeSlayerSearchTabClass</h3>
-<pre class="programlisting">typedef struct {
-  GtkHBoxClass parent_class;
-
-  void (*close_page) (CodeSlayerSearchTab *search_tab);
-} CodeSlayerSearchTabClass;
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="codeslayer_search_tab_new ()">
+<div class="refsect2">
 <a name="codeslayer-search-tab-new"></a><h3>codeslayer_search_tab_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_search_tab_new           (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> closeable</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_search_tab_new           (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> closeable</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a>.
 </p>
@@ -129,40 +117,36 @@ Creates a new <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerS
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>closeable</code></em> :</span></p></td>
-<td>is TRUE if this tab can be closed.
-</td>
+<td>is TRUE if this tab can be closed.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> a new <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a>. 
-</td>
+<td>a new <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_search_tab_get_search_page ()">
+<div class="refsect2">
 <a name="codeslayer-search-tab-get-search-page"></a><h3>codeslayer_search_tab_get_search_page ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_search_tab_get_search_page
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_search_tab_get_search_page
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a> *search_tab</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>search_tab</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> the search page contained with the tab.
-</td>
+<td>the search page contained with the tab.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_search_tab_set_search_page ()">
+<div class="refsect2">
 <a name="codeslayer-search-tab-set-search-page"></a><h3>codeslayer_search_tab_set_search_page ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_search_tab_set_search_page
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a> *search_tab</code></em>,
@@ -172,23 +156,21 @@ Creates a new <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerS
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>search_tab</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>search_page</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerSearchPage.html" title="CodeSlayerSearchPage"><span class="type">CodeSlayerSearchPage</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerSearchPage.html" title="CodeSlayerSearchPage"><span class="type">CodeSlayerSearchPage</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_search_tab_set_label_name ()">
+<div class="refsect2">
 <a name="codeslayer-search-tab-set-label-name"></a><h3>codeslayer_search_tab_set_label_name ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_search_tab_set_label_name
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a> *search_tab</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 <p>
 Change the label name of the tab.
 </p>
@@ -197,22 +179,20 @@ Change the label name of the tab.
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>search_tab</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
-<td>the display name for the tab.
-</td>
+<td>the display name for the tab.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_search_tab_set_tooltip ()">
+<div class="refsect2">
 <a name="codeslayer-search-tab-set-tooltip"></a><h3>codeslayer_search_tab_set_tooltip ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_search_tab_set_tooltip   (<em class="parameter"><code><a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a> *search_tab</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tooltip</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tooltip</code></em>);</pre>
 <p>
 Change the tooltip of the tab.
 </p>
@@ -221,34 +201,32 @@ Change the tooltip of the tab.
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>search_tab</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>tooltip</code></em> :</span></p></td>
-<td>the tooltip for the tab.
-</td>
+<td>the tooltip for the tab.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 </div>
-<div class="refsect1" title="Property Details">
+<div class="refsect1">
 <a name="CodeSlayerSearchTab.property-details"></a><h2>Property Details</h2>
-<div class="refsect2" title='The "search-page" property'>
+<div class="refsect2">
 <a name="CodeSlayerSearchTab--search-page"></a><h3>The <code class="literal">"search-page"</code> property</h3>
-<pre class="programlisting">  "search-page"              <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
+<pre class="programlisting">  "search-page"              <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
 <p>
 A <a class="link" href="CodeSlayerSearchPage.html" title="CodeSlayerSearchPage"><span class="type">CodeSlayerSearchPage</span></a>.
 </p>
 </div>
 </div>
-<div class="refsect1" title="Signal Details">
+<div class="refsect1">
 <a name="CodeSlayerSearchTab.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2" title='The "close-page" signal'>
+<div class="refsect2">
 <a name="CodeSlayerSearchTab-close-page"></a><h3>The <code class="literal">"close-page"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab"><span class="type">CodeSlayerSearchTab</span></a> *codeslayersearchtab,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>             user_data)                : Run Last / No Recursion / No Hooks</pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>             user_data)                : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 The ::close-tab signal is a request to close the active page.
 </p>
@@ -257,8 +235,7 @@ The ::close-tab signal is a request to close the active page.
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayersearchtab</code></em> :</span></p></td>
-<td>the tab that received the signal
-</td>
+<td>the tab that received the signal</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
@@ -271,6 +248,6 @@ The ::close-tab signal is a request to close the active page.
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

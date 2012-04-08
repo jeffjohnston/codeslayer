@@ -100,6 +100,7 @@ codeslayer_menubar_groups_finalize (CodeSlayerMenuBarGroups *menubar_groups)
 
 /**
  * codeslayer_menubar_groups_new:
+ * @window: a #GtkWindow.
  * @menubar: a #CodeSlayerMenuBar.
  * @accel_group: a #GtkAccelGroup.
  * @groups: a #CodeSlayerGroups.

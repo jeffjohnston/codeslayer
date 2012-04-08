@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerCompletionProposal</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion">
+<link rel="next" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerCompletion.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerCompletionProvider.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerCompletionProposal.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerCompletionProposal.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerCompletionProposal.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="CodeSlayerCompletionProposal"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerCompletionProposal.top_of_page"></a>CodeSlayerCompletionProposal</span></h2>
+<p>CodeSlayerCompletionProposal — A proposal for the completion window.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="CodeSlayerCompletionProposal.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-completion-proposal.h&gt;
+
+struct              <a class="link" href="CodeSlayerCompletionProposal.html#CodeSlayerCompletionProposal-struct" title="struct CodeSlayerCompletionProposal">CodeSlayerCompletionProposal</a>;
+<a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="returnvalue">CodeSlayerCompletionProposal</span></a> * <a class="link" href="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-new" title="codeslayer_completion_proposal_new ()">codeslayer_completion_proposal_new</a>
+                                                        (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextMark.html"><span class="type">GtkTextMark</span></a> *mark</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-get-label" title="codeslayer_completion_proposal_get_label ()">codeslayer_completion_proposal_get_label</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a> *proposal</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-get-text" title="codeslayer_completion_proposal_get_text ()">codeslayer_completion_proposal_get_text</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a> *proposal</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/GtkTextMark.html"><span class="returnvalue">GtkTextMark</span></a> *       <a class="link" href="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-get-mark" title="codeslayer_completion_proposal_get_mark ()">codeslayer_completion_proposal_get_mark</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a> *proposal</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerCompletionProposal.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----CodeSlayerCompletionProposal
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerCompletionProposal.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerCompletionProposal.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CodeSlayerCompletionProposal-struct"></a><h3>struct CodeSlayerCompletionProposal</h3>
+<pre class="programlisting">struct CodeSlayerCompletionProposal;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-completion-proposal-new"></a><h3>codeslayer_completion_proposal_new ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="returnvalue">CodeSlayerCompletionProposal</span></a> * codeslayer_completion_proposal_new
+                                                        (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextMark.html"><span class="type">GtkTextMark</span></a> *mark</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>label</code></em> :</span></p></td>
+<td>the text to show up in the completion window.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td>the text that will be used as the completion result.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mark</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkTextMark.html"><span class="type">GtkTextMark</span></a> that marks the place that the completion starts.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-completion-proposal-get-label"></a><h3>codeslayer_completion_proposal_get_label ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       codeslayer_completion_proposal_get_label
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a> *proposal</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proposal</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the text to show up in the completion window.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-completion-proposal-get-text"></a><h3>codeslayer_completion_proposal_get_text ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       codeslayer_completion_proposal_get_text
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a> *proposal</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proposal</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the text that will be used as the completion result.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-completion-proposal-get-mark"></a><h3>codeslayer_completion_proposal_get_mark ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkTextMark.html"><span class="returnvalue">GtkTextMark</span></a> *       codeslayer_completion_proposal_get_mark
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a> *proposal</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>proposal</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkTextMark.html"><span class="type">GtkTextMark</span></a> that marks the place that the completion starts.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

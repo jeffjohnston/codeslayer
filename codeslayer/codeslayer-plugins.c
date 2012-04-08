@@ -78,6 +78,7 @@ codeslayer_plugins_finalize (CodeSlayerPlugins *plugins)
 
 /**
  * codeslayer_plugins_new:
+ * @window: a #GtkWindow.
  *
  * Creates a new #CodeSlayerPlugins.
  *

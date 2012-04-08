@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerGroupProperties</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerEngine.html" title="CodeSlayerEngine">
 <link rel="next" href="CodeSlayerGroup.html" title="CodeSlayerGroup">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -30,7 +30,7 @@
                   <a href="#CodeSlayerGroupProperties.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
 </td></tr>
 </table>
-<div class="refentry" title="CodeSlayerGroupProperties">
+<div class="refentry">
 <a name="CodeSlayerGroupProperties"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,58 +39,48 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="CodeSlayerGroupProperties.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">
 #include &lt;codeslayer/codeslayer-groups-properties.h&gt;
 
-                    <a class="link" href="CodeSlayerGroupProperties.html#CodeSlayerGroupProperties-struct" title="CodeSlayerGroupProperties">CodeSlayerGroupProperties</a>;
-                    <a class="link" href="CodeSlayerGroupProperties.html#CodeSlayerGroupPropertiesClass" title="CodeSlayerGroupPropertiesClass">CodeSlayerGroupPropertiesClass</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerGroupProperties.html#codeslayer-group-properties-new" title="codeslayer_group_properties_new ()">codeslayer_group_properties_new</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
-const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        <a class="link" href="CodeSlayerGroupProperties.html#codeslayer-group-properties-get-name" title="codeslayer_group_properties_get_name ()">codeslayer_group_properties_get_name</a>
+struct              <a class="link" href="CodeSlayerGroupProperties.html#CodeSlayerGroupProperties-struct" title="struct CodeSlayerGroupProperties">CodeSlayerGroupProperties</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerGroupProperties.html#codeslayer-group-properties-new" title="codeslayer_group_properties_new ()">codeslayer_group_properties_new</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="CodeSlayerGroupProperties.html#codeslayer-group-properties-get-name" title="codeslayer_group_properties_get_name ()">codeslayer_group_properties_get_name</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerGroupProperties.html" title="CodeSlayerGroupProperties"><span class="type">CodeSlayerGroupProperties</span></a> *group_properties</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="CodeSlayerGroupProperties.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
-                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
-                                       +----CodeSlayerGroupProperties
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
+                                 +----CodeSlayerGroupProperties
 </pre>
 </div>
-<div class="refsect1" title="Implemented Interfaces">
+<div class="refsect1">
 <a name="CodeSlayerGroupProperties.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerGroupProperties implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="CodeSlayerGroupProperties.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="CodeSlayerGroupProperties.details"></a><h2>Details</h2>
-<div class="refsect2" title="CodeSlayerGroupProperties">
-<a name="CodeSlayerGroupProperties-struct"></a><h3>CodeSlayerGroupProperties</h3>
-<pre class="programlisting">typedef struct _CodeSlayerGroupProperties CodeSlayerGroupProperties;</pre>
+<div class="refsect2">
+<a name="CodeSlayerGroupProperties-struct"></a><h3>struct CodeSlayerGroupProperties</h3>
+<pre class="programlisting">struct CodeSlayerGroupProperties;</pre>
 </div>
 <hr>
-<div class="refsect2" title="CodeSlayerGroupPropertiesClass">
-<a name="CodeSlayerGroupPropertiesClass"></a><h3>CodeSlayerGroupPropertiesClass</h3>
-<pre class="programlisting">typedef struct {
-  GtkVBoxClass parent_class;
-} CodeSlayerGroupPropertiesClass;
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="codeslayer_group_properties_new ()">
+<div class="refsect2">
 <a name="codeslayer-group-properties-new"></a><h3>codeslayer_group_properties_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_group_properties_new     (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_group_properties_new     (<em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerGroupProperties.html" title="CodeSlayerGroupProperties"><span class="type">CodeSlayerGroupProperties</span></a>.
 </p>
@@ -99,27 +89,25 @@ Creates a new <a class="link" href="CodeSlayerGroupProperties.html" title="CodeS
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> a new <a class="link" href="CodeSlayerGroupProperties.html" title="CodeSlayerGroupProperties"><span class="type">CodeSlayerGroupProperties</span></a>. 
-</td>
+<td>a new <a class="link" href="CodeSlayerGroupProperties.html" title="CodeSlayerGroupProperties"><span class="type">CodeSlayerGroupProperties</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_group_properties_get_name ()">
+<div class="refsect2">
 <a name="codeslayer-group-properties-get-name"></a><h3>codeslayer_group_properties_get_name ()</h3>
-<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        codeslayer_group_properties_get_name
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       codeslayer_group_properties_get_name
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerGroupProperties.html" title="CodeSlayerGroupProperties"><span class="type">CodeSlayerGroupProperties</span></a> *group_properties</code></em>);</pre>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

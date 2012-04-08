@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerPluginsSelector</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerPlugin.html" title="CodeSlayerPlugin">
 <link rel="next" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -30,7 +30,7 @@
                   <a href="#CodeSlayerPluginsSelector.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
 </td></tr>
 </table>
-<div class="refentry" title="CodeSlayerPluginsSelector">
+<div class="refentry">
 <a name="CodeSlayerPluginsSelector"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,55 +39,45 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="CodeSlayerPluginsSelector.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">
 #include &lt;codeslayer/codeslayer-plugins-selector.h&gt;
 
-                    <a class="link" href="CodeSlayerPluginsSelector.html#CodeSlayerPluginsSelector-struct" title="CodeSlayerPluginsSelector">CodeSlayerPluginsSelector</a>;
-                    <a class="link" href="CodeSlayerPluginsSelector.html#CodeSlayerPluginsSelectorClass" title="CodeSlayerPluginsSelectorClass">CodeSlayerPluginsSelectorClass</a>;
+struct              <a class="link" href="CodeSlayerPluginsSelector.html#CodeSlayerPluginsSelector-struct" title="struct CodeSlayerPluginsSelector">CodeSlayerPluginsSelector</a>;
 <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerPluginsSelector.html#codeslayer-plugins-selector-new" title="codeslayer_plugins_selector_new ()">codeslayer_plugins_selector_new</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="CodeSlayerPluginsSelector.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
-                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
-                                       +----CodeSlayerPluginsSelector
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
+                                 +----CodeSlayerPluginsSelector
 </pre>
 </div>
-<div class="refsect1" title="Implemented Interfaces">
+<div class="refsect1">
 <a name="CodeSlayerPluginsSelector.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerPluginsSelector implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="CodeSlayerPluginsSelector.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="CodeSlayerPluginsSelector.details"></a><h2>Details</h2>
-<div class="refsect2" title="CodeSlayerPluginsSelector">
-<a name="CodeSlayerPluginsSelector-struct"></a><h3>CodeSlayerPluginsSelector</h3>
-<pre class="programlisting">typedef struct _CodeSlayerPluginsSelector CodeSlayerPluginsSelector;</pre>
+<div class="refsect2">
+<a name="CodeSlayerPluginsSelector-struct"></a><h3>struct CodeSlayerPluginsSelector</h3>
+<pre class="programlisting">struct CodeSlayerPluginsSelector;</pre>
 </div>
 <hr>
-<div class="refsect2" title="CodeSlayerPluginsSelectorClass">
-<a name="CodeSlayerPluginsSelectorClass"></a><h3>CodeSlayerPluginsSelectorClass</h3>
-<pre class="programlisting">typedef struct {
-  GtkVBoxClass parent_class;
-} CodeSlayerPluginsSelectorClass;
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="codeslayer_plugins_selector_new ()">
+<div class="refsect2">
 <a name="codeslayer-plugins-selector-new"></a><h3>codeslayer_plugins_selector_new ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_plugins_selector_new     (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
@@ -96,6 +86,6 @@ CodeSlayerPluginsSelector implements
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

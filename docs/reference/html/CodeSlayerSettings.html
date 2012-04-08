@@ -1,0 +1,405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerSettings</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerSearch.html" title="CodeSlayerSearch">
+<link rel="next" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerSearch.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerSidePane.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerSettings.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerSettings.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerSettings.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="CodeSlayerSettings"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerSettings.top_of_page"></a>CodeSlayerSettings</span></h2>
+<p>CodeSlayerSettings — The application properties.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="CodeSlayerSettings.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-settings.h&gt;
+
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-HPANED-POSITION:CAPS" title="CODESLAYER_SETTINGS_HPANED_POSITION">CODESLAYER_SETTINGS_HPANED_POSITION</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-VPANED-POSITION:CAPS" title="CODESLAYER_SETTINGS_VPANED_POSITION">CODESLAYER_SETTINGS_VPANED_POSITION</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-WIDTH:CAPS" title="CODESLAYER_SETTINGS_WINDOW_WIDTH">CODESLAYER_SETTINGS_WINDOW_WIDTH</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-HEIGHT:CAPS" title="CODESLAYER_SETTINGS_WINDOW_HEIGHT">CODESLAYER_SETTINGS_WINDOW_HEIGHT</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-X:CAPS" title="CODESLAYER_SETTINGS_WINDOW_X">CODESLAYER_SETTINGS_WINDOW_X</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-Y:CAPS" title="CODESLAYER_SETTINGS_WINDOW_Y">CODESLAYER_SETTINGS_WINDOW_Y</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-WIDTH:CAPS" title="CODESLAYER_SETTINGS_SEARCH_WIDTH">CODESLAYER_SETTINGS_SEARCH_WIDTH</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-HEIGHT:CAPS" title="CODESLAYER_SETTINGS_SEARCH_HEIGHT">CODESLAYER_SETTINGS_SEARCH_HEIGHT</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-X:CAPS" title="CODESLAYER_SETTINGS_SEARCH_X">CODESLAYER_SETTINGS_SEARCH_X</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-Y:CAPS" title="CODESLAYER_SETTINGS_SEARCH_Y">CODESLAYER_SETTINGS_SEARCH_Y</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-MAIN-TITLE:CAPS" title="CODESLAYER_SETTINGS_MAIN_TITLE">CODESLAYER_SETTINGS_MAIN_TITLE</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SIDE-PANE-VISIBLE:CAPS" title="CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE">CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE</a>
+#define             <a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-BOTTOM-PANE-VISIBLE:CAPS" title="CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE">CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE</a>
+struct              <a class="link" href="CodeSlayerSettings.html#CodeSlayerSettings-struct" title="struct CodeSlayerSettings">CodeSlayerSettings</a>;
+<a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="returnvalue">CodeSlayerSettings</span></a> * <a class="link" href="CodeSlayerSettings.html#codeslayer-settings-new" title="codeslayer_settings_new ()">codeslayer_settings_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="CodeSlayerSettings.html#codeslayer-settings-get-integer" title="codeslayer_settings_get_integer ()">codeslayer_settings_get_integer</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSettings.html#codeslayer-settings-set-integer" title="codeslayer_settings_set_integer ()">codeslayer_settings_set_integer</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> value</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             <a class="link" href="CodeSlayerSettings.html#codeslayer-settings-get-double" title="codeslayer_settings_get_double ()">codeslayer_settings_get_double</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSettings.html#codeslayer-settings-set-double" title="codeslayer_settings_set_double ()">codeslayer_settings_set_double</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> value</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerSettings.html#codeslayer-settings-get-boolean" title="codeslayer_settings_get_boolean ()">codeslayer_settings_get_boolean</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSettings.html#codeslayer-settings-set-boolean" title="codeslayer_settings_set_boolean ()">codeslayer_settings_set_boolean</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> value</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="CodeSlayerSettings.html#codeslayer-settings-get-string" title="codeslayer_settings_get_string ()">codeslayer_settings_get_string</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSettings.html#codeslayer-settings-set-string" title="codeslayer_settings_set_string ()">codeslayer_settings_set_string</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSettings.html#codeslayer-settings-save" title="codeslayer_settings_save ()">codeslayer_settings_save</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerSettings.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----CodeSlayerSettings
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerSettings.description"></a><h2>Description</h2>
+<p>
+Saves the application settings using the GKeyFile. The file is saved in the 
+users home directory under the .codeslayer folder.
+</p>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerSettings.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-HPANED-POSITION:CAPS"></a><h3>CODESLAYER_SETTINGS_HPANED_POSITION</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_HPANED_POSITION "hpaned_position"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-VPANED-POSITION:CAPS"></a><h3>CODESLAYER_SETTINGS_VPANED_POSITION</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_VPANED_POSITION "vpaned_position"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-WINDOW-WIDTH:CAPS"></a><h3>CODESLAYER_SETTINGS_WINDOW_WIDTH</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_WINDOW_WIDTH "window_width"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-WINDOW-HEIGHT:CAPS"></a><h3>CODESLAYER_SETTINGS_WINDOW_HEIGHT</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_WINDOW_HEIGHT "window_height"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-WINDOW-X:CAPS"></a><h3>CODESLAYER_SETTINGS_WINDOW_X</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_WINDOW_X "window_x"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-WINDOW-Y:CAPS"></a><h3>CODESLAYER_SETTINGS_WINDOW_Y</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_WINDOW_Y "window_y"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-SEARCH-WIDTH:CAPS"></a><h3>CODESLAYER_SETTINGS_SEARCH_WIDTH</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_SEARCH_WIDTH "search_width"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-SEARCH-HEIGHT:CAPS"></a><h3>CODESLAYER_SETTINGS_SEARCH_HEIGHT</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_SEARCH_HEIGHT "search_height"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-SEARCH-X:CAPS"></a><h3>CODESLAYER_SETTINGS_SEARCH_X</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_SEARCH_X "search_x"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-SEARCH-Y:CAPS"></a><h3>CODESLAYER_SETTINGS_SEARCH_Y</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_SEARCH_Y "search_y"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-MAIN-TITLE:CAPS"></a><h3>CODESLAYER_SETTINGS_MAIN_TITLE</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_MAIN_TITLE "CodeSlayer"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-SIDE-PANE-VISIBLE:CAPS"></a><h3>CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE "side_pane_visible"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SETTINGS-BOTTOM-PANE-VISIBLE:CAPS"></a><h3>CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE</h3>
+<pre class="programlisting">#define CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE "bottom_pane_visible"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerSettings-struct"></a><h3>struct CodeSlayerSettings</h3>
+<pre class="programlisting">struct CodeSlayerSettings;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-settings-new"></a><h3>codeslayer_settings_new ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="returnvalue">CodeSlayerSettings</span></a> * codeslayer_settings_new            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-settings-get-integer"></a><h3>codeslayer_settings_get_integer ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                codeslayer_settings_get_integer     (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property name.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value as an integer for the given key.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-settings-set-integer"></a><h3>codeslayer_settings_set_integer ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_settings_set_integer     (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> value</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property name.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a property value as a gint.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-settings-get-double"></a><h3>codeslayer_settings_get_double ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             codeslayer_settings_get_double      (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property name.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value as a double for the given key.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-settings-set-double"></a><h3>codeslayer_settings_set_double ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_settings_set_double      (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> value</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property name.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a property value as a gdouble.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-settings-get-boolean"></a><h3>codeslayer_settings_get_boolean ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_settings_get_boolean     (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property name.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value as a boolean for the given key.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-settings-set-boolean"></a><h3>codeslayer_settings_set_boolean ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_settings_set_boolean     (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> value</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property name.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a property value as a gboolean.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-settings-get-string"></a><h3>codeslayer_settings_get_string ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             codeslayer_settings_get_string      (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property name.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value as a string for the given key.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-settings-set-string"></a><h3>codeslayer_settings_set_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_settings_set_string      (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property name.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a property value as a gchar pointer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-settings-save"></a><h3>codeslayer_settings_save ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_settings_save            (<em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);</pre>
+<p>
+Save the users preference to disk.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

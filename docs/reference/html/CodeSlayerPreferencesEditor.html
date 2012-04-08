@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerPreferencesEditor</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins">
 <link rel="next" href="CodeSlayerPreferencesListView.html" title="CodeSlayerPreferencesListView">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -30,7 +30,7 @@
                   <a href="#CodeSlayerPreferencesEditor.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
 </td></tr>
 </table>
-<div class="refentry" title="CodeSlayerPreferencesEditor">
+<div class="refentry">
 <a name="CodeSlayerPreferencesEditor"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,56 +39,48 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="CodeSlayerPreferencesEditor.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">
 #include &lt;codeslayer/codeslayer-preferences-editor.h&gt;
 
-                    <a class="link" href="CodeSlayerPreferencesEditor.html#CodeSlayerPreferencesEditor-struct" title="CodeSlayerPreferencesEditor">CodeSlayerPreferencesEditor</a>;
-                    <a class="link" href="CodeSlayerPreferencesEditor.html#CodeSlayerPreferencesEditorClass" title="CodeSlayerPreferencesEditorClass">CodeSlayerPreferencesEditorClass</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerPreferencesEditor.html#codeslayer-preferences-editor-new" title="codeslayer_preferences_editor_new ()">codeslayer_preferences_editor_new</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);
+struct              <a class="link" href="CodeSlayerPreferencesEditor.html#CodeSlayerPreferencesEditor-struct" title="struct CodeSlayerPreferencesEditor">CodeSlayerPreferencesEditor</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerPreferencesEditor.html#codeslayer-preferences-editor-new" title="codeslayer_preferences_editor_new ()">codeslayer_preferences_editor_new</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPreferencesEditor.html#codeslayer-preferences-load" title="codeslayer_preferences_load ()">codeslayer_preferences_load</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="CodeSlayerPreferencesEditor.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
-                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
-                                       +----CodeSlayerPreferencesEditor
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
+                                 +----CodeSlayerPreferencesEditor
 </pre>
 </div>
-<div class="refsect1" title="Implemented Interfaces">
+<div class="refsect1">
 <a name="CodeSlayerPreferencesEditor.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerPreferencesEditor implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="CodeSlayerPreferencesEditor.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="CodeSlayerPreferencesEditor.details"></a><h2>Details</h2>
-<div class="refsect2" title="CodeSlayerPreferencesEditor">
-<a name="CodeSlayerPreferencesEditor-struct"></a><h3>CodeSlayerPreferencesEditor</h3>
-<pre class="programlisting">typedef struct _CodeSlayerPreferencesEditor CodeSlayerPreferencesEditor;</pre>
+<div class="refsect2">
+<a name="CodeSlayerPreferencesEditor-struct"></a><h3>struct CodeSlayerPreferencesEditor</h3>
+<pre class="programlisting">struct CodeSlayerPreferencesEditor;</pre>
 </div>
 <hr>
-<div class="refsect2" title="CodeSlayerPreferencesEditorClass">
-<a name="CodeSlayerPreferencesEditorClass"></a><h3>CodeSlayerPreferencesEditorClass</h3>
-<pre class="programlisting">typedef struct {
-  GtkVBoxClass parent_class;
-} CodeSlayerPreferencesEditorClass;
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="codeslayer_preferences_editor_new ()">
+<div class="refsect2">
 <a name="codeslayer-preferences-editor-new"></a><h3>codeslayer_preferences_editor_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_preferences_editor_new   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_preferences_editor_new   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerPreferencesEditor.html" title="CodeSlayerPreferencesEditor"><span class="type">CodeSlayerPreferencesEditor</span></a>.
 </p>
@@ -97,13 +89,33 @@ Creates a new <a class="link" href="CodeSlayerPreferencesEditor.html" title="Cod
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> a new <a class="link" href="CodeSlayerPreferencesEditor.html" title="CodeSlayerPreferencesEditor"><span class="type">CodeSlayerPreferencesEditor</span></a>. 
-</td>
+<td>a new <a class="link" href="CodeSlayerPreferencesEditor.html" title="CodeSlayerPreferencesEditor"><span class="type">CodeSlayerPreferencesEditor</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-preferences-load"></a><h3>codeslayer_preferences_load ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_preferences_load         (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
+<p>
+Load the group preferences.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -112,6 +124,6 @@ Creates a new <a class="link" href="CodeSlayerPreferencesEditor.html" title="Cod
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

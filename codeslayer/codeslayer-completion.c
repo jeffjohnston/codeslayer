@@ -174,7 +174,7 @@ codeslayer_completion_new (GtkWindow *window)
  * @completion: a #CodeSlayerCompletion.
  * @provider: a #CodeSlayerCompletionProvider.
  *
- * Add a #CodeSlayerCompletionProvider to the completion.
+ * Add a #CodeSlayerCompletionProvider to the completion window.
  */
 void
 codeslayer_completion_add_provider  (CodeSlayerCompletion         *completion, 

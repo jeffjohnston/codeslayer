@@ -2,23 +2,26 @@ AUTOMAKE_OPTIONS=1.6
 
 DOC_MODULE=codeslayer
 
-DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.sgml
+DOC_MAIN_SGML_FILE=codeslayer-docs.sgml
 
 SCAN_OPTIONS=--deprecated-guards="GTK_ENABLE_BROKEN|GTK_DISABLE_DEPRECATED"
 
-DOC_SOURCE_DIR=../../codeslayer
+DOC_SOURCE_DIR=$(top_srcdir)/codeslayer
 
 HFILE_GLOB = $(top_srcdir)/codeslayer/*.h
 CFILE_GLOB = $(top_srcdir)/codeslayer/*.c
 
 IGNORE_HFILES = \
+    encoding.h \
     codeslayer-utils.h \
     codeslayer-repository.h \
     codeslayer-repository-documents.h \
     codeslayer-repository-groups.h \
     codeslayer-repository-projects.h \
     codeslayer-preferences-utils.h \
-    codeslayer-marshaller.h    
+    codeslayer-tearoff.h \
+    codeslayer-marshaller.h \
+    codeslayer-xml.h    
 
 INCLUDES = \
 	-I$(top_srcdir) \
@@ -28,9 +31,9 @@ INCLUDES = \
 	$(CODESLAYER_CFLAGS)
 
 GTKDOC_LIBS = \
-    $(CODESLAYER_LIBS) \
-    $(top_builddir)/codeslayer/.libs/libcodeslayer.so
-
+    $(top_builddir)/codeslayer/.libs/libcodeslayer.so \
+    $(CODESLAYER_LIBS)
+    
 MKDB_OPTIONS = --sgml-mode --output-format=xml --name-space=codeslayer
 
 include $(top_srcdir)/gtk-doc.make

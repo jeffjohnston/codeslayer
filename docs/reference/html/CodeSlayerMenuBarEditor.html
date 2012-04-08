@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerMenuBarEditor</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerListView.html" title="CodeSlayerListView">
 <link rel="next" href="CodeSlayerMenuBarGroups.html" title="CodeSlayerMenuBarGroups">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -30,7 +30,7 @@
                   <a href="#CodeSlayerMenuBarEditor.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
 </td></tr>
 </table>
-<div class="refentry" title="CodeSlayerMenuBarEditor">
+<div class="refentry">
 <a name="CodeSlayerMenuBarEditor"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,61 +39,50 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="CodeSlayerMenuBarEditor.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">
 #include &lt;codeslayer/codeslayer-menubar-editor.h&gt;
 
-                    <a class="link" href="CodeSlayerMenuBarEditor.html#CodeSlayerMenuBarEditor-struct" title="CodeSlayerMenuBarEditor">CodeSlayerMenuBarEditor</a>;
-                    <a class="link" href="CodeSlayerMenuBarEditor.html#CodeSlayerMenuBarEditorClass" title="CodeSlayerMenuBarEditorClass">CodeSlayerMenuBarEditorClass</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerMenuBarEditor.html#codeslayer-menubar-editor-new" title="codeslayer_menubar_editor_new ()">codeslayer_menubar_editor_new</a>       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+struct              <a class="link" href="CodeSlayerMenuBarEditor.html#CodeSlayerMenuBarEditor-struct" title="struct CodeSlayerMenuBarEditor">CodeSlayerMenuBarEditor</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBarEditor.html#codeslayer-menubar-editor-new" title="codeslayer_menubar_editor_new ()">codeslayer_menubar_editor_new</a>       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBarEditor.html#codeslayer-menubar-editor-sync-with-notebook" title="codeslayer_menubar_editor_sync_with_notebook ()">codeslayer_menubar_editor_sync_with_notebook</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSlayerMenuBarEditor"><span class="type">CodeSlayerMenuBarEditor</span></a> *menubar_editor</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="CodeSlayerMenuBarEditor.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBin.html">GtkBin</a>
-                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkItem.html">GtkItem</a>
-                                       +----<a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html">GtkMenuItem</a>
-                                             +----CodeSlayerMenuBarEditor
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBin.html">GtkBin</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html">GtkMenuItem</a>
+                                 +----CodeSlayerMenuBarEditor
 </pre>
 </div>
-<div class="refsect1" title="Implemented Interfaces">
+<div class="refsect1">
 <a name="CodeSlayerMenuBarEditor.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerMenuBarEditor implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/GtkActivatable.html">GtkActivatable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/GtkActivatable.html">GtkActivatable</a>.</p>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="CodeSlayerMenuBarEditor.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="CodeSlayerMenuBarEditor.details"></a><h2>Details</h2>
-<div class="refsect2" title="CodeSlayerMenuBarEditor">
-<a name="CodeSlayerMenuBarEditor-struct"></a><h3>CodeSlayerMenuBarEditor</h3>
-<pre class="programlisting">typedef struct _CodeSlayerMenuBarEditor CodeSlayerMenuBarEditor;</pre>
+<div class="refsect2">
+<a name="CodeSlayerMenuBarEditor-struct"></a><h3>struct CodeSlayerMenuBarEditor</h3>
+<pre class="programlisting">struct CodeSlayerMenuBarEditor;</pre>
 </div>
 <hr>
-<div class="refsect2" title="CodeSlayerMenuBarEditorClass">
-<a name="CodeSlayerMenuBarEditorClass"></a><h3>CodeSlayerMenuBarEditorClass</h3>
-<pre class="programlisting">typedef struct {
-  GtkMenuItemClass parent_class;
-} CodeSlayerMenuBarEditorClass;
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="codeslayer_menubar_editor_new ()">
+<div class="refsect2">
 <a name="codeslayer-menubar-editor-new"></a><h3>codeslayer_menubar_editor_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_menubar_editor_new       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menubar_editor_new       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSlayerMenuBarEditor"><span class="type">CodeSlayerMenuBarEditor</span></a>.
@@ -103,24 +92,21 @@ Creates a new <a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSla
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>accel_group</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a>.
-</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> a new <a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSlayerMenuBarEditor"><span class="type">CodeSlayerMenuBarEditor</span></a>. 
-</td>
+<td>a new <a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSlayerMenuBarEditor"><span class="type">CodeSlayerMenuBarEditor</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_menubar_editor_sync_with_notebook ()">
+<div class="refsect2">
 <a name="codeslayer-menubar-editor-sync-with-notebook"></a><h3>codeslayer_menubar_editor_sync_with_notebook ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_editor_sync_with_notebook
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSlayerMenuBarEditor"><span class="type">CodeSlayerMenuBarEditor</span></a> *menubar_editor</code></em>,
@@ -130,13 +116,11 @@ Creates a new <a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSla
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menubar_editor</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSlayerMenuBarEditor"><span class="type">CodeSlayerMenuBarEditor</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSlayerMenuBarEditor"><span class="type">CodeSlayerMenuBarEditor</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkNotebook.html"><span class="type">GtkNotebook</span></a>.
-</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkNotebook.html"><span class="type">GtkNotebook</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -145,6 +129,6 @@ Creates a new <a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSla
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

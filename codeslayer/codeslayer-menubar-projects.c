@@ -82,6 +82,7 @@ codeslayer_menubar_projects_finalize (CodeSlayerMenuBarProjects *menubar_project
 
 /**
  * codeslayer_menubar_projects_new:
+ * @window: a #GtkWindow.
  * @menubar: a #CodeSlayerMenuBar.
  * @accel_group: a #GtkAccelGroup.
  * @preferences: a #CodeSlayerPreferences.

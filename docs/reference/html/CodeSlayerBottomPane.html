@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerBottomPane</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane">
-<link rel="next" href="CodeSlayerDocument.html" title="CodeSlayerDocument">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="next" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -18,7 +18,7 @@
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
-<td><a accesskey="n" href="CodeSlayerDocument.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="CodeSlayerCompletion.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#CodeSlayerBottomPane.synopsis" class="shortcut">Top</a>
@@ -30,7 +30,7 @@
                   <a href="#CodeSlayerBottomPane.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
 </td></tr>
 </table>
-<div class="refentry" title="CodeSlayerBottomPane">
+<div class="refentry">
 <a name="CodeSlayerBottomPane"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,57 +39,47 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="CodeSlayerBottomPane.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">
 #include &lt;codeslayer/codeslayer-bottom-pane.h&gt;
 
-                    <a class="link" href="CodeSlayerBottomPane.html#CodeSlayerBottomPane-struct" title="CodeSlayerBottomPane">CodeSlayerBottomPane</a>;
-                    <a class="link" href="CodeSlayerBottomPane.html#CodeSlayerBottomPaneClass" title="CodeSlayerBottomPaneClass">CodeSlayerBottomPaneClass</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          <a class="link" href="CodeSlayerBottomPane.html#codeslayer-bottom-pane-new" title="codeslayer_bottom_pane_new ()">codeslayer_bottom_pane_new</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);
+struct              <a class="link" href="CodeSlayerBottomPane.html#CodeSlayerBottomPane-struct" title="struct CodeSlayerBottomPane">CodeSlayerBottomPane</a>;
+<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerBottomPane.html#codeslayer-bottom-pane-new" title="codeslayer_bottom_pane_new ()">codeslayer_bottom_pane_new</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="CodeSlayerBottomPane.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkObject.html">GtkObject</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
-                                 +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
-                                       +----<a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane">CodeSlayerAbstractPane</a>
-                                             +----CodeSlayerBottomPane
+         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
+                                 +----<a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane">CodeSlayerAbstractPane</a>
+                                       +----CodeSlayerBottomPane
 </pre>
 </div>
-<div class="refsect1" title="Implemented Interfaces">
+<div class="refsect1">
 <a name="CodeSlayerBottomPane.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerBottomPane implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="CodeSlayerBottomPane.description"></a><h2>Description</h2>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="CodeSlayerBottomPane.details"></a><h2>Details</h2>
-<div class="refsect2" title="CodeSlayerBottomPane">
-<a name="CodeSlayerBottomPane-struct"></a><h3>CodeSlayerBottomPane</h3>
-<pre class="programlisting">typedef struct _CodeSlayerBottomPane CodeSlayerBottomPane;</pre>
+<div class="refsect2">
+<a name="CodeSlayerBottomPane-struct"></a><h3>struct CodeSlayerBottomPane</h3>
+<pre class="programlisting">struct CodeSlayerBottomPane;</pre>
 </div>
 <hr>
-<div class="refsect2" title="CodeSlayerBottomPaneClass">
-<a name="CodeSlayerBottomPaneClass"></a><h3>CodeSlayerBottomPaneClass</h3>
-<pre class="programlisting">typedef struct {
-  CodeSlayerAbstractPaneClass parent_class;
-} CodeSlayerBottomPaneClass;
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="codeslayer_bottom_pane_new ()">
+<div class="refsect2">
 <a name="codeslayer-bottom-pane-new"></a><h3>codeslayer_bottom_pane_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a>*          codeslayer_bottom_pane_new          (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_bottom_pane_new          (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerBottomPane.html" title="CodeSlayerBottomPane"><span class="type">CodeSlayerBottomPane</span></a>.
 </p>
@@ -98,13 +88,11 @@ Creates a new <a class="link" href="CodeSlayerBottomPane.html" title="CodeSlayer
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> a new <a class="link" href="CodeSlayerBottomPane.html" title="CodeSlayerBottomPane"><span class="type">CodeSlayerBottomPane</span></a>. 
-</td>
+<td>a new <a class="link" href="CodeSlayerBottomPane.html" title="CodeSlayerBottomPane"><span class="type">CodeSlayerBottomPane</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -113,6 +101,6 @@ Creates a new <a class="link" href="CodeSlayerBottomPane.html" title="CodeSlayer
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

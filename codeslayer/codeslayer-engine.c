@@ -152,6 +152,7 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
 /**
  * codeslayer_engine_new:
  * @window: a #GtkWindow.
+ * @settings: a #CodeSlayerSettings.
  * @preferences: a #CodeSlayerPreferences.
  * @plugins: a #CodeSlayerPlugins.
  * @groups: a #CodeSlayerGroups.

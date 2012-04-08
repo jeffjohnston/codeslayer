@@ -615,6 +615,7 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
 
 /**
  * codeslayer_projects_new:
+ * @window: a #GtkWindow.
  * @preferences: a #CodeSlayerPreferences.
  * @groups: a #CodeSlayerGroups.
  * @project_properties: a #CodeSlayerProjectProperties.

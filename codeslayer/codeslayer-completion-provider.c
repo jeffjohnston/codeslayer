@@ -53,7 +53,7 @@ codeslayer_completion_provider_class_init (gpointer page)
 /**
  * codeslayer_completion_provider_get_proposals:
  * @provider: a #CodeSlayerCompletionProvider.
- * @iter: the place that the completion starts.
+ * @iter: the place in the editor that the completion window was invoked.
  *
  * Returns: a list of #CodeSlayerCompletionProposal objects.
  */

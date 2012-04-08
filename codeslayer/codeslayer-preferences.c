@@ -25,12 +25,12 @@
 
 /**
  * SECTION:codeslayer-preferences
- * @short_description: The saved application properties.
+ * @short_description: The group preferences.
  * @title: CodeSlayerPreferences
  * @include: codeslayer/codeslayer-preferences.h
  *
- * Save the user preferences using the GKeyFile. The file is saved in the 
- * users home directory under a .codeslayer folder.
+ * Saves the group preferences using the GKeyFile. The file is saved in the 
+ * users home directory under the .codeslayer/groups/"active group" folder.
  */
 
 static void codeslayer_preferences_class_init  (CodeSlayerPreferencesClass *klass);
@@ -183,6 +183,7 @@ codeslayer_preferences_finalize (CodeSlayerPreferences *preferences)
 
 /**
  * codeslayer_preferences_new:
+ * @window: a #GtkWindow.
  *
  * Creates a new #CodeSlayerPreferences.
  *

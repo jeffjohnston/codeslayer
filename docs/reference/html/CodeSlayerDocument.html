@@ -3,18 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerDocument</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
-<link rel="prev" href="CodeSlayerBottomPane.html" title="CodeSlayerBottomPane">
+<link rel="prev" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider">
 <link rel="next" href="CodeSlayerEditor.html" title="CodeSlayerEditor">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="CodeSlayerBottomPane.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="CodeSlayerCompletionProvider.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
@@ -30,7 +30,7 @@
                   <a href="#CodeSlayerDocument.properties" class="shortcut">Properties</a>
 </td></tr>
 </table>
-<div class="refentry" title="CodeSlayerDocument">
+<div class="refentry">
 <a name="CodeSlayerDocument"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,52 +39,51 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv" title="Synopsis">
+<div class="refsynopsisdiv">
 <a name="CodeSlayerDocument.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">
 #include &lt;codeslayer/codeslayer-document.h&gt;
 
-                    <a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument-struct" title="CodeSlayerDocument">CodeSlayerDocument</a>;
-                    <a class="link" href="CodeSlayerDocument.html#CodeSlayerDocumentClass" title="CodeSlayerDocumentClass">CodeSlayerDocumentClass</a>;
-<a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="returnvalue">CodeSlayerDocument</span></a>* <a class="link" href="CodeSlayerDocument.html#codeslayer-document-new" title="codeslayer_document_new ()">codeslayer_document_new</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
-const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>          <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-line-number" title="codeslayer_document_get_line_number ()">codeslayer_document_get_line_number</a> (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
+struct              <a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument-struct" title="struct CodeSlayerDocument">CodeSlayerDocument</a>;
+<a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="returnvalue">CodeSlayerDocument</span></a> * <a class="link" href="CodeSlayerDocument.html#codeslayer-document-new" title="codeslayer_document_new ()">codeslayer_document_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>          <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-line-number" title="codeslayer_document_get_line_number ()">codeslayer_document_get_line_number</a> (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerDocument.html#codeslayer-document-set-line-number" title="codeslayer_document_set_line_number ()">codeslayer_document_set_line_number</a> (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> line_number</code></em>);
-<a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="returnvalue">GtkTreeRowReference</span></a>* <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-tree-row-reference" title="codeslayer_document_get_tree_row_reference ()">codeslayer_document_get_tree_row_reference</a>
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> line_number</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="returnvalue">GtkTreeRowReference</span></a> * <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-tree-row-reference" title="codeslayer_document_get_tree_row_reference ()">codeslayer_document_get_tree_row_reference</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerDocument.html#codeslayer-document-set-tree-row-reference" title="codeslayer_document_set_tree_row_reference ()">codeslayer_document_set_tree_row_reference</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> *tree_row_reference</code></em>);
-const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-file-path" title="codeslayer_document_get_file_path ()">codeslayer_document_get_file_path</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-file-path" title="codeslayer_document_get_file_path ()">codeslayer_document_get_file_path</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerDocument.html#codeslayer-document-set-file-path" title="codeslayer_document_set_file_path ()">codeslayer_document_set_file_path</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);
-const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>      <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-active" title="codeslayer_document_get_active ()">codeslayer_document_get_active</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>      <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-active" title="codeslayer_document_get_active ()">codeslayer_document_get_active</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerDocument.html#codeslayer-document-set-active" title="codeslayer_document_set_active ()">codeslayer_document_set_active</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> active</code></em>);
-<a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a>*  <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-project" title="codeslayer_document_get_project ()">codeslayer_document_get_project</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> active</code></em>);
+<a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a> * <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-project" title="codeslayer_document_get_project ()">codeslayer_document_get_project</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerDocument.html#codeslayer-document-set-project" title="codeslayer_document_set_project ()">codeslayer_document_set_project</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);
 </pre>
 </div>
-<div class="refsect1" title="Object Hierarchy">
+<div class="refsect1">
 <a name="CodeSlayerDocument.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----CodeSlayerDocument
 </pre>
 </div>
-<div class="refsect1" title="Properties">
+<div class="refsect1">
 <a name="CodeSlayerDocument.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--active" title='The "active" property'>active</a>"                   <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
-  "<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--file-path" title='The "file-path" property'>file-path</a>"                <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
-  "<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--line-number" title='The "line-number" property'>line-number</a>"              <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
+  "<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--active" title='The "active" property'>active</a>"                   <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--file-path" title='The "file-path" property'>file-path</a>"                <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--line-number" title='The "line-number" property'>line-number</a>"              <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
   "<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--project" title='The "project" property'>project</a>"                  <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a>*    : Read / Write
-  "<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--project-key" title='The "project-key" property'>project-key</a>"              <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
-  "<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--tree-row-reference" title='The "tree-row-reference" property'>tree-row-reference</a>"       <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
+  "<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--project-key" title='The "project-key" property'>project-key</a>"              <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--tree-row-reference" title='The "tree-row-reference" property'>tree-row-reference</a>"       <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
 </pre>
 </div>
-<div class="refsect1" title="Description">
+<div class="refsect1">
 <a name="CodeSlayerDocument.description"></a><h2>Description</h2>
 <p>
 The document represents the source file loaded into the editor. This 
@@ -97,24 +96,16 @@ the line number specified it will load the document and the scroll to the
 proper line in the editor.
 </p>
 </div>
-<div class="refsect1" title="Details">
+<div class="refsect1">
 <a name="CodeSlayerDocument.details"></a><h2>Details</h2>
-<div class="refsect2" title="CodeSlayerDocument">
-<a name="CodeSlayerDocument-struct"></a><h3>CodeSlayerDocument</h3>
-<pre class="programlisting">typedef struct _CodeSlayerDocument CodeSlayerDocument;</pre>
+<div class="refsect2">
+<a name="CodeSlayerDocument-struct"></a><h3>struct CodeSlayerDocument</h3>
+<pre class="programlisting">struct CodeSlayerDocument;</pre>
 </div>
 <hr>
-<div class="refsect2" title="CodeSlayerDocumentClass">
-<a name="CodeSlayerDocumentClass"></a><h3>CodeSlayerDocumentClass</h3>
-<pre class="programlisting">typedef struct {
-  GObjectClass parent_class;
-} CodeSlayerDocumentClass;
-</pre>
-</div>
-<hr>
-<div class="refsect2" title="codeslayer_document_new ()">
+<div class="refsect2">
 <a name="codeslayer-document-new"></a><h3>codeslayer_document_new ()</h3>
-<pre class="programlisting"><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="returnvalue">CodeSlayerDocument</span></a>* codeslayer_document_new             (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<pre class="programlisting"><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="returnvalue">CodeSlayerDocument</span></a> * codeslayer_document_new            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
 </p>
@@ -122,75 +113,68 @@ Creates a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDo
 <col align="left" valign="top">
 <tbody><tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>. 
-</td>
+<td>a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_document_get_line_number ()">
+<div class="refsect2">
 <a name="codeslayer-document-get-line-number"></a><h3>codeslayer_document_get_line_number ()</h3>
-<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>          codeslayer_document_get_line_number (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>          codeslayer_document_get_line_number (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> the line number to scroll to when loaded into the editor.
-</td>
+<td>the line number to scroll to when loaded into the editor.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_document_set_line_number ()">
+<div class="refsect2">
 <a name="codeslayer-document-set-line-number"></a><h3>codeslayer_document_set_line_number ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_document_set_line_number (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> line_number</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> line_number</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>line_number</code></em> :</span></p></td>
-<td>the line number to scroll to when loaded into the editor.
-</td>
+<td>the line number to scroll to when loaded into the editor.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_document_get_tree_row_reference ()">
+<div class="refsect2">
 <a name="codeslayer-document-get-tree-row-reference"></a><h3>codeslayer_document_get_tree_row_reference ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="returnvalue">GtkTreeRowReference</span></a>* codeslayer_document_get_tree_row_reference
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="returnvalue">GtkTreeRowReference</span></a> * codeslayer_document_get_tree_row_reference
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> the <a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> within the projects tree.
-</td>
+<td>the <a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> within the projects tree.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_document_set_tree_row_reference ()">
+<div class="refsect2">
 <a name="codeslayer-document-set-tree-row-reference"></a><h3>codeslayer_document_set_tree_row_reference ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_document_set_tree_row_reference
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
@@ -200,43 +184,39 @@ Creates a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDo
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>tree_row_reference</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> so the document can 
-                     keep its position within the projects tree.
-</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> so the document can
+keep its position within the projects tree.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_document_get_file_path ()">
+<div class="refsect2">
 <a name="codeslayer-document-get-file-path"></a><h3>codeslayer_document_get_file_path ()</h3>
-<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a>*        codeslayer_document_get_file_path   (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       codeslayer_document_get_file_path   (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> the fully qualified path to the document.
-</td>
+<td>the fully qualified path to the document.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_document_set_file_path ()">
+<div class="refsect2">
 <a name="codeslayer-document-set-file-path"></a><h3>codeslayer_document_set_file_path ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_document_set_file_path   (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);</pre>
 <p>
 Note: this is not a URI, but rather a normal file path.
 </p>
@@ -245,21 +225,19 @@ Note: this is not a URI, but rather a normal file path.
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>file_path</code></em> :</span></p></td>
-<td>the fully qualified path to the document.
-</td>
+<td>the fully qualified path to the document.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_document_get_active ()">
+<div class="refsect2">
 <a name="codeslayer-document-get-active"></a><h3>codeslayer_document_get_active ()</h3>
-<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>      codeslayer_document_get_active      (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>      codeslayer_document_get_active      (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
 <p>
 Note: this is only used when the active group is first loaded up so that 
       the corresponding editor is selected. After 
@@ -270,60 +248,54 @@ Note: this is only used when the active group is first loaded up so that
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> is TRUE if this is the active document in the project. 
-</td>
+<td>is TRUE if this is the active document in the project.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_document_set_active ()">
+<div class="refsect2">
 <a name="codeslayer-document-set-active"></a><h3>codeslayer_document_set_active ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_document_set_active      (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> active</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> active</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>active</code></em> :</span></p></td>
-<td>TRUE if this is the active document in the project.
-</td>
+<td>TRUE if this is the active document in the project.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_document_get_project ()">
+<div class="refsect2">
 <a name="codeslayer-document-get-project"></a><h3>codeslayer_document_get_project ()</h3>
-<pre class="programlisting"><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a>*  codeslayer_document_get_project     (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a> * codeslayer_document_get_project     (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> the <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> that this document is a part of.
-</td>
+<td>the <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> that this document is a part of.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" title="codeslayer_document_set_project ()">
+<div class="refsect2">
 <a name="codeslayer-document-set-project"></a><h3>codeslayer_document_set_project ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_document_set_project     (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);</pre>
@@ -332,49 +304,47 @@ Note: this is only used when the active group is first loaded up so that
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
-</td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>project</code></em> :</span></p></td>
-<td>the <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> that this document is a part of.
-</td>
+<td>the <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> that this document is a part of.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 </div>
-<div class="refsect1" title="Property Details">
+<div class="refsect1">
 <a name="CodeSlayerDocument.property-details"></a><h2>Property Details</h2>
-<div class="refsect2" title='The "active" property'>
+<div class="refsect2">
 <a name="CodeSlayerDocument--active"></a><h3>The <code class="literal">"active"</code> property</h3>
-<pre class="programlisting">  "active"                   <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<pre class="programlisting">  "active"                   <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
 <p>
 The currently selected document.
 </p>
 <p>Default value: FALSE</p>
 </div>
 <hr>
-<div class="refsect2" title='The "file-path" property'>
+<div class="refsect2">
 <a name="CodeSlayerDocument--file-path"></a><h3>The <code class="literal">"file-path"</code> property</h3>
-<pre class="programlisting">  "file-path"                <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<pre class="programlisting">  "file-path"                <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
 <p>
 The fully qualified file path where the document is located.
 </p>
 <p>Default value: ""</p>
 </div>
 <hr>
-<div class="refsect2" title='The "line-number" property'>
+<div class="refsect2">
 <a name="CodeSlayerDocument--line-number"></a><h3>The <code class="literal">"line-number"</code> property</h3>
-<pre class="programlisting">  "line-number"              <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<pre class="programlisting">  "line-number"              <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
 <p>
 The line that the editor should scroll to.
 </p>
-<p>Allowed values: [0,0]</p>
+<p>Allowed values: [0,100000]</p>
 <p>Default value: 0</p>
 </div>
 <hr>
-<div class="refsect2" title='The "project" property'>
+<div class="refsect2">
 <a name="CodeSlayerDocument--project"></a><h3>The <code class="literal">"project"</code> property</h3>
 <pre class="programlisting">  "project"                  <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a>*    : Read / Write</pre>
 <p>
@@ -382,16 +352,16 @@ a <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span 
 </p>
 </div>
 <hr>
-<div class="refsect2" title='The "project-key" property'>
+<div class="refsect2">
 <a name="CodeSlayerDocument--project-key"></a><h3>The <code class="literal">"project-key"</code> property</h3>
-<pre class="programlisting">  "project-key"              <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<pre class="programlisting">  "project-key"              <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
 <p>Project Key.</p>
 <p>Default value: ""</p>
 </div>
 <hr>
-<div class="refsect2" title='The "tree-row-reference" property'>
+<div class="refsect2">
 <a name="CodeSlayerDocument--tree-row-reference"></a><h3>The <code class="literal">"tree-row-reference"</code> property</h3>
-<pre class="programlisting">  "tree-row-reference"       <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
+<pre class="programlisting">  "tree-row-reference"       <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
 <p>
 The reference to the node in the tree.
 </p>
@@ -400,6 +370,6 @@ The reference to the node in the tree.
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.18</div>
 </body>
 </html>

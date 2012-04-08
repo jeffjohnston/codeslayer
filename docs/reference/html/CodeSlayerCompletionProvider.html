@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerCompletionProvider</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal">
+<link rel="next" href="CodeSlayerDocument.html" title="CodeSlayerDocument">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerCompletionProposal.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerDocument.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerCompletionProvider.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerCompletionProvider.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerCompletionProvider.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerCompletionProvider.prerequisites" class="shortcut">Prerequisites</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="CodeSlayerCompletionProvider"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerCompletionProvider.top_of_page"></a>CodeSlayerCompletionProvider</span></h2>
+<p>CodeSlayerCompletionProvider — Create proposals for the completion window.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="CodeSlayerCompletionProvider.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-completion-provider.h&gt;
+
+                    <a class="link" href="CodeSlayerCompletionProvider.html#CodeSlayerCompletionProvider-struct" title="CodeSlayerCompletionProvider">CodeSlayerCompletionProvider</a>;
+<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="CodeSlayerCompletionProvider.html#codeslayer-completion-provider-get-proposals" title="codeslayer_completion_provider_get_proposals ()">codeslayer_completion_provider_get_proposals</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider"><span class="type">CodeSlayerCompletionProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerCompletionProvider.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GInterface
+   +----CodeSlayerCompletionProvider
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerCompletionProvider.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+CodeSlayerCompletionProvider requires
+ <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>.</p>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerCompletionProvider.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerCompletionProvider.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CodeSlayerCompletionProvider-struct"></a><h3>CodeSlayerCompletionProvider</h3>
+<pre class="programlisting">typedef struct _CodeSlayerCompletionProvider CodeSlayerCompletionProvider;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-completion-provider-get-proposals"></a><h3>codeslayer_completion_provider_get_proposals ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             codeslayer_completion_provider_get_proposals
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider"><span class="type">CodeSlayerCompletionProvider</span></a> *provider</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider"><span class="type">CodeSlayerCompletionProvider</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>the place in the editor that the completion window was invoked.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a list of <a class="link" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal"><span class="type">CodeSlayerCompletionProposal</span></a> objects.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

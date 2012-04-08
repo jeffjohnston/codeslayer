@@ -78,6 +78,7 @@ codeslayer_menubar_help_finalize (CodeSlayerMenuBarHelp *menubar_help)
 
 /**
  * codeslayer_menubar_help_new:
+ * @window: a #GtkWindow.
  * @menubar: a #CodeSlayerMenuBar.
  * @accel_group: a #GtkAccelGroup.
  *

@@ -21,12 +21,12 @@
 
 /**
  * SECTION:codeslayer-settings
- * @short_description: The saved application properties.
+ * @short_description: The application properties.
  * @title: CodeSlayerSettings
  * @include: codeslayer/codeslayer-settings.h
  *
- * Save the user settings using the GKeyFile. The file is saved in the 
- * users home directory under a .codeslayer folder.
+ * Saves the application settings using the GKeyFile. The file is saved in the 
+ * users home directory under the .codeslayer folder.
  */
 
 static void codeslayer_settings_class_init  (CodeSlayerSettingsClass *klass);
