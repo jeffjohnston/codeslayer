@@ -415,7 +415,7 @@ static void
 set_defaults (CodeSlayerPreferences *preferences)
 {
   codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBER,
+                                      CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS,
                                       TRUE);
   codeslayer_preferences_set_boolean (preferences,
                                       CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE,

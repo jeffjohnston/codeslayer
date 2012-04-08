@@ -133,7 +133,7 @@ add_line_number (CodeSlayerPreferencesEditor *preferences_editor)
   display_line_number = gtk_check_button_new_with_label (_("Display line numbers"));
   priv->display_line_number = GTK_CHECK_BUTTON (display_line_number);
   active = codeslayer_preferences_get_boolean (priv->preferences, 
-                                               CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBER);
+                                               CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->display_line_number), active);
 
   g_signal_connect_swapped (G_OBJECT (display_line_number), "toggled",
@@ -327,7 +327,7 @@ display_line_number_action (CodeSlayerPreferencesEditor *preferences_editor)
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->display_line_number));
   codeslayer_preferences_set_boolean (priv->preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBER,
+                                      CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS,
                                       active);
 
   codeslayer_preferences_save (priv->preferences);

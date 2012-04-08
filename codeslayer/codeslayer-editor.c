@@ -630,7 +630,7 @@ codeslayer_editor_sync_preferences (CodeSlayerEditor *editor)
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
 
   display_line_number = codeslayer_preferences_get_boolean (priv->preferences,
-                                                            CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBER);
+                                                            CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS);
   gtk_source_view_set_show_line_numbers (GTK_SOURCE_VIEW (editor), 
                                          display_line_number);
 
