@@ -72,10 +72,10 @@ codeslayer_project_class_init (CodeSlayerProjectClass *klass)
   g_type_class_add_private (klass, sizeof (CodeSlayerProjectPrivate));
 
   /**
-	 * CodeSlayerProject:name:
-	 *
-	 * The displayed name for the project.
-	 */
+   * CodeSlayerProject:name:
+   *
+   * The displayed name for the project.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_NAME,
                                    g_param_spec_string ("name", 
@@ -84,10 +84,10 @@ codeslayer_project_class_init (CodeSlayerProjectClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerProject:key:
-	 *
-	 * The key for the project to uniquely identify it.
-	 */
+   * CodeSlayerProject:key:
+   *
+   * The key for the project to uniquely identify it.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_KEY,
                                    g_param_spec_string ("key", 
@@ -96,10 +96,10 @@ codeslayer_project_class_init (CodeSlayerProjectClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerProject:folder_path:
-	 *
-	 * The fully qualified folder path where the project is located.
-	 */
+   * CodeSlayerProject:folder_path:
+   *
+   * The fully qualified folder path where the project is located.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_FOLDER_PATH,
                                    g_param_spec_string ("folder_path",

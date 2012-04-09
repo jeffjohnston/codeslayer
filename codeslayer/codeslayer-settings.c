@@ -287,11 +287,11 @@ static void
 set_defaults (CodeSlayerSettings *settings)
 {
   codeslayer_settings_set_boolean (settings,
-                                      CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE,
-                                      TRUE);
+                                   CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE,
+                                   TRUE);
   codeslayer_settings_set_boolean (settings,
-                                      CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
-                                      FALSE);
+                                   CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
+                                   FALSE);
   codeslayer_settings_save (settings);
 }
 

@@ -423,14 +423,14 @@ load_settings (Context *context)
   gint window_y;
 
   window_width = codeslayer_settings_get_integer (context->settings,
-                                                     CODESLAYER_SETTINGS_WINDOW_WIDTH);
+                                                  CODESLAYER_SETTINGS_WINDOW_WIDTH);
   if (window_width < 0)
     {
       window_width = 800;
     }
   
   window_height = codeslayer_settings_get_integer (context->settings,
-                                                      CODESLAYER_SETTINGS_WINDOW_HEIGHT);
+                                                   CODESLAYER_SETTINGS_WINDOW_HEIGHT);
   if (window_height < 0)
     {
       window_height = 600;
@@ -439,14 +439,14 @@ load_settings (Context *context)
   gtk_window_set_default_size (GTK_WINDOW (context->window), window_width, window_height);
 
   window_x = codeslayer_settings_get_integer (context->settings,
-                                                 CODESLAYER_SETTINGS_WINDOW_X);
+                                              CODESLAYER_SETTINGS_WINDOW_X);
   if (window_x < 0)
     {
       window_x = 10;
     }
     
   window_y = codeslayer_settings_get_integer (context->settings,
-                                                 CODESLAYER_SETTINGS_WINDOW_Y);
+                                              CODESLAYER_SETTINGS_WINDOW_Y);
   if (window_y < 0)
     {
       window_y = 10;
@@ -466,27 +466,27 @@ save_settings (Context *context)
 
   gtk_window_get_size (GTK_WINDOW (context->window), &width, &height);
   codeslayer_settings_set_integer (context->settings,
-                                      CODESLAYER_SETTINGS_WINDOW_WIDTH,
-                                      width);
+                                   CODESLAYER_SETTINGS_WINDOW_WIDTH,
+                                   width);
   codeslayer_settings_set_integer (context->settings,
-                                      CODESLAYER_SETTINGS_WINDOW_HEIGHT,
-                                      height);
+                                   CODESLAYER_SETTINGS_WINDOW_HEIGHT,
+                                   height);
 
   gtk_window_get_position (GTK_WINDOW (context->window), &x, &y);
   codeslayer_settings_set_integer (context->settings,
-                                      CODESLAYER_SETTINGS_WINDOW_X, x);
+                                   CODESLAYER_SETTINGS_WINDOW_X, x);
   codeslayer_settings_set_integer (context->settings,
-                                      CODESLAYER_SETTINGS_WINDOW_Y, y);
+                                   CODESLAYER_SETTINGS_WINDOW_Y, y);
 
   position = gtk_paned_get_position (GTK_PANED (context->hpaned));
   codeslayer_settings_set_integer (context->settings,
-                                      CODESLAYER_SETTINGS_HPANED_POSITION,
-                                      position);
+                                   CODESLAYER_SETTINGS_HPANED_POSITION,
+                                   position);
 
   position = gtk_paned_get_position (GTK_PANED (context->vpaned));
   codeslayer_settings_set_integer (context->settings,
-                                      CODESLAYER_SETTINGS_VPANED_POSITION,
-                                      position);
+                                   CODESLAYER_SETTINGS_VPANED_POSITION,
+                                   position);
 
   codeslayer_settings_save (context->settings);
 }

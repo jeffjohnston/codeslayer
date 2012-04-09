@@ -161,8 +161,8 @@ codeslayer_abstract_pane_set_preferences (CodeSlayerAbstractPane *abstract_pane,
  */
 void
 codeslayer_abstract_pane_add  (CodeSlayerAbstractPane *abstract_pane, 
-                               GtkWidget          *widget, 
-                               const gchar        *title)
+                               GtkWidget              *widget, 
+                               const gchar            *title)
 {
   CodeSlayerAbstractPanePrivate *priv;
   GtkWidget *label;
@@ -180,7 +180,7 @@ codeslayer_abstract_pane_add  (CodeSlayerAbstractPane *abstract_pane,
  */
 void
 codeslayer_abstract_pane_remove (CodeSlayerAbstractPane *abstract_pane, 
-                             GtkWidget          *widget)
+                                 GtkWidget              *widget)
 {
   CodeSlayerAbstractPanePrivate *priv;
   gint page_num;
@@ -199,8 +199,8 @@ codeslayer_abstract_pane_remove (CodeSlayerAbstractPane *abstract_pane,
 
 static void 
 page_added_action (CodeSlayerAbstractPane *abstract_pane,
-                   GtkWidget          *widget,
-                   guint               page_num)
+                   GtkWidget              *widget,
+                   guint                   page_num)
 {
   CodeSlayerAbstractPanePrivate *priv;
   priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);

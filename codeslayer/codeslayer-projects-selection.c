@@ -71,10 +71,10 @@ codeslayer_projects_selection_class_init (CodeSlayerProjectsSelectionClass *klas
   g_type_class_add_private (klass, sizeof (CodeSlayerProjectsSelectionPrivate));
 
   /**
-	 * CodeSlayerProjectsSelection:file-path:
-	 *
-	 * The fully qualified file path where the projects_selection is located.
-	 */
+   * CodeSlayerProjectsSelection:file-path:
+   *
+   * The fully qualified file path where the projects_selection is located.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_FILE_PATH,
                                    g_param_spec_string ("file_path",
@@ -83,10 +83,10 @@ codeslayer_projects_selection_class_init (CodeSlayerProjectsSelectionClass *klas
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerProjectsSelection:project:
-	 *
-	 * a #CodeSlayerProject.
-	 */
+   * CodeSlayerProjectsSelection:project:
+   *
+   * a #CodeSlayerProject.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_PROJECT,
                                    g_param_spec_object ("project",

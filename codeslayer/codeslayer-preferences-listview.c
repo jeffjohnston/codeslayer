@@ -33,11 +33,11 @@ static void codeslayer_preferences_list_view_class_init  (CodeSlayerPreferencesL
 static void codeslayer_preferences_list_view_init        (CodeSlayerPreferencesListView      *project);
 static void codeslayer_preferences_list_view_finalize    (CodeSlayerPreferencesListView      *project);
 
-static void add_list_view                               (CodeSlayerPreferencesListView      *preferences_listview);
-static void load_list                                   (CodeSlayerPreferencesListView      *preferences_listview,
-                                                         GtkWidget                          *list_view);
-static void list_changed_action                         (CodeSlayerPreferencesListView      *preferences_listview, 
-                                                         GList                              *list);
+static void add_list_view                                (CodeSlayerPreferencesListView      *preferences_listview);
+static void load_list                                    (CodeSlayerPreferencesListView      *preferences_listview,
+                                                          GtkWidget                          *list_view);
+static void list_changed_action                          (CodeSlayerPreferencesListView      *preferences_listview, 
+                                                          GList                              *list);
 
 #define CODESLAYER_PREFERENCES_LIST_VIEW_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PREFERENCES_LIST_VIEW_TYPE, CodeSlayerPreferencesListViewPrivate))
@@ -90,9 +90,9 @@ codeslayer_preferences_list_view_finalize (CodeSlayerPreferencesListView *projec
  */
 GObject*
 codeslayer_preferences_list_view_new (CodeSlayerPreferences *preferences, 
-                                     gchar                 *key,
-                                     GtkWidget             *tab, 
-                                     const gchar           *title)
+                                      gchar                 *key,
+                                      GtkWidget             *tab, 
+                                      const gchar           *title)
 {
   CodeSlayerPreferencesListViewPrivate *priv;
   GObject *preferences_listview;

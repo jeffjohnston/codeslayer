@@ -31,7 +31,7 @@ static void    codeslayer_side_pane_init        (CodeSlayerSidePane      *side_p
 static void    codeslayer_side_pane_finalize    (CodeSlayerSidePane      *side_pane);
 
 static gchar*  tab_position_key                 (CodeSlayerAbstractPane  *abstract_pane);
-static gint    tab_start_sort                (CodeSlayerAbstractPane  *abstract_pane);
+static gint    tab_start_sort                   (CodeSlayerAbstractPane  *abstract_pane);
 
 #define CODESLAYER_SIDE_PANE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_SIDE_PANE_TYPE, CodeSlayerSidePanePrivate))
