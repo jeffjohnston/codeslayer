@@ -61,6 +61,7 @@ typedef struct _CodeSlayerPrivate CodeSlayerPrivate;
 
 struct _CodeSlayerPrivate
 {
+  CodeSlayerPreferences       *preferences;
   CodeSlayerMenuBar           *menubar;
   CodeSlayerNotebook          *notebook;
   CodeSlayerProjects          *projects;
@@ -208,9 +209,10 @@ codeslayer_finalize (CodeSlayer *codeslayer)
 }
 
 CodeSlayer*
-codeslayer_new (CodeSlayerMenuBar           *menubar,
+codeslayer_new (CodeSlayerPreferences       *preferences, 
+                CodeSlayerMenuBar           *menubar,
                 CodeSlayerNotebook          *notebook,
-                CodeSlayerProjects      *projects, 
+                CodeSlayerProjects          *projects, 
                 CodeSlayerProjectProperties *project_properties, 
                 CodeSlayerSidePane          *side_pane,
                 CodeSlayerBottomPane        *bottom_pane, 
@@ -220,6 +222,7 @@ codeslayer_new (CodeSlayerMenuBar           *menubar,
   CodeSlayer *codeslayer;
   codeslayer = CODESLAYER (g_object_new (codeslayer_get_type (), NULL));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
+  priv->preferences = preferences;
   priv->menubar = menubar;
   priv->notebook = notebook;
   priv->projects = projects;
@@ -708,6 +711,21 @@ codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer,
     }
   
   return NULL;
+}
+
+/**
+ * codeslayer_get_preferences:
+ * @codeslayer: a #CodeSlayer.
+ *
+ * Returns: The #CodeSlayerPreferences.
+ */
+CodeSlayerPreferences*
+codeslayer_get_preferences (CodeSlayer *codeslayer)
+{
+  CodeSlayerPrivate *priv;
+  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
+  priv = CODESLAYER_GET_PRIVATE (codeslayer);
+  return priv->preferences;
 }
 
 static void

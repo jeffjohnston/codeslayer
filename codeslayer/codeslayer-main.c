@@ -294,7 +294,8 @@ load_plugins (Context *context)
 {
   CodeSlayer *codeslayer;
   
-  codeslayer = codeslayer_new (CODESLAYER_MENUBAR (context->menubar), 
+  codeslayer = codeslayer_new (CODESLAYER_PREFERENCES (context->preferences), 
+                               CODESLAYER_MENUBAR (context->menubar), 
                                CODESLAYER_NOTEBOOK (context->notebook), 
                                CODESLAYER_PROJECTS (context->projects), 
                                CODESLAYER_PROJECT_PROPERTIES (context->project_properties), 

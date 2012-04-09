@@ -88,7 +88,7 @@ void                    codeslayer_preferences_set_boolean  (CodeSlayerPreferenc
                                                              gchar                 *key,
                                                              gboolean               value);
 gchar*                  codeslayer_preferences_get_string   (CodeSlayerPreferences *preferences,
-                                                                gchar                 *key);
+                                                             gchar                 *key);
 void                    codeslayer_preferences_set_string   (CodeSlayerPreferences *preferences, 
                                                              gchar                 *key,
                                                              const gchar           *value);

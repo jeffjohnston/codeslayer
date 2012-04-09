@@ -36,6 +36,7 @@
 #include <codeslayer/codeslayer-completion.h>
 #include <codeslayer/codeslayer-completion-provider.h>
 #include <codeslayer/codeslayer-completion-proposal.h>
+#include <codeslayer/codeslayer-preferences.h>
 
 G_BEGIN_DECLS
 
@@ -72,7 +73,8 @@ struct _CodeSlayerClass
 
 GType codeslayer_get_type (void) G_GNUC_CONST;
   
-CodeSlayer*               codeslayer_new                             (CodeSlayerMenuBar           *menubar,
+CodeSlayer*               codeslayer_new                             (CodeSlayerPreferences       *preferences, 
+                                                                      CodeSlayerMenuBar           *menubar,
                                                                       CodeSlayerNotebook          *notebook,
                                                                       CodeSlayerProjects          *projects,
                                                                       CodeSlayerProjectProperties *project_properties,
@@ -141,6 +143,8 @@ gchar*                    codeslayer_get_configuration_folder_path   (CodeSlayer
 
 CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer                  *codeslayer, 
                                                                       const gchar                 *file_path);
+
+CodeSlayerPreferences*    codeslayer_get_preferences                 (CodeSlayer                  *codeslayer);
 
 G_END_DECLS
 
