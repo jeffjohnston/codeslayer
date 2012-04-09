@@ -73,10 +73,10 @@ codeslayer_group_class_init (CodeSlayerGroupClass *klass)
   g_type_class_add_private (klass, sizeof (CodeSlayerGroupPrivate));
 
   /**
-	 * CodeSlayerGroup:name:
-	 *
-	 * The text that will be displayed for the group.
-	 */
+   * CodeSlayerGroup:name:
+   *
+   * The text that will be displayed for the group.
+   */
   g_object_class_install_property (gobject_class, PROP_NAME,
                                    g_param_spec_string ("name", 
                                                         "Name", 
@@ -84,10 +84,10 @@ codeslayer_group_class_init (CodeSlayerGroupClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerGroup:projects:
-	 *
-	 * The list of projects in the group.
-	 */
+   * CodeSlayerGroup:projects:
+   *
+   * The list of projects in the group.
+   */
   g_object_class_install_property (gobject_class, PROP_PROJECTS,
                                    g_param_spec_pointer ("projects",
                                                          "Projects",
@@ -95,10 +95,10 @@ codeslayer_group_class_init (CodeSlayerGroupClass *klass)
                                                          G_PARAM_READWRITE));
                                                          
   /**
-	 * CodeSlayerGroup:libs:
-	 *
-	 * The list of libs in the group.
-	 */
+   * CodeSlayerGroup:libs:
+   *
+   * The list of libs in the group.
+   */
   g_object_class_install_property (gobject_class, PROP_LIBS,
                                    g_param_spec_pointer ("libs",
                                                          "Libs",

@@ -69,13 +69,13 @@ codeslayer_abstract_pane_class_init (CodeSlayerAbstractPaneClass *klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
   
   /**
-	 * CodeSlayerAbstractPane::open-pane
-	 * @codeslayerabstractpane: the pane that received the signal.
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::open-pane signal is a request for the pane to be opened.
-	 */
+   * CodeSlayerAbstractPane::open-pane
+   * @codeslayerabstractpane: the pane that received the signal.
+   *
+   * Note: for internal use only.
+   *
+   * The ::open-pane signal is a request for the pane to be opened.
+   */
   codeslayer_abstract_pane_signals[OPEN_PANE] =
     g_signal_new ("open-pane", 
                   G_TYPE_FROM_CLASS (klass),
@@ -85,13 +85,13 @@ codeslayer_abstract_pane_class_init (CodeSlayerAbstractPaneClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
   
   /**
-	 * CodeSlayerAbstractPane::close-pane
-	 * @codeslayerabstractpane: the pane that received the signal.
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::close-pane signal is a request for the pane to be closed.
-	 */
+   * CodeSlayerAbstractPane::close-pane
+   * @codeslayerabstractpane: the pane that received the signal.
+   *
+   * Note: for internal use only.
+   *
+   * The ::close-pane signal is a request for the pane to be closed.
+   */
   codeslayer_abstract_pane_signals[CLOSE_PANE] =
     g_signal_new ("close-pane", 
                   G_TYPE_FROM_CLASS (klass),

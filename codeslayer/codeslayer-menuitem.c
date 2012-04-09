@@ -45,12 +45,12 @@ static void
 codeslayer_menu_item_class_init (CodeSlayerMenuItemClass *klass)
 {
   /**
-	 * CodeSlayerMenuItem::projects-menu-selected
-	 * @menuitem: the menuitem that received the signal
-	 * @selections: the #GList of #CodeSlayerProjectsSelection objects
-	 *
-	 * The ::projects-menu-selected signal is a request once the menu item is selected.
-	 */
+   * CodeSlayerMenuItem::projects-menu-selected
+   * @menuitem: the menuitem that received the signal
+   * @selections: the #GList of #CodeSlayerProjectsSelection objects
+   *
+   * The ::projects-menu-selected signal is a request once the menu item is selected.
+   */
   codeslayer_menu_item_signals[PROJECTS_MENU_SELECTED] =
     g_signal_new ("projects-menu-selected", 
                   G_TYPE_FROM_CLASS (klass),

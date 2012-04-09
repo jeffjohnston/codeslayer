@@ -88,12 +88,12 @@ codeslayer_notebook_pane_class_init (CodeSlayerNotebookPaneClass *klass)
   klass->find_next = find_next_action;
 
   /**
-	 * CodeSlayerNotebookPane::find-next
-	 * @codeslayernotebookpane: the pane that received the signal
-	 *
-	 * The ::find-next signal enables the (F3) keystroke to search for 
-	 * the next value in the inline search.
-	 */
+   * CodeSlayerNotebookPane::find-next
+   * @codeslayernotebookpane: the pane that received the signal
+   *
+   * The ::find-next signal enables the (F3) keystroke to search for 
+   * the next value in the inline search.
+   */
   codeslayer_notebook_pane_signals[FIND_NEXT] =
     g_signal_new ("find-next", 
                   G_TYPE_FROM_CLASS (klass),
@@ -114,10 +114,10 @@ codeslayer_notebook_pane_class_init (CodeSlayerNotebookPaneClass *klass)
   g_type_class_add_private (klass, sizeof (CodeSlayerNotebookPanePrivate));
 
   /**
-	 * CodeSlayerNotebookPane:notebook:
-	 *
-	 * A #CodeSlayerNotebook that makes up the top of the pane.
-	 */
+   * CodeSlayerNotebookPane:notebook:
+   *
+   * A #CodeSlayerNotebook that makes up the top of the pane.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_NOTEBOOK,
                                    g_param_spec_pointer ("notebook",
@@ -126,10 +126,10 @@ codeslayer_notebook_pane_class_init (CodeSlayerNotebookPaneClass *klass)
                                                          G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerNotebookPane:notebook-search:
-	 *
-	 * A #CodeSlayerNotebookSearch that makes up the bottom of the pane.
-	 */
+   * CodeSlayerNotebookPane:notebook-search:
+   *
+   * A #CodeSlayerNotebookSearch that makes up the bottom of the pane.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_NOTEBOOK_SEARCH,
                                    g_param_spec_pointer ("notebook_search",

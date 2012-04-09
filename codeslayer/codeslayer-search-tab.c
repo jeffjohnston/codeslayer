@@ -80,11 +80,11 @@ codeslayer_search_tab_class_init (CodeSlayerSearchTabClass *klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
   /**
-	 * CodeSlayerSearchTab::close-page
-	 * @codeslayersearchtab: the tab that received the signal
-	 *
-	 * The ::close-tab signal is a request to close the active page.
-	 */
+   * CodeSlayerSearchTab::close-page
+   * @codeslayersearchtab: the tab that received the signal
+   *
+   * The ::close-tab signal is a request to close the active page.
+   */
   codeslayer_search_tab_signals[CLOSE_PAGE] =
     g_signal_new ("close-page", 
                   G_TYPE_FROM_CLASS (klass),
@@ -101,10 +101,10 @@ codeslayer_search_tab_class_init (CodeSlayerSearchTabClass *klass)
   g_type_class_add_private (klass, sizeof (CodeSlayerSearchTabPrivate));
 
   /**
-	 * CodeSlayerSearchTab:search-page:
-	 *
-	 * A #CodeSlayerSearchPage.
-	 */
+   * CodeSlayerSearchTab:search-page:
+   *
+   * A #CodeSlayerSearchPage.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_SEARCH_PAGE,
                                    g_param_spec_pointer ("search_page",

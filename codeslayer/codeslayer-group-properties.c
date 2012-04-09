@@ -32,8 +32,6 @@ static void codeslayer_group_properties_class_init  (CodeSlayerGroupPropertiesCl
 static void codeslayer_group_properties_init        (CodeSlayerGroupProperties      *group_properties);
 static void codeslayer_group_properties_finalize    (CodeSlayerGroupProperties      *group_properties);
 
-/*static void add_group_name                          (CodeSlayerGroupProperties      *group_properties);*/
-
 static void add_table                               (CodeSlayerGroupProperties      *group_properties);
 
 #define CODESLAYER_GROUP_PROPERTIES_GET_PRIVATE(obj) \

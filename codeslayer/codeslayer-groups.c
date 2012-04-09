@@ -72,10 +72,10 @@ codeslayer_groups_class_init (CodeSlayerGroupsClass *klass)
   g_type_class_add_private (klass, sizeof (CodeSlayerGroupsPrivate));
 
   /**
-	 * CodeSlayerGroups:list:
-	 *
-	 * The list of #CodeSlayerGroup objects in the manager.
-	 */
+   * CodeSlayerGroups:list:
+   *
+   * The list of #CodeSlayerGroup objects in the manager.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_LIST,
                                    g_param_spec_pointer ("list", 
@@ -84,10 +84,10 @@ codeslayer_groups_class_init (CodeSlayerGroupsClass *klass)
                                                          G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerGroups:active:
-	 *
-	 * The currently selected group.
-	 */
+   * CodeSlayerGroups:active:
+   *
+   * The currently selected group.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_ACTIVE,
                                    g_param_spec_object ("active",

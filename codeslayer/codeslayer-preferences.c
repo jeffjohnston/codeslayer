@@ -74,13 +74,13 @@ static void
 codeslayer_preferences_class_init (CodeSlayerPreferencesClass *klass)
 {
   /**
-	 * CodeSlayerPreferences::editor-preferences-changed
-	 * @codeslayerpreferences: the preference that received the signal
-	 *
-	 * The ::editor-preferences-changed signal lets all observers know that 
-	 * something in the preferences, related to the 
-	 * #CodeSlayerEditor, changed.
-	 */
+   * CodeSlayerPreferences::editor-preferences-changed
+  * @codeslayerpreferences: the preference that received the signal
+   *
+   * The ::editor-preferences-changed signal lets all observers know that 
+   * something in the preferences, related to the 
+   * #CodeSlayerEditor, changed.
+   */
   codeslayer_preferences_signals[EDITOR_PREFERENCES_CHANGED] =
     g_signal_new ("editor-preferences-changed", 
                   G_TYPE_FROM_CLASS (klass),
@@ -90,13 +90,13 @@ codeslayer_preferences_class_init (CodeSlayerPreferencesClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerPreferences::notebook-preferences-changed
-	 * @codeslayerpreferences: the preference that received the signal
-	 *
-	 * The ::notebook-preferences-changed signal lets all observers know that 
-	 * something in the preferences, related to the 
-	 * #CodeSlayerNotebook, changed.
-	 */
+   * CodeSlayerPreferences::notebook-preferences-changed
+   * @codeslayerpreferences: the preference that received the signal
+   *
+   * The ::notebook-preferences-changed signal lets all observers know that 
+   * something in the preferences, related to the 
+   * #CodeSlayerNotebook, changed.
+   */
   codeslayer_preferences_signals[NOTEBOOK_PREFERENCES_CHANGED] =
     g_signal_new ("notebook-preferences-changed", 
                   G_TYPE_FROM_CLASS (klass),
@@ -106,13 +106,13 @@ codeslayer_preferences_class_init (CodeSlayerPreferencesClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerPreferences::side-pane-preferences-changed
-	 * @codeslayerpreferences: the preference that received the signal
-	 *
-	 * The ::side-pane-preferences-changed signal lets all observers know that 
-	 * something in the preferences, related to the 
-	 * #CodeSlayerSidePane, changed.
-	 */
+   * CodeSlayerPreferences::side-pane-preferences-changed
+   * @codeslayerpreferences: the preference that received the signal
+   *
+   * The ::side-pane-preferences-changed signal lets all observers know that 
+   * something in the preferences, related to the 
+   * #CodeSlayerSidePane, changed.
+   */
   codeslayer_preferences_signals[SIDE_PANE_PREFERENCES_CHANGED] =
     g_signal_new ("side-pane-preferences-changed", 
                   G_TYPE_FROM_CLASS (klass),
@@ -122,13 +122,13 @@ codeslayer_preferences_class_init (CodeSlayerPreferencesClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerPreferences::bottom-pane-preferences-changed
-	 * @codeslayerpreferences: the preference that received the signal
-	 *
-	 * The ::bottom-pane-preferences-changed signal lets all observers know that 
-	 * something in the preferences, related to the 
-	 * #CodeSlayerSidePane, changed.
-	 */
+   * CodeSlayerPreferences::bottom-pane-preferences-changed
+   * @codeslayerpreferences: the preference that received the signal
+   *
+   * The ::bottom-pane-preferences-changed signal lets all observers know that 
+   * something in the preferences, related to the 
+   * #CodeSlayerSidePane, changed.
+   */
   codeslayer_preferences_signals[BOTTOM_PANE_PREFERENCES_CHANGED] =
     g_signal_new ("bottom-pane-preferences-changed", 
                   G_TYPE_FROM_CLASS (klass),
@@ -138,13 +138,13 @@ codeslayer_preferences_class_init (CodeSlayerPreferencesClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerPreferences::initialize-preferences
-	 * @codeslayerpreferences: the preference that received the signal
-	 *
-	 * The ::initialize-preferences signal lets all observers know that 
-	 * the preferences need to be applied.
-	 * #CodeSlayerSidePane, changed.
-	 */
+   * CodeSlayerPreferences::initialize-preferences
+   * @codeslayerpreferences: the preference that received the signal
+   *
+   * The ::initialize-preferences signal lets all observers know that 
+   * the preferences need to be applied.
+   * #CodeSlayerSidePane, changed.
+   */
   codeslayer_preferences_signals[INITIALIZE_PREFERENCES] =
     g_signal_new ("initialize-preferences", 
                   G_TYPE_FROM_CLASS (klass),

@@ -121,13 +121,13 @@ codeslayer_notebook_search_class_init (CodeSlayerNotebookSearchClass *klass)
 {
 
   /**
-	 * CodeSlayerNotebookSearch::close-search
-	 * @codeslayernotebooksearch: the search that received the signal.
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::close-search signal is a request for the inline search to be closed.
-	 */
+   * CodeSlayerNotebookSearch::close-search
+   * @codeslayernotebooksearch: the search that received the signal.
+   *
+   * Note: for internal use only.
+   *
+   * The ::close-search signal is a request for the inline search to be closed.
+   */
   codeslayer_notebook_search_signals[CLOSE_SEARCH] =
     g_signal_new ("close-search", 
                   G_TYPE_FROM_CLASS (klass),

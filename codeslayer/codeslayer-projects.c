@@ -202,14 +202,14 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
   klass->search_find = codeslayer_projects_search_find;
 
   /**
-	 * CodeSlayerProjects::remove-project
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::remove-project signal is a request for the project to be 
-	 * removed from the group.
-	 */
+   * CodeSlayerProjects::remove-project
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::remove-project signal is a request for the project to be 
+   * removed from the group.
+   */
   codeslayer_tree_signals[REMOVE_PROJECT] =
     g_signal_new ("remove-project", 
                   G_TYPE_FROM_CLASS (klass),
@@ -219,13 +219,13 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-	 * CodeSlayerProjects::project_modified
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::project_modified signal is invoked when the project was updated.
-	 */
+   * CodeSlayerProjects::project_modified
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::project_modified signal is invoked when the project was updated.
+   */
   codeslayer_tree_signals[PROJECT_MODIFIED] =
     g_signal_new ("project-modified", 
                   G_TYPE_FROM_CLASS (klass),
@@ -235,13 +235,13 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-	 * CodeSlayerProjects::open-document
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::open-document signal is a request to open the document in the notebook.
-	 */
+   * CodeSlayerProjects::open-document
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::open-document signal is a request to open the document in the notebook.
+   */
   codeslayer_tree_signals[OPEN_DOCUMENT] =
     g_signal_new ("open-document", 
                   G_TYPE_FROM_CLASS (klass),
@@ -251,13 +251,13 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-	 * CodeSlayerProjects::file-path-renamed
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::file-path-renamed signal is invoked after a file/folder is renamed.
-	 */
+   * CodeSlayerProjects::file-path-renamed
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::file-path-renamed signal is invoked after a file/folder is renamed.
+   */
   codeslayer_tree_signals[FILE_PATH_RENAMED] =
     g_signal_new ("file-path-renamed", 
                   G_TYPE_FROM_CLASS (klass),
@@ -268,13 +268,13 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   2, G_TYPE_STRING, G_TYPE_STRING);
 
   /**
-	 * CodeSlayerProjects::rename-file-folder
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::rename-file-folder signal is a request to rename the file/folder.
-	 */
+   * CodeSlayerProjects::rename-file-folder
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::rename-file-folder signal is a request to rename the file/folder.
+   */
   codeslayer_tree_signals[RENAME_FILE_FOLDER] =
     g_signal_new ("rename-file-folder", 
                   G_TYPE_FROM_CLASS (klass),
@@ -284,13 +284,13 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
                   
   /**
-	 * CodeSlayerProjects::delete-file-folder
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::delete-file-folder signal is a request to rename the file/folder.
-	 */
+   * CodeSlayerProjects::delete-file-folder
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::delete-file-folder signal is a request to rename the file/folder.
+   */
   codeslayer_tree_signals[DELETE_FILE_FOLDER] =
     g_signal_new ("delete-file-folder", 
                   G_TYPE_FROM_CLASS (klass),
@@ -300,13 +300,13 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
                   
   /**
-	 * CodeSlayerMenu::find-projects
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::find-projects signal is a request to open up the search dialog.
-	 */
+   * CodeSlayerMenu::find-projects
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::find-projects signal is a request to open up the search dialog.
+   */
   codeslayer_tree_signals[FIND_PROJECTS] =
     g_signal_new ("find-projects", 
                   G_TYPE_FROM_CLASS (klass),
@@ -316,13 +316,13 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
                   
  /**
-	 * CodeSlayerProjects::search-find
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::search-find signal is a request to open up the search dialog.
-	 */
+   * CodeSlayerProjects::search-find
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::search-find signal is a request to open up the search dialog.
+   */
   codeslayer_tree_signals[SEARCH_FIND] =
     g_signal_new ("search-find", 
                   G_TYPE_FROM_CLASS (klass),
@@ -332,13 +332,13 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
  /**
-	 * CodeSlayerProjects::cut-file-folder
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::cut-file-folder signal is a request to cut the file/folder from the tree.
-	 */
+   * CodeSlayerProjects::cut-file-folder
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::cut-file-folder signal is a request to cut the file/folder from the tree.
+   */
   codeslayer_tree_signals[CUT_FILE_FOLDER] =
     g_signal_new ("cut-file-folder", 
                   G_TYPE_FROM_CLASS (klass),
@@ -348,13 +348,13 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerProjects::copy-file-folder
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::copy-file-folder signal is a request to copy the file/folder in the tree.
-	 */
+   * CodeSlayerProjects::copy-file-folder
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::copy-file-folder signal is a request to copy the file/folder in the tree.
+   */
   codeslayer_tree_signals[COPY_FILE_FOLDER] =
     g_signal_new ("copy-file-folder", 
                   G_TYPE_FROM_CLASS (klass),
@@ -364,14 +364,14 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerProjects::paste-file-folder
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::paste-file-folder signal is a request to paste the file/folder that was 
-	 * previously cut or copied.
-	 */
+   * CodeSlayerProjects::paste-file-folder
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::paste-file-folder signal is a request to paste the file/folder that was 
+   * previously cut or copied.
+   */
   codeslayer_tree_signals[PASTE_FILE_FOLDER] =
     g_signal_new ("paste-file-folder", 
                   G_TYPE_FROM_CLASS (klass),
@@ -381,13 +381,13 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);                  
 
   /**
-	 * CodeSlayerProjects::properties-opened
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::properties-opened signal is a activated when the properties is opened.
-	 */
+   * CodeSlayerProjects::properties-opened
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::properties-opened signal is a activated when the properties is opened.
+   */
   codeslayer_tree_signals[PROPERTIES_OPENED] =
     g_signal_new ("properties-opened", 
                   G_TYPE_FROM_CLASS (klass),
@@ -397,13 +397,13 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_PROJECT_TYPE);
 
   /**
-	 * CodeSlayerProjects::properties_saved
-	 * @codeslayerprojectstree: the tree that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::properties-saved signal is a activated when the properties is closed.
-	 */
+   * CodeSlayerProjects::properties_saved
+   * @codeslayerprojectstree: the tree that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::properties-saved signal is a activated when the properties is closed.
+   */
   codeslayer_tree_signals[PROPERTIES_SAVED] =
     g_signal_new ("properties-saved", 
                   G_TYPE_FROM_CLASS (klass),

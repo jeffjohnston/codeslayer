@@ -91,10 +91,10 @@ codeslayer_plugin_class_init (CodeSlayerPluginClass *klass)
   g_type_class_add_private (klass, sizeof (CodeSlayerPluginPrivate));
 
   /**
-	 * CodeSlayerGroup:lib:
-	 *
-	 * The lib that will be used to locate the plugin.
-	 */
+   * CodeSlayerGroup:lib:
+   *
+   * The lib that will be used to locate the plugin.
+   */
   g_object_class_install_property (gobject_class, PROP_LIB,
                                    g_param_spec_string ("lib", 
                                                         "Lib", 
@@ -102,10 +102,10 @@ codeslayer_plugin_class_init (CodeSlayerPluginClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerGroup:version:
-	 *
-	 * The version that will be used to identify the plugin.
-	 */
+   * CodeSlayerGroup:version:
+   *
+   * The version that will be used to identify the plugin.
+   */
   g_object_class_install_property (gobject_class, PROP_VERSION,
                                    g_param_spec_string ("version", 
                                                         "Version", 
@@ -113,10 +113,10 @@ codeslayer_plugin_class_init (CodeSlayerPluginClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerGroup:name:
-	 *
-	 * The name that will be displayed for the plugin.
-	 */
+   * CodeSlayerGroup:name:
+   *
+   * The name that will be displayed for the plugin.
+   */
   g_object_class_install_property (gobject_class, PROP_NAME,
                                    g_param_spec_string ("name", 
                                                         "Name", 
@@ -124,10 +124,10 @@ codeslayer_plugin_class_init (CodeSlayerPluginClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerGroup:description:
-	 *
-	 * The description that will be displayed for the plugin.
-	 */
+   * CodeSlayerGroup:description:
+   *
+   * The description that will be displayed for the plugin.
+   */
   g_object_class_install_property (gobject_class, PROP_DESCRIPTION,
                                    g_param_spec_string ("description", 
                                                         "Description", 
@@ -135,10 +135,10 @@ codeslayer_plugin_class_init (CodeSlayerPluginClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerGroup:description:
-	 *
-	 * The authors that will be displayed for the plugin.
-	 */
+   * CodeSlayerGroup:description:
+   *
+   * The authors that will be displayed for the plugin.
+   */
   g_object_class_install_property (gobject_class, PROP_AUTHORS,
                                    g_param_spec_string ("authors", 
                                                         "Authors", 
@@ -146,10 +146,10 @@ codeslayer_plugin_class_init (CodeSlayerPluginClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerGroup:copyright:
-	 *
-	 * The copyright that will be displayed for the plugin.
-	 */
+   * CodeSlayerGroup:copyright:
+   *
+   * The copyright that will be displayed for the plugin.
+   */
   g_object_class_install_property (gobject_class, PROP_COPYRIGHT,
                                    g_param_spec_string ("copyright", 
                                                         "Copyright", 
@@ -157,10 +157,10 @@ codeslayer_plugin_class_init (CodeSlayerPluginClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerGroup:website:
-	 *
-	 * The website that will be displayed for the plugin.
-	 */
+   * CodeSlayerGroup:website:
+   *
+   * The website that will be displayed for the plugin.
+   */
   g_object_class_install_property (gobject_class, PROP_WEBSITE,
                                    g_param_spec_string ("website", 
                                                         "Website", 
@@ -168,10 +168,10 @@ codeslayer_plugin_class_init (CodeSlayerPluginClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerPlugin:enabled:
-	 *
-	 * Whether or not the plugin is enabled.
-	 */
+   * CodeSlayerPlugin:enabled:
+   *
+   * Whether or not the plugin is enabled.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_ENABLED,
                                    g_param_spec_boolean ("enabled", 

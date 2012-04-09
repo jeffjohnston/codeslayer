@@ -101,11 +101,11 @@ codeslayer_notebook_tab_class_init (CodeSlayerNotebookTabClass *klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
   /**
-	 * CodeSlayerNotebookTab::close-editor
-	 * @codeslayernotebooktab: the tab that received the signal
-	 *
-	 * The ::close-editor signal is a request to close the active editor.
-	 */
+   * CodeSlayerNotebookTab::close-editor
+   * @codeslayernotebooktab: the tab that received the signal
+   *
+   * The ::close-editor signal is a request to close the active editor.
+   */
   codeslayer_notebook_tab_signals[CLOSE_EDITOR] =
     g_signal_new ("close-editor", 
                   G_TYPE_FROM_CLASS (klass),
@@ -115,11 +115,11 @@ codeslayer_notebook_tab_class_init (CodeSlayerNotebookTabClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerNotebookTab::close-all-editors
-	 * @codeslayernotebooktab: the tab that received the signal
-	 *
-	 * The ::close-all-editors signal is a request to close all the editors.
-	 */
+   * CodeSlayerNotebookTab::close-all-editors
+   * @codeslayernotebooktab: the tab that received the signal
+   *
+   * The ::close-all-editors signal is a request to close all the editors.
+   */
   codeslayer_notebook_tab_signals[CLOSE_ALL_EDITORS] =
     g_signal_new ("close-all-editors", 
                   G_TYPE_FROM_CLASS (klass),
@@ -129,12 +129,12 @@ codeslayer_notebook_tab_class_init (CodeSlayerNotebookTabClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerNotebookTab::close-other-editors
-	 * @codeslayernotebooktab: the tab that received the signal
-	 *
-	 * The ::close-other-editors signal is a request to close all editors except the 
-	 * active one.
-	 */
+   * CodeSlayerNotebookTab::close-other-editors
+   * @codeslayernotebooktab: the tab that received the signal
+   *
+   * The ::close-other-editors signal is a request to close all editors except the 
+   * active one.
+   */
   codeslayer_notebook_tab_signals[CLOSE_OTHER_EDITORS] =
     g_signal_new ("close-other-editors", 
                   G_TYPE_FROM_CLASS (klass),
@@ -144,12 +144,12 @@ codeslayer_notebook_tab_class_init (CodeSlayerNotebookTabClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerNotebookTab::close-right-editors
-	 * @codeslayernotebooktab: the tab that received the signal
-	 *
-	 * The ::close-right-editors signal is a request to close all editors to the right of 
-	 * the active one.
-	 */
+   * CodeSlayerNotebookTab::close-right-editors
+   * @codeslayernotebooktab: the tab that received the signal
+   *
+   * The ::close-right-editors signal is a request to close all editors to the right of 
+   * the active one.
+   */
   codeslayer_notebook_tab_signals[CLOSE_RIGHT_EDITORS] =
     g_signal_new ("close-right-editors", 
                   G_TYPE_FROM_CLASS (klass),
@@ -159,12 +159,12 @@ codeslayer_notebook_tab_class_init (CodeSlayerNotebookTabClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerNotebookTab::close-left-editors
-	 * @codeslayernotebooktab: the tab that received the signal
-	 *
-	 * The ::close-left-editors signal is a request to close all editors to the left of the 
-	 * active one.
-	 */
+   * CodeSlayerNotebookTab::close-left-editors
+   * @codeslayernotebooktab: the tab that received the signal
+   *
+   * The ::close-left-editors signal is a request to close all editors to the left of the 
+   * active one.
+   */
   codeslayer_notebook_tab_signals[CLOSE_LEFT_EDITORS] =
     g_signal_new ("close-left-editors", 
                   G_TYPE_FROM_CLASS (klass),
@@ -181,10 +181,10 @@ codeslayer_notebook_tab_class_init (CodeSlayerNotebookTabClass *klass)
   g_type_class_add_private (klass, sizeof (CodeSlayerNotebookTabPrivate));
 
   /**
-	 * CodeSlayerNotebookTab:notebook-page:
-	 *
-	 * A #CodeSlayerNotebookPage.
-	 */
+   * CodeSlayerNotebookTab:notebook-page:
+   *
+   * A #CodeSlayerNotebookPage.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_NOTEBOOK_PAGE,
                                    g_param_spec_pointer ("notebook_page",

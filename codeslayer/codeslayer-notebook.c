@@ -80,11 +80,11 @@ static void
 codeslayer_notebook_class_init (CodeSlayerNotebookClass *klass)
 {
   /**
-	 * CodeSlayerNotebook::editor-saved
-	 * @codeslayernotebook: the notebook that received the signal
-	 *
-	 * The ::editor-saved signal is emitted when an editor is saved successfully
-	 */
+   * CodeSlayerNotebook::editor-saved
+   * @codeslayernotebook: the notebook that received the signal
+   *
+   * The ::editor-saved signal is emitted when an editor is saved successfully
+   */
   codeslayer_notebook_signals[EDITOR_SAVED] =
     g_signal_new ("editor-saved", 
                   G_TYPE_FROM_CLASS (klass),
@@ -94,12 +94,12 @@ codeslayer_notebook_class_init (CodeSlayerNotebookClass *klass)
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-	 * CodeSlayerNotebook::editors-all-saved
-	 * @codeslayernotebook: the notebook that received the signal
-	 * @editors: a #GList of #CodeSlayerEditor objects that were saved
-	 *
-	 * The ::editors-all-saved signal is emitted when all the editors have been saved successfully
-	 */
+   * CodeSlayerNotebook::editors-all-saved
+   * @codeslayernotebook: the notebook that received the signal
+   * @editors: a #GList of #CodeSlayerEditor objects that were saved
+   *
+   * The ::editors-all-saved signal is emitted when all the editors have been saved successfully
+   */
   codeslayer_notebook_signals[EDITORS_ALL_SAVED] =
     g_signal_new ("editors-all-saved", 
                   G_TYPE_FROM_CLASS (klass),

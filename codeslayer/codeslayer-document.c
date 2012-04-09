@@ -92,10 +92,10 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
   g_type_class_add_private (klass, sizeof (CodeSlayerDocumentPrivate));
 
   /**
-	 * CodeSlayerDocument:line-number:
-	 *
-	 * The line that the editor should scroll to.
-	 */
+   * CodeSlayerDocument:line-number:
+   *
+   * The line that the editor should scroll to.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_LINE_NUMBER,
                                    g_param_spec_int ("line_number",
@@ -105,10 +105,10 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
                                                      G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerDocument:file-path:
-	 *
-	 * The fully qualified file path where the document is located.
-	 */
+   * CodeSlayerDocument:file-path:
+   *
+   * The fully qualified file path where the document is located.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_FILE_PATH,
                                    g_param_spec_string ("file_path",
@@ -117,10 +117,10 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerDocument:active:
-	 *
-	 * The currently selected document.
-	 */
+   * CodeSlayerDocument:active:
+   *
+   * The currently selected document.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_ACTIVE,
                                    g_param_spec_boolean ("active", 
@@ -129,10 +129,10 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
                                                          G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerDocument:project:
-	 *
-	 * a #CodeSlayerProject.
-	 */
+   * CodeSlayerDocument:project:
+   *
+   * a #CodeSlayerProject.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_PROJECT,
                                    g_param_spec_object ("project",
@@ -142,10 +142,10 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerDocument:project_key:
-	 *
-	 * The key that corresponds to the project.
-	 */
+   * CodeSlayerDocument:project_key:
+   *
+   * The key that corresponds to the project.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_PROJECT_KEY,
                                    g_param_spec_string ("project_key",
@@ -154,10 +154,10 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerDocument:tree-row-reference:
-	 *
-	 * The reference to the node in the tree.
-	 */
+   * CodeSlayerDocument:tree-row-reference:
+   *
+   * The reference to the node in the tree.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_TREE_ROW_REFERENCE,
                                    g_param_spec_pointer ("tree_row_reference",

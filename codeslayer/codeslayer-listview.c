@@ -32,8 +32,8 @@ static void codeslayer_list_view_finalize    (CodeSlayerListView      *list_view
 
 static void tree_remove_action               (CodeSlayerListView      *list_view);
 static void remove_row                       (GtkTreeRowReference     *tree_row_reference,
-                                              GtkTreeModel            *model);                                                   
-static void tree_add_action                  (CodeSlayerListView      *list_view);                                                       
+                                              GtkTreeModel            *model);
+static void tree_add_action                  (CodeSlayerListView      *list_view);
 static void add_view                         (CodeSlayerListView      *list_view);
 static void tree_edited_action               (CodeSlayerListView      *list_view,
                                               gchar                   *path, 
@@ -79,12 +79,12 @@ static void
 codeslayer_list_view_class_init (CodeSlayerListViewClass *klass)
 {
   /**
-	 * CodeSlayerListView::list-changed
-	 * @codeslayerlistview: the list view that received the signal
-	 *
-	 * The ::list-changed signal is emitted when the list values are 
-	 * edited, added, or removed.
-	 */
+   * CodeSlayerListView::list-changed
+   * @codeslayerlistview: the list view that received the signal
+   *
+   * The ::list-changed signal is emitted when the list values are 
+   * edited, added, or removed.
+   */
   codeslayer_list_view_signals[LIST_CHANGED] =
     g_signal_new ("list-changed", 
                   G_TYPE_FROM_CLASS (klass),

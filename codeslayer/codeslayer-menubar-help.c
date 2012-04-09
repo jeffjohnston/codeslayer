@@ -128,18 +128,6 @@ about_action (CodeSlayerMenuBarHelp *menubar_help)
   CodeSlayerMenuBarHelpPrivate *priv;
   priv = CODESLAYER_MENUBAR_HELP_GET_PRIVATE (menubar_help);
 
-
-  /*GtkWidget *dialog;
-  dialog = gtk_about_dialog_new ();
-  gtk_about_dialog_set_program_name (GTK_ABOUT_DIALOG (dialog), PACKAGE_NAME);
-  gtk_about_dialog_set_version (GTK_ABOUT_DIALOG (dialog), PACKAGE_VERSION);
-  gtk_about_dialog_set_copyright (GTK_ABOUT_DIALOG (dialog), "(C) 2010 Jeff Johnston");
-  gtk_about_dialog_set_comments (GTK_ABOUT_DIALOG (dialog), "A lightweight code editor.");
-  gtk_about_dialog_set_website (GTK_ABOUT_DIALOG (dialog), PACKAGE_URL);
-  gtk_about_dialog_set_website_label (GTK_ABOUT_DIALOG (dialog), PACKAGE_URL);
-  gtk_dialog_run (GTK_DIALOG (dialog));
-  gtk_widget_destroy (GTK_WIDGET (dialog));*/
-  
   gtk_show_about_dialog (GTK_WINDOW (priv->window), 
                          "program-name", PACKAGE_NAME,
                          "version", PACKAGE_VERSION,

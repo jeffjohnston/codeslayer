@@ -72,10 +72,10 @@ codeslayer_notebook_page_class_init (CodeSlayerNotebookPageClass *klass)
   g_type_class_add_private (klass, sizeof (CodeSlayerNotebookPagePrivate));
 
   /**
-	 * CodeSlayerNotebookPage:editor:
-	 *
-	 * A #CodeSlayerEditor that backs the page.
-	 */
+   * CodeSlayerNotebookPage:editor:
+   *
+   * A #CodeSlayerEditor that backs the page.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_DOCUMENT,
                                    g_param_spec_pointer ("editor", 
@@ -84,10 +84,10 @@ codeslayer_notebook_page_class_init (CodeSlayerNotebookPageClass *klass)
                                                          G_PARAM_READWRITE));
 
   /**
-	 * CodeSlayerNotebookPage:document:
-	 *
-	 * A #CodeSlayerDocument that backs the page.
-	 */
+   * CodeSlayerNotebookPage:document:
+   *
+   * A #CodeSlayerDocument that backs the page.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_DOCUMENT,
                                    g_param_spec_pointer ("document",

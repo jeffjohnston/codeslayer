@@ -160,14 +160,14 @@ codeslayer_search_page_class_init (CodeSlayerSearchPageClass *klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
   /**
-	 * CodeSlayerSearchPage::select-document
-	 * @codeslayersearch: the search that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::select-document signal is a request to select the document in the 
-	 * tree (which in turn adds a page in the notebook).
-	 */
+   * CodeSlayerSearchPage::select-document
+   * @codeslayersearch: the search that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::select-document signal is a request to select the document in the 
+   * tree (which in turn adds a page in the notebook).
+   */
   codeslayer_search_page_signals[SELECT_DOCUMENT] =
     g_signal_new ("select-document", 
                   G_TYPE_FROM_CLASS (klass),

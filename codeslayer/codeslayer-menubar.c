@@ -100,13 +100,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
 {
 
   /**
-	 * CodeSlayerMenuBar::group-changed
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::group-changed signal is a request for the active group to be changed.
-	 */
+   * CodeSlayerMenuBar::group-changed
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::group-changed signal is a request for the active group to be changed.
+   */
   codeslayer_menubar_signals[GROUP_CHANGED] =
     g_signal_new ("group-changed", 
                   G_TYPE_FROM_CLASS (klass),
@@ -116,13 +116,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
 
   /**
-	 * CodeSlayerMenuBar::new-group
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::new-group signal is a request to create a new group. 
-	 */
+   * CodeSlayerMenuBar::new-group
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::new-group signal is a request to create a new group. 
+   */
   codeslayer_menubar_signals[NEW_GROUP] =
     g_signal_new ("new-group", 
                   G_TYPE_FROM_CLASS (klass),
@@ -132,13 +132,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
 
   /**
-	 * CodeSlayerMenuBar::rename-group
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::rename-group signal is a request to rename the active group. 
-	 */
+   * CodeSlayerMenuBar::rename-group
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::rename-group signal is a request to rename the active group. 
+   */
   codeslayer_menubar_signals[RENAME_GROUP] =
     g_signal_new ("rename-group", 
                   G_TYPE_FROM_CLASS (klass),
@@ -148,13 +148,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
 
   /**
-	 * CodeSlayerMenuBar::remove-group
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::remove-group signal is a request to remove the active group. 
-	 */
+   * CodeSlayerMenuBar::remove-group
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::remove-group signal is a request to remove the active group. 
+   */
   codeslayer_menubar_signals[REMOVE_GROUP] =
     g_signal_new ("remove-group", 
                   G_TYPE_FROM_CLASS (klass),
@@ -164,13 +164,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::add-project
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::add-project signal is a request to add a new project to the active group. 
-	 */
+   * CodeSlayerMenuBar::add-project
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::add-project signal is a request to add a new project to the active group. 
+   */
   codeslayer_menubar_signals[ADD_PROJECT] =
     g_signal_new ("add-project", 
                   G_TYPE_FROM_CLASS (klass),
@@ -180,13 +180,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-	 * CodeSlayerMenuBar::save-editor
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::save-editor signal is a request to save the active editor. 
-	 */
+   * CodeSlayerMenuBar::save-editor
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::save-editor signal is a request to save the active editor. 
+   */
   codeslayer_menubar_signals[SAVE_EDITOR] =
     g_signal_new ("save-editor", 
                   G_TYPE_FROM_CLASS (klass),
@@ -196,13 +196,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::save-all-editors
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::save-all-editors signal is a request to save all the open editors.
-	 */
+   * CodeSlayerMenuBar::save-all-editors
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::save-all-editors signal is a request to save all the open editors.
+   */
   codeslayer_menubar_signals[SAVE_ALL_EDITORS] =
     g_signal_new ("save-all-editors", 
                   G_TYPE_FROM_CLASS (klass),
@@ -212,13 +212,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::close-editor
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::close-editor signal is a request to close the active editor.
-	 */
+   * CodeSlayerMenuBar::close-editor
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::close-editor signal is a request to close the active editor.
+   */
   codeslayer_menubar_signals[CLOSE_EDITOR] =
     g_signal_new ("close-editor", 
                   G_TYPE_FROM_CLASS (klass),
@@ -228,13 +228,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::quit-application
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::quit-application signal is a request to close the application.
-	 */
+   * CodeSlayerMenuBar::quit-application
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::quit-application signal is a request to close the application.
+   */
   codeslayer_menubar_signals[QUIT_APPLICATION] =
     g_signal_new ("quit-application", 
                   G_TYPE_FROM_CLASS (klass),
@@ -244,13 +244,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::find-projects
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::find-projects signal is a request to open up the search dialog.
-	 */
+   * CodeSlayerMenuBar::find-projects
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::find-projects signal is a request to open up the search dialog.
+   */
   codeslayer_menubar_signals[FIND_GROUP] =
     g_signal_new ("find-projects", 
                   G_TYPE_FROM_CLASS (klass),
@@ -260,13 +260,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
 
   /**
-	 * CodeSlayerMenuBar::fullscreen-window
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::fullscreen-window signal is a request to open up the search dialog.
-	 */
+   * CodeSlayerMenuBar::fullscreen-window
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::fullscreen-window signal is a request to open up the search dialog.
+   */
   codeslayer_menubar_signals[FULLSCREEN_WINDOW] =
     g_signal_new ("fullscreen-window", 
                   G_TYPE_FROM_CLASS (klass),
@@ -276,13 +276,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::show-side-pane
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::show-side-pane signal is a request to open up the side pane.
-	 */
+   * CodeSlayerMenuBar::show-side-pane
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::show-side-pane signal is a request to open up the side pane.
+   */
   codeslayer_menubar_signals[SHOW_SIDE_PANE] =
     g_signal_new ("show-side-pane", 
                   G_TYPE_FROM_CLASS (klass),
@@ -292,13 +292,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::show-bottom-pane
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::show-side-pane signal is a request to open up the bottom pane.
-	 */
+   * CodeSlayerMenuBar::show-bottom-pane
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::show-side-pane signal is a request to open up the bottom pane.
+   */
   codeslayer_menubar_signals[SHOW_BOTTOM_PANE] =
     g_signal_new ("show-bottom-pane", 
                   G_TYPE_FROM_CLASS (klass),
@@ -308,13 +308,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::draw-spaces
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::draw-spaces signal is a request to open up the search dialog.
-	 */
+   * CodeSlayerMenuBar::draw-spaces
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::draw-spaces signal is a request to open up the search dialog.
+   */
   codeslayer_menubar_signals[DRAW_SPACES] =
     g_signal_new ("draw-spaces", 
                   G_TYPE_FROM_CLASS (klass),
@@ -324,13 +324,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::find
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::find signal is a request to open up the notebook search.
-	 */
+   * CodeSlayerMenuBar::find
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::find signal is a request to open up the notebook search.
+   */
   codeslayer_menubar_signals[FIND] =
     g_signal_new ("find", 
                   G_TYPE_FROM_CLASS (klass),
@@ -340,13 +340,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::replace
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::replace signal is a request to open up the notebook search.
-	 */
+   * CodeSlayerMenuBar::replace
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::replace signal is a request to open up the notebook search.
+   */
   codeslayer_menubar_signals[REPLACE] =
     g_signal_new ("replace", 
                   G_TYPE_FROM_CLASS (klass),
@@ -356,14 +356,14 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::find-next
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::find-next signal is a request to find the next 
-	 * value using the notebook search.
-	 */
+   * CodeSlayerMenuBar::find-next
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::find-next signal is a request to find the next 
+   * value using the notebook search.
+   */
   codeslayer_menubar_signals[FIND_NEXT] =
     g_signal_new ("find-next", 
                   G_TYPE_FROM_CLASS (klass),
@@ -373,14 +373,14 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::find-previous
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::find-previous signal is a request to find the previous 
-	 * value using the notebook search.
-	 */
+   * CodeSlayerMenuBar::find-previous
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::find-previous signal is a request to find the previous 
+   * value using the notebook search.
+   */
   codeslayer_menubar_signals[FIND_PREVIOUS] =
     g_signal_new ("find-previous", 
                   G_TYPE_FROM_CLASS (klass),
@@ -390,14 +390,14 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::find-incremental
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::find-incremental signal is a request to find the value using 
-	 * the notebook search with the incremental turned on.
-	 */
+   * CodeSlayerMenuBar::find-incremental
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::find-incremental signal is a request to find the value using 
+   * the notebook search with the incremental turned on.
+   */
   codeslayer_menubar_signals[FIND_INCREMENTAL] =
     g_signal_new ("find-incremental", 
                   G_TYPE_FROM_CLASS (klass),
@@ -407,13 +407,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::show-preferences
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::show-preferences signal is a request to open up the preferences dialog.
-	 */
+   * CodeSlayerMenuBar::show-preferences
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::show-preferences signal is a request to open up the preferences dialog.
+   */
   codeslayer_menubar_signals[SHOW_PREFERENCES] =
     g_signal_new ("show-preferences", 
                   G_TYPE_FROM_CLASS (klass),
@@ -423,13 +423,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::show-plugins
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::show-plugins signal is a request to open up the plugins dialog.
-	 */
+   * CodeSlayerMenuBar::show-plugins
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::show-plugins signal is a request to open up the plugins dialog.
+   */
   codeslayer_menubar_signals[SHOW_PLUGINS] =
     g_signal_new ("show-plugins", 
                   G_TYPE_FROM_CLASS (klass),
@@ -439,13 +439,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::undo
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::undo signal is a request to undo the last change.
-	 */
+   * CodeSlayerMenuBar::undo
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::undo signal is a request to undo the last change.
+   */
   codeslayer_menubar_signals[UNDO] =
     g_signal_new ("undo", 
                   G_TYPE_FROM_CLASS (klass),
@@ -455,13 +455,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::redo
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::redo signal is a request to redo the last change.
-	 */
+   * CodeSlayerMenuBar::redo
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::redo signal is a request to redo the last change.
+   */
   codeslayer_menubar_signals[REDO] =
     g_signal_new ("redo", 
                   G_TYPE_FROM_CLASS (klass),
@@ -471,13 +471,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::cut
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::cut signal is a request to cut the selected text.
-	 */
+   * CodeSlayerMenuBar::cut
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::cut signal is a request to cut the selected text.
+   */
   codeslayer_menubar_signals[CUT] =
     g_signal_new ("cut", 
                   G_TYPE_FROM_CLASS (klass),
@@ -487,13 +487,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::copy
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::copy signal is a request to copy the selected text.
-	 */
+   * CodeSlayerMenuBar::copy
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::copy signal is a request to copy the selected text.
+   */
   codeslayer_menubar_signals[COPY] =
     g_signal_new ("copy", 
                   G_TYPE_FROM_CLASS (klass),
@@ -503,13 +503,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::paste
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::paste signal is a request to paste the selected text.
-	 */
+   * CodeSlayerMenuBar::paste
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::paste signal is a request to paste the selected text.
+   */
   codeslayer_menubar_signals[PASTE] =
     g_signal_new ("paste", 
                   G_TYPE_FROM_CLASS (klass),
@@ -519,13 +519,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::del
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::del signal is a request to delete the selected text.
-	 */
+   * CodeSlayerMenuBar::del
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::del signal is a request to delete the selected text.
+   */
   codeslayer_menubar_signals[DELETE] =
     g_signal_new ("del", 
                   G_TYPE_FROM_CLASS (klass),
@@ -535,13 +535,13 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::select-all
-	 * @menu: the menu that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::select-all signal is a request to select all the text.
-	 */
+   * CodeSlayerMenuBar::select-all
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::select-all signal is a request to select all the text.
+   */
   codeslayer_menubar_signals[SELECT_ALL] =
     g_signal_new ("select-all", 
                   G_TYPE_FROM_CLASS (klass),
@@ -551,12 +551,12 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
                   
   /**
-	 * CodeSlayerMenuBar::to-uppercase
-	 * @menu: the menu that received the signal
-	 *
-	 * The ::to-uppercase signal enables the (Ctrl + U) keystroke to uppercase 
-	 * the selected text.
-	 */
+   * CodeSlayerMenuBar::to-uppercase
+   * @menu: the menu that received the signal
+   *
+   * The ::to-uppercase signal enables the (Ctrl + U) keystroke to uppercase 
+   * the selected text.
+   */
   codeslayer_menubar_signals[TO_UPPERCASE] =
     g_signal_new ("to-uppercase", 
                   G_TYPE_FROM_CLASS (klass),
@@ -566,12 +566,12 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::to-lowercase
-	 * @menu: the menu that received the signal
-	 *
-	 * The ::to-lowercase signal enables the (Ctrl + L) keystroke to lowercase the 
-	 * selected text.
-	 */
+   * CodeSlayerMenuBar::to-lowercase
+   * @menu: the menu that received the signal
+   *
+   * The ::to-lowercase signal enables the (Ctrl + L) keystroke to lowercase the 
+   * selected text.
+   */
   codeslayer_menubar_signals[TO_LOWERCASE] =
     g_signal_new ("to-lowercase", 
                   G_TYPE_FROM_CLASS (klass),
@@ -581,12 +581,12 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::copy-lines
-	 * @menu: the menu that received the signal
-	 *
-	 * The ::copy-lines signal enables the (Ctrl + Shift + Down) keystroke to copy 
-	 * the currently selected lines.
-	 */
+   * CodeSlayerMenuBar::copy-lines
+   * @menu: the menu that received the signal
+   *
+   * The ::copy-lines signal enables the (Ctrl + Shift + Down) keystroke to copy 
+   * the currently selected lines.
+   */
   codeslayer_menubar_signals[COPY_LINES] =
     g_signal_new ("copy-lines", 
                   G_TYPE_FROM_CLASS (klass),
@@ -596,9 +596,9 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-	 * CodeSlayerMenuBar::sync-projects-with-editor 
-	 * @menu: the menu that received the signal
-	 */
+   * CodeSlayerMenuBar::sync-projects-with-editor 
+   * @menu: the menu that received the signal
+   */
   codeslayer_menubar_signals[SYNC_PROJECTS_WITH_EDITOR] =
     g_signal_new ("sync-projects-with-editor", 
                   G_TYPE_FROM_CLASS (klass),

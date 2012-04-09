@@ -88,14 +88,14 @@ codeslayer_search_class_init (CodeSlayerSearchClass *klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
   /**
-	 * CodeSlayerSearchPage::select-document
-	 * @codeslayersearch: the search that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::select-document signal is a request to select the document in the 
-	 * tree (which in turn adds a page in the notebook).
-	 */
+   * CodeSlayerSearchPage::select-document
+   * @codeslayersearch: the search that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::select-document signal is a request to select the document in the 
+   * tree (which in turn adds a page in the notebook).
+   */
   codeslayer_search_signals[SELECT_DOCUMENT] =
     g_signal_new ("select-document", 
                   G_TYPE_FROM_CLASS (klass),
@@ -105,13 +105,13 @@ codeslayer_search_class_init (CodeSlayerSearchClass *klass)
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-	 * CodeSlayerSearchPage::close
-	 * @codeslayersearch: the search that received the signal
-	 *
-	 * Note: for internal use only.
-	 *
-	 * The ::close signal is a request to close the search box.
-	 */
+   * CodeSlayerSearchPage::close
+   * @codeslayersearch: the search that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::close signal is a request to close the search box.
+   */
   codeslayer_search_signals[CLOSE] =
     g_signal_new ("close", 
                   G_TYPE_FROM_CLASS (klass),
