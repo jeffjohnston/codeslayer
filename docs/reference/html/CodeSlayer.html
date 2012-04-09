@@ -45,7 +45,8 @@
 #include &lt;codeslayer/codeslayer.h&gt;
 
 struct              <a class="link" href="CodeSlayer.html#CodeSlayer-struct" title="struct CodeSlayer">CodeSlayer</a>;
-<a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="returnvalue">CodeSlayer</span></a> *        <a class="link" href="CodeSlayer.html#codeslayer-new" title="codeslayer_new ()">codeslayer_new</a>                      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="returnvalue">CodeSlayer</span></a> *        <a class="link" href="CodeSlayer.html#codeslayer-new" title="codeslayer_new ()">codeslayer_new</a>                      (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a> *project_properties</code></em>,
@@ -98,6 +99,7 @@ struct              <a class="link" href="CodeSlayer.html#CodeSlayer-struct" tit
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
 <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a> * <a class="link" href="CodeSlayer.html#codeslayer-get-project-by-file-path" title="codeslayer_get_project_by_file_path ()">codeslayer_get_project_by_file_path</a> (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);
+<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="returnvalue">CodeSlayerPreferences</span></a> * <a class="link" href="CodeSlayer.html#codeslayer-get-preferences" title="codeslayer_get_preferences ()">codeslayer_get_preferences</a>      (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -131,7 +133,8 @@ struct              <a class="link" href="CodeSlayer.html#CodeSlayer-struct" tit
 <hr>
 <div class="refsect2">
 <a name="codeslayer-new"></a><h3>codeslayer_new ()</h3>
-<pre class="programlisting"><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="returnvalue">CodeSlayer</span></a> *        codeslayer_new                      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<pre class="programlisting"><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="returnvalue">CodeSlayer</span></a> *        codeslayer_new                      (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties"><span class="type">CodeSlayerProjectProperties</span></a> *project_properties</code></em>,
@@ -623,6 +626,24 @@ The folder path to where you should place plugin configuration files.
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>The <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> if found, otherwise NULL.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-get-preferences"></a><h3>codeslayer_get_preferences ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="returnvalue">CodeSlayerPreferences</span></a> * codeslayer_get_preferences      (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
 </tr>
 </tbody>
 </table></div>

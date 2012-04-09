@@ -44,7 +44,7 @@
 <pre class="synopsis">
 #include &lt;codeslayer/codeslayer-preferences.h&gt;
 
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBER:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBER">CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBER</a>
+#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBERS:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS">CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS</a>
 #define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-CURRENT-LINE:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE">CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE</a>
 #define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-RIGHT-MARGIN:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN">CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN</a>
 #define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-MATCHING-BRACKET:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET">CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET</a>
@@ -99,11 +99,11 @@ struct              <a class="link" href="CodeSlayerPreferences.html#CodeSlayerP
 <div class="refsect1">
 <a name="CodeSlayerPreferences.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-bottom-pane-settings-changed" title='The "bottom-pane-settings-changed" signal'>bottom-pane-settings-changed</a>"                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-editor-settings-changed" title='The "editor-settings-changed" signal'>editor-settings-changed</a>"                        : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-initialize-settings" title='The "initialize-settings" signal'>initialize-settings</a>"                            : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-notebook-settings-changed" title='The "notebook-settings-changed" signal'>notebook-settings-changed</a>"                      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-side-pane-settings-changed" title='The "side-pane-settings-changed" signal'>side-pane-settings-changed</a>"                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-bottom-pane-preferences-changed" title='The "bottom-pane-preferences-changed" signal'>bottom-pane-preferences-changed</a>"                : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-editor-preferences-changed" title='The "editor-preferences-changed" signal'>editor-preferences-changed</a>"                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-initialize-preferences" title='The "initialize-preferences" signal'>initialize-preferences</a>"                         : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-notebook-preferences-changed" title='The "notebook-preferences-changed" signal'>notebook-preferences-changed</a>"                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-side-pane-preferences-changed" title='The "side-pane-preferences-changed" signal'>side-pane-preferences-changed</a>"                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
 </pre>
 </div>
 <div class="refsect1">
@@ -116,8 +116,8 @@ users home directory under the .codeslayer/groups/"active group" folder.
 <div class="refsect1">
 <a name="CodeSlayerPreferences.details"></a><h2>Details</h2>
 <div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBER:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBER</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBER "editor_display_line_number"
+<a name="CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBERS:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS</h3>
+<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS "editor_display_line_numbers"
 </pre>
 </div>
 <hr>
@@ -476,11 +476,11 @@ Show the preferences dialog.
 <div class="refsect1">
 <a name="CodeSlayerPreferences.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
-<a name="CodeSlayerPreferences-bottom-pane-settings-changed"></a><h3>The <code class="literal">"bottom-pane-settings-changed"</code> signal</h3>
+<a name="CodeSlayerPreferences-bottom-pane-preferences-changed"></a><h3>The <code class="literal">"bottom-pane-preferences-changed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
                                                         <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::bottom-pane-settings-changed signal lets all observers know that
+The ::bottom-pane-preferences-changed signal lets all observers know that
 something in the preferences, related to the 
 <a class="link" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane"><span class="type">CodeSlayerSidePane</span></a>, changed.
 </p>
@@ -500,11 +500,11 @@ something in the preferences, related to the
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerPreferences-editor-settings-changed"></a><h3>The <code class="literal">"editor-settings-changed"</code> signal</h3>
+<a name="CodeSlayerPreferences-editor-preferences-changed"></a><h3>The <code class="literal">"editor-preferences-changed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
                                                         <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::editor-settings-changed signal lets all observers know that 
+The ::editor-preferences-changed signal lets all observers know that 
 something in the preferences, related to the 
 <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a>, changed.
 </p>
@@ -524,11 +524,11 @@ something in the preferences, related to the
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerPreferences-initialize-settings"></a><h3>The <code class="literal">"initialize-settings"</code> signal</h3>
+<a name="CodeSlayerPreferences-initialize-preferences"></a><h3>The <code class="literal">"initialize-preferences"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
                                                         <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::initialize-settings signal lets all observers know that 
+The ::initialize-preferences signal lets all observers know that 
 the preferences need to be applied.
 <a class="link" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane"><span class="type">CodeSlayerSidePane</span></a>, changed.
 </p>
@@ -548,11 +548,11 @@ the preferences need to be applied.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerPreferences-notebook-settings-changed"></a><h3>The <code class="literal">"notebook-settings-changed"</code> signal</h3>
+<a name="CodeSlayerPreferences-notebook-preferences-changed"></a><h3>The <code class="literal">"notebook-preferences-changed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
                                                         <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::notebook-settings-changed signal lets all observers know that 
+The ::notebook-preferences-changed signal lets all observers know that 
 something in the preferences, related to the 
 <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>, changed.
 </p>
@@ -572,11 +572,11 @@ something in the preferences, related to the
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerPreferences-side-pane-settings-changed"></a><h3>The <code class="literal">"side-pane-settings-changed"</code> signal</h3>
+<a name="CodeSlayerPreferences-side-pane-preferences-changed"></a><h3>The <code class="literal">"side-pane-preferences-changed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
                                                         <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::side-pane-settings-changed signal lets all observers know that 
+The ::side-pane-preferences-changed signal lets all observers know that 
 something in the preferences, related to the 
 <a class="link" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane"><span class="type">CodeSlayerSidePane</span></a>, changed.
 </p>

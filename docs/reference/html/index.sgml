@@ -543,7 +543,7 @@
 <ANCHOR id="CodeSlayerPreferences.signals" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences.signals">
 <ANCHOR id="CodeSlayerPreferences.description" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences.description">
 <ANCHOR id="CodeSlayerPreferences.details" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences.details">
-<ANCHOR id="CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBER:CAPS" href="codeslayer/CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBER:CAPS">
+<ANCHOR id="CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBERS:CAPS" href="codeslayer/CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBERS:CAPS">
 <ANCHOR id="CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-CURRENT-LINE:CAPS" href="codeslayer/CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-CURRENT-LINE:CAPS">
 <ANCHOR id="CODESLAYER-PREFERENCES-EDITOR-DISPLAY-RIGHT-MARGIN:CAPS" href="codeslayer/CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-RIGHT-MARGIN:CAPS">
 <ANCHOR id="CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-MATCHING-BRACKET:CAPS" href="codeslayer/CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-MATCHING-BRACKET:CAPS">
@@ -575,11 +575,11 @@
 <ANCHOR id="codeslayer-preferences-save" href="codeslayer/CodeSlayerPreferences.html#codeslayer-preferences-save">
 <ANCHOR id="codeslayer-preferences-run-dialog" href="codeslayer/CodeSlayerPreferences.html#codeslayer-preferences-run-dialog">
 <ANCHOR id="CodeSlayerPreferences.signal-details" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences.signal-details">
-<ANCHOR id="CodeSlayerPreferences-bottom-pane-settings-changed" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences-bottom-pane-settings-changed">
-<ANCHOR id="CodeSlayerPreferences-editor-settings-changed" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences-editor-settings-changed">
-<ANCHOR id="CodeSlayerPreferences-initialize-settings" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences-initialize-settings">
-<ANCHOR id="CodeSlayerPreferences-notebook-settings-changed" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences-notebook-settings-changed">
-<ANCHOR id="CodeSlayerPreferences-side-pane-settings-changed" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences-side-pane-settings-changed">
+<ANCHOR id="CodeSlayerPreferences-bottom-pane-preferences-changed" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences-bottom-pane-preferences-changed">
+<ANCHOR id="CodeSlayerPreferences-editor-preferences-changed" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences-editor-preferences-changed">
+<ANCHOR id="CodeSlayerPreferences-initialize-preferences" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences-initialize-preferences">
+<ANCHOR id="CodeSlayerPreferences-notebook-preferences-changed" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences-notebook-preferences-changed">
+<ANCHOR id="CodeSlayerPreferences-side-pane-preferences-changed" href="codeslayer/CodeSlayerPreferences.html#CodeSlayerPreferences-side-pane-preferences-changed">
 <ANCHOR id="CodeSlayerProjectProperties" href="codeslayer/CodeSlayerProjectProperties.html">
 <ANCHOR id="CodeSlayerProjectProperties.synopsis" href="codeslayer/CodeSlayerProjectProperties.html#CodeSlayerProjectProperties.synopsis">
 <ANCHOR id="CodeSlayerProjectProperties.object-hierarchy" href="codeslayer/CodeSlayerProjectProperties.html#CodeSlayerProjectProperties.object-hierarchy">
@@ -768,6 +768,7 @@
 <ANCHOR id="codeslayer-get-active-group-folder-path" href="codeslayer/CodeSlayer.html#codeslayer-get-active-group-folder-path">
 <ANCHOR id="codeslayer-get-configuration-folder-path" href="codeslayer/CodeSlayer.html#codeslayer-get-configuration-folder-path">
 <ANCHOR id="codeslayer-get-project-by-file-path" href="codeslayer/CodeSlayer.html#codeslayer-get-project-by-file-path">
+<ANCHOR id="codeslayer-get-preferences" href="codeslayer/CodeSlayer.html#codeslayer-get-preferences">
 <ANCHOR id="CodeSlayer.signal-details" href="codeslayer/CodeSlayer.html#CodeSlayer.signal-details">
 <ANCHOR id="CodeSlayer-editor-added" href="codeslayer/CodeSlayer.html#CodeSlayer-editor-added">
 <ANCHOR id="CodeSlayer-editor-removed" href="codeslayer/CodeSlayer.html#CodeSlayer-editor-removed">

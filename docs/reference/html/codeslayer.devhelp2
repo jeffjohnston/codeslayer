@@ -363,7 +363,7 @@
     <keyword type="function" name="codeslayer_preferences_projects_new ()" link="CodeSlayerPreferencesProjects.html#codeslayer-preferences-projects-new"/>
     <keyword type="struct" name="struct CodeSlayerPreferencesTheme" link="CodeSlayerPreferencesTheme.html#CodeSlayerPreferencesTheme-struct"/>
     <keyword type="function" name="codeslayer_preferences_theme_new ()" link="CodeSlayerPreferencesTheme.html#codeslayer-preferences-theme-new"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBER" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBER:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBERS:CAPS"/>
     <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-CURRENT-LINE:CAPS"/>
     <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-RIGHT-MARGIN:CAPS"/>
     <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-MATCHING-BRACKET:CAPS"/>
@@ -394,11 +394,11 @@
     <keyword type="function" name="codeslayer_preferences_set_string ()" link="CodeSlayerPreferences.html#codeslayer-preferences-set-string"/>
     <keyword type="function" name="codeslayer_preferences_save ()" link="CodeSlayerPreferences.html#codeslayer-preferences-save"/>
     <keyword type="function" name="codeslayer_preferences_run_dialog ()" link="CodeSlayerPreferences.html#codeslayer-preferences-run-dialog"/>
-    <keyword type="signal" name="The &quot;bottom-pane-settings-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-bottom-pane-settings-changed"/>
-    <keyword type="signal" name="The &quot;editor-settings-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-editor-settings-changed"/>
-    <keyword type="signal" name="The &quot;initialize-settings&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-initialize-settings"/>
-    <keyword type="signal" name="The &quot;notebook-settings-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-notebook-settings-changed"/>
-    <keyword type="signal" name="The &quot;side-pane-settings-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-side-pane-settings-changed"/>
+    <keyword type="signal" name="The &quot;bottom-pane-preferences-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-bottom-pane-preferences-changed"/>
+    <keyword type="signal" name="The &quot;editor-preferences-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-editor-preferences-changed"/>
+    <keyword type="signal" name="The &quot;initialize-preferences&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-initialize-preferences"/>
+    <keyword type="signal" name="The &quot;notebook-preferences-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-notebook-preferences-changed"/>
+    <keyword type="signal" name="The &quot;side-pane-preferences-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-side-pane-preferences-changed"/>
     <keyword type="struct" name="struct CodeSlayerProjectProperties" link="CodeSlayerProjectProperties.html#CodeSlayerProjectProperties-struct"/>
     <keyword type="function" name="codeslayer_project_properties_new ()" link="CodeSlayerProjectProperties.html#codeslayer-project-properties-new"/>
     <keyword type="function" name="codeslayer_project_properties_add ()" link="CodeSlayerProjectProperties.html#codeslayer-project-properties-add"/>
@@ -516,6 +516,7 @@
     <keyword type="function" name="codeslayer_get_active_group_folder_path ()" link="CodeSlayer.html#codeslayer-get-active-group-folder-path"/>
     <keyword type="function" name="codeslayer_get_configuration_folder_path ()" link="CodeSlayer.html#codeslayer-get-configuration-folder-path"/>
     <keyword type="function" name="codeslayer_get_project_by_file_path ()" link="CodeSlayer.html#codeslayer-get-project-by-file-path"/>
+    <keyword type="function" name="codeslayer_get_preferences ()" link="CodeSlayer.html#codeslayer-get-preferences"/>
     <keyword type="signal" name="The &quot;editor-added&quot; signal" link="CodeSlayer.html#CodeSlayer-editor-added"/>
     <keyword type="signal" name="The &quot;editor-removed&quot; signal" link="CodeSlayer.html#CodeSlayer-editor-removed"/>
     <keyword type="signal" name="The &quot;editor-saved&quot; signal" link="CodeSlayer.html#CodeSlayer-editor-saved"/>
