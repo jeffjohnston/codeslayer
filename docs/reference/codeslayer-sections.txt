@@ -713,7 +713,7 @@ codeslayer_preferences_theme_get_type
 <SECTION>
 <FILE>codeslayer-preferences</FILE>
 <TITLE>CodeSlayerPreferences</TITLE>
-CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBER
+CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS
 CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE
 CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN
 CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET
@@ -978,6 +978,7 @@ codeslayer_get_active_group
 codeslayer_get_active_group_folder_path
 codeslayer_get_configuration_folder_path
 codeslayer_get_project_by_file_path
+codeslayer_get_preferences
 <SUBSECTION Standard>
 CODESLAYER_TYPE
 CODESLAYER
