@@ -93,7 +93,7 @@ int
 main (int   argc, 
       char *argv[])
 {
-  g_thread_init (NULL);
+  g_type_init ();
   gdk_threads_init ();
   gdk_threads_enter ();
 
