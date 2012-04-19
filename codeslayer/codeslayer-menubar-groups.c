@@ -352,10 +352,7 @@ remove_group_action (CodeSlayerMenuBarGroups *menubar_groups)
   priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
   
   active_group = codeslayer_groups_get_active_group (priv->groups);
-  text = g_strconcat (_("Are you sure you want to remove the "),
-                      codeslayer_group_get_name (active_group),
-                      " group?",
-                      NULL);
+  text = g_strdup_printf(_("Are you sure you want to remove the %s group?"), codeslayer_group_get_name (active_group));
   
   dialog = gtk_message_dialog_new (GTK_WINDOW (priv->window),
                                    GTK_DIALOG_MODAL,

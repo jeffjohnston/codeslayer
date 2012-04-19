@@ -237,8 +237,7 @@ codeslayer_notebook_page_show_document_not_found_info_bar (CodeSlayerNotebookPag
       content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (info_bar));
 
       document_file_path =  codeslayer_document_get_file_path (priv->document);
-      text = g_strconcat (_("The document "), document_file_path,
-                                    _(" no longer exists."), NULL);
+      text = g_strdup_printf(_("The document %s no longer exists."), document_file_path);
       label = gtk_label_new (text);
       gtk_container_add (GTK_CONTAINER (content_area), label);
       g_free (text);

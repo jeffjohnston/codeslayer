@@ -1747,7 +1747,7 @@ create_destination (GFile       *source,
       g_object_unref (destination);
       destination = NULL;
 
-      title = g_strconcat (_("Rename Copy Of "), basename, NULL);
+      title = g_strdup_printf (_("Rename copy of %s"), basename);
       dialog = gtk_dialog_new_with_buttons (title, 
                                             NULL,
                                             GTK_DIALOG_MODAL,

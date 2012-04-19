@@ -33,7 +33,7 @@ codeslayer_preferences_utils_content_area (GtkBox *tab,
   hbox = gtk_hbox_new (FALSE, 0);
   
   /* set the title */  
-  full_title = g_strconcat ("<b>", title, "</b>", NULL);
+  full_title = g_strdup_printf("<b>%s</b>", title);
   label = gtk_label_new (full_title);
   gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
   gtk_misc_set_padding (GTK_MISC (label), 12, 0);

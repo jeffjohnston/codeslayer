@@ -623,9 +623,8 @@ execute (CodeSlayerSearchPage *search_page)
       if (priv->file_paths)
         {
           gchar *label_name;
-          label_name = g_strconcat (_("Find "), "\"", 
-                                    find_pattern != NULL ? find_text : file_text, 
-                                    "\"", NULL);
+          label_name = g_strdup_printf (_("Find \"%s\""),
+                                        find_pattern != NULL ? find_text : file_text);
           gdk_threads_enter ();
           codeslayer_search_tab_set_label_name (CODESLAYER_SEARCH_TAB(priv->search_tab), 
                                                 label_name);

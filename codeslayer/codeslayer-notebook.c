@@ -580,7 +580,7 @@ has_clean_buffer (CodeSlayerNotebook *notebook,
                                             CODESLAYER_NOTEBOOK_PAGE (notebook_page));
   file_path = codeslayer_document_get_file_path (document);
   base_name = g_path_get_basename (file_path);
-  text = g_strconcat (_("Save changes to "), base_name, _("?"), NULL);
+  text = g_strdup_printf (_("Save changes to %s?"), base_name);
 
   dialog = gtk_message_dialog_new_with_markup (NULL, GTK_DIALOG_MODAL,
                                                GTK_MESSAGE_WARNING,
