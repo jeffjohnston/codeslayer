@@ -11,6 +11,7 @@ AC_DEFINE(CODESLAYER_CONF, "codeslayer.conf")
 
 GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
 
+m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 AC_CONFIG_MACRO_DIR([m4])
 
 #Initialize libtool

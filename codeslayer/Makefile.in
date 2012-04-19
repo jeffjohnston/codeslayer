@@ -151,6 +151,9 @@ am_libcodeslayer_la_OBJECTS = libcodeslayer_la-codeslayer-engine.lo \
 	libcodeslayer_la-codeslayer-tearoff.lo \
 	libcodeslayer_la-encoding.lo libcodeslayer_la-codeslayer.lo
 libcodeslayer_la_OBJECTS = $(am_libcodeslayer_la_OBJECTS)
+AM_V_lt = $(am__v_lt_@AM_V@)
+am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
+am__v_lt_0 = --silent
 PROGRAMS = $(bin_PROGRAMS)
 am_codeslayer_OBJECTS = codeslayer-codeslayer-main.$(OBJEXT)
 codeslayer_OBJECTS = $(am_codeslayer_OBJECTS)
@@ -162,13 +165,26 @@ am__depfiles_maybe = depfiles
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-LTCOMPILE = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
-	--mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) \
+	$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
+	$(AM_CFLAGS) $(CFLAGS)
+AM_V_CC = $(am__v_CC_@AM_V@)
+am__v_CC_ = $(am__v_CC_@AM_DEFAULT_V@)
+am__v_CC_0 = @echo "  CC    " $@;
+AM_V_at = $(am__v_at_@AM_V@)
+am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
+am__v_at_0 = @
 CCLD = $(CC)
-LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
-	$(LDFLAGS) -o $@
+LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(AM_LDFLAGS) $(LDFLAGS) -o $@
+AM_V_CCLD = $(am__v_CCLD_@AM_V@)
+am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
+am__v_CCLD_0 = @echo "  CCLD  " $@;
+AM_V_GEN = $(am__v_GEN_@AM_V@)
+am__v_GEN_ = $(am__v_GEN_@AM_DEFAULT_V@)
+am__v_GEN_0 = @echo "  GEN   " $@;
 SOURCES = $(libcodeslayer_la_SOURCES) $(codeslayer_SOURCES)
 DIST_SOURCES = $(libcodeslayer_la_SOURCES) $(codeslayer_SOURCES)
 am__can_run_installinfo = \
@@ -520,7 +536,7 @@ clean-libLTLIBRARIES:
 	  rm -f "$${dir}/so_locations"; \
 	done
 libcodeslayer.la: $(libcodeslayer_la_OBJECTS) $(libcodeslayer_la_DEPENDENCIES) $(EXTRA_libcodeslayer_la_DEPENDENCIES) 
-	$(LINK) -rpath $(libdir) $(libcodeslayer_la_OBJECTS) $(libcodeslayer_la_LIBADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) -rpath $(libdir) $(libcodeslayer_la_OBJECTS) $(libcodeslayer_la_LIBADD) $(LIBS)
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
@@ -569,7 +585,7 @@ clean-binPROGRAMS:
 	rm -f $$list
 codeslayer$(EXEEXT): $(codeslayer_OBJECTS) $(codeslayer_DEPENDENCIES) $(EXTRA_codeslayer_DEPENDENCIES) 
 	@rm -f codeslayer$(EXEEXT)
-	$(LINK) $(codeslayer_OBJECTS) $(codeslayer_LDADD) $(LIBS)
+	$(AM_V_CCLD)$(LINK) $(codeslayer_OBJECTS) $(codeslayer_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -632,403 +648,403 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-encoding.Plo@am__quote@
 
 .c.o:
-@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(COMPILE) -c $<
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c $<
 
 .c.obj:
-@am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c `$(CYGPATH_W) '$<'`
 
 .c.lo:
-@am__fastdepCC_TRUE@	$(LTCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LTCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
 
 libcodeslayer_la-codeslayer-engine.lo: codeslayer-engine.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-engine.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-engine.Tpo -c -o libcodeslayer_la-codeslayer-engine.lo `test -f 'codeslayer-engine.c' || echo '$(srcdir)/'`codeslayer-engine.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-engine.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-engine.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-engine.c' object='libcodeslayer_la-codeslayer-engine.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-engine.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-engine.Tpo -c -o libcodeslayer_la-codeslayer-engine.lo `test -f 'codeslayer-engine.c' || echo '$(srcdir)/'`codeslayer-engine.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-engine.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-engine.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-engine.c' object='libcodeslayer_la-codeslayer-engine.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-engine.lo `test -f 'codeslayer-engine.c' || echo '$(srcdir)/'`codeslayer-engine.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-engine.lo `test -f 'codeslayer-engine.c' || echo '$(srcdir)/'`codeslayer-engine.c
 
 libcodeslayer_la-codeslayer-completion.lo: codeslayer-completion.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-completion.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-completion.Tpo -c -o libcodeslayer_la-codeslayer-completion.lo `test -f 'codeslayer-completion.c' || echo '$(srcdir)/'`codeslayer-completion.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-completion.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-completion.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-completion.c' object='libcodeslayer_la-codeslayer-completion.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-completion.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-completion.Tpo -c -o libcodeslayer_la-codeslayer-completion.lo `test -f 'codeslayer-completion.c' || echo '$(srcdir)/'`codeslayer-completion.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-completion.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-completion.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-completion.c' object='libcodeslayer_la-codeslayer-completion.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-completion.lo `test -f 'codeslayer-completion.c' || echo '$(srcdir)/'`codeslayer-completion.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-completion.lo `test -f 'codeslayer-completion.c' || echo '$(srcdir)/'`codeslayer-completion.c
 
 libcodeslayer_la-codeslayer-completion-provider.lo: codeslayer-completion-provider.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-completion-provider.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-completion-provider.Tpo -c -o libcodeslayer_la-codeslayer-completion-provider.lo `test -f 'codeslayer-completion-provider.c' || echo '$(srcdir)/'`codeslayer-completion-provider.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-completion-provider.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-completion-provider.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-completion-provider.c' object='libcodeslayer_la-codeslayer-completion-provider.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-completion-provider.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-completion-provider.Tpo -c -o libcodeslayer_la-codeslayer-completion-provider.lo `test -f 'codeslayer-completion-provider.c' || echo '$(srcdir)/'`codeslayer-completion-provider.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-completion-provider.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-completion-provider.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-completion-provider.c' object='libcodeslayer_la-codeslayer-completion-provider.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-completion-provider.lo `test -f 'codeslayer-completion-provider.c' || echo '$(srcdir)/'`codeslayer-completion-provider.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-completion-provider.lo `test -f 'codeslayer-completion-provider.c' || echo '$(srcdir)/'`codeslayer-completion-provider.c
 
 libcodeslayer_la-codeslayer-completion-proposal.lo: codeslayer-completion-proposal.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-completion-proposal.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-completion-proposal.Tpo -c -o libcodeslayer_la-codeslayer-completion-proposal.lo `test -f 'codeslayer-completion-proposal.c' || echo '$(srcdir)/'`codeslayer-completion-proposal.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-completion-proposal.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-completion-proposal.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-completion-proposal.c' object='libcodeslayer_la-codeslayer-completion-proposal.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-completion-proposal.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-completion-proposal.Tpo -c -o libcodeslayer_la-codeslayer-completion-proposal.lo `test -f 'codeslayer-completion-proposal.c' || echo '$(srcdir)/'`codeslayer-completion-proposal.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-completion-proposal.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-completion-proposal.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-completion-proposal.c' object='libcodeslayer_la-codeslayer-completion-proposal.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-completion-proposal.lo `test -f 'codeslayer-completion-proposal.c' || echo '$(srcdir)/'`codeslayer-completion-proposal.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-completion-proposal.lo `test -f 'codeslayer-completion-proposal.c' || echo '$(srcdir)/'`codeslayer-completion-proposal.c
 
 libcodeslayer_la-codeslayer-abstract-pane.lo: codeslayer-abstract-pane.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-abstract-pane.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-abstract-pane.Tpo -c -o libcodeslayer_la-codeslayer-abstract-pane.lo `test -f 'codeslayer-abstract-pane.c' || echo '$(srcdir)/'`codeslayer-abstract-pane.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-abstract-pane.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-abstract-pane.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-abstract-pane.c' object='libcodeslayer_la-codeslayer-abstract-pane.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-abstract-pane.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-abstract-pane.Tpo -c -o libcodeslayer_la-codeslayer-abstract-pane.lo `test -f 'codeslayer-abstract-pane.c' || echo '$(srcdir)/'`codeslayer-abstract-pane.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-abstract-pane.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-abstract-pane.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-abstract-pane.c' object='libcodeslayer_la-codeslayer-abstract-pane.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-abstract-pane.lo `test -f 'codeslayer-abstract-pane.c' || echo '$(srcdir)/'`codeslayer-abstract-pane.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-abstract-pane.lo `test -f 'codeslayer-abstract-pane.c' || echo '$(srcdir)/'`codeslayer-abstract-pane.c
 
 libcodeslayer_la-codeslayer-side-pane.lo: codeslayer-side-pane.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-side-pane.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-side-pane.Tpo -c -o libcodeslayer_la-codeslayer-side-pane.lo `test -f 'codeslayer-side-pane.c' || echo '$(srcdir)/'`codeslayer-side-pane.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-side-pane.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-side-pane.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-side-pane.c' object='libcodeslayer_la-codeslayer-side-pane.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-side-pane.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-side-pane.Tpo -c -o libcodeslayer_la-codeslayer-side-pane.lo `test -f 'codeslayer-side-pane.c' || echo '$(srcdir)/'`codeslayer-side-pane.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-side-pane.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-side-pane.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-side-pane.c' object='libcodeslayer_la-codeslayer-side-pane.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-side-pane.lo `test -f 'codeslayer-side-pane.c' || echo '$(srcdir)/'`codeslayer-side-pane.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-side-pane.lo `test -f 'codeslayer-side-pane.c' || echo '$(srcdir)/'`codeslayer-side-pane.c
 
 libcodeslayer_la-codeslayer-bottom-pane.lo: codeslayer-bottom-pane.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-bottom-pane.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-bottom-pane.Tpo -c -o libcodeslayer_la-codeslayer-bottom-pane.lo `test -f 'codeslayer-bottom-pane.c' || echo '$(srcdir)/'`codeslayer-bottom-pane.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-bottom-pane.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-bottom-pane.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-bottom-pane.c' object='libcodeslayer_la-codeslayer-bottom-pane.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-bottom-pane.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-bottom-pane.Tpo -c -o libcodeslayer_la-codeslayer-bottom-pane.lo `test -f 'codeslayer-bottom-pane.c' || echo '$(srcdir)/'`codeslayer-bottom-pane.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-bottom-pane.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-bottom-pane.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-bottom-pane.c' object='libcodeslayer_la-codeslayer-bottom-pane.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-bottom-pane.lo `test -f 'codeslayer-bottom-pane.c' || echo '$(srcdir)/'`codeslayer-bottom-pane.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-bottom-pane.lo `test -f 'codeslayer-bottom-pane.c' || echo '$(srcdir)/'`codeslayer-bottom-pane.c
 
 libcodeslayer_la-codeslayer-listview.lo: codeslayer-listview.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-listview.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-listview.Tpo -c -o libcodeslayer_la-codeslayer-listview.lo `test -f 'codeslayer-listview.c' || echo '$(srcdir)/'`codeslayer-listview.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-listview.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-listview.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-listview.c' object='libcodeslayer_la-codeslayer-listview.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-listview.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-listview.Tpo -c -o libcodeslayer_la-codeslayer-listview.lo `test -f 'codeslayer-listview.c' || echo '$(srcdir)/'`codeslayer-listview.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-listview.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-listview.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-listview.c' object='libcodeslayer_la-codeslayer-listview.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-listview.lo `test -f 'codeslayer-listview.c' || echo '$(srcdir)/'`codeslayer-listview.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-listview.lo `test -f 'codeslayer-listview.c' || echo '$(srcdir)/'`codeslayer-listview.c
 
 libcodeslayer_la-codeslayer-menubar.lo: codeslayer-menubar.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar.Tpo -c -o libcodeslayer_la-codeslayer-menubar.lo `test -f 'codeslayer-menubar.c' || echo '$(srcdir)/'`codeslayer-menubar.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-menubar.c' object='libcodeslayer_la-codeslayer-menubar.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar.Tpo -c -o libcodeslayer_la-codeslayer-menubar.lo `test -f 'codeslayer-menubar.c' || echo '$(srcdir)/'`codeslayer-menubar.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menubar.c' object='libcodeslayer_la-codeslayer-menubar.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar.lo `test -f 'codeslayer-menubar.c' || echo '$(srcdir)/'`codeslayer-menubar.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar.lo `test -f 'codeslayer-menubar.c' || echo '$(srcdir)/'`codeslayer-menubar.c
 
 libcodeslayer_la-codeslayer-menubar-editor.lo: codeslayer-menubar-editor.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-editor.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Tpo -c -o libcodeslayer_la-codeslayer-menubar-editor.lo `test -f 'codeslayer-menubar-editor.c' || echo '$(srcdir)/'`codeslayer-menubar-editor.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-menubar-editor.c' object='libcodeslayer_la-codeslayer-menubar-editor.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-editor.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Tpo -c -o libcodeslayer_la-codeslayer-menubar-editor.lo `test -f 'codeslayer-menubar-editor.c' || echo '$(srcdir)/'`codeslayer-menubar-editor.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menubar-editor.c' object='libcodeslayer_la-codeslayer-menubar-editor.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-editor.lo `test -f 'codeslayer-menubar-editor.c' || echo '$(srcdir)/'`codeslayer-menubar-editor.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-editor.lo `test -f 'codeslayer-menubar-editor.c' || echo '$(srcdir)/'`codeslayer-menubar-editor.c
 
 libcodeslayer_la-codeslayer-menubar-search.lo: codeslayer-menubar-search.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-search.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-search.Tpo -c -o libcodeslayer_la-codeslayer-menubar-search.lo `test -f 'codeslayer-menubar-search.c' || echo '$(srcdir)/'`codeslayer-menubar-search.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-search.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-search.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-menubar-search.c' object='libcodeslayer_la-codeslayer-menubar-search.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-search.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-search.Tpo -c -o libcodeslayer_la-codeslayer-menubar-search.lo `test -f 'codeslayer-menubar-search.c' || echo '$(srcdir)/'`codeslayer-menubar-search.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-search.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-search.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menubar-search.c' object='libcodeslayer_la-codeslayer-menubar-search.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-search.lo `test -f 'codeslayer-menubar-search.c' || echo '$(srcdir)/'`codeslayer-menubar-search.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-search.lo `test -f 'codeslayer-menubar-search.c' || echo '$(srcdir)/'`codeslayer-menubar-search.c
 
 libcodeslayer_la-codeslayer-menubar-view.lo: codeslayer-menubar-view.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-view.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-view.Tpo -c -o libcodeslayer_la-codeslayer-menubar-view.lo `test -f 'codeslayer-menubar-view.c' || echo '$(srcdir)/'`codeslayer-menubar-view.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-view.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-view.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-menubar-view.c' object='libcodeslayer_la-codeslayer-menubar-view.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-view.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-view.Tpo -c -o libcodeslayer_la-codeslayer-menubar-view.lo `test -f 'codeslayer-menubar-view.c' || echo '$(srcdir)/'`codeslayer-menubar-view.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-view.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-view.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menubar-view.c' object='libcodeslayer_la-codeslayer-menubar-view.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-view.lo `test -f 'codeslayer-menubar-view.c' || echo '$(srcdir)/'`codeslayer-menubar-view.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-view.lo `test -f 'codeslayer-menubar-view.c' || echo '$(srcdir)/'`codeslayer-menubar-view.c
 
 libcodeslayer_la-codeslayer-menubar-groups.lo: codeslayer-menubar-groups.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-groups.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-groups.Tpo -c -o libcodeslayer_la-codeslayer-menubar-groups.lo `test -f 'codeslayer-menubar-groups.c' || echo '$(srcdir)/'`codeslayer-menubar-groups.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-groups.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-groups.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-menubar-groups.c' object='libcodeslayer_la-codeslayer-menubar-groups.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-groups.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-groups.Tpo -c -o libcodeslayer_la-codeslayer-menubar-groups.lo `test -f 'codeslayer-menubar-groups.c' || echo '$(srcdir)/'`codeslayer-menubar-groups.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-groups.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-groups.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menubar-groups.c' object='libcodeslayer_la-codeslayer-menubar-groups.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-groups.lo `test -f 'codeslayer-menubar-groups.c' || echo '$(srcdir)/'`codeslayer-menubar-groups.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-groups.lo `test -f 'codeslayer-menubar-groups.c' || echo '$(srcdir)/'`codeslayer-menubar-groups.c
 
 libcodeslayer_la-codeslayer-menubar-projects.lo: codeslayer-menubar-projects.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-projects.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-projects.Tpo -c -o libcodeslayer_la-codeslayer-menubar-projects.lo `test -f 'codeslayer-menubar-projects.c' || echo '$(srcdir)/'`codeslayer-menubar-projects.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-projects.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-projects.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-menubar-projects.c' object='libcodeslayer_la-codeslayer-menubar-projects.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-projects.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-projects.Tpo -c -o libcodeslayer_la-codeslayer-menubar-projects.lo `test -f 'codeslayer-menubar-projects.c' || echo '$(srcdir)/'`codeslayer-menubar-projects.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-projects.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-projects.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menubar-projects.c' object='libcodeslayer_la-codeslayer-menubar-projects.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-projects.lo `test -f 'codeslayer-menubar-projects.c' || echo '$(srcdir)/'`codeslayer-menubar-projects.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-projects.lo `test -f 'codeslayer-menubar-projects.c' || echo '$(srcdir)/'`codeslayer-menubar-projects.c
 
 libcodeslayer_la-codeslayer-menubar-tools.lo: codeslayer-menubar-tools.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-tools.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-tools.Tpo -c -o libcodeslayer_la-codeslayer-menubar-tools.lo `test -f 'codeslayer-menubar-tools.c' || echo '$(srcdir)/'`codeslayer-menubar-tools.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-tools.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-tools.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-menubar-tools.c' object='libcodeslayer_la-codeslayer-menubar-tools.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-tools.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-tools.Tpo -c -o libcodeslayer_la-codeslayer-menubar-tools.lo `test -f 'codeslayer-menubar-tools.c' || echo '$(srcdir)/'`codeslayer-menubar-tools.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-tools.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-tools.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menubar-tools.c' object='libcodeslayer_la-codeslayer-menubar-tools.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-tools.lo `test -f 'codeslayer-menubar-tools.c' || echo '$(srcdir)/'`codeslayer-menubar-tools.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-tools.lo `test -f 'codeslayer-menubar-tools.c' || echo '$(srcdir)/'`codeslayer-menubar-tools.c
 
 libcodeslayer_la-codeslayer-menubar-help.lo: codeslayer-menubar-help.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-help.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-help.Tpo -c -o libcodeslayer_la-codeslayer-menubar-help.lo `test -f 'codeslayer-menubar-help.c' || echo '$(srcdir)/'`codeslayer-menubar-help.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-help.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-help.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-menubar-help.c' object='libcodeslayer_la-codeslayer-menubar-help.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-help.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-help.Tpo -c -o libcodeslayer_la-codeslayer-menubar-help.lo `test -f 'codeslayer-menubar-help.c' || echo '$(srcdir)/'`codeslayer-menubar-help.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-help.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-help.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menubar-help.c' object='libcodeslayer_la-codeslayer-menubar-help.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-help.lo `test -f 'codeslayer-menubar-help.c' || echo '$(srcdir)/'`codeslayer-menubar-help.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-help.lo `test -f 'codeslayer-menubar-help.c' || echo '$(srcdir)/'`codeslayer-menubar-help.c
 
 libcodeslayer_la-codeslayer-project.lo: codeslayer-project.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-project.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-project.Tpo -c -o libcodeslayer_la-codeslayer-project.lo `test -f 'codeslayer-project.c' || echo '$(srcdir)/'`codeslayer-project.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-project.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-project.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-project.c' object='libcodeslayer_la-codeslayer-project.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-project.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-project.Tpo -c -o libcodeslayer_la-codeslayer-project.lo `test -f 'codeslayer-project.c' || echo '$(srcdir)/'`codeslayer-project.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-project.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-project.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-project.c' object='libcodeslayer_la-codeslayer-project.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-project.lo `test -f 'codeslayer-project.c' || echo '$(srcdir)/'`codeslayer-project.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-project.lo `test -f 'codeslayer-project.c' || echo '$(srcdir)/'`codeslayer-project.c
 
 libcodeslayer_la-codeslayer-group.lo: codeslayer-group.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-group.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-group.Tpo -c -o libcodeslayer_la-codeslayer-group.lo `test -f 'codeslayer-group.c' || echo '$(srcdir)/'`codeslayer-group.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-group.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-group.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-group.c' object='libcodeslayer_la-codeslayer-group.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-group.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-group.Tpo -c -o libcodeslayer_la-codeslayer-group.lo `test -f 'codeslayer-group.c' || echo '$(srcdir)/'`codeslayer-group.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-group.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-group.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-group.c' object='libcodeslayer_la-codeslayer-group.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-group.lo `test -f 'codeslayer-group.c' || echo '$(srcdir)/'`codeslayer-group.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-group.lo `test -f 'codeslayer-group.c' || echo '$(srcdir)/'`codeslayer-group.c
 
 libcodeslayer_la-codeslayer-group-properties.lo: codeslayer-group-properties.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-group-properties.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-group-properties.Tpo -c -o libcodeslayer_la-codeslayer-group-properties.lo `test -f 'codeslayer-group-properties.c' || echo '$(srcdir)/'`codeslayer-group-properties.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-group-properties.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-group-properties.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-group-properties.c' object='libcodeslayer_la-codeslayer-group-properties.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-group-properties.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-group-properties.Tpo -c -o libcodeslayer_la-codeslayer-group-properties.lo `test -f 'codeslayer-group-properties.c' || echo '$(srcdir)/'`codeslayer-group-properties.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-group-properties.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-group-properties.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-group-properties.c' object='libcodeslayer_la-codeslayer-group-properties.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-group-properties.lo `test -f 'codeslayer-group-properties.c' || echo '$(srcdir)/'`codeslayer-group-properties.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-group-properties.lo `test -f 'codeslayer-group-properties.c' || echo '$(srcdir)/'`codeslayer-group-properties.c
 
 libcodeslayer_la-codeslayer-groups.lo: codeslayer-groups.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-groups.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-groups.Tpo -c -o libcodeslayer_la-codeslayer-groups.lo `test -f 'codeslayer-groups.c' || echo '$(srcdir)/'`codeslayer-groups.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-groups.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-groups.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-groups.c' object='libcodeslayer_la-codeslayer-groups.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-groups.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-groups.Tpo -c -o libcodeslayer_la-codeslayer-groups.lo `test -f 'codeslayer-groups.c' || echo '$(srcdir)/'`codeslayer-groups.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-groups.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-groups.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-groups.c' object='libcodeslayer_la-codeslayer-groups.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-groups.lo `test -f 'codeslayer-groups.c' || echo '$(srcdir)/'`codeslayer-groups.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-groups.lo `test -f 'codeslayer-groups.c' || echo '$(srcdir)/'`codeslayer-groups.c
 
 libcodeslayer_la-codeslayer-document.lo: codeslayer-document.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-document.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-document.Tpo -c -o libcodeslayer_la-codeslayer-document.lo `test -f 'codeslayer-document.c' || echo '$(srcdir)/'`codeslayer-document.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-document.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-document.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-document.c' object='libcodeslayer_la-codeslayer-document.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-document.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-document.Tpo -c -o libcodeslayer_la-codeslayer-document.lo `test -f 'codeslayer-document.c' || echo '$(srcdir)/'`codeslayer-document.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-document.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-document.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-document.c' object='libcodeslayer_la-codeslayer-document.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-document.lo `test -f 'codeslayer-document.c' || echo '$(srcdir)/'`codeslayer-document.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-document.lo `test -f 'codeslayer-document.c' || echo '$(srcdir)/'`codeslayer-document.c
 
 libcodeslayer_la-codeslayer-repository.lo: codeslayer-repository.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-repository.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-repository.Tpo -c -o libcodeslayer_la-codeslayer-repository.lo `test -f 'codeslayer-repository.c' || echo '$(srcdir)/'`codeslayer-repository.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-repository.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-repository.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-repository.c' object='libcodeslayer_la-codeslayer-repository.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-repository.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-repository.Tpo -c -o libcodeslayer_la-codeslayer-repository.lo `test -f 'codeslayer-repository.c' || echo '$(srcdir)/'`codeslayer-repository.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-repository.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-repository.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-repository.c' object='libcodeslayer_la-codeslayer-repository.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-repository.lo `test -f 'codeslayer-repository.c' || echo '$(srcdir)/'`codeslayer-repository.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-repository.lo `test -f 'codeslayer-repository.c' || echo '$(srcdir)/'`codeslayer-repository.c
 
 libcodeslayer_la-codeslayer-settings.lo: codeslayer-settings.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-settings.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-settings.Tpo -c -o libcodeslayer_la-codeslayer-settings.lo `test -f 'codeslayer-settings.c' || echo '$(srcdir)/'`codeslayer-settings.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-settings.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-settings.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-settings.c' object='libcodeslayer_la-codeslayer-settings.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-settings.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-settings.Tpo -c -o libcodeslayer_la-codeslayer-settings.lo `test -f 'codeslayer-settings.c' || echo '$(srcdir)/'`codeslayer-settings.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-settings.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-settings.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-settings.c' object='libcodeslayer_la-codeslayer-settings.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-settings.lo `test -f 'codeslayer-settings.c' || echo '$(srcdir)/'`codeslayer-settings.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-settings.lo `test -f 'codeslayer-settings.c' || echo '$(srcdir)/'`codeslayer-settings.c
 
 libcodeslayer_la-codeslayer-preferences.lo: codeslayer-preferences.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences.Tpo -c -o libcodeslayer_la-codeslayer-preferences.lo `test -f 'codeslayer-preferences.c' || echo '$(srcdir)/'`codeslayer-preferences.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-preferences.c' object='libcodeslayer_la-codeslayer-preferences.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences.Tpo -c -o libcodeslayer_la-codeslayer-preferences.lo `test -f 'codeslayer-preferences.c' || echo '$(srcdir)/'`codeslayer-preferences.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-preferences.c' object='libcodeslayer_la-codeslayer-preferences.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences.lo `test -f 'codeslayer-preferences.c' || echo '$(srcdir)/'`codeslayer-preferences.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences.lo `test -f 'codeslayer-preferences.c' || echo '$(srcdir)/'`codeslayer-preferences.c
 
 libcodeslayer_la-codeslayer-preferences-editor.lo: codeslayer-preferences-editor.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-editor.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-editor.Tpo -c -o libcodeslayer_la-codeslayer-preferences-editor.lo `test -f 'codeslayer-preferences-editor.c' || echo '$(srcdir)/'`codeslayer-preferences-editor.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-editor.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-editor.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-preferences-editor.c' object='libcodeslayer_la-codeslayer-preferences-editor.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-editor.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-editor.Tpo -c -o libcodeslayer_la-codeslayer-preferences-editor.lo `test -f 'codeslayer-preferences-editor.c' || echo '$(srcdir)/'`codeslayer-preferences-editor.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-editor.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-editor.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-preferences-editor.c' object='libcodeslayer_la-codeslayer-preferences-editor.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-editor.lo `test -f 'codeslayer-preferences-editor.c' || echo '$(srcdir)/'`codeslayer-preferences-editor.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-editor.lo `test -f 'codeslayer-preferences-editor.c' || echo '$(srcdir)/'`codeslayer-preferences-editor.c
 
 libcodeslayer_la-codeslayer-preferences-misc.lo: codeslayer-preferences-misc.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-misc.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-misc.Tpo -c -o libcodeslayer_la-codeslayer-preferences-misc.lo `test -f 'codeslayer-preferences-misc.c' || echo '$(srcdir)/'`codeslayer-preferences-misc.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-misc.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-misc.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-preferences-misc.c' object='libcodeslayer_la-codeslayer-preferences-misc.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-misc.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-misc.Tpo -c -o libcodeslayer_la-codeslayer-preferences-misc.lo `test -f 'codeslayer-preferences-misc.c' || echo '$(srcdir)/'`codeslayer-preferences-misc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-misc.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-misc.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-preferences-misc.c' object='libcodeslayer_la-codeslayer-preferences-misc.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-misc.lo `test -f 'codeslayer-preferences-misc.c' || echo '$(srcdir)/'`codeslayer-preferences-misc.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-misc.lo `test -f 'codeslayer-preferences-misc.c' || echo '$(srcdir)/'`codeslayer-preferences-misc.c
 
 libcodeslayer_la-codeslayer-preferences-projects.lo: codeslayer-preferences-projects.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-projects.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-projects.Tpo -c -o libcodeslayer_la-codeslayer-preferences-projects.lo `test -f 'codeslayer-preferences-projects.c' || echo '$(srcdir)/'`codeslayer-preferences-projects.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-projects.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-projects.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-preferences-projects.c' object='libcodeslayer_la-codeslayer-preferences-projects.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-projects.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-projects.Tpo -c -o libcodeslayer_la-codeslayer-preferences-projects.lo `test -f 'codeslayer-preferences-projects.c' || echo '$(srcdir)/'`codeslayer-preferences-projects.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-projects.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-projects.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-preferences-projects.c' object='libcodeslayer_la-codeslayer-preferences-projects.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-projects.lo `test -f 'codeslayer-preferences-projects.c' || echo '$(srcdir)/'`codeslayer-preferences-projects.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-projects.lo `test -f 'codeslayer-preferences-projects.c' || echo '$(srcdir)/'`codeslayer-preferences-projects.c
 
 libcodeslayer_la-codeslayer-preferences-theme.lo: codeslayer-preferences-theme.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-theme.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-theme.Tpo -c -o libcodeslayer_la-codeslayer-preferences-theme.lo `test -f 'codeslayer-preferences-theme.c' || echo '$(srcdir)/'`codeslayer-preferences-theme.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-theme.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-theme.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-preferences-theme.c' object='libcodeslayer_la-codeslayer-preferences-theme.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-theme.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-theme.Tpo -c -o libcodeslayer_la-codeslayer-preferences-theme.lo `test -f 'codeslayer-preferences-theme.c' || echo '$(srcdir)/'`codeslayer-preferences-theme.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-theme.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-theme.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-preferences-theme.c' object='libcodeslayer_la-codeslayer-preferences-theme.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-theme.lo `test -f 'codeslayer-preferences-theme.c' || echo '$(srcdir)/'`codeslayer-preferences-theme.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-theme.lo `test -f 'codeslayer-preferences-theme.c' || echo '$(srcdir)/'`codeslayer-preferences-theme.c
 
 libcodeslayer_la-codeslayer-preferences-utils.lo: codeslayer-preferences-utils.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-utils.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-utils.Tpo -c -o libcodeslayer_la-codeslayer-preferences-utils.lo `test -f 'codeslayer-preferences-utils.c' || echo '$(srcdir)/'`codeslayer-preferences-utils.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-utils.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-utils.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-preferences-utils.c' object='libcodeslayer_la-codeslayer-preferences-utils.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-utils.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-utils.Tpo -c -o libcodeslayer_la-codeslayer-preferences-utils.lo `test -f 'codeslayer-preferences-utils.c' || echo '$(srcdir)/'`codeslayer-preferences-utils.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-utils.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-utils.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-preferences-utils.c' object='libcodeslayer_la-codeslayer-preferences-utils.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-utils.lo `test -f 'codeslayer-preferences-utils.c' || echo '$(srcdir)/'`codeslayer-preferences-utils.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-utils.lo `test -f 'codeslayer-preferences-utils.c' || echo '$(srcdir)/'`codeslayer-preferences-utils.c
 
 libcodeslayer_la-codeslayer-preferences-listview.lo: codeslayer-preferences-listview.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-listview.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-listview.Tpo -c -o libcodeslayer_la-codeslayer-preferences-listview.lo `test -f 'codeslayer-preferences-listview.c' || echo '$(srcdir)/'`codeslayer-preferences-listview.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-listview.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-listview.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-preferences-listview.c' object='libcodeslayer_la-codeslayer-preferences-listview.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences-listview.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-listview.Tpo -c -o libcodeslayer_la-codeslayer-preferences-listview.lo `test -f 'codeslayer-preferences-listview.c' || echo '$(srcdir)/'`codeslayer-preferences-listview.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-listview.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preferences-listview.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-preferences-listview.c' object='libcodeslayer_la-codeslayer-preferences-listview.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-listview.lo `test -f 'codeslayer-preferences-listview.c' || echo '$(srcdir)/'`codeslayer-preferences-listview.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preferences-listview.lo `test -f 'codeslayer-preferences-listview.c' || echo '$(srcdir)/'`codeslayer-preferences-listview.c
 
 libcodeslayer_la-codeslayer-projects.lo: codeslayer-projects.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-projects.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-projects.Tpo -c -o libcodeslayer_la-codeslayer-projects.lo `test -f 'codeslayer-projects.c' || echo '$(srcdir)/'`codeslayer-projects.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-projects.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-projects.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-projects.c' object='libcodeslayer_la-codeslayer-projects.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-projects.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-projects.Tpo -c -o libcodeslayer_la-codeslayer-projects.lo `test -f 'codeslayer-projects.c' || echo '$(srcdir)/'`codeslayer-projects.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-projects.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-projects.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-projects.c' object='libcodeslayer_la-codeslayer-projects.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-projects.lo `test -f 'codeslayer-projects.c' || echo '$(srcdir)/'`codeslayer-projects.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-projects.lo `test -f 'codeslayer-projects.c' || echo '$(srcdir)/'`codeslayer-projects.c
 
 libcodeslayer_la-codeslayer-projects-selection.lo: codeslayer-projects-selection.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-projects-selection.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-projects-selection.Tpo -c -o libcodeslayer_la-codeslayer-projects-selection.lo `test -f 'codeslayer-projects-selection.c' || echo '$(srcdir)/'`codeslayer-projects-selection.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-projects-selection.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-projects-selection.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-projects-selection.c' object='libcodeslayer_la-codeslayer-projects-selection.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-projects-selection.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-projects-selection.Tpo -c -o libcodeslayer_la-codeslayer-projects-selection.lo `test -f 'codeslayer-projects-selection.c' || echo '$(srcdir)/'`codeslayer-projects-selection.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-projects-selection.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-projects-selection.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-projects-selection.c' object='libcodeslayer_la-codeslayer-projects-selection.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-projects-selection.lo `test -f 'codeslayer-projects-selection.c' || echo '$(srcdir)/'`codeslayer-projects-selection.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-projects-selection.lo `test -f 'codeslayer-projects-selection.c' || echo '$(srcdir)/'`codeslayer-projects-selection.c
 
 libcodeslayer_la-codeslayer-project-properties.lo: codeslayer-project-properties.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-project-properties.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Tpo -c -o libcodeslayer_la-codeslayer-project-properties.lo `test -f 'codeslayer-project-properties.c' || echo '$(srcdir)/'`codeslayer-project-properties.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-project-properties.c' object='libcodeslayer_la-codeslayer-project-properties.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-project-properties.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Tpo -c -o libcodeslayer_la-codeslayer-project-properties.lo `test -f 'codeslayer-project-properties.c' || echo '$(srcdir)/'`codeslayer-project-properties.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-project-properties.c' object='libcodeslayer_la-codeslayer-project-properties.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-project-properties.lo `test -f 'codeslayer-project-properties.c' || echo '$(srcdir)/'`codeslayer-project-properties.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-project-properties.lo `test -f 'codeslayer-project-properties.c' || echo '$(srcdir)/'`codeslayer-project-properties.c
 
 libcodeslayer_la-codeslayer-menuitem.lo: codeslayer-menuitem.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menuitem.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menuitem.Tpo -c -o libcodeslayer_la-codeslayer-menuitem.lo `test -f 'codeslayer-menuitem.c' || echo '$(srcdir)/'`codeslayer-menuitem.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menuitem.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menuitem.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-menuitem.c' object='libcodeslayer_la-codeslayer-menuitem.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menuitem.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menuitem.Tpo -c -o libcodeslayer_la-codeslayer-menuitem.lo `test -f 'codeslayer-menuitem.c' || echo '$(srcdir)/'`codeslayer-menuitem.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menuitem.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menuitem.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menuitem.c' object='libcodeslayer_la-codeslayer-menuitem.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menuitem.lo `test -f 'codeslayer-menuitem.c' || echo '$(srcdir)/'`codeslayer-menuitem.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menuitem.lo `test -f 'codeslayer-menuitem.c' || echo '$(srcdir)/'`codeslayer-menuitem.c
 
 libcodeslayer_la-codeslayer-notebook-pane.lo: codeslayer-notebook-pane.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-notebook-pane.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-pane.Tpo -c -o libcodeslayer_la-codeslayer-notebook-pane.lo `test -f 'codeslayer-notebook-pane.c' || echo '$(srcdir)/'`codeslayer-notebook-pane.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-pane.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-pane.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-notebook-pane.c' object='libcodeslayer_la-codeslayer-notebook-pane.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-notebook-pane.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-pane.Tpo -c -o libcodeslayer_la-codeslayer-notebook-pane.lo `test -f 'codeslayer-notebook-pane.c' || echo '$(srcdir)/'`codeslayer-notebook-pane.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-pane.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-pane.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-notebook-pane.c' object='libcodeslayer_la-codeslayer-notebook-pane.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-notebook-pane.lo `test -f 'codeslayer-notebook-pane.c' || echo '$(srcdir)/'`codeslayer-notebook-pane.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-notebook-pane.lo `test -f 'codeslayer-notebook-pane.c' || echo '$(srcdir)/'`codeslayer-notebook-pane.c
 
 libcodeslayer_la-codeslayer-notebook-search.lo: codeslayer-notebook-search.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-notebook-search.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-search.Tpo -c -o libcodeslayer_la-codeslayer-notebook-search.lo `test -f 'codeslayer-notebook-search.c' || echo '$(srcdir)/'`codeslayer-notebook-search.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-search.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-search.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-notebook-search.c' object='libcodeslayer_la-codeslayer-notebook-search.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-notebook-search.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-search.Tpo -c -o libcodeslayer_la-codeslayer-notebook-search.lo `test -f 'codeslayer-notebook-search.c' || echo '$(srcdir)/'`codeslayer-notebook-search.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-search.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-search.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-notebook-search.c' object='libcodeslayer_la-codeslayer-notebook-search.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-notebook-search.lo `test -f 'codeslayer-notebook-search.c' || echo '$(srcdir)/'`codeslayer-notebook-search.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-notebook-search.lo `test -f 'codeslayer-notebook-search.c' || echo '$(srcdir)/'`codeslayer-notebook-search.c
 
 libcodeslayer_la-codeslayer-notebook.lo: codeslayer-notebook.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-notebook.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-notebook.Tpo -c -o libcodeslayer_la-codeslayer-notebook.lo `test -f 'codeslayer-notebook.c' || echo '$(srcdir)/'`codeslayer-notebook.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-notebook.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-notebook.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-notebook.c' object='libcodeslayer_la-codeslayer-notebook.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-notebook.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-notebook.Tpo -c -o libcodeslayer_la-codeslayer-notebook.lo `test -f 'codeslayer-notebook.c' || echo '$(srcdir)/'`codeslayer-notebook.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-notebook.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-notebook.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-notebook.c' object='libcodeslayer_la-codeslayer-notebook.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-notebook.lo `test -f 'codeslayer-notebook.c' || echo '$(srcdir)/'`codeslayer-notebook.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-notebook.lo `test -f 'codeslayer-notebook.c' || echo '$(srcdir)/'`codeslayer-notebook.c
 
 libcodeslayer_la-codeslayer-notebook-tab.lo: codeslayer-notebook-tab.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-notebook-tab.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-tab.Tpo -c -o libcodeslayer_la-codeslayer-notebook-tab.lo `test -f 'codeslayer-notebook-tab.c' || echo '$(srcdir)/'`codeslayer-notebook-tab.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-tab.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-tab.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-notebook-tab.c' object='libcodeslayer_la-codeslayer-notebook-tab.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-notebook-tab.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-tab.Tpo -c -o libcodeslayer_la-codeslayer-notebook-tab.lo `test -f 'codeslayer-notebook-tab.c' || echo '$(srcdir)/'`codeslayer-notebook-tab.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-tab.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-tab.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-notebook-tab.c' object='libcodeslayer_la-codeslayer-notebook-tab.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-notebook-tab.lo `test -f 'codeslayer-notebook-tab.c' || echo '$(srcdir)/'`codeslayer-notebook-tab.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-notebook-tab.lo `test -f 'codeslayer-notebook-tab.c' || echo '$(srcdir)/'`codeslayer-notebook-tab.c
 
 libcodeslayer_la-codeslayer-notebook-page.lo: codeslayer-notebook-page.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-notebook-page.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-page.Tpo -c -o libcodeslayer_la-codeslayer-notebook-page.lo `test -f 'codeslayer-notebook-page.c' || echo '$(srcdir)/'`codeslayer-notebook-page.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-page.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-page.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-notebook-page.c' object='libcodeslayer_la-codeslayer-notebook-page.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-notebook-page.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-page.Tpo -c -o libcodeslayer_la-codeslayer-notebook-page.lo `test -f 'codeslayer-notebook-page.c' || echo '$(srcdir)/'`codeslayer-notebook-page.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-page.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-notebook-page.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-notebook-page.c' object='libcodeslayer_la-codeslayer-notebook-page.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-notebook-page.lo `test -f 'codeslayer-notebook-page.c' || echo '$(srcdir)/'`codeslayer-notebook-page.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-notebook-page.lo `test -f 'codeslayer-notebook-page.c' || echo '$(srcdir)/'`codeslayer-notebook-page.c
 
 libcodeslayer_la-codeslayer-editor.lo: codeslayer-editor.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-editor.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-editor.Tpo -c -o libcodeslayer_la-codeslayer-editor.lo `test -f 'codeslayer-editor.c' || echo '$(srcdir)/'`codeslayer-editor.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-editor.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-editor.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-editor.c' object='libcodeslayer_la-codeslayer-editor.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-editor.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-editor.Tpo -c -o libcodeslayer_la-codeslayer-editor.lo `test -f 'codeslayer-editor.c' || echo '$(srcdir)/'`codeslayer-editor.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-editor.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-editor.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-editor.c' object='libcodeslayer_la-codeslayer-editor.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-editor.lo `test -f 'codeslayer-editor.c' || echo '$(srcdir)/'`codeslayer-editor.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-editor.lo `test -f 'codeslayer-editor.c' || echo '$(srcdir)/'`codeslayer-editor.c
 
 libcodeslayer_la-codeslayer-search.lo: codeslayer-search.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-search.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-search.Tpo -c -o libcodeslayer_la-codeslayer-search.lo `test -f 'codeslayer-search.c' || echo '$(srcdir)/'`codeslayer-search.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-search.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-search.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-search.c' object='libcodeslayer_la-codeslayer-search.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-search.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-search.Tpo -c -o libcodeslayer_la-codeslayer-search.lo `test -f 'codeslayer-search.c' || echo '$(srcdir)/'`codeslayer-search.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-search.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-search.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-search.c' object='libcodeslayer_la-codeslayer-search.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-search.lo `test -f 'codeslayer-search.c' || echo '$(srcdir)/'`codeslayer-search.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-search.lo `test -f 'codeslayer-search.c' || echo '$(srcdir)/'`codeslayer-search.c
 
 libcodeslayer_la-codeslayer-search-page.lo: codeslayer-search-page.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-search-page.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-search-page.Tpo -c -o libcodeslayer_la-codeslayer-search-page.lo `test -f 'codeslayer-search-page.c' || echo '$(srcdir)/'`codeslayer-search-page.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-search-page.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-search-page.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-search-page.c' object='libcodeslayer_la-codeslayer-search-page.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-search-page.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-search-page.Tpo -c -o libcodeslayer_la-codeslayer-search-page.lo `test -f 'codeslayer-search-page.c' || echo '$(srcdir)/'`codeslayer-search-page.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-search-page.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-search-page.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-search-page.c' object='libcodeslayer_la-codeslayer-search-page.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-search-page.lo `test -f 'codeslayer-search-page.c' || echo '$(srcdir)/'`codeslayer-search-page.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-search-page.lo `test -f 'codeslayer-search-page.c' || echo '$(srcdir)/'`codeslayer-search-page.c
 
 libcodeslayer_la-codeslayer-search-tab.lo: codeslayer-search-tab.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-search-tab.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-search-tab.Tpo -c -o libcodeslayer_la-codeslayer-search-tab.lo `test -f 'codeslayer-search-tab.c' || echo '$(srcdir)/'`codeslayer-search-tab.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-search-tab.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-search-tab.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-search-tab.c' object='libcodeslayer_la-codeslayer-search-tab.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-search-tab.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-search-tab.Tpo -c -o libcodeslayer_la-codeslayer-search-tab.lo `test -f 'codeslayer-search-tab.c' || echo '$(srcdir)/'`codeslayer-search-tab.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-search-tab.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-search-tab.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-search-tab.c' object='libcodeslayer_la-codeslayer-search-tab.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-search-tab.lo `test -f 'codeslayer-search-tab.c' || echo '$(srcdir)/'`codeslayer-search-tab.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-search-tab.lo `test -f 'codeslayer-search-tab.c' || echo '$(srcdir)/'`codeslayer-search-tab.c
 
 libcodeslayer_la-codeslayer-utils.lo: codeslayer-utils.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-utils.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-utils.Tpo -c -o libcodeslayer_la-codeslayer-utils.lo `test -f 'codeslayer-utils.c' || echo '$(srcdir)/'`codeslayer-utils.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-utils.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-utils.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-utils.c' object='libcodeslayer_la-codeslayer-utils.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-utils.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-utils.Tpo -c -o libcodeslayer_la-codeslayer-utils.lo `test -f 'codeslayer-utils.c' || echo '$(srcdir)/'`codeslayer-utils.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-utils.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-utils.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-utils.c' object='libcodeslayer_la-codeslayer-utils.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-utils.lo `test -f 'codeslayer-utils.c' || echo '$(srcdir)/'`codeslayer-utils.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-utils.lo `test -f 'codeslayer-utils.c' || echo '$(srcdir)/'`codeslayer-utils.c
 
 libcodeslayer_la-codeslayer-xml.lo: codeslayer-xml.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-xml.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-xml.Tpo -c -o libcodeslayer_la-codeslayer-xml.lo `test -f 'codeslayer-xml.c' || echo '$(srcdir)/'`codeslayer-xml.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-xml.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-xml.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-xml.c' object='libcodeslayer_la-codeslayer-xml.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-xml.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-xml.Tpo -c -o libcodeslayer_la-codeslayer-xml.lo `test -f 'codeslayer-xml.c' || echo '$(srcdir)/'`codeslayer-xml.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-xml.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-xml.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-xml.c' object='libcodeslayer_la-codeslayer-xml.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-xml.lo `test -f 'codeslayer-xml.c' || echo '$(srcdir)/'`codeslayer-xml.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-xml.lo `test -f 'codeslayer-xml.c' || echo '$(srcdir)/'`codeslayer-xml.c
 
 libcodeslayer_la-codeslayer-marshaller.lo: codeslayer-marshaller.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-marshaller.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-marshaller.Tpo -c -o libcodeslayer_la-codeslayer-marshaller.lo `test -f 'codeslayer-marshaller.c' || echo '$(srcdir)/'`codeslayer-marshaller.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-marshaller.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-marshaller.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-marshaller.c' object='libcodeslayer_la-codeslayer-marshaller.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-marshaller.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-marshaller.Tpo -c -o libcodeslayer_la-codeslayer-marshaller.lo `test -f 'codeslayer-marshaller.c' || echo '$(srcdir)/'`codeslayer-marshaller.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-marshaller.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-marshaller.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-marshaller.c' object='libcodeslayer_la-codeslayer-marshaller.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-marshaller.lo `test -f 'codeslayer-marshaller.c' || echo '$(srcdir)/'`codeslayer-marshaller.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-marshaller.lo `test -f 'codeslayer-marshaller.c' || echo '$(srcdir)/'`codeslayer-marshaller.c
 
 libcodeslayer_la-codeslayer-plugin.lo: codeslayer-plugin.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-plugin.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-plugin.Tpo -c -o libcodeslayer_la-codeslayer-plugin.lo `test -f 'codeslayer-plugin.c' || echo '$(srcdir)/'`codeslayer-plugin.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-plugin.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-plugin.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-plugin.c' object='libcodeslayer_la-codeslayer-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-plugin.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-plugin.Tpo -c -o libcodeslayer_la-codeslayer-plugin.lo `test -f 'codeslayer-plugin.c' || echo '$(srcdir)/'`codeslayer-plugin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-plugin.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-plugin.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-plugin.c' object='libcodeslayer_la-codeslayer-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-plugin.lo `test -f 'codeslayer-plugin.c' || echo '$(srcdir)/'`codeslayer-plugin.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-plugin.lo `test -f 'codeslayer-plugin.c' || echo '$(srcdir)/'`codeslayer-plugin.c
 
 libcodeslayer_la-codeslayer-plugins-selector.lo: codeslayer-plugins-selector.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-plugins-selector.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-plugins-selector.Tpo -c -o libcodeslayer_la-codeslayer-plugins-selector.lo `test -f 'codeslayer-plugins-selector.c' || echo '$(srcdir)/'`codeslayer-plugins-selector.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-plugins-selector.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-plugins-selector.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-plugins-selector.c' object='libcodeslayer_la-codeslayer-plugins-selector.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-plugins-selector.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-plugins-selector.Tpo -c -o libcodeslayer_la-codeslayer-plugins-selector.lo `test -f 'codeslayer-plugins-selector.c' || echo '$(srcdir)/'`codeslayer-plugins-selector.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-plugins-selector.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-plugins-selector.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-plugins-selector.c' object='libcodeslayer_la-codeslayer-plugins-selector.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-plugins-selector.lo `test -f 'codeslayer-plugins-selector.c' || echo '$(srcdir)/'`codeslayer-plugins-selector.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-plugins-selector.lo `test -f 'codeslayer-plugins-selector.c' || echo '$(srcdir)/'`codeslayer-plugins-selector.c
 
 libcodeslayer_la-codeslayer-plugins.lo: codeslayer-plugins.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-plugins.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-plugins.Tpo -c -o libcodeslayer_la-codeslayer-plugins.lo `test -f 'codeslayer-plugins.c' || echo '$(srcdir)/'`codeslayer-plugins.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-plugins.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-plugins.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-plugins.c' object='libcodeslayer_la-codeslayer-plugins.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-plugins.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-plugins.Tpo -c -o libcodeslayer_la-codeslayer-plugins.lo `test -f 'codeslayer-plugins.c' || echo '$(srcdir)/'`codeslayer-plugins.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-plugins.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-plugins.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-plugins.c' object='libcodeslayer_la-codeslayer-plugins.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-plugins.lo `test -f 'codeslayer-plugins.c' || echo '$(srcdir)/'`codeslayer-plugins.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-plugins.lo `test -f 'codeslayer-plugins.c' || echo '$(srcdir)/'`codeslayer-plugins.c
 
 libcodeslayer_la-codeslayer-tearoff.lo: codeslayer-tearoff.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-tearoff.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-tearoff.Tpo -c -o libcodeslayer_la-codeslayer-tearoff.lo `test -f 'codeslayer-tearoff.c' || echo '$(srcdir)/'`codeslayer-tearoff.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-tearoff.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-tearoff.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-tearoff.c' object='libcodeslayer_la-codeslayer-tearoff.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-tearoff.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-tearoff.Tpo -c -o libcodeslayer_la-codeslayer-tearoff.lo `test -f 'codeslayer-tearoff.c' || echo '$(srcdir)/'`codeslayer-tearoff.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-tearoff.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-tearoff.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-tearoff.c' object='libcodeslayer_la-codeslayer-tearoff.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-tearoff.lo `test -f 'codeslayer-tearoff.c' || echo '$(srcdir)/'`codeslayer-tearoff.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-tearoff.lo `test -f 'codeslayer-tearoff.c' || echo '$(srcdir)/'`codeslayer-tearoff.c
 
 libcodeslayer_la-encoding.lo: encoding.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-encoding.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-encoding.Tpo -c -o libcodeslayer_la-encoding.lo `test -f 'encoding.c' || echo '$(srcdir)/'`encoding.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-encoding.Tpo $(DEPDIR)/libcodeslayer_la-encoding.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='encoding.c' object='libcodeslayer_la-encoding.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-encoding.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-encoding.Tpo -c -o libcodeslayer_la-encoding.lo `test -f 'encoding.c' || echo '$(srcdir)/'`encoding.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-encoding.Tpo $(DEPDIR)/libcodeslayer_la-encoding.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='encoding.c' object='libcodeslayer_la-encoding.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-encoding.lo `test -f 'encoding.c' || echo '$(srcdir)/'`encoding.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-encoding.lo `test -f 'encoding.c' || echo '$(srcdir)/'`encoding.c
 
 libcodeslayer_la-codeslayer.lo: codeslayer.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer.Tpo -c -o libcodeslayer_la-codeslayer.lo `test -f 'codeslayer.c' || echo '$(srcdir)/'`codeslayer.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer.c' object='libcodeslayer_la-codeslayer.lo' libtool=yes @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer.Tpo -c -o libcodeslayer_la-codeslayer.lo `test -f 'codeslayer.c' || echo '$(srcdir)/'`codeslayer.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer.c' object='libcodeslayer_la-codeslayer.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer.lo `test -f 'codeslayer.c' || echo '$(srcdir)/'`codeslayer.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer.lo `test -f 'codeslayer.c' || echo '$(srcdir)/'`codeslayer.c
 
 codeslayer-codeslayer-main.o: codeslayer-main.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(codeslayer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT codeslayer-codeslayer-main.o -MD -MP -MF $(DEPDIR)/codeslayer-codeslayer-main.Tpo -c -o codeslayer-codeslayer-main.o `test -f 'codeslayer-main.c' || echo '$(srcdir)/'`codeslayer-main.c
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/codeslayer-codeslayer-main.Tpo $(DEPDIR)/codeslayer-codeslayer-main.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-main.c' object='codeslayer-codeslayer-main.o' libtool=no @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(codeslayer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT codeslayer-codeslayer-main.o -MD -MP -MF $(DEPDIR)/codeslayer-codeslayer-main.Tpo -c -o codeslayer-codeslayer-main.o `test -f 'codeslayer-main.c' || echo '$(srcdir)/'`codeslayer-main.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/codeslayer-codeslayer-main.Tpo $(DEPDIR)/codeslayer-codeslayer-main.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-main.c' object='codeslayer-codeslayer-main.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(codeslayer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o codeslayer-codeslayer-main.o `test -f 'codeslayer-main.c' || echo '$(srcdir)/'`codeslayer-main.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(codeslayer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o codeslayer-codeslayer-main.o `test -f 'codeslayer-main.c' || echo '$(srcdir)/'`codeslayer-main.c
 
 codeslayer-codeslayer-main.obj: codeslayer-main.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(codeslayer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT codeslayer-codeslayer-main.obj -MD -MP -MF $(DEPDIR)/codeslayer-codeslayer-main.Tpo -c -o codeslayer-codeslayer-main.obj `if test -f 'codeslayer-main.c'; then $(CYGPATH_W) 'codeslayer-main.c'; else $(CYGPATH_W) '$(srcdir)/codeslayer-main.c'; fi`
-@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/codeslayer-codeslayer-main.Tpo $(DEPDIR)/codeslayer-codeslayer-main.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='codeslayer-main.c' object='codeslayer-codeslayer-main.obj' libtool=no @AMDEPBACKSLASH@
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(codeslayer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT codeslayer-codeslayer-main.obj -MD -MP -MF $(DEPDIR)/codeslayer-codeslayer-main.Tpo -c -o codeslayer-codeslayer-main.obj `if test -f 'codeslayer-main.c'; then $(CYGPATH_W) 'codeslayer-main.c'; else $(CYGPATH_W) '$(srcdir)/codeslayer-main.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/codeslayer-codeslayer-main.Tpo $(DEPDIR)/codeslayer-codeslayer-main.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-main.c' object='codeslayer-codeslayer-main.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(codeslayer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o codeslayer-codeslayer-main.obj `if test -f 'codeslayer-main.c'; then $(CYGPATH_W) 'codeslayer-main.c'; else $(CYGPATH_W) '$(srcdir)/codeslayer-main.c'; fi`
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(codeslayer_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o codeslayer-codeslayer-main.obj `if test -f 'codeslayer-main.c'; then $(CYGPATH_W) 'codeslayer-main.c'; else $(CYGPATH_W) '$(srcdir)/codeslayer-main.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
