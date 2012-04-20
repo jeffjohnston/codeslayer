@@ -12653,6 +12653,7 @@ fi
 
 
 # Localization
+ALL_LINGUAS="es"
 GETTEXT_PACKAGE=codeslayer
 
 

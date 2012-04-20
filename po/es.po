@@ -1,0 +1,394 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Codeslayer 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-04-11 19:36-0300\n"
+"PO-Revision-Date: 2012-04-19 11:41-0300\n"
+"Last-Translator: Matias De lellis <mati86dl@gmail.com>\n"
+"Language-Team: Spanish <spanish@codeslayer.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../codeslayer/codeslayer-group-properties.c:110
+#: ../codeslayer/codeslayer-menubar-groups.c:317
+#: ../codeslayer/codeslayer-projects.c:1188
+msgid "Name:"
+msgstr "Nombre:"
+
+#: ../codeslayer/codeslayer-group-properties.c:122
+#: ../codeslayer/codeslayer-projects.c:1200
+msgid "Folder:"
+msgstr "Carpeta:"
+
+#: ../codeslayer/codeslayer-menubar-editor.c:75
+#: ../codeslayer/codeslayer-preferences.c:547
+msgid "Editor"
+msgstr "Editor"
+
+#: ../codeslayer/codeslayer-menubar-editor.c:132
+msgid "Save All"
+msgstr "Guardar Todo"
+
+#: ../codeslayer/codeslayer-menubar-groups.c:80
+msgid "Groups"
+msgstr "Grupos"
+
+#: ../codeslayer/codeslayer-menubar-groups.c:155
+#: ../codeslayer/codeslayer-menubar-groups.c:298
+msgid "New Group"
+msgstr "Nuevo Grupo"
+
+#: ../codeslayer/codeslayer-menubar-groups.c:156
+#: ../codeslayer/codeslayer-menubar-groups.c:366
+msgid "Remove Group"
+msgstr "Sacar Grupo"
+
+#: ../codeslayer/codeslayer-menubar-groups.c:157
+#: ../codeslayer/codeslayer-menubar-groups.c:397
+msgid "Group Properties"
+msgstr "Propiedades Del Grupo"
+
+#: ../codeslayer/codeslayer-menubar-groups.c:355
+#, c-format
+msgid "Are you sure you want to remove the %s group?"
+msgstr "¿Está seguro que desea eliminar el grupo %s?"
+
+#: ../codeslayer/codeslayer-menubar-help.c:66
+msgid "Help"
+msgstr "Ayuda"
+
+#: ../codeslayer/codeslayer-menubar-projects.c:70
+#: ../codeslayer/codeslayer-preferences.c:555
+msgid "Projects"
+msgstr "Proyectos"
+
+#: ../codeslayer/codeslayer-menubar-projects.c:128
+msgid "Add Project"
+msgstr "Agregar Proyecto"
+
+#: ../codeslayer/codeslayer-menubar-projects.c:134
+msgid "Sync With Editor"
+msgstr "Sincronizar Con El Editor"
+
+#: ../codeslayer/codeslayer-menubar-projects.c:169
+msgid "Select Project"
+msgstr "Seleccionar Proyecto"
+
+#: ../codeslayer/codeslayer-menubar-search.c:78
+#: ../codeslayer/codeslayer-search.c:142
+msgid "Search"
+msgstr "Buscar"
+
+#: ../codeslayer/codeslayer-menubar-search.c:135
+msgid "Find Next"
+msgstr "Buscar Siguiente"
+
+#: ../codeslayer/codeslayer-menubar-search.c:141
+msgid "Find Previous"
+msgstr "Buscar Anterior"
+
+#: ../codeslayer/codeslayer-menubar-search.c:149
+msgid "Find Incremental"
+msgstr "Busqueda incremental"
+
+#: ../codeslayer/codeslayer-menubar-search.c:156
+#: ../codeslayer/codeslayer-notebook-search.c:541
+msgid "Replace"
+msgstr "Reemplazar"
+
+#: ../codeslayer/codeslayer-menubar-search.c:162
+#: ../codeslayer/codeslayer-search.c:235
+msgid "Find In Projects"
+msgstr "Buscar En Proyectos"
+
+#: ../codeslayer/codeslayer-menubar-tools.c:69
+msgid "Tools"
+msgstr "Herramientas"
+
+#: ../codeslayer/codeslayer-menubar-tools.c:125
+#: ../codeslayer/codeslayer-plugins.c:213
+msgid "Plugins"
+msgstr "Complementos"
+
+#: ../codeslayer/codeslayer-menubar-view.c:76
+msgid "View"
+msgstr "Ver"
+
+#: ../codeslayer/codeslayer-menubar-view.c:127
+msgid "Full Screen"
+msgstr "Pantalla Completa"
+
+#: ../codeslayer/codeslayer-menubar-view.c:133
+msgid "Bottom Pane"
+msgstr "Panel Superior"
+
+#: ../codeslayer/codeslayer-menubar-view.c:139
+msgid "Side Pane"
+msgstr "Panel Lateral"
+
+#: ../codeslayer/codeslayer-menubar-view.c:145
+msgid "Draw Spaces"
+msgstr "Dibujar Espacios"
+
+#: ../codeslayer/codeslayer-notebook.c:583
+#, c-format
+msgid "Save changes to %s?"
+msgstr "¿Guardar los cambios de %s?"
+
+#: ../codeslayer/codeslayer-notebook-page.c:240
+#, c-format
+msgid "The document %s no longer exists."
+msgstr "El documento %s ya no existe."
+
+#: ../codeslayer/codeslayer-notebook-tab.c:320
+msgid "Close All Editors"
+msgstr "Cerrar Todos Los Editores"
+
+#: ../codeslayer/codeslayer-notebook-tab.c:321
+msgid "Close Other Editors"
+msgstr "Cerrar Los Otros Editores"
+
+#: ../codeslayer/codeslayer-notebook-tab.c:322
+msgid "Close Right Editors"
+msgstr "Cerrar Editor Derecho"
+
+#: ../codeslayer/codeslayer-notebook-tab.c:323
+msgid "Close Left Editors"
+msgstr "Cerrar Editor Izquierdo"
+
+#: ../codeslayer/codeslayer-notebook-search.c:397
+msgid "Previous"
+msgstr "Anterior"
+
+#: ../codeslayer/codeslayer-notebook-search.c:431
+msgid "Next"
+msgstr "Siguiente"
+
+#: ../codeslayer/codeslayer-notebook-search.c:457
+#: ../codeslayer/codeslayer-search-page.c:460
+msgid "Match Case"
+msgstr "Coincidir Capitalización"
+
+#: ../codeslayer/codeslayer-notebook-search.c:478
+msgid "Match Word"
+msgstr "Coincidir Palabras"
+
+#: ../codeslayer/codeslayer-notebook-search.c:502
+msgid "Replace:"
+msgstr "Reemplazar:"
+
+#: ../codeslayer/codeslayer-notebook-search.c:576
+msgid "Replace All"
+msgstr "Reemplazar Todos"
+
+#: ../codeslayer/codeslayer-plugins-selector.c:220
+msgid "About Plugin"
+msgstr "Acerca Del Complemento"
+
+#: ../codeslayer/codeslayer-plugins-selector.c:224
+msgid "Configure Plugin"
+msgstr "Configurar Complemento"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:131
+msgid "Line Numbers"
+msgstr "Números De Linea"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:133
+msgid "Display line numbers"
+msgstr "Mostrar números de linea"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:156
+msgid "Current Line"
+msgstr "Linea Actual"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:158
+msgid "Highlight current line"
+msgstr "Resaltar linea actual"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:186
+msgid "Right Margin"
+msgstr "Margen Derecho"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:190
+msgid "Display right margin"
+msgstr "Mostrar margen derecho"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:201
+msgid "Right margin position: "
+msgstr "Posición del margen derecho: "
+
+#: ../codeslayer/codeslayer-preferences-editor.c:231
+msgid "Bracket Matching"
+msgstr "Paréntesis Coincidentes"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:233
+msgid "Highlight matching bracket"
+msgstr "Resaltar Paréntesis Coincidentes"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:261
+msgid "Tab Stops"
+msgstr "Tabulaciones"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:267
+msgid "Tab width: "
+msgstr "Ancho del tabulador: "
+
+#: ../codeslayer/codeslayer-preferences-editor.c:280
+msgid "Insert spaces instead of tabs"
+msgstr "Insertar espacios en lugar de tabuladores"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:306
+msgid "Automatic Indentation"
+msgstr "Sangría Automática"
+
+#: ../codeslayer/codeslayer-preferences-editor.c:308
+msgid "Enable automatic indentation"
+msgstr "Habilitar sangría automática"
+
+#: ../codeslayer/codeslayer-preferences-projects.c:92
+msgid "Exclude File Types"
+msgstr "Excluir Tipos de Archivos"
+
+#: ../codeslayer/codeslayer-preferences-projects.c:96
+msgid "Exclude Directories"
+msgstr "Excluir Directorios"
+
+#: ../codeslayer/codeslayer-preferences-theme.c:143
+msgid "Font"
+msgstr "Tipo de letra"
+
+#: ../codeslayer/codeslayer-preferences-theme.c:145
+#: ../codeslayer/codeslayer-preferences-theme.c:189
+msgid "Editor: "
+msgstr "Editor:"
+
+#: ../codeslayer/codeslayer-preferences-theme.c:168
+msgid "Tab Positions"
+msgstr "Posiciones de Pestañas"
+
+#: ../codeslayer/codeslayer-preferences-theme.c:219
+msgid "Side Pane: "
+msgstr "Panel lateral: "
+
+#: ../codeslayer/codeslayer-preferences-theme.c:249
+msgid "Bottom Pane: "
+msgstr "Panel Inferior: "
+
+#: ../codeslayer/codeslayer-preferences-theme.c:282
+msgid "Left"
+msgstr "Izquierda"
+
+#: ../codeslayer/codeslayer-preferences-theme.c:283
+msgid "Right"
+msgstr "Derecha"
+
+#: ../codeslayer/codeslayer-preferences-theme.c:284
+msgid "Top"
+msgstr "Arriba"
+
+#: ../codeslayer/codeslayer-preferences-theme.c:285
+msgid "Bottom"
+msgstr "Abajo"
+
+#: ../codeslayer/codeslayer-preferences-theme.c:322
+#: ../codeslayer/codeslayer-preferences.c:551
+msgid "Theme"
+msgstr "Estilo"
+
+#: ../codeslayer/codeslayer-preferences-misc.c:90
+msgid "Word Wrap File Types"
+msgstr ""
+
+#: ../codeslayer/codeslayer-preferences.c:530
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: ../codeslayer/codeslayer-preferences.c:559
+msgid "Misc"
+msgstr "Miscelánea"
+
+#: ../codeslayer/codeslayer-projects.c:519
+#: ../codeslayer/codeslayer-projects.c:1105
+msgid "Remove Project"
+msgstr "Quitar el proyecto"
+
+#: ../codeslayer/codeslayer-projects.c:529
+msgid "Create Folder"
+msgstr "Crear Projecto"
+
+#: ../codeslayer/codeslayer-projects.c:535
+msgid "Create File"
+msgstr "Crear Archivo"
+
+#: ../codeslayer/codeslayer-projects.c:571
+msgid "Rename"
+msgstr "Renombrar"
+
+#: ../codeslayer/codeslayer-projects.c:576
+#: ../codeslayer/codeslayer-projects.c:1869
+msgid "Move To Trash"
+msgstr "Mover a la Papelera"
+
+#: ../codeslayer/codeslayer-projects.c:1104
+msgid "Are you sure you want to remove the project?"
+msgstr "¿Está seguro que desea eliminar el proyecto?"
+
+#: ../codeslayer/codeslayer-projects.c:1157
+msgid "Project Properties"
+msgstr "Propiedades del Proyecto"
+
+#: ../codeslayer/codeslayer-projects.c:1214
+msgid "Project"
+msgstr "Proyecto"
+
+#: ../codeslayer/codeslayer-projects.c:1317
+msgid "untitled folder"
+msgstr "carpeta sin título"
+
+#: ../codeslayer/codeslayer-projects.c:1398
+msgid "new file"
+msgstr "nuevo archivo"
+
+#: ../codeslayer/codeslayer-projects.c:1750
+#, c-format
+msgid "Rename Copy Of %s"
+msgstr "Cambiar el nombre de la copia %s"
+
+#: ../codeslayer/codeslayer-projects.c:1766
+msgid "New Name:"
+msgstr "Nuevo Nombre:"
+
+#: ../codeslayer/codeslayer-projects.c:1868
+msgid "Are you sure you want to move to the trash?"
+msgstr "¿Está seguro que desea mover a la papelera?"
+
+#: ../codeslayer/codeslayer-search-page.c:411
+msgid "Contains Text:"
+msgstr "Contiene texto:"
+
+#: ../codeslayer/codeslayer-search-page.c:481
+msgid "File Name:"
+msgstr "Nombre del Archivo"
+
+#: ../codeslayer/codeslayer-search-page.c:514
+msgid "Find"
+msgstr "Buscar"
+
+#: ../codeslayer/codeslayer-search-page.c:626
+#, c-format
+msgid "Find \"%s\""
+msgstr "Buscar \"%s\""
+
+#: ../codeslayer/codeslayer-search-tab.c:192
+msgid "New Search"
+msgstr "Nueva Busqueda"
+
