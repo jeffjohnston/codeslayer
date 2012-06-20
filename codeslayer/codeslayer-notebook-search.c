@@ -398,7 +398,8 @@ add_find_previous_button (CodeSlayerNotebookSearch *notebook_search)
   find_previous_image = gtk_image_new_from_stock (GTK_STOCK_GO_BACK, 
                                                   GTK_ICON_SIZE_BUTTON);
 
-  hbox = gtk_hbox_new (FALSE, 0);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (hbox), FALSE);
   gtk_box_pack_start (GTK_BOX (hbox), find_previous_image, FALSE, FALSE, 3);
   gtk_box_pack_start (GTK_BOX (hbox), find_previous_label, FALSE, FALSE, 0);
 
@@ -432,7 +433,8 @@ add_find_next_button (CodeSlayerNotebookSearch *notebook_search)
   find_next_image = gtk_image_new_from_stock (GTK_STOCK_GO_FORWARD, 
                                               GTK_ICON_SIZE_BUTTON);
 
-  hbox = gtk_hbox_new (FALSE, 0);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (hbox), FALSE);
   gtk_box_pack_start (GTK_BOX (hbox), find_next_image, FALSE, FALSE, 3);
   gtk_box_pack_start (GTK_BOX (hbox), find_next_label, FALSE, FALSE, 0);
 
@@ -544,7 +546,8 @@ add_replace_button (CodeSlayerNotebookSearch *notebook_search)
                                             GTK_ICON_SIZE_BUTTON);
   gtk_misc_set_alignment (GTK_MISC (replace_image), 1, .5);
 
-  hbox = gtk_hbox_new (TRUE, 0);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (hbox), TRUE);
   gtk_box_pack_start (GTK_BOX (hbox), replace_image, FALSE, TRUE, 3);
   gtk_box_pack_start (GTK_BOX (hbox), replace_label, FALSE, TRUE, 0);
   gtk_widget_set_can_focus (replace_button, FALSE);
@@ -576,7 +579,8 @@ add_replace_all_button (CodeSlayerNotebookSearch *notebook_search)
   replace_all_label = gtk_label_new (_("Replace All"));
   gtk_misc_set_alignment (GTK_MISC (replace_all_label), 1, .5);
 
-  hbox = gtk_hbox_new (TRUE, 0);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (hbox), TRUE);
   gtk_box_pack_start (GTK_BOX (hbox), replace_all_label, FALSE, FALSE, 0);
 
   gtk_container_add (GTK_CONTAINER (replace_all_button), hbox);

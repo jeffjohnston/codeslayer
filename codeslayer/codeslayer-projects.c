@@ -1761,7 +1761,8 @@ create_destination (GFile       *source,
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
       /*gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);*/
 
-      hbox = gtk_hbox_new (FALSE, 0);
+      hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+      gtk_box_set_homogeneous (GTK_BOX (hbox), FALSE);
 
       label = gtk_label_new (_("New Name:"));
       gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 4);

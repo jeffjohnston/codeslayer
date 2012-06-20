@@ -521,18 +521,23 @@ theme_action (GtkTreeView                *treeview,
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
 
   treeselection = gtk_tree_view_get_selection (treeview);
-  if (gtk_tree_selection_get_selected (treeselection, &model, &iter))
+  
+  if (treeselection != NULL)
     {
-      gchar *value = NULL;
-      gtk_tree_model_get (GTK_TREE_MODEL (priv->themes_store), &iter, 
-                          TEXT, &value, -1);
-      codeslayer_preferences_set_string (priv->preferences,
-                                         CODESLAYER_PREFERENCES_EDITOR_THEME,
-                                         value);
-      g_free (value);
-    }
+      if (gtk_tree_selection_get_selected (treeselection, &model, &iter))
+        {
+          gchar *value = NULL;
+          gtk_tree_model_get (GTK_TREE_MODEL (priv->themes_store), &iter, 
+                              TEXT, &value, -1);
+          codeslayer_preferences_set_string (priv->preferences,
+                                             CODESLAYER_PREFERENCES_EDITOR_THEME,
+                                             value);
+          g_free (value);
+        }
 
-  codeslayer_preferences_save (priv->preferences);
-  codeslayer_preferences_utils_notify_editors (priv->preferences);
+      codeslayer_preferences_save (priv->preferences);
+      codeslayer_preferences_utils_notify_editors (priv->preferences);
+    }
+  
   return FALSE;
 }

@@ -144,7 +144,8 @@ codeslayer_search_init (CodeSlayerSearch *search)
   gtk_window_set_skip_pager_hint (GTK_WINDOW (search), TRUE);
   gtk_container_set_border_width (GTK_CONTAINER (search), 3);
   
-  vbox = gtk_vbox_new (FALSE, 0);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
   priv->vbox = vbox;
   
   notebook = gtk_notebook_new ();
@@ -152,7 +153,7 @@ codeslayer_search_init (CodeSlayerSearch *search)
   
   gtk_box_pack_start (GTK_BOX(vbox), notebook, TRUE, TRUE, 2);
   
-  button_box = gtk_hbutton_box_new ();
+  button_box = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
   gtk_button_box_set_layout (GTK_BUTTON_BOX (button_box), GTK_BUTTONBOX_END);
   gtk_container_set_border_width (GTK_CONTAINER (button_box), 4);
   close_button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);

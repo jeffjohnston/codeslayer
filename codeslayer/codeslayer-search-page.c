@@ -516,8 +516,11 @@ add_find_button (CodeSlayerSearchPage *search_page)
   find_image = gtk_image_new_from_stock (GTK_STOCK_FIND, GTK_ICON_SIZE_MENU);
   gtk_misc_set_alignment (GTK_MISC (find_image), 1, .5);
   
-  hbox = gtk_hbox_new (TRUE, 0);
-  container = gtk_hbox_new (FALSE, 0);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (hbox), TRUE);
+
+  container = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (container), FALSE);
 
   gtk_box_pack_start (GTK_BOX (hbox), find_image, FALSE, TRUE, 3);
   gtk_box_pack_start (GTK_BOX (hbox), find_label, FALSE, TRUE, 0);

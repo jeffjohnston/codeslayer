@@ -214,8 +214,12 @@ add_plugins_buttons (CodeSlayerPluginsSelector *plugins_selector)
   GtkWidget *configure_button;
 
   priv = CODESLAYER_PLUGINS_SELECTOR_GET_PRIVATE (plugins_selector);
-  container = gtk_hbox_new (FALSE, 5);
-  hbox = gtk_hbox_new (FALSE, 3);
+  
+  container = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
+  gtk_box_set_homogeneous (GTK_BOX (container), FALSE);
+  
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 3);
+  gtk_box_set_homogeneous (GTK_BOX (hbox), FALSE);
   
   about_button = gtk_button_new_with_label (_("About Plugin"));
   priv->about_button = about_button;

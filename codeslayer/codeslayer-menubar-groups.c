@@ -310,9 +310,11 @@ new_group_action (CodeSlayerMenuBarGroups *menubar_groups)
   gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
   /*gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);*/
 
-  vbox = gtk_vbox_new (FALSE, 5);
-
-  hbox = gtk_hbox_new (FALSE, 0);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
+  gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
+  
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (hbox), FALSE);
 
   label = gtk_label_new (_("Name:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 4);

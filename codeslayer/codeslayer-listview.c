@@ -142,7 +142,8 @@ add_view (CodeSlayerListView *list_view)
   
   priv = CODESLAYER_LIST_VIEW_GET_PRIVATE (list_view);
   
-  vbox = gtk_vbox_new (FALSE, 2);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
+  gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
   
   /* create the tree */  
 

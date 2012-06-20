@@ -315,10 +315,10 @@ create_paned_containers (Context *context)
   gint hpaned_position;
   gint vpaned_position;
 
-  hpaned = gtk_hpaned_new ();
+  hpaned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
   context->hpaned = hpaned;
 
-  vpaned = gtk_vpaned_new ();
+  vpaned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
   context->vpaned = vpaned;
 
   gtk_paned_pack1 (GTK_PANED (hpaned), GTK_WIDGET (context->side_pane), FALSE, FALSE);
@@ -347,7 +347,8 @@ pack_window (Context *context)
 {
   GtkWidget *vbox;
   
-  vbox = gtk_vbox_new (FALSE, 0);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
 
   gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (context->menubar), FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), context->vpaned, TRUE, TRUE, 0);

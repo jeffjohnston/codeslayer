@@ -499,6 +499,8 @@ gboolean
 codeslayer_completion_mouse_within_popup (CodeSlayerCompletion *completion)
 {
   CodeSlayerCompletionPrivate *priv;
+  GdkDeviceManager *device_manager;
+  GdkDevice *pointer;
   GdkWindow *window;
   gint x, y, w, h;
   
@@ -507,8 +509,10 @@ codeslayer_completion_mouse_within_popup (CodeSlayerCompletion *completion)
   if (priv->popup == NULL)
     return FALSE;
     
+  device_manager = gdk_display_get_device_manager (gdk_display_get_default ());
+  pointer = gdk_device_manager_get_client_pointer (device_manager);
   window = gtk_widget_get_window (priv->popup);
-  gdk_window_get_pointer (window, &x, &y, NULL);
+  gdk_window_get_device_position (window, pointer, &x, &y, NULL);
   w = gdk_window_get_width (window);
   h = gdk_window_get_height (window);
   return x > 0 && x <= w && y > 0 && y <= h;

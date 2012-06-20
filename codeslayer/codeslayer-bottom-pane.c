@@ -99,7 +99,8 @@ create_close_button (CodeSlayerBottomPane *bottom_pane)
   GtkWidget *button;
   GtkWidget *image;
     
-  hbox = gtk_hbox_new (FALSE, 0);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (hbox), FALSE);
   
   button = gtk_button_new ();
   image = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);

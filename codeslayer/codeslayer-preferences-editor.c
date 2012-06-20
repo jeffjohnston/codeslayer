@@ -185,7 +185,8 @@ add_right_margin (CodeSlayerPreferencesEditor *preferences_editor)
   content_area = codeslayer_preferences_utils_content_area (GTK_BOX (preferences_editor), 
                                                             _("Right Margin"));
 
-  vbox = gtk_vbox_new (FALSE, 1);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
                                                             
   display_right_margin = gtk_check_button_new_with_label (_("Display right margin"));
   priv->display_right_margin = GTK_CHECK_BUTTON (display_right_margin);
@@ -196,7 +197,8 @@ add_right_margin (CodeSlayerPreferencesEditor *preferences_editor)
   g_signal_connect_swapped (G_OBJECT (display_right_margin), "toggled",
                             G_CALLBACK (display_right_margin_action), preferences_editor);
 
-  hbox = gtk_hbox_new (FALSE, 1);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
+  gtk_box_set_homogeneous (GTK_BOX (hbox), FALSE);
 
   label = gtk_label_new (_("Right margin position: "));
   right_margin_position = gtk_spin_button_new_with_range (0, 160, 1);
@@ -260,9 +262,11 @@ add_tab_stops (CodeSlayerPreferencesEditor *preferences_editor)
   content_area = codeslayer_preferences_utils_content_area (GTK_BOX (preferences_editor), 
                                                             _("Tab Stops"));
                                                             
-  vbox = gtk_vbox_new (FALSE, 1);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
   
-  hbox = gtk_hbox_new (FALSE, 1);                                                         
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
+  gtk_box_set_homogeneous (GTK_BOX (hbox), FALSE);
 
   label = gtk_label_new (_("Tab width: "));
   tab_width = gtk_spin_button_new_with_range (0, 24, 1);

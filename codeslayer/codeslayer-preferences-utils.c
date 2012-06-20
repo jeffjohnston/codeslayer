@@ -29,8 +29,11 @@ codeslayer_preferences_utils_content_area (GtkBox *tab,
   GtkWidget *spacer;
   gchar *full_title;
 
-  vbox = gtk_vbox_new (FALSE, 1);
-  hbox = gtk_hbox_new (FALSE, 0);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
+  
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (hbox), FALSE);
   
   /* set the title */  
   full_title = g_strdup_printf("<b>%s</b>", title);
