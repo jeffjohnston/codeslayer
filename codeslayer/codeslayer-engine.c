@@ -713,9 +713,13 @@ static void
 search_find_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
+  GtkWidget *focused_window;
+
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  if (gtk_widget_get_ancestor (gtk_window_get_focus (priv->window), CODESLAYER_PROJECTS_TYPE))
+  focused_window = gtk_window_get_focus (priv->window);
+  
+  if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
     codeslayer_projects_search_find (CODESLAYER_PROJECTS (priv->projects));
   else 
     codeslayer_notebook_pane_search_find (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));

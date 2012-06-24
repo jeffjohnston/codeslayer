@@ -228,7 +228,7 @@ create_notebook (Context *context)
   notebook = codeslayer_notebook_new (GTK_WINDOW (context->window), context->preferences);
   context->notebook = notebook;
   
-  notebook_search = codeslayer_notebook_search_new (notebook);
+  notebook_search = codeslayer_notebook_search_new (notebook, context->settings);
   notebook_pane = codeslayer_notebook_pane_new ();
   context->notebook_pane = notebook_pane;
   

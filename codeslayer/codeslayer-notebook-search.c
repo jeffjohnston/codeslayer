@@ -41,7 +41,7 @@ static void add_find_entry                         (CodeSlayerNotebookSearch    
 static void add_find_previous_button               (CodeSlayerNotebookSearch      *notebook_search);
 static void add_find_next_button                   (CodeSlayerNotebookSearch      *notebook_search);
 static void add_match_case_button                  (CodeSlayerNotebookSearch      *notebook_search);
-static void add_match_entire_word_button           (CodeSlayerNotebookSearch      *notebook_search);
+static void add_match_word_button           (CodeSlayerNotebookSearch      *notebook_search);
 static void add_replace_entry                      (CodeSlayerNotebookSearch      *notebook_search);
 static void add_replace_button                     (CodeSlayerNotebookSearch      *notebook_search);
 static void add_replace_all_button                 (CodeSlayerNotebookSearch      *notebook_search);
@@ -73,6 +73,7 @@ static void entry_set_text                         (GtkWidget                   
 static gboolean is_active                          (GtkWidget *toggle_button);
 static void search_find                            (CodeSlayerNotebookSearch      *notebook_search);
 static void create_search_marks                    (CodeSlayerNotebookSearch      *notebook_search);
+static void save_search_options                    (CodeSlayerNotebookSearch      *notebook_search);
 
 #define FIND "Find:"
 #define FIND_INCREMENTAL "Find [I]:"
@@ -84,20 +85,21 @@ typedef struct _CodeSlayerNotebookSearchPrivate CodeSlayerNotebookSearchPrivate;
 
 struct _CodeSlayerNotebookSearchPrivate
 {
-  GtkWidget *notebook;
-  GtkWidget *find_label;
-  GtkWidget *find_entry;
-  GtkListStore *find_store;
-  GtkWidget *replace_label;
-  GtkWidget *replace_entry;
-  GtkListStore *replace_store;
-  GtkWidget *replace_button;
-  GtkWidget *replace_all_button;
-  GtkWidget *find_previous_button;  
-  GtkWidget *find_next_button;  
-  GtkWidget *match_case_button;
-  GtkWidget *match_entire_word_button;
-  gboolean incremental;
+  GtkWidget          *notebook;
+  CodeSlayerSettings *settings;
+  GtkWidget          *find_label;
+  GtkWidget          *find_entry;
+  GtkListStore       *find_store;
+  GtkWidget          *replace_label;
+  GtkWidget          *replace_entry;
+  GtkListStore       *replace_store;
+  GtkWidget          *replace_button;
+  GtkWidget          *replace_all_button;
+  GtkWidget          *find_previous_button;  
+  GtkWidget          *find_next_button;  
+  GtkWidget          *match_case_button;
+  GtkWidget          *match_word_button;
+  gboolean            incremental;
 };
 
 enum
@@ -145,16 +147,6 @@ codeslayer_notebook_search_init (CodeSlayerNotebookSearch *notebook_search)
 {
   gtk_table_set_homogeneous (GTK_TABLE (notebook_search), FALSE);
   gtk_table_resize (GTK_TABLE (notebook_search), 2, 7);
-
-  add_close_button (notebook_search);
-  add_find_entry (notebook_search);
-  add_find_previous_button (notebook_search);
-  add_find_next_button (notebook_search);
-  add_match_case_button (notebook_search);
-  add_match_entire_word_button (notebook_search);
-  add_replace_entry (notebook_search);
-  add_replace_button (notebook_search);
-  add_replace_all_button (notebook_search);
 }
 
 static void
@@ -172,7 +164,8 @@ codeslayer_notebook_search_finalize (CodeSlayerNotebookSearch *notebook_search)
  * Returns: a new #CodeSlayerNotebookSearch. 
  */
 GtkWidget*
-codeslayer_notebook_search_new (GtkWidget *notebook)
+codeslayer_notebook_search_new (GtkWidget          *notebook, 
+                                CodeSlayerSettings *settings)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *notebook_search;
@@ -181,6 +174,17 @@ codeslayer_notebook_search_new (GtkWidget *notebook)
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   priv->notebook = notebook;
   priv->incremental = FALSE;
+  priv->settings = settings;
+  
+  add_close_button (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
+  add_find_entry (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
+  add_find_previous_button (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
+  add_find_next_button (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
+  add_match_case_button (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
+  add_match_word_button (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
+  add_replace_entry (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
+  add_replace_button (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
+  add_replace_all_button (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
   
   return notebook_search;
 }
@@ -453,41 +457,54 @@ add_match_case_button (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *match_case_button;
+  gboolean match_case_selected;
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
   match_case_button = gtk_check_button_new_with_label (_("Match Case"));
   gtk_widget_set_can_focus (match_case_button, FALSE);
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_case_button), TRUE);
   priv->match_case_button = match_case_button;
+  
+  match_case_selected = codeslayer_settings_get_boolean (priv->settings,
+                                                         CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_case_button), match_case_selected);
 
   g_signal_connect_swapped (G_OBJECT (match_case_button), "clicked",
-                            G_CALLBACK (create_search_marks), 
-                            notebook_search);
+                            G_CALLBACK (create_search_marks), notebook_search);
+
+  g_signal_connect_swapped (G_OBJECT (match_case_button), "clicked",
+                            G_CALLBACK (save_search_options), notebook_search);
 
   gtk_table_attach (GTK_TABLE (notebook_search), match_case_button, 
                     5, 6, 0, 1, GTK_SHRINK, GTK_SHRINK, 4, 0);
 }
 
 static void
-add_match_entire_word_button (CodeSlayerNotebookSearch *notebook_search)
+add_match_word_button (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
-  GtkWidget *match_entire_word_button;
+  GtkWidget *match_word_button;
+  gboolean match_word_selected;
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
-  match_entire_word_button = gtk_check_button_new_with_label (_("Match Word"));
-  gtk_widget_set_can_focus (match_entire_word_button, FALSE);
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_entire_word_button), 
+  match_word_button = gtk_check_button_new_with_label (_("Match Word"));
+  gtk_widget_set_can_focus (match_word_button, FALSE);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_word_button), 
                                                 TRUE);
-  priv->match_entire_word_button = match_entire_word_button;
+  priv->match_word_button = match_word_button;
+  
+  match_word_selected = codeslayer_settings_get_boolean (priv->settings,
+                                                         CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_word_button), match_word_selected);
 
-  g_signal_connect_swapped (G_OBJECT (match_entire_word_button), "clicked",
-                            G_CALLBACK (create_search_marks), 
-                            notebook_search);
+  g_signal_connect_swapped (G_OBJECT (match_word_button), "clicked",
+                            G_CALLBACK (create_search_marks), notebook_search);
 
-  gtk_table_attach (GTK_TABLE (notebook_search), match_entire_word_button, 
+  g_signal_connect_swapped (G_OBJECT (match_word_button), "clicked",
+                            G_CALLBACK (save_search_options), notebook_search);
+
+  gtk_table_attach (GTK_TABLE (notebook_search), match_word_button, 
                     6, 7, 0, 1, GTK_SHRINK, GTK_SHRINK, 4, 0);
 }
 
@@ -618,7 +635,7 @@ codeslayer_notebook_search_sync_with_notebook (CodeSlayerNotebookSearch *noteboo
   gtk_widget_set_sensitive (priv->replace_button, sensitive);
   gtk_widget_set_sensitive (priv->replace_all_button, sensitive);
   gtk_widget_set_sensitive (priv->match_case_button, sensitive);
-  gtk_widget_set_sensitive (priv->match_entire_word_button, sensitive);
+  gtk_widget_set_sensitive (priv->match_word_button, sensitive);
 }
 
 static void
@@ -734,6 +751,29 @@ codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebo
     
   if (find)
     g_free (find);
+}
+
+static void
+save_search_options (CodeSlayerNotebookSearch *notebook_search)
+{
+  CodeSlayerNotebookSearchPrivate *priv;
+  gboolean match_case_selected;
+  gboolean match_word_selected;
+  
+  priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+  
+  match_case_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_button));
+  match_word_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_button));
+  
+  codeslayer_settings_set_boolean (priv->settings, 
+                                   CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE,
+                                   match_case_selected);
+
+  codeslayer_settings_set_boolean (priv->settings, 
+                                   CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD,
+                                   match_word_selected);
+
+  codeslayer_settings_save (priv->settings);
 }
 
 static void
@@ -1005,7 +1045,7 @@ backward_search (const gchar *find,
                                               GTK_TEXT_SEARCH_CASE_INSENSITIVE,
                                               begin, end, NULL);
 
-  if (result && is_active (priv->match_entire_word_button))
+  if (result && is_active (priv->match_word_button))
     {
       if (!(gtk_text_iter_starts_word (begin) && 
              gtk_text_iter_ends_word (end)))
@@ -1037,7 +1077,7 @@ forward_search (const gchar              *find,
                                              GTK_TEXT_SEARCH_CASE_INSENSITIVE,
                                              begin, end, NULL);
 
-  if (result && is_active (priv->match_entire_word_button))
+  if (result && is_active (priv->match_word_button))
     {
       if (!(gtk_text_iter_starts_word (begin) && gtk_text_iter_ends_word (end)))
         {
