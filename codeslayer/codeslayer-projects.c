@@ -2332,6 +2332,7 @@ show_popup_menu (CodeSlayerProjects *projects,
 
   if (event->type == GDK_BUTTON_PRESS && event->button == 3)
     {
+      GtkTreeSelection *tree_selection;
       GList *items;
       GList *tmp;
 
@@ -2341,6 +2342,23 @@ show_popup_menu (CodeSlayerProjects *projects,
         gtk_widget_set_sensitive (priv->paste_item, FALSE);
       else
         gtk_widget_set_sensitive (priv->paste_item, TRUE);
+
+      tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->treeview));
+      if (gtk_tree_selection_count_selected_rows (tree_selection) <= 1)
+        {
+          GtkTreePath *path;
+
+          /* Get tree path for row that was clicked */
+          if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (priv->treeview),
+                                            (gint) event->x, 
+                                            (gint) event->y,
+                                            &path, NULL, NULL, NULL))
+            {
+              gtk_tree_selection_unselect_all (tree_selection);
+              gtk_tree_selection_select_path (tree_selection, path);
+              gtk_tree_path_free (path);
+            }
+        }
 
       items = get_showable_popup_items (projects);
       tmp = items;

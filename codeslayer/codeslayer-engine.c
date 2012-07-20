@@ -846,8 +846,6 @@ close_search_action (CodeSlayerEngine *engine,
   codeslayer_settings_set_integer (priv->settings,
                                    CODESLAYER_SETTINGS_SEARCH_Y, y);
 
-  codeslayer_settings_save (priv->settings);
-  
   gtk_widget_hide (priv->search);
 
   return TRUE;
