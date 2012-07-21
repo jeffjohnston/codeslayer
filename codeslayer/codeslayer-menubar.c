@@ -634,7 +634,8 @@ codeslayer_menubar_finalize (CodeSlayerMenuBar *menu)
 GtkWidget*
 codeslayer_menubar_new (GtkWidget             *window,
                         CodeSlayerGroups      *groups, 
-                        CodeSlayerPreferences *preferences)
+                        CodeSlayerPreferences *preferences, 
+                        CodeSlayerSettings    *settings)
 {
   CodeSlayerMenuBarPrivate *priv;
   GtkWidget *menu;
@@ -664,7 +665,7 @@ codeslayer_menubar_new (GtkWidget             *window,
   menubar_search = codeslayer_menubar_search_new (menu, accel_group);
   priv->menubar_search = menubar_search;
 
-  menubar_view = codeslayer_menubar_view_new (menu, accel_group);
+  menubar_view = codeslayer_menubar_view_new (menu, accel_group, settings);
   priv->menubar_view = menubar_view;
 
   menubar_groups = codeslayer_menubar_groups_new (window, menu, accel_group, groups);

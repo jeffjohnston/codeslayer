@@ -974,20 +974,20 @@ draw_spaces_action (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  draw_spaces = codeslayer_preferences_get_boolean (priv->preferences, 
-                                                    CODESLAYER_PREFERENCES_EDITOR_DRAW_SPACES);
+  draw_spaces = codeslayer_settings_get_boolean (priv->settings, 
+                                                 CODESLAYER_SETTINGS_DRAW_SPACES);
   if (draw_spaces)
     {
-      codeslayer_preferences_set_boolean (priv->preferences, 
-                                          CODESLAYER_PREFERENCES_EDITOR_DRAW_SPACES,
-                                          FALSE);
+      codeslayer_settings_set_boolean (priv->settings, 
+                                       CODESLAYER_SETTINGS_DRAW_SPACES,
+                                       FALSE);
       editor_preferences_changed_action (engine);
     }
   else
     {
-      codeslayer_preferences_set_boolean (priv->preferences, 
-                                          CODESLAYER_PREFERENCES_EDITOR_DRAW_SPACES,
-                                          TRUE);
+      codeslayer_settings_set_boolean (priv->settings, 
+                                       CODESLAYER_SETTINGS_DRAW_SPACES,
+                                       TRUE);
       editor_preferences_changed_action (engine);
     }
 }

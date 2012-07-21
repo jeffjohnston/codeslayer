@@ -292,6 +292,9 @@ set_defaults (CodeSlayerSettings *settings)
   codeslayer_settings_set_boolean (settings,
                                    CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
                                    FALSE);
+  codeslayer_settings_set_boolean (settings,
+                                   CODESLAYER_SETTINGS_DRAW_SPACES,
+                                   FALSE);
   codeslayer_settings_save (settings);
 }
 

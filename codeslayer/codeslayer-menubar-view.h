@@ -20,6 +20,7 @@
 #define	__CODESLAYER_MENUBAR_VIEW_H__
 
 #include <gtk/gtk.h>
+#include <codeslayer/codeslayer-settings.h>
 
 G_BEGIN_DECLS
 
@@ -45,7 +46,8 @@ struct _CodeSlayerMenuBarViewClass
 GType codeslayer_menubar_view_get_type (void) G_GNUC_CONST;
   
 GtkWidget*  codeslayer_menubar_view_new              (GtkWidget             *menubar, 
-                                                      GtkAccelGroup         *accel_group);
+                                                      GtkAccelGroup         *accel_group,
+                                                      CodeSlayerSettings    *settings);
                                                      
 void        codeslayer_menubar_view_sync_with_panes  (CodeSlayerMenuBarView *menubar_view, 
                                                       gboolean               show_side_pane, 

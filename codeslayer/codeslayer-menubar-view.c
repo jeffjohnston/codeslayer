@@ -31,7 +31,8 @@ static void codeslayer_menubar_view_class_init  (CodeSlayerMenuBarViewClass *kla
 static void codeslayer_menubar_view_init        (CodeSlayerMenuBarView      *menubar_view);
 static void codeslayer_menubar_view_finalize    (CodeSlayerMenuBarView      *menubar_view);
 
-static void add_menu_items                      (CodeSlayerMenuBarView      *menubar_view);
+static void add_menu_items                      (CodeSlayerMenuBarView      *menubar_view, 
+                                                 CodeSlayerSettings         *settings);
 
 static void fullscreen_window_action            (CodeSlayerMenuBarView      *menubar_view);
 static void show_side_pane_action               (CodeSlayerMenuBarView      *menubar_view);
@@ -45,15 +46,15 @@ typedef struct _CodeSlayerMenuBarViewPrivate CodeSlayerMenuBarViewPrivate;
 
 struct _CodeSlayerMenuBarViewPrivate
 {
-  GtkAccelGroup *accel_group;
-  GtkWidget     *menubar;
-  GtkWidget     *menu;
-  GtkWidget     *fullscreen_window_item;
-  GtkWidget     *draw_spaces_item;
-  GtkWidget     *show_side_pane_item;
-  GtkWidget     *show_bottom_pane_item;
-  gulong         show_side_pane_id;
-  gulong         show_bottom_pane_id;
+  GtkAccelGroup      *accel_group;
+  GtkWidget          *menubar;
+  GtkWidget          *menu;
+  GtkWidget          *fullscreen_window_item;
+  GtkWidget          *draw_spaces_item;
+  GtkWidget          *show_side_pane_item;
+  GtkWidget          *show_bottom_pane_item;
+  gulong              show_side_pane_id;
+  gulong              show_bottom_pane_id;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarView, codeslayer_menubar_view, GTK_TYPE_MENU_ITEM)
@@ -96,8 +97,9 @@ codeslayer_menubar_view_finalize (CodeSlayerMenuBarView *menubar_view)
  * Returns: a new #CodeSlayerMenuBarView. 
  */
 GtkWidget*
-codeslayer_menubar_view_new (GtkWidget     *menubar, 
-                             GtkAccelGroup *accel_group)
+codeslayer_menubar_view_new (GtkWidget          *menubar, 
+                             GtkAccelGroup      *accel_group, 
+                             CodeSlayerSettings *settings)
 {
   CodeSlayerMenuBarViewPrivate *priv;
   GtkWidget *menubar_view;
@@ -108,13 +110,14 @@ codeslayer_menubar_view_new (GtkWidget     *menubar,
   priv->menubar = menubar;
   priv->accel_group = accel_group;
 
-  add_menu_items (CODESLAYER_MENUBAR_VIEW (menubar_view));
+  add_menu_items (CODESLAYER_MENUBAR_VIEW (menubar_view), settings);
 
   return menubar_view;
 }
 
 static void
-add_menu_items (CodeSlayerMenuBarView *menubar_view)
+add_menu_items (CodeSlayerMenuBarView *menubar_view, 
+                CodeSlayerSettings    *settings)
 {
   CodeSlayerMenuBarViewPrivate *priv;
   GtkWidget *fullscreen_window_item;
@@ -145,6 +148,9 @@ add_menu_items (CodeSlayerMenuBarView *menubar_view)
   draw_spaces_item = gtk_check_menu_item_new_with_label (_("Draw Spaces"));
   priv->draw_spaces_item = draw_spaces_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), draw_spaces_item);
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->draw_spaces_item),
+                                  codeslayer_settings_get_boolean (settings, 
+                                                                   CODESLAYER_SETTINGS_DRAW_SPACES));
 
   g_signal_connect_swapped (G_OBJECT (fullscreen_window_item), "activate",
                             G_CALLBACK (fullscreen_window_action), menubar_view);

@@ -453,9 +453,6 @@ set_defaults (CodeSlayerPreferences *preferences)
   codeslayer_preferences_set_string (preferences,
                                      CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION,
                                      "left");
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_DRAW_SPACES,
-                                      FALSE);
   codeslayer_preferences_set_string (preferences,
                                      CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS,
                                      ".csv,.git,.svn");

@@ -225,7 +225,7 @@ create_notebook (Context *context)
   GtkWidget *notebook_search;
   GtkWidget *notebook_pane;
 
-  notebook = codeslayer_notebook_new (GTK_WINDOW (context->window), context->preferences);
+  notebook = codeslayer_notebook_new (GTK_WINDOW (context->window), context->preferences, context->settings);
   context->notebook = notebook;
   
   notebook_search = codeslayer_notebook_search_new (notebook, context->settings);
@@ -274,7 +274,7 @@ static void
 create_menu (Context *context)
 {
   GtkWidget *menubar;
-  menubar = codeslayer_menubar_new (context->window, context->groups, context->preferences);
+  menubar = codeslayer_menubar_new (context->window, context->groups, context->preferences, context->settings);
   context->menubar = menubar;
   
   g_signal_connect_swapped (G_OBJECT (menubar), "quit-application",

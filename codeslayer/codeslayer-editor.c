@@ -69,6 +69,7 @@ struct _CodeSlayerEditorPrivate
   GtkWindow             *window;
   CodeSlayerDocument    *document;
   CodeSlayerPreferences *preferences;
+  CodeSlayerSettings    *settings;
   CodeSlayerCompletion  *completion;
 };
 
@@ -208,7 +209,8 @@ codeslayer_editor_finalize (CodeSlayerEditor *editor)
 GtkWidget*
 codeslayer_editor_new (GtkWindow             *window, 
                        CodeSlayerDocument    *document,
-                       CodeSlayerPreferences *preferences)
+                       CodeSlayerPreferences *preferences,
+                       CodeSlayerSettings    *settings)
 {
   CodeSlayerEditorPrivate *priv;
   GtkWidget *editor;
@@ -220,6 +222,7 @@ codeslayer_editor_new (GtkWindow             *window,
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   priv->document = document;
   priv->preferences = preferences;
+  priv->settings = settings;
   priv->window = window;
   
   file_path = codeslayer_document_get_file_path (document);
@@ -656,8 +659,8 @@ codeslayer_editor_sync_preferences (CodeSlayerEditor *editor)
   gtk_source_view_set_indent_on_tab (GTK_SOURCE_VIEW (editor),
                                      enable_automatic_indentation);
 
-  draw_spaces = codeslayer_preferences_get_boolean (priv->preferences,
-                                                    CODESLAYER_PREFERENCES_EDITOR_DRAW_SPACES);
+  draw_spaces = codeslayer_settings_get_boolean (priv->settings,
+                                                 CODESLAYER_SETTINGS_DRAW_SPACES);
   if (draw_spaces)
     gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW (editor), GTK_SOURCE_DRAW_SPACES_ALL);
   else

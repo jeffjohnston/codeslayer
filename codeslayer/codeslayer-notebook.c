@@ -63,6 +63,7 @@ struct _CodeSlayerNotebookPrivate
 {
   GtkWindow             *window;
   CodeSlayerPreferences *preferences;
+  CodeSlayerSettings    *settings;
 };
 
 enum
@@ -135,13 +136,15 @@ codeslayer_notebook_finalize (CodeSlayerNotebook *notebook)
  */
 GtkWidget*
 codeslayer_notebook_new (GtkWindow             *window, 
-                         CodeSlayerPreferences *preferences)
+                         CodeSlayerPreferences *preferences,
+                         CodeSlayerSettings    *settings)
 {
   CodeSlayerNotebookPrivate *priv;
   GtkWidget *notebook;
   notebook = g_object_new (codeslayer_notebook_get_type (), NULL);
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
   priv->preferences = preferences;
+  priv->settings = settings;
   priv->window = window;
   
   g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
@@ -186,7 +189,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   file_path = codeslayer_document_get_file_path (document);
   file_name = g_path_get_basename (file_path);
 
-  editor = codeslayer_editor_new (priv->window, document, priv->preferences);
+  editor = codeslayer_editor_new (priv->window, document, priv->preferences, priv->settings);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
 
   contents = get_utf8_text (file_path);
