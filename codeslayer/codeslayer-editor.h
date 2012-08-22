@@ -65,6 +65,7 @@ void                 codeslayer_editor_sync_preferences         (CodeSlayerEdito
 CodeSlayerDocument*  codeslayer_editor_get_document             (CodeSlayerEditor             *editor);
 void                 codeslayer_editor_add_completion_provider  (CodeSlayerEditor             *editor, 
                                                                  CodeSlayerCompletionProvider *provider);
+const gchar*         codeslayer_editor_get_file_path            (CodeSlayerEditor             *editor);
 
 G_END_DECLS
 

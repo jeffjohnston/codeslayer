@@ -659,6 +659,30 @@ codeslayer_get_active_group_folder_path (CodeSlayer *codeslayer)
 }
 
 /**
+ * codeslayer_get_active_editor_file_path:
+ * @codeslayer: a #CodeSlayer.
+ *
+ * The file path for the active editor.
+ *
+ * Returns: a string that is owned by the editor and should not be freed.
+ */
+const gchar*
+codeslayer_get_active_editor_file_path (CodeSlayer *codeslayer)
+{
+  CodeSlayerEditor *editor;
+  CodeSlayerDocument *document;
+  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
+  
+  editor = codeslayer_get_active_editor (codeslayer);
+  
+  if (editor == NULL)
+    return NULL;
+  
+  document = codeslayer_editor_get_document (editor);
+  return codeslayer_document_get_file_path (document);;
+}
+
+/**
  * codeslayer_get_configuration_folder_path:
  * @codeslayer: a #CodeSlayer.
  *

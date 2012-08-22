@@ -268,6 +268,22 @@ codeslayer_editor_get_document (CodeSlayerEditor *editor)
 }
 
 /**
+ * codeslayer_editor_get_file_path:
+ * @editor: a #CodeSlayerEditor  
+ *
+ * The file path for the editors document.
+ *
+ * Returns: a string that is owned by the editor and should not be freed.
+ */
+const gchar*
+codeslayer_editor_get_file_path (CodeSlayerEditor *editor)
+{
+  CodeSlayerEditorPrivate *priv;
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+  return codeslayer_document_get_file_path (priv->document);
+}
+
+/**
  * codeslayer_editor_add_completion_provider:
  * @editor: a #CodeSlayerEditor  
  * @provider: a #CodeSlayerCompletionProvider.

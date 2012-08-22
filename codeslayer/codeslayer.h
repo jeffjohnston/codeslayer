@@ -139,6 +139,8 @@ CodeSlayerGroup*          codeslayer_get_active_group                (CodeSlayer
 
 gchar*                    codeslayer_get_active_group_folder_path    (CodeSlayer                  *codeslayer);
 
+const gchar*              codeslayer_get_active_editor_file_path     (CodeSlayer                  *codeslayer);
+
 gchar*                    codeslayer_get_configuration_folder_path   (CodeSlayer                  *codeslayer);
 
 CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer                  *codeslayer, 
