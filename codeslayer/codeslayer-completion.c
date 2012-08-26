@@ -534,7 +534,7 @@ create_window (CodeSlayerCompletion *completion)
   gtk_window_set_destroy_with_parent (GTK_WINDOW (priv->popup), TRUE); 
   gtk_window_set_type_hint (GTK_WINDOW (priv->popup), GDK_WINDOW_TYPE_HINT_MENU);
   
-  priv->store = gtk_list_store_new (COLUMNS, G_TYPE_STRING);
+  priv->store = gtk_list_store_new (COLUMNS, G_TYPE_STRING, G_TYPE_POINTER);
   priv->tree =  gtk_tree_view_new ();
   gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->tree), FALSE);
   gtk_tree_view_set_enable_search (GTK_TREE_VIEW (priv->tree), FALSE);
