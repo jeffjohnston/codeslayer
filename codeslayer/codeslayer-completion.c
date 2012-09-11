@@ -239,7 +239,7 @@ codeslayer_completion_show (CodeSlayerCompletion *completion,
           if (priv->popup == NULL)
             create_window (completion);
             
-          add_model_proposals (completion, NULL, NULL);
+          add_model_proposals (completion, text_view, &iter);
           gtk_widget_set_visible (priv->popup, FALSE);
           resize_window (completion, text_view, iter);
           move_window (completion, text_view, iter);
