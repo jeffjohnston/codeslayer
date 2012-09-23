@@ -1165,7 +1165,6 @@ create_project_properties_dialog (CodeSlayerProjects *projects)
                                         
   content_area = gtk_dialog_get_content_area (GTK_DIALOG (properties_dialog));
   gtk_dialog_set_default_response (GTK_DIALOG (properties_dialog), GTK_RESPONSE_OK);
-  /*gtk_dialog_set_has_separator (GTK_DIALOG (properties_dialog), FALSE);*/
   priv->properties_dialog = properties_dialog;
   
   gtk_container_add (GTK_CONTAINER (content_area), priv->project_properties);

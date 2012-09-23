@@ -73,7 +73,8 @@ struct _CodeSlayerClass
 
 GType codeslayer_get_type (void) G_GNUC_CONST;
   
-CodeSlayer*               codeslayer_new                             (CodeSlayerPreferences       *preferences, 
+CodeSlayer*               codeslayer_new                             (GtkWindow                   *window,
+                                                                      CodeSlayerPreferences       *preferences, 
                                                                       CodeSlayerMenuBar           *menubar,
                                                                       CodeSlayerNotebook          *notebook,
                                                                       CodeSlayerProjects          *projects,
@@ -147,6 +148,8 @@ CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer
                                                                       const gchar                 *file_path);
 
 CodeSlayerPreferences*    codeslayer_get_preferences                 (CodeSlayer                  *codeslayer);
+
+GtkWindow*                codeslayer_get_toplevel_window             (CodeSlayer                  *codeslayer);
 
 G_END_DECLS
 

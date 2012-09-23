@@ -294,7 +294,8 @@ load_plugins (Context *context)
 {
   CodeSlayer *codeslayer;
   
-  codeslayer = codeslayer_new (CODESLAYER_PREFERENCES (context->preferences), 
+  codeslayer = codeslayer_new (GTK_WINDOW (context->window), 
+                               CODESLAYER_PREFERENCES (context->preferences), 
                                CODESLAYER_MENUBAR (context->menubar), 
                                CODESLAYER_NOTEBOOK (context->notebook), 
                                CODESLAYER_PROJECTS (context->projects), 

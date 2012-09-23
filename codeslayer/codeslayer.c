@@ -61,6 +61,7 @@ typedef struct _CodeSlayerPrivate CodeSlayerPrivate;
 
 struct _CodeSlayerPrivate
 {
+  GtkWindow                   *window;
   CodeSlayerPreferences       *preferences;
   CodeSlayerMenuBar           *menubar;
   CodeSlayerNotebook          *notebook;
@@ -209,7 +210,8 @@ codeslayer_finalize (CodeSlayer *codeslayer)
 }
 
 CodeSlayer*
-codeslayer_new (CodeSlayerPreferences       *preferences, 
+codeslayer_new (GtkWindow                   *window,
+                CodeSlayerPreferences       *preferences, 
                 CodeSlayerMenuBar           *menubar,
                 CodeSlayerNotebook          *notebook,
                 CodeSlayerProjects          *projects, 
@@ -222,6 +224,7 @@ codeslayer_new (CodeSlayerPreferences       *preferences,
   CodeSlayer *codeslayer;
   codeslayer = CODESLAYER (g_object_new (codeslayer_get_type (), NULL));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
+  priv->window = window;
   priv->preferences = preferences;
   priv->menubar = menubar;
   priv->notebook = notebook;
@@ -750,6 +753,20 @@ codeslayer_get_preferences (CodeSlayer *codeslayer)
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   return priv->preferences;
+}
+
+/**
+ * codeslayer_get_toplevel_window:
+ * @codeslayer: a #CodeSlayer.
+ *
+ * Returns: The outer most #GtkWindow that codeslayer uses.
+ */
+GtkWindow*
+codeslayer_get_toplevel_window (CodeSlayer *codeslayer)
+{
+  CodeSlayerPrivate *priv;
+  priv = CODESLAYER_GET_PRIVATE (codeslayer);
+  return priv->window;
 }
 
 static void
