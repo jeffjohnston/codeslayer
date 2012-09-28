@@ -24,6 +24,7 @@
 #include <codeslayer/codeslayer-groups.h>
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-processes.h>
 #include <codeslayer/codeslayer-plugins.h>
 
 G_BEGIN_DECLS
@@ -53,6 +54,7 @@ CodeSlayerEngine*  codeslayer_engine_new                 (GtkWindow             
                                                           CodeSlayerSettings    *settings,
                                                           CodeSlayerPreferences  *preferences,
                                                           CodeSlayerPlugins      *plugins,
+                                                          CodeSlayerProcesses    *processes,
                                                           CodeSlayerGroups       *groups,
                                                           GtkWidget              *projects,
                                                           GtkWidget              *menubar,

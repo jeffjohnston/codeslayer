@@ -36,6 +36,7 @@
 #include <codeslayer/codeslayer-completion.h>
 #include <codeslayer/codeslayer-completion-provider.h>
 #include <codeslayer/codeslayer-completion-proposal.h>
+#include <codeslayer/codeslayer-processes.h>
 #include <codeslayer/codeslayer-preferences.h>
 
 G_BEGIN_DECLS
@@ -75,6 +76,7 @@ GType codeslayer_get_type (void) G_GNUC_CONST;
   
 CodeSlayer*               codeslayer_new                             (GtkWindow                   *window,
                                                                       CodeSlayerPreferences       *preferences, 
+                                                                      CodeSlayerProcesses         *processes, 
                                                                       CodeSlayerMenuBar           *menubar,
                                                                       CodeSlayerNotebook          *notebook,
                                                                       CodeSlayerProjects          *projects,
@@ -150,6 +152,9 @@ CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer
 CodeSlayerPreferences*    codeslayer_get_preferences                 (CodeSlayer                  *codeslayer);
 
 GtkWindow*                codeslayer_get_toplevel_window             (CodeSlayer                  *codeslayer);
+void                      codeslayer_add_to_processes                (CodeSlayer                  *codeslayer,                                                                           
+                                                                      GThread                     *thread, 
+                                                                      gchar                       *name);
 
 G_END_DECLS
 

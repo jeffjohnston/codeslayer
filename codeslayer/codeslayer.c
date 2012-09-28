@@ -63,6 +63,7 @@ struct _CodeSlayerPrivate
 {
   GtkWindow                   *window;
   CodeSlayerPreferences       *preferences;
+  CodeSlayerProcesses         *processes;
   CodeSlayerMenuBar           *menubar;
   CodeSlayerNotebook          *notebook;
   CodeSlayerProjects          *projects;
@@ -212,6 +213,7 @@ codeslayer_finalize (CodeSlayer *codeslayer)
 CodeSlayer*
 codeslayer_new (GtkWindow                   *window,
                 CodeSlayerPreferences       *preferences, 
+                CodeSlayerProcesses         *processes, 
                 CodeSlayerMenuBar           *menubar,
                 CodeSlayerNotebook          *notebook,
                 CodeSlayerProjects          *projects, 
@@ -226,6 +228,7 @@ codeslayer_new (GtkWindow                   *window,
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   priv->window = window;
   priv->preferences = preferences;
+  priv->processes = processes;
   priv->menubar = menubar;
   priv->notebook = notebook;
   priv->projects = projects;
@@ -768,6 +771,26 @@ codeslayer_get_toplevel_window (CodeSlayer *codeslayer)
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   return priv->window;
 }
+
+/**
+ * codeslayer_add_to_processes:
+ * @codeslayer: a #CodeSlayer.
+ * @thread: a #GThread.
+ * @name: the name to display in the GUI.
+ *
+ * Add the thread to the list of processes. This thread will display by the 
+ * name you provide. By passing the thread to CodeSlayer it will show up in 
+ * the processes tab, and will allow users to stop threads that are running.
+ */
+void
+codeslayer_add_to_processes (CodeSlayer *codeslayer,                                                                           
+                             GThread    *thread, 
+                             gchar      *name)
+{
+  CodeSlayerPrivate *priv;
+  priv = CODESLAYER_GET_PRIVATE (codeslayer);
+  codeslayer_processes_add (priv->processes, thread, name);
+}                             
 
 static void
 editor_saved_action (CodeSlayer       *codeslayer,

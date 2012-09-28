@@ -18,6 +18,7 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-engine.h>
+#include <codeslayer/codeslayer-processes.h>
 #include <codeslayer/codeslayer-abstract-pane.h>
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
@@ -47,6 +48,7 @@ typedef struct
   GtkWidget *project_properties;
   GtkWidget *menubar;
   CodeSlayerEngine *engine;
+  CodeSlayerProcesses *processes;
   CodeSlayer *codeslayer;
   GtkWidget *notebook;
   CodeSlayerGroups *groups;
@@ -70,6 +72,7 @@ static void create_projects                  (Context     *context);
 static void create_project_properties        (Context     *context);
 static void create_side_and_bottom_pane      (Context     *context);
 static void create_notebook                  (Context     *context);
+static void create_processes                 (Context     *context);
 static void create_engine                    (Context     *context);
 static void load_plugins                     (Context     *context);
 static void create_paned_containers          (Context     *context);
@@ -130,6 +133,8 @@ main (int   argc,
   create_projects (&context);
 
   create_side_and_bottom_pane (&context);
+  
+  create_processes (&context);
   
   create_engine (&context);
 
@@ -253,6 +258,14 @@ create_side_and_bottom_pane (Context *context)
 }
 
 static void 
+create_processes (Context *context)
+{
+  CodeSlayerProcesses *processes;  
+  processes = codeslayer_processes_new ();
+  context->processes = processes;
+}  
+
+static void 
 create_engine (Context *context)
 {
   CodeSlayerEngine *engine;
@@ -261,7 +274,8 @@ create_engine (Context *context)
                                   context->settings, 
                                   context->preferences, 
                                   context->plugins, 
-                                  context->groups,
+                                  context->processes,
+                                  context->groups, 
                                   context->projects, 
                                   context->menubar, 
                                   context->notebook_pane, 
@@ -296,6 +310,7 @@ load_plugins (Context *context)
   
   codeslayer = codeslayer_new (GTK_WINDOW (context->window), 
                                CODESLAYER_PREFERENCES (context->preferences), 
+                               context->processes,
                                CODESLAYER_MENUBAR (context->menubar), 
                                CODESLAYER_NOTEBOOK (context->notebook), 
                                CODESLAYER_PROJECTS (context->projects), 

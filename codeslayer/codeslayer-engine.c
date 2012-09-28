@@ -76,6 +76,7 @@ static void close_side_pane_action             (CodeSlayerEngine       *engine);
 static void toggle_bottom_pane_action          (CodeSlayerEngine       *engine);
 static void open_bottom_pane_action            (CodeSlayerEngine       *engine);
 static void close_bottom_pane_action           (CodeSlayerEngine       *engine);
+static void show_processes_action              (CodeSlayerEngine       *engine);
 static void draw_spaces_action                 (CodeSlayerEngine       *engine);
 static void sync_projects_with_editor_action   (CodeSlayerEngine       *engine, 
                                                 gboolean                sync_projects_with_editor);
@@ -118,6 +119,7 @@ struct _CodeSlayerEnginePrivate
   CodeSlayerSettings    *settings;
   CodeSlayerPreferences *preferences;
   CodeSlayerPlugins     *plugins;
+  CodeSlayerProcesses   *processes;
   GtkWidget             *search;
   GtkWidget             *projects;
   GtkWidget             *menubar;
@@ -172,6 +174,7 @@ codeslayer_engine_new (GtkWindow             *window,
                        CodeSlayerSettings    *settings,
                        CodeSlayerPreferences *preferences,
                        CodeSlayerPlugins     *plugins,
+                       CodeSlayerProcesses   *processes,
                        CodeSlayerGroups      *groups,
                        GtkWidget             *projects, 
                        GtkWidget             *menubar,
@@ -189,6 +192,7 @@ codeslayer_engine_new (GtkWindow             *window,
   priv->settings = settings;
   priv->preferences = preferences;
   priv->plugins = plugins;
+  priv->processes = processes;
   priv->groups = groups;
   priv->projects = projects;
   priv->menubar = menubar;
@@ -263,6 +267,9 @@ codeslayer_engine_new (GtkWindow             *window,
   
   g_signal_connect_swapped (G_OBJECT (bottom_pane), "close-pane",
                             G_CALLBACK (close_bottom_pane_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (menubar), "show-processes",
+                            G_CALLBACK (show_processes_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (menubar), "draw-spaces",
                             G_CALLBACK (draw_spaces_action), engine);
@@ -964,6 +971,12 @@ close_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_settings_set_boolean (priv->settings, 
                                    CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
                                    FALSE);
+}
+
+static void
+show_processes_action (CodeSlayerEngine *engine)
+{
+  g_print ("show_processes_action");
 }
 
 static void

@@ -37,6 +37,7 @@ static void add_menu_items                      (CodeSlayerMenuBarView      *men
 static void fullscreen_window_action            (CodeSlayerMenuBarView      *menubar_view);
 static void show_side_pane_action               (CodeSlayerMenuBarView      *menubar_view);
 static void show_bottom_pane_action             (CodeSlayerMenuBarView      *menubar_view);
+static void show_processes_action               (CodeSlayerMenuBarView      *menubar_view);
 static void draw_spaces_action                  (CodeSlayerMenuBarView      *menubar_view);
 
 #define CODESLAYER_MENUBAR_VIEW_GET_PRIVATE(obj) \
@@ -53,6 +54,7 @@ struct _CodeSlayerMenuBarViewPrivate
   GtkWidget          *draw_spaces_item;
   GtkWidget          *show_side_pane_item;
   GtkWidget          *show_bottom_pane_item;
+  GtkWidget          *show_processes_item;
   gulong              show_side_pane_id;
   gulong              show_bottom_pane_id;
 };
@@ -124,6 +126,7 @@ add_menu_items (CodeSlayerMenuBarView *menubar_view,
   GtkWidget *show_side_pane_item;
   GtkWidget *show_bottom_pane_item;
   GtkWidget *draw_spaces_item;
+  GtkWidget *show_processes_item;
   
   priv = CODESLAYER_MENUBAR_VIEW_GET_PRIVATE (menubar_view);
 
@@ -145,6 +148,13 @@ add_menu_items (CodeSlayerMenuBarView *menubar_view,
                               priv->accel_group, GDK_KEY_F12, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), show_side_pane_item);
 
+  show_processes_item = gtk_check_menu_item_new_with_label (_("Processes"));
+  priv->show_processes_item = show_processes_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), show_processes_item);
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->show_processes_item),
+                                  codeslayer_settings_get_boolean (settings, 
+                                                                   CODESLAYER_SETTINGS_PROCESSES_VISIBLE));
+
   draw_spaces_item = gtk_check_menu_item_new_with_label (_("Draw Spaces"));
   priv->draw_spaces_item = draw_spaces_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), draw_spaces_item);
@@ -160,6 +170,9 @@ add_menu_items (CodeSlayerMenuBarView *menubar_view,
 
   priv->show_bottom_pane_id = g_signal_connect_swapped (G_OBJECT (show_bottom_pane_item), "activate",
                                                         G_CALLBACK (show_bottom_pane_action), menubar_view);
+
+  g_signal_connect_swapped (G_OBJECT (show_processes_item), "activate",
+                            G_CALLBACK (show_processes_action), menubar_view);
 
   g_signal_connect_swapped (G_OBJECT (draw_spaces_item), "activate",
                             G_CALLBACK (draw_spaces_action), menubar_view);
@@ -217,6 +230,14 @@ show_bottom_pane_action (CodeSlayerMenuBarView *menubar_view)
   CodeSlayerMenuBarViewPrivate *priv;
   priv = CODESLAYER_MENUBAR_VIEW_GET_PRIVATE (menubar_view);
   codeslayer_menubar_show_bottom_pane (CODESLAYER_MENUBAR (priv->menubar));
+}
+
+static void
+show_processes_action (CodeSlayerMenuBarView *menubar_view)
+{
+  CodeSlayerMenuBarViewPrivate *priv;
+  priv = CODESLAYER_MENUBAR_VIEW_GET_PRIVATE (menubar_view);
+  codeslayer_menubar_show_processes (CODESLAYER_MENUBAR (priv->menubar));
 }
 
 static void

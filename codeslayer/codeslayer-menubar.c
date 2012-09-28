@@ -69,6 +69,7 @@ enum
   FULLSCREEN_WINDOW,
   SHOW_SIDE_PANE,
   SHOW_BOTTOM_PANE,
+  SHOW_PROCESSES,
   DRAW_SPACES,
   REPLACE,
   FIND,
@@ -308,12 +309,28 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
+   * CodeSlayerMenuBar::show-processes
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::show-processes signal is a request to open up the processes tab.
+   */
+  codeslayer_menubar_signals[SHOW_PROCESSES] =
+    g_signal_new ("show-processes", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, show_processes),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  /**
    * CodeSlayerMenuBar::draw-spaces
    * @menu: the menu that received the signal
    *
    * Note: for internal use only.
    *
-   * The ::draw-spaces signal is a request to open up the search dialog.
+   * The ::draw-spaces signal is a request to show the invisible characters in the editors.
    */
   codeslayer_menubar_signals[DRAW_SPACES] =
     g_signal_new ("draw-spaces", 
@@ -976,6 +993,16 @@ void
 codeslayer_menubar_show_bottom_pane (CodeSlayerMenuBar *menubar)
 {
   g_signal_emit_by_name ((gpointer) menubar, "show-bottom-pane");
+}
+
+/**
+ * codeslayer_menubar_show_processes:
+ * @menubar: a #CodeSlayerMenuBar.
+ */
+void
+codeslayer_menubar_show_processes (CodeSlayerMenuBar *menubar)
+{
+  g_signal_emit_by_name ((gpointer) menubar, "show-processes");
 }
 
 /**

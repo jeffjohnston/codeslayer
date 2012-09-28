@@ -55,6 +55,7 @@ struct _CodeSlayerMenuBarClass
   void (*fullscreen_window) (CodeSlayerMenuBar *menubar);
   void (*show_side_pane) (CodeSlayerMenuBar *menubar);
   void (*show_bottom_pane) (CodeSlayerMenuBar *menubar);
+  void (*show_processes) (CodeSlayerMenuBar *menubar);
   void (*draw_spaces) (CodeSlayerMenuBar *menubar);
   void (*save_editor) (CodeSlayerMenuBar *menubar);
   void (*save_all_editors) (CodeSlayerMenuBar *menubar);
@@ -115,6 +116,7 @@ void            codeslayer_menubar_fullscreen_window          (CodeSlayerMenuBar
 void            codeslayer_menubar_show_side_pane             (CodeSlayerMenuBar      *menubar);
 void            codeslayer_menubar_show_bottom_pane           (CodeSlayerMenuBar      *menubar);
 void            codeslayer_menubar_draw_spaces                (CodeSlayerMenuBar      *menubar);
+void            codeslayer_menubar_show_processes             (CodeSlayerMenuBar      *menubar);
 
 void            codeslayer_menubar_refresh_groups             (CodeSlayerMenuBar      *menubar,
                                                                CodeSlayerGroups       *groups);
