@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include "codeslayer-processes.h"
+#include <codeslayer/codeslayer-processes.h>
 
 static void codeslayer_processes_class_init  (CodeSlayerProcessesClass  *klass);
 static void codeslayer_processes_init        (CodeSlayerProcesses       *processes);

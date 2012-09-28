@@ -8,6 +8,7 @@ lib_LTLIBRARIES = libcodeslayer.la
 pkginclude_HEADERS = \
     codeslayer-engine.h \
     codeslayer-processes.h \
+    codeslayer-processes-page.h \
     codeslayer-completion.h \
     codeslayer-completion-provider.h \
     codeslayer-completion-proposal.h \
@@ -62,6 +63,7 @@ pkginclude_HEADERS = \
 libcodeslayer_la_SOURCES = \
     codeslayer-engine.c \
     codeslayer-processes.c \
+    codeslayer-processes-page.c \
     codeslayer-completion.c \
     codeslayer-completion-provider.c \
     codeslayer-completion-proposal.c \

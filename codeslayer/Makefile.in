@@ -100,6 +100,7 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 libcodeslayer_la_LIBADD =
 am_libcodeslayer_la_OBJECTS = libcodeslayer_la-codeslayer-engine.lo \
 	libcodeslayer_la-codeslayer-processes.lo \
+	libcodeslayer_la-codeslayer-processes-page.lo \
 	libcodeslayer_la-codeslayer-completion.lo \
 	libcodeslayer_la-codeslayer-completion-provider.lo \
 	libcodeslayer_la-codeslayer-completion-proposal.lo \
@@ -369,6 +370,7 @@ lib_LTLIBRARIES = libcodeslayer.la
 pkginclude_HEADERS = \
     codeslayer-engine.h \
     codeslayer-processes.h \
+    codeslayer-processes-page.h \
     codeslayer-completion.h \
     codeslayer-completion-provider.h \
     codeslayer-completion-proposal.h \
@@ -423,6 +425,7 @@ pkginclude_HEADERS = \
 libcodeslayer_la_SOURCES = \
     codeslayer-engine.c \
     codeslayer-processes.c \
+    codeslayer-processes-page.c \
     codeslayer-completion.c \
     codeslayer-completion-provider.c \
     codeslayer-completion-proposal.c \
@@ -644,6 +647,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preferences-theme.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preferences-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preferences.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-processes-page.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-processes.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-project.Plo@am__quote@
@@ -695,6 +699,13 @@ libcodeslayer_la-codeslayer-processes.lo: codeslayer-processes.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-processes.c' object='libcodeslayer_la-codeslayer-processes.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-processes.lo `test -f 'codeslayer-processes.c' || echo '$(srcdir)/'`codeslayer-processes.c
+
+libcodeslayer_la-codeslayer-processes-page.lo: codeslayer-processes-page.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-processes-page.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-processes-page.Tpo -c -o libcodeslayer_la-codeslayer-processes-page.lo `test -f 'codeslayer-processes-page.c' || echo '$(srcdir)/'`codeslayer-processes-page.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-processes-page.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-processes-page.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-processes-page.c' object='libcodeslayer_la-codeslayer-processes-page.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-processes-page.lo `test -f 'codeslayer-processes-page.c' || echo '$(srcdir)/'`codeslayer-processes-page.c
 
 libcodeslayer_la-codeslayer-completion.lo: codeslayer-completion.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-completion.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-completion.Tpo -c -o libcodeslayer_la-codeslayer-completion.lo `test -f 'codeslayer-completion.c' || echo '$(srcdir)/'`codeslayer-completion.c

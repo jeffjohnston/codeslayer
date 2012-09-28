@@ -32,6 +32,7 @@
 #include <codeslayer/codeslayer-notebook-pane.h>
 #include <codeslayer/codeslayer-editor.h>
 #include <codeslayer/codeslayer-plugins.h>
+#include <codeslayer/codeslayer-processes-page.h>
 
 /**
  * SECTION:codeslayer-engine
@@ -115,21 +116,22 @@ typedef struct _CodeSlayerEnginePrivate CodeSlayerEnginePrivate;
 
 struct _CodeSlayerEnginePrivate
 {
-  GtkWindow             *window;
-  CodeSlayerSettings    *settings;
-  CodeSlayerPreferences *preferences;
-  CodeSlayerPlugins     *plugins;
-  CodeSlayerProcesses   *processes;
-  GtkWidget             *search;
-  GtkWidget             *projects;
-  GtkWidget             *menubar;
-  GtkWidget             *notebook;
-  GtkWidget             *notebook_pane;
-  GtkWidget             *side_pane;
-  GtkWidget             *bottom_pane;
-  CodeSlayerGroups      *groups;
-  GdkWindowState         window_state;
-  gboolean               sync_projects_with_editor;
+  GtkWindow               *window;
+  CodeSlayerSettings      *settings;
+  CodeSlayerPreferences   *preferences;
+  CodeSlayerPlugins       *plugins;
+  CodeSlayerProcesses     *processes;
+  GtkWidget               *processes_page;
+  GtkWidget               *search;
+  GtkWidget               *projects;
+  GtkWidget               *menubar;
+  GtkWidget               *notebook;
+  GtkWidget               *notebook_pane;
+  GtkWidget               *side_pane;
+  GtkWidget               *bottom_pane;
+  CodeSlayerGroups        *groups;
+  GdkWindowState           window_state;
+  gboolean                 sync_projects_with_editor;
 };
 
 G_DEFINE_TYPE (CodeSlayerEngine, codeslayer_engine, G_TYPE_OBJECT)
@@ -142,14 +144,19 @@ codeslayer_engine_class_init (CodeSlayerEngineClass *klass)
 }
 
 static void
-codeslayer_engine_init (CodeSlayerEngine *engine) {}
+codeslayer_engine_init (CodeSlayerEngine *engine) 
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  priv->search = NULL;
+  priv->processes_page = NULL;
+}
 
 static void
 codeslayer_engine_finalize (CodeSlayerEngine *engine)
 {
   G_OBJECT_CLASS (codeslayer_engine_parent_class)->finalize (G_OBJECT (engine));
 }
-
 
 /**
  * codeslayer_engine_new:
@@ -200,7 +207,6 @@ codeslayer_engine_new (GtkWindow             *window,
   priv->notebook_pane = notebook_pane;
   priv->side_pane = side_pane;
   priv->bottom_pane = bottom_pane;
-  priv->search = NULL;
   
   g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
                             G_CALLBACK (initialize_preferences_action), engine);
@@ -320,9 +326,20 @@ static void
 initialize_preferences_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
+  gboolean processes_visible;
+  
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   priv->sync_projects_with_editor = codeslayer_preferences_get_boolean (priv->preferences, 
                                                                         CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR);
+                                                                        
+  processes_visible = codeslayer_settings_get_boolean (priv->settings, 
+                                                       CODESLAYER_SETTINGS_PROCESSES_VISIBLE);
+  if (processes_visible)
+    {
+      priv->processes_page = codeslayer_processes_page_new (priv->processes);
+      codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
+                                    priv->processes_page, "Processes");
+    }
 }
 
 /**
@@ -976,7 +993,35 @@ close_bottom_pane_action (CodeSlayerEngine *engine)
 static void
 show_processes_action (CodeSlayerEngine *engine)
 {
-  g_print ("show_processes_action");
+  CodeSlayerEnginePrivate *priv;
+  gboolean processes_visible;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  processes_visible = codeslayer_settings_get_boolean (priv->settings, 
+                                                       CODESLAYER_SETTINGS_PROCESSES_VISIBLE);
+  if (processes_visible)
+    {
+      codeslayer_settings_set_boolean (priv->settings, 
+                                       CODESLAYER_SETTINGS_PROCESSES_VISIBLE,
+                                       FALSE);
+      if (priv->processes_page != NULL)
+        codeslayer_abstract_pane_remove (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
+                                         priv->processes_page);
+    }
+  else
+    {
+      codeslayer_settings_set_boolean (priv->settings, 
+                                       CODESLAYER_SETTINGS_PROCESSES_VISIBLE,
+                                       TRUE);
+      if (priv->processes_page == NULL)
+        {
+          priv->processes_page = codeslayer_processes_page_new (priv->processes);
+          codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
+                                        priv->processes_page, "Processes");
+        }
+                                             
+    }
 }
 
 static void
