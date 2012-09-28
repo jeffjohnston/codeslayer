@@ -59,10 +59,17 @@ codeslayer_processes_new ()
   return processes;
 }
 
-void 
+GThread*
 codeslayer_processes_add (CodeSlayerProcesses *processes, 
-                          GThread             *thread, 
-                          gchar               *name)
+                          gchar               *name,
+                          GThreadFunc          func, 
+                          gpointer             data)
 {
+  GThread *thread;
+
   g_print ("added process %s\n", name);
+  
+  thread = g_thread_new (name, func, data);
+  
+  return thread;
 }                          

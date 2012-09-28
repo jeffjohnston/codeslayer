@@ -46,9 +46,10 @@ GType codeslayer_processes_get_type (void) G_GNUC_CONST;
 
 CodeSlayerProcesses*  codeslayer_processes_new  (void);
 
-void                  codeslayer_processes_add  (CodeSlayerProcesses *processes, 
-                                                 GThread             *thread, 
-                                                 gchar               *name);
+GThread*              codeslayer_processes_add  (CodeSlayerProcesses *processes, 
+                                                 gchar               *name,
+                                                 GThreadFunc          func, 
+                                                 gpointer             data);
 
 G_END_DECLS
 

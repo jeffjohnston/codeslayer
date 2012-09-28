@@ -775,21 +775,28 @@ codeslayer_get_toplevel_window (CodeSlayer *codeslayer)
 /**
  * codeslayer_add_to_processes:
  * @codeslayer: a #CodeSlayer.
- * @thread: a #GThread.
- * @name: the name to display in the GUI.
+ * @name: the name of the thread.
+ * @func: a #GThreadFunc to execute in the new thread
+ * @data: an argument to supply to the new thread
  *
- * Add the thread to the list of processes. This thread will display by the 
- * name you provide. By passing the thread to CodeSlayer it will show up in 
- * the processes tab, and will allow users to stop threads that are running.
+ * By passing the thread function to CodeSlayer it will create the thread 
+ * and have it show up in the processes tab. This will allow users to see 
+ * threads that are running and give a way to stop them. Technically, 
+ * the reason that CodeSlayer creates the thread for you is it is the safest
+ * thing to do as the thread that creates the new thread needs to be the one
+ * that stops it.
+ *
+ * Returns: The function to .
  */
-void
-codeslayer_add_to_processes (CodeSlayer *codeslayer,                                                                           
-                             GThread    *thread, 
-                             gchar      *name)
+GThread*
+codeslayer_add_to_processes (CodeSlayer  *codeslayer,   
+                             gchar       *name,
+                             GThreadFunc  func, 
+                             gpointer     data)
 {
   CodeSlayerPrivate *priv;
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
-  codeslayer_processes_add (priv->processes, thread, name);
+  return codeslayer_processes_add (priv->processes, name, func, data);
 }                             
 
 static void
