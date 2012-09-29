@@ -122,7 +122,7 @@ libcodeslayer_la_CPPFLAGS = -I$(top_srcdir)
 bin_PROGRAMS = codeslayer
 codeslayer_SOURCES = codeslayer-main.c
 codeslayer_CPPFLAGS = -I$(top_srcdir)
-codeslayer_LDADD = $(CODESLAYER_LIBS) libcodeslayer.la
+codeslayer_LDADD = libcodeslayer.la $(CODESLAYER_LIBS)
 
 datadir = @datadir@
 datarootdir= @datarootdir@

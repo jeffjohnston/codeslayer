@@ -160,7 +160,7 @@ PROGRAMS = $(bin_PROGRAMS)
 am_codeslayer_OBJECTS = codeslayer-codeslayer-main.$(OBJEXT)
 codeslayer_OBJECTS = $(am_codeslayer_OBJECTS)
 am__DEPENDENCIES_1 =
-codeslayer_DEPENDENCIES = $(am__DEPENDENCIES_1) libcodeslayer.la
+codeslayer_DEPENDENCIES = libcodeslayer.la $(am__DEPENDENCIES_1)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -482,7 +482,7 @@ libcodeslayer_la_SOURCES = \
 libcodeslayer_la_CPPFLAGS = -I$(top_srcdir)
 codeslayer_SOURCES = codeslayer-main.c
 codeslayer_CPPFLAGS = -I$(top_srcdir)
-codeslayer_LDADD = $(CODESLAYER_LIBS) libcodeslayer.la
+codeslayer_LDADD = libcodeslayer.la $(CODESLAYER_LIBS)
 all: all-am
 
 .SUFFIXES:
