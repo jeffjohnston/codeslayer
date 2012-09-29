@@ -29,7 +29,7 @@ typedef struct _CodeSlayerProcessesPrivate CodeSlayerProcessesPrivate;
 
 struct _CodeSlayerProcessesPrivate
 {
-  gchar *foo;
+  GList *threads;
 };
 
 G_DEFINE_TYPE (CodeSlayerProcesses, codeslayer_processes, G_TYPE_OBJECT)
@@ -43,7 +43,12 @@ codeslayer_processes_class_init (CodeSlayerProcessesClass *klass)
 }
 
 static void
-codeslayer_processes_init (CodeSlayerProcesses *processes) {}
+codeslayer_processes_init (CodeSlayerProcesses *processes) 
+{
+  CodeSlayerProcessesPrivate *priv;
+  priv = CODESLAYER_PROCESSES_GET_PRIVATE (processes);
+  priv->threads = NULL;
+}
 
 static void
 codeslayer_processes_finalize (CodeSlayerProcesses *processes)
@@ -65,11 +70,16 @@ codeslayer_processes_add (CodeSlayerProcesses *processes,
                           GThreadFunc          func, 
                           gpointer             data)
 {
+  CodeSlayerProcessesPrivate *priv;
   GThread *thread;
+
+  priv = CODESLAYER_PROCESSES_GET_PRIVATE (processes);
 
   g_print ("added process %s\n", name);
   
   thread = g_thread_new (name, func, data);
+  
+  priv->threads = g_list_prepend (priv->threads, thread);
   
   return thread;
 }                          
