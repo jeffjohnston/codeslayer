@@ -19,6 +19,7 @@
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-abstract-pane.h>
 #include <codeslayer/codeslayer-notebook-page.h>
+#include <codeslayer/codeslayer-process.h>
 #include <codeslayer/codeslayer.h>
 
 /**
@@ -775,6 +776,7 @@ codeslayer_get_toplevel_window (CodeSlayer *codeslayer)
 /**
  * codeslayer_add_to_processes:
  * @codeslayer: a #CodeSlayer.
+ * @key: the key of the thread.
  * @name: the name of the thread.
  * @func: a #GThreadFunc to execute in the new thread
  * @data: an argument to supply to the new thread
@@ -788,15 +790,27 @@ codeslayer_get_toplevel_window (CodeSlayer *codeslayer)
  *
  * Returns: The function to .
  */
-GThread*
+void
 codeslayer_add_to_processes (CodeSlayer  *codeslayer,   
+                             gchar       *key,
                              gchar       *name,
                              GThreadFunc  func, 
                              gpointer     data)
 {
   CodeSlayerPrivate *priv;
+  CodeSlayerProcess *process;
+
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
-  return codeslayer_processes_add (priv->processes, name, func, data);
+  
+  process = codeslayer_process_new ();
+  codeslayer_process_set_name (process, name);
+  codeslayer_process_set_key (process, key);
+  codeslayer_process_set_func (process, func);
+  codeslayer_process_set_data (process, data);
+  
+  g_object_force_floating (G_OBJECT (process));
+
+  codeslayer_processes_add (priv->processes, process);
 }                             
 
 static void

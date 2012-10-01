@@ -29,8 +29,17 @@ typedef struct _CodeSlayerProcessesPrivate CodeSlayerProcessesPrivate;
 
 struct _CodeSlayerProcessesPrivate
 {
-  GList *threads;
+  GList *list;
 };
+
+enum
+{
+  PROCESS_STARTED,
+  PROCESS_FINISHED,
+  LAST_SIGNAL
+};
+
+static guint codeslayer_processes_signals[LAST_SIGNAL] = { 0 };
 
 G_DEFINE_TYPE (CodeSlayerProcesses, codeslayer_processes, G_TYPE_OBJECT)
 
@@ -38,6 +47,41 @@ static void
 codeslayer_processes_class_init (CodeSlayerProcessesClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+  
+  /**
+   * CodeSlayerProcesses::process-started
+   * @codeslayerprocesses: the processes that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::process-started signal is invoked when a thread is created and
+   * added to the list of processes.
+   */
+  codeslayer_processes_signals[PROCESS_STARTED] =
+    g_signal_new ("process-started", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerProcessesClass, process_started),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
+  
+  /**
+   * CodeSlayerProcesses::process-finished
+   * @codeslayerprocesses: the processes that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::process-finished signal is invoked when a thread finishes and
+   * removed from the list of processes. 
+   */
+  codeslayer_processes_signals[PROCESS_FINISHED] =
+    g_signal_new ("process-finished", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerProcessesClass, process_finished),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
+  
   gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_processes_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerProcessesPrivate));
 }
@@ -47,7 +91,7 @@ codeslayer_processes_init (CodeSlayerProcesses *processes)
 {
   CodeSlayerProcessesPrivate *priv;
   priv = CODESLAYER_PROCESSES_GET_PRIVATE (processes);
-  priv->threads = NULL;
+  priv->list = NULL;
 }
 
 static void
@@ -64,22 +108,34 @@ codeslayer_processes_new ()
   return processes;
 }
 
-GThread*
+void
 codeslayer_processes_add (CodeSlayerProcesses *processes, 
-                          gchar               *name,
-                          GThreadFunc          func, 
-                          gpointer             data)
+                          CodeSlayerProcess   *process)
 {
   CodeSlayerProcessesPrivate *priv;
-  GThread *thread;
-
+  const gchar *process_key;
+  
   priv = CODESLAYER_PROCESSES_GET_PRIVATE (processes);
+  
+  g_object_ref_sink (process);
+  
+  g_signal_connect_swapped (G_OBJECT (process), "stopped",
+                            G_CALLBACK (codeslayer_processes_remove), processes);
+    
+  priv->list = g_list_prepend (priv->list, process);
+  g_signal_emit_by_name ((gpointer) processes, "process-started", process);
+  
+  process_key = codeslayer_process_get_key (process);
+  g_thread_new (process_key, (GThreadFunc) codeslayer_process_start, process);
+}   
 
-  g_print ("added process %s\n", name);
-  
-  thread = g_thread_new (name, func, data);
-  
-  priv->threads = g_list_prepend (priv->threads, thread);
-  
-  return thread;
-}                          
+void
+codeslayer_processes_remove (CodeSlayerProcesses *processes, 
+                             CodeSlayerProcess   *process)
+{
+  CodeSlayerProcessesPrivate *priv;
+  priv = CODESLAYER_PROCESSES_GET_PRIVATE (processes);
+  g_signal_emit_by_name ((gpointer) processes, "process-finished", process);
+  priv->list = g_list_remove (priv->list, process);
+  g_object_unref (process);
+}

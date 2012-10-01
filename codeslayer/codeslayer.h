@@ -152,7 +152,8 @@ CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer
 CodeSlayerPreferences*    codeslayer_get_preferences                 (CodeSlayer                  *codeslayer);
 
 GtkWindow*                codeslayer_get_toplevel_window             (CodeSlayer                  *codeslayer);
-GThread*                  codeslayer_add_to_processes                (CodeSlayer                  *codeslayer,   
+void                      codeslayer_add_to_processes                (CodeSlayer                  *codeslayer,   
+                                                                      gchar                       *key,
                                                                       gchar                       *name,
                                                                       GThreadFunc                  func, 
                                                                       gpointer                     data);

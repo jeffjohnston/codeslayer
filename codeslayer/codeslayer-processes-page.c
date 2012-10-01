@@ -18,11 +18,16 @@
 
 #include <gtksourceview/gtksourceview.h>
 #include <codeslayer/codeslayer-processes-page.h>
+#include <codeslayer/codeslayer-process.h>
 
 static void codeslayer_processes_page_class_init  (CodeSlayerProcessesPageClass *klass);
 static void codeslayer_processes_page_init        (CodeSlayerProcessesPage      *page);
 static void codeslayer_processes_page_finalize    (CodeSlayerProcessesPage      *page);
 
+static void process_started_action                (CodeSlayerProcesses          *processes, 
+                                                   CodeSlayerProcess            *process);
+static void process_finished_action               (CodeSlayerProcesses          *processes, 
+                                                   CodeSlayerProcess            *process);
 
 #define CODESLAYER_PROCESSES_PAGE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROCESSES_PAGE_TYPE, CodeSlayerProcessesPagePrivate))
@@ -82,5 +87,25 @@ codeslayer_processes_page_new (CodeSlayerProcesses *processes)
   priv = CODESLAYER_PROCESSES_PAGE_GET_PRIVATE (page);
   priv->processes = processes;
 
+  g_signal_connect_swapped (G_OBJECT (priv->processes), "process-started",
+                            G_CALLBACK (process_started_action), processes);
+
+  g_signal_connect_swapped (G_OBJECT (priv->processes), "process-finished",
+                            G_CALLBACK (process_finished_action), processes);
+
   return page;
+}
+
+static void
+process_started_action (CodeSlayerProcesses *processes, 
+                        CodeSlayerProcess   *process)
+{
+  g_print ("process_started_action %s\n", codeslayer_process_get_name (process));
+}
+
+static void
+process_finished_action (CodeSlayerProcesses *processes, 
+                         CodeSlayerProcess   *process)
+{
+  g_print ("process_finished_action %s\n", codeslayer_process_get_name (process));
 }

@@ -99,6 +99,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" \
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libcodeslayer_la_LIBADD =
 am_libcodeslayer_la_OBJECTS = libcodeslayer_la-codeslayer-engine.lo \
+	libcodeslayer_la-codeslayer-process.lo \
 	libcodeslayer_la-codeslayer-processes.lo \
 	libcodeslayer_la-codeslayer-processes-page.lo \
 	libcodeslayer_la-codeslayer-completion.lo \
@@ -369,6 +370,7 @@ INCLUDES = \
 lib_LTLIBRARIES = libcodeslayer.la
 pkginclude_HEADERS = \
     codeslayer-engine.h \
+    codeslayer-process.h \
     codeslayer-processes.h \
     codeslayer-processes-page.h \
     codeslayer-completion.h \
@@ -424,6 +426,7 @@ pkginclude_HEADERS = \
 
 libcodeslayer_la_SOURCES = \
     codeslayer-engine.c \
+    codeslayer-process.c \
     codeslayer-processes.c \
     codeslayer-processes-page.c \
     codeslayer-completion.c \
@@ -647,6 +650,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preferences-theme.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preferences-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preferences.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-process.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-processes-page.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-processes.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Plo@am__quote@
@@ -692,6 +696,13 @@ libcodeslayer_la-codeslayer-engine.lo: codeslayer-engine.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-engine.c' object='libcodeslayer_la-codeslayer-engine.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-engine.lo `test -f 'codeslayer-engine.c' || echo '$(srcdir)/'`codeslayer-engine.c
+
+libcodeslayer_la-codeslayer-process.lo: codeslayer-process.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-process.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-process.Tpo -c -o libcodeslayer_la-codeslayer-process.lo `test -f 'codeslayer-process.c' || echo '$(srcdir)/'`codeslayer-process.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-process.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-process.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-process.c' object='libcodeslayer_la-codeslayer-process.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-process.lo `test -f 'codeslayer-process.c' || echo '$(srcdir)/'`codeslayer-process.c
 
 libcodeslayer_la-codeslayer-processes.lo: codeslayer-processes.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-processes.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-processes.Tpo -c -o libcodeslayer_la-codeslayer-processes.lo `test -f 'codeslayer-processes.c' || echo '$(srcdir)/'`codeslayer-processes.c

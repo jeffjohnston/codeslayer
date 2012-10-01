@@ -20,6 +20,7 @@
 #define	__CODESLAYER_PROCESSES_H__
 
 #include <gtk/gtk.h>
+#include <codeslayer/codeslayer-process.h>
 
 G_BEGIN_DECLS
 
@@ -40,16 +41,19 @@ struct _CodeSlayerProcesses
 struct _CodeSlayerProcessesClass
 {
   GObjectClass parent_class;
+  
+  void (*process_started) (CodeSlayerProcesses *processes);  
+  void (*process_finished) (CodeSlayerProcesses *processes);  
 };
 
 GType codeslayer_processes_get_type (void) G_GNUC_CONST;
 
-CodeSlayerProcesses*  codeslayer_processes_new  (void);
+CodeSlayerProcesses*  codeslayer_processes_new     (void);
 
-GThread*              codeslayer_processes_add  (CodeSlayerProcesses *processes, 
-                                                 gchar               *name,
-                                                 GThreadFunc          func, 
-                                                 gpointer             data);
+void                  codeslayer_processes_add     (CodeSlayerProcesses *processes, 
+                                                    CodeSlayerProcess   *process);
+void                  codeslayer_processes_remove  (CodeSlayerProcesses *processes, 
+                                                    CodeSlayerProcess   *process);
 
 G_END_DECLS
 
