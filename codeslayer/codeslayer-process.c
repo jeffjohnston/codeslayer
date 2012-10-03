@@ -392,5 +392,4 @@ void
 codeslayer_process_stop (CodeSlayerProcess *process)
 {
   g_thread_exit (NULL);
-  g_signal_emit_by_name ((gpointer) process, "stopped", process);
 }
