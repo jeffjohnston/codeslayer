@@ -44,10 +44,10 @@ typedef struct _CodeSlayerProcessPrivate CodeSlayerProcessPrivate;
 
 struct _CodeSlayerProcessPrivate
 {
-  gchar       *name;
-  gchar       *key;
-  GThreadFunc  func;
-  gpointer     data;
+  gint             id;
+  gchar           *name;
+  StopProcessFunc  func;
+  gpointer         data;
 };
 
 enum
@@ -62,7 +62,6 @@ enum
 {
   PROP_0,
   PROP_NAME,
-  PROP_KEY,
   PROP_FUNC,
   PROP_DATA
 };
@@ -110,21 +109,9 @@ codeslayer_process_class_init (CodeSlayerProcessClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-   * CodeSlayerProcess:key:
-   *
-   * The key for the process to uniquely identify it.
-   */
-  g_object_class_install_property (gobject_class, 
-                                   PROP_KEY,
-                                   g_param_spec_string ("key", 
-                                                        "Key",
-                                                        "Key", "",
-                                                        G_PARAM_READWRITE));
-
-  /**
    * CodeSlayerProcess:func:
    *
-   * The thread function for the process.
+   * The callback function for the process.
    */
   g_object_class_install_property (gobject_class, 
                                    PROP_FUNC,
@@ -152,7 +139,6 @@ codeslayer_process_init (CodeSlayerProcess *process)
   CodeSlayerProcessPrivate *priv;
   priv = CODESLAYER_PROCESS_GET_PRIVATE (process);
   priv->name = NULL;
-  priv->key = NULL;
   priv->func = NULL;
   priv->data = NULL;
 }
@@ -166,11 +152,6 @@ codeslayer_process_finalize (CodeSlayerProcess *process)
     {
       g_free (priv->name);
       priv->name = NULL;
-    }
-  if (priv->key)
-    {
-      g_free (priv->key);
-      priv->key = NULL;
     }
   G_OBJECT_CLASS (codeslayer_process_parent_class)->finalize (G_OBJECT (process));
 }
@@ -192,14 +173,11 @@ codeslayer_process_get_property (GObject    *object,
     case PROP_NAME:
       g_value_set_string (value, priv->name);
       break;
-    case PROP_KEY:
-      g_value_set_string (value, priv->key);
-      break;
     case PROP_FUNC:
-      g_value_set_pointer (value, priv->key);
+      g_value_set_pointer (value, priv->func);
       break;
     case PROP_DATA:
-      g_value_set_pointer (value, priv->key);
+      g_value_set_pointer (value, priv->data);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -221,9 +199,6 @@ codeslayer_process_set_property (GObject      *object,
     case PROP_NAME:
       codeslayer_process_set_name (process, g_value_get_string (value));
       break;
-    case PROP_KEY:
-      codeslayer_process_set_key (process, g_value_get_string (value));
-      break;
     case PROP_FUNC:
       codeslayer_process_set_func (process, g_value_get_pointer (value));
       break;
@@ -243,10 +218,29 @@ codeslayer_process_set_property (GObject      *object,
  *
  * Returns: a new #CodeSlayerProcess. 
  */
-CodeSlayerProcess *
-codeslayer_process_new (void)
+CodeSlayerProcess*
+codeslayer_process_new (gint id)
 {
-  return CODESLAYER_PROCESS (g_object_new (codeslayer_process_get_type (), NULL));
+  CodeSlayerProcess *process;
+  CodeSlayerProcessPrivate *priv;
+  
+  process = CODESLAYER_PROCESS (g_object_new (codeslayer_process_get_type (), NULL));
+  priv = CODESLAYER_PROCESS_GET_PRIVATE (process);
+  priv->id = id;
+
+  return process;
+}
+
+/**
+ * codeslayer_process_get_id:
+ * @process: a #CodeSlayerProcess.
+ *
+ * Returns: the identifier for the process.
+ */
+const gint
+codeslayer_process_get_id (CodeSlayerProcess *process)
+{
+  return CODESLAYER_PROCESS_GET_PRIVATE (process)->id;
 }
 
 /**
@@ -281,43 +275,12 @@ codeslayer_process_set_name (CodeSlayerProcess *process,
 }
 
 /**
- * codeslayer_process_get_key:
- * @process: a #CodeSlayerProcess.
- *
- * Returns: the unique identifier for the process
- */
-const gchar *
-codeslayer_process_get_key (CodeSlayerProcess *process)
-{
-  return CODESLAYER_PROCESS_GET_PRIVATE (process)->key;
-}
-
-/**
- * codeslayer_process_set_key:
- * @process: a #CodeSlayerProcess.
- * @key: the unique identifier for the process
- */
-void
-codeslayer_process_set_key (CodeSlayerProcess *process, 
-                             const gchar       *key)
-{
-  CodeSlayerProcessPrivate *priv;
-  priv = CODESLAYER_PROCESS_GET_PRIVATE (process);
-  if (priv->key)
-    {
-      g_free (priv->key);
-      priv->key = NULL;
-    }
-  priv->key = g_strdup (key);
-}
-
-/**
  * codeslayer_process_get_func:
  * @process: a #CodeSlayerProcess.
  *
- * Returns: the thread function for the process
+ * Returns: the callback function for when the process is stopped
  */
-GThreadFunc
+StopProcessFunc
 codeslayer_process_get_func (CodeSlayerProcess *process)
 {
   return CODESLAYER_PROCESS_GET_PRIVATE (process)->func;
@@ -326,11 +289,11 @@ codeslayer_process_get_func (CodeSlayerProcess *process)
 /**
  * codeslayer_process_set_func:
  * @process: a #CodeSlayerProcess.
- * @func: the thread function for the process
+ * @func: the callback function for when the process is stopped
  */
 void
 codeslayer_process_set_func (CodeSlayerProcess *process, 
-                             GThreadFunc        func)
+                             StopProcessFunc    func)
 {
   CodeSlayerProcessPrivate *priv;
   priv = CODESLAYER_PROCESS_GET_PRIVATE (process);
@@ -341,7 +304,7 @@ codeslayer_process_set_func (CodeSlayerProcess *process,
  * codeslayer_process_get_data:
  * @process: a #CodeSlayerProcess.
  *
- * Returns: the thread data for the process
+ * Returns: the data for the stopped callback function
  */
 gpointer
 codeslayer_process_get_data (CodeSlayerProcess *process)
@@ -352,7 +315,7 @@ codeslayer_process_get_data (CodeSlayerProcess *process)
 /**
  * codeslayer_process_set_data:
  * @process: a #CodeSlayerProcess.
- * @data: the thread data for the process
+ * @data: the data for the stopped callback function
  */
 void
 codeslayer_process_set_data (CodeSlayerProcess *process, 
@@ -364,25 +327,6 @@ codeslayer_process_set_data (CodeSlayerProcess *process,
 }
 
 /**
- * codeslayer_process_start:
- * @process: a #CodeSlayerProcess.
- *
- * Create a new thread and wait for it to complete
- */
-void               
-codeslayer_process_start (CodeSlayerProcess *process)
-{
-  CodeSlayerProcessPrivate *priv;
-  GThread *thread;
-
-  priv = CODESLAYER_PROCESS_GET_PRIVATE (process);  
-
-  thread = g_thread_new (priv->name, priv->func, priv->data);
-  g_thread_join (thread);
-  g_signal_emit_by_name ((gpointer) process, "stopped", process);
-}
-
-/**
  * codeslayer_process_stop:
  * @process: a #CodeSlayerProcess.
  *
@@ -391,5 +335,5 @@ codeslayer_process_start (CodeSlayerProcess *process)
 void               
 codeslayer_process_stop (CodeSlayerProcess *process)
 {
-  g_thread_exit (NULL);
+  g_signal_emit_by_name ((gpointer) process, "stopped", process);
 }

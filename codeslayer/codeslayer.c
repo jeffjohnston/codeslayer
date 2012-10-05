@@ -776,42 +776,46 @@ codeslayer_get_toplevel_window (CodeSlayer *codeslayer)
 /**
  * codeslayer_add_to_processes:
  * @codeslayer: a #CodeSlayer.
- * @key: the key of the thread.
- * @name: the name of the thread.
+ * @name: the name of the process.
  * @func: a #GThreadFunc to execute in the new thread
  * @data: an argument to supply to the new thread
  *
- * By passing the thread function to CodeSlayer it will create the thread 
- * and have it show up in the processes tab. This will allow users to see 
- * threads that are running and give a way to stop them. Technically, 
- * the reason that CodeSlayer creates the thread for you is it is the safest
- * thing to do as the thread that creates the new thread needs to be the one
- * that stops it.
- *
- * Returns: The function to .
+ * Returns: The identifier for the process.
  */
-void
-codeslayer_add_to_processes (CodeSlayer  *codeslayer,   
-                             gchar       *key,
-                             gchar       *name,
-                             GThreadFunc  func, 
-                             gpointer     data)
+gint
+codeslayer_add_to_processes (CodeSlayer      *codeslayer,
+                             gchar           *name,
+                             StopProcessFunc  func,
+                             gpointer         data)
 {
   CodeSlayerPrivate *priv;
   CodeSlayerProcess *process;
+  gint id;
 
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   
-  process = codeslayer_process_new ();
+  id = g_random_int ();
+  
+  process = codeslayer_process_new (id);
   codeslayer_process_set_name (process, name);
-  codeslayer_process_set_key (process, key);
   codeslayer_process_set_func (process, func);
   codeslayer_process_set_data (process, data);
   
   g_object_force_floating (G_OBJECT (process));
 
   codeslayer_processes_add (priv->processes, process);
-}                             
+  
+  return id;
+}
+
+void 
+codeslayer_remove_from_processes (CodeSlayer *codeslayer,
+                                  gint        id)
+{
+  CodeSlayerPrivate *priv;
+  priv = CODESLAYER_GET_PRIVATE (codeslayer);
+  codeslayer_processes_remove (priv->processes, id);
+}                                  
 
 static void
 editor_saved_action (CodeSlayer       *codeslayer,

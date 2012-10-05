@@ -44,24 +44,24 @@ struct _CodeSlayerProcessClass
   void (*stopped) (CodeSlayerProcess *process);  
 };
 
+typedef void (*StopProcessFunc) (gpointer data);
+
 GType codeslayer_process_get_type (void) G_GNUC_CONST;
 
-CodeSlayerProcess  *codeslayer_process_new                     (void);
+CodeSlayerProcess  *codeslayer_process_new      (gint id);
 
-const gchar*       codeslayer_process_get_name                 (CodeSlayerProcess *process);
-void               codeslayer_process_set_name                 (CodeSlayerProcess *process,
-                                                                const gchar       *name);
-const gchar*       codeslayer_process_get_key                  (CodeSlayerProcess *process);
-void               codeslayer_process_set_key                  (CodeSlayerProcess *process,
-                                                                const gchar       *key);
-GThreadFunc        codeslayer_process_get_func                 (CodeSlayerProcess *process);
-void               codeslayer_process_set_func                 (CodeSlayerProcess *process,
-                                                                GThreadFunc        func);
-gpointer           codeslayer_process_get_data                 (CodeSlayerProcess *process);
-void               codeslayer_process_set_data                 (CodeSlayerProcess *process,
-                                                                gpointer           data);
-void               codeslayer_process_start                    (CodeSlayerProcess *process);
-void               codeslayer_process_stop                     (CodeSlayerProcess *process);
+const gint         codeslayer_process_get_id    (CodeSlayerProcess *process);
+const gchar*       codeslayer_process_get_name  (CodeSlayerProcess *process);
+void               codeslayer_process_set_name  (CodeSlayerProcess *process,
+                                                 const gchar       *name);
+StopProcessFunc    codeslayer_process_get_func  (CodeSlayerProcess *process);
+void               codeslayer_process_set_func  (CodeSlayerProcess *process,
+                                                 StopProcessFunc    func);
+gpointer           codeslayer_process_get_data  (CodeSlayerProcess *process);
+void               codeslayer_process_set_data  (CodeSlayerProcess *process,
+                                                 gpointer           data);
+void               codeslayer_process_start     (CodeSlayerProcess *process);
+void               codeslayer_process_stop      (CodeSlayerProcess *process);
 
 G_END_DECLS
 

@@ -53,7 +53,7 @@ CodeSlayerProcesses*  codeslayer_processes_new     (void);
 void                  codeslayer_processes_add     (CodeSlayerProcesses *processes, 
                                                     CodeSlayerProcess   *process);
 void                  codeslayer_processes_remove  (CodeSlayerProcesses *processes, 
-                                                    CodeSlayerProcess   *process);
+                                                    gint                 id);
 
 G_END_DECLS
 

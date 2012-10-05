@@ -113,7 +113,6 @@ codeslayer_processes_add (CodeSlayerProcesses *processes,
                           CodeSlayerProcess   *process)
 {
   CodeSlayerProcessesPrivate *priv;
-  const gchar *process_key;
   
   priv = CODESLAYER_PROCESSES_GET_PRIVATE (processes);
   
@@ -124,18 +123,28 @@ codeslayer_processes_add (CodeSlayerProcesses *processes,
     
   priv->list = g_list_prepend (priv->list, process);
   g_signal_emit_by_name ((gpointer) processes, "process-started", process);
-  
-  process_key = codeslayer_process_get_key (process);
-  g_thread_new (process_key, (GThreadFunc) codeslayer_process_start, process);
 }   
 
 void
 codeslayer_processes_remove (CodeSlayerProcesses *processes, 
-                             CodeSlayerProcess   *process)
+                             gint                 id)
 {
   CodeSlayerProcessesPrivate *priv;
+  GList *list;
+  
   priv = CODESLAYER_PROCESSES_GET_PRIVATE (processes);
-  g_signal_emit_by_name ((gpointer) processes, "process-finished", process);
-  priv->list = g_list_remove (priv->list, process);
-  g_object_unref (process);
+  
+  list = priv->list;
+  while (list != NULL)
+    {
+      CodeSlayerProcess *process = list->data;
+      if (codeslayer_process_get_id (process) == id)
+        {
+          g_signal_emit_by_name ((gpointer) processes, "process-finished", process);
+          priv->list = g_list_remove (priv->list, process);
+          g_object_unref (process);
+          break;
+        }
+      list = g_list_next (list);
+    }
 }

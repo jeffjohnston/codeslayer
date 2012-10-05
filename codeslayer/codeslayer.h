@@ -152,11 +152,12 @@ CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer
 CodeSlayerPreferences*    codeslayer_get_preferences                 (CodeSlayer                  *codeslayer);
 
 GtkWindow*                codeslayer_get_toplevel_window             (CodeSlayer                  *codeslayer);
-void                      codeslayer_add_to_processes                (CodeSlayer                  *codeslayer,   
-                                                                      gchar                       *key,
+gint                      codeslayer_add_to_processes                (CodeSlayer                  *codeslayer,
                                                                       gchar                       *name,
-                                                                      GThreadFunc                  func, 
+                                                                      StopProcessFunc              func,
                                                                       gpointer                     data);
+void                      codeslayer_remove_from_processes           (CodeSlayer                  *codeslayer,
+                                                                      gint                         id);
 
 G_END_DECLS
 
