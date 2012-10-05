@@ -60,7 +60,6 @@ void               codeslayer_process_set_func  (CodeSlayerProcess *process,
 gpointer           codeslayer_process_get_data  (CodeSlayerProcess *process);
 void               codeslayer_process_set_data  (CodeSlayerProcess *process,
                                                  gpointer           data);
-void               codeslayer_process_start     (CodeSlayerProcess *process);
 void               codeslayer_process_stop      (CodeSlayerProcess *process);
 
 G_END_DECLS

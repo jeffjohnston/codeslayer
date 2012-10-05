@@ -21,6 +21,8 @@
 static void codeslayer_processes_class_init  (CodeSlayerProcessesClass  *klass);
 static void codeslayer_processes_init        (CodeSlayerProcesses       *processes);
 static void codeslayer_processes_finalize    (CodeSlayerProcesses       *processes);
+static void process_stopped                  (CodeSlayerProcesses       *processes, 
+                                              CodeSlayerProcess         *process);
                                                    
 #define CODESLAYER_PROCESSES_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROCESSES_TYPE, CodeSlayerProcessesPrivate))
@@ -119,7 +121,7 @@ codeslayer_processes_add (CodeSlayerProcesses *processes,
   g_object_ref_sink (process);
   
   g_signal_connect_swapped (G_OBJECT (process), "stopped",
-                            G_CALLBACK (codeslayer_processes_remove), processes);
+                            G_CALLBACK (process_stopped), processes);
     
   priv->list = g_list_prepend (priv->list, process);
   g_signal_emit_by_name ((gpointer) processes, "process-started", process);
@@ -147,4 +149,18 @@ codeslayer_processes_remove (CodeSlayerProcesses *processes,
         }
       list = g_list_next (list);
     }
+}
+
+static void
+process_stopped (CodeSlayerProcesses *processes, 
+                            CodeSlayerProcess   *process)
+{
+  StopProcessFunc func;
+  gpointer data;
+  
+  func = codeslayer_process_get_func (process);
+  data = codeslayer_process_get_data (process);
+  
+  if (func != NULL)
+    func (data);
 }
