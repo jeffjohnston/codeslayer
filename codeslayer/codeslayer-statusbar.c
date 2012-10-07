@@ -25,21 +25,20 @@ static void codeslayer_statusbar_init        (CodeSlayerStatusbar      *statusba
 static void codeslayer_statusbar_finalize    (CodeSlayerStatusbar      *statusbar);
 
 static void process_started_action           (CodeSlayerStatusbar      *statusbar, 
-                                              CodeSlayerProcess            *process);
+                                              CodeSlayerProcess        *process);
 static void process_finished_action          (CodeSlayerStatusbar      *statusbar, 
-                                              CodeSlayerProcess            *process);
+                                              CodeSlayerProcess        *process);
                                                    
-static gboolean remove_finished_process      (GtkTreeModel                 *model,
-                                              GtkTreePath                  *path,
-                                              GtkTreeIter                  *iter,
-                                              CodeSlayerProcess            *process);
+static gboolean remove_finished_process      (GtkTreeModel             *model,
+                                              GtkTreePath              *path,
+                                              GtkTreeIter              *iter,
+                                              CodeSlayerProcess        *process);
 static void stop_action                      (CodeSlayerStatusbar      *statusbar);
 static gboolean show_popup_menu              (CodeSlayerStatusbar      *statusbar, 
-                                              GdkEventButton               *event);
+                                              GdkEventButton           *event);
                                               
-static void row_deleted_action               (GtkTreeModel             *tree_model,
-                                              GtkTreePath              *path,
-                                              CodeSlayerStatusbar      *statusbar);
+static void set_label_text                   (CodeSlayerStatusbar      *statusbar);
+static void expanded_action                  (CodeSlayerStatusbar      *statusbar);
 
 #define CODESLAYER_STATUSBAR_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_STATUSBAR_TYPE, CodeSlayerStatusbarPrivate))
@@ -97,7 +96,7 @@ codeslayer_statusbar_init (CodeSlayerStatusbar *statusbar)
   g_object_unref (store);
 
   selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree));
-  gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
+  gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
   
   column = gtk_tree_view_column_new ();
 
@@ -129,13 +128,17 @@ codeslayer_statusbar_init (CodeSlayerStatusbar *statusbar)
   priv->expander = gtk_expander_new (NULL);
   priv->label = gtk_label_new (NULL);
   gtk_expander_set_label_widget (GTK_EXPANDER (priv->expander), priv->label);
+  gtk_expander_set_expanded (GTK_EXPANDER (priv->expander), FALSE);
   
   gtk_container_add (GTK_CONTAINER (priv->expander), scrolled_window);  
 
   gtk_box_pack_start (GTK_BOX (statusbar), priv->expander, FALSE, FALSE, 0);
   
-  g_signal_connect (G_OBJECT (priv->store), "row-deleted",
-                    G_CALLBACK (row_deleted_action), CODESLAYER_STATUSBAR(statusbar));
+  g_signal_connect_swapped (G_OBJECT (priv->store), "row-deleted",
+                            G_CALLBACK (set_label_text), CODESLAYER_STATUSBAR(statusbar));
+
+  g_signal_connect_swapped (G_OBJECT (priv->expander), "notify::expanded",
+                            G_CALLBACK (expanded_action), CODESLAYER_STATUSBAR(statusbar));
 }
 
 static void
@@ -167,40 +170,26 @@ static void
 stop_action (CodeSlayerStatusbar *statusbar)
 {
   CodeSlayerStatusbarPrivate *priv;
-  GtkTreeModel *tree_model;
   GtkTreeSelection *tree_selection;
-  GList *selected_rows;
-  GList *tmp;
+  CodeSlayerProcess *process;
+  GtkTreeModel *tree_model;
+  GtkTreeIter iter;
 
   priv = CODESLAYER_STATUSBAR_GET_PRIVATE (statusbar);
 
   tree_model = GTK_TREE_MODEL (priv->store);
   tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
-  selected_rows = gtk_tree_selection_get_selected_rows (tree_selection, &tree_model);
-  tmp = selected_rows;
-
-  while (tmp != NULL)
-    {
-      CodeSlayerProcess *process;
-      GtkTreeIter iter;
-      
-      GtkTreePath *tree_path = tmp->data;
-
-      gtk_tree_model_get_iter (tree_model, &iter, tree_path);
-
-      gtk_tree_model_get (tree_model, &iter, PROCESS, &process, -1);
-      
-      codeslayer_process_stop (process);
-
-      gtk_tree_path_free (tree_path);
-      tmp = g_list_next (tmp);
-    }
-  g_list_free (selected_rows);
+  gtk_tree_selection_get_selected (tree_selection, &tree_model, &iter);
+  
+  gtk_tree_model_get (tree_model, &iter, PROCESS, &process, -1);
+  
+  if (process != NULL)
+    codeslayer_process_stop (process);
 }
 
 static gboolean
 show_popup_menu (CodeSlayerStatusbar *statusbar, 
-                 GdkEventButton          *event)
+                 GdkEventButton      *event)
 {
   CodeSlayerStatusbarPrivate *priv;
   
@@ -208,6 +197,33 @@ show_popup_menu (CodeSlayerStatusbar *statusbar,
 
   if (event->type == GDK_BUTTON_PRESS && event->button == 3)
     {
+      GtkTreeSelection *tree_selection;
+      GtkTreeModel *tree_model;
+      GtkTreeIter iter;
+
+      tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
+      if (gtk_tree_selection_get_selected (tree_selection, &tree_model, &iter))
+        {
+          CodeSlayerProcess *process;
+          GtkTreePath *path;
+
+          gtk_tree_model_get (tree_model, &iter, PROCESS, &process, -1);
+          
+          if (codeslayer_process_get_func (process) == NULL)
+            return FALSE;
+
+          /* Get tree path for row that was clicked */
+          if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (priv->tree),
+                                            (gint) event->x, 
+                                            (gint) event->y,
+                                            &path, NULL, NULL, NULL))
+            {
+              gtk_tree_selection_unselect_all (tree_selection);
+              gtk_tree_selection_select_path (tree_selection, path);
+              gtk_tree_path_free (path);
+            }
+        }
+
       if (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->store), NULL) > 0)
         {
           gtk_widget_show_all (priv->stop_item);
@@ -235,7 +251,8 @@ process_started_action (CodeSlayerStatusbar *statusbar,
   
   name = codeslayer_process_get_name (process);
   
-  gtk_label_set_text (GTK_LABEL (priv->label), name);
+  if (!gtk_expander_get_expanded (GTK_EXPANDER (priv->expander)))
+    gtk_label_set_text (GTK_LABEL (priv->label), name);
   
   gtk_list_store_append (priv->store, &iter);
   gtk_list_store_set (priv->store, &iter, ICON, GTK_STOCK_EXECUTE, TEXT, name, PROCESS, process, -1);  
@@ -271,9 +288,19 @@ remove_finished_process (GtkTreeModel      *model,
 }
 
 static void
-row_deleted_action (GtkTreeModel        *tree_model,
-                    GtkTreePath         *path,
-                    CodeSlayerStatusbar *statusbar)
+expanded_action (CodeSlayerStatusbar *statusbar)
+{
+  CodeSlayerStatusbarPrivate *priv;
+  priv = CODESLAYER_STATUSBAR_GET_PRIVATE (statusbar);
+
+  if (gtk_expander_get_expanded (GTK_EXPANDER (priv->expander)))
+    gtk_label_set_text (GTK_LABEL (priv->label), NULL);
+  else
+    set_label_text (statusbar);
+}
+
+static void
+set_label_text (CodeSlayerStatusbar *statusbar)
 {
   CodeSlayerStatusbarPrivate *priv;
   GtkTreeIter iter;
@@ -282,7 +309,13 @@ row_deleted_action (GtkTreeModel        *tree_model,
   
   priv = CODESLAYER_STATUSBAR_GET_PRIVATE (statusbar);
 
-  if (!gtk_tree_model_get_iter_first (tree_model, &iter))
+  if (gtk_expander_get_expanded (GTK_EXPANDER (priv->expander)))
+    {
+      gtk_label_set_text (GTK_LABEL (priv->label), NULL);
+      return;    
+    }
+
+  if (!gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->store), &iter))
     {
       gtk_label_set_text (GTK_LABEL (priv->label), NULL);
       return;
@@ -290,10 +323,10 @@ row_deleted_action (GtkTreeModel        *tree_model,
 
   tmp = iter;
   
-  while (gtk_tree_model_iter_next (tree_model, &iter))
+  while (gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->store), &iter))
     tmp = iter;
   
-  gtk_tree_model_get (tree_model, &tmp, TEXT, &text, -1);
+  gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &tmp, TEXT, &text, -1);
   gtk_label_set_text (GTK_LABEL (priv->label), text);  
   g_free (text);  
-}                    
+}

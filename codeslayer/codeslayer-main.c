@@ -135,11 +135,11 @@ main (int   argc,
 
   create_projects (&context);
 
-  create_side_and_bottom_pane (&context);
-  
   create_processes (&context);
   
   create_statusbar (&context);
+
+  create_side_and_bottom_pane (&context);  
   
   create_engine (&context);
 
@@ -252,7 +252,7 @@ create_side_and_bottom_pane (Context *context)
   GtkWidget *side_pane;
   GtkWidget *bottom_pane;
 
-  side_pane = codeslayer_side_pane_new (context->preferences);
+  side_pane = codeslayer_side_pane_new (context->preferences, context->statusbar);
   context->side_pane = side_pane;
   
   codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (side_pane), 
@@ -340,7 +340,6 @@ create_paned_containers (Context *context)
 {
   GtkWidget *hpaned;
   GtkWidget *vpaned;
-  GtkWidget *vbox;
   gint hpaned_position;
   gint vpaned_position;
 
@@ -350,11 +349,7 @@ create_paned_containers (Context *context)
   vpaned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
   context->vpaned = vpaned;
   
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
-  gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (context->side_pane), TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox), context->statusbar, FALSE, FALSE, 1);
-
-  gtk_paned_pack1 (GTK_PANED (hpaned), vbox, FALSE, FALSE);
+  gtk_paned_pack1 (GTK_PANED (hpaned), GTK_WIDGET (context->side_pane), FALSE, FALSE);
   gtk_paned_pack2 (GTK_PANED (hpaned), GTK_WIDGET (context->notebook_pane), TRUE, FALSE);
 
   hpaned_position = codeslayer_settings_get_integer (context->settings,
