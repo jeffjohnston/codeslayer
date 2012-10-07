@@ -45,7 +45,6 @@ G_BEGIN_DECLS
 #define CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE "notebook_search_match_case"
 #define CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD "notebook_search_match_word"
 #define CODESLAYER_SETTINGS_DRAW_SPACES "draw_spaces"
-#define CODESLAYER_SETTINGS_PROCESSES_VISIBLE "processes_visible"
 
 typedef struct _CodeSlayerSettings CodeSlayerSettings;
 typedef struct _CodeSlayerSettingsClass CodeSlayerSettingsClass;

@@ -54,7 +54,6 @@ CodeSlayerEngine*  codeslayer_engine_new                 (GtkWindow             
                                                           CodeSlayerSettings    *settings,
                                                           CodeSlayerPreferences  *preferences,
                                                           CodeSlayerPlugins      *plugins,
-                                                          CodeSlayerProcesses    *processes,
                                                           CodeSlayerGroups       *groups,
                                                           GtkWidget              *projects,
                                                           GtkWidget              *menubar,

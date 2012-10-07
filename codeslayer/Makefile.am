@@ -9,7 +9,7 @@ pkginclude_HEADERS = \
     codeslayer-engine.h \
     codeslayer-process.h \
     codeslayer-processes.h \
-    codeslayer-processes-page.h \
+    codeslayer-statusbar.h \
     codeslayer-completion.h \
     codeslayer-completion-provider.h \
     codeslayer-completion-proposal.h \
@@ -65,7 +65,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-engine.c \
     codeslayer-process.c \
     codeslayer-processes.c \
-    codeslayer-processes-page.c \
+    codeslayer-statusbar.c \
     codeslayer-completion.c \
     codeslayer-completion-provider.c \
     codeslayer-completion-proposal.c \

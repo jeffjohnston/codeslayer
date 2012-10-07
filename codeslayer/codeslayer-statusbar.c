@@ -17,37 +17,43 @@
  */
 
 #include <gtksourceview/gtksourceview.h>
-#include <codeslayer/codeslayer-processes-page.h>
+#include <codeslayer/codeslayer-statusbar.h>
 #include <codeslayer/codeslayer-process.h>
 
-static void codeslayer_processes_page_class_init  (CodeSlayerProcessesPageClass *klass);
-static void codeslayer_processes_page_init        (CodeSlayerProcessesPage      *page);
-static void codeslayer_processes_page_finalize    (CodeSlayerProcessesPage      *page);
+static void codeslayer_statusbar_class_init  (CodeSlayerStatusbarClass *klass);
+static void codeslayer_statusbar_init        (CodeSlayerStatusbar      *statusbar);
+static void codeslayer_statusbar_finalize    (CodeSlayerStatusbar      *statusbar);
 
-static void process_started_action                (CodeSlayerProcessesPage      *page, 
-                                                   CodeSlayerProcess            *process);
-static void process_finished_action               (CodeSlayerProcessesPage      *page, 
-                                                   CodeSlayerProcess            *process);
+static void process_started_action           (CodeSlayerStatusbar      *statusbar, 
+                                              CodeSlayerProcess            *process);
+static void process_finished_action          (CodeSlayerStatusbar      *statusbar, 
+                                              CodeSlayerProcess            *process);
                                                    
-static gboolean remove_finished_process           (GtkTreeModel                 *model,
-                                                   GtkTreePath                  *path,
-                                                   GtkTreeIter                  *iter,
-                                                   CodeSlayerProcess            *process);                                                   
-static void stop_action                           (CodeSlayerProcessesPage      *page);
-static gboolean show_popup_menu                   (CodeSlayerProcessesPage      *page, 
-                                                   GdkEventButton               *event);
+static gboolean remove_finished_process      (GtkTreeModel                 *model,
+                                              GtkTreePath                  *path,
+                                              GtkTreeIter                  *iter,
+                                              CodeSlayerProcess            *process);
+static void stop_action                      (CodeSlayerStatusbar      *statusbar);
+static gboolean show_popup_menu              (CodeSlayerStatusbar      *statusbar, 
+                                              GdkEventButton               *event);
+                                              
+static void row_deleted_action               (GtkTreeModel             *tree_model,
+                                              GtkTreePath              *path,
+                                              CodeSlayerStatusbar      *statusbar);
 
-#define CODESLAYER_PROCESSES_PAGE_GET_PRIVATE(obj) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROCESSES_PAGE_TYPE, CodeSlayerProcessesPagePrivate))
+#define CODESLAYER_STATUSBAR_GET_PRIVATE(obj) \
+  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_STATUSBAR_TYPE, CodeSlayerStatusbarPrivate))
 
-typedef struct _CodeSlayerProcessesPagePrivate CodeSlayerProcessesPagePrivate;
+typedef struct _CodeSlayerStatusbarPrivate CodeSlayerStatusbarPrivate;
 
-struct _CodeSlayerProcessesPagePrivate
+struct _CodeSlayerStatusbarPrivate
 {
   CodeSlayerProcesses *processes;
   GtkWidget           *tree;
   GtkListStore        *store;
   GtkWidget           *menu;
+  GtkWidget           *expander;
+  GtkWidget           *label;
   GtkWidget           *stop_item;
 };
 
@@ -59,20 +65,20 @@ enum
   COLUMNS
 };
 
-G_DEFINE_TYPE (CodeSlayerProcessesPage, codeslayer_processes_page, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerStatusbar, codeslayer_statusbar, GTK_TYPE_VBOX)
 
 static void
-codeslayer_processes_page_class_init (CodeSlayerProcessesPageClass *klass)
+codeslayer_statusbar_class_init (CodeSlayerStatusbarClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_processes_page_finalize;
-  g_type_class_add_private (klass, sizeof (CodeSlayerProcessesPagePrivate));
+  gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_statusbar_finalize;
+  g_type_class_add_private (klass, sizeof (CodeSlayerStatusbarPrivate));
 }
 
 static void
-codeslayer_processes_page_init (CodeSlayerProcessesPage *page) 
+codeslayer_statusbar_init (CodeSlayerStatusbar *statusbar) 
 {
-  CodeSlayerProcessesPagePrivate *priv;
+  CodeSlayerStatusbarPrivate *priv;
   GtkWidget *tree;
   GtkListStore *store;
   GtkTreeViewColumn *column;
@@ -80,7 +86,7 @@ codeslayer_processes_page_init (CodeSlayerProcessesPage *page)
   GtkTreeSelection *selection;
   GtkWidget *scrolled_window;
   
-  priv = CODESLAYER_PROCESSES_PAGE_GET_PRIVATE (page);
+  priv = CODESLAYER_STATUSBAR_GET_PRIVATE (statusbar);
   
   tree = gtk_tree_view_new ();
   priv->tree = tree;
@@ -110,54 +116,63 @@ codeslayer_processes_page_init (CodeSlayerProcessesPage *page)
                                   GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
   gtk_container_add (GTK_CONTAINER (scrolled_window), tree);
   
-  gtk_box_pack_start (GTK_BOX (page), scrolled_window, TRUE, TRUE, 0);
-  
   g_signal_connect_swapped (G_OBJECT (priv->tree), "button_press_event",
-                            G_CALLBACK (show_popup_menu), page);
+                            G_CALLBACK (show_popup_menu), statusbar);
 
   priv->menu = gtk_menu_new ();
 
   priv->stop_item = gtk_menu_item_new_with_label ("Stop Process");
   g_signal_connect_swapped (G_OBJECT (priv->stop_item), "activate",
-                            G_CALLBACK (stop_action), page);
+                            G_CALLBACK (stop_action), statusbar);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->stop_item);
+  
+  priv->expander = gtk_expander_new (NULL);
+  priv->label = gtk_label_new (NULL);
+  gtk_expander_set_label_widget (GTK_EXPANDER (priv->expander), priv->label);
+  
+  gtk_container_add (GTK_CONTAINER (priv->expander), scrolled_window);  
+
+  gtk_box_pack_start (GTK_BOX (statusbar), priv->expander, FALSE, FALSE, 0);
+  
+  g_signal_connect (G_OBJECT (priv->store), "row-deleted",
+                    G_CALLBACK (row_deleted_action), CODESLAYER_STATUSBAR(statusbar));
 }
 
 static void
-codeslayer_processes_page_finalize (CodeSlayerProcessesPage *page)
+codeslayer_statusbar_finalize (CodeSlayerStatusbar *statusbar)
 {
-  G_OBJECT_CLASS (codeslayer_processes_page_parent_class)->finalize (G_OBJECT(page));
+  G_OBJECT_CLASS (codeslayer_statusbar_parent_class)->finalize (G_OBJECT(statusbar));
 }
 
 GtkWidget*
-codeslayer_processes_page_new (CodeSlayerProcesses *processes)
+codeslayer_statusbar_new (CodeSlayerProcesses *processes)
 {
-  CodeSlayerProcessesPagePrivate *priv;
-  GtkWidget *page;
+  CodeSlayerStatusbarPrivate *priv;
+  GtkWidget *statusbar;
 
-  page = g_object_new (codeslayer_processes_page_get_type (), NULL);
-  priv = CODESLAYER_PROCESSES_PAGE_GET_PRIVATE (page);
+  statusbar = g_object_new (codeslayer_statusbar_get_type (), NULL);
+  priv = CODESLAYER_STATUSBAR_GET_PRIVATE (statusbar);
   priv->processes = processes;
 
   g_signal_connect_swapped (G_OBJECT (priv->processes), "process-started",
-                            G_CALLBACK (process_started_action), CODESLAYER_PROCESSES_PAGE(page));
+                            G_CALLBACK (process_started_action), CODESLAYER_STATUSBAR(statusbar));
 
   g_signal_connect_swapped (G_OBJECT (priv->processes), "process-finished",
-                            G_CALLBACK (process_finished_action), CODESLAYER_PROCESSES_PAGE(page));
+                            G_CALLBACK (process_finished_action), CODESLAYER_STATUSBAR(statusbar));
 
-  return page;
+  return statusbar;
 }
 
 static void
-stop_action (CodeSlayerProcessesPage *page)
+stop_action (CodeSlayerStatusbar *statusbar)
 {
-  CodeSlayerProcessesPagePrivate *priv;
+  CodeSlayerStatusbarPrivate *priv;
   GtkTreeModel *tree_model;
   GtkTreeSelection *tree_selection;
   GList *selected_rows;
   GList *tmp;
 
-  priv = CODESLAYER_PROCESSES_PAGE_GET_PRIVATE (page);
+  priv = CODESLAYER_STATUSBAR_GET_PRIVATE (statusbar);
 
   tree_model = GTK_TREE_MODEL (priv->store);
   tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
@@ -184,12 +199,12 @@ stop_action (CodeSlayerProcessesPage *page)
 }
 
 static gboolean
-show_popup_menu (CodeSlayerProcessesPage *page, 
+show_popup_menu (CodeSlayerStatusbar *statusbar, 
                  GdkEventButton          *event)
 {
-  CodeSlayerProcessesPagePrivate *priv;
+  CodeSlayerStatusbarPrivate *priv;
   
-  priv = CODESLAYER_PROCESSES_PAGE_GET_PRIVATE (page);
+  priv = CODESLAYER_STATUSBAR_GET_PRIVATE (statusbar);
 
   if (event->type == GDK_BUTTON_PRESS && event->button == 3)
     {
@@ -209,30 +224,32 @@ show_popup_menu (CodeSlayerProcessesPage *page,
 }
 
 static void
-process_started_action (CodeSlayerProcessesPage *page, 
-                        CodeSlayerProcess       *process)
+process_started_action (CodeSlayerStatusbar *statusbar, 
+                        CodeSlayerProcess   *process)
 {
-  CodeSlayerProcessesPagePrivate *priv;
+  CodeSlayerStatusbarPrivate *priv;
   const gchar* name;
   GtkTreeIter iter;
 
-  priv = CODESLAYER_PROCESSES_PAGE_GET_PRIVATE (page);
+  priv = CODESLAYER_STATUSBAR_GET_PRIVATE (statusbar);
   
   name = codeslayer_process_get_name (process);
+  
+  gtk_label_set_text (GTK_LABEL (priv->label), name);
   
   gtk_list_store_append (priv->store, &iter);
   gtk_list_store_set (priv->store, &iter, ICON, GTK_STOCK_EXECUTE, TEXT, name, PROCESS, process, -1);  
 }
 
 static void
-process_finished_action (CodeSlayerProcessesPage *page, 
-                         CodeSlayerProcess       *process)
+process_finished_action (CodeSlayerStatusbar *statusbar, 
+                         CodeSlayerProcess   *process)
 {
-  CodeSlayerProcessesPagePrivate *priv;  
-  priv = CODESLAYER_PROCESSES_PAGE_GET_PRIVATE (page);
-  
+  CodeSlayerStatusbarPrivate *priv;
+  priv = CODESLAYER_STATUSBAR_GET_PRIVATE (statusbar);
   gtk_tree_model_foreach (GTK_TREE_MODEL (priv->store), 
                           (GtkTreeModelForeachFunc) remove_finished_process, process);
+  
 }
 
 static gboolean 
@@ -251,4 +268,32 @@ remove_finished_process (GtkTreeModel      *model,
     }
   
   return FALSE;
-}                         
+}
+
+static void
+row_deleted_action (GtkTreeModel        *tree_model,
+                    GtkTreePath         *path,
+                    CodeSlayerStatusbar *statusbar)
+{
+  CodeSlayerStatusbarPrivate *priv;
+  GtkTreeIter iter;
+  GtkTreeIter tmp;
+  gchar *text;
+  
+  priv = CODESLAYER_STATUSBAR_GET_PRIVATE (statusbar);
+
+  if (!gtk_tree_model_get_iter_first (tree_model, &iter))
+    {
+      gtk_label_set_text (GTK_LABEL (priv->label), NULL);
+      return;
+    }
+
+  tmp = iter;
+  
+  while (gtk_tree_model_iter_next (tree_model, &iter))
+    tmp = iter;
+  
+  gtk_tree_model_get (tree_model, &tmp, TEXT, &text, -1);
+  gtk_label_set_text (GTK_LABEL (priv->label), text);  
+  g_free (text);  
+}                    

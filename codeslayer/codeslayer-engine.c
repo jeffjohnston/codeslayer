@@ -77,7 +77,6 @@ static void close_side_pane_action             (CodeSlayerEngine       *engine);
 static void toggle_bottom_pane_action          (CodeSlayerEngine       *engine);
 static void open_bottom_pane_action            (CodeSlayerEngine       *engine);
 static void close_bottom_pane_action           (CodeSlayerEngine       *engine);
-static void show_processes_action              (CodeSlayerEngine       *engine);
 static void draw_spaces_action                 (CodeSlayerEngine       *engine);
 static void sync_projects_with_editor_action   (CodeSlayerEngine       *engine, 
                                                 gboolean                sync_projects_with_editor);
@@ -120,8 +119,6 @@ struct _CodeSlayerEnginePrivate
   CodeSlayerSettings      *settings;
   CodeSlayerPreferences   *preferences;
   CodeSlayerPlugins       *plugins;
-  CodeSlayerProcesses     *processes;
-  GtkWidget               *processes_page;
   GtkWidget               *search;
   GtkWidget               *projects;
   GtkWidget               *menubar;
@@ -149,7 +146,6 @@ codeslayer_engine_init (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   priv->search = NULL;
-  priv->processes_page = NULL;
 }
 
 static void
@@ -181,7 +177,6 @@ codeslayer_engine_new (GtkWindow             *window,
                        CodeSlayerSettings    *settings,
                        CodeSlayerPreferences *preferences,
                        CodeSlayerPlugins     *plugins,
-                       CodeSlayerProcesses   *processes,
                        CodeSlayerGroups      *groups,
                        GtkWidget             *projects, 
                        GtkWidget             *menubar,
@@ -199,7 +194,6 @@ codeslayer_engine_new (GtkWindow             *window,
   priv->settings = settings;
   priv->preferences = preferences;
   priv->plugins = plugins;
-  priv->processes = processes;
   priv->groups = groups;
   priv->projects = projects;
   priv->menubar = menubar;
@@ -274,9 +268,6 @@ codeslayer_engine_new (GtkWindow             *window,
   g_signal_connect_swapped (G_OBJECT (bottom_pane), "close-pane",
                             G_CALLBACK (close_bottom_pane_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (menubar), "show-processes",
-                            G_CALLBACK (show_processes_action), engine);
-  
   g_signal_connect_swapped (G_OBJECT (menubar), "draw-spaces",
                             G_CALLBACK (draw_spaces_action), engine);
   
@@ -326,20 +317,9 @@ static void
 initialize_preferences_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  gboolean processes_visible;
-  
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   priv->sync_projects_with_editor = codeslayer_preferences_get_boolean (priv->preferences, 
                                                                         CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR);
-                                                                        
-  processes_visible = codeslayer_settings_get_boolean (priv->settings, 
-                                                       CODESLAYER_SETTINGS_PROCESSES_VISIBLE);
-  if (processes_visible)
-    {
-      priv->processes_page = codeslayer_processes_page_new (priv->processes);
-      codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
-                                    priv->processes_page, "Processes");
-    }
 }
 
 /**
@@ -988,40 +968,6 @@ close_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_settings_set_boolean (priv->settings, 
                                    CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
                                    FALSE);
-}
-
-static void
-show_processes_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  gboolean processes_visible;
-  
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  
-  processes_visible = codeslayer_settings_get_boolean (priv->settings, 
-                                                       CODESLAYER_SETTINGS_PROCESSES_VISIBLE);
-  if (processes_visible)
-    {
-      codeslayer_settings_set_boolean (priv->settings, 
-                                       CODESLAYER_SETTINGS_PROCESSES_VISIBLE,
-                                       FALSE);
-      if (priv->processes_page != NULL)
-        codeslayer_abstract_pane_remove (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
-                                         priv->processes_page);
-    }
-  else
-    {
-      codeslayer_settings_set_boolean (priv->settings, 
-                                       CODESLAYER_SETTINGS_PROCESSES_VISIBLE,
-                                       TRUE);
-      if (priv->processes_page == NULL)
-        {
-          priv->processes_page = codeslayer_processes_page_new (priv->processes);
-          codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
-                                        priv->processes_page, "Processes");
-        }
-                                             
-    }
 }
 
 static void

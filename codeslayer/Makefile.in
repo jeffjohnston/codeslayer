@@ -101,7 +101,7 @@ libcodeslayer_la_LIBADD =
 am_libcodeslayer_la_OBJECTS = libcodeslayer_la-codeslayer-engine.lo \
 	libcodeslayer_la-codeslayer-process.lo \
 	libcodeslayer_la-codeslayer-processes.lo \
-	libcodeslayer_la-codeslayer-processes-page.lo \
+	libcodeslayer_la-codeslayer-statusbar.lo \
 	libcodeslayer_la-codeslayer-completion.lo \
 	libcodeslayer_la-codeslayer-completion-provider.lo \
 	libcodeslayer_la-codeslayer-completion-proposal.lo \
@@ -372,7 +372,7 @@ pkginclude_HEADERS = \
     codeslayer-engine.h \
     codeslayer-process.h \
     codeslayer-processes.h \
-    codeslayer-processes-page.h \
+    codeslayer-statusbar.h \
     codeslayer-completion.h \
     codeslayer-completion-provider.h \
     codeslayer-completion-proposal.h \
@@ -428,7 +428,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-engine.c \
     codeslayer-process.c \
     codeslayer-processes.c \
-    codeslayer-processes-page.c \
+    codeslayer-statusbar.c \
     codeslayer-completion.c \
     codeslayer-completion-provider.c \
     codeslayer-completion-proposal.c \
@@ -651,7 +651,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preferences-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preferences.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-process.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-processes-page.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-processes.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-project.Plo@am__quote@
@@ -663,6 +662,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-settings.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-side-pane.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-statusbar.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-tearoff.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-utils.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-xml.Plo@am__quote@
@@ -711,12 +711,12 @@ libcodeslayer_la-codeslayer-processes.lo: codeslayer-processes.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-processes.lo `test -f 'codeslayer-processes.c' || echo '$(srcdir)/'`codeslayer-processes.c
 
-libcodeslayer_la-codeslayer-processes-page.lo: codeslayer-processes-page.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-processes-page.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-processes-page.Tpo -c -o libcodeslayer_la-codeslayer-processes-page.lo `test -f 'codeslayer-processes-page.c' || echo '$(srcdir)/'`codeslayer-processes-page.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-processes-page.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-processes-page.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-processes-page.c' object='libcodeslayer_la-codeslayer-processes-page.lo' libtool=yes @AMDEPBACKSLASH@
+libcodeslayer_la-codeslayer-statusbar.lo: codeslayer-statusbar.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-statusbar.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-statusbar.Tpo -c -o libcodeslayer_la-codeslayer-statusbar.lo `test -f 'codeslayer-statusbar.c' || echo '$(srcdir)/'`codeslayer-statusbar.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-statusbar.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-statusbar.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-statusbar.c' object='libcodeslayer_la-codeslayer-statusbar.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-processes-page.lo `test -f 'codeslayer-processes-page.c' || echo '$(srcdir)/'`codeslayer-processes-page.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-statusbar.lo `test -f 'codeslayer-statusbar.c' || echo '$(srcdir)/'`codeslayer-statusbar.c
 
 libcodeslayer_la-codeslayer-completion.lo: codeslayer-completion.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-completion.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-completion.Tpo -c -o libcodeslayer_la-codeslayer-completion.lo `test -f 'codeslayer-completion.c' || echo '$(srcdir)/'`codeslayer-completion.c

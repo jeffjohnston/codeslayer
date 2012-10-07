@@ -30,6 +30,7 @@
 #include <codeslayer/codeslayer-notebook-search.h>
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-menubar.h>
+#include <codeslayer/codeslayer-statusbar.h>
 #include <codeslayer/codeslayer-groups.h>
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer-repository.h>
@@ -50,6 +51,7 @@ typedef struct
   CodeSlayerEngine *engine;
   CodeSlayerProcesses *processes;
   CodeSlayer *codeslayer;
+  GtkWidget *statusbar;
   GtkWidget *notebook;
   CodeSlayerGroups *groups;
   CodeSlayerPlugins *plugins;
@@ -73,6 +75,7 @@ static void create_project_properties        (Context     *context);
 static void create_side_and_bottom_pane      (Context     *context);
 static void create_notebook                  (Context     *context);
 static void create_processes                 (Context     *context);
+static void create_statusbar                 (Context     *context);
 static void create_engine                    (Context     *context);
 static void load_plugins                     (Context     *context);
 static void create_paned_containers          (Context     *context);
@@ -135,6 +138,8 @@ main (int   argc,
   create_side_and_bottom_pane (&context);
   
   create_processes (&context);
+  
+  create_statusbar (&context);
   
   create_engine (&context);
 
@@ -251,7 +256,7 @@ create_side_and_bottom_pane (Context *context)
   context->side_pane = side_pane;
   
   codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (side_pane), 
-                            context->projects, "Projects");
+                                context->projects, "Projects");
 
   bottom_pane = codeslayer_bottom_pane_new (context->preferences);
   context->bottom_pane = bottom_pane;
@@ -266,6 +271,14 @@ create_processes (Context *context)
 }  
 
 static void 
+create_statusbar (Context *context)
+{
+  GtkWidget *statusbar;
+  statusbar = codeslayer_statusbar_new (context->processes);
+  context->statusbar = statusbar;
+}
+
+static void 
 create_engine (Context *context)
 {
   CodeSlayerEngine *engine;
@@ -274,7 +287,6 @@ create_engine (Context *context)
                                   context->settings, 
                                   context->preferences, 
                                   context->plugins, 
-                                  context->processes,
                                   context->groups, 
                                   context->projects, 
                                   context->menubar, 
@@ -328,6 +340,7 @@ create_paned_containers (Context *context)
 {
   GtkWidget *hpaned;
   GtkWidget *vpaned;
+  GtkWidget *vbox;
   gint hpaned_position;
   gint vpaned_position;
 
@@ -336,8 +349,12 @@ create_paned_containers (Context *context)
 
   vpaned = gtk_paned_new (GTK_ORIENTATION_VERTICAL);
   context->vpaned = vpaned;
+  
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
+  gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (context->side_pane), TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox), context->statusbar, FALSE, FALSE, 1);
 
-  gtk_paned_pack1 (GTK_PANED (hpaned), GTK_WIDGET (context->side_pane), FALSE, FALSE);
+  gtk_paned_pack1 (GTK_PANED (hpaned), vbox, FALSE, FALSE);
   gtk_paned_pack2 (GTK_PANED (hpaned), GTK_WIDGET (context->notebook_pane), TRUE, FALSE);
 
   hpaned_position = codeslayer_settings_get_integer (context->settings,
