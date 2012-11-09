@@ -32,7 +32,6 @@
 #include <codeslayer/codeslayer-notebook-pane.h>
 #include <codeslayer/codeslayer-editor.h>
 #include <codeslayer/codeslayer-plugins.h>
-#include <codeslayer/codeslayer-processes-page.h>
 
 /**
  * SECTION:codeslayer-engine
