@@ -34,6 +34,14 @@
  * The global search will find text in the files under the active group.
  */
 
+typedef struct
+{
+  CodeSlayerSearchPage *search_page;
+  gchar                *label_name;
+  GList                *search_files;
+  CodeSlayerProject    *project;
+} SearchContext;
+
 static void codeslayer_search_page_class_init    (CodeSlayerSearchPageClass *klass);
 static void codeslayer_search_page_init          (CodeSlayerSearchPage      *search_page);
 static void codeslayer_search_page_finalize      (CodeSlayerSearchPage      *search_page);
@@ -71,9 +79,6 @@ static void create_search_results                (CodeSlayerSearchPage      *sea
                                                   GPatternSpec              *file_pattern, 
                                                   GFile                     *file, 
                                                   GList                     **search_files);
-static void create_search_tree                   (CodeSlayerSearchPage      *search_page,
-                                                  GList                     *search_files,
-                                                  CodeSlayerProject         *project);
 static void add_project                          (CodeSlayerSearchPage      *search_page,
                                                   CodeSlayerProject         *project,
                                                   GtkTreeIter               *project_iter);
@@ -89,6 +94,13 @@ static gint sort_iter_compare_func               (GtkTreeModel              *mod
                                                   GtkTreeIter               *a, 
                                                   GtkTreeIter               *b, 
                                                   gpointer                   userdata);
+                                                  
+static gboolean set_label_name                   (SearchContext             *context);
+static void destroy_label_name                   (SearchContext             *context);
+static gboolean set_stop_button_sensitive        (GtkWidget                 *stop_button);
+static gboolean create_search_tree               (SearchContext             *context);
+static void destroy_search_tree                  (SearchContext             *context);
+
 
 #define CODESLAYER_SEARCH_PAGE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_SEARCH_PAGE_TYPE, CodeSlayerSearchPagePrivate))
@@ -111,6 +123,8 @@ struct _CodeSlayerSearchPagePrivate
   CodeSlayerGroups        *groups;
   gchar                   *file_paths;
   gboolean                 stop_request;
+  const gchar             *find_text;
+  const gchar             *file_text;
 };
 
 enum
@@ -544,7 +558,12 @@ find_action (CodeSlayerSearchPage *search_page)
   priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (search_page);
   priv->stop_request = FALSE;
   gtk_widget_set_sensitive (priv->stop_button, TRUE);
-  g_thread_create ((GThreadFunc) execute, search_page, FALSE, NULL);
+
+  gtk_tree_store_clear (priv->treestore);
+  priv->find_text = gtk_entry_get_text (GTK_ENTRY (priv->find_entry));
+  priv->file_text = gtk_entry_get_text (GTK_ENTRY (priv->file_entry));
+  
+  g_thread_new ("find", (GThreadFunc) execute, search_page);
 }
 
 static void
@@ -566,31 +585,23 @@ execute (CodeSlayerSearchPage *search_page)
 {
   CodeSlayerSearchPagePrivate *priv;
   
-  const gchar *find_text = NULL;
   gchar *find_globbing = NULL;
   GPatternSpec *find_pattern = NULL;  
   
-  const gchar *file_text = NULL;
   gchar *file_globbing = NULL;
   GPatternSpec *file_pattern = NULL;
   
   priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (search_page);
 
-  gdk_threads_enter ();
-  gtk_tree_store_clear (priv->treestore);
-  find_text = gtk_entry_get_text (GTK_ENTRY (priv->find_entry));
-  file_text = gtk_entry_get_text (GTK_ENTRY (priv->file_entry));
-  gdk_threads_leave ();
-
-  if (codeslayer_utils_has_text (find_text))
+  if (codeslayer_utils_has_text (priv->find_text))
     {
-      find_globbing = get_globbing (find_text, is_active (priv->match_case_button));
+      find_globbing = get_globbing (priv->find_text, is_active (priv->match_case_button));
       find_pattern = g_pattern_spec_new (find_globbing);
     }
 
-  if (codeslayer_utils_has_text (file_text))
+  if (codeslayer_utils_has_text (priv->file_text))
     {
-      file_globbing = get_globbing (file_text, is_active (priv->match_case_button));
+      file_globbing = get_globbing (priv->file_text, is_active (priv->match_case_button));
       file_pattern = g_pattern_spec_new (file_globbing);
     }
   
@@ -625,14 +636,15 @@ execute (CodeSlayerSearchPage *search_page)
       
       if (priv->file_paths)
         {
+          SearchContext *context;
+        
           gchar *label_name;
           label_name = g_strdup_printf (_("Find \"%s\""),
-                                        find_pattern != NULL ? find_text : file_text);
-          gdk_threads_enter ();
-          codeslayer_search_tab_set_label_name (CODESLAYER_SEARCH_TAB(priv->search_tab), 
-                                                label_name);
-          gdk_threads_leave ();
-          g_free (label_name);
+                                        find_pattern != NULL ? priv->find_text : priv->file_text);
+          context = g_malloc (sizeof (SearchContext));
+          context->search_page = search_page;
+          context->label_name = label_name;
+          g_idle_add_full (G_PRIORITY_DEFAULT_IDLE, (GSourceFunc) set_label_name, context, (GDestroyNotify)destroy_label_name);
         }
     }
     
@@ -646,9 +658,7 @@ execute (CodeSlayerSearchPage *search_page)
   if (file_pattern != NULL)
     g_pattern_spec_free (file_pattern);
 
-  gdk_threads_enter ();
-  gtk_widget_set_sensitive (priv->stop_button, FALSE);
-  gdk_threads_leave ();
+  g_idle_add ((GSourceFunc) set_stop_button_sensitive, priv->stop_button);
 }
 
 static void
@@ -709,8 +719,12 @@ search_projects (CodeSlayerSearchPage *search_page,
         
       if (search_files != NULL)
         {
-          create_search_tree (search_page, search_files, project);
-          g_list_free (search_files);
+          SearchContext *context;
+          context = g_malloc (sizeof (SearchContext));
+          context->search_page = search_page;
+          context->search_files = search_files;
+          context->project = project;
+          g_idle_add_full (G_PRIORITY_DEFAULT_IDLE, (GSourceFunc) create_search_tree, context, (GDestroyNotify)destroy_search_tree);
         }
 
       g_free (folder_path_expanded);
@@ -846,24 +860,22 @@ create_search_results (CodeSlayerSearchPage *search_page,
   g_free (base_name);
 }
 
-static void
-create_search_tree (CodeSlayerSearchPage *search_page, 
-                    GList                *search_files, 
-                    CodeSlayerProject    *project)
+static gboolean
+create_search_tree (SearchContext *context)
 {
   CodeSlayerSearchPagePrivate *priv;
   const gchar *project_folder_path;
   GtkTreeIter project_iter;
 
-  priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (search_page);
+  priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (context->search_page);
 
-  project_folder_path = codeslayer_project_get_folder_path (project);
+  project_folder_path = codeslayer_project_get_folder_path (context->project);
 
-  add_project (search_page, project, &project_iter);
+  add_project (context->search_page, context->project, &project_iter);
 
-  while (priv->stop_request == FALSE && search_files != NULL)
+  while (priv->stop_request == FALSE && context->search_files != NULL)
     {
-      SearchFile *search_file = search_files->data;
+      SearchFile *search_file = context->search_files->data;
       gchar *search_file_name;
       gchar *search_file_path;
       GtkTreeIter file_iter;
@@ -878,7 +890,6 @@ create_search_tree (CodeSlayerSearchPage *search_page,
                                       " - ", 
                                       search_file_path, NULL);
       
-      gdk_threads_enter ();
       gtk_tree_store_append (priv->treestore, &file_iter, &project_iter);
       
       tmp = search_file->search_results;
@@ -888,7 +899,7 @@ create_search_tree (CodeSlayerSearchPage *search_page,
                               FILE_PATH, NULL, 
                               LINE_NUMBER, 0, 
                               TEXT, search_file_name,
-                              PROJECT, project, -1);
+                              PROJECT, context->project, -1);
         }
       else
         {
@@ -896,9 +907,8 @@ create_search_tree (CodeSlayerSearchPage *search_page,
                               FILE_PATH, search_file->file_path, 
                               LINE_NUMBER, 0, 
                               TEXT, search_file_name,
-                              PROJECT, project, -1);
+                              PROJECT, context->project, -1);
         }      
-      gdk_threads_leave ();
       
       while (tmp != NULL)
         {
@@ -910,14 +920,12 @@ create_search_tree (CodeSlayerSearchPage *search_page,
           g_sprintf (line_text, "%d", search_result->line_number);
           full_text = g_strconcat ("(", line_text, ") ", search_result->text, NULL);
                                        
-          gdk_threads_enter ();
           gtk_tree_store_append (priv->treestore, &text_iter, &file_iter);
           gtk_tree_store_set (priv->treestore, &text_iter,
                               FILE_PATH, search_result->file_path,
                               LINE_NUMBER, search_result->line_number,
                               TEXT, full_text,
-                              PROJECT, project, -1);
-          gdk_threads_leave ();
+                              PROJECT, context->project, -1);
 
           g_free (line_text);
           g_free (full_text);
@@ -933,8 +941,10 @@ create_search_tree (CodeSlayerSearchPage *search_page,
       g_free (search_file->file_name);
       g_list_free (search_file->search_results);
       g_free (search_file);
-      search_files = g_list_next (search_files);
+      context->search_files = g_list_next (context->search_files);
     }
+  
+  return FALSE;    
 }
 
 static void 
@@ -947,7 +957,6 @@ add_project (CodeSlayerSearchPage *search_page,
 
   priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (search_page);
 
-  gdk_threads_enter ();
   gtk_tree_store_append (priv->treestore, project_iter, NULL);
   project_name = codeslayer_project_get_name (project);
   gtk_tree_store_set (priv->treestore, project_iter, 
@@ -955,7 +964,6 @@ add_project (CodeSlayerSearchPage *search_page,
                       LINE_NUMBER, 0, 
                       TEXT, project_name, 
                       PROJECT, project, -1);
-  gdk_threads_leave ();
 }
 
 static gboolean
@@ -1094,4 +1102,35 @@ sort_iter_compare_func (GtkTreeModel *model,
     }
 
   return ret;
+}
+
+static gboolean 
+set_label_name (SearchContext *context)
+{
+  CodeSlayerSearchPagePrivate *priv;
+  priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (context->search_page);
+  codeslayer_search_tab_set_label_name (CODESLAYER_SEARCH_TAB(priv->search_tab), 
+                                        context->label_name);
+  return FALSE;
+}
+
+static void 
+destroy_label_name (SearchContext *context)
+{
+  g_free (context->label_name);
+  g_free (context);
+}
+
+static gboolean 
+set_stop_button_sensitive (GtkWidget *stop_button)
+{
+  gtk_widget_set_sensitive (stop_button, FALSE);
+  return FALSE;
+}
+
+static void 
+destroy_search_tree (SearchContext *context)
+{
+  g_list_free (context->search_files);
+  g_free (context);
 }
