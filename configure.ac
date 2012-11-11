@@ -1,5 +1,5 @@
 AC_PREREQ(2.59)
-AC_INIT([CodeSlayer], [2.0.1], [jeff.johnston.mn@gmail.com], [codeslayer], [http://codeslayer.org])
+AC_INIT([CodeSlayer], [2.1.0], [jeff.johnston.mn@gmail.com], [codeslayer], [http://codeslayer.org])
 AM_INIT_AUTOMAKE
 
 AC_ARG_ENABLE(codeslayer-dev,
@@ -32,7 +32,7 @@ AM_GLIB_GNU_GETTEXT
 AC_PROG_INTLTOOL
 
 # Dependencies
-GTK_REQUIRED_VERSION=3.0.0
+GTK_REQUIRED_VERSION=3.6.0
 
 AC_SUBST(GTK_REQUIRED_VERSION)
 

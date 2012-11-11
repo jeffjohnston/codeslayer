@@ -1,8 +1,3 @@
-INCLUDES = \
-    $(CODESLAYER_CFLAGS) \
-    -I$(top_srcdir) \
-    -I$(srcdir)
-    
 lib_LTLIBRARIES = libcodeslayer.la
 
 pkginclude_HEADERS = \
@@ -119,11 +114,11 @@ libcodeslayer_la_SOURCES = \
     encoding.h \
     codeslayer.c
 
-libcodeslayer_la_CPPFLAGS = -I$(top_srcdir)
+libcodeslayer_la_CPPFLAGS = $(CODESLAYER_CFLAGS) -I$(top_srcdir) -I$(srcdir)
 
 bin_PROGRAMS = codeslayer
 codeslayer_SOURCES = codeslayer-main.c
-codeslayer_CPPFLAGS = -I$(top_srcdir)
+codeslayer_CPPFLAGS = $(CODESLAYER_CFLAGS) -I$(top_srcdir) -I$(srcdir)
 codeslayer_LDADD = libcodeslayer.la $(CODESLAYER_LIBS)
 
 datadir = @datadir@
