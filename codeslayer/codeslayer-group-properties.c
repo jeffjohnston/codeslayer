@@ -32,7 +32,7 @@ static void codeslayer_group_properties_class_init  (CodeSlayerGroupPropertiesCl
 static void codeslayer_group_properties_init        (CodeSlayerGroupProperties      *group_properties);
 static void codeslayer_group_properties_finalize    (CodeSlayerGroupProperties      *group_properties);
 
-static void add_table                               (CodeSlayerGroupProperties      *group_properties);
+static void add_grid                               (CodeSlayerGroupProperties      *group_properties);
 
 #define CODESLAYER_GROUP_PROPERTIES_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_GROUP_PROPERTIES_TYPE, CodeSlayerGroupPropertiesPrivate))
@@ -86,16 +86,16 @@ codeslayer_group_properties_new (CodeSlayerGroup *group)
   priv = CODESLAYER_GROUP_PROPERTIES_GET_PRIVATE (group_properties);
   priv->group = group;
   
-  add_table (CODESLAYER_GROUP_PROPERTIES (group_properties));
+  add_grid (CODESLAYER_GROUP_PROPERTIES (group_properties));
 
   return group_properties;
 }
 
 static void
-add_table (CodeSlayerGroupProperties *group_properties)
+add_grid (CodeSlayerGroupProperties *group_properties)
 {
   CodeSlayerGroupPropertiesPrivate *priv;
-  GtkWidget *table;
+  GtkWidget *grid;
   GtkWidget *name_label;
   GtkWidget *name_entry;
   GtkWidget *folder_label;
@@ -105,31 +105,31 @@ add_table (CodeSlayerGroupProperties *group_properties)
   
   priv = CODESLAYER_GROUP_PROPERTIES_GET_PRIVATE (group_properties);
 
-  table = gtk_table_new (2, 2, FALSE);
+  grid = gtk_grid_new ();
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 2);
 
   name_label = gtk_label_new (_("Name:"));
   gtk_misc_set_alignment (GTK_MISC (name_label), 1, .5);
-  gtk_table_attach (GTK_TABLE (table), name_label, 0, 1, 0, 1, 
-                    GTK_FILL, GTK_FILL, 4, 1);
+  gtk_misc_set_padding (GTK_MISC (name_label), 4, 0);
+  gtk_grid_attach (GTK_GRID (grid), name_label, 0, 0, 1, 1);
 
   name_entry = gtk_entry_new ();
   priv->name_entry = name_entry;
   gtk_entry_set_activates_default (GTK_ENTRY (name_entry), TRUE);
   gtk_entry_set_width_chars (GTK_ENTRY (name_entry), 50);  
-  gtk_table_attach (GTK_TABLE (table), name_entry, 1, 2, 0, 1,
-                    GTK_FILL | GTK_EXPAND | GTK_SHRINK, GTK_FILL, 4, 1);
+  gtk_grid_attach_next_to (GTK_GRID (grid), name_entry, name_label, 
+                           GTK_POS_RIGHT, 1, 1);
 
   folder_label = gtk_label_new (_("Folder:"));
-  gtk_label_set_width_chars (GTK_LABEL (folder_label), 10);
-  gtk_misc_set_alignment (GTK_MISC (folder_label), .97, .50);
-  gtk_table_attach (GTK_TABLE (table), folder_label, 0, 1, 1, 2, 
-                    GTK_FILL, GTK_FILL, 4, 1);
+  gtk_misc_set_alignment (GTK_MISC (folder_label), 1, .5);
+  gtk_misc_set_padding (GTK_MISC (folder_label), 4, 0);
+  gtk_grid_attach (GTK_GRID (grid), folder_label, 0, 1, 1, 1);
 
   folder_entry = gtk_entry_new ();
   gtk_entry_set_width_chars (GTK_ENTRY (folder_entry), 50);
   gtk_widget_set_sensitive (folder_entry, FALSE);
-  gtk_table_attach (GTK_TABLE (table), folder_entry, 1, 2, 1, 2,
-                    GTK_FILL | GTK_EXPAND | GTK_SHRINK, GTK_FILL, 4, 1);
+  gtk_grid_attach_next_to (GTK_GRID (grid), folder_entry, folder_label, 
+                           GTK_POS_RIGHT, 1, 1);
                     
   group_name = codeslayer_group_get_name (priv->group);
   
@@ -144,7 +144,7 @@ add_table (CodeSlayerGroupProperties *group_properties)
   gtk_entry_set_text (GTK_ENTRY (folder_entry), file_path);
   g_free (file_path);
                     
-  gtk_box_pack_start (GTK_BOX (group_properties), table, FALSE, FALSE, 2);   
+  gtk_box_pack_start (GTK_BOX (group_properties), grid, FALSE, FALSE, 2);   
 }
 
 const gchar*

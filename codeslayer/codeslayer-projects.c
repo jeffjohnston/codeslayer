@@ -1174,7 +1174,8 @@ static void
 add_to_project_properties (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
-  GtkWidget *table;
+  GtkWidget *vbox;
+  GtkWidget *grid;
   GtkWidget *name_label;
   GtkWidget *name_entry;
   GtkWidget *folder_label;
@@ -1182,35 +1183,40 @@ add_to_project_properties (CodeSlayerProjects *projects)
   
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
 
-  table = gtk_table_new (4, 2, FALSE);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+
+  grid = gtk_grid_new ();
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 2);
 
   name_label = gtk_label_new (_("Name:"));
   gtk_misc_set_alignment (GTK_MISC (name_label), 1, .5);
-  gtk_table_attach (GTK_TABLE (table), name_label, 0, 1, 0, 1, 
-                    GTK_FILL, GTK_FILL, 4, 1);
+  gtk_misc_set_padding (GTK_MISC (name_label), 4, 0);
+  gtk_grid_attach (GTK_GRID (grid), name_label, 0, 0, 1, 1);
 
   name_entry = gtk_entry_new ();
   priv->name_entry = name_entry;
   gtk_entry_set_activates_default (GTK_ENTRY (name_entry), TRUE);
   gtk_entry_set_width_chars (GTK_ENTRY (name_entry), 50);  
-  gtk_table_attach (GTK_TABLE (table), name_entry, 1, 2, 0, 1,
-                    GTK_FILL | GTK_EXPAND | GTK_SHRINK, GTK_FILL, 4, 1);
+  gtk_grid_attach_next_to (GTK_GRID (grid), name_entry, name_label, 
+                           GTK_POS_RIGHT, 1, 1);
 
   folder_label = gtk_label_new (_("Folder:"));
   gtk_label_set_width_chars (GTK_LABEL (folder_label), 10);
-  gtk_misc_set_alignment (GTK_MISC (folder_label), .97, .50);
-  gtk_table_attach (GTK_TABLE (table), folder_label, 0, 1, 1, 2, 
-                    GTK_FILL, GTK_FILL, 4, 1);
+  gtk_misc_set_alignment (GTK_MISC (folder_label), 1, .50);
+  gtk_misc_set_padding (GTK_MISC (folder_label), 4, 0);
+  gtk_grid_attach (GTK_GRID (grid), folder_label, 0, 1, 1, 1);
 
   folder_entry = gtk_entry_new ();
   priv->folder_entry = folder_entry;
   gtk_entry_set_width_chars (GTK_ENTRY (folder_entry), 50);
   gtk_widget_set_sensitive (folder_entry, FALSE);
-  gtk_table_attach (GTK_TABLE (table), folder_entry, 1, 2, 1, 2,
-                    GTK_FILL | GTK_EXPAND | GTK_SHRINK, GTK_FILL, 4, 1);
+  gtk_grid_attach_next_to (GTK_GRID (grid), folder_entry, folder_label, 
+                           GTK_POS_RIGHT, 1, 1);
+                           
+  gtk_box_pack_start (GTK_BOX (vbox), grid, FALSE, FALSE, 3);                           
                                         
   codeslayer_project_properties_add (CODESLAYER_PROJECT_PROPERTIES (priv->project_properties), 
-                                      table, _("Project"));
+                                      vbox, _("Project"));
 }
 
 static void

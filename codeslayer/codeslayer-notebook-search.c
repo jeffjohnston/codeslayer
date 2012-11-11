@@ -87,6 +87,7 @@ struct _CodeSlayerNotebookSearchPrivate
 {
   GtkWidget          *notebook;
   CodeSlayerSettings *settings;
+  GtkWidget          *close_button;
   GtkWidget          *find_label;
   GtkWidget          *find_entry;
   GtkListStore       *find_store;
@@ -116,7 +117,7 @@ enum
 
 static guint codeslayer_notebook_search_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (CodeSlayerNotebookSearch, codeslayer_notebook_search, GTK_TYPE_TABLE)
+G_DEFINE_TYPE (CodeSlayerNotebookSearch, codeslayer_notebook_search, GTK_TYPE_GRID)
 
 static void
 codeslayer_notebook_search_class_init (CodeSlayerNotebookSearchClass *klass)
@@ -145,8 +146,10 @@ codeslayer_notebook_search_class_init (CodeSlayerNotebookSearchClass *klass)
 static void
 codeslayer_notebook_search_init (CodeSlayerNotebookSearch *notebook_search)
 {
-  gtk_table_set_homogeneous (GTK_TABLE (notebook_search), FALSE);
-  gtk_table_resize (GTK_TABLE (notebook_search), 2, 7);
+  gtk_grid_set_row_spacing (GTK_GRID (notebook_search), 2);
+  gtk_grid_set_row_homogeneous (GTK_GRID (notebook_search), FALSE);
+  gtk_grid_set_column_spacing (GTK_GRID (notebook_search), 3);
+  gtk_grid_set_column_homogeneous (GTK_GRID (notebook_search), FALSE);
 }
 
 static void
@@ -317,10 +320,14 @@ codeslayer_notebook_search_replace (CodeSlayerNotebookSearch *notebook_search)
 static void
 add_close_button (CodeSlayerNotebookSearch *notebook_search)
 {
+  CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *button;
   GtkWidget *image;
   
+  priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+
   button = gtk_button_new ();
+  priv->close_button = button;
 
   gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
   gtk_button_set_focus_on_click (GTK_BUTTON (button), FALSE);
@@ -332,8 +339,7 @@ add_close_button (CodeSlayerNotebookSearch *notebook_search)
   g_signal_connect_swapped (G_OBJECT (button), "clicked",
                             G_CALLBACK (close_search_action), notebook_search);
 
-  gtk_table_attach (GTK_TABLE (notebook_search), button, 
-                    0, 1, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
+  gtk_grid_attach (GTK_GRID (notebook_search), button, 0, 0, 1, 1);
 }
 
 static void
@@ -358,19 +364,19 @@ add_find_entry (CodeSlayerNotebookSearch *notebook_search)
 
   find_label = gtk_label_new (_(FIND));
   priv->find_label = find_label;
-  
   gtk_misc_set_alignment (GTK_MISC (find_label), 1, .5);
-  gtk_table_attach (GTK_TABLE (notebook_search), find_label, 
-                    1, 2, 0, 1, GTK_FILL, GTK_SHRINK, 4, 0);
+  gtk_misc_set_padding (GTK_MISC (find_label), 4, 0);
+  gtk_grid_attach_next_to (GTK_GRID (notebook_search), find_label, priv->close_button, 
+                           GTK_POS_RIGHT, 1, 1);
 
   find_store = gtk_list_store_new (COLUMNS, G_TYPE_STRING);
   priv->find_store = find_store;
 
   find_entry = gtk_combo_box_text_new_with_entry ();
+  priv->find_entry = find_entry;
   gtk_combo_box_set_model (GTK_COMBO_BOX (find_entry), GTK_TREE_MODEL (find_store));
   entry_set_text (find_entry, find_store, "");                                                   
   gtk_widget_set_size_request (find_entry, 250, -1);                                                   
-  priv->find_entry = find_entry;
   
   g_signal_connect_swapped (G_OBJECT (find_entry), "changed",
                             G_CALLBACK (find_entry_action), notebook_search);
@@ -378,8 +384,8 @@ add_find_entry (CodeSlayerNotebookSearch *notebook_search)
   g_signal_connect_swapped (G_OBJECT (find_entry), "key-press-event",
                             G_CALLBACK (entry_keypress_action), notebook_search);
 
-  gtk_table_attach (GTK_TABLE (notebook_search), find_entry, 
-                    2, 3, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
+  gtk_grid_attach_next_to (GTK_GRID (notebook_search), find_entry, find_label, 
+                           GTK_POS_RIGHT, 1, 1);
 }
 
 static void
@@ -413,8 +419,8 @@ add_find_previous_button (CodeSlayerNotebookSearch *notebook_search)
   g_signal_connect_swapped (G_OBJECT (find_previous_button), "clicked",
                             G_CALLBACK (find_previous_action), notebook_search);
 
-  gtk_table_attach (GTK_TABLE (notebook_search), find_previous_button, 
-                    3, 4, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
+  gtk_grid_attach_next_to (GTK_GRID (notebook_search), find_previous_button, priv->find_entry, 
+                           GTK_POS_RIGHT, 1, 1);
 }
 
 static void
@@ -448,8 +454,8 @@ add_find_next_button (CodeSlayerNotebookSearch *notebook_search)
   g_signal_connect_swapped (G_OBJECT (find_next_button), "clicked",
                             G_CALLBACK (find_next_action), notebook_search);
 
-  gtk_table_attach (GTK_TABLE (notebook_search), find_next_button, 
-                    4, 5, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
+  gtk_grid_attach_next_to (GTK_GRID (notebook_search), find_next_button, priv->find_previous_button, 
+                           GTK_POS_RIGHT, 1, 1);
 }
 
 static void
@@ -475,8 +481,8 @@ add_match_case_button (CodeSlayerNotebookSearch *notebook_search)
   g_signal_connect_swapped (G_OBJECT (match_case_button), "clicked",
                             G_CALLBACK (save_search_options), notebook_search);
 
-  gtk_table_attach (GTK_TABLE (notebook_search), match_case_button, 
-                    5, 6, 0, 1, GTK_SHRINK, GTK_SHRINK, 4, 0);
+  gtk_grid_attach_next_to (GTK_GRID (notebook_search), match_case_button, priv->find_next_button, 
+                           GTK_POS_RIGHT, 1, 1);
 }
 
 static void
@@ -504,26 +510,31 @@ add_match_word_button (CodeSlayerNotebookSearch *notebook_search)
   g_signal_connect_swapped (G_OBJECT (match_word_button), "clicked",
                             G_CALLBACK (save_search_options), notebook_search);
 
-  gtk_table_attach (GTK_TABLE (notebook_search), match_word_button, 
-                    6, 7, 0, 1, GTK_SHRINK, GTK_SHRINK, 4, 0);
+  gtk_grid_attach_next_to (GTK_GRID (notebook_search), match_word_button, priv->match_case_button, 
+                           GTK_POS_RIGHT, 1, 1);
 }
 
 static void
 add_replace_entry (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
+  GtkWidget *spacer;
   GtkWidget *replace_label;
   GtkWidget *replace_entry;
   GtkListStore *replace_store;
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
+  spacer = gtk_label_new ("");
+  gtk_grid_attach (GTK_GRID (notebook_search), spacer, 0, 1, 1, 1);
+
   replace_label = gtk_label_new (_("Replace:"));
   priv->replace_label = replace_label;
   
   gtk_misc_set_alignment (GTK_MISC (replace_label), 1, .5);
-  gtk_table_attach (GTK_TABLE (notebook_search), replace_label, 
-                    1, 2, 1, 2, GTK_FILL, GTK_SHRINK, 4, 0);
+  gtk_misc_set_padding (GTK_MISC (replace_label), 4, 0);
+  gtk_grid_attach_next_to (GTK_GRID (notebook_search), replace_label, spacer, 
+                           GTK_POS_RIGHT, 1, 1);
 
   replace_store = gtk_list_store_new (COLUMNS, G_TYPE_STRING);
   priv->replace_store = replace_store;
@@ -537,8 +548,8 @@ add_replace_entry (CodeSlayerNotebookSearch *notebook_search)
   g_signal_connect_swapped (G_OBJECT (replace_entry), "key-press-event",
                             G_CALLBACK (entry_keypress_action), notebook_search);
 
-  gtk_table_attach (GTK_TABLE (notebook_search), replace_entry, 
-                    2, 3, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 0);
+  gtk_grid_attach_next_to (GTK_GRID (notebook_search), replace_entry, replace_label, 
+                           GTK_POS_RIGHT, 1, 1);
 }
 
 static void
@@ -574,8 +585,8 @@ add_replace_button (CodeSlayerNotebookSearch *notebook_search)
   g_signal_connect_swapped (G_OBJECT (replace_button), "clicked",
                             G_CALLBACK (replace_action), notebook_search);
 
-  gtk_table_attach (GTK_TABLE (notebook_search), replace_button, 
-                    3, 5, 1, 2, GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_grid_attach_next_to (GTK_GRID (notebook_search), replace_button, priv->replace_entry, 
+                           GTK_POS_RIGHT, 2, 1);
 }
 
 static void
@@ -606,8 +617,8 @@ add_replace_all_button (CodeSlayerNotebookSearch *notebook_search)
   g_signal_connect_swapped (G_OBJECT (replace_all_button), "clicked",
                             G_CALLBACK (replace_all_action), notebook_search);
 
-  gtk_table_attach (GTK_TABLE (notebook_search), replace_all_button, 
-                    5, 6, 1, 2, GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_grid_attach_next_to (GTK_GRID (notebook_search), replace_all_button, priv->replace_button, 
+                           GTK_POS_RIGHT, 2, 1);
 }
 
 /**

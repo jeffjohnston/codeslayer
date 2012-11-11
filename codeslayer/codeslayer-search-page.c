@@ -111,7 +111,7 @@ struct _CodeSlayerSearchPagePrivate
 {
   CodeSlayerPreferences   *preferences;
   GtkWidget               *search_tab;
-  GtkWidget               *table;
+  GtkWidget               *grid;
   GtkWidget               *find_entry;
   GtkWidget               *file_entry;
   GtkWidget               *stop_button;
@@ -202,7 +202,7 @@ static void
 codeslayer_search_page_init (CodeSlayerSearchPage *search_page)
 {
   CodeSlayerSearchPagePrivate *priv;
-  GtkWidget *table;
+  GtkWidget *grid;
   GtkWidget *treeview;
   GtkTreeStore *treestore;
   GtkTreeSortable *sortable;
@@ -217,8 +217,8 @@ codeslayer_search_page_init (CodeSlayerSearchPage *search_page)
 
   /* add the search page fields */
 
-  table = gtk_table_new (2, 4, FALSE);
-  priv->table = table;
+  grid = gtk_grid_new ();
+  priv->grid = grid;
 
   add_find_entry (search_page);
   add_stop_button (search_page);
@@ -226,7 +226,7 @@ codeslayer_search_page_init (CodeSlayerSearchPage *search_page)
   add_file_entry (search_page);
   add_find_button (search_page);
 
-  gtk_box_pack_start (GTK_BOX (search_page), GTK_WIDGET (priv->table), FALSE, FALSE, 2);
+  gtk_box_pack_start (GTK_BOX (search_page), GTK_WIDGET (priv->grid), FALSE, FALSE, 2);
 
   /* add the search page results */
 
@@ -424,14 +424,14 @@ add_find_entry (CodeSlayerSearchPage *search_page)
 
   find_label = gtk_label_new (_("Contains Text:"));
   gtk_misc_set_alignment (GTK_MISC (find_label), 1, .5);
-  gtk_table_attach (GTK_TABLE (priv->table), find_label, 0, 1, 0, 1, 
-                    GTK_FILL, GTK_SHRINK, 4, 0);
+  gtk_misc_set_padding (GTK_MISC (find_label), 4, 0);
+  gtk_grid_attach (GTK_GRID (priv->grid), find_label, 0, 0, 1, 1);
 
   find_entry = gtk_entry_new ();
   gtk_entry_set_width_chars (GTK_ENTRY (find_entry), 40);
   priv->find_entry = find_entry;
-  gtk_table_attach (GTK_TABLE (priv->table), find_entry, 1, 2, 0, 1,
-                    GTK_SHRINK, GTK_SHRINK, 0, 0);
+  gtk_grid_attach_next_to (GTK_GRID (priv->grid), find_entry, find_label, 
+                           GTK_POS_RIGHT, 1, 1);
 
   g_signal_connect_swapped (G_OBJECT (find_entry), "activate",
                             G_CALLBACK (find_action), search_page);
@@ -456,8 +456,8 @@ add_stop_button (CodeSlayerSearchPage *search_page)
   gtk_container_add (GTK_CONTAINER (stop_button), stop_image);
   gtk_widget_set_can_focus (stop_button, FALSE);
 
-  gtk_table_attach (GTK_TABLE (priv->table), stop_button, 2, 3, 0, 1,
-                    GTK_SHRINK, GTK_SHRINK, 0, 0);
+  gtk_grid_attach_next_to (GTK_GRID (priv->grid), stop_button, priv->find_entry, 
+                           GTK_POS_RIGHT, 1, 1);
 
   g_signal_connect_swapped (G_OBJECT (stop_button), "clicked",
                             G_CALLBACK (stop_action), search_page);
@@ -476,8 +476,8 @@ add_match_case_button (CodeSlayerSearchPage *search_page)
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_case_button), TRUE);
   priv->match_case_button = match_case_button;
 
-  gtk_table_attach (GTK_TABLE (priv->table), match_case_button, 3, 4, 0, 1,
-                    GTK_SHRINK, GTK_SHRINK, 3, 0);
+  gtk_grid_attach_next_to (GTK_GRID (priv->grid), match_case_button, priv->stop_button, 
+                           GTK_POS_RIGHT, 1, 1);
 
   g_signal_connect_swapped (G_OBJECT (match_case_button), "clicked",
                             G_CALLBACK (match_case_action), search_page);
@@ -494,15 +494,14 @@ add_file_entry (CodeSlayerSearchPage *search_page)
 
   file_label = gtk_label_new (_("File Name:"));
   gtk_misc_set_alignment (GTK_MISC (file_label), 1, .5);
-  gtk_table_attach (GTK_TABLE (priv->table), file_label, 0, 1, 1, 2, 
-                    GTK_FILL, GTK_SHRINK, 4, 0);
+  gtk_misc_set_padding (GTK_MISC (file_label), 4, 0);
+  gtk_grid_attach (GTK_GRID (priv->grid), file_label, 0, 1, 1, 1);
 
   file_entry = gtk_entry_new ();
-  gtk_entry_set_width_chars (GTK_ENTRY (file_entry), 40);
-
   priv->file_entry = file_entry;
-  gtk_table_attach (GTK_TABLE (priv->table), file_entry, 1, 2, 1, 2,
-                    GTK_SHRINK, GTK_SHRINK, 0, 0);
+  gtk_entry_set_width_chars (GTK_ENTRY (file_entry), 40);
+  gtk_grid_attach_next_to (GTK_GRID (priv->grid), file_entry, file_label, 
+                           GTK_POS_RIGHT, 1, 1);
 
   g_signal_connect_swapped (G_OBJECT (file_entry), "activate",
                             G_CALLBACK (find_action), search_page);
@@ -526,9 +525,7 @@ add_find_button (CodeSlayerSearchPage *search_page)
   gtk_button_set_focus_on_click (GTK_BUTTON (find_button), FALSE);
 
   find_label = gtk_label_new (_("Find"));
-  gtk_misc_set_alignment (GTK_MISC (find_label), 0, .5);
   find_image = gtk_image_new_from_stock (GTK_STOCK_FIND, GTK_ICON_SIZE_MENU);
-  gtk_misc_set_alignment (GTK_MISC (find_image), 1, .5);
   
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
   gtk_box_set_homogeneous (GTK_BOX (hbox), TRUE);
@@ -544,8 +541,8 @@ add_find_button (CodeSlayerSearchPage *search_page)
   
   gtk_box_pack_start (GTK_BOX (container), find_button, FALSE, FALSE, 0);  
   
-  gtk_table_attach (GTK_TABLE (priv->table), container, 2, 4, 1, 2,
-                    GTK_FILL, GTK_SHRINK, 0, 0);
+  gtk_grid_attach_next_to (GTK_GRID (priv->grid), container, priv->file_entry, 
+                           GTK_POS_RIGHT, 2, 1);
 
   g_signal_connect_swapped (G_OBJECT (find_button), "clicked",
                             G_CALLBACK (find_action), search_page);

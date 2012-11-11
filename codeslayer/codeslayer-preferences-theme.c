@@ -162,23 +162,24 @@ static void
 add_tab_positions (CodeSlayerPreferencesTheme *preferences_theme)
 {
   GtkBox *content_area;
-  GtkWidget *table;
+  GtkWidget *grid;
   
   content_area = codeslayer_preferences_utils_content_area (GTK_BOX (preferences_theme), 
                                                             _("Tab Positions"));
 
-  table = gtk_table_new (2, 2, FALSE);
+  grid = gtk_grid_new ();
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 3);
 
-  add_editor_tab_position (preferences_theme, table);
-  add_side_pane_tab_position (preferences_theme, table);
-  add_bottom_pane_tab_position (preferences_theme, table);
+  add_editor_tab_position (preferences_theme, grid);
+  add_side_pane_tab_position (preferences_theme, grid);
+  add_bottom_pane_tab_position (preferences_theme, grid);
   
-  gtk_box_pack_start (content_area, table, FALSE, FALSE, 0);
+  gtk_box_pack_start (content_area, grid, FALSE, FALSE, 0);
 }
 
 static void
 add_editor_tab_position (CodeSlayerPreferencesTheme *preferences_theme, 
-                         GtkWidget                  *table)
+                         GtkWidget                  *grid)
 {
   CodeSlayerPreferencesThemePrivate *priv;
   GtkWidget *label;
@@ -199,16 +200,13 @@ add_editor_tab_position (CodeSlayerPreferencesTheme *preferences_theme,
                             G_CALLBACK (editor_tab_position_action), preferences_theme);
 
   gtk_misc_set_alignment (GTK_MISC (label), 1, .5);
-  gtk_table_attach (GTK_TABLE (table), label, 
-                    0, 1, 0, 1, GTK_FILL, GTK_SHRINK, 0, 2);  
-  
-  gtk_table_attach (GTK_TABLE (table), combo_box, 
-                    1, 2, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 2);  
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);    
+  gtk_grid_attach_next_to (GTK_GRID (grid), combo_box, label, GTK_POS_RIGHT, 1, 1);
 }
 
 static void
 add_side_pane_tab_position (CodeSlayerPreferencesTheme *preferences_theme, 
-                            GtkWidget                  *table)
+                            GtkWidget                  *grid)
 {
   CodeSlayerPreferencesThemePrivate *priv;
   GtkWidget *label;
@@ -225,20 +223,17 @@ add_side_pane_tab_position (CodeSlayerPreferencesTheme *preferences_theme,
                       CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION, 
                       GTK_POS_TOP);
 
- g_signal_connect_swapped (G_OBJECT (combo_box), "changed", 
-                           G_CALLBACK (side_pane_tab_position_action), preferences_theme);
+  g_signal_connect_swapped (G_OBJECT (combo_box), "changed", 
+                            G_CALLBACK (side_pane_tab_position_action), preferences_theme);
 
   gtk_misc_set_alignment (GTK_MISC (label), 1, .5);
-  gtk_table_attach (GTK_TABLE (table), label, 
-                    0, 1, 1, 2, GTK_FILL, GTK_SHRINK, 0, 2);  
-  
-  gtk_table_attach (GTK_TABLE (table), combo_box, 
-                    1, 2, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 2);  
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);    
+  gtk_grid_attach_next_to (GTK_GRID (grid), combo_box, label, GTK_POS_RIGHT, 1, 1);
 }
 
 static void
 add_bottom_pane_tab_position (CodeSlayerPreferencesTheme *preferences_theme, 
-                              GtkWidget                  *table)
+                              GtkWidget                  *grid)
 {
   CodeSlayerPreferencesThemePrivate *priv;
   GtkWidget *label;
@@ -259,11 +254,8 @@ add_bottom_pane_tab_position (CodeSlayerPreferencesTheme *preferences_theme,
                            G_CALLBACK (bottom_pane_tab_position_action), preferences_theme);
 
   gtk_misc_set_alignment (GTK_MISC (label), 1, .5);
-  gtk_table_attach (GTK_TABLE (table), label, 
-                    0, 1, 2, 3, GTK_FILL, GTK_SHRINK, 0, 2);  
-  
-  gtk_table_attach (GTK_TABLE (table), combo_box, 
-                    1, 2, 2, 3, GTK_SHRINK, GTK_SHRINK, 0, 2);  
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);  
+  gtk_grid_attach_next_to (GTK_GRID (grid), combo_box, label, GTK_POS_RIGHT, 1, 1);
 }
 
 static void
