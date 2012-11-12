@@ -35,12 +35,12 @@ typedef struct _CodeSlayerNotebookSearchClass CodeSlayerNotebookSearchClass;
 
 struct _CodeSlayerNotebookSearch
 {
-  GtkGrid parent_instance;
+  GtkVBox parent_instance;
 };
 
 struct _CodeSlayerNotebookSearchClass
 {
-  GtkGridClass parent_class;
+  GtkVBoxClass parent_class;
 
   void (*close_search) (CodeSlayerNotebookSearch * notebook_search);
 };
