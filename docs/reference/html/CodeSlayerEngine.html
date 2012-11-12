@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerEngine</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerEditor.html" title="CodeSlayerEditor">
@@ -43,16 +43,16 @@
 #include &lt;codeslayer/codeslayer-engine.h&gt;
 
 struct              <a class="link" href="CodeSlayerEngine.html#CodeSlayerEngine-struct" title="struct CodeSlayerEngine">CodeSlayerEngine</a>;
-<a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine"><span class="returnvalue">CodeSlayerEngine</span></a> *  <a class="link" href="CodeSlayerEngine.html#codeslayer-engine-new" title="codeslayer_engine_new ()">codeslayer_engine_new</a>               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
+<a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine"><span class="returnvalue">CodeSlayerEngine</span></a> *  <a class="link" href="CodeSlayerEngine.html#codeslayer-engine-new" title="codeslayer_engine_new ()">codeslayer_engine_new</a>               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *projects</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *side_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *bottom_pane</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook_pane</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *side_pane</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *bottom_pane</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerEngine.html#codeslayer-engine-close-active-group" title="codeslayer_engine_close_active_group ()">codeslayer_engine_close_active_group</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine"><span class="type">CodeSlayerEngine</span></a> *engine</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerEngine.html#codeslayer-engine-open-active-group" title="codeslayer_engine_open_active_group ()">codeslayer_engine_open_active_group</a> (<em class="parameter"><code><a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine"><span class="type">CodeSlayerEngine</span></a> *engine</code></em>);
@@ -85,26 +85,29 @@ decoupled.
 <hr>
 <div class="refsect2">
 <a name="codeslayer-engine-new"></a><h3>codeslayer_engine_new ()</h3>
-<pre class="programlisting"><a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine"><span class="returnvalue">CodeSlayerEngine</span></a> *  codeslayer_engine_new               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
+<pre class="programlisting"><a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine"><span class="returnvalue">CodeSlayerEngine</span></a> *  codeslayer_engine_new               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *projects</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *side_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *bottom_pane</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *projects</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook_pane</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *side_pane</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *bottom_pane</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine"><span class="type">CodeSlayerEngine</span></a>. There should be only one engine 
 per application.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
@@ -157,8 +160,11 @@ per application.
 <p>
 Close the current active <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>engine</code></em> :</span></p></td>
@@ -178,8 +184,11 @@ Close the current active <a class="link" href="CodeSlayerGroup.html" title="Code
 <p>
 Open the <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> marked as active.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>engine</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine"><span class="type">CodeSlayerEngine</span></a>.</td>

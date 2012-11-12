@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerDocument</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider">
@@ -49,11 +49,11 @@ struct              <a class="link" href="CodeSlayerDocument.html#CodeSlayerDocu
 const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>          <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-line-number" title="codeslayer_document_get_line_number ()">codeslayer_document_get_line_number</a> (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerDocument.html#codeslayer-document-set-line-number" title="codeslayer_document_set_line_number ()">codeslayer_document_set_line_number</a> (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> line_number</code></em>);
-<a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="returnvalue">GtkTreeRowReference</span></a> * <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-tree-row-reference" title="codeslayer_document_get_tree_row_reference ()">codeslayer_document_get_tree_row_reference</a>
+<a href="/usr/share/gtk-doc/html/gtk3/GtkTreeModel.html#GtkTreeRowReference"><span class="returnvalue">GtkTreeRowReference</span></a> * <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-tree-row-reference" title="codeslayer_document_get_tree_row_reference ()">codeslayer_document_get_tree_row_reference</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerDocument.html#codeslayer-document-set-tree-row-reference" title="codeslayer_document_set_tree_row_reference ()">codeslayer_document_set_tree_row_reference</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> *tree_row_reference</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> *tree_row_reference</code></em>);
 const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-file-path" title="codeslayer_document_get_file_path ()">codeslayer_document_get_file_path</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerDocument.html#codeslayer-document-set-file-path" title="codeslayer_document_set_file_path ()">codeslayer_document_set_file_path</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);
@@ -109,8 +109,11 @@ proper line in the editor.
 <p>
 Creates a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody><tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
@@ -121,8 +124,11 @@ Creates a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDo
 <div class="refsect2">
 <a name="codeslayer-document-get-line-number"></a><h3>codeslayer_document_get_line_number ()</h3>
 <pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>          codeslayer_document_get_line_number (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
@@ -140,8 +146,11 @@ Creates a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDo
 <a name="codeslayer-document-set-line-number"></a><h3>codeslayer_document_set_line_number ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_document_set_line_number (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> line_number</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
@@ -157,10 +166,13 @@ Creates a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDo
 <hr>
 <div class="refsect2">
 <a name="codeslayer-document-get-tree-row-reference"></a><h3>codeslayer_document_get_tree_row_reference ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="returnvalue">GtkTreeRowReference</span></a> * codeslayer_document_get_tree_row_reference
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkTreeModel.html#GtkTreeRowReference"><span class="returnvalue">GtkTreeRowReference</span></a> * codeslayer_document_get_tree_row_reference
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
@@ -168,7 +180,7 @@ Creates a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDo
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the <a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> within the projects tree.</td>
+<td>the <a href="/usr/share/gtk-doc/html/gtk3/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> within the projects tree.</td>
 </tr>
 </tbody>
 </table></div>
@@ -178,9 +190,12 @@ Creates a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDo
 <a name="codeslayer-document-set-tree-row-reference"></a><h3>codeslayer_document_set_tree_row_reference ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_document_set_tree_row_reference
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> *tree_row_reference</code></em>);</pre>
-<div class="variablelist"><table border="0">
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> *tree_row_reference</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
@@ -188,7 +203,7 @@ Creates a new <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDo
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>tree_row_reference</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> so the document can
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkTreeModel.html#GtkTreeRowReference"><span class="type">GtkTreeRowReference</span></a> so the document can
 keep its position within the projects tree.</td>
 </tr>
 </tbody>
@@ -198,8 +213,11 @@ keep its position within the projects tree.</td>
 <div class="refsect2">
 <a name="codeslayer-document-get-file-path"></a><h3>codeslayer_document_get_file_path ()</h3>
 <pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       codeslayer_document_get_file_path   (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
@@ -220,8 +238,11 @@ keep its position within the projects tree.</td>
 <p>
 Note: this is not a URI, but rather a normal file path.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
@@ -243,8 +264,11 @@ Note: this is only used when the active group is first loaded up so that
       the corresponding editor is selected. After 
       that it is not updated until the active group is saved.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
@@ -262,8 +286,11 @@ Note: this is only used when the active group is first loaded up so that
 <a name="codeslayer-document-set-active"></a><h3>codeslayer_document_set_active ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_document_set_active      (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> active</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
@@ -280,8 +307,11 @@ Note: this is only used when the active group is first loaded up so that
 <div class="refsect2">
 <a name="codeslayer-document-get-project"></a><h3>codeslayer_document_get_project ()</h3>
 <pre class="programlisting"><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a> * codeslayer_document_get_project     (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
@@ -299,8 +329,11 @@ Note: this is only used when the active group is first loaded up so that
 <a name="codeslayer-document-set-project"></a><h3>codeslayer_document_set_project ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_document_set_project     (<em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>

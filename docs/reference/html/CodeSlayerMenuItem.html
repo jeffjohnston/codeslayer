@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerMenuItem</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">
@@ -47,8 +47,8 @@
 #include &lt;codeslayer/codeslayer-menuitem.h&gt;
 
 struct              <a class="link" href="CodeSlayerMenuItem.html#CodeSlayerMenuItem-struct" title="struct CodeSlayerMenuItem">CodeSlayerMenuItem</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuItem.html#codeslayer-menu-item-new" title="codeslayer_menu_item_new ()">codeslayer_menu_item_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuItem.html#codeslayer-menu-item-new-with-label" title="codeslayer_menu_item_new_with_label ()">codeslayer_menu_item_new_with_label</a> (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuItem.html#codeslayer-menu-item-new" title="codeslayer_menu_item_new ()">codeslayer_menu_item_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuItem.html#codeslayer-menu-item-new-with-label" title="codeslayer_menu_item_new_with_label ()">codeslayer_menu_item_new_with_label</a> (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -56,10 +56,10 @@ struct              <a class="link" href="CodeSlayerMenuItem.html#CodeSlayerMenu
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBin.html">GtkBin</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html">GtkMenuItem</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk3/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk3/GtkBin.html">GtkBin</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html">GtkMenuItem</a>
                                  +----CodeSlayerMenuItem
 </pre>
 </div>
@@ -67,7 +67,7 @@ struct              <a class="link" href="CodeSlayerMenuItem.html#CodeSlayerMenu
 <a name="CodeSlayerMenuItem.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerMenuItem implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/GtkActivatable.html">GtkActivatable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3/GtkBuildable.html">GtkBuildable</a>,  <a href="/usr/share/gtk-doc/html/gtk3/GtkActivatable.html">GtkActivatable</a> and  <a href="/usr/share/gtk-doc/html/gtk3/GtkActionable.html">GtkActionable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="CodeSlayerMenuItem.signals"></a><h2>Signals</h2>
@@ -91,12 +91,15 @@ bind to the projects-menu-selected signal.
 <hr>
 <div class="refsect2">
 <a name="codeslayer-menu-item-new"></a><h3>codeslayer_menu_item_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menu_item_new            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menu_item_new            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a>.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody><tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a>.</td>
@@ -106,12 +109,15 @@ Creates a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMe
 <hr>
 <div class="refsect2">
 <a name="codeslayer-menu-item-new-with-label"></a><h3>codeslayer_menu_item_new_with_label ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menu_item_new_with_label (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menu_item_new_with_label (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a>.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>label</code></em> :</span></p></td>
@@ -135,8 +141,11 @@ Creates a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMe
 <p>
 The ::projects-menu-selected signal is a request once the menu item is selected.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menuitem</code></em> :</span></p></td>

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerCompletion</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerBottomPane.html" title="CodeSlayerBottomPane">
@@ -45,18 +45,18 @@
 #include &lt;codeslayer/codeslayer-completion.h&gt;
 
 struct              <a class="link" href="CodeSlayerCompletion.html#CodeSlayerCompletion-struct" title="struct CodeSlayerCompletion">CodeSlayerCompletion</a>;
-<a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="returnvalue">CodeSlayerCompletion</span></a> * <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-new" title="codeslayer_completion_new ()">codeslayer_completion_new</a>        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>);
+<a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="returnvalue">CodeSlayerCompletion</span></a> * <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-new" title="codeslayer_completion_new ()">codeslayer_completion_new</a>        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-add-provider" title="codeslayer_completion_add_provider ()">codeslayer_completion_add_provider</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider"><span class="type">CodeSlayerCompletionProvider</span></a> *provider</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-show" title="codeslayer_completion_show ()">codeslayer_completion_show</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-filter" title="codeslayer_completion_filter ()">codeslayer_completion_filter</a>        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-select" title="codeslayer_completion_select ()">codeslayer_completion_select</a>        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-hide" title="codeslayer_completion_hide ()">codeslayer_completion_hide</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-get-visible" title="codeslayer_completion_get_visible ()">codeslayer_completion_get_visible</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-toggle-up" title="codeslayer_completion_toggle_up ()">codeslayer_completion_toggle_up</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);
@@ -90,16 +90,19 @@ struct              <a class="link" href="CodeSlayerCompletion.html#CodeSlayerCo
 <hr>
 <div class="refsect2">
 <a name="codeslayer-completion-new"></a><h3>codeslayer_completion_new ()</h3>
-<pre class="programlisting"><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="returnvalue">CodeSlayerCompletion</span></a> * codeslayer_completion_new        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="returnvalue">CodeSlayerCompletion</span></a> * codeslayer_completion_new        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a>.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
@@ -116,8 +119,11 @@ Creates a new <a class="link" href="CodeSlayerCompletion.html" title="CodeSlayer
 <p>
 Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider"><span class="type">CodeSlayerCompletionProvider</span></a> to the completion window.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>
@@ -134,10 +140,13 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 <div class="refsect2">
 <a name="codeslayer-completion-show"></a><h3>codeslayer_completion_show ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_completion_show          (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);</pre>
-<div class="variablelist"><table border="0">
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>
@@ -145,11 +154,11 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>text_view</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkTextView.html"><span class="type">GtkTextView</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkTextIter.html"><span class="type">GtkTextIter</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -158,10 +167,13 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 <div class="refsect2">
 <a name="codeslayer-completion-filter"></a><h3>codeslayer_completion_filter ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_completion_filter        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);</pre>
-<div class="variablelist"><table border="0">
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>
@@ -169,11 +181,11 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>text_view</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkTextView.html"><span class="type">GtkTextView</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkTextIter.html"><span class="type">GtkTextIter</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -182,10 +194,13 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 <div class="refsect2">
 <a name="codeslayer-completion-select"></a><h3>codeslayer_completion_select ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_completion_select        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);</pre>
-<div class="variablelist"><table border="0">
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>
@@ -193,11 +208,11 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>text_view</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkTextView.html"><span class="type">GtkTextView</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkTextIter.html"><span class="type">GtkTextIter</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -206,8 +221,11 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 <div class="refsect2">
 <a name="codeslayer-completion-hide"></a><h3>codeslayer_completion_hide ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_completion_hide          (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>
@@ -251,8 +269,11 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 <p>
 The ::row-selected signal enables the current selection to be set in the editor.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>

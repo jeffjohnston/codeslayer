@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerPlugins</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerPluginsSelector.html" title="CodeSlayerPluginsSelector">
@@ -43,7 +43,7 @@
 #include &lt;codeslayer/codeslayer-plugins.h&gt;
 
 struct              <a class="link" href="CodeSlayerPlugins.html#CodeSlayerPlugins-struct" title="struct CodeSlayerPlugins">CodeSlayerPlugins</a>;
-<a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="returnvalue">CodeSlayerPlugins</span></a> * <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-new" title="codeslayer_plugins_new ()">codeslayer_plugins_new</a>              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>);
+<a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="returnvalue">CodeSlayerPlugins</span></a> * <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-new" title="codeslayer_plugins_new ()">codeslayer_plugins_new</a>              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-load" title="codeslayer_plugins_load ()">codeslayer_plugins_load</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *data</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-activate" title="codeslayer_plugins_activate ()">codeslayer_plugins_activate</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
@@ -75,16 +75,19 @@ struct              <a class="link" href="CodeSlayerPlugins.html#CodeSlayerPlugi
 <hr>
 <div class="refsect2">
 <a name="codeslayer-plugins-new"></a><h3>codeslayer_plugins_new ()</h3>
-<pre class="programlisting"><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="returnvalue">CodeSlayerPlugins</span></a> * codeslayer_plugins_new              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="returnvalue">CodeSlayerPlugins</span></a> * codeslayer_plugins_new              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a>.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
@@ -98,8 +101,11 @@ Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlu
 <a name="codeslayer-plugins-load"></a><h3>codeslayer_plugins_load ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugins_load             (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *data</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>plugins</code></em> :</span></p></td>
@@ -117,8 +123,11 @@ Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlu
 <a name="codeslayer-plugins-activate"></a><h3>codeslayer_plugins_activate ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugins_activate         (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>plugins</code></em> :</span></p></td>
@@ -135,8 +144,11 @@ Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlu
 <div class="refsect2">
 <a name="codeslayer-plugins-deactivate"></a><h3>codeslayer_plugins_deactivate ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugins_deactivate       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>plugins</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a>.</td>
@@ -147,8 +159,11 @@ Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlu
 <div class="refsect2">
 <a name="codeslayer-plugins-get-list"></a><h3>codeslayer_plugins_get_list ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             codeslayer_plugins_get_list         (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>plugins</code></em> :</span></p></td>
@@ -169,8 +184,11 @@ Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlu
 <p>
 Show the plugins dialog.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>plugins</code></em> :</span></p></td>

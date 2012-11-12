@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerMenuBarView</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools">
@@ -45,8 +45,9 @@
 #include &lt;codeslayer/codeslayer-menubar-view.h&gt;
 
 struct              <a class="link" href="CodeSlayerMenuBarView.html#CodeSlayerMenuBarView-struct" title="struct CodeSlayerMenuBarView">CodeSlayerMenuBarView</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBarView.html#codeslayer-menubar-view-new" title="codeslayer_menubar_view_new ()">codeslayer_menubar_view_new</a>         (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBarView.html#codeslayer-menubar-view-new" title="codeslayer_menubar_view_new ()">codeslayer_menubar_view_new</a>         (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBarView.html#codeslayer-menubar-view-sync-with-panes" title="codeslayer_menubar_view_sync_with_panes ()">codeslayer_menubar_view_sync_with_panes</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlayerMenuBarView"><span class="type">CodeSlayerMenuBarView</span></a> *menubar_view</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_side_pane</code></em>,
@@ -58,10 +59,10 @@ struct              <a class="link" href="CodeSlayerMenuBarView.html#CodeSlayerM
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBin.html">GtkBin</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html">GtkMenuItem</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk3/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk3/GtkBin.html">GtkBin</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html">GtkMenuItem</a>
                                  +----CodeSlayerMenuBarView
 </pre>
 </div>
@@ -69,7 +70,7 @@ struct              <a class="link" href="CodeSlayerMenuBarView.html#CodeSlayerM
 <a name="CodeSlayerMenuBarView.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerMenuBarView implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/GtkActivatable.html">GtkActivatable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3/GtkBuildable.html">GtkBuildable</a>,  <a href="/usr/share/gtk-doc/html/gtk3/GtkActivatable.html">GtkActivatable</a> and  <a href="/usr/share/gtk-doc/html/gtk3/GtkActionable.html">GtkActionable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="CodeSlayerMenuBarView.description"></a><h2>Description</h2>
@@ -83,13 +84,17 @@ CodeSlayerMenuBarView implements
 <hr>
 <div class="refsect2">
 <a name="codeslayer-menubar-view-new"></a><h3>codeslayer_menubar_view_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menubar_view_new         (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menubar_view_new         (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlayerMenuBarView"><span class="type">CodeSlayerMenuBarView</span></a>.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
@@ -97,7 +102,11 @@ Creates a new <a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlaye
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>accel_group</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
@@ -117,8 +126,11 @@ Creates a new <a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlaye
 Update the sensitivity of view related menu items based on the current 
 state of the bottom and side pane.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menubar_view</code></em> :</span></p></td>

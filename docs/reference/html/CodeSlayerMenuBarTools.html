@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerMenuBarTools</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerMenuBarSearch.html" title="CodeSlayerMenuBarSearch">
@@ -45,8 +45,8 @@
 #include &lt;codeslayer/codeslayer-menu-tools.h&gt;
 
 struct              <a class="link" href="CodeSlayerMenuBarTools.html#CodeSlayerMenuBarTools-struct" title="struct CodeSlayerMenuBarTools">CodeSlayerMenuBarTools</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBarTools.html#codeslayer-menubar-tools-new" title="codeslayer_menubar_tools_new ()">codeslayer_menubar_tools_new</a>        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBarTools.html#codeslayer-menubar-tools-new" title="codeslayer_menubar_tools_new ()">codeslayer_menubar_tools_new</a>        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -54,10 +54,10 @@ struct              <a class="link" href="CodeSlayerMenuBarTools.html#CodeSlayer
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBin.html">GtkBin</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html">GtkMenuItem</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk3/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk3/GtkBin.html">GtkBin</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html">GtkMenuItem</a>
                                  +----CodeSlayerMenuBarTools
 </pre>
 </div>
@@ -65,7 +65,7 @@ struct              <a class="link" href="CodeSlayerMenuBarTools.html#CodeSlayer
 <a name="CodeSlayerMenuBarTools.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerMenuBarTools implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/GtkActivatable.html">GtkActivatable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3/GtkBuildable.html">GtkBuildable</a>,  <a href="/usr/share/gtk-doc/html/gtk3/GtkActivatable.html">GtkActivatable</a> and  <a href="/usr/share/gtk-doc/html/gtk3/GtkActionable.html">GtkActionable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="CodeSlayerMenuBarTools.description"></a><h2>Description</h2>
@@ -79,13 +79,16 @@ CodeSlayerMenuBarTools implements
 <hr>
 <div class="refsect2">
 <a name="codeslayer-menubar-tools-new"></a><h3>codeslayer_menubar_tools_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menubar_tools_new        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menubar_tools_new        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a>.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
@@ -93,7 +96,7 @@ Creates a new <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlay
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>accel_group</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>

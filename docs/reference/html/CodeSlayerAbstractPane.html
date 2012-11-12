@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerAbstractPane</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="ch01.html" title="API Reference">
@@ -55,12 +55,12 @@ struct              <a class="link" href="CodeSlayerAbstractPane.html#CodeSlayer
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-add" title="codeslayer_abstract_pane_add ()">codeslayer_abstract_pane_add</a>        (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-remove" title="codeslayer_abstract_pane_remove ()">codeslayer_abstract_pane_remove</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-open" title="codeslayer_abstract_pane_open ()">codeslayer_abstract_pane_open</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-close" title="codeslayer_abstract_pane_close ()">codeslayer_abstract_pane_close</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>);
 </pre>
 </div>
@@ -69,10 +69,10 @@ struct              <a class="link" href="CodeSlayerAbstractPane.html#CodeSlayer
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkVBox.html">GtkVBox</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk3/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk3/GtkBox.html">GtkBox</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk3/GtkVBox.html">GtkVBox</a>
                                  +----CodeSlayerAbstractPane
                                        +----<a class="link" href="CodeSlayerBottomPane.html" title="CodeSlayerBottomPane">CodeSlayerBottomPane</a>
                                        +----<a class="link" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane">CodeSlayerSidePane</a>
@@ -82,7 +82,7 @@ struct              <a class="link" href="CodeSlayerAbstractPane.html#CodeSlayer
 <a name="CodeSlayerAbstractPane.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerAbstractPane implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3/gtk3-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="CodeSlayerAbstractPane.signals"></a><h2>Signals</h2>
@@ -123,13 +123,16 @@ CodeSlayerAbstractPane implements
 <div class="refsect2">
 <a name="codeslayer-abstract-pane-add"></a><h3>codeslayer_abstract_pane_add ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_abstract_pane_add        (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);</pre>
 <p>
 Add the widget to the side pane.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>abstract_pane</code></em> :</span></p></td>
@@ -137,7 +140,7 @@ Add the widget to the side pane.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>title</code></em> :</span></p></td>
@@ -150,12 +153,15 @@ Add the widget to the side pane.
 <div class="refsect2">
 <a name="codeslayer-abstract-pane-remove"></a><h3>codeslayer_abstract_pane_remove ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_abstract_pane_remove     (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
 <p>
 Remove the widget from the side pane.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>abstract_pane</code></em> :</span></p></td>
@@ -163,7 +169,7 @@ Remove the widget from the side pane.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -172,9 +178,12 @@ Remove the widget from the side pane.
 <div class="refsect2">
 <a name="codeslayer-abstract-pane-open"></a><h3>codeslayer_abstract_pane_open ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_abstract_pane_open       (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
-<div class="variablelist"><table border="0">
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>abstract_pane</code></em> :</span></p></td>
@@ -182,7 +191,7 @@ Remove the widget from the side pane.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -191,8 +200,11 @@ Remove the widget from the side pane.
 <div class="refsect2">
 <a name="codeslayer-abstract-pane-close"></a><h3>codeslayer_abstract_pane_close ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_abstract_pane_close      (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>abstract_pane</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a>.</td>
@@ -212,8 +224,11 @@ Note: for internal use only.
 <p>
 The ::close-pane signal is a request for the pane to be closed.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayerabstractpane</code></em> :</span></p></td>
@@ -237,8 +252,11 @@ Note: for internal use only.
 <p>
 The ::open-pane signal is a request for the pane to be opened.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayerabstractpane</code></em> :</span></p></td>

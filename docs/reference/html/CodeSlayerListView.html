@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerListView</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerGroups.html" title="CodeSlayerGroups">
@@ -47,7 +47,7 @@
 #include &lt;codeslayer/codeslayer-listview.h&gt;
 
 struct              <a class="link" href="CodeSlayerListView.html#CodeSlayerListView-struct" title="struct CodeSlayerListView">CodeSlayerListView</a>;
-<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerListView.html#codeslayer-list-view-new" title="codeslayer_list_view_new ()">codeslayer_list_view_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerListView.html#codeslayer-list-view-new" title="codeslayer_list_view_new ()">codeslayer_list_view_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerListView.html#codeslayer-list-view-add-text" title="codeslayer_list_view_add_text ()">codeslayer_list_view_add_text</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerListView.html" title="CodeSlayerListView"><span class="type">CodeSlayerListView</span></a> *list_view</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>);
 </pre>
@@ -57,10 +57,10 @@ struct              <a class="link" href="CodeSlayerListView.html#CodeSlayerList
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html">GtkWidget</a>
-               +----<a href="/usr/share/gtk-doc/html/gtk/GtkContainer.html">GtkContainer</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk/GtkBox.html">GtkBox</a>
-                           +----<a href="/usr/share/gtk-doc/html/gtk/GtkHBox.html">GtkHBox</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk3/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk3/GtkBox.html">GtkBox</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk3/GtkHBox.html">GtkHBox</a>
                                  +----CodeSlayerListView
 </pre>
 </div>
@@ -68,7 +68,7 @@ struct              <a class="link" href="CodeSlayerListView.html#CodeSlayerList
 <a name="CodeSlayerListView.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 CodeSlayerListView implements
- AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk/gtk-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3/gtk3-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="CodeSlayerListView.signals"></a><h2>Signals</h2>
@@ -88,12 +88,15 @@ CodeSlayerListView implements
 <hr>
 <div class="refsect2">
 <a name="codeslayer-list-view-new"></a><h3>codeslayer_list_view_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_list_view_new            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_list_view_new            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerListView.html" title="CodeSlayerListView"><span class="type">CodeSlayerListView</span></a>.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody><tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>a new <a class="link" href="CodeSlayerListView.html" title="CodeSlayerListView"><span class="type">CodeSlayerListView</span></a>.</td>
@@ -118,8 +121,11 @@ Creates a new <a class="link" href="CodeSlayerListView.html" title="CodeSlayerLi
 The ::list-changed signal is emitted when the list values are
 edited, added, or removed.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayerlistview</code></em> :</span></p></td>

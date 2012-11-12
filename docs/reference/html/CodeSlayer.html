@@ -3,10 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayer</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
-<link rel="prev" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane">
+<link rel="prev" href="CodeSlayerStatusbar.html" title="CodeSlayerStatusbar">
 <link rel="next" href="object-tree.html" title="Object Hierarchy">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
@@ -14,7 +14,7 @@
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="CodeSlayerSidePane.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="CodeSlayerStatusbar.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
@@ -45,7 +45,9 @@
 #include &lt;codeslayer/codeslayer.h&gt;
 
 struct              <a class="link" href="CodeSlayer.html#CodeSlayer-struct" title="struct CodeSlayer">CodeSlayer</a>;
-<a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="returnvalue">CodeSlayer</span></a> *        <a class="link" href="CodeSlayer.html#codeslayer-new" title="codeslayer_new ()">codeslayer_new</a>                      (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+<a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="returnvalue">CodeSlayer</span></a> *        <a class="link" href="CodeSlayer.html#codeslayer-new" title="codeslayer_new ()">codeslayer_new</a>                      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses"><span class="type">CodeSlayerProcesses</span></a> *processes</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
@@ -60,38 +62,41 @@ struct              <a class="link" href="CodeSlayer.html#CodeSlayer-struct" tit
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
 <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a> * <a class="link" href="CodeSlayer.html#codeslayer-get-active-editor-project" title="codeslayer_get_active_editor_project ()">codeslayer_get_active_editor_project</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="CodeSlayer.html#codeslayer-get-active-editor-file-path" title="codeslayer_get_active_editor_file_path ()">codeslayer_get_active_editor_file_path</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="returnvalue">GtkWindow</span></a> *         <a class="link" href="CodeSlayer.html#codeslayer-get-toplevel-window" title="codeslayer_get_toplevel_window ()">codeslayer_get_toplevel_window</a>      (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="CodeSlayer.html#codeslayer-get-all-editors" title="codeslayer_get_all_editors ()">codeslayer_get_all_editors</a>          (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-add-to-side-pane" title="codeslayer_add_to_side_pane ()">codeslayer_add_to_side_pane</a>         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-remove-from-side-pane" title="codeslayer_remove_from_side_pane ()">codeslayer_remove_from_side_pane</a>    (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-add-to-bottom-pane" title="codeslayer_add_to_bottom_pane ()">codeslayer_add_to_bottom_pane</a>       (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-remove-from-bottom-pane" title="codeslayer_remove_from_bottom_pane ()">codeslayer_remove_from_bottom_pane</a>  (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-show-bottom-pane" title="codeslayer_show_bottom_pane ()">codeslayer_show_bottom_pane</a>         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-show-side-pane" title="codeslayer_show_side_pane ()">codeslayer_show_side_pane</a>           (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-add-to-menubar" title="codeslayer_add_to_menubar ()">codeslayer_add_to_menubar</a>           (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-remove-from-menubar" title="codeslayer_remove_from_menubar ()">codeslayer_remove_from_menubar</a>      (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-add-to-projects-popup" title="codeslayer_add_to_projects_popup ()">codeslayer_add_to_projects_popup</a>    (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-remove-from-projects-popup" title="codeslayer_remove_from_projects_popup ()">codeslayer_remove_from_projects_popup</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-add-to-project-properties" title="codeslayer_add_to_project_properties ()">codeslayer_add_to_project_properties</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-remove-from-project-properties" title="codeslayer_remove_from_project_properties ()">codeslayer_remove_from_project_properties</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
-<a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *     <a class="link" href="CodeSlayer.html#codeslayer-get-menubar-accel-group" title="codeslayer_get_menubar_accel_group ()">codeslayer_get_menubar_accel_group</a>  (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *     <a class="link" href="CodeSlayer.html#codeslayer-get-menubar-accel-group" title="codeslayer_get_menubar_accel_group ()">codeslayer_get_menubar_accel_group</a>  (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
 <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="returnvalue">CodeSlayerGroup</span></a> *   <a class="link" href="CodeSlayer.html#codeslayer-get-active-group" title="codeslayer_get_active_group ()">codeslayer_get_active_group</a>         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="CodeSlayer.html#codeslayer-get-active-group-folder-path" title="codeslayer_get_active_group_folder_path ()">codeslayer_get_active_group_folder_path</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
@@ -100,6 +105,12 @@ struct              <a class="link" href="CodeSlayer.html#CodeSlayer-struct" tit
 <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a> * <a class="link" href="CodeSlayer.html#codeslayer-get-project-by-file-path" title="codeslayer_get_project_by_file_path ()">codeslayer_get_project_by_file_path</a> (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);
 <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="returnvalue">CodeSlayerPreferences</span></a> * <a class="link" href="CodeSlayer.html#codeslayer-get-preferences" title="codeslayer_get_preferences ()">codeslayer_get_preferences</a>      (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="CodeSlayer.html#codeslayer-add-to-processes" title="codeslayer_add_to_processes ()">codeslayer_add_to_processes</a>         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProcesses.html#StopProcessFunc" title="StopProcessFunc ()"><span class="type">StopProcessFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayer.html#codeslayer-remove-from-processes" title="codeslayer_remove_from_processes ()">codeslayer_remove_from_processes</a>    (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> id</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -133,7 +144,9 @@ struct              <a class="link" href="CodeSlayer.html#CodeSlayer-struct" tit
 <hr>
 <div class="refsect2">
 <a name="codeslayer-new"></a><h3>codeslayer_new ()</h3>
-<pre class="programlisting"><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="returnvalue">CodeSlayer</span></a> *        codeslayer_new                      (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+<pre class="programlisting"><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="returnvalue">CodeSlayer</span></a> *        codeslayer_new                      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses"><span class="type">CodeSlayerProcesses</span></a> *processes</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
@@ -153,8 +166,11 @@ document in the tree and then open up the editor in the notebook. It is Ok
 to call this method as much as you want because after the editor is initially
 loaded up then subsequent calls are very efficient.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -175,8 +191,11 @@ loaded up then subsequent calls are very efficient.
 <div class="refsect2">
 <a name="codeslayer-get-active-editor"></a><h3>codeslayer_get_active_editor ()</h3>
 <pre class="programlisting"><a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="returnvalue">CodeSlayerEditor</span></a> *  codeslayer_get_active_editor        (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -199,8 +218,11 @@ return NULL if there is no active editor.</td>
 This is a convenience function so that you can easily get at the
 document associated with the active editor.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -223,8 +245,11 @@ return NULL if there is no active editor.</td>
 This is a convenience function so that you can easily get at the
 project associated with the active editor.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -240,6 +265,52 @@ return NULL if there is no active editor.</td>
 </div>
 <hr>
 <div class="refsect2">
+<a name="codeslayer-get-active-editor-file-path"></a><h3>codeslayer_get_active_editor_file_path ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       codeslayer_get_active_editor_file_path
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);</pre>
+<p>
+The file path for the active editor.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a string that is owned by the editor and should not be freed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-get-toplevel-window"></a><h3>codeslayer_get_toplevel_window ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="returnvalue">GtkWindow</span></a> *         codeslayer_get_toplevel_window      (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The outer most <a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> that codeslayer uses.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
 <a name="codeslayer-get-all-editors"></a><h3>codeslayer_get_all_editors ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             codeslayer_get_all_editors          (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);</pre>
 </div>
@@ -247,13 +318,16 @@ return NULL if there is no active editor.</td>
 <div class="refsect2">
 <a name="codeslayer-add-to-side-pane"></a><h3>codeslayer_add_to_side_pane ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_add_to_side_pane         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);</pre>
 <p>
 Add the given widget to the side pane.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -261,7 +335,7 @@ Add the given widget to the side pane.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>title</code></em> :</span></p></td>
@@ -274,12 +348,15 @@ Add the given widget to the side pane.
 <div class="refsect2">
 <a name="codeslayer-remove-from-side-pane"></a><h3>codeslayer_remove_from_side_pane ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_remove_from_side_pane    (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
 <p>
 Remove the given widget from the side pane.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -287,7 +364,7 @@ Remove the given widget from the side pane.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -296,13 +373,16 @@ Remove the given widget from the side pane.
 <div class="refsect2">
 <a name="codeslayer-add-to-bottom-pane"></a><h3>codeslayer_add_to_bottom_pane ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_add_to_bottom_pane       (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);</pre>
 <p>
 Add the given widget to the bottom pane.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -310,7 +390,7 @@ Add the given widget to the bottom pane.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>title</code></em> :</span></p></td>
@@ -323,12 +403,15 @@ Add the given widget to the bottom pane.
 <div class="refsect2">
 <a name="codeslayer-remove-from-bottom-pane"></a><h3>codeslayer_remove_from_bottom_pane ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_remove_from_bottom_pane  (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
 <p>
 Remove the given widget from the bottom pane.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -336,7 +419,7 @@ Remove the given widget from the bottom pane.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -345,13 +428,16 @@ Remove the given widget from the bottom pane.
 <div class="refsect2">
 <a name="codeslayer-show-bottom-pane"></a><h3>codeslayer_show_bottom_pane ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_show_bottom_pane         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
 <p>
 Show the bottom pane and display the tab with the given widget. This
 should be the same widget that you added to the bottom pane.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -359,7 +445,7 @@ should be the same widget that you added to the bottom pane.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -368,13 +454,16 @@ should be the same widget that you added to the bottom pane.
 <div class="refsect2">
 <a name="codeslayer-show-side-pane"></a><h3>codeslayer_show_side_pane ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_show_side_pane           (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
 <p>
 Show the side pane and display the tab with the given widget. This
 should be the same widget that you added to the side pane.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -382,7 +471,7 @@ should be the same widget that you added to the side pane.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -391,12 +480,15 @@ should be the same widget that you added to the side pane.
 <div class="refsect2">
 <a name="codeslayer-add-to-menubar"></a><h3>codeslayer_add_to_menubar ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_add_to_menubar           (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);</pre>
 <p>
 Add the given menu item to the menubar tools menu.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -404,7 +496,7 @@ Add the given menu item to the menubar tools menu.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menuitem</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -413,12 +505,15 @@ Add the given menu item to the menubar tools menu.
 <div class="refsect2">
 <a name="codeslayer-remove-from-menubar"></a><h3>codeslayer_remove_from_menubar ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_remove_from_menubar      (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);</pre>
 <p>
 Remove the given menu item from the menubar tools menu.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -426,7 +521,7 @@ Remove the given menu item from the menubar tools menu.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menuitem</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -435,12 +530,15 @@ Remove the given menu item from the menubar tools menu.
 <div class="refsect2">
 <a name="codeslayer-add-to-projects-popup"></a><h3>codeslayer_add_to_projects_popup ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_add_to_projects_popup    (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);</pre>
 <p>
 Add the given menu item to the projects tree tools menu.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -448,7 +546,7 @@ Add the given menu item to the projects tree tools menu.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menuitem</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -458,12 +556,15 @@ Add the given menu item to the projects tree tools menu.
 <a name="codeslayer-remove-from-projects-popup"></a><h3>codeslayer_remove_from_projects_popup ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_remove_from_projects_popup
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a> *menuitem</code></em>);</pre>
 <p>
 Remove the given menu item from the projects tree tools menu.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -471,7 +572,7 @@ Remove the given menu item from the projects tree tools menu.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menuitem</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -481,13 +582,16 @@ Remove the given menu item from the projects tree tools menu.
 <a name="codeslayer-add-to-project-properties"></a><h3>codeslayer_add_to_project_properties ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_add_to_project_properties
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>);</pre>
 <p>
 Add the given widget to the project properties.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -495,7 +599,7 @@ Add the given widget to the project properties.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>title</code></em> :</span></p></td>
@@ -509,12 +613,15 @@ Add the given widget to the project properties.
 <a name="codeslayer-remove-from-project-properties"></a><h3>codeslayer_remove_from_project_properties ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_remove_from_project_properties
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
 <p>
 Remove the given widget to the project properties.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -522,7 +629,7 @@ Remove the given widget to the project properties.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>widget</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -530,9 +637,12 @@ Remove the given widget to the project properties.
 <hr>
 <div class="refsect2">
 <a name="codeslayer-get-menubar-accel-group"></a><h3>codeslayer_get_menubar_accel_group ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *     codeslayer_get_menubar_accel_group  (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *     codeslayer_get_menubar_accel_group  (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -540,7 +650,7 @@ Remove the given widget to the project properties.
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>The <a href="/usr/share/gtk-doc/html/gtk/gtk-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> associated with the menu.</td>
+<td>The <a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> associated with the menu.</td>
 </tr>
 </tbody>
 </table></div>
@@ -549,8 +659,11 @@ Remove the given widget to the project properties.
 <div class="refsect2">
 <a name="codeslayer-get-active-group"></a><h3>codeslayer_get_active_group ()</h3>
 <pre class="programlisting"><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="returnvalue">CodeSlayerGroup</span></a> *   codeslayer_get_active_group         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -571,8 +684,11 @@ Remove the given widget to the project properties.
 <p>
 The folder path to where you should place project/group configuration files.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -593,8 +709,11 @@ The folder path to where you should place project/group configuration files.
 <p>
 The folder path to where you should place plugin configuration files.
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -612,8 +731,11 @@ The folder path to where you should place plugin configuration files.
 <a name="codeslayer-get-project-by-file-path"></a><h3>codeslayer_get_project_by_file_path ()</h3>
 <pre class="programlisting"><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a> * codeslayer_get_project_by_file_path (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -634,8 +756,11 @@ The folder path to where you should place plugin configuration files.
 <div class="refsect2">
 <a name="codeslayer-get-preferences"></a><h3>codeslayer_get_preferences ()</h3>
 <pre class="programlisting"><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="returnvalue">CodeSlayerPreferences</span></a> * codeslayer_get_preferences      (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>);</pre>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -648,6 +773,48 @@ The folder path to where you should place plugin configuration files.
 </tbody>
 </table></div>
 </div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-add-to-processes"></a><h3>codeslayer_add_to_processes ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                codeslayer_add_to_processes         (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProcesses.html#StopProcessFunc" title="StopProcessFunc ()"><span class="type">StopProcessFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>the name of the process.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>func</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Threads.html#GThreadFunc"><span class="type">GThreadFunc</span></a> to execute in the new thread</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>an argument to supply to the new thread</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The identifier for the process.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-remove-from-processes"></a><h3>codeslayer_remove_from_processes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_remove_from_processes    (<em class="parameter"><code><a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a> *codeslayer</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> id</code></em>);</pre>
+</div>
 </div>
 <div class="refsect1">
 <a name="CodeSlayer.signal-details"></a><h2>Signal Details</h2>
@@ -659,8 +826,11 @@ The folder path to where you should place plugin configuration files.
 <p>
 The ::editor-added signal is emitted when the editor is added to the notebook
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -686,8 +856,11 @@ The ::editor-added signal is emitted when the editor is added to the notebook
 <p>
 The ::editor-removed signal is emitted when the editor is removed from the notebook
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -713,8 +886,11 @@ The ::editor-removed signal is emitted when the editor is removed from the noteb
 <p>
 The ::editor-saved signal is emitted when an editor is saved successfully
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -740,8 +916,11 @@ The ::editor-saved signal is emitted when an editor is saved successfully
 <p>
 The ::editor-switched signal is emitted when the active editor is switched in the notebook
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -767,8 +946,11 @@ The ::editor-switched signal is emitted when the active editor is switched in th
 <p>
 The ::editors-all-saved signal is emitted when all the editors have been saved successfully
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -794,8 +976,11 @@ The ::editors-all-saved signal is emitted when all the editors have been saved s
 <p>
 The ::project-properties-opened signal is emitted when the project properties window is opened
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
@@ -821,8 +1006,11 @@ The ::project-properties-opened signal is emitted when the project properties wi
 <p>
 The ::project-properties-saved signal is emitted when the project properties window is closed
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>

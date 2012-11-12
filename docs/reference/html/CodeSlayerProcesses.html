@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerProcesses</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerProcess.html" title="CodeSlayerProcess">
+<link rel="next" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerProcess.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerProjectProperties.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerProcesses.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerProcesses.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerProcesses.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerProcesses.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="CodeSlayerProcesses"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerProcesses.top_of_page"></a>CodeSlayerProcesses</span></h2>
+<p>CodeSlayerProcesses</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="CodeSlayerProcesses.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="CodeSlayerProcesses.html#CodeSlayerProcesses-struct" title="struct CodeSlayerProcesses">CodeSlayerProcesses</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="CodeSlayerProcesses.html#StopProcessFunc" title="StopProcessFunc ()">*StopProcessFunc</a>)                  (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+<a class="link" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses"><span class="returnvalue">CodeSlayerProcesses</span></a> * <a class="link" href="CodeSlayerProcesses.html#codeslayer-processes-new" title="codeslayer_processes_new ()">codeslayer_processes_new</a>          (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProcesses.html#codeslayer-processes-add" title="codeslayer_processes_add ()">codeslayer_processes_add</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses"><span class="type">CodeSlayerProcesses</span></a> *processes</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProcesses.html#codeslayer-processes-remove" title="codeslayer_processes_remove ()">codeslayer_processes_remove</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses"><span class="type">CodeSlayerProcesses</span></a> *processes</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> id</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProcesses.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----CodeSlayerProcesses
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProcesses.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="CodeSlayerProcesses.html#CodeSlayerProcesses-process-finished" title='The "process-finished" signal'>process-finished</a>"                               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerProcesses.html#CodeSlayerProcesses-process-started" title='The "process-started" signal'>process-started</a>"                                : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProcesses.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProcesses.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CodeSlayerProcesses-struct"></a><h3>struct CodeSlayerProcesses</h3>
+<pre class="programlisting">struct CodeSlayerProcesses;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="StopProcessFunc"></a><h3>StopProcessFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*StopProcessFunc)                  (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-processes-new"></a><h3>codeslayer_processes_new ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses"><span class="returnvalue">CodeSlayerProcesses</span></a> * codeslayer_processes_new          (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-processes-add"></a><h3>codeslayer_processes_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_processes_add            (<em class="parameter"><code><a class="link" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses"><span class="type">CodeSlayerProcesses</span></a> *processes</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-processes-remove"></a><h3>codeslayer_processes_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_processes_remove         (<em class="parameter"><code><a class="link" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses"><span class="type">CodeSlayerProcesses</span></a> *processes</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> id</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProcesses.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="CodeSlayerProcesses-process-finished"></a><h3>The <code class="literal">"process-finished"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses"><span class="type">CodeSlayerProcesses</span></a> *codeslayerprocesses,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>             arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>             user_data)                : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::process-finished signal is invoked when a thread finishes and
+removed from the list of processes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprocesses</code></em> :</span></p></td>
+<td>the processes that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerProcesses-process-started"></a><h3>The <code class="literal">"process-started"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses"><span class="type">CodeSlayerProcesses</span></a> *codeslayerprocesses,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>             arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>             user_data)                : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::process-started signal is invoked when a thread is created and
+added to the list of processes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerprocesses</code></em> :</span></p></td>
+<td>the processes that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>
