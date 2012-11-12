@@ -213,6 +213,7 @@ codeslayer_process_set_property (GObject      *object,
 
 /**
  * codeslayer_process_new:
+ * @id: the process identifier.
  *
  * Creates a new #CodeSlayerProcess.
  *

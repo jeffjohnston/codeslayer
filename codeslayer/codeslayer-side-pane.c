@@ -60,6 +60,7 @@ codeslayer_side_pane_finalize (CodeSlayerSidePane *side_pane)
 /**
  * codeslayer_side_pane_new:
  * @preferences: a #CodeSlayerPreferences.
+ * @statusbar: a #GtkWidget.
  *
  * Creates a new #CodeSlayerSidePane.
  *

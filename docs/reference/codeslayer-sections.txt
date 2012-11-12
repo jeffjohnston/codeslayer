@@ -131,6 +131,7 @@ codeslayer_editor_scroll_to_line
 codeslayer_editor_sync_preferences
 codeslayer_editor_get_document
 codeslayer_editor_add_completion_provider
+codeslayer_editor_get_file_path
 <SUBSECTION Standard>
 CODESLAYER_EDITOR_TYPE
 CODESLAYER_EDITOR
@@ -726,7 +727,6 @@ CODESLAYER_PREFERENCES_EDITOR_THEME
 CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION
 CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION
 CODESLAYER_HOME
-CODESLAYER_PREFERENCES_EDITOR_DRAW_SPACES
 CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES
 CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION
 CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS
@@ -753,6 +753,49 @@ IS_CODESLAYER_PREFERENCES_CLASS
 <SUBSECTION Private>
 CodeSlayerPreferencesPrivate
 codeslayer_preferences_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-process</FILE>
+<TITLE>CodeSlayerProcess</TITLE>
+CodeSlayerProcess
+codeslayer_process_new
+codeslayer_process_get_id 
+codeslayer_process_get_name
+codeslayer_process_set_name 
+codeslayer_process_get_func 
+codeslayer_process_set_func
+codeslayer_process_get_data
+codeslayer_process_set_data
+codeslayer_process_stop
+<SUBSECTION Standard>
+CODESLAYER_PROCESS_TYPE
+CODESLAYER_PROCESS
+CODESLAYER_PROCESS_CLASS
+IS_CODESLAYER_PROCESS
+IS_CODESLAYER_PROCESS_CLASS
+<SUBSECTION Private>
+CodeSlayerProcessPrivate
+codeslayer_process_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-processes</FILE>
+<TITLE>CodeSlayerProcesses</TITLE>
+CodeSlayerProcesses
+StopProcessFunc
+codeslayer_processes_new
+codeslayer_processes_add
+codeslayer_processes_remove
+<SUBSECTION Standard>
+CODESLAYER_PROCESSES_TYPE
+CODESLAYER_PROCESSES
+CODESLAYER_PROCESSES_CLASS
+IS_CODESLAYER_PROCESSES
+IS_CODESLAYER_PROCESSES_CLASS
+<SUBSECTION Private>
+CodeSlayerProcessesPrivate
+codeslayer_processes_get_type
 </SECTION>
 
 <SECTION>
@@ -913,6 +956,9 @@ CODESLAYER_SETTINGS_SEARCH_Y
 CODESLAYER_SETTINGS_MAIN_TITLE
 CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE
 CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE
+CODESLAYER_SETTINGS_DRAW_SPACES
+CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE
+CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD
 CodeSlayerSettings
 codeslayer_settings_new
 codeslayer_settings_get_integer
@@ -952,6 +998,22 @@ codeslayer_side_pane_get_type
 </SECTION>
 
 <SECTION>
+<FILE>codeslayer-statusbar</FILE>
+<TITLE>CodeSlayerStatusbar</TITLE>
+CodeSlayerStatusbar
+codeslayer_statusbar_new
+<SUBSECTION Standard>
+CODESLAYER_STATUSBAR_TYPE
+CODESLAYER_STATUSBAR
+CODESLAYER_STATUSBAR_CLASS
+IS_CODESLAYER_STATUSBAR
+IS_CODESLAYER_STATUSBAR_CLASS
+<SUBSECTION Private>
+CodeSlayerStatusbarPrivate
+codeslayer_statusbar_get_type
+</SECTION>
+
+<SECTION>
 <FILE>codeslayer</FILE>
 <TITLE>CodeSlayer</TITLE>
 CodeSlayer
@@ -960,6 +1022,8 @@ codeslayer_select_editor
 codeslayer_get_active_editor
 codeslayer_get_active_editor_document
 codeslayer_get_active_editor_project
+codeslayer_get_active_editor_file_path
+codeslayer_get_toplevel_window
 codeslayer_get_all_editors
 codeslayer_add_to_side_pane
 codeslayer_remove_from_side_pane
@@ -979,6 +1043,8 @@ codeslayer_get_active_group_folder_path
 codeslayer_get_configuration_folder_path
 codeslayer_get_project_by_file_path
 codeslayer_get_preferences
+codeslayer_add_to_processes
+codeslayer_remove_from_processes
 <SUBSECTION Standard>
 CODESLAYER_TYPE
 CODESLAYER

@@ -129,6 +129,7 @@ codeslayer_notebook_finalize (CodeSlayerNotebook *notebook)
  * codeslayer_notebook_new:
  * @window: a #GtkWindow.
  * @preferences: a #CodeSlayerPreferences.
+ * @settings: a #CodeSlayerSettings.
  *
  * Creates a new #CodeSlayerNotebook.
  *

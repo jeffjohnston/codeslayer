@@ -33,6 +33,8 @@
 #include <codeslayer/codeslayer-preferences-projects.h>
 #include <codeslayer/codeslayer-preferences-theme.h>
 #include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-process.h>
+#include <codeslayer/codeslayer-processes.h>
 #include <codeslayer/codeslayer-project-properties.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-projects-selection.h>
@@ -42,6 +44,7 @@
 #include <codeslayer/codeslayer-search.h>
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-side-pane.h>
+#include <codeslayer/codeslayer-statusbar.h>
 #include <codeslayer/codeslayer.h>
 
 codeslayer_abstract_pane_get_type
@@ -79,6 +82,8 @@ codeslayer_preferences_misc_get_type
 codeslayer_preferences_projects_get_type
 codeslayer_preferences_theme_get_type
 codeslayer_preferences_get_type
+codeslayer_process_get_type
+codeslayer_processes_get_type
 codeslayer_project_properties_get_type
 codeslayer_project_get_type
 codeslayer_projects_selection_get_type
@@ -88,4 +93,5 @@ codeslayer_search_tab_get_type
 codeslayer_search_get_type
 codeslayer_settings_get_type
 codeslayer_side_pane_get_type
+codeslayer_statusbar_get_type
 codeslayer_get_type

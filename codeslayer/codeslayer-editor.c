@@ -201,6 +201,7 @@ codeslayer_editor_finalize (CodeSlayerEditor *editor)
  * @window: a #GtkWindow.
  * @document: the #CodeSlayerDocument for this editor.
  * @preferences: a #CodeSlayerPreferences.
+ * @settings: a #CodeSlayerSettings.
  *
  * Creates a new #CodeSlayerEditor.
  *

@@ -626,6 +626,7 @@ codeslayer_menubar_finalize (CodeSlayerMenuBar *menu)
  * @window: the main application window.
  * @groups: a #CodeSlayerGroups.
  * @preferences: a #CodeSlayerPreferences.
+ * @settings: a #CodeSlayerSettings.
  *
  * Creates a new #CodeSlayerMenuBar.
  *

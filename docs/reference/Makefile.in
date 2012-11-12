@@ -263,7 +263,7 @@ IGNORE_HFILES = \
     codeslayer-marshaller.h \
     codeslayer-xml.h    
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/codeslayer \
 	-I$(top_builddir) \
