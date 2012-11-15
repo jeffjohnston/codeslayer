@@ -260,6 +260,7 @@ codeslayer_notebook_search_find_incremental (CodeSlayerNotebookSearch *notebook_
   priv->incremental = TRUE;
   gtk_label_set_text (GTK_LABEL (priv->find_label), _(FIND_INCREMENTAL));
   
+  gtk_widget_hide (priv->replace_spacer);
   gtk_widget_hide (priv->replace_label);
   gtk_widget_hide (priv->replace_entry);
   gtk_widget_hide (priv->replace_button);
