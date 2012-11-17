@@ -59,6 +59,8 @@ static void new_group_action                   (CodeSlayerEngine       *engine,
 static void rename_group_action                (CodeSlayerEngine       *engine,  
                                                 gchar                  *group_name);
 static void remove_group_action                (CodeSlayerEngine       *engine);
+static void set_active_group                   (CodeSlayerEngine       *engine, 
+                                                CodeSlayerGroup        *group);
 static void save_editor_action                 (CodeSlayerEngine       *engine);
 static void save_all_editors_action            (CodeSlayerEngine       *engine);
 static void close_editor_action                (CodeSlayerEngine       *engine);
@@ -422,7 +424,7 @@ group_changed_action (CodeSlayerEngine *engine,
   GList *list;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-
+  
   if (!codeslayer_engine_close_active_group (engine))
     return;
 
@@ -432,12 +434,7 @@ group_changed_action (CodeSlayerEngine *engine,
       CodeSlayerGroup *group = list->data;
       if (g_strcmp0 (group_name, codeslayer_group_get_name (group)) == 0)
         {
-          codeslayer_groups_set_active_group (priv->groups, group);
-          codeslayer_repository_save_groups (priv->groups);
-          codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
-          if (priv->search != NULL)
-            codeslayer_search_clear (CODESLAYER_SEARCH (priv->search));
-          codeslayer_engine_open_active_group (engine);
+          set_active_group (engine, group);
           return;
         }
       list = g_list_next (list);
@@ -452,6 +449,7 @@ new_group_action (CodeSlayerEngine *engine,
   CodeSlayerGroup *group;
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
   group = codeslayer_group_new ();
 
   codeslayer_group_set_name (group, group_name);
@@ -463,12 +461,8 @@ new_group_action (CodeSlayerEngine *engine,
   if (!codeslayer_engine_close_active_group (engine))
     return;
 
-  codeslayer_groups_set_active_group (priv->groups, group);
   codeslayer_groups_add_group (priv->groups, group);
-
-  codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
-  codeslayer_projects_load_group (CODESLAYER_PROJECTS (priv->projects), group);
-  codeslayer_preferences_load (priv->preferences, group);
+  set_active_group (engine, group);
 }
 
 static void
@@ -507,10 +501,20 @@ remove_group_action (CodeSlayerEngine *engine)
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
 
   codeslayer_groups_remove_group (priv->groups, active_group);
-  codeslayer_groups_set_active_group (priv->groups, next_group);
+  set_active_group (engine, next_group);
+}
 
+static void
+set_active_group (CodeSlayerEngine *engine, 
+                  CodeSlayerGroup  *group)
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  codeslayer_groups_set_active_group (priv->groups, group);
+  codeslayer_repository_save_groups (priv->groups);
   codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
-
+  if (priv->search != NULL)
+    codeslayer_search_clear (CODESLAYER_SEARCH (priv->search));
   codeslayer_engine_open_active_group (engine);
 }
 
