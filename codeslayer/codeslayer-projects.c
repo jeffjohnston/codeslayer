@@ -2341,7 +2341,7 @@ show_popup_menu (CodeSlayerProjects *projects,
       GList *items;
       GList *tmp;
 
-      gtk_widget_hide (priv->menu);
+      gtk_container_foreach (GTK_CONTAINER (priv->menu), (GtkCallback) gtk_widget_hide, NULL);
     
       if (priv->ccp->sources == NULL)
         gtk_widget_set_sensitive (priv->paste_item, FALSE);
