@@ -60,7 +60,7 @@ enum
   RENAME_GROUP,
   REMOVE_GROUP,
   GROUP_CHANGED,
-  ADD_PROJECT,
+  ADD_PROJECTS,
   SAVE_EDITOR,
   SAVE_ALL_EDITORS,
   CLOSE_EDITOR,
@@ -171,11 +171,11 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::add-project signal is a request to add a new project to the active group. 
    */
-  codeslayer_menubar_signals[ADD_PROJECT] =
-    g_signal_new ("add-project", 
+  codeslayer_menubar_signals[ADD_PROJECTS] =
+    g_signal_new ("add-projects", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, add_project),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, add_projects),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
@@ -1051,15 +1051,15 @@ codeslayer_menubar_remove_group (CodeSlayerMenuBar *menubar)
 }                               
 
 /**
- * codeslayer_menubar_add_project:
+ * codeslayer_menubar_add_projects:
  * @menubar: a #CodeSlayerMenuBar.
  * @file: a #GFile.
  */
 void
-codeslayer_menubar_add_project (CodeSlayerMenuBar *menubar, 
-                                GFile             *file)
+codeslayer_menubar_add_projects (CodeSlayerMenuBar *menubar, 
+                                 GSList            *files)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "add-project", file);
+  g_signal_emit_by_name ((gpointer) menubar, "add-projects", files);
 }
 
 /**

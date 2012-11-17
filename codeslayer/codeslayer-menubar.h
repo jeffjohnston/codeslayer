@@ -50,7 +50,7 @@ struct _CodeSlayerMenuBarClass
   void (*new_group) (CodeSlayerMenuBar *menubar);
   void (*rename_group) (CodeSlayerMenuBar *menubar);
   void (*remove_group) (CodeSlayerMenuBar *menubar);
-  void (*add_project) (CodeSlayerMenuBar *menubar);
+  void (*add_projects) (CodeSlayerMenuBar *menubar);
   void (*find_projects) (CodeSlayerMenuBar *menubar);
   void (*fullscreen_window) (CodeSlayerMenuBar *menubar);
   void (*show_side_pane) (CodeSlayerMenuBar *menubar);
@@ -139,8 +139,8 @@ void            codeslayer_menubar_remove_tools_item          (CodeSlayerMenuBar
                                                                GtkWidget              *item);
 GtkAccelGroup*  codeslayer_menubar_get_accel_group            (CodeSlayerMenuBar      *menubar);
 
-void            codeslayer_menubar_add_project                (CodeSlayerMenuBar      *menubar, 
-                                                               GFile                  *file);
+void            codeslayer_menubar_add_projects               (CodeSlayerMenuBar      *menubar, 
+                                                               GSList                 *files);
 void            codeslayer_menubar_show_plugins               (CodeSlayerMenuBar      *menubar);
 
 void            codeslayer_menubar_sync_projects_with_editor  (CodeSlayerMenuBar      *menubar, 

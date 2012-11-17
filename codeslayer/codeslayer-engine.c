@@ -81,8 +81,8 @@ static void close_bottom_pane_action           (CodeSlayerEngine       *engine);
 static void draw_spaces_action                 (CodeSlayerEngine       *engine);
 static void sync_projects_with_editor_action   (CodeSlayerEngine       *engine, 
                                                 gboolean                sync_projects_with_editor);
-static void add_project_action                 (CodeSlayerEngine       *engine,
-                                                GFile                  *file);
+static void add_projects_action                (CodeSlayerEngine       *engine,
+                                                GSList                 *files);
 static void remove_project_action              (CodeSlayerEngine       *engine,
                                                 CodeSlayerProject      *project);
 static void project_modified_action            (CodeSlayerEngine       *engine,
@@ -272,8 +272,8 @@ codeslayer_engine_new (GtkWindow             *window,
   g_signal_connect_swapped (G_OBJECT (menubar), "draw-spaces",
                             G_CALLBACK (draw_spaces_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (menubar), "add-project",
-                            G_CALLBACK (add_project_action), engine);
+  g_signal_connect_swapped (G_OBJECT (menubar), "add-projects",
+                            G_CALLBACK (add_projects_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (menubar), "show-preferences",
                             G_CALLBACK (show_preferences_action), engine);
@@ -519,40 +519,49 @@ set_active_group (CodeSlayerEngine *engine,
 }
 
 static void
-add_project_action (CodeSlayerEngine *engine,
-                    GFile            *file)
+add_projects_action (CodeSlayerEngine *engine,
+                     GSList           *files)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerProject *project;
-  gchar *project_name;
-  gchar *project_key;
-  gchar *folder_path;
   CodeSlayerGroup *active_group;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  project = codeslayer_project_new ();
-  
-  project_name = g_file_get_basename (file);
-  codeslayer_project_set_name (project, project_name);
-  g_free (project_name);
-
-  project_key = codeslayer_utils_create_key();
-  codeslayer_project_set_key (project, project_key);
-  g_free (project_key);
-
-  folder_path = g_file_get_path (file);
-  codeslayer_project_set_folder_path (project, folder_path);
-  g_free (folder_path);
-  
-  g_object_force_floating (G_OBJECT (project));
 
   active_group = codeslayer_groups_get_active_group (priv->groups);
+  
+  while (files != NULL)
+    {
+      GFile *file = files->data;
 
-  codeslayer_group_add_project (active_group, project);
+      CodeSlayerProject *project;
+      gchar *project_name;
+      gchar *project_key;
+      gchar *folder_path;
 
-  codeslayer_repository_save_projects (active_group);
+      project = codeslayer_project_new ();
+      
+      project_name = g_file_get_basename (file);
+      codeslayer_project_set_name (project, project_name);
+      g_free (project_name);
 
-  codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
+      project_key = codeslayer_utils_create_key();
+      codeslayer_project_set_key (project, project_key);
+      g_free (project_key);
+
+      folder_path = g_file_get_path (file);
+      codeslayer_project_set_folder_path (project, folder_path);
+      g_free (folder_path);
+      
+      g_object_force_floating (G_OBJECT (project));
+
+      codeslayer_group_add_project (active_group, project);
+
+      codeslayer_repository_save_projects (active_group);
+
+      codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
+
+      files = g_slist_next (files);
+    }  
 }
 
 static void

@@ -32,7 +32,7 @@ static void codeslayer_menubar_projects_finalize    (CodeSlayerMenuBarProjects  
 
 static void add_menu_items                          (CodeSlayerMenuBarProjects      *menubar_projects);
 static void initialize_preferences_action           (CodeSlayerMenuBarProjects      *menubar_projects);
-static void add_project_action                      (CodeSlayerMenuBarProjects      *menubar_projects);
+static void add_projects_action                     (CodeSlayerMenuBarProjects      *menubar_projects);
 static void sync_with_editor_action                 (CodeSlayerMenuBarProjects      *menubar_projects);
 
 #define CODESLAYER_MENUBAR_PROJECTS_GET_PRIVATE(obj) \
@@ -120,14 +120,14 @@ static void
 add_menu_items (CodeSlayerMenuBarProjects *menubar_projects)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
-  GtkWidget *add_project_item;
+  GtkWidget *add_projects_item;
   GtkWidget *sync_with_editor_item;
   
   priv = CODESLAYER_MENUBAR_PROJECTS_GET_PRIVATE (menubar_projects);
   
-  add_project_item = gtk_menu_item_new_with_label (_("Add Project"));
+  add_projects_item = gtk_menu_item_new_with_label (_("Add Projects"));
   gtk_menu_set_accel_group (GTK_MENU (priv->menu), priv->accel_group);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), add_project_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), add_projects_item);
 
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
 
@@ -135,8 +135,8 @@ add_menu_items (CodeSlayerMenuBarProjects *menubar_projects)
   priv->sync_with_editor_item = sync_with_editor_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), sync_with_editor_item);
 
-  g_signal_connect_swapped (G_OBJECT (add_project_item), "activate",
-                            G_CALLBACK (add_project_action), menubar_projects);
+  g_signal_connect_swapped (G_OBJECT (add_projects_item), "activate",
+                            G_CALLBACK (add_projects_action), menubar_projects);
 
   g_signal_connect_swapped (G_OBJECT (sync_with_editor_item), "activate",
                             G_CALLBACK (sync_with_editor_action), menubar_projects);
@@ -158,7 +158,7 @@ initialize_preferences_action (CodeSlayerMenuBarProjects *menubar_projects)
 }
 
 static void
-add_project_action (CodeSlayerMenuBarProjects *menubar_projects)
+add_projects_action (CodeSlayerMenuBarProjects *menubar_projects)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   GtkWidget *dialog;
@@ -169,11 +169,11 @@ add_project_action (CodeSlayerMenuBarProjects *menubar_projects)
   dialog = gtk_file_chooser_dialog_new (_("Select Project"), 
                                         GTK_WINDOW (priv->window),
                                         GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-                                        GTK_STOCK_CANCEL,
-                                        GTK_RESPONSE_CANCEL,
-                                        GTK_STOCK_OPEN,
-                                        GTK_RESPONSE_OK, 
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OPEN, GTK_RESPONSE_OK, 
                                         NULL);
+                                        
+  gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (dialog), TRUE);;
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
   gtk_window_set_skip_pager_hint (GTK_WINDOW (dialog), TRUE);
   gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
@@ -181,9 +181,10 @@ add_project_action (CodeSlayerMenuBarProjects *menubar_projects)
   response = gtk_dialog_run (GTK_DIALOG (dialog));
   if (response == GTK_RESPONSE_OK)
     {
-      GFile *file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog));
-      codeslayer_menubar_add_project (CODESLAYER_MENUBAR (priv->menubar), file);
-      g_object_unref (file);
+      GSList *files = gtk_file_chooser_get_files (GTK_FILE_CHOOSER (dialog));
+      codeslayer_menubar_add_projects (CODESLAYER_MENUBAR (priv->menubar), files);
+      g_slist_foreach (files, (GFunc) g_object_unref, NULL);
+      g_slist_free (files);
     }
 
   gtk_widget_destroy (GTK_WIDGET (dialog));
