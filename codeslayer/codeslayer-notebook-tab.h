@@ -41,6 +41,7 @@ struct _CodeSlayerNotebookTabClass
 {
   GtkHBoxClass parent_class;
 
+  void (*select_editor) (CodeSlayerNotebookTab *notebook_tab);
   void (*close_editor) (CodeSlayerNotebookTab *notebook_tab);
   void (*close_all_editors) (CodeSlayerNotebookTab *notebook_tab);
   void (*close_other_editors) (CodeSlayerNotebookTab *notebook_tab);

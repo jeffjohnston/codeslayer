@@ -92,8 +92,7 @@ static void add_page_action                    (CodeSlayerEngine       *engine,
 static void rename_file_path_action            (CodeSlayerEngine       *engine,
                                                 gchar                  *file_path,
                                                 gchar                  *renamed_file_path);
-static void switch_page_action                 (CodeSlayerEngine       *engine,
-                                                GtkWidget              *page, 
+static void select_editor_action               (CodeSlayerEngine       *engine, 
                                                 guint                   page_num);
 static void page_removed_action                (CodeSlayerEngine       *engine,
                                                 GtkWidget              *page, 
@@ -296,8 +295,8 @@ codeslayer_engine_new (GtkWindow             *window,
   g_signal_connect_swapped (G_OBJECT (projects), "file-path-renamed",
                             G_CALLBACK (rename_file_path_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (priv->notebook), "switch-page",
-                            G_CALLBACK (switch_page_action), engine);
+  g_signal_connect_swapped (G_OBJECT (priv->notebook), "select-editor",
+                            G_CALLBACK (select_editor_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (priv->notebook), "page-removed",
                             G_CALLBACK (page_removed_action), engine);
@@ -694,16 +693,15 @@ close_editor_action (CodeSlayerEngine *engine)
 }
 
 static void
-switch_page_action (CodeSlayerEngine *engine, 
-                    GtkWidget        *page,
-                    guint             page_num)
+select_editor_action (CodeSlayerEngine *engine, 
+                      guint             page_num)
 {
   CodeSlayerEnginePrivate *priv;
   GtkWidget *notebook_page;
   CodeSlayerDocument *document;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-
+  
   notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);
   document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
   

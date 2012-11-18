@@ -47,7 +47,7 @@ static void codeslayer_notebook_tab_set_property  (GObject                    *o
                                                    GParamSpec                 *pspec);
 static GtkWidget *decorate_popup_menu             (CodeSlayerNotebookTab      *notebook_tab, 
                                                    GtkWidget                  *label);
-static gboolean show_popup_menu                   (CodeSlayerNotebookTab      *notebook_tab, 
+static gboolean button_press_action                   (CodeSlayerNotebookTab      *notebook_tab, 
                                                    GdkEventButton             *event);
 static void close_editor_action                   (CodeSlayerNotebookTab      *notebook_tab);
 static void close_all_editors_action              (CodeSlayerNotebookTab      *notebook_tab);
@@ -83,6 +83,7 @@ enum
 
 enum
 {
+  SELECT_EDITOR,
   CLOSE_EDITOR,
   CLOSE_ALL_EDITORS,
   CLOSE_OTHER_EDITORS,
@@ -99,6 +100,20 @@ static void
 codeslayer_notebook_tab_class_init (CodeSlayerNotebookTabClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+  /**
+   * CodeSlayerNotebookTab::select-editor
+   * @codeslayernotebooktab: the tab that received the signal
+   *
+   * The ::select-editor signal is a request to close the active editor.
+   */
+  codeslayer_notebook_tab_signals[SELECT_EDITOR] =
+    g_signal_new ("select-editor", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, select_editor),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
    * CodeSlayerNotebookTab::close-editor
@@ -341,7 +356,7 @@ decorate_popup_menu (CodeSlayerNotebookTab *notebook_tab,
   gtk_widget_set_events (event_box, GDK_BUTTON_PRESS_MASK);
 
   g_signal_connect_swapped (G_OBJECT (event_box), "button-press-event",
-                            G_CALLBACK (show_popup_menu), notebook_tab);
+                            G_CALLBACK (button_press_action), notebook_tab);
   g_signal_connect_swapped (G_OBJECT (close_all_editors_menu_item), "activate",
                             G_CALLBACK (close_all_editors_action), notebook_tab);
   g_signal_connect_swapped (G_OBJECT (close_other_editors_menu_item), "activate",
@@ -355,14 +370,18 @@ decorate_popup_menu (CodeSlayerNotebookTab *notebook_tab,
 }
 
 static gboolean
-show_popup_menu (CodeSlayerNotebookTab *notebook_tab, 
-                 GdkEventButton        *event)
+button_press_action (CodeSlayerNotebookTab *notebook_tab, 
+                     GdkEventButton        *event)
 {
   CodeSlayerNotebookTabPrivate *priv;
 
   priv = CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE (notebook_tab);
 
-  if ((event->button == 3) && (event->type == GDK_BUTTON_PRESS))
+  if ((event->button == 1) && (event->type == GDK_BUTTON_PRESS))
+    {
+      g_signal_emit_by_name ((gpointer) notebook_tab, "select-editor");
+    }
+  else if ((event->button == 3) && (event->type == GDK_BUTTON_PRESS))
     {
       gboolean sensitive = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook)) > 1;
       gtk_widget_set_sensitive (priv->close_all_editors_menu_item, sensitive);

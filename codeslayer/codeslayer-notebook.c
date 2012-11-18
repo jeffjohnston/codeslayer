@@ -36,6 +36,8 @@
 static void codeslayer_notebook_class_init  (CodeSlayerNotebookClass *klass);
 static void codeslayer_notebook_init        (CodeSlayerNotebook      *notebook);
 static void codeslayer_notebook_finalize    (CodeSlayerNotebook      *notebook);
+static void select_editor_action            (CodeSlayerNotebookTab   *notebook_tab, 
+                                             CodeSlayerNotebook      *notebook);
 static void close_editor_action             (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
 static void close_all_editors_action        (CodeSlayerNotebookTab   *notebook_tab, 
@@ -68,6 +70,7 @@ struct _CodeSlayerNotebookPrivate
 
 enum
 {
+  SELECT_EDITOR,
   EDITOR_SAVED,
   EDITORS_ALL_SAVED,
   LAST_SIGNAL
@@ -80,6 +83,20 @@ G_DEFINE_TYPE (CodeSlayerNotebook, codeslayer_notebook, GTK_TYPE_NOTEBOOK)
 static void
 codeslayer_notebook_class_init (CodeSlayerNotebookClass *klass)
 {
+  /**
+   * CodeSlayerNotebook::select-editor
+   * @codeslayernotebook: the notebook that received the signal
+   *
+   * The ::editor-saved signal is emitted when an editor is saved successfully
+   */
+  codeslayer_notebook_signals[SELECT_EDITOR] =
+    g_signal_new ("select-editor", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerNotebookClass, select_editor), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__UINT, G_TYPE_NONE, 1, G_TYPE_UINT);
+                  
   /**
    * CodeSlayerNotebook::editor-saved
    * @codeslayernotebook: the notebook that received the signal
@@ -211,6 +228,8 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   codeslayer_notebook_tab_set_notebook_page (CODESLAYER_NOTEBOOK_TAB (notebook_tab), 
                                              notebook_page);
 
+  g_signal_connect (G_OBJECT (notebook_tab), "select-editor",
+                    G_CALLBACK (select_editor_action), notebook);
   g_signal_connect (G_OBJECT (notebook_tab), "close-editor",
                     G_CALLBACK (close_editor_action), notebook);
   g_signal_connect (G_OBJECT (notebook_tab), "close-all-editors",
@@ -452,6 +471,19 @@ codeslayer_notebook_get_active_editor (CodeSlayerNotebook *notebook)
   notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 
                                              page_num);
   return codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+}
+
+static void
+select_editor_action (CodeSlayerNotebookTab *notebook_tab,
+                      CodeSlayerNotebook    *notebook)
+{
+  GtkWidget *notebook_page;
+  gint page;
+  
+  notebook_page = codeslayer_notebook_tab_get_notebook_page (notebook_tab);
+  page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook),
+                                GTK_WIDGET (notebook_page));
+  g_signal_emit_by_name((gpointer)notebook, "select-editor", page);     
 }
 
 static void
