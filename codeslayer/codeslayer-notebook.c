@@ -408,10 +408,18 @@ gboolean
 codeslayer_notebook_close_editor (CodeSlayerNotebook *notebook, 
                                   gint                page_num)
 {
+  gint current_page_num;
+
   if (!has_clean_buffer (notebook, page_num))
       return FALSE;
 
+  current_page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
+
   gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), page_num);
+  
+  if (current_page_num == page_num)
+    g_signal_emit_by_name((gpointer)notebook, "select-editor", --page_num);
+
   return TRUE;
 }
 
@@ -483,7 +491,7 @@ select_editor_action (CodeSlayerNotebookTab *notebook_tab,
   notebook_page = codeslayer_notebook_tab_get_notebook_page (notebook_tab);
   page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook),
                                 GTK_WIDGET (notebook_page));
-  g_signal_emit_by_name((gpointer)notebook, "select-editor", page);     
+  g_signal_emit_by_name((gpointer)notebook, "select-editor", page);
 }
 
 static void

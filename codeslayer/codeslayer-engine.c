@@ -703,6 +703,9 @@ select_editor_action (CodeSlayerEngine *engine,
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
   notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);
+  if (notebook_page == NULL)
+    return;
+  
   document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
   
   if (priv->sync_projects_with_editor)
