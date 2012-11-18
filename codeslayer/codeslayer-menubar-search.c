@@ -36,7 +36,6 @@ static void add_menu_items                        (CodeSlayerMenuBarSearch      
 static void find_action                           (CodeSlayerMenuBarSearch      *menubar_search);
 static void find_next_action                      (CodeSlayerMenuBarSearch      *menubar_search);
 static void find_previous_action                  (CodeSlayerMenuBarSearch      *menubar_search);
-static void find_incremental_action               (CodeSlayerMenuBarSearch      *menubar_search);
 static void replace_action                        (CodeSlayerMenuBarSearch      *menubar_search);
 static void find_projects_action                  (CodeSlayerMenuBarSearch      *menubar_search);
 
@@ -54,7 +53,6 @@ struct _CodeSlayerMenuBarSearchPrivate
   GtkWidget     *replace_menu_item;
   GtkWidget     *find_next_menu_item;
   GtkWidget     *find_previous_menu_item;
-  GtkWidget     *find_incremental_menu_item;
   GtkWidget     *find_projects_menu_item;
 };
 
@@ -122,7 +120,6 @@ add_menu_items (CodeSlayerMenuBarSearch *menubar_search)
   GtkWidget *find_menu_item;
   GtkWidget *find_next_menu_item;
   GtkWidget *find_previous_menu_item;
-  GtkWidget *find_incremental_menu_item;
   GtkWidget *replace_menu_item;
   GtkWidget *find_projects_menu_item;
   
@@ -145,13 +142,6 @@ add_menu_items (CodeSlayerMenuBarSearch *menubar_search)
                               GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                               GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_previous_menu_item);
-
-  find_incremental_menu_item = gtk_menu_item_new_with_label (_("Find Incremental"));
-  priv->find_incremental_menu_item = find_incremental_menu_item;
-  gtk_widget_add_accelerator (find_incremental_menu_item,  "activate",
-                              priv->accel_group, GDK_KEY_K,
-                              GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_incremental_menu_item);
 
   replace_menu_item = gtk_menu_item_new_with_label (_("Replace"));
   priv->replace_menu_item = replace_menu_item;
@@ -179,9 +169,6 @@ add_menu_items (CodeSlayerMenuBarSearch *menubar_search)
   g_signal_connect_swapped (G_OBJECT (find_previous_menu_item), "activate",
                             G_CALLBACK (find_previous_action), menubar_search);
   
-  g_signal_connect_swapped (G_OBJECT (find_incremental_menu_item), "activate",
-                            G_CALLBACK (find_incremental_action), menubar_search);
-  
   g_signal_connect_swapped (G_OBJECT (find_projects_menu_item), "activate",
                             G_CALLBACK (find_projects_action), menubar_search);
 }
@@ -207,7 +194,6 @@ codeslayer_menubar_search_sync_with_notebook (CodeSlayerMenuBarSearch *menubar_s
   gtk_widget_set_sensitive (priv->replace_menu_item, sensitive);
   gtk_widget_set_sensitive (priv->find_next_menu_item, sensitive);
   gtk_widget_set_sensitive (priv->find_previous_menu_item, sensitive);
-  gtk_widget_set_sensitive (priv->find_incremental_menu_item, sensitive);
 }                                              
 
 static void
@@ -240,14 +226,6 @@ find_previous_action (CodeSlayerMenuBarSearch *menubar_search)
   CodeSlayerMenuBarSearchPrivate *priv;
   priv = CODESLAYER_MENUBAR_SEARCH_GET_PRIVATE (menubar_search);
   codeslayer_menubar_find_previous (CODESLAYER_MENUBAR (priv->menubar));
-}
-
-static void
-find_incremental_action (CodeSlayerMenuBarSearch *menubar_search)
-{
-  CodeSlayerMenuBarSearchPrivate *priv;
-  priv = CODESLAYER_MENUBAR_SEARCH_GET_PRIVATE (menubar_search);
-  codeslayer_menubar_find_incremental (CODESLAYER_MENUBAR (priv->menubar));
 }
 
 static void

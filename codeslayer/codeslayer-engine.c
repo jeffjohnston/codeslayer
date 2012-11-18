@@ -67,7 +67,6 @@ static void close_editor_action                (CodeSlayerEngine       *engine);
 static void search_find_action                 (CodeSlayerEngine       *engine);
 static void search_find_next_action            (CodeSlayerEngine       *engine);
 static void search_find_previous_action        (CodeSlayerEngine       *engine);
-static void search_find_incremental_action     (CodeSlayerEngine       *engine);
 static void search_replace_action              (CodeSlayerEngine       *engine);
 static void search_find_projects_action        (CodeSlayerEngine       *engine,
                                                 gchar                  *search_paths);
@@ -237,9 +236,6 @@ codeslayer_engine_new (GtkWindow             *window,
   
   g_signal_connect_swapped (G_OBJECT (menubar), "find-previous",
                             G_CALLBACK (search_find_previous_action), engine);
-  
-  g_signal_connect_swapped (G_OBJECT (menubar), "find-incremental",
-                            G_CALLBACK (search_find_incremental_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (menubar), "find-projects",
                             G_CALLBACK (search_find_projects_action), engine);
@@ -764,14 +760,6 @@ search_find_previous_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   codeslayer_notebook_pane_search_find_previous (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
-}
-
-static void
-search_find_incremental_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_notebook_pane_search_find_incremental (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }
 
 static void

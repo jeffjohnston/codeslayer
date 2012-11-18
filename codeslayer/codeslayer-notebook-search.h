@@ -54,10 +54,8 @@ void        codeslayer_notebook_search_find                 (CodeSlayerNotebookS
 void        codeslayer_notebook_search_replace              (CodeSlayerNotebookSearch *notebook_search);
 void        codeslayer_notebook_search_find_next            (CodeSlayerNotebookSearch *notebook_search);
 void        codeslayer_notebook_search_find_previous        (CodeSlayerNotebookSearch *notebook_search);
-void        codeslayer_notebook_search_find_incremental     (CodeSlayerNotebookSearch *notebook_search);
 void        codeslayer_notebook_search_sync_with_notebook   (CodeSlayerNotebookSearch *notebook_search);
-void        codeslayer_notebook_search_create_search_marks  (CodeSlayerNotebookSearch *notebook_search,
-                                                             gboolean                  override_incremental);
+void        codeslayer_notebook_search_create_search_marks  (CodeSlayerNotebookSearch *notebook_search);
 
 G_END_DECLS
 

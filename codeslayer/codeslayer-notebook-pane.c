@@ -341,21 +341,6 @@ codeslayer_notebook_pane_search_find_previous (CodeSlayerNotebookPane *notebook_
 }
 
 /**
- * codeslayer_notebook_pane_search_find_incremental:
- * @notebook_pane: a #CodeSlayerNotebookPane.
- *
- * Delegate to the inline search to find the search value with the incremental checked.
- */
-void
-codeslayer_notebook_pane_search_find_incremental (CodeSlayerNotebookPane *notebook_pane)
-{
-  CodeSlayerNotebookPanePrivate *priv;
-  priv = CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane);
-  show_search (notebook_pane);
-  codeslayer_notebook_search_find_incremental (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search));
-}
-
-/**
  * codeslayer_notebook_pane_sync_with_notebook:
  * @notebook_pane: a #CodeSlayerNotebookPane.
  *
@@ -414,8 +399,7 @@ editor_added_action (CodeSlayerNotebookPane *notebook_pane,
   CodeSlayerNotebookPanePrivate *priv;
   priv = CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane);
   if (gtk_widget_get_visible (priv->notebook_search))
-    codeslayer_notebook_search_create_search_marks (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search),
-                                                    TRUE);
+    codeslayer_notebook_search_create_search_marks (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search));
 }
 
 static void
@@ -425,6 +409,5 @@ editor_switched_action (CodeSlayerNotebookPane *notebook_pane,
   CodeSlayerNotebookPanePrivate *priv;
   priv = CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane);
   if (gtk_widget_get_visible (priv->notebook_search))
-    codeslayer_notebook_search_create_search_marks (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search),
-                                                    TRUE);
+    codeslayer_notebook_search_create_search_marks (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search));
 }
