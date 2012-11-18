@@ -41,10 +41,11 @@ static void add_find_entry                         (CodeSlayerNotebookSearch    
 static void add_find_previous_button               (CodeSlayerNotebookSearch      *notebook_search);
 static void add_find_next_button                   (CodeSlayerNotebookSearch      *notebook_search);
 static void add_match_case_button                  (CodeSlayerNotebookSearch      *notebook_search);
-static void add_match_word_button           (CodeSlayerNotebookSearch      *notebook_search);
+static void add_match_word_button                  (CodeSlayerNotebookSearch      *notebook_search);
 static void add_replace_entry                      (CodeSlayerNotebookSearch      *notebook_search);
 static void add_replace_button                     (CodeSlayerNotebookSearch      *notebook_search);
 static void add_replace_all_button                 (CodeSlayerNotebookSearch      *notebook_search);
+static void set_find_entry_color                   (CodeSlayerNotebookSearch      *notebook_search);
 static void find_previous_action                   (CodeSlayerNotebookSearch      *notebook_search);
 static void find_next_action                       (CodeSlayerNotebookSearch      *notebook_search);
 static GtkWidget *get_editor                       (CodeSlayerNotebookSearch      *notebook_search);
@@ -103,6 +104,8 @@ struct _CodeSlayerNotebookSearchPrivate
   GtkWidget          *match_case_button;
   GtkWidget          *match_word_button;
   gboolean            incremental;
+  GdkRGBA             error_color;
+  GdkRGBA             default_color;
 };
 
 enum
@@ -192,9 +195,27 @@ codeslayer_notebook_search_new (GtkWidget          *notebook,
   add_replace_button (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
   add_replace_all_button (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
   
-  gtk_box_pack_start (GTK_BOX (notebook_search), priv->grid, FALSE, FALSE, 2);   
+  gtk_box_pack_start (GTK_BOX (notebook_search), priv->grid, FALSE, FALSE, 2);
+  
+  set_find_entry_color (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
   
   return notebook_search;
+}
+
+static void
+set_find_entry_color (CodeSlayerNotebookSearch *notebook_search)
+{
+  CodeSlayerNotebookSearchPrivate *priv;
+  GtkStyleContext *style_context;
+  GtkWidget *label;
+  
+  priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+  
+  label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
+  style_context = gtk_widget_get_style_context (label);
+
+  gdk_rgba_parse (&(priv->error_color), "#ed3636");
+  gtk_style_context_get_color (style_context, GTK_STATE_FLAG_NORMAL, &(priv->default_color));  
 }
 
 /**
@@ -700,6 +721,19 @@ codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebo
   gtk_text_buffer_get_start_iter (buffer, &start);
 
   success = forward_search (find, &start, &begin, &end, notebook_search);
+  
+  if (!success)
+    {
+      GtkWidget *label;
+      label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
+      gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->error_color));
+    }
+  else
+    {
+      GtkWidget *label;
+      label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
+      gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
+    }
 
   if (success && (!override_incremental && priv->incremental))
     {
