@@ -44,14 +44,6 @@ typedef struct
 static void codeslayer_search_class_init    (CodeSlayerSearchClass *klass);
 static void codeslayer_search_init          (CodeSlayerSearch      *search);
 static void codeslayer_search_finalize      (CodeSlayerSearch      *search);
-static void codeslayer_search_get_property  (GObject               *object, 
-                                             guint                  prop_id,
-                                             GValue                *value,
-                                             GParamSpec            *pspec);
-static void codeslayer_search_set_property  (GObject               *object,
-                                             guint                  prop_id,
-                                             const GValue          *value,
-                                             GParamSpec            *pspec);
                                                   
 static void add_search_fields               (CodeSlayerSearch      *search);
 static void add_more_options                (CodeSlayerSearch      *search);
@@ -184,8 +176,6 @@ typedef struct
 static void 
 codeslayer_search_class_init (CodeSlayerSearchClass *klass)
 {
-  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
   /**
    * CodeSlayerSearch::select-document
    * @codeslayersearch: the search that received the signal
@@ -221,9 +211,6 @@ codeslayer_search_class_init (CodeSlayerSearchClass *klass)
 
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_search_finalize;
   
-  gobject_class->get_property = codeslayer_search_get_property;
-  gobject_class->set_property = codeslayer_search_set_property;
-  
   g_type_class_add_private (klass, sizeof (CodeSlayerSearchPrivate));
 }
 
@@ -248,49 +235,6 @@ codeslayer_search_finalize (CodeSlayerSearch *search)
     }
   priv->stop_request = TRUE;
   G_OBJECT_CLASS (codeslayer_search_parent_class)-> finalize (G_OBJECT (search));
-}
-
-static void
-codeslayer_search_get_property (GObject    *object, 
-                                     guint       prop_id,
-                                     GValue     *value, 
-                                     GParamSpec *pspec)
-{
-  CodeSlayerSearchPrivate *priv;
-  CodeSlayerSearch *search;
-  
-  search = CODESLAYER_SEARCH (object);
-  priv =CODESLAYER_SEARCH_GET_PRIVATE (search);
-
-  switch (prop_id)
-    {
-    case PROP_FILE_PATHS:
-      g_value_set_string (value, priv->file_paths);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-    }
-}
-
-static void
-codeslayer_search_set_property (GObject      *object, 
-                                     guint         prop_id,
-                                     const GValue *value, 
-                                     GParamSpec   *pspec)
-{
-  CodeSlayerSearch *search;
-  search = CODESLAYER_SEARCH (object);
-
-  switch (prop_id)
-    {
-    case PROP_FILE_PATHS:
-      codeslayer_search_set_file_paths (search, g_value_get_string (value));
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-    }
 }
 
 /**
@@ -334,49 +278,56 @@ codeslayer_search_new (GtkWindow             *window,
 }
 
 /**
- * codeslayer_search_grab_focus:
- * @search: a #CodeSlayerSearch.
- */
-void          
-codeslayer_search_grab_focus (CodeSlayerSearch  *search)
-{
-  CodeSlayerSearchPrivate *priv;
-  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
-  gtk_widget_grab_focus (priv->find_entry);
-}
-
-/**
- * codeslayer_search_get_file_paths:
- * @search: a #CodeSlayerSearch.
- *
- * Returns: the file paths as a comma separated list. 
- *          Note, the memory must not be freed. 
- */
-const gchar*         
-codeslayer_search_get_file_paths (CodeSlayerSearch *search)
-{
-  return CODESLAYER_SEARCH_GET_PRIVATE (search)->file_paths;
-}
-
-/**
- * codeslayer_search_set_file_paths:
+ * codeslayer_search_find_selection:
  * @search: a #CodeSlayerSearch.
  * @file_paths: the file paths as a comma separated list.
  */
 void 
-codeslayer_search_set_file_paths (CodeSlayerSearch *search, 
-                                  const gchar          *file_paths)
+codeslayer_search_find_selection (CodeSlayerSearch *search, 
+                                  const gchar      *file_paths)
 {
   CodeSlayerSearchPrivate *priv;
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  
   if (priv->file_paths)
     {
       g_free (priv->file_paths);
       priv->file_paths = NULL;
     }
   priv->file_paths = g_strdup (file_paths);
+  
+  g_print ("find_selection %s\n", file_paths);
+
+  gtk_combo_box_set_active (GTK_COMBO_BOX (priv->scope_combo_box), SCOPE_SELECTION);
+  gtk_widget_grab_focus (priv->find_entry);
 }
 
+/**
+ * codeslayer_search_find_projects:
+ * @search: a #CodeSlayerSearch.
+ */
+void 
+codeslayer_search_find_projects (CodeSlayerSearch *search)
+{
+  CodeSlayerSearchPrivate *priv;
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  
+  if (priv->file_paths)
+    {
+      g_free (priv->file_paths);
+      priv->file_paths = NULL;
+    }
+    
+  g_print ("find_projects\n");
+
+  gtk_combo_box_set_active (GTK_COMBO_BOX (priv->scope_combo_box), SCOPE_PROJECTS);
+  gtk_widget_grab_focus (priv->find_entry);
+}
+
+/**
+ * codeslayer_search_clear:
+ * @search: a #CodeSlayerSearch.
+ */
 void          
 codeslayer_search_clear (CodeSlayerSearch *search)
 {
