@@ -317,39 +317,6 @@ codeslayer_search_new (GtkWindow             *window,
   return search;
 }
 
-/*static void
-add_vbox (CodeSlayerSearch *search)
-{
-  CodeSlayerSearchPrivate *priv;
-  GtkWidget *vbox;
-  GtkWidget *button_box;
-  GtkWidget *close_button;
-  
-  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
-
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-
-  gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
-  priv->vbox = vbox;
-  
-  gtk_box_pack_start (GTK_BOX(vbox), search, TRUE, TRUE, 2);
-  
-  button_box = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (button_box), GTK_BUTTONBOX_END);
-  gtk_container_set_border_width (GTK_CONTAINER (button_box), 4);
-  close_button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
-  gtk_box_pack_start (GTK_BOX(button_box), close_button, FALSE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX(vbox), button_box, FALSE, FALSE, 0);
-  
-  g_signal_connect_swapped (G_OBJECT (close_button), "clicked",
-                            G_CALLBACK (close_action), search);
-
-  g_signal_connect_swapped (G_OBJECT (search), "select-document",
-                            G_CALLBACK (open_document_action), search);
-
-  gtk_container_add (GTK_CONTAINER (search), vbox);
-}*/
-
 static void
 add_widgets (CodeSlayerSearch *search)
 {
