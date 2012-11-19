@@ -54,6 +54,7 @@ static void codeslayer_search_set_property  (GObject               *object,
                                              GParamSpec            *pspec);
                                                   
 static void add_search_fields               (CodeSlayerSearch      *search);
+static void add_more_options                (CodeSlayerSearch      *search);
 static void add_results_window              (CodeSlayerSearch      *search);
 static void add_button_box                  (CodeSlayerSearch      *search);
 static void add_find_entry                  (CodeSlayerSearch      *search);
@@ -127,6 +128,7 @@ struct _CodeSlayerSearchPrivate
   gboolean                 stop_request;
   const gchar             *find_text;
   const gchar             *file_text;
+  GtkWidget               *options_grid;
 };
 
 enum
@@ -316,6 +318,7 @@ codeslayer_search_new (GtkWindow             *window,
   gtk_container_add (GTK_CONTAINER (search), priv->vbox);                            
 
   add_search_fields (CODESLAYER_SEARCH (search));
+  add_more_options (CODESLAYER_SEARCH (search));
   add_results_window (CODESLAYER_SEARCH (search));  
   add_button_box (CODESLAYER_SEARCH (search));
   
@@ -390,9 +393,30 @@ add_search_fields (CodeSlayerSearch *search)
   add_find_entry (search);
   add_stop_button (search);
   add_match_case_button (search);
-  add_file_entry (search);
 
   gtk_box_pack_start (GTK_BOX (priv->vbox), GTK_WIDGET (priv->grid), FALSE, FALSE, 2);
+}
+
+static void
+add_more_options (CodeSlayerSearch *search)
+{
+  CodeSlayerSearchPrivate *priv;
+  GtkWidget *expander;
+  GtkWidget *options_grid;
+
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+
+  expander = gtk_expander_new (_("More Options"));
+  gtk_expander_set_expanded (GTK_EXPANDER (expander), FALSE);
+
+  options_grid = gtk_grid_new ();
+  priv->options_grid = options_grid;
+  gtk_widget_set_margin_left (options_grid, 18);
+
+  add_file_entry (search);
+  
+  gtk_container_add (GTK_CONTAINER (expander), options_grid);
+  gtk_box_pack_start (GTK_BOX (priv->vbox), expander, FALSE, FALSE, 2);
 }
 
 static void
@@ -527,12 +551,12 @@ add_file_entry (CodeSlayerSearch *search)
   file_label = gtk_label_new (_("File Name:"));
   gtk_misc_set_alignment (GTK_MISC (file_label), 1, .5);
   gtk_misc_set_padding (GTK_MISC (file_label), 4, 0);
-  gtk_grid_attach (GTK_GRID (priv->grid), file_label, 0, 1, 1, 1);
+  gtk_grid_attach (GTK_GRID (priv->options_grid), file_label, 0, 1, 1, 1);
 
   file_entry = gtk_entry_new ();
   priv->file_entry = file_entry;
   gtk_entry_set_width_chars (GTK_ENTRY (file_entry), 40);
-  gtk_grid_attach_next_to (GTK_GRID (priv->grid), file_entry, file_label, 
+  gtk_grid_attach_next_to (GTK_GRID (priv->options_grid), file_entry, file_label, 
                            GTK_POS_RIGHT, 1, 1);
 
   g_signal_connect_swapped (G_OBJECT (file_entry), "activate",
