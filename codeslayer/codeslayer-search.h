@@ -49,13 +49,14 @@ struct _CodeSlayerSearchClass
 
 GType codeslayer_search_get_type (void) G_GNUC_CONST;
      
-GtkWidget*  codeslayer_search_new           (GtkWindow               *window,
-                                             CodeSlayerPreferences   *preferences, 
-                                             CodeSlayerGroups        *groups);
-                                     
-void        codeslayer_search_add_page      (CodeSlayerSearch        *search, 
-                                             const gchar             *file_paths);
-void        codeslayer_search_clear         (CodeSlayerSearch        *search);
+GtkWidget*    codeslayer_search_new             (GtkWindow             *window, 
+                                                 CodeSlayerPreferences *preferences, 
+                                                 CodeSlayerGroups      *groups);
+const gchar*  codeslayer_search_get_file_paths  (CodeSlayerSearch      *search);
+void          codeslayer_search_set_file_paths  (CodeSlayerSearch      *search, 
+                                                 const gchar           *file_paths);
+void          codeslayer_search_clear           (CodeSlayerSearch      *search);
+void          codeslayer_search_grab_focus      (CodeSlayerSearch      *search);
 
 G_END_DECLS
 
