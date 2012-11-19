@@ -53,12 +53,12 @@ static void codeslayer_search_set_property  (GObject               *object,
                                              const GValue          *value,
                                              GParamSpec            *pspec);
                                                   
-static void add_widgets                     (CodeSlayerSearch      *search);
-static void add_close_button                (CodeSlayerSearch      *search);
+static void add_search_fields               (CodeSlayerSearch      *search);
+static void add_results_window              (CodeSlayerSearch      *search);
+static void add_button_box                  (CodeSlayerSearch      *search);
 static void add_find_entry                  (CodeSlayerSearch      *search);
 static void add_file_entry                  (CodeSlayerSearch      *search);
 static void add_stop_button                 (CodeSlayerSearch      *search);
-static void add_find_button                 (CodeSlayerSearch      *search);
 static void add_match_case_button           (CodeSlayerSearch      *search);
 static void close_action                    (CodeSlayerSearch      *search);
 static void find_action                     (CodeSlayerSearch      *search);                                             
@@ -310,19 +310,95 @@ codeslayer_search_new (GtkWindow             *window,
   gtk_window_set_transient_for (GTK_WINDOW (search), window);
   gtk_window_set_destroy_with_parent (GTK_WINDOW (search), TRUE);
 
-  add_widgets (CODESLAYER_SEARCH (search));
-  
-  add_close_button (CODESLAYER_SEARCH (search));
+  priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (priv->vbox), FALSE);
+  gtk_box_set_spacing (GTK_BOX (priv->vbox), 0);
+  gtk_container_add (GTK_CONTAINER (search), priv->vbox);                            
+
+  add_search_fields (CODESLAYER_SEARCH (search));
+  add_results_window (CODESLAYER_SEARCH (search));  
+  add_button_box (CODESLAYER_SEARCH (search));
   
   return search;
 }
 
-static void
-add_widgets (CodeSlayerSearch *search)
+/**
+ * codeslayer_search_grab_focus:
+ * @search: a #CodeSlayerSearch.
+ */
+void          
+codeslayer_search_grab_focus (CodeSlayerSearch  *search)
 {
   CodeSlayerSearchPrivate *priv;
-  GtkWidget *vbox;
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  gtk_widget_grab_focus (priv->find_entry);
+}
+
+/**
+ * codeslayer_search_get_file_paths:
+ * @search: a #CodeSlayerSearch.
+ *
+ * Returns: the file paths as a comma separated list. 
+ *          Note, the memory must not be freed. 
+ */
+const gchar*         
+codeslayer_search_get_file_paths (CodeSlayerSearch *search)
+{
+  return CODESLAYER_SEARCH_GET_PRIVATE (search)->file_paths;
+}
+
+/**
+ * codeslayer_search_set_file_paths:
+ * @search: a #CodeSlayerSearch.
+ * @file_paths: the file paths as a comma separated list.
+ */
+void 
+codeslayer_search_set_file_paths (CodeSlayerSearch *search, 
+                                  const gchar          *file_paths)
+{
+  CodeSlayerSearchPrivate *priv;
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  if (priv->file_paths)
+    {
+      g_free (priv->file_paths);
+      priv->file_paths = NULL;
+    }
+  priv->file_paths = g_strdup (file_paths);
+}
+
+void          
+codeslayer_search_clear (CodeSlayerSearch *search)
+{
+  CodeSlayerSearchPrivate *priv;
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  gtk_tree_store_clear (priv->treestore);
+  gtk_entry_set_text (GTK_ENTRY (priv->find_entry), ""); 
+  gtk_entry_set_text (GTK_ENTRY (priv->file_entry), ""); 
+}
+
+static void
+add_search_fields (CodeSlayerSearch *search)
+{
+  CodeSlayerSearchPrivate *priv;
   GtkWidget *grid;
+
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+
+  grid = gtk_grid_new ();
+  priv->grid = grid;
+
+  add_find_entry (search);
+  add_stop_button (search);
+  add_match_case_button (search);
+  add_file_entry (search);
+
+  gtk_box_pack_start (GTK_BOX (priv->vbox), GTK_WIDGET (priv->grid), FALSE, FALSE, 2);
+}
+
+static void
+add_results_window (CodeSlayerSearch *search)
+{
+  CodeSlayerSearchPrivate *priv;
   GtkWidget *treeview;
   GtkTreeStore *treestore;
   GtkTreeSortable *sortable;
@@ -332,27 +408,6 @@ add_widgets (CodeSlayerSearch *search)
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
   
-  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
-  priv->vbox = vbox;
-
-  gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
-  gtk_box_set_spacing (GTK_BOX (vbox), 0);
-
-  /* add the search page fields */
-
-  grid = gtk_grid_new ();
-  priv->grid = grid;
-
-  add_find_entry (search);
-  add_stop_button (search);
-  add_match_case_button (search);
-  add_file_entry (search);
-  add_find_button (search);
-
-  gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (priv->grid), FALSE, FALSE, 2);
-
-  /* add the search page results */
-
   treeview = gtk_tree_view_new ();
   priv->treeview = treeview;
 
@@ -388,58 +443,6 @@ add_widgets (CodeSlayerSearch *search)
 
   g_signal_connect_swapped (G_OBJECT (treeview), "row_activated",
                             G_CALLBACK (select_document), search);
-                            
-  gtk_container_add (GTK_CONTAINER (search), vbox);                            
-}
-
-void          
-codeslayer_search_grab_focus (CodeSlayerSearch  *search)
-{
-  CodeSlayerSearchPrivate *priv;
-  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
-  gtk_widget_grab_focus (priv->find_entry);
-}
-
-/**
- * codeslayer_search_get_file_paths:
- * @search: a #CodeSlayerSearch.
- *
- * Returns: the file paths as a comma separated list. 
- *          Note, the memory must not be freed. 
- */
-const gchar*         
-codeslayer_search_get_file_paths (CodeSlayerSearch *search)
-{
-  return CODESLAYER_SEARCH_GET_PRIVATE (search)->file_paths;
-}
-
-/**
- * codeslayer_search_set_file_paths:
- * @search: a #CodeSlayerSearch.
- * @file_paths: the file paths as a comma separated list.
- */
-void 
-codeslayer_search_set_file_paths (CodeSlayerSearch *search, 
-                                       const gchar          *file_paths)
-{
-  CodeSlayerSearchPrivate *priv;
-  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
-  if (priv->file_paths)
-    {
-      g_free (priv->file_paths);
-      priv->file_paths = NULL;
-    }
-  priv->file_paths = g_strdup (file_paths);
-}
-
-void          
-codeslayer_search_clear (CodeSlayerSearch *search)
-{
-  CodeSlayerSearchPrivate *priv;
-  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
-  gtk_tree_store_clear (priv->treestore);
-  gtk_entry_set_text (GTK_ENTRY (priv->find_entry), ""); 
-  gtk_entry_set_text (GTK_ENTRY (priv->file_entry), ""); 
 }
 
 static void
@@ -537,63 +540,32 @@ add_file_entry (CodeSlayerSearch *search)
 }
 
 static void
-add_find_button (CodeSlayerSearch *search)
-{
-  CodeSlayerSearchPrivate *priv;
-  GtkWidget *find_button;
-  GtkWidget *find_label;
-  GtkWidget *find_image;
-  GtkWidget *hbox;
-  GtkWidget *container;
-  
-  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
-
-  find_button = gtk_button_new ();
-  priv->find_button = find_button;
-  gtk_button_set_relief (GTK_BUTTON (find_button), GTK_RELIEF_NONE);
-  gtk_button_set_focus_on_click (GTK_BUTTON (find_button), FALSE);
-
-  find_label = gtk_label_new (_("Find"));
-  find_image = gtk_image_new_from_stock (GTK_STOCK_FIND, GTK_ICON_SIZE_MENU);
-  
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_box_set_homogeneous (GTK_BOX (hbox), TRUE);
-
-  container = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_box_set_homogeneous (GTK_BOX (container), FALSE);
-
-  gtk_box_pack_start (GTK_BOX (hbox), find_image, FALSE, TRUE, 3);
-  gtk_box_pack_start (GTK_BOX (hbox), find_label, FALSE, TRUE, 0);
-  gtk_widget_set_can_focus (find_button, FALSE);
-
-  gtk_container_add (GTK_CONTAINER (find_button), hbox);
-  
-  gtk_box_pack_start (GTK_BOX (container), find_button, FALSE, FALSE, 0);  
-  
-  gtk_grid_attach_next_to (GTK_GRID (priv->grid), container, priv->file_entry, 
-                           GTK_POS_RIGHT, 2, 1);
-
-  g_signal_connect_swapped (G_OBJECT (find_button), "clicked",
-                            G_CALLBACK (find_action), search);
-}
-
-static void
-add_close_button (CodeSlayerSearch *search)
+add_button_box (CodeSlayerSearch *search)
 {
   CodeSlayerSearchPrivate *priv;
   GtkWidget *button_box;
   GtkWidget *close_button;
+  GtkWidget *find_button;
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
 
   button_box = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
   gtk_button_box_set_layout (GTK_BUTTON_BOX (button_box), GTK_BUTTONBOX_END);
   gtk_container_set_border_width (GTK_CONTAINER (button_box), 4);
+  gtk_box_set_spacing (GTK_BOX (button_box), 4);
+
   close_button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
+  find_button = gtk_button_new_from_stock (GTK_STOCK_FIND);
+  priv->find_button = find_button;
+
   gtk_box_pack_start (GTK_BOX(button_box), close_button, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX(button_box), find_button, FALSE, FALSE, 0);
   
   g_signal_connect_swapped (G_OBJECT (close_button), "clicked",
                             G_CALLBACK (close_action), search);
+
+  g_signal_connect_swapped (G_OBJECT (find_button), "clicked",
+                            G_CALLBACK (find_action), search);
 
   gtk_box_pack_start (GTK_BOX(priv->vbox), button_box, FALSE, FALSE, 0);
 }
