@@ -18,7 +18,7 @@
 
 #include <codeslayer/codeslayer-engine.h>
 #include <codeslayer/codeslayer-utils.h>
-#include <codeslayer/codeslayer-search.h>
+#include <codeslayer/codeslayer-search-page.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-repository.h>
@@ -509,7 +509,7 @@ set_active_group (CodeSlayerEngine *engine,
   codeslayer_repository_save_groups (priv->groups);
   codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
   if (priv->search != NULL)
-    codeslayer_search_clear (CODESLAYER_SEARCH (priv->search));
+    codeslayer_search_page_clear (CODESLAYER_SEARCH_PAGE (priv->search));
   codeslayer_engine_open_active_group (engine);
 }
 
@@ -776,9 +776,9 @@ search_find_projects_action (CodeSlayerEngine *engine,
   
   if (!priv->search)
     {
-      priv->search = codeslayer_search_new (priv->window, 
-                                            priv->preferences, 
-                                            priv->groups);
+      priv->search = codeslayer_search_page_new (priv->window, 
+                                                 priv->preferences, 
+                                                 priv->groups);
 
       gtk_window_set_type_hint (GTK_WINDOW (priv->search), GDK_WINDOW_TYPE_HINT_DIALOG);
 
@@ -818,11 +818,6 @@ search_find_projects_action (CodeSlayerEngine *engine,
     
   gtk_window_present (GTK_WINDOW (priv->search));
   gtk_widget_show_all (GTK_WIDGET (priv->search));
-
-  if (file_paths)
-    codeslayer_search_add_page (CODESLAYER_SEARCH (priv->search), file_paths);
-  else
-    codeslayer_search_default_page (CODESLAYER_SEARCH (priv->search));    
 }
 
 static gboolean

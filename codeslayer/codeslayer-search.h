@@ -55,7 +55,6 @@ GtkWidget*  codeslayer_search_new           (GtkWindow               *window,
                                      
 void        codeslayer_search_add_page      (CodeSlayerSearch        *search, 
                                              const gchar             *file_paths);
-void        codeslayer_search_default_page  (CodeSlayerSearch        *search);
 void        codeslayer_search_clear         (CodeSlayerSearch        *search);
 
 G_END_DECLS

@@ -19,7 +19,6 @@
 #include <glib/gprintf.h>
 #include <string.h>
 #include <codeslayer/codeslayer-search-page.h>
-#include <codeslayer/codeslayer-search-tab.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-utils.h>
@@ -53,11 +52,15 @@ static void codeslayer_search_page_set_property  (GObject                   *obj
                                                   guint                      prop_id,
                                                   const GValue              *value,
                                                   GParamSpec                *pspec);
+                                                  
+static void add_widgets                          (CodeSlayerSearchPage      *search_page);
+static void add_close_button                     (CodeSlayerSearchPage      *search_page);
 static void add_find_entry                       (CodeSlayerSearchPage      *search_page);
 static void add_file_entry                       (CodeSlayerSearchPage      *search_page);
 static void add_stop_button                      (CodeSlayerSearchPage      *search_page);
 static void add_find_button                      (CodeSlayerSearchPage      *search_page);
 static void add_match_case_button                (CodeSlayerSearchPage      *search_page);
+static void close_action                         (CodeSlayerSearchPage      *search_page);
 static void find_action                          (CodeSlayerSearchPage      *search_page);                                             
 static void stop_action                          (CodeSlayerSearchPage      *search_page);
 static void match_case_action                    (CodeSlayerSearchPage      *search_page);
@@ -95,8 +98,6 @@ static gint sort_iter_compare_func               (GtkTreeModel              *mod
                                                   GtkTreeIter               *b, 
                                                   gpointer                   userdata);
                                                   
-static gboolean set_label_name                   (SearchContext             *context);
-static void destroy_label_name                   (SearchContext             *context);
 static gboolean set_stop_button_sensitive        (GtkWidget                 *stop_button);
 static gboolean create_search_tree               (SearchContext             *context);
 static void destroy_search_tree                  (SearchContext             *context);
@@ -109,8 +110,10 @@ typedef struct _CodeSlayerSearchPagePrivate CodeSlayerSearchPagePrivate;
 
 struct _CodeSlayerSearchPagePrivate
 {
+  GtkWindow               *parent;
+  CodeSlayerGroups        *groups;
   CodeSlayerPreferences   *preferences;
-  GtkWidget               *search_tab;
+  GtkWidget               *vbox;
   GtkWidget               *grid;
   GtkWidget               *find_entry;
   GtkWidget               *file_entry;
@@ -120,7 +123,6 @@ struct _CodeSlayerSearchPagePrivate
   GtkWidget               *treeview;
   GtkTreeStore            *treestore;
   GtkCellRenderer         *renderer;
-  CodeSlayerGroups        *groups;
   gchar                   *file_paths;
   gboolean                 stop_request;
   const gchar             *find_text;
@@ -139,12 +141,13 @@ enum
 enum
 {
   SELECT_DOCUMENT,
+  CLOSE,
   LAST_SIGNAL
 };
 
 static guint codeslayer_search_page_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (CodeSlayerSearchPage, codeslayer_search_page,  GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerSearchPage, codeslayer_search_page, GTK_TYPE_WINDOW)
 
 enum
 {
@@ -189,6 +192,22 @@ codeslayer_search_page_class_init (CodeSlayerSearchPageClass *klass)
                   G_STRUCT_OFFSET (CodeSlayerSearchPageClass, select_document),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
+                  
+  /**
+   * CodeSlayerSearchPage::close
+   * @codeslayersearch: the search that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::close signal is a request to close the search box.
+   */
+  codeslayer_search_page_signals[CLOSE] =
+    g_signal_new ("close", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerSearchPageClass, close),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_search_page_finalize;
   
@@ -201,70 +220,10 @@ codeslayer_search_page_class_init (CodeSlayerSearchPageClass *klass)
 static void
 codeslayer_search_page_init (CodeSlayerSearchPage *search_page)
 {
-  CodeSlayerSearchPagePrivate *priv;
-  GtkWidget *grid;
-  GtkWidget *treeview;
-  GtkTreeStore *treestore;
-  GtkTreeSortable *sortable;
-  GtkTreeViewColumn *column;
-  GtkCellRenderer *renderer;
-  GtkWidget *scrolled_window;
-  
-  priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (search_page);
-
-  gtk_box_set_homogeneous (GTK_BOX (search_page), FALSE);
-  gtk_box_set_spacing (GTK_BOX (search_page), 0);
-
-  /* add the search page fields */
-
-  grid = gtk_grid_new ();
-  priv->grid = grid;
-
-  add_find_entry (search_page);
-  add_stop_button (search_page);
-  add_match_case_button (search_page);
-  add_file_entry (search_page);
-  add_find_button (search_page);
-
-  gtk_box_pack_start (GTK_BOX (search_page), GTK_WIDGET (priv->grid), FALSE, FALSE, 2);
-
-  /* add the search page results */
-
-  treeview = gtk_tree_view_new ();
-  priv->treeview = treeview;
-
-  treestore = gtk_tree_store_new (COLUMNS, G_TYPE_STRING, G_TYPE_INT, 
-                                  G_TYPE_STRING, G_TYPE_POINTER);
-  priv->treestore = treestore;
-
-  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (treeview), FALSE);
-  gtk_tree_view_set_model (GTK_TREE_VIEW (treeview), GTK_TREE_MODEL (treestore));
-  g_object_unref (treestore);
-
-  sortable = GTK_TREE_SORTABLE (treestore);
-  gtk_tree_sortable_set_sort_func (sortable, TEXT, sort_iter_compare_func,
-                                   GINT_TO_POINTER (TEXT), NULL);
-  gtk_tree_sortable_set_sort_column_id (sortable, TEXT, GTK_SORT_ASCENDING);
-
-  column = gtk_tree_view_column_new ();
-
-  renderer = gtk_cell_renderer_text_new ();
-  priv->renderer = renderer;
-
-  gtk_tree_view_column_pack_start (column, renderer, FALSE);
-  gtk_tree_view_column_set_attributes (column, renderer, "text", TEXT, NULL);
-
-  gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
-
-  scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (treeview));
-  gtk_box_pack_start (GTK_BOX (search_page), GTK_WIDGET (scrolled_window), 
-                      TRUE, TRUE, 2);
-
-  g_signal_connect_swapped (G_OBJECT (treeview), "row_activated",
-                            G_CALLBACK (select_document), search_page);
+  gtk_window_set_title (GTK_WINDOW (search_page), _("Search"));  
+  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (search_page), TRUE);
+  gtk_window_set_skip_pager_hint (GTK_WINDOW (search_page), TRUE);
+  gtk_container_set_border_width (GTK_CONTAINER (search_page), 3);
 }
 
 static void
@@ -334,7 +293,8 @@ codeslayer_search_page_set_property (GObject      *object,
  * Returns: a new #CodeSlayerSearchPage. 
  */
 GtkWidget*
-codeslayer_search_page_new (CodeSlayerPreferences *preferences, 
+codeslayer_search_page_new (GtkWindow             *window, 
+                            CodeSlayerPreferences *preferences, 
                             CodeSlayerGroups      *groups)
 {
   CodeSlayerSearchPagePrivate *priv;
@@ -342,11 +302,127 @@ codeslayer_search_page_new (CodeSlayerPreferences *preferences,
   
   search_page = g_object_new (codeslayer_search_page_get_type (), NULL);
   priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (search_page);
+  priv->parent = window;
   priv->preferences = preferences;
   priv->groups = groups;
   priv->file_paths = NULL;
   
+  gtk_window_set_transient_for (GTK_WINDOW (search_page), window);
+  gtk_window_set_destroy_with_parent (GTK_WINDOW (search_page), TRUE);
+
+  add_widgets (CODESLAYER_SEARCH_PAGE (search_page));
+  
+  add_close_button (CODESLAYER_SEARCH_PAGE (search_page));
+  
   return search_page;
+}
+
+/*static void
+add_vbox (CodeSlayerSearchPage *search_page)
+{
+  CodeSlayerSearchPagePrivate *priv;
+  GtkWidget *vbox;
+  GtkWidget *button_box;
+  GtkWidget *close_button;
+  
+  priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (search_page);
+
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+
+  gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
+  priv->vbox = vbox;
+  
+  gtk_box_pack_start (GTK_BOX(vbox), search_page, TRUE, TRUE, 2);
+  
+  button_box = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (button_box), GTK_BUTTONBOX_END);
+  gtk_container_set_border_width (GTK_CONTAINER (button_box), 4);
+  close_button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
+  gtk_box_pack_start (GTK_BOX(button_box), close_button, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX(vbox), button_box, FALSE, FALSE, 0);
+  
+  g_signal_connect_swapped (G_OBJECT (close_button), "clicked",
+                            G_CALLBACK (close_action), search);
+
+  g_signal_connect_swapped (G_OBJECT (search_page), "select-document",
+                            G_CALLBACK (open_document_action), search);
+
+  gtk_container_add (GTK_CONTAINER (search_page), vbox);
+}*/
+
+static void
+add_widgets (CodeSlayerSearchPage *search_page)
+{
+  CodeSlayerSearchPagePrivate *priv;
+  GtkWidget *vbox;
+  GtkWidget *grid;
+  GtkWidget *treeview;
+  GtkTreeStore *treestore;
+  GtkTreeSortable *sortable;
+  GtkTreeViewColumn *column;
+  GtkCellRenderer *renderer;
+  GtkWidget *scrolled_window;
+  
+  priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (search_page);
+  
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+  priv->vbox = vbox;
+
+  gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
+  gtk_box_set_spacing (GTK_BOX (vbox), 0);
+
+  /* add the search page fields */
+
+  grid = gtk_grid_new ();
+  priv->grid = grid;
+
+  add_find_entry (search_page);
+  add_stop_button (search_page);
+  add_match_case_button (search_page);
+  add_file_entry (search_page);
+  add_find_button (search_page);
+
+  gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (priv->grid), FALSE, FALSE, 2);
+
+  /* add the search page results */
+
+  treeview = gtk_tree_view_new ();
+  priv->treeview = treeview;
+
+  treestore = gtk_tree_store_new (COLUMNS, G_TYPE_STRING, G_TYPE_INT, 
+                                  G_TYPE_STRING, G_TYPE_POINTER);
+  priv->treestore = treestore;
+
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (treeview), FALSE);
+  gtk_tree_view_set_model (GTK_TREE_VIEW (treeview), GTK_TREE_MODEL (treestore));
+  g_object_unref (treestore);
+
+  sortable = GTK_TREE_SORTABLE (treestore);
+  gtk_tree_sortable_set_sort_func (sortable, TEXT, sort_iter_compare_func,
+                                   GINT_TO_POINTER (TEXT), NULL);
+  gtk_tree_sortable_set_sort_column_id (sortable, TEXT, GTK_SORT_ASCENDING);
+
+  column = gtk_tree_view_column_new ();
+
+  renderer = gtk_cell_renderer_text_new ();
+  priv->renderer = renderer;
+
+  gtk_tree_view_column_pack_start (column, renderer, FALSE);
+  gtk_tree_view_column_set_attributes (column, renderer, "text", TEXT, NULL);
+
+  gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+
+  scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+                                  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (treeview));
+  gtk_box_pack_start (GTK_BOX (priv->vbox), GTK_WIDGET (scrolled_window), 
+                      TRUE, TRUE, 2);
+
+  g_signal_connect_swapped (G_OBJECT (treeview), "row_activated",
+                            G_CALLBACK (select_document), search_page);
+                            
+  gtk_container_add (GTK_CONTAINER (search_page), vbox);                            
 }
 
 void          
@@ -356,20 +432,6 @@ codeslayer_search_page_grab_focus (CodeSlayerSearchPage  *search_page)
   priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (search_page);
   gtk_widget_grab_focus (priv->find_entry);
 }
-
-/**
- * codeslayer_search_page_set_search_tab:
- * @search_page: a #CodeSlayerSearchPage.
- * @search_tab: a #GtkWidget.
- */
-void
-codeslayer_search_page_set_search_tab (CodeSlayerSearchPage *search_page, 
-                                       GtkWidget            *search_tab)
-{
-  CodeSlayerSearchPagePrivate *priv;
-  priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (search_page);
-  priv->search_tab = search_tab;
-}                                       
 
 /**
  * codeslayer_search_page_get_file_paths:
@@ -549,6 +611,33 @@ add_find_button (CodeSlayerSearchPage *search_page)
 }
 
 static void
+add_close_button (CodeSlayerSearchPage *search_page)
+{
+  CodeSlayerSearchPagePrivate *priv;
+  GtkWidget *button_box;
+  GtkWidget *close_button;
+  
+  priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (search_page);
+
+  button_box = gtk_button_box_new (GTK_ORIENTATION_HORIZONTAL);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (button_box), GTK_BUTTONBOX_END);
+  gtk_container_set_border_width (GTK_CONTAINER (button_box), 4);
+  close_button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
+  gtk_box_pack_start (GTK_BOX(button_box), close_button, FALSE, FALSE, 0);
+  
+  g_signal_connect_swapped (G_OBJECT (close_button), "clicked",
+                            G_CALLBACK (close_action), search_page);
+
+  gtk_box_pack_start (GTK_BOX(priv->vbox), button_box, FALSE, FALSE, 0);
+}
+
+static void
+close_action (CodeSlayerSearchPage *search_page)
+{
+  g_signal_emit_by_name ((gpointer) search_page, "close");
+}
+
+static void
 find_action (CodeSlayerSearchPage *search_page)
 {
   CodeSlayerSearchPagePrivate *priv;
@@ -641,7 +730,6 @@ execute (CodeSlayerSearchPage *search_page)
           context = g_malloc (sizeof (SearchContext));
           context->search_page = search_page;
           context->label_name = label_name;
-          g_idle_add_full (G_PRIORITY_DEFAULT_IDLE, (GSourceFunc) set_label_name, context, (GDestroyNotify)destroy_label_name);
         }
     }
     
@@ -1099,23 +1187,6 @@ sort_iter_compare_func (GtkTreeModel *model,
     }
 
   return ret;
-}
-
-static gboolean 
-set_label_name (SearchContext *context)
-{
-  CodeSlayerSearchPagePrivate *priv;
-  priv = CODESLAYER_SEARCH_PAGE_GET_PRIVATE (context->search_page);
-  codeslayer_search_tab_set_label_name (CODESLAYER_SEARCH_TAB(priv->search_tab), 
-                                        context->label_name);
-  return FALSE;
-}
-
-static void 
-destroy_label_name (SearchContext *context)
-{
-  g_free (context->label_name);
-  g_free (context);
 }
 
 static gboolean 

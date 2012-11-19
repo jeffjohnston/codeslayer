@@ -36,29 +36,27 @@ typedef struct _CodeSlayerSearchPageClass CodeSlayerSearchPageClass;
 
 struct _CodeSlayerSearchPage
 {
-  GtkVBox parent_instance;
+  GtkWindow parent_instance;
 };
 
 struct _CodeSlayerSearchPageClass
 {
-  GtkVBoxClass parent_class;
+  GtkWindowClass parent_class;
 
   void (*select_document) (CodeSlayerSearchPage *search_page);
+  void (*close) (CodeSlayerSearchPage *search_page);
 };
 
 GType codeslayer_search_page_get_type (void) G_GNUC_CONST;
      
-GtkWidget*    codeslayer_search_page_new             (CodeSlayerPreferences  *preferences, 
-                                                      CodeSlayerGroups       *groups);
-
-void          codeslayer_search_page_set_search_tab  (CodeSlayerSearchPage   *search_page, 
-                                                      GtkWidget              *search_tab);
-
-const gchar*  codeslayer_search_page_get_file_paths  (CodeSlayerSearchPage   *search_page);
-void          codeslayer_search_page_set_file_paths  (CodeSlayerSearchPage   *search_page, 
-                                                      const gchar            *file_paths);
-void          codeslayer_search_page_clear           (CodeSlayerSearchPage   *search_page);
-void          codeslayer_search_page_grab_focus      (CodeSlayerSearchPage   *search_page);
+GtkWidget*    codeslayer_search_page_new             (GtkWindow             *window, 
+                                                      CodeSlayerPreferences *preferences, 
+                                                      CodeSlayerGroups      *groups);
+const gchar*  codeslayer_search_page_get_file_paths  (CodeSlayerSearchPage  *search_page);
+void          codeslayer_search_page_set_file_paths  (CodeSlayerSearchPage  *search_page, 
+                                                      const gchar           *file_paths);
+void          codeslayer_search_page_clear           (CodeSlayerSearchPage  *search_page);
+void          codeslayer_search_page_grab_focus      (CodeSlayerSearchPage  *search_page);
 
 G_END_DECLS
 
