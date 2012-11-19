@@ -59,6 +59,7 @@ static void add_results_window              (CodeSlayerSearch      *search);
 static void add_button_box                  (CodeSlayerSearch      *search);
 static void add_find_entry                  (CodeSlayerSearch      *search);
 static void add_file_entry                  (CodeSlayerSearch      *search);
+static void add_scope_combo_box             (CodeSlayerSearch      *search);
 static void add_stop_button                 (CodeSlayerSearch      *search);
 static void add_match_case_button           (CodeSlayerSearch      *search);
 static void close_action                    (CodeSlayerSearch      *search);
@@ -124,11 +125,12 @@ struct _CodeSlayerSearchPrivate
   GtkWidget               *treeview;
   GtkTreeStore            *treestore;
   GtkCellRenderer         *renderer;
+  GtkWidget               *options_grid;
+  GtkWidget               *scope_combo_box;
   gchar                   *file_paths;
   gboolean                 stop_request;
   const gchar             *find_text;
   const gchar             *file_text;
-  GtkWidget               *options_grid;
 };
 
 enum
@@ -145,6 +147,12 @@ enum
   SELECT_DOCUMENT,
   CLOSE,
   LAST_SIGNAL
+};
+
+enum
+{
+  SCOPE_PROJECTS = 0,
+  SCOPE_SELECTION
 };
 
 static guint codeslayer_search_signals[LAST_SIGNAL] = { 0 };
@@ -388,6 +396,7 @@ add_search_fields (CodeSlayerSearch *search)
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
 
   grid = gtk_grid_new ();
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 2);
   priv->grid = grid;
 
   add_find_entry (search);
@@ -410,10 +419,12 @@ add_more_options (CodeSlayerSearch *search)
   gtk_expander_set_expanded (GTK_EXPANDER (expander), FALSE);
 
   options_grid = gtk_grid_new ();
+  gtk_grid_set_row_spacing (GTK_GRID (options_grid), 2);
+  gtk_widget_set_margin_left (options_grid, 25);
   priv->options_grid = options_grid;
-  gtk_widget_set_margin_left (options_grid, 18);
 
   add_file_entry (search);
+  add_scope_combo_box (search);
   
   gtk_container_add (GTK_CONTAINER (expander), options_grid);
   gtk_box_pack_start (GTK_BOX (priv->vbox), expander, FALSE, FALSE, 2);
@@ -548,10 +559,10 @@ add_file_entry (CodeSlayerSearch *search)
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
 
-  file_label = gtk_label_new (_("File Name:"));
+  file_label = gtk_label_new (_("File Pattern:"));
   gtk_misc_set_alignment (GTK_MISC (file_label), 1, .5);
   gtk_misc_set_padding (GTK_MISC (file_label), 4, 0);
-  gtk_grid_attach (GTK_GRID (priv->options_grid), file_label, 0, 1, 1, 1);
+  gtk_grid_attach (GTK_GRID (priv->options_grid), file_label, 0, 0, 1, 1);
 
   file_entry = gtk_entry_new ();
   priv->file_entry = file_entry;
@@ -561,6 +572,32 @@ add_file_entry (CodeSlayerSearch *search)
 
   g_signal_connect_swapped (G_OBJECT (file_entry), "activate",
                             G_CALLBACK (find_action), search);
+}
+
+static void
+add_scope_combo_box (CodeSlayerSearch *search)
+{
+  CodeSlayerSearchPrivate *priv;
+  GtkWidget *scope_label;
+  GtkWidget *scope_combo_box;
+
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  
+  scope_label = gtk_label_new (_("Scope:"));
+  gtk_misc_set_alignment (GTK_MISC (scope_label), 1, .5);
+  gtk_misc_set_padding (GTK_MISC (scope_label), 4, 0);
+  gtk_grid_attach (GTK_GRID (priv->options_grid), scope_label, 0, 1, 1, 1);
+
+  scope_combo_box = gtk_combo_box_text_new ();
+  priv->scope_combo_box = scope_combo_box;
+
+  gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT (scope_combo_box), SCOPE_PROJECTS, _("Projects"));
+  gtk_combo_box_text_insert_text (GTK_COMBO_BOX_TEXT (scope_combo_box), SCOPE_SELECTION, _("Selection"));
+  
+  gtk_combo_box_set_active (GTK_COMBO_BOX (scope_combo_box), SCOPE_PROJECTS);
+
+  gtk_grid_attach_next_to (GTK_GRID (priv->options_grid), scope_combo_box, scope_label, 
+                           GTK_POS_RIGHT, 1, 1);
 }
 
 static void

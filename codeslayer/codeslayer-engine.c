@@ -818,6 +818,8 @@ search_find_projects_action (CodeSlayerEngine *engine,
     
   gtk_window_present (GTK_WINDOW (priv->search));
   gtk_widget_show_all (GTK_WIDGET (priv->search));
+  
+  codeslayer_search_grab_focus (CODESLAYER_SEARCH (priv->search));
 }
 
 static gboolean
