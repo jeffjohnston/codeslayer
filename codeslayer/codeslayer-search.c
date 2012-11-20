@@ -58,6 +58,7 @@ static void close_action                    (CodeSlayerSearch      *search);
 static void find_action                     (CodeSlayerSearch      *search);                                             
 static void stop_action                     (CodeSlayerSearch      *search);
 static void match_case_action               (CodeSlayerSearch      *search);
+static void scope_combo_box_changed         (CodeSlayerSearch      *search);
 static gboolean has_selection_scope         (CodeSlayerSearch      *search);
 static void execute                         (CodeSlayerSearch      *search);
 static void search_projects                 (CodeSlayerSearch      *search,
@@ -297,10 +298,9 @@ codeslayer_search_find_selection (CodeSlayerSearch *search,
     }
   priv->file_paths = g_strdup (file_paths);
   
-  g_print ("find_selection %s\n", file_paths);
-
   gtk_combo_box_set_active (GTK_COMBO_BOX (priv->scope_combo_box), SCOPE_SELECTION);
   gtk_widget_grab_focus (priv->find_entry);
+  gtk_widget_set_tooltip_text (GTK_WIDGET (priv->scope_combo_box), priv->file_paths);
 }
 
 /**
@@ -319,10 +319,9 @@ codeslayer_search_find_projects (CodeSlayerSearch *search)
       priv->file_paths = NULL;
     }
     
-  g_print ("find_projects\n");
-
   gtk_combo_box_set_active (GTK_COMBO_BOX (priv->scope_combo_box), SCOPE_PROJECTS);
   gtk_widget_grab_focus (priv->find_entry);
+  gtk_widget_set_tooltip_text (GTK_WIDGET (priv->scope_combo_box), NULL);
 }
 
 /**
@@ -548,6 +547,9 @@ add_scope_combo_box (CodeSlayerSearch *search)
   
   gtk_combo_box_set_active (GTK_COMBO_BOX (scope_combo_box), SCOPE_PROJECTS);
 
+  g_signal_connect_swapped (G_OBJECT (priv->scope_combo_box), "changed",
+                            G_CALLBACK (scope_combo_box_changed), search);
+
   gtk_grid_attach_next_to (GTK_GRID (priv->options_grid), scope_combo_box, scope_label, 
                            GTK_POS_RIGHT, 1, 1);
 }
@@ -616,6 +618,17 @@ static void
 match_case_action (CodeSlayerSearch *search)
 {
   find_action (search);
+}
+
+static void
+scope_combo_box_changed (CodeSlayerSearch *search)
+{
+  CodeSlayerSearchPrivate *priv;
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  if (has_selection_scope (search) && priv->file_paths != NULL)
+    gtk_widget_set_tooltip_text (GTK_WIDGET (priv->scope_combo_box), priv->file_paths);
+  else
+    gtk_widget_set_tooltip_text (GTK_WIDGET (priv->scope_combo_box), NULL);
 }
 
 static gboolean
