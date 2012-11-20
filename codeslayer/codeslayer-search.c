@@ -58,6 +58,7 @@ static void close_action                    (CodeSlayerSearch      *search);
 static void find_action                     (CodeSlayerSearch      *search);                                             
 static void stop_action                     (CodeSlayerSearch      *search);
 static void match_case_action               (CodeSlayerSearch      *search);
+static gboolean has_selection_scope         (CodeSlayerSearch      *search);
 static void execute                         (CodeSlayerSearch      *search);
 static void search_projects                 (CodeSlayerSearch      *search,
                                              GPatternSpec          *find_pattern,
@@ -617,6 +618,16 @@ match_case_action (CodeSlayerSearch *search)
   find_action (search);
 }
 
+static gboolean
+has_selection_scope (CodeSlayerSearch *search)
+{
+  CodeSlayerSearchPrivate *priv;
+  gint active_pos;
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  active_pos = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->scope_combo_box));
+  return active_pos == SCOPE_SELECTION;
+}
+
 static void
 execute (CodeSlayerSearch *search)
 {
@@ -671,7 +682,7 @@ execute (CodeSlayerSearch *search)
           g_list_free (exclude_dirs);
         }
       
-      if (priv->file_paths)
+      if (has_selection_scope (search) && priv->file_paths)
         {
           SearchContext *context;
         
@@ -724,7 +735,7 @@ search_projects (CodeSlayerSearch *search,
       folder_path = codeslayer_project_get_folder_path (project);
       folder_path_expanded = g_strconcat (folder_path, G_DIR_SEPARATOR_S, NULL);
       
-      if (priv->file_paths)
+      if (has_selection_scope (search) && priv->file_paths)
         {
           gchar **split, **tmp;
           split = g_strsplit (priv->file_paths, ";", -1);
@@ -732,7 +743,10 @@ search_projects (CodeSlayerSearch *search,
 
           while (*tmp != NULL)
             {
-              if (g_str_has_prefix (*tmp, folder_path_expanded))
+              gchar *tmp_expanded;
+              tmp_expanded = g_strconcat (*tmp, G_DIR_SEPARATOR_S, NULL);
+              
+              if (g_str_has_prefix (tmp_expanded, folder_path_expanded))
                 {
                   GFile *file;
                   file = g_file_new_for_path (*tmp);
@@ -740,6 +754,7 @@ search_projects (CodeSlayerSearch *search,
                                        &search_files, exclude_types, exclude_dirs);
                   g_object_unref (file);
                 }
+              g_free (tmp_expanded);
               tmp++;
             }
           g_strfreev (split);
