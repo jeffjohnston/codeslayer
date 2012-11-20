@@ -108,6 +108,7 @@ am_libcodeslayer_la_OBJECTS = libcodeslayer_la-codeslayer-engine.lo \
 	libcodeslayer_la-codeslayer-abstract-pane.lo \
 	libcodeslayer_la-codeslayer-side-pane.lo \
 	libcodeslayer_la-codeslayer-bottom-pane.lo \
+	libcodeslayer_la-codeslayer-linker.lo \
 	libcodeslayer_la-codeslayer-listview.lo \
 	libcodeslayer_la-codeslayer-menubar.lo \
 	libcodeslayer_la-codeslayer-menubar-editor.lo \
@@ -372,6 +373,7 @@ pkginclude_HEADERS = \
     codeslayer-abstract-pane.h \
     codeslayer-side-pane.h \
     codeslayer-bottom-pane.h \
+    codeslayer-linker.h \
     codeslayer-listview.h \
     codeslayer-menubar.h \
     codeslayer-menubar-editor.h \
@@ -426,6 +428,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-abstract-pane.c \
     codeslayer-side-pane.c \
     codeslayer-bottom-pane.c \
+    codeslayer-linker.c \
     codeslayer-listview.c \
     codeslayer-menubar.c \
     codeslayer-menubar-editor.c \
@@ -613,6 +616,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-group-properties.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-group.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-groups.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-linker.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-listview.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-marshaller.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Plo@am__quote@
@@ -746,6 +750,13 @@ libcodeslayer_la-codeslayer-bottom-pane.lo: codeslayer-bottom-pane.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-bottom-pane.c' object='libcodeslayer_la-codeslayer-bottom-pane.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-bottom-pane.lo `test -f 'codeslayer-bottom-pane.c' || echo '$(srcdir)/'`codeslayer-bottom-pane.c
+
+libcodeslayer_la-codeslayer-linker.lo: codeslayer-linker.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-linker.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-linker.Tpo -c -o libcodeslayer_la-codeslayer-linker.lo `test -f 'codeslayer-linker.c' || echo '$(srcdir)/'`codeslayer-linker.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-linker.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-linker.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-linker.c' object='libcodeslayer_la-codeslayer-linker.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-linker.lo `test -f 'codeslayer-linker.c' || echo '$(srcdir)/'`codeslayer-linker.c
 
 libcodeslayer_la-codeslayer-listview.lo: codeslayer-listview.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-listview.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-listview.Tpo -c -o libcodeslayer_la-codeslayer-listview.lo `test -f 'codeslayer-listview.c' || echo '$(srcdir)/'`codeslayer-listview.c

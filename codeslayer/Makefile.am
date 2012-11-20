@@ -11,6 +11,7 @@ pkginclude_HEADERS = \
     codeslayer-abstract-pane.h \
     codeslayer-side-pane.h \
     codeslayer-bottom-pane.h \
+    codeslayer-linker.h \
     codeslayer-listview.h \
     codeslayer-menubar.h \
     codeslayer-menubar-editor.h \
@@ -65,6 +66,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-abstract-pane.c \
     codeslayer-side-pane.c \
     codeslayer-bottom-pane.c \
+    codeslayer-linker.c \
     codeslayer-listview.c \
     codeslayer-menubar.c \
     codeslayer-menubar-editor.c \

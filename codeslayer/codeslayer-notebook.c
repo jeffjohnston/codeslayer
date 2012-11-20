@@ -374,7 +374,6 @@ save_editor (CodeSlayerNotebook *notebook,
 
       document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
       file_path = codeslayer_document_get_file_path (document);
-      g_message ("saving document... %s\n", file_path);
 
       if (!g_file_set_contents (file_path, contents, -1, NULL))
         {
