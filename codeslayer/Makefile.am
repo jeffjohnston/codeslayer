@@ -11,7 +11,6 @@ pkginclude_HEADERS = \
     codeslayer-abstract-pane.h \
     codeslayer-side-pane.h \
     codeslayer-bottom-pane.h \
-    codeslayer-linker.h \
     codeslayer-listview.h \
     codeslayer-menubar.h \
     codeslayer-menubar-editor.h \
@@ -44,6 +43,7 @@ pkginclude_HEADERS = \
     codeslayer-notebook.h \
     codeslayer-notebook-tab.h \
     codeslayer-notebook-page.h \
+    codeslayer-editor-linker.h \
     codeslayer-editor.h \
     codeslayer-search.h \
     codeslayer-utils.h \
@@ -66,7 +66,6 @@ libcodeslayer_la_SOURCES = \
     codeslayer-abstract-pane.c \
     codeslayer-side-pane.c \
     codeslayer-bottom-pane.c \
-    codeslayer-linker.c \
     codeslayer-listview.c \
     codeslayer-menubar.c \
     codeslayer-menubar-editor.c \
@@ -99,6 +98,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-notebook.c \
     codeslayer-notebook-tab.c \
     codeslayer-notebook-page.c \
+    codeslayer-editor-linker.c \
     codeslayer-editor.c \
     codeslayer-search.c \
     codeslayer-utils.c \

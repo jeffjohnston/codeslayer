@@ -17,7 +17,7 @@
  */
 
 #include <stdlib.h>
-#include <codeslayer/codeslayer-linker.h>
+#include <codeslayer/codeslayer-editor-linker.h>
 
 typedef struct
 {
@@ -27,42 +27,42 @@ typedef struct
   gint   end_offset;
 } Link;
 
-static void codeslayer_linker_class_init    (CodeSlayerLinkerClass *klass);
-static void codeslayer_linker_init          (CodeSlayerLinker      *linker);
-static void codeslayer_linker_finalize      (CodeSlayerLinker      *linker);
-static void codeslayer_linker_get_property  (GObject                *object, 
-                                             guint                   prop_id,
-                                             GValue                 *value,
-                                             GParamSpec             *pspec);
-static void codeslayer_linker_set_property  (GObject                *object, 
-                                             guint                   prop_id,
-                                             const GValue           *value,
-                                             GParamSpec             *pspec);
+static void codeslayer_editor_linker_class_init    (CodeSlayerEditorLinkerClass *klass);
+static void codeslayer_editor_linker_init          (CodeSlayerEditorLinker      *linker);
+static void codeslayer_editor_linker_finalize      (CodeSlayerEditorLinker      *linker);
+static void codeslayer_editor_linker_get_property  (GObject                     *object, 
+                                                    guint                        prop_id,
+                                                    GValue                      *value,
+                                                    GParamSpec                  *pspec);
+static void codeslayer_editor_linker_set_property  (GObject                     *object, 
+                                                    guint                        prop_id,
+                                                    const GValue                *value,
+                                                    GParamSpec                  *pspec);
 
-static void clear_links                     (CodeSlayerLinker      *linker);
-static void create_links                    (CodeSlayerLinker      *linker);
-static GList* mark_links                    (CodeSlayerLinker      *linker, 
-                                             GtkTextBuffer         *buffer, 
-                                             GList                 *matches);
-static GList* find_matches                  (CodeSlayerLinker      *linker, 
-                                             gchar                 *text);
-static Link* create_link                    (CodeSlayerLinker      *linker,
-                                             gchar                 *text,
-                                             GtkTextIter           *begin, 
-                                             GtkTextIter           *end);
-static gboolean select_link_action          (CodeSlayerLinker      *linker, 
-                                             GdkEventButton        *event);
-static gboolean notify_link_action          (CodeSlayerLinker      *linker, 
-                                             GdkEventButton        *event);
+static void clear_links                            (CodeSlayerEditorLinker      *linker);
+static void create_links                           (CodeSlayerEditorLinker      *linker);
+static GList* mark_links                           (CodeSlayerEditorLinker      *linker, 
+                                                    GtkTextBuffer               *buffer, 
+                                                    GList                       *matches);
+static GList* find_matches                         (CodeSlayerEditorLinker      *linker, 
+                                                    gchar                       *text);
+static Link* create_link                           (CodeSlayerEditorLinker      *linker,
+                                                    gchar                       *text,
+                                                    GtkTextIter                 *begin, 
+                                                    GtkTextIter                 *end);
+static gboolean select_link_action                 (CodeSlayerEditorLinker      *linker, 
+                                                    GdkEventButton              *event);
+static gboolean notify_link_action                 (CodeSlayerEditorLinker      *linker, 
+                                                    GdkEventButton              *event);
                                              
 #define LINKER_DEFAULT_PATTERN "(\\/.*?:\\d+)"                                             
 
-#define CODESLAYER_LINKER_GET_PRIVATE(obj) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_LINKER_TYPE, CodeSlayerLinkerPrivate))
+#define CODESLAYER_EDITOR_LINKER_GET_PRIVATE(obj) \
+  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_EDITOR_LINKER_TYPE, CodeSlayerEditorLinkerPrivate))
 
-typedef struct _CodeSlayerLinkerPrivate CodeSlayerLinkerPrivate;
+typedef struct _CodeSlayerEditorLinkerPrivate CodeSlayerEditorLinkerPrivate;
 
-struct _CodeSlayerLinkerPrivate
+struct _CodeSlayerEditorLinkerPrivate
 {
   CodeSlayer  *codeslayer;
   GtkTextView *text_view;
@@ -77,22 +77,22 @@ enum
   PROP_PATTERN
 };
 
-G_DEFINE_TYPE (CodeSlayerLinker, codeslayer_linker, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CodeSlayerEditorLinker, codeslayer_editor_linker, G_TYPE_OBJECT)
       
 static void 
-codeslayer_linker_class_init (CodeSlayerLinkerClass *klass)
+codeslayer_editor_linker_class_init (CodeSlayerEditorLinkerClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
-  gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_linker_finalize;
+  gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_editor_linker_finalize;
 
-  gobject_class->get_property = codeslayer_linker_get_property;
-  gobject_class->set_property = codeslayer_linker_set_property;
+  gobject_class->get_property = codeslayer_editor_linker_get_property;
+  gobject_class->set_property = codeslayer_editor_linker_set_property;
 
-  g_type_class_add_private (klass, sizeof (CodeSlayerLinkerPrivate));
+  g_type_class_add_private (klass, sizeof (CodeSlayerEditorLinkerPrivate));
   
   /**
-   * CodeSlayerLinker:pattern:
+   * CodeSlayerEditorLinker:pattern:
    */
   g_object_class_install_property (gobject_class, 
                                    PROP_PATTERN,
@@ -103,15 +103,15 @@ codeslayer_linker_class_init (CodeSlayerLinkerClass *klass)
 }
 
 static void
-codeslayer_linker_init (CodeSlayerLinker *linker) 
+codeslayer_editor_linker_init (CodeSlayerEditorLinker *linker) 
 {
 }
 
 static void
-codeslayer_linker_finalize (CodeSlayerLinker *linker)
+codeslayer_editor_linker_finalize (CodeSlayerEditorLinker *linker)
 {
-  CodeSlayerLinkerPrivate *priv;
-  priv = CODESLAYER_LINKER_GET_PRIVATE (linker);
+  CodeSlayerEditorLinkerPrivate *priv;
+  priv = CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker);
 
   clear_links (linker);
 
@@ -121,20 +121,20 @@ codeslayer_linker_finalize (CodeSlayerLinker *linker)
       priv->pattern = NULL;
     }
 
-  G_OBJECT_CLASS (codeslayer_linker_parent_class)->finalize (G_OBJECT (linker));
+  G_OBJECT_CLASS (codeslayer_editor_linker_parent_class)->finalize (G_OBJECT (linker));
 }
 
 static void
-codeslayer_linker_get_property (GObject    *object, 
+codeslayer_editor_linker_get_property (GObject    *object, 
                                 guint       prop_id,
                                 GValue     *value, 
                                 GParamSpec *pspec)
 {
-  CodeSlayerLinker *linker;
-  CodeSlayerLinkerPrivate *priv;
+  CodeSlayerEditorLinker *linker;
+  CodeSlayerEditorLinkerPrivate *priv;
   
-  linker = CODESLAYER_LINKER (object);
-  priv = CODESLAYER_LINKER_GET_PRIVATE (linker);
+  linker = CODESLAYER_EDITOR_LINKER (object);
+  priv = CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker);
 
   switch (prop_id)
     {
@@ -148,18 +148,18 @@ codeslayer_linker_get_property (GObject    *object,
 }
 
 static void
-codeslayer_linker_set_property (GObject      *object, 
+codeslayer_editor_linker_set_property (GObject      *object, 
                                 guint         prop_id,
                                 const GValue *value, 
                                 GParamSpec   *pspec)
 {
-  CodeSlayerLinker *linker;
-  linker = CODESLAYER_LINKER (object);
+  CodeSlayerEditorLinker *linker;
+  linker = CODESLAYER_EDITOR_LINKER (object);
 
   switch (prop_id)
     {
     case PROP_PATTERN:
-      codeslayer_linker_set_pattern (linker, g_value_get_string (value));
+      codeslayer_editor_linker_set_pattern (linker, g_value_get_string (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -167,25 +167,25 @@ codeslayer_linker_set_property (GObject      *object,
     }
 }
 
-CodeSlayerLinker*
-codeslayer_linker_new (CodeSlayer  *codeslayer, 
+CodeSlayerEditorLinker*
+codeslayer_editor_linker_new (CodeSlayer  *codeslayer, 
                        GtkTextView *text_view)
 {
-  return codeslayer_linker_new_with_pattern (codeslayer, text_view, 
+  return codeslayer_editor_linker_new_with_pattern (codeslayer, text_view, 
                                              LINKER_DEFAULT_PATTERN);
 }
 
-CodeSlayerLinker*
-codeslayer_linker_new_with_pattern (CodeSlayer  *codeslayer, 
+CodeSlayerEditorLinker*
+codeslayer_editor_linker_new_with_pattern (CodeSlayer  *codeslayer, 
                                     GtkTextView *text_view,
                                     gchar       *pattern)
 {
   GtkWidget *linker;
-  CodeSlayerLinkerPrivate *priv;
+  CodeSlayerEditorLinkerPrivate *priv;
   GtkTextBuffer *buffer;
  
-  linker = g_object_new (codeslayer_linker_get_type (), NULL);
-  priv = CODESLAYER_LINKER_GET_PRIVATE (linker);
+  linker = g_object_new (codeslayer_editor_linker_get_type (), NULL);
+  priv = CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker);
   priv->codeslayer = codeslayer;
   priv->text_view = text_view;
   priv->pattern = g_strdup (pattern);
@@ -206,32 +206,32 @@ codeslayer_linker_new_with_pattern (CodeSlayer  *codeslayer,
   g_signal_connect_swapped (G_OBJECT (buffer), "changed",
                             G_CALLBACK (create_links), linker);
 
-  return CODESLAYER_LINKER (linker);
+  return CODESLAYER_EDITOR_LINKER (linker);
 }
 
 /**
- * codeslayer_linker_get_pattern:
- * @linker: a #CodeSlayerLinker.
+ * codeslayer_editor_linker_get_pattern:
+ * @linker: a #CodeSlayerEditorLinker.
  *
  * Returns: the text to display for the project.
  */
 const gchar *
-codeslayer_linker_get_pattern (CodeSlayerLinker *linker)
+codeslayer_editor_linker_get_pattern (CodeSlayerEditorLinker *linker)
 {
-  return CODESLAYER_LINKER_GET_PRIVATE (linker)->pattern;
+  return CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker)->pattern;
 }
 
 /**
- * codeslayer_linker_set_pattern:
- * @linker: a #CodeSlayerLinker.
+ * codeslayer_editor_linker_set_pattern:
+ * @linker: a #CodeSlayerEditorLinker.
  * @pattern: the pattern used to search for valid links.
  */
 void
-codeslayer_linker_set_pattern (CodeSlayerLinker *linker, 
+codeslayer_editor_linker_set_pattern (CodeSlayerEditorLinker *linker, 
                                const gchar      *pattern)
 {
-  CodeSlayerLinkerPrivate *priv;
-  priv = CODESLAYER_LINKER_GET_PRIVATE (linker);
+  CodeSlayerEditorLinkerPrivate *priv;
+  priv = CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker);
   if (priv->pattern)
     {
       g_free (priv->pattern);
@@ -241,20 +241,20 @@ codeslayer_linker_set_pattern (CodeSlayerLinker *linker,
 }
 
 /**
- * codeslayer_linker_create_links:
- * @linker: a #CodeSlayerLinker.
+ * codeslayer_editor_linker_create_links:
+ * @linker: a #CodeSlayerEditorLinker.
  */
 void
-create_links (CodeSlayerLinker *linker)
+create_links (CodeSlayerEditorLinker *linker)
 {
-  CodeSlayerLinkerPrivate *priv;
+  CodeSlayerEditorLinkerPrivate *priv;
   GtkTextBuffer *buffer;
   GtkTextIter start;
   GtkTextIter end;
   gchar *text;
   GList *matches;
 
-  priv = CODESLAYER_LINKER_GET_PRIVATE (linker);
+  priv = CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker);
   
   buffer = gtk_text_view_get_buffer (priv->text_view);
 
@@ -270,12 +270,12 @@ create_links (CodeSlayerLinker *linker)
 }
 
 static void
-clear_links (CodeSlayerLinker *linker)
+clear_links (CodeSlayerEditorLinker *linker)
 {
-  CodeSlayerLinkerPrivate *priv;
+  CodeSlayerEditorLinkerPrivate *priv;
   GList *list;
   
-  priv = CODESLAYER_LINKER_GET_PRIVATE (linker);
+  priv = CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker);
 
   if (priv->links == NULL)
     return;
@@ -295,16 +295,16 @@ clear_links (CodeSlayerLinker *linker)
 }
 
 static GList*
-find_matches (CodeSlayerLinker *linker, 
+find_matches (CodeSlayerEditorLinker *linker, 
               gchar            *text)
 {
-  CodeSlayerLinkerPrivate *priv;
+  CodeSlayerEditorLinkerPrivate *priv;
   GList *results = NULL;
   GRegex *regex;
   GMatchInfo *match_info;
   GError *error = NULL;
   
-  priv = CODESLAYER_LINKER_GET_PRIVATE (linker);
+  priv = CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker);
   
   regex = g_regex_new (priv->pattern, 0, 0, NULL);
   
@@ -334,7 +334,7 @@ find_matches (CodeSlayerLinker *linker,
 }
 
 static GList*
-mark_links (CodeSlayerLinker *linker, 
+mark_links (CodeSlayerEditorLinker *linker, 
             GtkTextBuffer   *buffer, 
             GList           *matches)
 {
@@ -369,7 +369,7 @@ mark_links (CodeSlayerLinker *linker,
 }
 
 static Link*
-create_link (CodeSlayerLinker *linker,
+create_link (CodeSlayerEditorLinker *linker,
              gchar           *text,
              GtkTextIter     *begin, 
              GtkTextIter     *end)
@@ -397,12 +397,12 @@ create_link (CodeSlayerLinker *linker,
 }
 
 static gboolean
-select_link_action (CodeSlayerLinker *linker, 
+select_link_action (CodeSlayerEditorLinker *linker, 
                     GdkEventButton  *event)
 {
-  CodeSlayerLinkerPrivate *priv;
+  CodeSlayerEditorLinkerPrivate *priv;
 
-  priv = CODESLAYER_LINKER_GET_PRIVATE (linker);
+  priv = CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker);
 
   if ((event->button == 1) && (event->type == GDK_BUTTON_PRESS))
     {
@@ -455,17 +455,17 @@ select_link_action (CodeSlayerLinker *linker,
 }
 
 static gboolean
-notify_link_action (CodeSlayerLinker *linker, 
+notify_link_action (CodeSlayerEditorLinker *linker, 
                     GdkEventButton  *event)
 {
 
-  CodeSlayerLinkerPrivate *priv;
+  CodeSlayerEditorLinkerPrivate *priv;
   GdkWindow *window;
   GdkCursor *cursor;
   GtkTextIter iter;
   gint x, y, bx, by;
 
-  priv = CODESLAYER_LINKER_GET_PRIVATE (linker);
+  priv = CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker);
 
   window = gtk_text_view_get_window (priv->text_view,
                                      GTK_TEXT_WINDOW_TEXT);
