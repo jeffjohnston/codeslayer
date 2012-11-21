@@ -808,6 +808,11 @@ codeslayer_add_to_processes (CodeSlayer      *codeslayer,
   return id;
 }
 
+/**
+ * codeslayer_remove_from_processes:
+ * @codeslayer: a #CodeSlayer.
+ * @id: the identifier for the process.
+ */
 void 
 codeslayer_remove_from_processes (CodeSlayer *codeslayer,
                                   gint        id)
@@ -815,7 +820,22 @@ codeslayer_remove_from_processes (CodeSlayer *codeslayer,
   CodeSlayerPrivate *priv;
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   codeslayer_processes_remove (priv->processes, id);
-}                                  
+}
+
+/**
+ * codeslayer_get_editor_linker:
+ * @codeslayer: a #CodeSlayer.
+ * @text_view: the text_view to create the links in.
+ *
+ * Returns: Creates a new @CodeSlayerEditorLinker. You must free this with 
+            g_object_unref () when done with it.
+ */
+CodeSlayerEditorLinker*   
+codeslayer_get_editor_linker (CodeSlayer  *codeslayer,
+                              GtkTextView *text_view)
+{
+  return codeslayer_editor_linker_new (G_OBJECT (codeslayer), text_view);
+}
 
 static void
 editor_saved_action (CodeSlayer       *codeslayer,

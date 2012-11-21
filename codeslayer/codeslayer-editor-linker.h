@@ -20,7 +20,6 @@
 #define	__CODESLAYER_EDITOR_LINKER_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer.h>
 
 G_BEGIN_DECLS
 
@@ -45,15 +44,11 @@ struct _CodeSlayerEditorLinkerClass
 
 GType codeslayer_editor_linker_get_type (void) G_GNUC_CONST;
 
-CodeSlayerEditorLinker*  codeslayer_editor_linker_new               (CodeSlayer             *codeslayer, 
-                                                                     GtkTextView            *text_view);
-CodeSlayerEditorLinker*  codeslayer_editor_linker_new_with_pattern  (CodeSlayer             *codeslayer, 
-                                                                     GtkTextView            *text_view,
-                                                                     gchar                  *pattern);
-                                                    
-const gchar *            codeslayer_editor_linker_get_pattern       (CodeSlayerEditorLinker *linker);
-void                     codeslayer_editor_linker_set_pattern       (CodeSlayerEditorLinker *linker, 
-                                                                     const gchar            *pattern);
+CodeSlayerEditorLinker*  codeslayer_editor_linker_new          (GObject                *codeslayer, 
+                                                                GtkTextView            *text_view);
+const gchar *            codeslayer_editor_linker_get_pattern  (CodeSlayerEditorLinker *linker);
+void                     codeslayer_editor_linker_set_pattern  (CodeSlayerEditorLinker *linker, 
+                                                                const gchar            *pattern);
 
 G_END_DECLS
 

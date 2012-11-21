@@ -17,7 +17,7 @@
  */
 
 #include <stdlib.h>
-#include <codeslayer/codeslayer-editor-linker.h>
+#include <codeslayer/codeslayer.h>
 
 typedef struct
 {
@@ -168,17 +168,8 @@ codeslayer_editor_linker_set_property (GObject      *object,
 }
 
 CodeSlayerEditorLinker*
-codeslayer_editor_linker_new (CodeSlayer  *codeslayer, 
-                       GtkTextView *text_view)
-{
-  return codeslayer_editor_linker_new_with_pattern (codeslayer, text_view, 
-                                             LINKER_DEFAULT_PATTERN);
-}
-
-CodeSlayerEditorLinker*
-codeslayer_editor_linker_new_with_pattern (CodeSlayer  *codeslayer, 
-                                    GtkTextView *text_view,
-                                    gchar       *pattern)
+codeslayer_editor_linker_new (GObject  *codeslayer, 
+                              GtkTextView *text_view)
 {
   GtkWidget *linker;
   CodeSlayerEditorLinkerPrivate *priv;
@@ -186,9 +177,9 @@ codeslayer_editor_linker_new_with_pattern (CodeSlayer  *codeslayer,
  
   linker = g_object_new (codeslayer_editor_linker_get_type (), NULL);
   priv = CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker);
-  priv->codeslayer = codeslayer;
+  priv->codeslayer = CODESLAYER (codeslayer);
   priv->text_view = text_view;
-  priv->pattern = g_strdup (pattern);
+  priv->pattern = g_strdup (LINKER_DEFAULT_PATTERN);
   
   buffer = gtk_text_view_get_buffer (priv->text_view);
   

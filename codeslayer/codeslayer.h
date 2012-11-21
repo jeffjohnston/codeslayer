@@ -27,6 +27,7 @@
 #include <codeslayer/codeslayer-project-properties.h>
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
+#include <codeslayer/codeslayer-editor-linker.h>
 #include <codeslayer/codeslayer-editor.h>
 #include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-groups.h>
@@ -38,6 +39,8 @@
 #include <codeslayer/codeslayer-completion-proposal.h>
 #include <codeslayer/codeslayer-processes.h>
 #include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-utils.h>
+#include <codeslayer/codeslayer-xml.h>
 
 G_BEGIN_DECLS
 
@@ -158,6 +161,8 @@ gint                      codeslayer_add_to_processes                (CodeSlayer
                                                                       gpointer                     data);
 void                      codeslayer_remove_from_processes           (CodeSlayer                  *codeslayer,
                                                                       gint                         id);
+CodeSlayerEditorLinker*   codeslayer_get_editor_linker               (CodeSlayer                  *codeslayer,
+                                                                      GtkTextView                 *text_view);
 
 G_END_DECLS
 
