@@ -76,6 +76,7 @@ enum
   FIND_PREVIOUS,
   FIND_INCREMENTAL,
   SHOW_PREFERENCES,
+  SCAN_EXTERNAL_CHANGES,
   SHOW_PLUGINS,
   UNDO,
   REDO,
@@ -418,7 +419,23 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
     g_signal_new ("show-preferences", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, change_preferences),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, show_preferences),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  /**
+   * CodeSlayerMenuBar::scan-external-changes
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::scan-external-changes signal is a request to scan for changes outside editor.
+   */
+  codeslayer_menubar_signals[SCAN_EXTERNAL_CHANGES] =
+    g_signal_new ("scan-external-changes", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, scan_external_changes),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -887,6 +904,16 @@ void
 codeslayer_menubar_show_preferences (CodeSlayerMenuBar *menubar)
 {
   g_signal_emit_by_name ((gpointer) menubar, "show-preferences");
+}
+
+/**
+ * codeslayer_menubar_scan_external_changes:
+ * @menubar: a #CodeSlayerMenuBar.
+ */
+void            
+codeslayer_menubar_scan_external_changes (CodeSlayerMenuBar *menubar)
+{
+  g_signal_emit_by_name ((gpointer) menubar, "scan-external-changes");
 }
 
 /**

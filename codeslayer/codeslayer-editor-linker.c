@@ -184,7 +184,6 @@ codeslayer_editor_linker_new (GObject  *codeslayer,
   buffer = gtk_text_view_get_buffer (priv->text_view);
   
   priv->links = NULL;
-  gtk_text_view_set_editable (priv->text_view, FALSE);
   gtk_text_view_set_wrap_mode (priv->text_view, GTK_WRAP_WORD);
 
   priv->underline_tag = gtk_text_buffer_create_tag (buffer, "underline", "underline", 

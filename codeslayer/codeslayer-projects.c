@@ -83,6 +83,10 @@ static void paste_action                        (CodeSlayerProjects      *projec
 static void rename_action                       (CodeSlayerProjects      *projects);
 static void move_to_trash_action                (CodeSlayerProjects      *projects);
 static void refresh_action                      (CodeSlayerProjects      *projects);
+static void refresh_folders                     (CodeSlayerProjects      *projects, 
+                                                 GtkTreeModel            *tree_model,
+                                                 GtkTreeIter              iter, 
+                                                 GList                   **rows_to_expand);
 static void project_properties_action           (CodeSlayerProjects      *projects);
 static void tools_action                        (GtkMenuItem             *menuitem, 
                                                  CodeSlayerProjects      *projects);
@@ -1804,6 +1808,85 @@ create_destination (GFile       *source,
   return destination;
 }
 
+void
+codeslayer_projects_refresh (CodeSlayerProjects *projects)
+{
+  CodeSlayerProjectsPrivate *priv;
+  GtkTreeIter iter;
+  
+  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
+  
+  if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->treestore), &iter))
+    {
+      GList *rows_to_expand = NULL;
+      GList *tmp;
+      
+      refresh_folders (projects, GTK_TREE_MODEL (priv->treestore), iter, &rows_to_expand);
+      
+      tmp = rows_to_expand;
+      while (tmp != NULL)
+        {
+          GtkTreePath *tree_path = tmp->data;
+          gtk_tree_view_expand_row (GTK_TREE_VIEW (priv->treeview), tree_path, FALSE);
+          tmp = g_list_next (tmp);
+        }
+        
+      g_list_foreach (rows_to_expand, (GFunc) gtk_tree_path_free, NULL);
+      g_list_free (rows_to_expand);
+    }
+}
+
+static void
+refresh_folders (CodeSlayerProjects *projects, 
+                 GtkTreeModel       *tree_model,
+                 GtkTreeIter         iter, 
+                 GList              **rows_to_expand)
+{
+  CodeSlayerProjectsPrivate *priv;
+  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
+
+  do
+    {
+      GtkTreeIter child;
+      
+      if (gtk_tree_model_iter_children (tree_model, &child, &iter))
+        {
+          CodeSlayerProject *project;
+          gchar *file_path;
+
+          refresh_folders (projects, tree_model, child, rows_to_expand);
+        
+          gtk_tree_model_get (tree_model, &iter, PROJECT, &project, -1);
+
+          file_path = get_file_path_from_iter (tree_model, &iter, project);
+          
+          if (g_file_test (file_path, G_FILE_TEST_EXISTS))
+            {
+              GtkTreeIter tmp;
+              if (gtk_tree_model_iter_children (tree_model, &tmp, &iter))
+                {
+                  GtkTreePath *tree_path;
+                  gboolean row_expanded;
+                  
+                  tree_path = gtk_tree_model_get_path (tree_model, &iter);
+                  row_expanded = gtk_tree_view_row_expanded (GTK_TREE_VIEW (priv->treeview), tree_path);
+
+                  while (gtk_tree_store_remove (GTK_TREE_STORE (tree_model), &tmp)) {}
+                  append_treestore_children (projects, project, iter, file_path);
+
+                  if (!row_expanded)
+                    gtk_tree_path_free (tree_path);
+                  else
+                    *rows_to_expand = g_list_prepend (*rows_to_expand, tree_path);
+                }
+            }
+          
+          g_free (file_path);
+        }
+    }
+  while (gtk_tree_model_iter_next (tree_model, &iter));
+}                  
+
 static void
 refresh_action (CodeSlayerProjects *projects)
 {
@@ -2305,7 +2388,6 @@ get_file_path_from_iter (GtkTreeModel      *model,
       tmp = g_list_next (tmp);
     }
 
-  /*g_list_foreach (list, (GFunc) g_free, NULL);*/
   g_list_free (list);
 
   /* append the current path at the bottom of the tree if we are not the parent node */

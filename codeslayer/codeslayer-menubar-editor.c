@@ -38,6 +38,7 @@ static void save_all_editors_action               (CodeSlayerMenuBarEditor      
 static void close_editor_action                   (CodeSlayerMenuBarEditor      *menubar_editor);
 static void quit_application_action               (CodeSlayerMenuBarEditor      *menubar_editor);
 static void show_preferences_action               (CodeSlayerMenuBarEditor      *menubar_editor);
+static void scan_external_changes_action          (CodeSlayerMenuBarEditor      *menubar_editor);
 
 
 #define CODESLAYER_MENUBAR_EDITOR_GET_PRIVATE(obj) \
@@ -120,6 +121,7 @@ add_menu_items (CodeSlayerMenuBarEditor *menubar_editor)
   GtkWidget *save_all_menu_item;
   GtkWidget *close_tab_menu_item;
   GtkWidget *preferences_menu_item;
+  GtkWidget *scan_external_changes_menu_item;
   GtkWidget *quit_application_menu_item;
   
   priv = CODESLAYER_MENUBAR_EDITOR_GET_PRIVATE (menubar_editor);
@@ -142,6 +144,10 @@ add_menu_items (CodeSlayerMenuBarEditor *menubar_editor)
                                                               priv->accel_group);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), preferences_menu_item);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
+    
+  scan_external_changes_menu_item = gtk_menu_item_new_with_label (_("Scan External Changes"));
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), scan_external_changes_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
 
   close_tab_menu_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_CLOSE, 
                                                             priv->accel_group);
@@ -154,6 +160,9 @@ add_menu_items (CodeSlayerMenuBarEditor *menubar_editor)
   
   g_signal_connect_swapped (G_OBJECT (preferences_menu_item), "activate",
                             G_CALLBACK (show_preferences_action), menubar_editor);  
+
+  g_signal_connect_swapped (G_OBJECT (scan_external_changes_menu_item), "activate",
+                            G_CALLBACK (scan_external_changes_action), menubar_editor);  
 
   g_signal_connect_swapped (G_OBJECT (save_menu_item), "activate",
                             G_CALLBACK (save_editor_action), menubar_editor);
@@ -221,6 +230,14 @@ show_preferences_action (CodeSlayerMenuBarEditor *menubar_editor)
   CodeSlayerMenuBarEditorPrivate *priv;
   priv = CODESLAYER_MENUBAR_EDITOR_GET_PRIVATE (menubar_editor);
   codeslayer_menubar_show_preferences (CODESLAYER_MENUBAR (priv->menubar));
+}
+
+static void
+scan_external_changes_action (CodeSlayerMenuBarEditor *menubar_editor)
+{
+  CodeSlayerMenuBarEditorPrivate *priv;
+  priv = CODESLAYER_MENUBAR_EDITOR_GET_PRIVATE (menubar_editor);
+  codeslayer_menubar_scan_external_changes (CODESLAYER_MENUBAR (priv->menubar));
 }
 
 static void

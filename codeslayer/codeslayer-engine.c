@@ -97,6 +97,7 @@ static void page_removed_action                (CodeSlayerEngine       *engine,
                                                 GtkWidget              *page, 
                                                 guint                   page_num);
 static void show_preferences_action            (CodeSlayerEngine       *engine);
+static void scan_external_changes_action       (CodeSlayerEngine       *engine);
 static void show_plugins_action                (CodeSlayerEngine       *engine);
 static gboolean close_search_action            (CodeSlayerEngine       *engine,
                                                 GdkEvent               *event);
@@ -272,6 +273,9 @@ codeslayer_engine_new (GtkWindow             *window,
   
   g_signal_connect_swapped (G_OBJECT (menubar), "show-preferences",
                             G_CALLBACK (show_preferences_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (menubar), "scan-external-changes",
+                            G_CALLBACK (scan_external_changes_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (menubar), "show-plugins",
                             G_CALLBACK (show_plugins_action), engine);
@@ -1015,6 +1019,17 @@ show_preferences_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   codeslayer_preferences_run_dialog (priv->preferences);
+}
+
+static void
+scan_external_changes_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+
+  g_print ("scan_external_changes\n");
+  
+  codeslayer_projects_refresh (CODESLAYER_PROJECTS (priv->projects));
 }
 
 static void

@@ -79,6 +79,7 @@ void        codeslayer_projects_add_popup_item     (CodeSlayerProjects    *proje
 void        codeslayer_projects_remove_popup_item  (CodeSlayerProjects    *projects,
                                                     GtkWidget             *item);
 void        codeslayer_projects_search_find        (CodeSlayerProjects    *projects);
+void        codeslayer_projects_refresh            (CodeSlayerProjects    *projects);
 
 G_END_DECLS
 

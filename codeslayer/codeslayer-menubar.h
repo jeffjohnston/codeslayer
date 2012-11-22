@@ -58,6 +58,7 @@ struct _CodeSlayerMenuBarClass
   void (*draw_spaces) (CodeSlayerMenuBar *menubar);
   void (*save_editor) (CodeSlayerMenuBar *menubar);
   void (*save_all_editors) (CodeSlayerMenuBar *menubar);
+  void (*scan_external_changes) (CodeSlayerMenuBar *menubar);
   void (*close_editor) (CodeSlayerMenuBar *menubar);
   void (*quit_application) (CodeSlayerMenuBar *menubar);
   void (*find) (CodeSlayerMenuBar *menubar);
@@ -65,7 +66,7 @@ struct _CodeSlayerMenuBarClass
   void (*find_next) (CodeSlayerMenuBar *menubar);
   void (*find_previous) (CodeSlayerMenuBar *menubar);
   void (*find_incremental) (CodeSlayerMenuBar *menubar);
-  void (*change_preferences) (CodeSlayerMenuBar *menubar);
+  void (*show_preferences) (CodeSlayerMenuBar *menubar);
   void (*show_plugins) (CodeSlayerMenuBar *menubar);  
   void (*undo) (CodeSlayerMenuBar *menubar);
   void (*redo) (CodeSlayerMenuBar *menubar);
@@ -103,6 +104,7 @@ void            codeslayer_menubar_to_uppercase               (CodeSlayerMenuBar
 void            codeslayer_menubar_to_lowercase               (CodeSlayerMenuBar      *menubar);
 void            codeslayer_menubar_copy_lines                 (CodeSlayerMenuBar      *menubar);
 void            codeslayer_menubar_show_preferences           (CodeSlayerMenuBar      *menubar);
+void            codeslayer_menubar_scan_external_changes      (CodeSlayerMenuBar      *menubar);
 
 void            codeslayer_menubar_find                       (CodeSlayerMenuBar      *menubar);
 void            codeslayer_menubar_replace                    (CodeSlayerMenuBar      *menubar);
