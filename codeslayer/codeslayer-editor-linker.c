@@ -232,7 +232,7 @@ codeslayer_editor_linker_set_pattern (CodeSlayerEditorLinker *linker,
  * @linker: a #CodeSlayerEditorLinker.
  */
 void
-codeslayer_editor_create_links (CodeSlayerEditorLinker *linker)
+codeslayer_editor_linker_create_links (CodeSlayerEditorLinker *linker)
 {
   CodeSlayerEditorLinkerPrivate *priv;
   GtkTextBuffer *buffer;

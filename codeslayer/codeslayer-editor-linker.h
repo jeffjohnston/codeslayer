@@ -44,12 +44,12 @@ struct _CodeSlayerEditorLinkerClass
 
 GType codeslayer_editor_linker_get_type (void) G_GNUC_CONST;
 
-CodeSlayerEditorLinker*  codeslayer_editor_linker_new          (GObject                *codeslayer, 
-                                                                GtkTextView            *text_view);
-const gchar *            codeslayer_editor_linker_get_pattern  (CodeSlayerEditorLinker *linker);
-void                     codeslayer_editor_linker_set_pattern  (CodeSlayerEditorLinker *linker, 
-                                                                const gchar            *pattern);
-void                     codeslayer_editor_create_links        (CodeSlayerEditorLinker *linker);
+CodeSlayerEditorLinker*  codeslayer_editor_linker_new           (GObject                *codeslayer, 
+                                                                 GtkTextView            *text_view);
+const gchar *            codeslayer_editor_linker_get_pattern   (CodeSlayerEditorLinker *linker);
+void                     codeslayer_editor_linker_set_pattern   (CodeSlayerEditorLinker *linker, 
+                                                                 const gchar            *pattern);
+void                     codeslayer_editor_linker_create_links  (CodeSlayerEditorLinker *linker);
 
 G_END_DECLS
 

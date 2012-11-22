@@ -124,7 +124,7 @@ struct _CodeSlayerProjectsPrivate
 {
   GtkWidget             *window;
   CodeSlayerPreferences *preferences;
-  CodeSlayerSettings    *settings; 
+  CodeSlayerSettings    *settings;
   CodeSlayerGroups      *groups;
   GtkWidget             *project_properties;
   GtkWidget             *properties_dialog;
