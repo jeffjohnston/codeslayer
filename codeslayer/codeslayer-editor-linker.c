@@ -40,7 +40,6 @@ static void codeslayer_editor_linker_set_property  (GObject                     
                                                     GParamSpec                  *pspec);
 
 static void clear_links                            (CodeSlayerEditorLinker      *linker);
-static void create_links                           (CodeSlayerEditorLinker      *linker);
 static GList* mark_links                           (CodeSlayerEditorLinker      *linker, 
                                                     GtkTextBuffer               *buffer, 
                                                     GList                       *matches);
@@ -193,8 +192,6 @@ codeslayer_editor_linker_new (GObject  *codeslayer,
                             G_CALLBACK (select_link_action), linker);
   g_signal_connect_swapped (G_OBJECT (priv->text_view), "motion-notify-event",
                             G_CALLBACK (notify_link_action), linker);
-  g_signal_connect_swapped (G_OBJECT (buffer), "changed",
-                            G_CALLBACK (create_links), linker);
 
   return CODESLAYER_EDITOR_LINKER (linker);
 }
@@ -235,7 +232,7 @@ codeslayer_editor_linker_set_pattern (CodeSlayerEditorLinker *linker,
  * @linker: a #CodeSlayerEditorLinker.
  */
 void
-create_links (CodeSlayerEditorLinker *linker)
+codeslayer_editor_create_links (CodeSlayerEditorLinker *linker)
 {
   CodeSlayerEditorLinkerPrivate *priv;
   GtkTextBuffer *buffer;
