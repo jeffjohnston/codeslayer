@@ -176,7 +176,7 @@ enum
 {
   REMOVE_PROJECT,
   PROJECT_MODIFIED,
-  OPEN_DOCUMENT,
+  SELECT_DOCUMENT,
   FILE_PATH_RENAMED,
   RENAME_FILE_FOLDER,
   DELETE_FILE_FOLDER,
@@ -240,18 +240,18 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-   * CodeSlayerProjects::open-document
+   * CodeSlayerProjects::select-document
    * @codeslayerprojectstree: the tree that received the signal
    *
    * Note: for internal use only.
    *
-   * The ::open-document signal is a request to open the document in the notebook.
+   * The ::select-document signal is a request to open the document in the notebook.
    */
-  codeslayer_tree_signals[OPEN_DOCUMENT] =
-    g_signal_new ("open-document", 
+  codeslayer_tree_signals[SELECT_DOCUMENT] =
+    g_signal_new ("select-document", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerProjectsClass, open_document), 
+                  G_STRUCT_OFFSET (CodeSlayerProjectsClass, select_document), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
@@ -846,7 +846,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
           tree_row_reference = gtk_tree_row_reference_new (GTK_TREE_MODEL (priv->treestore), 
                                                            tree_path);
           codeslayer_document_set_tree_row_reference (document, tree_row_reference);
-          g_signal_emit_by_name ((gpointer) projects, "open-document", document);
+          g_signal_emit_by_name ((gpointer) projects, "select-document", document);
           
           sync_with_editor = codeslayer_settings_get_boolean (priv->settings, 
                                                               CODESLAYER_SETTINGS_SYNC_WITH_EDITOR);          
@@ -2324,7 +2324,7 @@ row_activated_action (CodeSlayerProjects *projects,
                                                            tree_path);
           codeslayer_document_set_tree_row_reference (document, tree_row_reference);
 
-          g_signal_emit_by_name ((gpointer) projects, "open-document", document);
+          g_signal_emit_by_name ((gpointer) projects, "select-document", document);
           
           g_object_unref (document);
         }

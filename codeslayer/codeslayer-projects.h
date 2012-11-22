@@ -49,7 +49,7 @@ struct _CodeSlayerProjectsClass
 
   void (*remove_project) (CodeSlayerProjects *projects);
   void (*project_modified) (CodeSlayerProjects *projects);
-  void (*open_document) (CodeSlayerProjects *projects);
+  void (*select_document) (CodeSlayerProjects *projects);
   void (*file_path_renamed) (CodeSlayerProjects *projects);
   void (*cut_file_folder) (CodeSlayerProjects *projects);
   void (*copy_file_folder) (CodeSlayerProjects *projects);

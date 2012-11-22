@@ -83,7 +83,7 @@ static void remove_project_action                       (CodeSlayerEngine       
                                                          CodeSlayerProject      *project);
 static void project_modified_action                     (CodeSlayerEngine       *engine,
                                                          CodeSlayerProject      *project);
-static void open_projects_document_action               (CodeSlayerEngine       *engine,
+static void select_projects_document_action             (CodeSlayerEngine       *engine,
                                                          CodeSlayerDocument     *document);
 static void rename_file_path_action                     (CodeSlayerEngine       *engine,
                                                          gchar                  *file_path,
@@ -98,7 +98,7 @@ static void scan_external_changes_action                (CodeSlayerEngine       
 static void show_plugins_action                         (CodeSlayerEngine       *engine);
 static gboolean close_search_action                     (CodeSlayerEngine       *engine,
                                                          GdkEvent               *event);
-static void open_search_document_action                 (CodeSlayerEngine       *engine,
+static void select_search_document_action               (CodeSlayerEngine       *engine,
                                                          CodeSlayerDocument     *document);
 static void editor_settings_preferences_changed_action  (CodeSlayerEngine       *engine);
 
@@ -279,8 +279,8 @@ codeslayer_engine_new (GtkWindow             *window,
   g_signal_connect_swapped (G_OBJECT (projects), "project-modified",
                             G_CALLBACK (project_modified_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (projects), "open-document",
-                            G_CALLBACK (open_projects_document_action), engine);
+  g_signal_connect_swapped (G_OBJECT (projects), "select-document",
+                            G_CALLBACK (select_projects_document_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (projects), "file-path-renamed",
                             G_CALLBACK (rename_file_path_action), engine);
@@ -572,7 +572,7 @@ project_modified_action (CodeSlayerEngine  *engine,
 }
 
 static void
-open_projects_document_action (CodeSlayerEngine   *engine,
+select_projects_document_action (CodeSlayerEngine   *engine,
                                CodeSlayerDocument *document)
 {
   CodeSlayerEnginePrivate *priv;
@@ -775,7 +775,7 @@ search_find_projects_action (CodeSlayerEngine *engine,
                                 G_CALLBACK (close_search_action), engine);
                         
       g_signal_connect_swapped (G_OBJECT (priv->search), "select-document",
-                                G_CALLBACK (open_search_document_action), engine);
+                                G_CALLBACK (select_search_document_action), engine);
     }
 
   if (!gtk_widget_get_visible (priv->search))
@@ -846,8 +846,8 @@ close_search_action (CodeSlayerEngine *engine,
 }
 
 static void
-open_search_document_action (CodeSlayerEngine   *engine,
-                      CodeSlayerDocument *document)
+select_search_document_action (CodeSlayerEngine   *engine,
+                               CodeSlayerDocument *document)
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
