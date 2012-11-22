@@ -46,7 +46,6 @@ G_BEGIN_DECLS
 #define CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION "bottom_pane_tab_position"
 #define CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES "projects_exclude_types"
 #define CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS "projects_exclude_dirs"
-#define CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR "projects_sync_with_editor"
 
 typedef struct _CodeSlayerPreferences CodeSlayerPreferences;
 typedef struct _CodeSlayerPreferencesClass CodeSlayerPreferencesClass;

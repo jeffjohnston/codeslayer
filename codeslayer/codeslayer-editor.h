@@ -54,18 +54,18 @@ struct _CodeSlayerEditorClass
 
 GType codeslayer_editor_get_type (void) G_GNUC_CONST;
 
-GtkWidget*           codeslayer_editor_new                      (GtkWindow                    *window,
-                                                                 CodeSlayerDocument           *document,
-                                                                 CodeSlayerPreferences        *preferences,
-                                                                 CodeSlayerSettings           *settings);
+GtkWidget*           codeslayer_editor_new                       (GtkWindow                    *window,
+                                                                  CodeSlayerDocument           *document,
+                                                                  CodeSlayerPreferences        *preferences,
+                                                                  CodeSlayerSettings           *settings);
 
-void                 codeslayer_editor_scroll_to_line           (CodeSlayerEditor             *editor,
-                                                                 gint                          line_number);
-void                 codeslayer_editor_sync_preferences         (CodeSlayerEditor             *editor);
-CodeSlayerDocument*  codeslayer_editor_get_document             (CodeSlayerEditor             *editor);
-void                 codeslayer_editor_add_completion_provider  (CodeSlayerEditor             *editor, 
+void                 codeslayer_editor_scroll_to_line            (CodeSlayerEditor             *editor,
+                                                                  gint                          line_number);
+void                 codeslayer_editor_sync_settings_preferences (CodeSlayerEditor             *editor);
+CodeSlayerDocument*  codeslayer_editor_get_document              (CodeSlayerEditor             *editor);
+void                 codeslayer_editor_add_completion_provider   (CodeSlayerEditor             *editor, 
                                                                  CodeSlayerCompletionProvider *provider);
-const gchar*         codeslayer_editor_get_file_path            (CodeSlayerEditor             *editor);
+const gchar*         codeslayer_editor_get_file_path             (CodeSlayerEditor             *editor);
 
 G_END_DECLS
 

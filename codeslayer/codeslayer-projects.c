@@ -58,7 +58,7 @@ static void append_treestore_children           (CodeSlayerProjects      *projec
 static gboolean is_file_shown                   (CodeSlayerPreferences   *preferences, 
                                                  const char              *file_name, 
                                                  GFileType                file_type);
-static gboolean open_document                   (CodeSlayerProjects      *projects, 
+static gboolean row_activated_action            (CodeSlayerProjects      *projects, 
                                                  GtkTreeIter             *path, 
                                                  GtkTreeViewColumn       *column);
 static void edited_action                       (CodeSlayerProjects      *projects, 
@@ -124,6 +124,7 @@ struct _CodeSlayerProjectsPrivate
 {
   GtkWidget             *window;
   CodeSlayerPreferences *preferences;
+  CodeSlayerSettings    *settings; 
   CodeSlayerGroups      *groups;
   GtkWidget             *project_properties;
   GtkWidget             *properties_dialog;
@@ -505,7 +506,7 @@ codeslayer_projects_init (CodeSlayerProjects *projects)
                             G_CALLBACK (show_popup_menu), projects);
   
   g_signal_connect_swapped (G_OBJECT (priv->treeview), "row_activated",
-                            G_CALLBACK (open_document), projects);
+                            G_CALLBACK (row_activated_action), projects);
   
   g_signal_connect_swapped (G_OBJECT (priv->cell_text), "edited",
                             G_CALLBACK (edited_action), projects);
@@ -630,8 +631,9 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
  */
 GtkWidget*
 codeslayer_projects_new (GtkWidget             *window, 
-                         CodeSlayerPreferences *preferences, 
-                         CodeSlayerGroups      *groups, 
+                         CodeSlayerPreferences *preferences,
+                         CodeSlayerSettings    *settings,
+                         CodeSlayerGroups      *groups,
                          GtkWidget             *project_properties)
 {
   CodeSlayerProjectsPrivate *priv;
@@ -644,6 +646,7 @@ codeslayer_projects_new (GtkWidget             *window,
   priv->window = window;
   priv->groups = groups;
   priv->preferences = preferences;
+  priv->settings = settings;
   priv->plugins = NULL;
   priv->project_properties = project_properties;
   
@@ -836,12 +839,19 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
         }
       else
         {
-          /* we found the document and can now select it */
           GtkTreeRowReference *tree_row_reference;
+          gboolean sync_with_editor;
+          
+          /* we found the document and can now select it */
           tree_row_reference = gtk_tree_row_reference_new (GTK_TREE_MODEL (priv->treestore), 
                                                            tree_path);
           codeslayer_document_set_tree_row_reference (document, tree_row_reference);
           g_signal_emit_by_name ((gpointer) projects, "open-document", document);
+          
+          sync_with_editor = codeslayer_settings_get_boolean (priv->settings, 
+                                                              CODESLAYER_SETTINGS_SYNC_WITH_EDITOR);          
+          if (sync_with_editor)
+            select_document (document, projects);
         }
 
       gtk_tree_path_free (tree_path);
@@ -2261,9 +2271,9 @@ treeview_row_expanded (CodeSlayerProjects *projects,
 }
 
 static gboolean
-open_document (CodeSlayerProjects *projects, 
-               GtkTreeIter        *treeiter,
-               GtkTreeViewColumn  *column)
+row_activated_action (CodeSlayerProjects *projects, 
+                      GtkTreeIter        *treeiter,
+                      GtkTreeViewColumn  *column)
 {
   CodeSlayerProjectsPrivate *priv;
   GtkTreeModel *tree_model;

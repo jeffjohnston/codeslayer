@@ -295,6 +295,9 @@ set_defaults (CodeSlayerSettings *settings)
   codeslayer_settings_set_boolean (settings,
                                    CODESLAYER_SETTINGS_DRAW_SPACES,
                                    FALSE);
+  codeslayer_settings_set_boolean (settings,
+                                   CODESLAYER_SETTINGS_SYNC_WITH_EDITOR,
+                                   TRUE);
   codeslayer_settings_save (settings);
 }
 

@@ -689,7 +689,7 @@ codeslayer_menubar_new (GtkWidget             *window,
   menubar_groups = codeslayer_menubar_groups_new (window, menu, accel_group, groups);
   priv->menubar_groups = menubar_groups;
 
-  menubar_projects = codeslayer_menubar_projects_new (window, menu, accel_group, preferences);
+  menubar_projects = codeslayer_menubar_projects_new (window, menu, accel_group, settings);
   priv->menubar_projects = menubar_projects;
 
   menubar_tools = codeslayer_menubar_tools_new (menu, accel_group);

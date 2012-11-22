@@ -459,9 +459,6 @@ set_defaults (CodeSlayerPreferences *preferences)
   codeslayer_preferences_set_string (preferences,
                                      CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES,
                                      ".txt");
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR,
-                                      TRUE);
   codeslayer_preferences_save (preferences);
 }
 

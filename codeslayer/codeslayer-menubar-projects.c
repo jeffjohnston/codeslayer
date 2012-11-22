@@ -31,7 +31,6 @@ static void codeslayer_menubar_projects_init        (CodeSlayerMenuBarProjects  
 static void codeslayer_menubar_projects_finalize    (CodeSlayerMenuBarProjects      *menubar_projects);
 
 static void add_menu_items                          (CodeSlayerMenuBarProjects      *menubar_projects);
-static void initialize_preferences_action           (CodeSlayerMenuBarProjects      *menubar_projects);
 static void add_projects_action                     (CodeSlayerMenuBarProjects      *menubar_projects);
 static void sync_with_editor_action                 (CodeSlayerMenuBarProjects      *menubar_projects);
 
@@ -42,12 +41,12 @@ typedef struct _CodeSlayerMenuBarProjectsPrivate CodeSlayerMenuBarProjectsPrivat
 
 struct _CodeSlayerMenuBarProjectsPrivate
 {
-  GtkWidget             *window;
-  CodeSlayerPreferences *preferences;
-  GtkAccelGroup         *accel_group;
-  GtkWidget             *menubar;
-  GtkWidget             *menu;
-  GtkWidget             *sync_with_editor_item;
+  GtkWidget          *window;
+  CodeSlayerSettings *settings;
+  GtkAccelGroup      *accel_group;
+  GtkWidget          *menubar;
+  GtkWidget          *menu;
+  GtkWidget          *sync_with_editor_item;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarProjects, codeslayer_menubar_projects, GTK_TYPE_MENU_ITEM)
@@ -92,10 +91,10 @@ codeslayer_menubar_projects_finalize (CodeSlayerMenuBarProjects *menubar_project
  * Returns: a new #CodeSlayerMenuBarProjects. 
  */
 GtkWidget*
-codeslayer_menubar_projects_new (GtkWidget             *window, 
-                                 GtkWidget             *menubar, 
-                                 GtkAccelGroup         *accel_group, 
-                                 CodeSlayerPreferences *preferences)
+codeslayer_menubar_projects_new (GtkWidget          *window, 
+                                 GtkWidget          *menubar, 
+                                 GtkAccelGroup      *accel_group, 
+                                 CodeSlayerSettings *settings)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   GtkWidget *menubar_projects;
@@ -106,12 +105,9 @@ codeslayer_menubar_projects_new (GtkWidget             *window,
   priv->window = window;
   priv->menubar = menubar;
   priv->accel_group = accel_group;
-  priv->preferences = preferences;
+  priv->settings = settings;
 
   add_menu_items (CODESLAYER_MENUBAR_PROJECTS (menubar_projects));
-
-  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
-                            G_CALLBACK (initialize_preferences_action), CODESLAYER_MENUBAR_PROJECTS (menubar_projects));
 
   return menubar_projects;
 }
@@ -122,6 +118,7 @@ add_menu_items (CodeSlayerMenuBarProjects *menubar_projects)
   CodeSlayerMenuBarProjectsPrivate *priv;
   GtkWidget *add_projects_item;
   GtkWidget *sync_with_editor_item;
+  gboolean sync_with_editor;
   
   priv = CODESLAYER_MENUBAR_PROJECTS_GET_PRIVATE (menubar_projects);
   
@@ -134,27 +131,16 @@ add_menu_items (CodeSlayerMenuBarProjects *menubar_projects)
   sync_with_editor_item = gtk_check_menu_item_new_with_label (_("Sync With Editor"));
   priv->sync_with_editor_item = sync_with_editor_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), sync_with_editor_item);
+  
+  sync_with_editor = codeslayer_settings_get_boolean (priv->settings, 
+                                                      CODESLAYER_SETTINGS_SYNC_WITH_EDITOR);
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (sync_with_editor_item), sync_with_editor);
 
   g_signal_connect_swapped (G_OBJECT (add_projects_item), "activate",
                             G_CALLBACK (add_projects_action), menubar_projects);
 
   g_signal_connect_swapped (G_OBJECT (sync_with_editor_item), "activate",
                             G_CALLBACK (sync_with_editor_action), menubar_projects);
-}
-
-static void
-initialize_preferences_action (CodeSlayerMenuBarProjects *menubar_projects)
-{
-  CodeSlayerMenuBarProjectsPrivate *priv;
-  gboolean sync_with_editor;
-  
-  priv = CODESLAYER_MENUBAR_PROJECTS_GET_PRIVATE (menubar_projects);
-  
-  sync_with_editor = codeslayer_preferences_get_boolean (priv->preferences, 
-                                                         CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR);
-
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item), 
-                                  sync_with_editor);
 }
 
 static void
@@ -201,5 +187,8 @@ sync_with_editor_action (CodeSlayerMenuBarProjects *menubar_projects)
   sync_with_editor = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item));
   codeslayer_menubar_sync_projects_with_editor (CODESLAYER_MENUBAR (priv->menubar),
                                                 sync_with_editor);
-  codeslayer_preferences_save (priv->preferences);
+                                                
+  codeslayer_settings_set_boolean (priv->settings, CODESLAYER_SETTINGS_SYNC_WITH_EDITOR,
+                                   sync_with_editor);
+  codeslayer_settings_save (priv->settings);
 }

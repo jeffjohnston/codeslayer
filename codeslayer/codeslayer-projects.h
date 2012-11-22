@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-groups.h>
 #include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-document.h>
@@ -65,6 +66,7 @@ GType codeslayer_projects_get_type (void) G_GNUC_CONST;
 
 GtkWidget*  codeslayer_projects_new                (GtkWidget             *window, 
                                                     CodeSlayerPreferences *preferences, 
+                                                    CodeSlayerSettings    *settings, 
                                                     CodeSlayerGroups      *groups, 
                                                     GtkWidget             *project_properties);
 

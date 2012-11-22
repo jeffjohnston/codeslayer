@@ -220,6 +220,7 @@ create_projects (Context *context)
   GtkWidget *projects;
   projects = codeslayer_projects_new (context->window,
                                       context->preferences, 
+                                      context->settings, 
                                       context->groups, 
                                       context->project_properties);
   context->projects = projects;

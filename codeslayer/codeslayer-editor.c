@@ -234,7 +234,7 @@ codeslayer_editor_new (GtkWindow             *window,
   gtk_text_view_set_buffer (GTK_TEXT_VIEW (editor), GTK_TEXT_BUFFER (buffer));
   g_object_unref (buffer);
 
-  codeslayer_editor_sync_preferences (CODESLAYER_EDITOR (editor));
+  codeslayer_editor_sync_settings_preferences (CODESLAYER_EDITOR (editor));
 
   g_signal_connect_swapped (G_OBJECT (editor), "key-press-event",
                             G_CALLBACK (key_press_action), editor);  
@@ -625,7 +625,7 @@ codeslayer_editor_scroll_to_line (CodeSlayerEditor *editor,
  * Apply the #CodeSlayerPreferences settings to the current editor.
  */
 void
-codeslayer_editor_sync_preferences (CodeSlayerEditor *editor)
+codeslayer_editor_sync_settings_preferences (CodeSlayerEditor *editor)
 {
   CodeSlayerEditorPrivate *priv;
   gboolean display_line_number;
