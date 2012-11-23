@@ -49,11 +49,11 @@ struct _CodeSlayerMenuBarSearchPrivate
   GtkAccelGroup *accel_group;
   GtkWidget     *menubar;
   GtkWidget     *menu;  
-  GtkWidget     *find_menu_item;
-  GtkWidget     *replace_menu_item;
-  GtkWidget     *find_next_menu_item;
-  GtkWidget     *find_previous_menu_item;
-  GtkWidget     *find_projects_menu_item;
+  GtkWidget     *find_item;
+  GtkWidget     *replace_item;
+  GtkWidget     *find_next_item;
+  GtkWidget     *find_previous_item;
+  GtkWidget     *find_projects_item;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarSearch, codeslayer_menubar_search, GTK_TYPE_MENU_ITEM)
@@ -117,59 +117,59 @@ static void
 add_menu_items (CodeSlayerMenuBarSearch *menubar_search)
 {
   CodeSlayerMenuBarSearchPrivate *priv;
-  GtkWidget *find_menu_item;
-  GtkWidget *find_next_menu_item;
-  GtkWidget *find_previous_menu_item;
-  GtkWidget *replace_menu_item;
-  GtkWidget *find_projects_menu_item;
+  GtkWidget *find_item;
+  GtkWidget *find_next_item;
+  GtkWidget *find_previous_item;
+  GtkWidget *replace_item;
+  GtkWidget *find_projects_item;
   
   priv = CODESLAYER_MENUBAR_SEARCH_GET_PRIVATE (menubar_search);
   
-  find_menu_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_FIND, priv->accel_group);
-  priv->find_menu_item = find_menu_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_menu_item);
+  find_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_FIND, priv->accel_group);
+  priv->find_item = find_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_item);
 
-  find_next_menu_item = gtk_menu_item_new_with_label (_("Find Next"));
-  priv->find_next_menu_item = find_next_menu_item;
-  gtk_widget_add_accelerator (find_next_menu_item, "activate", priv->accel_group,
+  find_next_item = gtk_menu_item_new_with_label (_("Find Next"));
+  priv->find_next_item = find_next_item;
+  gtk_widget_add_accelerator (find_next_item, "activate", priv->accel_group,
                               GDK_KEY_G, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_next_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_next_item);
 
-  find_previous_menu_item = gtk_menu_item_new_with_label (_("Find Previous"));
-  priv->find_previous_menu_item = find_previous_menu_item;
-  gtk_widget_add_accelerator (find_previous_menu_item,  "activate",
+  find_previous_item = gtk_menu_item_new_with_label (_("Find Previous"));
+  priv->find_previous_item = find_previous_item;
+  gtk_widget_add_accelerator (find_previous_item,  "activate",
                               priv->accel_group, GDK_KEY_G,
                               GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                               GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_previous_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_previous_item);
 
-  replace_menu_item = gtk_menu_item_new_with_label (_("Replace"));
-  priv->replace_menu_item = replace_menu_item;
-  gtk_widget_add_accelerator (replace_menu_item, "activate", priv->accel_group,
+  replace_item = gtk_menu_item_new_with_label (_("Replace"));
+  priv->replace_item = replace_item;
+  gtk_widget_add_accelerator (replace_item, "activate", priv->accel_group,
                               GDK_KEY_H, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), replace_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), replace_item);
 
-  find_projects_menu_item = gtk_menu_item_new_with_label (_("Find In Projects"));
-  priv->find_projects_menu_item = find_projects_menu_item;
-  gtk_widget_add_accelerator (find_projects_menu_item, "activate",
+  find_projects_item = gtk_menu_item_new_with_label (_("Find In Projects"));
+  priv->find_projects_item = find_projects_item;
+  gtk_widget_add_accelerator (find_projects_item, "activate",
                               priv->accel_group, GDK_KEY_F,
                               GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                               GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_projects_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_projects_item);
 
-  g_signal_connect_swapped (G_OBJECT (find_menu_item), "activate",
+  g_signal_connect_swapped (G_OBJECT (find_item), "activate",
                             G_CALLBACK (find_action), menubar_search);
   
-  g_signal_connect_swapped (G_OBJECT (replace_menu_item), "activate",
+  g_signal_connect_swapped (G_OBJECT (replace_item), "activate",
                             G_CALLBACK (replace_action), menubar_search);
   
-  g_signal_connect_swapped (G_OBJECT (find_next_menu_item), "activate",
+  g_signal_connect_swapped (G_OBJECT (find_next_item), "activate",
                             G_CALLBACK (find_next_action), menubar_search);
   
-  g_signal_connect_swapped (G_OBJECT (find_previous_menu_item), "activate",
+  g_signal_connect_swapped (G_OBJECT (find_previous_item), "activate",
                             G_CALLBACK (find_previous_action), menubar_search);
   
-  g_signal_connect_swapped (G_OBJECT (find_projects_menu_item), "activate",
+  g_signal_connect_swapped (G_OBJECT (find_projects_item), "activate",
                             G_CALLBACK (find_projects_action), menubar_search);
 }
 
@@ -191,9 +191,9 @@ codeslayer_menubar_search_sync_with_notebook (CodeSlayerMenuBarSearch *menubar_s
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
   sensitive = pages > 0;
   
-  gtk_widget_set_sensitive (priv->replace_menu_item, sensitive);
-  gtk_widget_set_sensitive (priv->find_next_menu_item, sensitive);
-  gtk_widget_set_sensitive (priv->find_previous_menu_item, sensitive);
+  gtk_widget_set_sensitive (priv->replace_item, sensitive);
+  gtk_widget_set_sensitive (priv->find_next_item, sensitive);
+  gtk_widget_set_sensitive (priv->find_previous_item, sensitive);
 }                                              
 
 static void

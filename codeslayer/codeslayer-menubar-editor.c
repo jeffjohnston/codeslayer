@@ -38,7 +38,6 @@ static void save_all_editors_action               (CodeSlayerMenuBarEditor      
 static void close_editor_action                   (CodeSlayerMenuBarEditor      *menubar_editor);
 static void quit_application_action               (CodeSlayerMenuBarEditor      *menubar_editor);
 static void show_preferences_action               (CodeSlayerMenuBarEditor      *menubar_editor);
-static void scan_external_changes_action          (CodeSlayerMenuBarEditor      *menubar_editor);
 
 
 #define CODESLAYER_MENUBAR_EDITOR_GET_PRIVATE(obj) \
@@ -51,9 +50,9 @@ struct _CodeSlayerMenuBarEditorPrivate
   GtkAccelGroup *accel_group;
   GtkWidget     *menubar;
   GtkWidget     *menu;  
-  GtkWidget     *save_menu_item;
-  GtkWidget     *save_all_menu_item;
-  GtkWidget     *close_tab_menu_item;
+  GtkWidget     *save_item;
+  GtkWidget     *save_all_item;
+  GtkWidget     *close_tab_item;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarEditor, codeslayer_menubar_editor, GTK_TYPE_MENU_ITEM)
@@ -117,63 +116,55 @@ static void
 add_menu_items (CodeSlayerMenuBarEditor *menubar_editor)
 {
   CodeSlayerMenuBarEditorPrivate *priv;
-  GtkWidget *save_menu_item;
-  GtkWidget *save_all_menu_item;
-  GtkWidget *close_tab_menu_item;
-  GtkWidget *preferences_menu_item;
-  GtkWidget *scan_external_changes_menu_item;
-  GtkWidget *quit_application_menu_item;
+  GtkWidget *save_item;
+  GtkWidget *save_all_item;
+  GtkWidget *close_tab_item;
+  GtkWidget *preferences_item;
+  GtkWidget *quit_application_item;
   
   priv = CODESLAYER_MENUBAR_EDITOR_GET_PRIVATE (menubar_editor);
 
-  save_menu_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_SAVE, 
+  save_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_SAVE, 
                                                        priv->accel_group);
-  priv->save_menu_item = save_menu_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), save_menu_item);
+  priv->save_item = save_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), save_item);
 
-  save_all_menu_item = gtk_menu_item_new_with_label (_("Save All"));
-  priv->save_all_menu_item = save_all_menu_item;
-  gtk_widget_add_accelerator (save_all_menu_item, "activate", priv->accel_group,
+  save_all_item = gtk_menu_item_new_with_label (_("Save All"));
+  priv->save_all_item = save_all_item;
+  gtk_widget_add_accelerator (save_all_item, "activate", priv->accel_group,
                               GDK_KEY_S, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                               GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), save_all_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), save_all_item);
 
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
   
-  preferences_menu_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_PREFERENCES, 
+  preferences_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_PREFERENCES, 
                                                               priv->accel_group);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), preferences_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), preferences_item);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
     
-  scan_external_changes_menu_item = gtk_menu_item_new_with_label (_("Scan External Changes"));
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), scan_external_changes_menu_item);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
-
-  close_tab_menu_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_CLOSE, 
+  close_tab_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_CLOSE, 
                                                             priv->accel_group);
-  priv->close_tab_menu_item = close_tab_menu_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), close_tab_menu_item);
+  priv->close_tab_item = close_tab_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), close_tab_item);
 
-  quit_application_menu_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_QUIT, 
+  quit_application_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_QUIT, 
                                                                    priv->accel_group);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), quit_application_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), quit_application_item);
   
-  g_signal_connect_swapped (G_OBJECT (preferences_menu_item), "activate",
+  g_signal_connect_swapped (G_OBJECT (preferences_item), "activate",
                             G_CALLBACK (show_preferences_action), menubar_editor);  
 
-  g_signal_connect_swapped (G_OBJECT (scan_external_changes_menu_item), "activate",
-                            G_CALLBACK (scan_external_changes_action), menubar_editor);  
-
-  g_signal_connect_swapped (G_OBJECT (save_menu_item), "activate",
+  g_signal_connect_swapped (G_OBJECT (save_item), "activate",
                             G_CALLBACK (save_editor_action), menubar_editor);
   
-  g_signal_connect_swapped (G_OBJECT (save_all_menu_item), "activate",
+  g_signal_connect_swapped (G_OBJECT (save_all_item), "activate",
                             G_CALLBACK (save_all_editors_action), menubar_editor);
   
-  g_signal_connect_swapped (G_OBJECT (close_tab_menu_item), "activate",
+  g_signal_connect_swapped (G_OBJECT (close_tab_item), "activate",
                             G_CALLBACK (close_editor_action), menubar_editor);
   
-  g_signal_connect_swapped (G_OBJECT (quit_application_menu_item), "activate",
+  g_signal_connect_swapped (G_OBJECT (quit_application_item), "activate",
                             G_CALLBACK (quit_application_action), menubar_editor);
 }
 
@@ -195,9 +186,9 @@ codeslayer_menubar_editor_sync_with_notebook (CodeSlayerMenuBarEditor *menubar_e
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
   sensitive = pages > 0;
 
-  gtk_widget_set_sensitive (priv->save_menu_item, sensitive);
-  gtk_widget_set_sensitive (priv->save_all_menu_item, sensitive);
-  gtk_widget_set_sensitive (priv->close_tab_menu_item, sensitive);
+  gtk_widget_set_sensitive (priv->save_item, sensitive);
+  gtk_widget_set_sensitive (priv->save_all_item, sensitive);
+  gtk_widget_set_sensitive (priv->close_tab_item, sensitive);
 }                                                         
 
 static void
@@ -230,14 +221,6 @@ show_preferences_action (CodeSlayerMenuBarEditor *menubar_editor)
   CodeSlayerMenuBarEditorPrivate *priv;
   priv = CODESLAYER_MENUBAR_EDITOR_GET_PRIVATE (menubar_editor);
   codeslayer_menubar_show_preferences (CODESLAYER_MENUBAR (priv->menubar));
-}
-
-static void
-scan_external_changes_action (CodeSlayerMenuBarEditor *menubar_editor)
-{
-  CodeSlayerMenuBarEditorPrivate *priv;
-  priv = CODESLAYER_MENUBAR_EDITOR_GET_PRIVATE (menubar_editor);
-  codeslayer_menubar_scan_external_changes (CODESLAYER_MENUBAR (priv->menubar));
 }
 
 static void

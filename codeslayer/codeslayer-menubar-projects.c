@@ -33,6 +33,7 @@ static void codeslayer_menubar_projects_finalize    (CodeSlayerMenuBarProjects  
 static void add_menu_items                          (CodeSlayerMenuBarProjects      *menubar_projects);
 static void add_projects_action                     (CodeSlayerMenuBarProjects      *menubar_projects);
 static void sync_with_editor_action                 (CodeSlayerMenuBarProjects      *menubar_projects);
+static void scan_external_changes_action            (CodeSlayerMenuBarProjects      *menubar_projects);
 
 #define CODESLAYER_MENUBAR_PROJECTS_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENUBAR_PROJECTS_TYPE, CodeSlayerMenuBarProjectsPrivate))
@@ -117,6 +118,7 @@ add_menu_items (CodeSlayerMenuBarProjects *menubar_projects)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   GtkWidget *add_projects_item;
+  GtkWidget *scan_external_changes_item;
   GtkWidget *sync_with_editor_item;
   gboolean sync_with_editor;
   
@@ -136,11 +138,18 @@ add_menu_items (CodeSlayerMenuBarProjects *menubar_projects)
                                                       CODESLAYER_SETTINGS_SYNC_WITH_EDITOR);
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (sync_with_editor_item), sync_with_editor);
 
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
+  scan_external_changes_item = gtk_menu_item_new_with_label (_("Scan External Changes"));
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), scan_external_changes_item);
+
   g_signal_connect_swapped (G_OBJECT (add_projects_item), "activate",
                             G_CALLBACK (add_projects_action), menubar_projects);
 
   g_signal_connect_swapped (G_OBJECT (sync_with_editor_item), "activate",
                             G_CALLBACK (sync_with_editor_action), menubar_projects);
+
+  g_signal_connect_swapped (G_OBJECT (scan_external_changes_item), "activate",
+                            G_CALLBACK (scan_external_changes_action), menubar_projects);  
 }
 
 static void
@@ -191,4 +200,12 @@ sync_with_editor_action (CodeSlayerMenuBarProjects *menubar_projects)
   codeslayer_settings_set_boolean (priv->settings, CODESLAYER_SETTINGS_SYNC_WITH_EDITOR,
                                    sync_with_editor);
   codeslayer_settings_save (priv->settings);
+}
+
+static void
+scan_external_changes_action (CodeSlayerMenuBarProjects *menubar_projects)
+{
+  CodeSlayerMenuBarProjectsPrivate *priv;
+  priv = CODESLAYER_MENUBAR_PROJECTS_GET_PRIVATE (menubar_projects);
+  codeslayer_menubar_scan_external_changes (CODESLAYER_MENUBAR (priv->menubar));
 }

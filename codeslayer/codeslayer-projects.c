@@ -82,7 +82,6 @@ static void copy_action                         (CodeSlayerProjects      *projec
 static void paste_action                        (CodeSlayerProjects      *projects);
 static void rename_action                       (CodeSlayerProjects      *projects);
 static void move_to_trash_action                (CodeSlayerProjects      *projects);
-static void refresh_action                      (CodeSlayerProjects      *projects);
 static void refresh_folders                     (CodeSlayerProjects      *projects, 
                                                  GtkTreeModel            *tree_model,
                                                  GtkTreeIter              iter, 
@@ -156,7 +155,6 @@ struct _CodeSlayerProjectsPrivate
   GtkWidget             *ccp_separator;
   GtkWidget             *rename_item;
   GtkWidget             *move_to_trash_item;
-  GtkWidget             *refresh_item;
   GtkWidget             *properties_separator;
   GtkWidget             *properties_item;
   GtkWidget             *find_item;
@@ -542,11 +540,6 @@ codeslayer_projects_init (CodeSlayerProjects *projects)
                             G_CALLBACK (new_file_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->new_file_item);
   
-  priv->refresh_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_REFRESH, NULL);
-  g_signal_connect_swapped (G_OBJECT (priv->refresh_item), "activate",
-                            G_CALLBACK (refresh_action), projects);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->refresh_item);
-
   priv->new_separator = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->new_separator);
   
@@ -1898,52 +1891,6 @@ refresh_folders (CodeSlayerProjects *projects,
 }                  
 
 static void
-refresh_action (CodeSlayerProjects *projects)
-{
-  CodeSlayerProjectsPrivate *priv;
-  GtkTreeModel *tree_model;
-  GtkTreeSelection *tree_selection;
-  GList *selected_rows;
-  GList *tmp;
-  
-  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-  tree_model = GTK_TREE_MODEL (priv->treestore);
-
-  tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->treeview));
-  selected_rows = gtk_tree_selection_get_selected_rows (tree_selection, &tree_model);
-  tmp = selected_rows;
-  
-  while (tmp != NULL)
-    {
-      CodeSlayerProject *project;
-      GtkTreeIter iter;
-      GtkTreeIter child;
-      gchar *file_path;
-
-      GtkTreePath *tree_path = tmp->data;
-
-      gtk_tree_model_get_iter (tree_model, &iter, tree_path);
-
-      gtk_tree_model_get (tree_model, &iter, PROJECT, &project, -1);
-
-      file_path = get_file_path_from_iter (tree_model, &iter, project);
-
-      if (gtk_tree_model_iter_children (tree_model, &child, &iter))
-        {
-          while (gtk_tree_store_remove (GTK_TREE_STORE (tree_model), &child)) {}
-          append_treestore_children (projects, project, iter, file_path);
-        }
-
-      gtk_tree_view_expand_row (GTK_TREE_VIEW (priv->treeview), tree_path, FALSE);
-
-      g_free (file_path);
-      gtk_tree_path_free (tree_path);
-      tmp = g_list_next (tmp);
-    }
-  g_list_free (selected_rows);
-}
-
-static void
 move_to_trash_action (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
@@ -2562,7 +2509,6 @@ get_showable_popup_items (CodeSlayerProjects *projects)
           if (g_strcmp0 (file_type, "G_FILE_TYPE_DIRECTORY") != 0 || 
               selected_rows_count > 1)
             {
-              results = g_list_remove (results, priv->refresh_item);
               results = g_list_remove (results, priv->new_folder_item);
               results = g_list_remove (results, priv->new_file_item);
               results = g_list_remove (results, priv->new_separator);

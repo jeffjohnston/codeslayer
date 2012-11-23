@@ -58,7 +58,6 @@ struct _CodeSlayerMenuBarClass
   void (*draw_spaces) (CodeSlayerMenuBar *menubar);
   void (*save_editor) (CodeSlayerMenuBar *menubar);
   void (*save_all_editors) (CodeSlayerMenuBar *menubar);
-  void (*scan_external_changes) (CodeSlayerMenuBar *menubar);
   void (*close_editor) (CodeSlayerMenuBar *menubar);
   void (*quit_application) (CodeSlayerMenuBar *menubar);
   void (*find) (CodeSlayerMenuBar *menubar);
@@ -79,6 +78,7 @@ struct _CodeSlayerMenuBarClass
   void (*to_lowercase) (CodeSlayerMenuBar *menubar);
   void (*copy_lines) (CodeSlayerMenuBar *menubar);
   void (*sync_projects_with_editor) (CodeSlayerMenuBar *menubar);
+  void (*scan_external_changes) (CodeSlayerMenuBar *menubar);
 };
 
 GType codeslayer_menubar_get_type (void) G_GNUC_CONST;
