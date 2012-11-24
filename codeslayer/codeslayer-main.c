@@ -30,7 +30,7 @@
 #include <codeslayer/codeslayer-notebook-search.h>
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-menubar.h>
-#include <codeslayer/codeslayer-statusbar.h>
+#include <codeslayer/codeslayer-processbar.h>
 #include <codeslayer/codeslayer-groups.h>
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer-repository.h>
@@ -51,7 +51,7 @@ typedef struct
   CodeSlayerEngine *engine;
   CodeSlayerProcesses *processes;
   CodeSlayer *codeslayer;
-  GtkWidget *statusbar;
+  GtkWidget *process_bar;
   GtkWidget *notebook;
   CodeSlayerGroups *groups;
   CodeSlayerPlugins *plugins;
@@ -75,7 +75,7 @@ static void create_project_properties        (Context     *context);
 static void create_side_and_bottom_pane      (Context     *context);
 static void create_notebook                  (Context     *context);
 static void create_processes                 (Context     *context);
-static void create_statusbar                 (Context     *context);
+static void create_process_bar                 (Context     *context);
 static void create_engine                    (Context     *context);
 static void load_plugins                     (Context     *context);
 static void create_paned_containers          (Context     *context);
@@ -135,7 +135,7 @@ main (int   argc,
 
   create_processes (&context);
   
-  create_statusbar (&context);
+  create_process_bar (&context);
 
   create_side_and_bottom_pane (&context);  
   
@@ -250,7 +250,7 @@ create_side_and_bottom_pane (Context *context)
   GtkWidget *side_pane;
   GtkWidget *bottom_pane;
 
-  side_pane = codeslayer_side_pane_new (context->preferences, context->statusbar);
+  side_pane = codeslayer_side_pane_new (context->preferences, context->process_bar);
   context->side_pane = side_pane;
   
   codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (side_pane), 
@@ -269,11 +269,11 @@ create_processes (Context *context)
 }  
 
 static void 
-create_statusbar (Context *context)
+create_process_bar (Context *context)
 {
-  GtkWidget *statusbar;
-  statusbar = codeslayer_statusbar_new (context->processes);
-  context->statusbar = statusbar;
+  GtkWidget *process_bar;
+  process_bar = codeslayer_process_bar_new (context->processes);
+  context->process_bar = process_bar;
 }
 
 static void 

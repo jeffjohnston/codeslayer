@@ -60,7 +60,7 @@ codeslayer_side_pane_finalize (CodeSlayerSidePane *side_pane)
 /**
  * codeslayer_side_pane_new:
  * @preferences: a #CodeSlayerPreferences.
- * @statusbar: a #GtkWidget.
+ * @process_bar: a #GtkWidget.
  *
  * Creates a new #CodeSlayerSidePane.
  *
@@ -68,7 +68,7 @@ codeslayer_side_pane_finalize (CodeSlayerSidePane *side_pane)
  */
 GtkWidget*
 codeslayer_side_pane_new (CodeSlayerPreferences *preferences, 
-                          GtkWidget             *statusbar)
+                          GtkWidget             *process_bar)
 {
   GtkWidget *side_pane;  
   side_pane = g_object_new (codeslayer_side_pane_get_type (), NULL);
@@ -78,7 +78,7 @@ codeslayer_side_pane_new (CodeSlayerPreferences *preferences,
   
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (side_pane));
   
-  gtk_box_pack_start (GTK_BOX (side_pane), statusbar, FALSE, FALSE, 1);
+  gtk_box_pack_start (GTK_BOX (side_pane), process_bar, FALSE, FALSE, 1);
 
   g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
                             G_CALLBACK ( codeslayer_abstract_pane_sync_preferences), CODESLAYER_ABSTRACT_PANE (side_pane));
