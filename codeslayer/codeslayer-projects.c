@@ -76,7 +76,6 @@ static gchar *get_file_path_from_iter         (GtkTreeModel            *model,
 static gboolean show_popup_menu               (CodeSlayerProjects      *projects, 
                                                GdkEventButton          *event);
 static void create_project_properties_dialog  (CodeSlayerProjects      *projects);
-static void add_to_project_properties         (CodeSlayerProjects      *projects);
 static void remove_project_action             (CodeSlayerProjects      *projects);
 static void new_folder_action                 (CodeSlayerProjects      *projects);
 static void new_file_action                   (CodeSlayerProjects      *projects);
@@ -447,7 +446,6 @@ codeslayer_projects_new (GtkWidget             *window,
   create_tree (CODESLAYER_PROJECTS (projects));
   create_popup_menu (CODESLAYER_PROJECTS (projects));
   create_project_properties_dialog (CODESLAYER_PROJECTS (projects));
-  add_to_project_properties (CODESLAYER_PROJECTS (projects));
   
   gtk_container_add (GTK_CONTAINER (priv->scrolled_window), priv->treeview); 
   gtk_container_add (GTK_CONTAINER (projects), priv->scrolled_window);
@@ -660,6 +658,12 @@ create_project_properties_dialog (CodeSlayerProjects *projects)
   CodeSlayerProjectsPrivate *priv;
   GtkWidget *properties_dialog;
   GtkWidget *content_area;
+  GtkWidget *vbox;
+  GtkWidget *grid;
+  GtkWidget *name_label;
+  GtkWidget *name_entry;
+  GtkWidget *folder_label;
+  GtkWidget *folder_entry;
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
 
@@ -677,21 +681,7 @@ create_project_properties_dialog (CodeSlayerProjects *projects)
   priv->properties_dialog = properties_dialog;
   
   gtk_container_add (GTK_CONTAINER (content_area), priv->project_properties);
-}
-
-static void
-add_to_project_properties (CodeSlayerProjects *projects)
-{
-  CodeSlayerProjectsPrivate *priv;
-  GtkWidget *vbox;
-  GtkWidget *grid;
-  GtkWidget *name_label;
-  GtkWidget *name_entry;
-  GtkWidget *folder_label;
-  GtkWidget *folder_entry;
   
-  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-
   vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 
   grid = gtk_grid_new ();
@@ -725,7 +715,7 @@ add_to_project_properties (CodeSlayerProjects *projects)
   gtk_box_pack_start (GTK_BOX (vbox), grid, FALSE, FALSE, 3);                           
                                         
   codeslayer_project_properties_add (CODESLAYER_PROJECT_PROPERTIES (priv->project_properties), 
-                                      vbox, _("Project"));
+                                      vbox, _("Project"));  
 }
 
 /**
