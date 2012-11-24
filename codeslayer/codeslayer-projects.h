@@ -47,19 +47,21 @@ struct _CodeSlayerProjectsClass
 {
   GtkVBoxClass parent_class;
 
+  void (*select_document) (CodeSlayerProjects *projects);
   void (*remove_project) (CodeSlayerProjects *projects);
   void (*project_modified) (CodeSlayerProjects *projects);
-  void (*select_document) (CodeSlayerProjects *projects);
+  void (*properties_opened) (CodeSlayerProjects *projects);
+  void (*properties_saved) (CodeSlayerProjects *projects);
+
+  /* private signals */
   void (*file_path_renamed) (CodeSlayerProjects *projects);
+  void (*rename_file_folder) (CodeSlayerProjects *projects);
+  void (*delete_file_folder) (CodeSlayerProjects *projects);
   void (*cut_file_folder) (CodeSlayerProjects *projects);
   void (*copy_file_folder) (CodeSlayerProjects *projects);
   void (*paste_file_folder) (CodeSlayerProjects *projects);
-  void (*rename_file_folder) (CodeSlayerProjects *projects);
-  void (*delete_file_folder) (CodeSlayerProjects *projects);
   void (*find_projects) (CodeSlayerProjects *projects);
   void (*search_find) (CodeSlayerProjects *projects);
-  void (*properties_opened) (CodeSlayerProjects *projects);
-  void (*properties_saved) (CodeSlayerProjects *projects);
 };
 
 GType codeslayer_projects_get_type (void) G_GNUC_CONST;
@@ -76,12 +78,12 @@ void        codeslayer_projects_add_project        (CodeSlayerProjects    *proje
                                                     CodeSlayerProject     *project);
 gboolean    codeslayer_projects_select_document    (CodeSlayerProjects    *projects, 
                                                     CodeSlayerDocument    *document);
+void        codeslayer_projects_refresh            (CodeSlayerProjects    *projects);
+void        codeslayer_projects_search_find        (CodeSlayerProjects    *projects);
 void        codeslayer_projects_add_popup_item     (CodeSlayerProjects    *projects,
                                                     GtkWidget             *item);
 void        codeslayer_projects_remove_popup_item  (CodeSlayerProjects    *projects,
                                                     GtkWidget             *item);
-void        codeslayer_projects_search_find        (CodeSlayerProjects    *projects);
-void        codeslayer_projects_refresh            (CodeSlayerProjects    *projects);
 
 G_END_DECLS
 
