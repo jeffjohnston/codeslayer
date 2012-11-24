@@ -46,7 +46,7 @@ static gint sort_iter_compare_func            (GtkTreeModel            *model,
                                                gpointer                 userdata);
 static void create_popup_menu                 (CodeSlayerProjects      *projects);
 
-static gboolean treeview_row_expanded         (CodeSlayerProjects      *projects, 
+static gboolean treeview_row_expanded_action  (CodeSlayerProjects      *projects, 
                                                GtkTreeIter             *iter, 
                                                GtkTreePath             *path);
 static void add_project                       (CodeSlayerProject       *project, 
@@ -511,7 +511,7 @@ create_tree (CodeSlayerProjects *projects)
                                        FILE_NAME, NULL);
                                        
   g_signal_connect_swapped (G_OBJECT (priv->treeview), "test-expand-row",
-                            G_CALLBACK (treeview_row_expanded), projects);
+                            G_CALLBACK (treeview_row_expanded_action), projects);
   
   g_signal_connect_swapped (G_OBJECT (priv->treeview), "button_press_event",
                             G_CALLBACK (show_popup_menu), projects);
@@ -2147,9 +2147,9 @@ is_file_shown (CodeSlayerPreferences *preferences,
 }
 
 static gboolean
-treeview_row_expanded (CodeSlayerProjects *projects, 
-                       GtkTreeIter        *iter,
-                       GtkTreePath        *tree_path)
+treeview_row_expanded_action (CodeSlayerProjects *projects, 
+                              GtkTreeIter        *iter,
+                              GtkTreePath        *tree_path)
 {
   CodeSlayerProjectsPrivate *priv;
   GtkTreeIter child;
