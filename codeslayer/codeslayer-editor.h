@@ -64,8 +64,11 @@ void                 codeslayer_editor_scroll_to_line            (CodeSlayerEdit
 void                 codeslayer_editor_sync_settings_preferences (CodeSlayerEditor             *editor);
 CodeSlayerDocument*  codeslayer_editor_get_document              (CodeSlayerEditor             *editor);
 void                 codeslayer_editor_add_completion_provider   (CodeSlayerEditor             *editor, 
-                                                                 CodeSlayerCompletionProvider *provider);
+                                                                  CodeSlayerCompletionProvider *provider);
 const gchar*         codeslayer_editor_get_file_path             (CodeSlayerEditor             *editor);
+GTimeVal*            codeslayer_editor_get_modification_time     (CodeSlayerEditor             *editor);
+void                 codeslayer_editor_set_modification_time     (CodeSlayerEditor             *editor, 
+                                                                  GTimeVal                     *modification_time);
 
 G_END_DECLS
 

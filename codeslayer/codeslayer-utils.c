@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "encoding.h"
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-xml.h>
 #include <codeslayer/codeslayer-preferences.h>
@@ -430,4 +431,60 @@ codeslayer_utils_save_gobjects (GList       *objects,
   g_object_unref (file);
   g_free (contents);
   codeslayer_xml_free_hashtable (table);
+}
+
+GTimeVal*
+codeslayer_utils_get_modification_time (const gchar *file_path)
+{
+  GFile *file;
+  GFileInfo *info;
+  GTimeVal time;
+  GTimeVal *result;
+  
+  file = g_file_new_for_path (file_path);
+  
+  info = g_file_query_info (file, "*", 
+                            G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, NULL, NULL);
+                            
+  g_file_info_get_modification_time (info, &time);
+  
+  result = g_malloc (sizeof (GTime));
+  
+  result->tv_sec = time.tv_sec;
+  result->tv_usec = time.tv_usec;
+  
+  g_object_unref (file);
+  g_object_unref (info);
+  
+  return result;
+}
+
+gchar* 
+codeslayer_utils_get_utf8_text (const gchar *file_path) 
+{
+  gchar *contents;
+	gsize bytes;
+	const gchar *charset;
+	gchar *result;
+	gint lineend;
+	
+	if (!g_file_get_contents (file_path, &contents, &bytes, NULL)) 
+    return NULL;	    
+	
+	lineend = detect_line_ending (contents);
+	if (lineend != LF)
+	  convert_line_ending_to_lf (contents);
+	
+  charset = detect_charset (contents);
+	if (charset == NULL)
+    charset = get_default_charset ();
+    
+  if (g_strcmp0 (charset, "UTF-8") == 0)
+    return contents;
+  
+  result = g_convert (contents, -1, "UTF-8", charset, NULL, NULL, NULL);
+	  
+  g_free(contents);
+  
+  return result;
 }

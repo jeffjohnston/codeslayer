@@ -48,11 +48,11 @@ static void close_right_editors_action      (CodeSlayerNotebookTab   *notebook_t
                                              CodeSlayerNotebook      *notebook);
 static void close_left_editors_action       (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
-static void buffer_changed_action           (CodeSlayerNotebook      *notebook);
+static void buffer_modified_action          (GtkTextBuffer           *buffer, 
+                                             CodeSlayerNotebook      *notebook);
 static gboolean has_clean_buffer            (CodeSlayerNotebook      *notebook, 
                                              gint                     page);
 static void preferences_changed_action      (CodeSlayerNotebook      *notebook);
-static gchar* get_utf8_text                 (const gchar             *file_path);
 static GtkWidget* save_editor               (CodeSlayerNotebook      *notebook, 
                                              gint                     page_num);
 
@@ -199,6 +199,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   gint page_num;
   gchar *contents;
   gint line_number;
+  GTimeVal *modification_time;
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
 
@@ -210,7 +211,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   editor = codeslayer_editor_new (priv->window, document, priv->preferences, priv->settings);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
 
-  contents = get_utf8_text (file_path);
+  contents = codeslayer_utils_get_utf8_text (file_path);
   if (contents != NULL)
     {
       gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
@@ -219,8 +220,11 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
       gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
       g_free (contents);
     }
+  
+  modification_time = codeslayer_utils_get_modification_time (file_path);
+  codeslayer_editor_set_modification_time (CODESLAYER_EDITOR (editor), modification_time);
 
-  notebook_page = codeslayer_notebook_page_new (editor, document);
+  notebook_page = codeslayer_notebook_page_new (editor);
 
   /* create tab */
 
@@ -247,8 +251,8 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   gtk_notebook_set_tab_reorderable (GTK_NOTEBOOK (notebook),
                                     GTK_WIDGET (notebook_page), TRUE);
 
-  g_signal_connect_swapped (G_OBJECT (buffer), "changed",
-                            G_CALLBACK (buffer_changed_action), notebook);
+  g_signal_connect (G_OBJECT (buffer), "modified-changed",
+                    G_CALLBACK (buffer_modified_action), notebook);
 
   g_free (file_name);
 
@@ -261,36 +265,6 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   line_number = codeslayer_document_get_line_number (document);
   if (line_number > 0)
     codeslayer_editor_scroll_to_line (CODESLAYER_EDITOR (editor), line_number);
-}
-
-static gchar* 
-get_utf8_text (const gchar *file_path) 
-{
-  gchar *contents;
-	gsize bytes;
-	const gchar *charset;
-	gchar *result;
-	gint lineend;
-	
-	if (!g_file_get_contents (file_path, &contents, &bytes, NULL)) 
-    return NULL;	    
-	
-	lineend = detect_line_ending (contents);
-	if (lineend != LF)
-	  convert_line_ending_to_lf (contents);
-	
-  charset = detect_charset (contents);
-	if (charset == NULL)
-    charset = get_default_charset ();
-    
-  if (g_strcmp0 (charset, "UTF-8") == 0)
-    return contents;
-  
-  result = g_convert (contents, -1, "UTF-8", charset, NULL, NULL, NULL);
-	  
-  g_free(contents);
-  
-  return result;
 }
 
 /**
@@ -365,6 +339,7 @@ save_editor (CodeSlayerNotebook *notebook,
     {
       CodeSlayerDocument *document;
       const gchar *file_path;
+      GTimeVal *modification_time;
       gchar *contents;
       GtkTextIter start;
       GtkTextIter end;
@@ -381,6 +356,9 @@ save_editor (CodeSlayerNotebook *notebook,
           return NULL;
         }
       g_free (contents);
+      
+      modification_time = codeslayer_utils_get_modification_time (file_path);
+      codeslayer_editor_set_modification_time (CODESLAYER_EDITOR (editor), modification_time);
           
       g_signal_emit_by_name((gpointer)notebook, "editor-saved", editor);          
       gtk_text_buffer_set_modified (buffer, FALSE);
@@ -651,19 +629,24 @@ has_clean_buffer (CodeSlayerNotebook *notebook,
 }
 
 static void
-buffer_changed_action (CodeSlayerNotebook *notebook)
+buffer_modified_action (GtkTextBuffer      *buffer, 
+                        CodeSlayerNotebook *notebook)
 {
   gint page_num;
   GtkWidget *notebook_page;
   GtkWidget *notebook_tab;
-  
+
   page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
 
   notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), page_num);
 
   notebook_tab = gtk_notebook_get_tab_label (GTK_NOTEBOOK (notebook),
                                              GTK_WIDGET (notebook_page));
-  codeslayer_notebook_tab_show_buffer_dirty (CODESLAYER_NOTEBOOK_TAB (notebook_tab));
+                                             
+  if (gtk_text_buffer_get_modified (buffer))
+    codeslayer_notebook_tab_show_buffer_dirty (CODESLAYER_NOTEBOOK_TAB (notebook_tab));
+  else
+    codeslayer_notebook_tab_show_buffer_clean (CODESLAYER_NOTEBOOK_TAB (notebook_tab));
 }
 
 static void

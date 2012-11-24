@@ -68,6 +68,7 @@ struct _CodeSlayerEditorPrivate
 {
   GtkWindow             *window;
   CodeSlayerDocument    *document;
+  GTimeVal              *modification_time;
   CodeSlayerPreferences *preferences;
   CodeSlayerSettings    *settings;
   CodeSlayerCompletion  *completion;
@@ -192,6 +193,14 @@ codeslayer_editor_finalize (CodeSlayerEditor *editor)
   
   if (priv->completion != NULL)
     g_object_unref (priv->completion);
+    
+  if (priv->modification_time)
+    {
+      g_free (priv->modification_time);
+      priv->modification_time = NULL;
+    }
+    
+  g_object_unref (priv->document);    
 
   G_OBJECT_CLASS (codeslayer_editor_parent_class)->finalize (G_OBJECT (editor));
 }
@@ -225,6 +234,8 @@ codeslayer_editor_new (GtkWindow             *window,
   priv->preferences = preferences;
   priv->settings = settings;
   priv->window = window;
+  
+  g_object_ref_sink (G_OBJECT (priv->document));
   
   file_path = codeslayer_document_get_file_path (document);
   file_name = g_path_get_basename (file_path);
@@ -283,6 +294,41 @@ codeslayer_editor_get_file_path (CodeSlayerEditor *editor)
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   return codeslayer_document_get_file_path (priv->document);
 }
+
+/**
+ * codeslayer_editor_get_modification_time:
+ * @editor: a #CodeSlayerEditor  
+ *
+ * Returns: the modification time of the underlying file
+ */
+GTimeVal*
+codeslayer_editor_get_modification_time (CodeSlayerEditor *editor)
+{
+  CodeSlayerEditorPrivate *priv;
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+  return priv->modification_time;
+}
+
+/**
+ * codeslayer_editor_set_modification_time:
+ * @editor: a #CodeSlayerEditor  
+ * @modification_time: a #GTimeVal  
+ *
+ * The modification time of the underlying file
+ */
+void
+codeslayer_editor_set_modification_time (CodeSlayerEditor *editor, 
+                                         GTimeVal         *modification_time)
+{
+  CodeSlayerEditorPrivate *priv;
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+  if (priv->modification_time)
+    {
+      g_free (priv->modification_time);
+      priv->modification_time = NULL;
+    }
+  priv->modification_time = modification_time;
+}                                         
 
 /**
  * codeslayer_editor_add_completion_provider:

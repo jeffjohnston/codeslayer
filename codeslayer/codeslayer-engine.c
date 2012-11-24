@@ -573,7 +573,7 @@ project_modified_action (CodeSlayerEngine  *engine,
 
 static void
 select_projects_document_action (CodeSlayerEngine   *engine,
-                               CodeSlayerDocument *document)
+                                 CodeSlayerDocument *document)
 {
   CodeSlayerEnginePrivate *priv;
   GtkWidget *notebook;
@@ -998,11 +998,36 @@ static void
 scan_external_changes_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
+  gint pages;
+  gint page;
+  
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  g_print ("scan_external_changes\n");
-  
   codeslayer_projects_refresh (CODESLAYER_PROJECTS (priv->projects));
+  
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
+
+  for (page = 0; page < pages; page++)
+    {
+      GtkWidget *notebook_page; 
+      GtkWidget *editor;
+      const gchar *file_path;
+      GTimeVal *original_modification_time;
+      GTimeVal *latest_modification_time;
+      
+      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
+      editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      
+      original_modification_time = codeslayer_editor_get_modification_time (CODESLAYER_EDITOR (editor));
+
+      file_path = codeslayer_editor_get_file_path (CODESLAYER_EDITOR (editor));
+      latest_modification_time = codeslayer_utils_get_modification_time (file_path);
+      
+      if (latest_modification_time->tv_sec > original_modification_time->tv_sec)
+        codeslayer_notebook_page_show_external_changes_info_bar (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+        
+      g_free (latest_modification_time);
+    }
 }
 
 static void

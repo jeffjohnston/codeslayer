@@ -30,14 +30,9 @@
 static void codeslayer_notebook_page_class_init    (CodeSlayerNotebookPageClass *klass);
 static void codeslayer_notebook_page_init          (CodeSlayerNotebookPage      *notebook_page);
 static void codeslayer_notebook_page_finalize      (CodeSlayerNotebookPage      *notebook_page);
-static void codeslayer_notebook_page_get_property  (GObject                     *object, 
-                                                    guint                        prop_id, 
-                                                    GValue                      *value, 
-                                                    GParamSpec                  *pspec);
-static void codeslayer_notebook_page_set_property  (GObject                     *object, 
-                                                    guint                        prop_id, 
-                                                    const GValue                *value, 
-                                                    GParamSpec                  *pspec);
+
+static void external_changes_response_action       (CodeSlayerNotebookPage      *notebook_page,
+                                                    gint                         response_id);
 
 #define CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_NOTEBOOK_PAGE_TYPE, CodeSlayerNotebookPagePrivate))
@@ -47,7 +42,8 @@ typedef struct _CodeSlayerNotebookPagePrivate CodeSlayerNotebookPagePrivate;
 struct _CodeSlayerNotebookPagePrivate
 {
   GtkWidget          *editor;
-  CodeSlayerDocument *document;
+  GtkWidget          *document_not_found_info_bar;
+  GtkWidget          *external_changes_info_bar;
 };
 
 enum
@@ -63,89 +59,23 @@ static void
 codeslayer_notebook_page_class_init (CodeSlayerNotebookPageClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
   gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_notebook_page_finalize;
-
-  gobject_class->get_property = codeslayer_notebook_page_get_property;
-  gobject_class->set_property = codeslayer_notebook_page_set_property;
-
   g_type_class_add_private (klass, sizeof (CodeSlayerNotebookPagePrivate));
-
-  /**
-   * CodeSlayerNotebookPage:editor:
-   *
-   * A #CodeSlayerEditor that backs the page.
-   */
-  g_object_class_install_property (gobject_class, 
-                                   PROP_DOCUMENT,
-                                   g_param_spec_pointer ("editor", 
-                                                         "Editor",
-                                                         "Editor Object",
-                                                         G_PARAM_READWRITE));
-
-  /**
-   * CodeSlayerNotebookPage:document:
-   *
-   * A #CodeSlayerDocument that backs the page.
-   */
-  g_object_class_install_property (gobject_class, 
-                                   PROP_DOCUMENT,
-                                   g_param_spec_pointer ("document",
-                                                         "Document",
-                                                         "Document Object",
-                                                         G_PARAM_READWRITE));
 }
 
 static void
-codeslayer_notebook_page_init (CodeSlayerNotebookPage *notebook_page) {}
+codeslayer_notebook_page_init (CodeSlayerNotebookPage *notebook_page) 
+{
+  CodeSlayerNotebookPagePrivate *priv;
+  priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
+  priv->document_not_found_info_bar = NULL;
+  priv->external_changes_info_bar = NULL;
+}
 
 static void
 codeslayer_notebook_page_finalize (CodeSlayerNotebookPage *notebook_page)
 {
-  CodeSlayerNotebookPagePrivate *priv;
-  priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
-  g_object_unref (priv->document);
   G_OBJECT_CLASS (codeslayer_notebook_page_parent_class)->finalize (G_OBJECT(notebook_page));
-}
-
-static void
-codeslayer_notebook_page_get_property (GObject    *object, 
-                                       guint       prop_id,
-                                       GValue     *value, 
-                                       GParamSpec *pspec)
-{
-  CodeSlayerNotebookPagePrivate *priv;
-  CodeSlayerNotebookPage *notebook_page;
-  
-  notebook_page = CODESLAYER_NOTEBOOK_PAGE (object);
-  priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
-
-  switch (prop_id)
-    {
-    case PROP_DOCUMENT:
-      g_value_set_pointer (value, priv->document);
-      break;
-    case PROP_EDITOR:
-      g_value_set_pointer (value, priv->editor);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-    }
-}
-
-static void
-codeslayer_notebook_page_set_property (GObject      *object, 
-                                       guint         prop_id,
-                                       const GValue *value,
-                                       GParamSpec   *pspec)
-{
-  switch (prop_id)
-    {
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-    }
 }
 
 /**
@@ -158,8 +88,7 @@ codeslayer_notebook_page_set_property (GObject      *object,
  * Returns: a new #CodeSlayerNotebookPage. 
  */
 GtkWidget*
-codeslayer_notebook_page_new (GtkWidget   *editor,
-                              CodeSlayerDocument *document)
+codeslayer_notebook_page_new (GtkWidget *editor)
 {
   CodeSlayerNotebookPagePrivate *priv;
   GtkWidget *notebook_page;
@@ -169,8 +98,6 @@ codeslayer_notebook_page_new (GtkWidget   *editor,
 
   priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
   priv->editor = editor;
-  priv->document = document;
-  g_object_ref_sink (G_OBJECT (document));
 
   scrolled_window = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
@@ -200,10 +127,12 @@ codeslayer_notebook_page_get_editor (CodeSlayerNotebookPage *notebook_page)
  * 
  * Returns: the #CodeSlayerDocument in the page.
  */
-CodeSlayerDocument *
+CodeSlayerDocument*
 codeslayer_notebook_page_get_document (CodeSlayerNotebookPage *notebook_page)
 {
-  return CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page)->document;
+  CodeSlayerNotebookPagePrivate *priv;
+  priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
+  return codeslayer_editor_get_document (CODESLAYER_EDITOR (priv->editor));
 }
 
 /**
@@ -218,34 +147,111 @@ void
 codeslayer_notebook_page_show_document_not_found_info_bar (CodeSlayerNotebookPage *notebook_page)
 {
   CodeSlayerNotebookPagePrivate *priv;
-  GList *children;
-  
   priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
 
-  children = gtk_container_get_children (GTK_CONTAINER (notebook_page));
-  if (g_list_length (children) == 1)
+  if (priv->document_not_found_info_bar == NULL)
     {
-      GtkWidget *info_bar;
       GtkWidget *content_area;
-      const gchar *document_file_path;
+      CodeSlayerDocument *document;
+      const gchar *file_path;
       gchar *text;
       GtkWidget *label;
       
-      info_bar = gtk_info_bar_new ();
-      gtk_info_bar_set_message_type (GTK_INFO_BAR (info_bar), GTK_MESSAGE_ERROR);
+      priv->document_not_found_info_bar = gtk_info_bar_new ();
+      gtk_info_bar_set_message_type (GTK_INFO_BAR (priv->document_not_found_info_bar), GTK_MESSAGE_ERROR);
 
-      content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (info_bar));
-
-      document_file_path =  codeslayer_document_get_file_path (priv->document);
-      text = g_strdup_printf(_("The document %s no longer exists."), document_file_path);
+      content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (priv->document_not_found_info_bar));
+      document = codeslayer_editor_get_document (CODESLAYER_EDITOR (priv->editor));
+      file_path =  codeslayer_document_get_file_path (document);
+      text = g_strdup_printf(_("The document %s no longer exists."), file_path);
       label = gtk_label_new (text);
       gtk_container_add (GTK_CONTAINER (content_area), label);
       g_free (text);
 
-      gtk_box_pack_start (GTK_BOX (notebook_page), info_bar, FALSE, FALSE, 0);
-      gtk_box_reorder_child (GTK_BOX (notebook_page), info_bar, 0);
+      gtk_box_pack_start (GTK_BOX (notebook_page), priv->document_not_found_info_bar, FALSE, FALSE, 0);
+      gtk_box_reorder_child (GTK_BOX (notebook_page), priv->document_not_found_info_bar, 0);
 
       gtk_widget_show_all (GTK_WIDGET (notebook_page));
     }
-  g_list_free (children);
+}
+
+void 
+codeslayer_notebook_page_show_external_changes_info_bar (CodeSlayerNotebookPage *notebook_page)
+{
+  CodeSlayerNotebookPagePrivate *priv;
+  priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
+
+  if (priv->external_changes_info_bar == NULL)
+    {
+      GtkWidget *content_area;
+      CodeSlayerDocument *document;
+      const gchar *file_path;
+      gchar *text;
+      GtkWidget *label;
+      
+      priv->external_changes_info_bar = gtk_info_bar_new_with_buttons  (_("Reload"), GTK_RESPONSE_OK,
+                                                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+      
+      gtk_info_bar_set_message_type (GTK_INFO_BAR (priv->external_changes_info_bar), GTK_MESSAGE_WARNING);
+
+      content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (priv->external_changes_info_bar));
+
+      document = codeslayer_editor_get_document (CODESLAYER_EDITOR (priv->editor));
+      file_path =  codeslayer_document_get_file_path (document);
+      text = g_strdup_printf(_("The document %s changed on disk."), file_path);
+      label = gtk_label_new (text);
+      gtk_container_add (GTK_CONTAINER (content_area), label);
+      g_free (text);
+      
+      g_signal_connect_swapped (G_OBJECT (priv->external_changes_info_bar), "response",
+                                G_CALLBACK (external_changes_response_action), notebook_page);      
+
+      gtk_box_pack_start (GTK_BOX (notebook_page), priv->external_changes_info_bar, FALSE, FALSE, 0);
+      gtk_box_reorder_child (GTK_BOX (notebook_page), priv->external_changes_info_bar, 0);
+
+      gtk_widget_show_all (GTK_WIDGET (notebook_page));
+    }
+}
+
+static void
+external_changes_response_action (CodeSlayerNotebookPage *notebook_page, 
+                                  gint                    response_id)
+{
+  CodeSlayerNotebookPagePrivate *priv;
+  priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
+
+  if (response_id == GTK_RESPONSE_CANCEL)
+    {
+      gtk_container_remove (GTK_CONTAINER (notebook_page), priv->external_changes_info_bar);
+      priv->external_changes_info_bar = NULL;
+    }
+  else if (response_id == GTK_RESPONSE_OK)
+    {
+      CodeSlayerDocument *document;
+      const gchar *file_path;
+      GtkTextBuffer *buffer;
+      gchar *contents;
+
+      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(priv->editor));
+      document = codeslayer_editor_get_document (CODESLAYER_EDITOR (priv->editor));
+      file_path = codeslayer_document_get_file_path (document);
+
+      contents = codeslayer_utils_get_utf8_text (file_path);
+      if (contents != NULL)
+        {
+          GTimeVal *modification_time;
+
+          gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
+          gtk_text_buffer_set_text (GTK_TEXT_BUFFER (buffer), contents, -1);
+          gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
+          gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
+          g_free (contents);
+          
+          gtk_container_remove (GTK_CONTAINER (notebook_page), priv->external_changes_info_bar);
+          priv->external_changes_info_bar = NULL;
+
+          modification_time = codeslayer_utils_get_modification_time (file_path);
+          codeslayer_editor_set_modification_time (CODESLAYER_EDITOR (priv->editor), modification_time);
+        }
+    }
 }

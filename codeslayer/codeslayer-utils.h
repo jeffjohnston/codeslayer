@@ -69,7 +69,8 @@ GList*    codeslayer_utils_get_gobjects                  (GType        type,
                                                           gchar       *file_path,
                                                           gpointer  name, ...);
 void      codeslayer_utils_style_close_button            (GtkWidget   *widget);
-                                                          
+GTimeVal* codeslayer_utils_get_modification_time         (const gchar *file_path);
+gchar*    codeslayer_utils_get_utf8_text                 (const gchar *file_path);
 
 G_END_DECLS
 
