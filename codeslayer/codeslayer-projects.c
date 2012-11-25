@@ -1670,6 +1670,7 @@ paste_action (CodeSlayerProjects *projects)
   GtkTreeSelection *tree_selection;
   GList *selected_rows;
   GList *tmp;
+  gboolean found = FALSE;
   
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   
@@ -1680,6 +1681,10 @@ paste_action (CodeSlayerProjects *projects)
 
   tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->treeview));
   selected_rows = gtk_tree_selection_get_selected_rows (tree_selection, &tree_model);
+
+  if (selected_rows == NULL)
+    return;
+
   tmp = selected_rows;
   
   while (tmp != NULL)
@@ -1757,6 +1762,8 @@ paste_action (CodeSlayerProjects *projects)
               GFileType file_type;
               GtkTreeIter child;
               
+              found = TRUE;
+
               file_name = g_file_get_basename (destination);
               file_info = g_file_query_info (destination, "standard::*",
                                              G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, 
@@ -1780,7 +1787,7 @@ paste_action (CodeSlayerProjects *projects)
                                       PROJECT, NULL, -1);
                 }
               g_free (file_name);
-              g_object_unref (file_info);
+              g_object_unref (file_info);              
             }
 
           g_object_unref (destination);
@@ -1791,9 +1798,12 @@ paste_action (CodeSlayerProjects *projects)
       tmp = g_list_next (tmp);
     }
   g_list_free (selected_rows);
+  
+  if (found)
+    g_signal_emit_by_name ((gpointer) projects, "projects-changed");
 }
 
-static GFile *
+static GFile*
 create_destination (GFile       *source, 
                     const gchar *file_path)
 {
@@ -1831,7 +1841,6 @@ create_destination (GFile       *source,
                                             
       content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-      /*gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);*/
 
       hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
       gtk_box_set_homogeneous (GTK_BOX (hbox), FALSE);
