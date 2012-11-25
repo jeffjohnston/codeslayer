@@ -175,7 +175,8 @@ enum
 enum
 {
   REMOVE_PROJECT,
-  PROJECT_MODIFIED,
+  PROJECT_RENAMED,
+  PROJECTS_CHANGED,
   SELECT_DOCUMENT,
   FILE_PATH_RENAMED,
   RENAME_FILE_FOLDER,
@@ -228,8 +229,7 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
    *
    * Note: for internal use only.
    *
-   * The ::remove-project signal is a request for the project to be 
-   * removed from the group.
+   * The ::remove-project signal is a request to remove the project from the group.
    */
   codeslayer_projects_signals[REMOVE_PROJECT] =
     g_signal_new ("remove-project", 
@@ -240,20 +240,36 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-   * CodeSlayerProjects::project_modified
+   * CodeSlayerProjects::project-renamed
    * @codeslayerprojects: the projects that received the signal
    *
    * Note: for internal use only.
    *
-   * The ::project_modified signal is invoked when the project was updated.
+   * The ::project_renamed signal is invoked when the project was updated.
    */
-  codeslayer_projects_signals[PROJECT_MODIFIED] =
-    g_signal_new ("project-modified", 
+  codeslayer_projects_signals[PROJECT_RENAMED] =
+    g_signal_new ("project-renamed", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerProjectsClass, project_modified), 
+                  G_STRUCT_OFFSET (CodeSlayerProjectsClass, project_renamed), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
+
+  /**
+   * CodeSlayerProjects::projects-changed
+   * @codeslayerprojects: the projects that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::projects_changed signal is invoked when the projects structure changed.
+   */
+  codeslayer_projects_signals[PROJECTS_CHANGED] =
+    g_signal_new ("projects-changed", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
+                  G_STRUCT_OFFSET (CodeSlayerProjectsClass, projects_changed), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
    * CodeSlayerProjects::properties-opened
@@ -1375,7 +1391,7 @@ project_properties_action (CodeSlayerProjects *projects)
 
               codeslayer_project_set_name (project, name_strip);
 
-              g_signal_emit_by_name ((gpointer) projects, "project-modified", project);
+              g_signal_emit_by_name ((gpointer) projects, "project-renamed", project);
 
               gtk_tree_store_set (GTK_TREE_STORE (tree_model), &iter, FILE_NAME, name_strip, -1);
 

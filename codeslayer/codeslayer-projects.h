@@ -49,7 +49,8 @@ struct _CodeSlayerProjectsClass
 
   void (*select_document) (CodeSlayerProjects *projects);
   void (*remove_project) (CodeSlayerProjects *projects);
-  void (*project_modified) (CodeSlayerProjects *projects);
+  void (*project_renamed) (CodeSlayerProjects *projects);
+  void (*projects_changed) (CodeSlayerProjects *projects);
   void (*properties_opened) (CodeSlayerProjects *projects);
   void (*properties_saved) (CodeSlayerProjects *projects);
 

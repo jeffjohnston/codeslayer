@@ -81,7 +81,7 @@ static void add_projects_action                         (CodeSlayerEngine       
                                                          GSList                 *files);
 static void remove_project_action                       (CodeSlayerEngine       *engine,
                                                          CodeSlayerProject      *project);
-static void project_modified_action                     (CodeSlayerEngine       *engine,
+static void project_renamed_action                     (CodeSlayerEngine       *engine,
                                                          CodeSlayerProject      *project);
 static void select_projects_document_action             (CodeSlayerEngine       *engine,
                                                          CodeSlayerDocument     *document);
@@ -276,8 +276,8 @@ codeslayer_engine_new (GtkWindow             *window,
   g_signal_connect_swapped (G_OBJECT (projects), "remove-project",
                             G_CALLBACK (remove_project_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (projects), "project-modified",
-                            G_CALLBACK (project_modified_action), engine);
+  g_signal_connect_swapped (G_OBJECT (projects), "project_renamed",
+                            G_CALLBACK (project_renamed_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (projects), "select-document",
                             G_CALLBACK (select_projects_document_action), engine);
@@ -559,7 +559,7 @@ remove_project_action (CodeSlayerEngine  *engine,
 }
 
 static void
-project_modified_action (CodeSlayerEngine  *engine,
+project_renamed_action (CodeSlayerEngine  *engine,
                          CodeSlayerProject *project)
 {
   CodeSlayerEnginePrivate *priv;
