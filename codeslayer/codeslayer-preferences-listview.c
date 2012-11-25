@@ -58,12 +58,35 @@ enum
   COLUMNS
 };
 
+enum
+{
+  LIST_CHANGED,
+  LAST_SIGNAL
+};
+
+static guint codeslayer_preferences_list_view_signals[LAST_SIGNAL] = { 0 };
+
 G_DEFINE_TYPE (CodeSlayerPreferencesListView, codeslayer_preferences_list_view, G_TYPE_OBJECT)
      
 static void 
 codeslayer_preferences_list_view_class_init (CodeSlayerPreferencesListViewClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+  /**
+   * CodeSlayerPreferencesListView::list-changed
+   * @codeslayerpreferenceslistview: the list view that received the signal
+   *
+   * The ::list-changed signal is emitted when the list values are edited, added, or removed.
+   */
+  codeslayer_preferences_list_view_signals[LIST_CHANGED] =
+    g_signal_new ("list-changed", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerPreferencesListViewClass, list_changed), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
   gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_preferences_list_view_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerPreferencesListViewPrivate));
 }
@@ -189,5 +212,7 @@ list_changed_action (CodeSlayerPreferencesListView *preferences_listview,
   codeslayer_preferences_set_string (priv->preferences, priv->key, value);
   codeslayer_preferences_save (priv->preferences);
   codeslayer_preferences_utils_notify_editors (priv->preferences);
+  
+  g_signal_emit_by_name ((gpointer) preferences_listview, "list-changed");
   g_free (value);
 }

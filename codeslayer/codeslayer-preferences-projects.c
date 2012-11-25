@@ -18,6 +18,7 @@
 
 #include <codeslayer/codeslayer-preferences-projects.h>
 #include <codeslayer/codeslayer-preferences-listview.h>
+#include <codeslayer/codeslayer-preferences-utils.h>
 #include <codeslayer/codeslayer-utils.h>
 
 /**
@@ -94,6 +95,12 @@ codeslayer_preferences_projects_new (CodeSlayerPreferences *preferences)
   priv->exclude_directories = codeslayer_preferences_list_view_new (preferences, 
                                        CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS,
                                        preferences_projects, _("Exclude Directories"));
+                                       
+  g_signal_connect_swapped (G_OBJECT (priv->exclude_file_types), "list-changed",
+                            G_CALLBACK (codeslayer_preferences_utils_notify_projects), preferences);
+  
+  g_signal_connect_swapped (G_OBJECT (priv->exclude_directories), "list-changed",
+                            G_CALLBACK (codeslayer_preferences_utils_notify_projects), preferences);
   
   return preferences_projects;
 }

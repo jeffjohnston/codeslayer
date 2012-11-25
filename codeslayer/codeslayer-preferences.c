@@ -62,6 +62,7 @@ enum
   NOTEBOOK_PREFERENCES_CHANGED,
   SIDE_PANE_PREFERENCES_CHANGED,
   BOTTOM_PANE_PREFERENCES_CHANGED,
+  PROJECTS_PREFERENCES_CHANGED,
   INITIALIZE_PREFERENCES,
   LAST_SIGNAL
 };
@@ -150,6 +151,22 @@ codeslayer_preferences_class_init (CodeSlayerPreferencesClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerPreferencesClass, initialize_preferences), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  /**
+   * CodeSlayerPreferences::projects-preferences-changed
+   * @codeslayerpreferences: the preference that received the signal
+   *
+   * The ::projects-preferences-changed signal lets all observers know that 
+   * something in the preferences, related to the 
+   * #CodeSlayerProjects, changed.
+   */
+  codeslayer_preferences_signals[PROJECTS_PREFERENCES_CHANGED] =
+    g_signal_new ("projects_preferences_changed", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerPreferencesClass, projects_preferences_changed), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 

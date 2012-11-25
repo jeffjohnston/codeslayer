@@ -41,14 +41,16 @@ struct _CodeSlayerPreferencesListView
 struct _CodeSlayerPreferencesListViewClass
 {
   GObjectClass parent_class;
+
+  void (*list_changed) (CodeSlayerPreferencesListView *preferences_listview);
 };
 
 GType codeslayer_preferences_list_view_get_type (void) G_GNUC_CONST;
 
 GObject*  codeslayer_preferences_list_view_new (CodeSlayerPreferences *preferences, 
-                                               gchar                 *key,
-                                               GtkWidget             *tab, 
-                                               const gchar           *title);
+                                                gchar                 *key,
+                                                GtkWidget             *tab, 
+                                                const gchar           *title);
 
 G_END_DECLS
 

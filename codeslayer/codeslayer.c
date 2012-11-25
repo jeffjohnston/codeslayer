@@ -54,6 +54,7 @@ static void editor_removed_action            (CodeSlayer        *codeslayer,
 static void editor_switched_action           (CodeSlayer        *codeslayer,
                                               GtkWidget         *child,
                                               guint              page_num);
+static void projects_changed_action          (CodeSlayer        *codeslayer);
 
 #define CODESLAYER_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_TYPE, CodeSlayerPrivate))
@@ -83,6 +84,7 @@ enum
   EDITOR_SWITCHED,
   PROJECT_PROPERTIES_OPENED,
   PROJECT_PROPERTIES_SAVED,
+  PROJECTS_CHANGED,
   LAST_SIGNAL
 };
 
@@ -198,6 +200,20 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_PROJECT_TYPE);
 
+  /**
+	 * CodeSlayer::projects-changed
+	 * @codeslayer: the plugin that received the signal
+	 *
+	 * The ::projects_changed signal is invoked when the projects structure changed.
+	 */
+  codeslayer_signals[PROJECTS_CHANGED] =
+    g_signal_new ("projects-changed", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerClass, projects_changed), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerPrivate));
 }
@@ -258,6 +274,12 @@ codeslayer_new (GtkWindow                   *window,
   
   g_signal_connect_swapped (G_OBJECT (projects), "properties-saved",
                             G_CALLBACK (project_properties_closed_action), codeslayer);
+  
+  g_signal_connect_swapped (G_OBJECT (projects), "projects-changed",
+                            G_CALLBACK (projects_changed_action), codeslayer);
+  
+  g_signal_connect_swapped (G_OBJECT (preferences), "projects-preferences-changed",
+                            G_CALLBACK (projects_changed_action), codeslayer);
   
   return codeslayer;
 }
@@ -841,14 +863,14 @@ static void
 editor_saved_action (CodeSlayer       *codeslayer,
                      CodeSlayerEditor *editor)                     
 {
-  g_signal_emit_by_name ((gpointer)codeslayer, "editor-saved", editor);
+  g_signal_emit_by_name ((gpointer) codeslayer, "editor-saved", editor);
 }
 
 static void
 editors_all_saved_action (CodeSlayer *codeslayer,
                           GList      *editors)
 {
-  g_signal_emit_by_name ((gpointer)codeslayer, "editors-all-saved", editors);
+  g_signal_emit_by_name ((gpointer) codeslayer, "editors-all-saved", editors);
 }
 
 static void
@@ -858,7 +880,7 @@ editor_added_action (CodeSlayer  *codeslayer,
 {
   GtkWidget *editor;
   editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer)codeslayer, "editor-added", editor);
+  g_signal_emit_by_name ((gpointer) codeslayer, "editor-added", editor);
 }
 
 static void      
@@ -868,7 +890,7 @@ editor_removed_action (CodeSlayer  *codeslayer,
 {
   GtkWidget *editor;
   editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer)codeslayer, "editor-removed", editor);
+  g_signal_emit_by_name ((gpointer) codeslayer, "editor-removed", editor);
 }
 
 static void
@@ -882,19 +904,25 @@ editor_switched_action (CodeSlayer      *codeslayer,
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);  
   editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer)codeslayer, "editor-switched", editor);
+  g_signal_emit_by_name ((gpointer) codeslayer, "editor-switched", editor);
 }
 
 static void 
 project_properties_opened_action (CodeSlayer        *codeslayer,
                                   CodeSlayerProject *project)
 {
-  g_signal_emit_by_name ((gpointer)codeslayer, "project-properties-opened", project);
+  g_signal_emit_by_name ((gpointer) codeslayer, "project-properties-opened", project);
 }                                  
 
 static void 
 project_properties_closed_action (CodeSlayer        *codeslayer,
                                   CodeSlayerProject *project)
 {
-  g_signal_emit_by_name((gpointer)codeslayer, "project-properties-saved", project);
+  g_signal_emit_by_name((gpointer) codeslayer, "project-properties-saved", project);
+}                                  
+
+static void 
+projects_changed_action (CodeSlayer *codeslayer)
+{
+  g_signal_emit_by_name((gpointer) codeslayer, "projects-changed");
 }                                  

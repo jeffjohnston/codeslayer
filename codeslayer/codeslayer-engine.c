@@ -539,9 +539,11 @@ add_projects_action (CodeSlayerEngine *engine,
       codeslayer_repository_save_projects (active_group);
 
       codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
-
+      
       files = g_slist_next (files);
-    }  
+    }
+    
+  g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
 }
 
 static void
@@ -556,6 +558,8 @@ remove_project_action (CodeSlayerEngine  *engine,
 
   codeslayer_group_remove_project (active_group, project);
   codeslayer_repository_save_projects (active_group);
+  
+  g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
 }
 
 static void

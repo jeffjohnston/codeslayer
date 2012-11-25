@@ -63,6 +63,7 @@ struct _CodeSlayerPreferencesClass
   void (*notebook_preferences_changed) (CodeSlayerPreferences *preferences);
   void (*side_pane_preferences_changed) (CodeSlayerPreferences *preferences);
   void (*bottom_pane_preferences_changed) (CodeSlayerPreferences *preferences);
+  void (*projects_preferences_changed) (CodeSlayerPreferences *preferences);
   void (*initialize_preferences) (CodeSlayerPreferences *preferences);
 };
 

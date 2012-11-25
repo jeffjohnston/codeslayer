@@ -79,3 +79,9 @@ codeslayer_preferences_utils_notify_bottom_pane (CodeSlayerPreferences *preferen
 {
   g_signal_emit_by_name ((gpointer) preferences, "bottom-pane-preferences-changed");
 }
+
+void
+codeslayer_preferences_utils_notify_projects (CodeSlayerPreferences *preferences)
+{
+  g_signal_emit_by_name ((gpointer) preferences, "projects-preferences-changed");
+}

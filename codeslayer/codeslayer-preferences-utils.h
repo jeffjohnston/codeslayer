@@ -24,12 +24,13 @@
 
 G_BEGIN_DECLS
 
-GtkBox* codeslayer_preferences_utils_content_area   (GtkBox                *tab, 
-                                                     gchar                 *title);                                                 
-void codeslayer_preferences_utils_notify_editors    (CodeSlayerPreferences *preferences);
-void codeslayer_preferences_utils_notify_notebook   (CodeSlayerPreferences *preferences);
-void codeslayer_preferences_utils_notify_side_pane  (CodeSlayerPreferences *preferences);
-void codeslayer_preferences_utils_notify_bottom_pane  (CodeSlayerPreferences *preferences);
+GtkBox* codeslayer_preferences_utils_content_area    (GtkBox                *tab, 
+                                                      gchar                 *title);                                                 
+void codeslayer_preferences_utils_notify_editors     (CodeSlayerPreferences *preferences);
+void codeslayer_preferences_utils_notify_notebook    (CodeSlayerPreferences *preferences);
+void codeslayer_preferences_utils_notify_side_pane   (CodeSlayerPreferences *preferences);
+void codeslayer_preferences_utils_notify_bottom_pane (CodeSlayerPreferences *preferences);
+void codeslayer_preferences_utils_notify_projects    (CodeSlayerPreferences *preferences);
 
 G_END_DECLS
 

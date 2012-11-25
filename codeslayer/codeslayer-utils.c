@@ -448,7 +448,7 @@ codeslayer_utils_get_modification_time (const gchar *file_path)
                             
   g_file_info_get_modification_time (info, &time);
   
-  result = g_malloc (sizeof (GTime));
+  result = g_malloc (sizeof (GTimeVal));
   
   result->tv_sec = time.tv_sec;
   result->tv_usec = time.tv_usec;

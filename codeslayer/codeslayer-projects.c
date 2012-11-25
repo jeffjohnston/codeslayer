@@ -1960,6 +1960,8 @@ move_to_trash_action (CodeSlayerProjects *projects)
         }
     }
   g_list_free (tree_row_references);
+  
+  g_signal_emit_by_name ((gpointer) projects, "projects-changed");
 }
 
 static void
@@ -2033,6 +2035,8 @@ edited_action (CodeSlayerProjects *projects,
         }
 
       g_object_set (G_OBJECT (priv->cell_text), "editable", FALSE, NULL);
+      
+      g_signal_emit_by_name ((gpointer) projects, "projects-changed");
 
       g_object_unref (file);
       g_free (file_path);

@@ -73,6 +73,7 @@ struct _CodeSlayerClass
   void (*editor_switched) (CodeSlayer *codeslayer);
   void (*project_properties_opened) (CodeSlayer *codeslayer);
   void (*project_properties_saved) (CodeSlayer *codeslayer);
+  void (*projects_changed) (CodeSlayer *codeslayer);
 };
 
 GType codeslayer_get_type (void) G_GNUC_CONST;
