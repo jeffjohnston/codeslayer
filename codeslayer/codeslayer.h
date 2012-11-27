@@ -156,11 +156,11 @@ CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer
 CodeSlayerPreferences*    codeslayer_get_preferences                 (CodeSlayer                  *codeslayer);
 
 GtkWindow*                codeslayer_get_toplevel_window             (CodeSlayer                  *codeslayer);
-gint                      codeslayer_add_to_processes                (CodeSlayer                  *codeslayer,
+gint                      codeslayer_add_to_process_bar              (CodeSlayer                  *codeslayer,
                                                                       gchar                       *name,
                                                                       StopProcessFunc              func,
                                                                       gpointer                     data);
-void                      codeslayer_remove_from_processes           (CodeSlayer                  *codeslayer,
+void                      codeslayer_remove_from_process_bar         (CodeSlayer                  *codeslayer,
                                                                       gint                         id);
 CodeSlayerEditorLinker*   codeslayer_get_editor_linker               (CodeSlayer                  *codeslayer,
                                                                       GtkTextView                 *text_view);

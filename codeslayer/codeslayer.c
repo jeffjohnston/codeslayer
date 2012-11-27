@@ -796,19 +796,19 @@ codeslayer_get_toplevel_window (CodeSlayer *codeslayer)
 }
 
 /**
- * codeslayer_add_to_processes:
+ * codeslayer_add_to_process_bar:
  * @codeslayer: a #CodeSlayer.
  * @name: the name of the process.
- * @func: a #GThreadFunc to execute in the new thread
- * @data: an argument to supply to the new thread
+ * @func: a #StopProcessFunc is a callback to request that the process be stopped
+ * @data: user data supplied to the #StopProcessFunc
  *
  * Returns: The identifier for the process.
  */
 gint
-codeslayer_add_to_processes (CodeSlayer      *codeslayer,
-                             gchar           *name,
-                             StopProcessFunc  func,
-                             gpointer         data)
+codeslayer_add_to_process_bar (CodeSlayer      *codeslayer,
+                               gchar           *name,
+                               StopProcessFunc  func,
+                               gpointer         data)
 {
   CodeSlayerPrivate *priv;
   CodeSlayerProcess *process;
@@ -836,8 +836,8 @@ codeslayer_add_to_processes (CodeSlayer      *codeslayer,
  * @id: the identifier for the process.
  */
 void 
-codeslayer_remove_from_processes (CodeSlayer *codeslayer,
-                                  gint        id)
+codeslayer_remove_from_process_bar (CodeSlayer *codeslayer,
+                                    gint        id)
 {
   CodeSlayerPrivate *priv;
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
