@@ -49,7 +49,7 @@ CodeSlayerEditorLinker*  codeslayer_editor_linker_new           (GObject        
 const gchar *            codeslayer_editor_linker_get_pattern   (CodeSlayerEditorLinker *linker);
 void                     codeslayer_editor_linker_set_pattern   (CodeSlayerEditorLinker *linker, 
                                                                  const gchar            *pattern);
-void                     codeslayer_editor_linker_create_links  (CodeSlayerEditorLinker *linker);
+gint                     codeslayer_editor_linker_create_links  (CodeSlayerEditorLinker *linker);
 
 G_END_DECLS
 

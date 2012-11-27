@@ -230,8 +230,10 @@ codeslayer_editor_linker_set_pattern (CodeSlayerEditorLinker *linker,
 /**
  * codeslayer_editor_linker_create_links:
  * @linker: a #CodeSlayerEditorLinker.
+ *
+ * Returns: the number of links that were created.
  */
-void
+gint
 codeslayer_editor_linker_create_links (CodeSlayerEditorLinker *linker)
 {
   CodeSlayerEditorLinkerPrivate *priv;
@@ -254,6 +256,11 @@ codeslayer_editor_linker_create_links (CodeSlayerEditorLinker *linker)
   priv->links = mark_links (linker, buffer, matches);
   g_list_foreach (matches, (GFunc) g_free, NULL);
   g_free (text);
+  
+  if (priv->links == NULL)
+    return 0;
+  
+  return g_list_length (priv->links);
 }
 
 static void
