@@ -767,13 +767,11 @@ search_find_projects_action (CodeSlayerEngine *engine,
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  if (!priv->search)
+  if (priv->search == NULL)
     {
       priv->search = codeslayer_search_new (priv->window, 
                                             priv->preferences, 
                                             priv->groups);
-
-      gtk_window_set_type_hint (GTK_WINDOW (priv->search), GDK_WINDOW_TYPE_HINT_DIALOG);
 
       g_signal_connect_swapped (G_OBJECT (priv->search), "close",
                                 G_CALLBACK (close_search_action), engine);

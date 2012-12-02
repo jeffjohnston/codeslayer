@@ -219,9 +219,10 @@ codeslayer_search_class_init (CodeSlayerSearchClass *klass)
 static void
 codeslayer_search_init (CodeSlayerSearch *search)
 {
-  gtk_window_set_title (GTK_WINDOW (search), _("Search"));  
+  gtk_window_set_type_hint (GTK_WINDOW (search), GDK_WINDOW_TYPE_HINT_DIALOG);
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (search), TRUE);
   gtk_window_set_skip_pager_hint (GTK_WINDOW (search), TRUE);
+  gtk_window_set_title (GTK_WINDOW (search), _("Search"));  
   gtk_container_set_border_width (GTK_CONTAINER (search), 3);
 }
 
@@ -250,8 +251,8 @@ codeslayer_search_finalize (CodeSlayerSearch *search)
  */
 GtkWidget*
 codeslayer_search_new (GtkWindow             *window, 
-                            CodeSlayerPreferences *preferences, 
-                            CodeSlayerGroups      *groups)
+                       CodeSlayerPreferences *preferences, 
+                       CodeSlayerGroups      *groups)
 {
   CodeSlayerSearchPrivate *priv;
   GtkWidget *search;
