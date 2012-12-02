@@ -461,7 +461,7 @@ select_link_action (CodeSlayerEditorLinker *linker,
         }
     }
 
-  return TRUE;
+  return FALSE;
 }
 
 static gboolean
