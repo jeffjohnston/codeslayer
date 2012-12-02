@@ -435,17 +435,33 @@ select_link_action (CodeSlayerEditorLinker *linker,
               
               project = codeslayer_get_project_by_file_path (priv->codeslayer, 
                                                              link->file_path);
+                                                             
+              if (project == NULL)
+                {
+                  GtkWidget *dialog;
+                  dialog = gtk_message_dialog_new (NULL, 
+                                                   GTK_DIALOG_MODAL,
+                                                   GTK_MESSAGE_WARNING,
+                                                   GTK_BUTTONS_OK,
+                                                   _("The link is not valid."));
+                  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+                  gtk_dialog_run (GTK_DIALOG (dialog));
+                  gtk_widget_destroy (dialog);
+                  g_object_unref (document);
+                  return TRUE;
+                }
+
               codeslayer_document_set_project (document, project);
               
               codeslayer_select_editor (priv->codeslayer, document);
               g_object_unref (document);
-              return FALSE;
+              return TRUE;
             }
           list = g_list_next (list);
         }
     }
 
-  return FALSE;
+  return TRUE;
 }
 
 static gboolean
