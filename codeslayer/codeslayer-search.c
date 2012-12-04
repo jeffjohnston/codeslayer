@@ -290,6 +290,7 @@ codeslayer_search_new (GtkWindow             *window,
 static gboolean
 on_delete_event (CodeSlayerSearch *search)
 {
+  g_signal_emit_by_name ((gpointer) search, "close");
   return TRUE;
 }
 
