@@ -44,7 +44,8 @@ typedef struct
 static void codeslayer_search_class_init    (CodeSlayerSearchClass *klass);
 static void codeslayer_search_init          (CodeSlayerSearch      *search);
 static void codeslayer_search_finalize      (CodeSlayerSearch      *search);
-                                                  
+
+static gboolean on_delete_event             (CodeSlayerSearch      *search);
 static void add_search_fields               (CodeSlayerSearch      *search);
 static void add_more_options                (CodeSlayerSearch      *search);
 static void add_results_window              (CodeSlayerSearch      *search);
@@ -267,6 +268,9 @@ codeslayer_search_new (GtkWindow             *window,
   gtk_window_set_transient_for (GTK_WINDOW (search), window);
   gtk_window_set_destroy_with_parent (GTK_WINDOW (search), TRUE);
 
+	g_signal_connect_swapped (G_OBJECT (search), "delete_event", 
+	                          G_CALLBACK (on_delete_event), search);
+
   priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
   gtk_box_set_homogeneous (GTK_BOX (priv->vbox), FALSE);
   gtk_box_set_spacing (GTK_BOX (priv->vbox), 0);
@@ -276,8 +280,17 @@ codeslayer_search_new (GtkWindow             *window,
   add_more_options (CODESLAYER_SEARCH (search));
   add_results_window (CODESLAYER_SEARCH (search));  
   add_button_box (CODESLAYER_SEARCH (search));
-  
+
   return search;
+}
+
+/* 
+ * From the GTK+ docs...returning TRUE means we do not want the window to be destroyed.
+ */
+static gboolean
+on_delete_event (CodeSlayerSearch *search)
+{
+  return TRUE;
 }
 
 /**
