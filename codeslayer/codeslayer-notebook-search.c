@@ -52,6 +52,7 @@ static GtkWidget *get_editor                       (CodeSlayerNotebookSearch    
 static void find_entry_action                      (CodeSlayerNotebookSearch      *notebook_search);
 static gboolean entry_keypress_action              (CodeSlayerNotebookSearch      *notebook_search,
                                                     GdkEventKey                   *event);
+static void create_search_marks                    (CodeSlayerNotebookSearch      *notebook_search);
 static void clear_search_marks                     (CodeSlayerNotebookSearch      *notebook_search);
 static void clear_all_search_marks                 (CodeSlayerNotebookSearch      *notebook_search);
 static void replace_action                         (CodeSlayerNotebookSearch      *notebook_search);
@@ -313,7 +314,7 @@ codeslayer_notebook_search_replace (CodeSlayerNotebookSearch *notebook_search)
   gtk_widget_show (priv->replace_button);
   gtk_widget_show (priv->replace_all_button);
 
-  codeslayer_notebook_search_create_search_marks (notebook_search);
+  create_search_marks (notebook_search);
   
   if (current != NULL)
     g_free (current);
@@ -451,7 +452,7 @@ add_match_case_button (CodeSlayerNotebookSearch *notebook_search)
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_case_button), match_case_selected);
 
   g_signal_connect_swapped (G_OBJECT (match_case_button), "clicked",
-                            G_CALLBACK (codeslayer_notebook_search_create_search_marks), notebook_search);
+                            G_CALLBACK (create_search_marks), notebook_search);
 
   g_signal_connect_swapped (G_OBJECT (match_case_button), "clicked",
                             G_CALLBACK (save_search_options), notebook_search);
@@ -480,7 +481,7 @@ add_match_word_button (CodeSlayerNotebookSearch *notebook_search)
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_word_button), match_word_selected);
 
   g_signal_connect_swapped (G_OBJECT (match_word_button), "clicked",
-                            G_CALLBACK (codeslayer_notebook_search_create_search_marks), notebook_search);
+                            G_CALLBACK (create_search_marks), notebook_search);
 
   g_signal_connect_swapped (G_OBJECT (match_word_button), "clicked",
                             G_CALLBACK (save_search_options), notebook_search);
@@ -601,7 +602,7 @@ codeslayer_notebook_search_sync_with_notebook (CodeSlayerNotebookSearch *noteboo
 static void
 find_entry_action (CodeSlayerNotebookSearch *notebook_search)
 {
-  codeslayer_notebook_search_create_search_marks (notebook_search);
+  create_search_marks (notebook_search);
 }
 
 static gboolean            
@@ -648,17 +649,25 @@ search_find (CodeSlayerNotebookSearch *notebook_search)
   if (current != NULL)
     g_free (current);
 
-  codeslayer_notebook_search_create_search_marks (notebook_search);
+  create_search_marks (notebook_search);
+}
+
+static void
+create_search_marks (CodeSlayerNotebookSearch *notebook_search)
+{
+  codeslayer_notebook_search_create_search_marks (notebook_search, TRUE);
 }
 
 /**
  * codeslayer_notebook_search_create_search_marks:
  * @notebook_search: a #CodeSlayerNotebookSearch.
+ * @scrollable: is TRUE if should scroll after finding marks.
  * 
  * Create the search marks based on the current settings.
  */
 void
-codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebook_search)
+codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebook_search, 
+                                                gboolean                  scrollable)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *editor;
@@ -717,7 +726,7 @@ codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebo
       start = begin;
     }
 
-  if (need_to_scroll)
+  if (need_to_scroll && scrollable)
     {
       gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (editor), &first, .1, FALSE, 0, 0);
       gtk_text_buffer_place_cursor (buffer, &first);
