@@ -649,7 +649,7 @@ search_find (CodeSlayerNotebookSearch *notebook_search)
   if (current != NULL)
     g_free (current);
 
-  create_search_marks (notebook_search);
+  codeslayer_notebook_search_create_search_marks (notebook_search, FALSE);
 }
 
 static void
