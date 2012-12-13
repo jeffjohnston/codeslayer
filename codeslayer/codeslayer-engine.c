@@ -368,8 +368,6 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
       codeslayer_group_set_projects (active_group, projects);
     }
   
-  documents = codeslayer_repository_get_documents (active_group);
-
   codeslayer_projects_load_group (CODESLAYER_PROJECTS (priv->projects), active_group);
   
   if (codeslayer_group_get_libs (active_group) == NULL)
@@ -380,6 +378,7 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
     }
   codeslayer_plugins_activate (priv->plugins, active_group);
 
+  documents = codeslayer_repository_get_documents (active_group);
   tmp = documents;
 
   while (tmp != NULL)
