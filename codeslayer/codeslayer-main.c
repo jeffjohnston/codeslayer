@@ -141,10 +141,6 @@ main (int   argc,
   
   create_engine (&context);
 
-  load_plugins (&context);
-  
-  codeslayer_engine_open_active_group (context.engine);
-
   create_paned_containers (&context);
 
   pack_window (&context);
@@ -152,7 +148,11 @@ main (int   argc,
   gtk_widget_show_all (context.window);
   
   set_visbility_of_panes (&context);
+
+  load_plugins (&context);
   
+  codeslayer_engine_open_active_group (context.engine);
+
   gtk_main ();
 
   return 0;

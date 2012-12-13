@@ -359,14 +359,6 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
 
   active_group = codeslayer_groups_get_active_group (priv->groups);
   
-  if (codeslayer_group_get_libs (active_group) == NULL)
-    {
-      GList *libs;
-      libs = codeslayer_repository_get_libs (active_group);
-      codeslayer_group_set_libs (active_group, libs);
-    }
-  codeslayer_plugins_activate (priv->plugins, active_group);
-  
   codeslayer_preferences_load (priv->preferences, active_group);
 
   if (codeslayer_group_get_projects (active_group) == NULL)
@@ -380,6 +372,14 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
 
   codeslayer_projects_load_group (CODESLAYER_PROJECTS (priv->projects), active_group);
   
+  if (codeslayer_group_get_libs (active_group) == NULL)
+    {
+      GList *libs;
+      libs = codeslayer_repository_get_libs (active_group);
+      codeslayer_group_set_libs (active_group, libs);
+    }
+  codeslayer_plugins_activate (priv->plugins, active_group);
+
   tmp = documents;
 
   while (tmp != NULL)
@@ -1030,6 +1030,8 @@ scan_external_changes_action (CodeSlayerEngine *engine)
         
       g_free (latest_modification_time);
     }
+
+  g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
 }
 
 static void
