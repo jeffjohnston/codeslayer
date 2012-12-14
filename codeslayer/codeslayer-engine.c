@@ -323,8 +323,6 @@ codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  codeslayer_plugins_deactivate (priv->plugins);
-
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
   for (page = 0; page < pages; page++)
     {
@@ -341,12 +339,10 @@ codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
   
   result = codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
 
-  /*User wants to stay in group. TODO: can we just disconnect the signasl?*/
-  if (result == FALSE)
-    {
-      codeslayer_plugins_activate (priv->plugins, active_group);
-      codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
-    }
+  if (result)
+    codeslayer_plugins_deactivate (priv->plugins);
+  else
+    codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
   
   return result;
 }
@@ -380,6 +376,15 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
   
   codeslayer_projects_load_group (CODESLAYER_PROJECTS (priv->projects), active_group);
 
+  if (codeslayer_group_get_libs (active_group) == NULL)
+    {
+      GList *libs;
+      libs = codeslayer_repository_get_libs (active_group);
+      codeslayer_group_set_libs (active_group, libs);
+    }
+  
+  codeslayer_plugins_activate (priv->plugins, active_group);
+
   documents = codeslayer_repository_get_documents (active_group);
   tmp = documents;
 
@@ -395,15 +400,6 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
 
   codeslayer_menubar_sync_with_notebook (CODESLAYER_MENUBAR (priv->menubar), priv->notebook);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
-
-  if (codeslayer_group_get_libs (active_group) == NULL)
-    {
-      GList *libs;
-      libs = codeslayer_repository_get_libs (active_group);
-      codeslayer_group_set_libs (active_group, libs);
-    }
-  
-  codeslayer_plugins_activate (priv->plugins, active_group);
 }
 
 static void
