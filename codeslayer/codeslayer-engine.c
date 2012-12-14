@@ -315,21 +315,21 @@ gboolean
 codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  GtkWidget *notebook;
   gint pages;
   CodeSlayerGroup *active_group;
   GList *documents = NULL;
   gint page;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  notebook = priv->notebook;
-  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
 
+  codeslayer_plugins_deactivate (priv->plugins);
+
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
   for (page = 0; page < pages; page++)
     {
       GtkWidget *notebook_page;
       CodeSlayerDocument *document;
-      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), page);
+      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
       document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
       documents = g_list_append (documents, document);
     }
@@ -337,8 +337,8 @@ codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
   active_group = codeslayer_groups_get_active_group (priv->groups);
   codeslayer_repository_save_documents (active_group, documents);
   g_list_free (documents);
-
-  return codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (notebook));
+  
+  return codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
 }
 
 /**
@@ -369,14 +369,6 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
     }
   
   codeslayer_projects_load_group (CODESLAYER_PROJECTS (priv->projects), active_group);
-  
-  if (codeslayer_group_get_libs (active_group) == NULL)
-    {
-      GList *libs;
-      libs = codeslayer_repository_get_libs (active_group);
-      codeslayer_group_set_libs (active_group, libs);
-    }
-  codeslayer_plugins_activate (priv->plugins, active_group);
 
   documents = codeslayer_repository_get_documents (active_group);
   tmp = documents;
@@ -393,6 +385,15 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
 
   codeslayer_menubar_sync_with_notebook (CODESLAYER_MENUBAR (priv->menubar), priv->notebook);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+
+  if (codeslayer_group_get_libs (active_group) == NULL)
+    {
+      GList *libs;
+      libs = codeslayer_repository_get_libs (active_group);
+      codeslayer_group_set_libs (active_group, libs);
+    }
+  
+  codeslayer_plugins_activate (priv->plugins, active_group);
 }
 
 static void

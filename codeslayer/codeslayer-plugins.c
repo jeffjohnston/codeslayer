@@ -133,26 +133,13 @@ codeslayer_plugins_activate (CodeSlayerPlugins *plugins,
     {
       CodeSlayerPlugin *plugin = list->data;
       const gchar *lib;
-      
       lib = codeslayer_plugin_get_lib (plugin);
-      
-      if (codeslayer_group_contains_lib (group, lib))
+      if (codeslayer_group_contains_lib (group, lib) && 
+          !codeslayer_plugin_get_enabled (plugin))
         {
-          if (!codeslayer_plugin_get_enabled (plugin))
-            {
-              codeslayer_plugin_set_enabled (plugin, TRUE);
-              codeslayer_plugin_activate (plugin);
-            }
+          codeslayer_plugin_set_enabled (plugin, TRUE);
+          codeslayer_plugin_activate (plugin);
         }
-      else
-        {
-          if (codeslayer_plugin_get_enabled (plugin))
-            {
-              codeslayer_plugin_set_enabled (plugin, FALSE);
-              codeslayer_plugin_deactivate (plugin);
-            }
-        }
-      
       list = g_list_next (list);
     }
 }
@@ -175,7 +162,10 @@ codeslayer_plugins_deactivate (CodeSlayerPlugins *plugins)
     {
       CodeSlayerPlugin *plugin = list->data;
       if (codeslayer_plugin_get_enabled (plugin))
-        codeslayer_plugin_deactivate (plugin);
+        {
+          codeslayer_plugin_set_enabled (plugin, FALSE);
+          codeslayer_plugin_deactivate (plugin);
+        }
       list = g_list_next (list);
     }
 }
