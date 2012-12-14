@@ -426,7 +426,6 @@ delete_event (GtkWidget *window,
 
   save_settings (context);
   codeslayer_repository_save_groups (context->groups);
-  codeslayer_plugins_deactivate (context->plugins);
   return FALSE;
 }
 
@@ -437,7 +436,6 @@ quit_application_action (Context *context)
     return;
   
   save_settings (context);
-  codeslayer_plugins_deactivate (context->plugins);
   gtk_widget_destroy (context->window);
 }
 

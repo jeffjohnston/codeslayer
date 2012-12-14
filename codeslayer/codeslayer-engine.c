@@ -319,6 +319,7 @@ codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
   CodeSlayerGroup *active_group;
   GList *documents = NULL;
   gint page;
+  gboolean result;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
@@ -338,7 +339,16 @@ codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
   codeslayer_repository_save_documents (active_group, documents);
   g_list_free (documents);
   
-  return codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
+  result = codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
+
+  /*User wants to stay in group. TODO: can we just disconnect the signasl?*/
+  if (result == FALSE)
+    {
+      codeslayer_plugins_activate (priv->plugins, active_group);
+      codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
+    }
+  
+  return result;
 }
 
 /**
