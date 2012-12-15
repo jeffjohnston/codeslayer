@@ -401,26 +401,38 @@ codeslayer_notebook_close_editor (CodeSlayerNotebook *notebook,
 }
 
 /**
- * codeslayer_notebook_close_all_editors:
+ * codeslayer_notebook_has_clean_buffers:
  * @notebook: a #CodeSlayerNotebook.
  *
- * Returns: is TRUE unless there are editors that need to saved. If there are 
- *          editors that still need to be saved then the pages will not be 
- *          closed and this method will return FALSE.
+ * Returns: is FALSE unless there are editors that need to saved.
  */
 gboolean
-codeslayer_notebook_close_all_editors (CodeSlayerNotebook *notebook)
+codeslayer_notebook_has_unsaved_editors (CodeSlayerNotebook *notebook)
 {
   gint pages;
   gint i;
-  gint page_num;
-  GtkWidget *notebook_page;
   
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
 
   for (i = 0; i < pages; i++)
       if (!has_clean_buffer (notebook, i))
-          return FALSE;
+          return TRUE;
+
+  return FALSE;
+}
+
+/**
+ * codeslayer_notebook_close_all_editors:
+ * @notebook: a #CodeSlayerNotebook.
+ */
+void
+codeslayer_notebook_close_all_editors (CodeSlayerNotebook *notebook)
+{
+  gint pages;
+  gint page_num;
+  GtkWidget *notebook_page;
+  
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
 
   page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
   notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), page_num);
@@ -436,8 +448,6 @@ codeslayer_notebook_close_all_editors (CodeSlayerNotebook *notebook)
     }
 
   gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), 0);
-
-  return TRUE;
 }
 
 /**
@@ -488,7 +498,8 @@ static void
 close_all_editors_action (CodeSlayerNotebookTab *notebook_tab,
                           CodeSlayerNotebook    *notebook)
 {
-  codeslayer_notebook_close_all_editors (notebook);
+  if (!codeslayer_notebook_has_unsaved_editors (notebook))
+    codeslayer_notebook_close_all_editors (notebook);
 }
 
 static void

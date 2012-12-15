@@ -319,9 +319,16 @@ codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
   CodeSlayerGroup *active_group;
   GList *documents = NULL;
   gint page;
-  gboolean result;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
+    {
+      codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
+      return FALSE;
+    }
+
+  codeslayer_plugins_deactivate (priv->plugins);
 
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
   for (page = 0; page < pages; page++)
@@ -337,14 +344,9 @@ codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
   codeslayer_repository_save_documents (active_group, documents);
   g_list_free (documents);
   
-  result = codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
-
-  if (result)
-    codeslayer_plugins_deactivate (priv->plugins);
-  else
-    codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
+  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   
-  return result;
+  return TRUE;
 }
 
 /**
@@ -436,16 +438,13 @@ new_group_action (CodeSlayerEngine *engine,
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  group = codeslayer_group_new ();
-
-  codeslayer_group_set_name (group, group_name);
-  
-  g_object_force_floating (G_OBJECT (group));
-
-  codeslayer_repository_create_group (group);
-
   if (!codeslayer_engine_close_active_group (engine))
     return;
+
+  group = codeslayer_group_new ();
+  codeslayer_group_set_name (group, group_name);
+  g_object_force_floating (G_OBJECT (group));
+  codeslayer_repository_create_group (group);
 
   codeslayer_groups_add_group (priv->groups, group);
   set_active_group (engine, group);
@@ -478,14 +477,13 @@ remove_group_action (CodeSlayerEngine *engine)
     
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
+  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
+
   active_group = codeslayer_groups_get_active_group (priv->groups);
   group_name = codeslayer_group_get_name (active_group);
   next_group = codeslayer_groups_find_next_group (priv->groups, group_name);
 
   codeslayer_repository_delete_group (active_group);
-
-  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
-
   codeslayer_groups_remove_group (priv->groups, active_group);
   set_active_group (engine, next_group);
 }
