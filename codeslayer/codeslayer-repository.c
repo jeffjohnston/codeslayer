@@ -402,7 +402,7 @@ codeslayer_repository_get_documents (CodeSlayerGroup *group)
                                 DOCUMENTS_XML, NULL);
 
   gobjects = codeslayer_utils_get_gobjects (CODESLAYER_DOCUMENT_TYPE,
-                                            TRUE,
+                                            FALSE,
                                             file_path, 
                                             "document",
                                             "project_key", G_TYPE_STRING, 

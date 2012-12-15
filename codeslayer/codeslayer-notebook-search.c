@@ -378,6 +378,8 @@ add_find_entry (CodeSlayerNotebookSearch *notebook_search)
   find_entry = gtk_combo_box_text_new_with_entry ();
   priv->find_entry = find_entry;
   gtk_combo_box_set_model (GTK_COMBO_BOX (find_entry), GTK_TREE_MODEL (find_store));
+  g_object_unref (find_store);
+  
   entry_set_text (find_entry, find_store, "");                                                   
   gtk_widget_set_size_request (find_entry, 250, -1);                                                   
   

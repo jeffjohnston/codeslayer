@@ -605,8 +605,7 @@ create_popup_menu (CodeSlayerProjects *projects)
   priv->project_separator = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->project_separator);
 
-  priv->new_folder_item = gtk_image_menu_item_new_from_stock 
-    (GTK_STOCK_ADD, NULL);
+  priv->new_folder_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_ADD, NULL);
   gtk_menu_item_set_label (GTK_MENU_ITEM (priv->new_folder_item), _("Create Folder"));
   g_signal_connect_swapped (G_OBJECT (priv->new_folder_item), "activate",
                             G_CALLBACK (new_folder_action), projects);

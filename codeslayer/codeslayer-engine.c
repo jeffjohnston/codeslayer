@@ -389,6 +389,7 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
       tmp = g_list_next (tmp);
     }
 
+  g_list_foreach (documents, (GFunc) g_object_unref, NULL);
   g_list_free (documents);
 
   codeslayer_menubar_sync_with_notebook (CODESLAYER_MENUBAR (priv->menubar), priv->notebook);
