@@ -5,6 +5,7 @@
 #include <codeslayer/codeslayer-completion.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-editor.h>
+#include <codeslayer/codeslayer-editor-linker.h>
 #include <codeslayer/codeslayer-engine.h>
 #include <codeslayer/codeslayer-group-properties.h>
 #include <codeslayer/codeslayer-group.h>
@@ -33,8 +34,9 @@
 #include <codeslayer/codeslayer-preferences-projects.h>
 #include <codeslayer/codeslayer-preferences-theme.h>
 #include <codeslayer/codeslayer-preferences.h>
-#include <codeslayer/codeslayer-process.h>
+#include <codeslayer/codeslayer-processbar.h>
 #include <codeslayer/codeslayer-processes.h>
+#include <codeslayer/codeslayer-process.h>
 #include <codeslayer/codeslayer-project-properties.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-projects-selection.h>
@@ -44,7 +46,6 @@
 #include <codeslayer/codeslayer-search.h>
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-side-pane.h>
-#include <codeslayer/codeslayer-statusbar.h>
 #include <codeslayer/codeslayer.h>
 
 codeslayer_abstract_pane_get_type
@@ -54,6 +55,7 @@ codeslayer_completion_provider_get_type
 codeslayer_completion_get_type
 codeslayer_document_get_type
 codeslayer_editor_get_type
+codeslayer_editor_linker_get_type
 codeslayer_engine_get_type
 codeslayer_group_properties_get_type
 codeslayer_group_get_type
@@ -82,16 +84,14 @@ codeslayer_preferences_misc_get_type
 codeslayer_preferences_projects_get_type
 codeslayer_preferences_theme_get_type
 codeslayer_preferences_get_type
-codeslayer_process_get_type
+codeslayer_process_bar_get_type
 codeslayer_processes_get_type
+codeslayer_process_get_type
 codeslayer_project_properties_get_type
 codeslayer_project_get_type
 codeslayer_projects_selection_get_type
 codeslayer_projects_get_type
-codeslayer_search_page_get_type
-codeslayer_search_tab_get_type
 codeslayer_search_get_type
 codeslayer_settings_get_type
 codeslayer_side_pane_get_type
-codeslayer_statusbar_get_type
 codeslayer_get_type

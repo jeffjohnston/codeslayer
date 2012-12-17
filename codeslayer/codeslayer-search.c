@@ -25,10 +25,10 @@
 #include <codeslayer/codeslayer-group.h>
 
 /**
- * SECTION:codeslayer-search-page
+ * SECTION:codeslayer-search
  * @short_description: The global search page.
  * @title: CodeSlayerSearch
- * @include: codeslayer/codeslayer-search-page.h
+ * @include: codeslayer/codeslayer-search.h
  *
  * The global search will find text in the files under the active group.
  */
@@ -243,6 +243,7 @@ codeslayer_search_finalize (CodeSlayerSearch *search)
 
 /**
  * codeslayer_search_new:
+ * @window: a #GtkWindow.
  * @preferences: a #CodeSlayerPreferences.
  * @groups: a #CodeSlayerGroups.
  *

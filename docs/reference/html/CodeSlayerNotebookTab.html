@@ -97,6 +97,7 @@ CodeSlayerNotebookTab implements
   "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-left-editors" title='The "close-left-editors" signal'>close-left-editors</a>"                             : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-other-editors" title='The "close-other-editors" signal'>close-other-editors</a>"                            : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-right-editors" title='The "close-right-editors" signal'>close-right-editors</a>"                            : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-select-editor" title='The "select-editor" signal'>select-editor</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
 </pre>
 </div>
 <div class="refsect1">
@@ -373,6 +374,31 @@ active one.
 <p>
 The ::close-right-editors signal is a request to close all editors to the right of 
 the active one.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayernotebooktab</code></em> :</span></p></td>
+<td>the tab that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerNotebookTab-select-editor"></a><h3>The <code class="literal">"select-editor"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *codeslayernotebooktab,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+The ::select-editor signal is a request to close the active editor.
 </p>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>

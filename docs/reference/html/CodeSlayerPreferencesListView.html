@@ -26,6 +26,8 @@
                   <a href="#CodeSlayerPreferencesListView.description" class="shortcut">Description</a>
                    | 
                   <a href="#CodeSlayerPreferencesListView.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerPreferencesListView.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
 <div class="refentry">
@@ -55,6 +57,12 @@ struct              <a class="link" href="CodeSlayerPreferencesListView.html#Cod
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----CodeSlayerPreferencesListView
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerPreferencesListView.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="CodeSlayerPreferencesListView.html#CodeSlayerPreferencesListView-list-changed" title='The "list-changed" signal'>list-changed</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
 </pre>
 </div>
 <div class="refsect1">
@@ -102,6 +110,33 @@ Creates a new <a class="link" href="CodeSlayerPreferencesListView.html" title="C
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>a new <a class="link" href="CodeSlayerPreferencesListView.html" title="CodeSlayerPreferencesListView"><span class="type">CodeSlayerPreferencesListView</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerPreferencesListView.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="CodeSlayerPreferencesListView-list-changed"></a><h3>The <code class="literal">"list-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferencesListView.html" title="CodeSlayerPreferencesListView"><span class="type">CodeSlayerPreferencesListView</span></a> *codeslayerpreferenceslistview,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                       user_data)                          : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+The ::list-changed signal is emitted when the list values are edited, added, or removed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerpreferenceslistview</code></em> :</span></p></td>
+<td>the list view that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
 </tr>
 </tbody>
 </table></div>

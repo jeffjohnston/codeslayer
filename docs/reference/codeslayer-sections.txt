@@ -128,10 +128,12 @@ codeslayer_document_get_type
 CodeSlayerEditor
 codeslayer_editor_new
 codeslayer_editor_scroll_to_line
-codeslayer_editor_sync_preferences
+codeslayer_editor_sync_settings_preferences
 codeslayer_editor_get_document
 codeslayer_editor_add_completion_provider
 codeslayer_editor_get_file_path
+codeslayer_editor_get_modification_time
+codeslayer_editor_set_modification_time
 <SUBSECTION Standard>
 CODESLAYER_EDITOR_TYPE
 CODESLAYER_EDITOR
@@ -141,6 +143,25 @@ IS_CODESLAYER_EDITOR_CLASS
 <SUBSECTION Private>
 CodeSlayerEditorPrivate
 codeslayer_editor_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-editor-linker</FILE>
+<TITLE>CodeSlayerEditorLinker</TITLE>
+CodeSlayerEditorLinker
+codeslayer_editor_linker_new
+codeslayer_editor_linker_create_links
+codeslayer_editor_linker_get_pattern
+codeslayer_editor_linker_set_pattern
+<SUBSECTION Standard>
+CODESLAYER_EDITOR_LINKER
+CODESLAYER_EDITOR_LINKER_CLASS
+CODESLAYER_EDITOR_LINKER_TYPE
+IS_CODESLAYER_EDITOR_LINKER
+IS_CODESLAYER_EDITOR_LINKER_CLASS
+<SUBSECTION Private>
+CodeSlayerEditorLinkerPrivate
+codeslayer_editor_linker_get_type
 </SECTION>
 
 <SECTION>
@@ -408,13 +429,14 @@ codeslayer_menubar_sync_with_notebook
 codeslayer_menubar_sync_with_panes
 codeslayer_menubar_add_tools_item
 codeslayer_menubar_get_accel_group
-codeslayer_menubar_add_project
+codeslayer_menubar_add_projects
 codeslayer_menubar_show_plugins
 codeslayer_menubar_find_incremental
 codeslayer_menubar_remove_tools_item
 codeslayer_menubar_tools_add_item
 codeslayer_menubar_tools_remove_item
 codeslayer_menubar_sync_projects_with_editor
+codeslayer_menubar_scan_external_changes
 <SUBSECTION Standard>
 CODESLAYER_MENUBAR_TYPE
 CODESLAYER_MENUBAR
@@ -451,6 +473,7 @@ codeslayer_notebook_page_new
 codeslayer_notebook_page_get_editor
 codeslayer_notebook_page_get_document
 codeslayer_notebook_page_show_document_not_found_info_bar
+codeslayer_notebook_page_show_external_changes_info_bar
 <SUBSECTION Standard>
 CODESLAYER_NOTEBOOK_PAGE_TYPE
 CODESLAYER_NOTEBOOK_PAGE
@@ -476,7 +499,6 @@ codeslayer_notebook_pane_search_replace
 codeslayer_notebook_pane_search_find_next
 codeslayer_notebook_pane_search_find_previous
 codeslayer_notebook_pane_sync_with_notebook
-codeslayer_notebook_pane_search_find_incremental
 <SUBSECTION Standard>
 CODESLAYER_NOTEBOOK_PANE_TYPE
 CODESLAYER_NOTEBOOK_PANE
@@ -498,7 +520,6 @@ codeslayer_notebook_search_replace
 codeslayer_notebook_search_find_next
 codeslayer_notebook_search_find_previous
 codeslayer_notebook_search_sync_with_notebook
-codeslayer_notebook_search_find_incremental
 codeslayer_notebook_search_create_search_marks
 <SUBSECTION Standard>
 CODESLAYER_NOTEBOOK_SEARCH_TYPE
@@ -540,6 +561,7 @@ codeslayer_notebook_new
 codeslayer_notebook_add_editor
 codeslayer_notebook_save_editor
 codeslayer_notebook_save_all_editors
+codeslayer_notebook_has_unsaved_editors
 codeslayer_notebook_close_editor
 codeslayer_notebook_close_all_editors
 codeslayer_notebook_get_active_editor
@@ -731,7 +753,6 @@ CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES
 CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION
 CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS
 CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES
-CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR
 CodeSlayerPreferences
 codeslayer_preferences_new
 codeslayer_preferences_get_integer
@@ -756,27 +777,19 @@ codeslayer_preferences_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-process</FILE>
-<TITLE>CodeSlayerProcess</TITLE>
-CodeSlayerProcess
-codeslayer_process_new
-codeslayer_process_get_id 
-codeslayer_process_get_name
-codeslayer_process_set_name 
-codeslayer_process_get_func 
-codeslayer_process_set_func
-codeslayer_process_get_data
-codeslayer_process_set_data
-codeslayer_process_stop
+<FILE>codeslayer-processbar</FILE>
+<TITLE>CodeSlayerProcessBar</TITLE>
+CodeSlayerProcessBar
+codeslayer_process_bar_new
 <SUBSECTION Standard>
-CODESLAYER_PROCESS_TYPE
-CODESLAYER_PROCESS
-CODESLAYER_PROCESS_CLASS
-IS_CODESLAYER_PROCESS
-IS_CODESLAYER_PROCESS_CLASS
+CODESLAYER_PROCESS_BAR_TYPE
+CODESLAYER_PROCESS_BAR
+CODESLAYER_PROCESS_BAR_CLASS
+IS_CODESLAYER_PROCESS_BAR
+IS_CODESLAYER_PROCESS_BAR_CLASS
 <SUBSECTION Private>
-CodeSlayerProcessPrivate
-codeslayer_process_get_type
+CodeSlayerProcessBarPrivate
+codeslayer_process_bar_get_type
 </SECTION>
 
 <SECTION>
@@ -796,6 +809,30 @@ IS_CODESLAYER_PROCESSES_CLASS
 <SUBSECTION Private>
 CodeSlayerProcessesPrivate
 codeslayer_processes_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-process</FILE>
+<TITLE>CodeSlayerProcess</TITLE>
+CodeSlayerProcess
+codeslayer_process_new
+codeslayer_process_get_id
+codeslayer_process_get_name
+codeslayer_process_set_name
+codeslayer_process_get_func
+codeslayer_process_set_func
+codeslayer_process_get_data
+codeslayer_process_set_data
+codeslayer_process_stop
+<SUBSECTION Standard>
+CODESLAYER_PROCESS_TYPE
+CODESLAYER_PROCESS
+CODESLAYER_PROCESS_CLASS
+IS_CODESLAYER_PROCESS
+IS_CODESLAYER_PROCESS_CLASS
+<SUBSECTION Private>
+CodeSlayerProcessPrivate
+codeslayer_process_get_type
 </SECTION>
 
 <SECTION>
@@ -869,6 +906,7 @@ codeslayer_projects_select_document
 codeslayer_projects_add_popup_item
 codeslayer_projects_remove_popup_item
 codeslayer_projects_search_find
+codeslayer_projects_refresh
 <SUBSECTION Standard>
 CODESLAYER_PROJECTS_TYPE
 CODESLAYER_PROJECTS
@@ -881,53 +919,12 @@ codeslayer_projects_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-search-page</FILE>
-<TITLE>CodeSlayerSearchPage</TITLE>
-CodeSlayerSearchPage
-codeslayer_search_page_new
-codeslayer_search_page_set_search_tab
-codeslayer_search_page_get_file_paths
-codeslayer_search_page_set_file_paths
-codeslayer_search_page_clear
-codeslayer_search_page_grab_focus
-<SUBSECTION Standard>
-CODESLAYER_SEARCH_PAGE_TYPE
-CODESLAYER_SEARCH_PAGE
-CODESLAYER_SEARCH_PAGE_CLASS
-IS_CODESLAYER_SEARCH_PAGE
-IS_CODESLAYER_SEARCH_PAGE_CLASS
-<SUBSECTION Private>
-CodeSlayerSearchPagePrivate
-codeslayer_search_page_get_type
-</SECTION>
-
-<SECTION>
-<FILE>codeslayer-search-tab</FILE>
-<TITLE>CodeSlayerSearchTab</TITLE>
-CodeSlayerSearchTab
-codeslayer_search_tab_new
-codeslayer_search_tab_get_search_page
-codeslayer_search_tab_set_search_page
-codeslayer_search_tab_set_label_name
-codeslayer_search_tab_set_tooltip
-<SUBSECTION Standard>
-CODESLAYER_SEARCH_TAB_TYPE
-CODESLAYER_SEARCH_TAB
-CODESLAYER_SEARCH_TAB_CLASS
-IS_CODESLAYER_SEARCH_TAB
-IS_CODESLAYER_SEARCH_TAB_CLASS
-<SUBSECTION Private>
-CodeSlayerSearchTabPrivate
-codeslayer_search_tab_get_type
-</SECTION>
-
-<SECTION>
 <FILE>codeslayer-search</FILE>
 <TITLE>CodeSlayerSearch</TITLE>
 CodeSlayerSearch
 codeslayer_search_new
-codeslayer_search_add_page
-codeslayer_search_default_page
+codeslayer_search_find_projects
+codeslayer_search_find_selection
 codeslayer_search_clear
 <SUBSECTION Standard>
 CODESLAYER_SEARCH_TYPE
@@ -959,6 +956,7 @@ CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE
 CODESLAYER_SETTINGS_DRAW_SPACES
 CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE
 CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD
+CODESLAYER_SETTINGS_SYNC_WITH_EDITOR
 CodeSlayerSettings
 codeslayer_settings_new
 codeslayer_settings_get_integer
@@ -998,22 +996,6 @@ codeslayer_side_pane_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-statusbar</FILE>
-<TITLE>CodeSlayerStatusbar</TITLE>
-CodeSlayerStatusbar
-codeslayer_statusbar_new
-<SUBSECTION Standard>
-CODESLAYER_STATUSBAR_TYPE
-CODESLAYER_STATUSBAR
-CODESLAYER_STATUSBAR_CLASS
-IS_CODESLAYER_STATUSBAR
-IS_CODESLAYER_STATUSBAR_CLASS
-<SUBSECTION Private>
-CodeSlayerStatusbarPrivate
-codeslayer_statusbar_get_type
-</SECTION>
-
-<SECTION>
 <FILE>codeslayer</FILE>
 <TITLE>CodeSlayer</TITLE>
 CodeSlayer
@@ -1023,7 +1005,6 @@ codeslayer_get_active_editor
 codeslayer_get_active_editor_document
 codeslayer_get_active_editor_project
 codeslayer_get_active_editor_file_path
-codeslayer_get_toplevel_window
 codeslayer_get_all_editors
 codeslayer_add_to_side_pane
 codeslayer_remove_from_side_pane
@@ -1043,8 +1024,10 @@ codeslayer_get_active_group_folder_path
 codeslayer_get_configuration_folder_path
 codeslayer_get_project_by_file_path
 codeslayer_get_preferences
-codeslayer_add_to_processes
-codeslayer_remove_from_processes
+codeslayer_get_toplevel_window
+codeslayer_add_to_process_bar
+codeslayer_remove_from_process_bar
+codeslayer_get_editor_linker
 <SUBSECTION Standard>
 CODESLAYER_TYPE
 CODESLAYER

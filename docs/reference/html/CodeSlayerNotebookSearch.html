@@ -57,11 +57,9 @@ struct              <a class="link" href="CodeSlayerNotebookSearch.html#CodeSlay
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookSearch.html#codeslayer-notebook-search-sync-with-notebook" title="codeslayer_notebook_search_sync_with_notebook ()">codeslayer_notebook_search_sync_with_notebook</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookSearch.html#codeslayer-notebook-search-find-incremental" title="codeslayer_notebook_search_find_incremental ()">codeslayer_notebook_search_find_incremental</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookSearch.html#codeslayer-notebook-search-create-search-marks" title="codeslayer_notebook_search_create_search_marks ()">codeslayer_notebook_search_create_search_marks</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> override_incremental</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> scrollable</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -71,8 +69,9 @@ struct              <a class="link" href="CodeSlayerNotebookSearch.html#CodeSlay
    +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
          +----<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html">GtkWidget</a>
                +----<a href="/usr/share/gtk-doc/html/gtk3/GtkContainer.html">GtkContainer</a>
-                     +----<a href="/usr/share/gtk-doc/html/gtk3/GtkGrid.html">GtkGrid</a>
-                           +----CodeSlayerNotebookSearch
+                     +----<a href="/usr/share/gtk-doc/html/gtk3/GtkBox.html">GtkBox</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk3/GtkVBox.html">GtkVBox</a>
+                                 +----CodeSlayerNotebookSearch
 </pre>
 </div>
 <div class="refsect1">
@@ -221,29 +220,10 @@ state of the notebook <a class="link" href="CodeSlayerEditor.html" title="CodeSl
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-notebook-search-find-incremental"></a><h3>codeslayer_notebook_search_find_incremental ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_search_find_incremental
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>);</pre>
-<p>
-Find the search value using the incremental search.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>notebook_search</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a>.</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
 <a name="codeslayer-notebook-search-create-search-marks"></a><h3>codeslayer_notebook_search_create_search_marks ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_search_create_search_marks
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> override_incremental</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> scrollable</code></em>);</pre>
 <p>
 Create the search marks based on the current settings.
 </p>
@@ -258,8 +238,8 @@ Create the search marks based on the current settings.
 <td>a <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a>.</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>override_incremental</code></em> :</span></p></td>
-<td>if TRUE the incremental flag will be overridden (if set).</td>
+<td><p><span class="term"><em class="parameter"><code>scrollable</code></em> :</span></p></td>
+<td>is TRUE if should scroll after finding marks.</td>
 </tr>
 </tbody>
 </table></div>

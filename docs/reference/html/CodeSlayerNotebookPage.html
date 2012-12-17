@@ -28,8 +28,6 @@
                   <a href="#CodeSlayerNotebookPage.object-hierarchy" class="shortcut">Object Hierarchy</a>
                    | 
                   <a href="#CodeSlayerNotebookPage.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
-                   | 
-                  <a href="#CodeSlayerNotebookPage.properties" class="shortcut">Properties</a>
 </td></tr>
 </table>
 <div class="refentry">
@@ -47,12 +45,13 @@
 #include &lt;codeslayer/codeslayer-notebook-page.h&gt;
 
 struct              <a class="link" href="CodeSlayerNotebookPage.html#CodeSlayerNotebookPage-struct" title="struct CodeSlayerNotebookPage">CodeSlayerNotebookPage</a>;
-<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-new" title="codeslayer_notebook_page_new ()">codeslayer_notebook_page_new</a>        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *editor</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-new" title="codeslayer_notebook_page_new ()">codeslayer_notebook_page_new</a>        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *editor</code></em>);
 <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-get-editor" title="codeslayer_notebook_page_get_editor ()">codeslayer_notebook_page_get_editor</a> (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage"><span class="type">CodeSlayerNotebookPage</span></a> *notebook_page</code></em>);
 <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="returnvalue">CodeSlayerDocument</span></a> * <a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-get-document" title="codeslayer_notebook_page_get_document ()">codeslayer_notebook_page_get_document</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage"><span class="type">CodeSlayerNotebookPage</span></a> *notebook_page</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-show-document-not-found-info-bar" title="codeslayer_notebook_page_show_document_not_found_info_bar ()">codeslayer_notebook_page_show_document_not_found_info_bar</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage"><span class="type">CodeSlayerNotebookPage</span></a> *notebook_page</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-show-external-changes-info-bar" title="codeslayer_notebook_page_show_external_changes_info_bar ()">codeslayer_notebook_page_show_external_changes_info_bar</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage"><span class="type">CodeSlayerNotebookPage</span></a> *notebook_page</code></em>);
 </pre>
 </div>
@@ -75,13 +74,6 @@ CodeSlayerNotebookPage implements
  AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3/gtk3-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
 </div>
 <div class="refsect1">
-<a name="CodeSlayerNotebookPage.properties"></a><h2>Properties</h2>
-<pre class="synopsis">
-  "<a class="link" href="CodeSlayerNotebookPage.html#CodeSlayerNotebookPage--document" title='The "document" property'>document</a>"                 <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
-  "<a class="link" href="CodeSlayerNotebookPage.html#CodeSlayerNotebookPage--editor" title='The "editor" property'>editor</a>"                   <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
-</pre>
-</div>
-<div class="refsect1">
 <a name="CodeSlayerNotebookPage.description"></a><h2>Description</h2>
 </div>
 <div class="refsect1">
@@ -93,8 +85,7 @@ CodeSlayerNotebookPage implements
 <hr>
 <div class="refsect2">
 <a name="codeslayer-notebook-page-new"></a><h3>codeslayer_notebook_page_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_notebook_page_new        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *editor</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_notebook_page_new        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *editor</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage"><span class="type">CodeSlayerNotebookPage</span></a>.
 </p>
@@ -107,10 +98,6 @@ Creates a new <a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlay
 <tr>
 <td><p><span class="term"><em class="parameter"><code>editor</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
@@ -183,23 +170,11 @@ document is not found. This will happen if the document is moved
 </tr></tbody>
 </table></div>
 </div>
-</div>
-<div class="refsect1">
-<a name="CodeSlayerNotebookPage.property-details"></a><h2>Property Details</h2>
-<div class="refsect2">
-<a name="CodeSlayerNotebookPage--document"></a><h3>The <code class="literal">"document"</code> property</h3>
-<pre class="programlisting">  "document"                 <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
-<p>
-A <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> that backs the page.
-</p>
-</div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerNotebookPage--editor"></a><h3>The <code class="literal">"editor"</code> property</h3>
-<pre class="programlisting">  "editor"                   <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
-<p>
-A <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> that backs the page.
-</p>
+<a name="codeslayer-notebook-page-show-external-changes-info-bar"></a><h3>codeslayer_notebook_page_show_external_changes_info_bar ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_page_show_external_changes_info_bar
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage"><span class="type">CodeSlayerNotebookPage</span></a> *notebook_page</code></em>);</pre>
 </div>
 </div>
 </div>

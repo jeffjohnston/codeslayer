@@ -1080,7 +1080,7 @@ codeslayer_menubar_remove_group (CodeSlayerMenuBar *menubar)
 /**
  * codeslayer_menubar_add_projects:
  * @menubar: a #CodeSlayerMenuBar.
- * @file: a #GFile.
+ * @files: a list of #GFile.
  */
 void
 codeslayer_menubar_add_projects (CodeSlayerMenuBar *menubar, 

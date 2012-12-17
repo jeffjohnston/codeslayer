@@ -20,6 +20,7 @@
     <xi:include href="xml/codeslayer-completion-provider.xml"/>
     <xi:include href="xml/codeslayer-document.xml"/>
     <xi:include href="xml/codeslayer-editor.xml"/>
+    <xi:include href="xml/codeslayer-editor-linker.xml"/>
     <xi:include href="xml/codeslayer-engine.xml"/>
     <xi:include href="xml/codeslayer-group-properties.xml"/>
     <xi:include href="xml/codeslayer-group.xml"/>
@@ -48,18 +49,16 @@
     <xi:include href="xml/codeslayer-preferences-projects.xml"/>
     <xi:include href="xml/codeslayer-preferences-theme.xml"/>
     <xi:include href="xml/codeslayer-preferences.xml"/>
-    <xi:include href="xml/codeslayer-process.xml"/>
+    <xi:include href="xml/codeslayer-processbar.xml"/>
     <xi:include href="xml/codeslayer-processes.xml"/>
+    <xi:include href="xml/codeslayer-process.xml"/>
     <xi:include href="xml/codeslayer-project-properties.xml"/>
     <xi:include href="xml/codeslayer-project.xml"/>
     <xi:include href="xml/codeslayer-projects-selection.xml"/>
     <xi:include href="xml/codeslayer-projects.xml"/>
-    <xi:include href="xml/codeslayer-search-page.xml"/>
-    <xi:include href="xml/codeslayer-search-tab.xml"/>
     <xi:include href="xml/codeslayer-search.xml"/>
     <xi:include href="xml/codeslayer-settings.xml"/>
     <xi:include href="xml/codeslayer-side-pane.xml"/>
-    <xi:include href="xml/codeslayer-statusbar.xml"/>
     <xi:include href="xml/codeslayer.xml"/>
   </chapter>
   <chapter id="object-tree">

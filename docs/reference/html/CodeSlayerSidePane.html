@@ -7,7 +7,7 @@
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerSettings.html" title="CodeSlayerSettings">
-<link rel="next" href="CodeSlayerStatusbar.html" title="CodeSlayerStatusbar">
+<link rel="next" href="CodeSlayer.html" title="CodeSlayer">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -18,7 +18,7 @@
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
-<td><a accesskey="n" href="CodeSlayerStatusbar.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="CodeSlayer.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#CodeSlayerSidePane.synopsis" class="shortcut">Top</a>
@@ -46,7 +46,7 @@
 
 struct              <a class="link" href="CodeSlayerSidePane.html#CodeSlayerSidePane-struct" title="struct CodeSlayerSidePane">CodeSlayerSidePane</a>;
 <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerSidePane.html#codeslayer-side-pane-new" title="codeslayer_side_pane_new ()">codeslayer_side_pane_new</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *statusbar</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *process_bar</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -81,7 +81,7 @@ CodeSlayerSidePane implements
 <div class="refsect2">
 <a name="codeslayer-side-pane-new"></a><h3>codeslayer_side_pane_new ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_side_pane_new            (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *statusbar</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *process_bar</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane"><span class="type">CodeSlayerSidePane</span></a>.
 </p>
@@ -96,7 +96,7 @@ Creates a new <a class="link" href="CodeSlayerSidePane.html" title="CodeSlayerSi
 <td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>statusbar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>process_bar</code></em> :</span></p></td>
 <td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 <tr>

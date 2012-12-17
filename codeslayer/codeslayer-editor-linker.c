@@ -215,7 +215,7 @@ codeslayer_editor_linker_get_pattern (CodeSlayerEditorLinker *linker)
  */
 void
 codeslayer_editor_linker_set_pattern (CodeSlayerEditorLinker *linker, 
-                               const gchar      *pattern)
+                                      const gchar      *pattern)
 {
   CodeSlayerEditorLinkerPrivate *priv;
   priv = CODESLAYER_EDITOR_LINKER_GET_PRIVATE (linker);

@@ -6,7 +6,7 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
-<link rel="prev" href="CodeSlayerSearchTab.html" title="CodeSlayerSearchTab">
+<link rel="prev" href="CodeSlayerProjects.html" title="CodeSlayerProjects">
 <link rel="next" href="CodeSlayerSettings.html" title="CodeSlayerSettings">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
@@ -14,7 +14,7 @@
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="CodeSlayerSearchTab.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="CodeSlayerProjects.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
@@ -37,7 +37,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="CodeSlayerSearch.top_of_page"></a>CodeSlayerSearch</span></h2>
-<p>CodeSlayerSearch — The global search.</p>
+<p>CodeSlayerSearch — The global search page.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
@@ -50,9 +50,9 @@ struct              <a class="link" href="CodeSlayerSearch.html#CodeSlayerSearch
 <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerSearch.html#codeslayer-search-new" title="codeslayer_search_new ()">codeslayer_search_new</a>               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSearch.html#codeslayer-search-add-page" title="codeslayer_search_add_page ()">codeslayer_search_add_page</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSearch.html#codeslayer-search-find-projects" title="codeslayer_search_find_projects ()">codeslayer_search_find_projects</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSearch.html#codeslayer-search-find-selection" title="codeslayer_search_find_selection ()">codeslayer_search_find_selection</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_paths</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSearch.html#codeslayer-search-default-page" title="codeslayer_search_default_page ()">codeslayer_search_default_page</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSearch.html#codeslayer-search-clear" title="codeslayer_search_clear ()">codeslayer_search_clear</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>);
 </pre>
 </div>
@@ -84,7 +84,7 @@ CodeSlayerSearch implements
 <div class="refsect1">
 <a name="CodeSlayerSearch.description"></a><h2>Description</h2>
 <p>
-Holds the search projects.
+The global search will find text in the files under the active group.
 </p>
 </div>
 <div class="refsect1">
@@ -110,7 +110,7 @@ Creates a new <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSear
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
-<td>the main application window.</td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
@@ -129,8 +129,23 @@ Creates a new <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSear
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-search-add-page"></a><h3>codeslayer_search_add_page ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_search_add_page          (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
+<a name="codeslayer-search-find-projects"></a><h3>codeslayer_search_find_projects ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_search_find_projects     (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>search</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-search-find-selection"></a><h3>codeslayer_search_find_selection ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_search_find_selection    (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_paths</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -147,21 +162,6 @@ Creates a new <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSear
 <td>the file paths as a comma separated list.</td>
 </tr>
 </tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-search-default-page"></a><h3>codeslayer_search_default_page ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_search_default_page      (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>search</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a>.</td>
-</tr></tbody>
 </table></div>
 </div>
 <hr>
@@ -186,6 +186,28 @@ Creates a new <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSear
 <a name="CodeSlayerSearch-close"></a><h3>The <code class="literal">"close"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *codeslayersearch,
                                                         <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)             : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::close signal is a request to close the search box.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayersearch</code></em> :</span></p></td>
+<td>the search that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <hr>
 <div class="refsect2">
@@ -193,6 +215,29 @@ Creates a new <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSear
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *codeslayersearch,
                                                         <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          arg1,
                                                         <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)             : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::select-document signal is a request to select the document in the
+tree (which in turn adds a page in the notebook).
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayersearch</code></em> :</span></p></td>
+<td>the search that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 </div>
 </div>

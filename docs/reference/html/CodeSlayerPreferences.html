@@ -7,7 +7,7 @@
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerPreferencesTheme.html" title="CodeSlayerPreferencesTheme">
-<link rel="next" href="CodeSlayerProcess.html" title="CodeSlayerProcess">
+<link rel="next" href="CodeSlayerProcessBar.html" title="CodeSlayerProcessBar">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -18,7 +18,7 @@
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
-<td><a accesskey="n" href="CodeSlayerProcess.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="CodeSlayerProcessBar.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#CodeSlayerPreferences.synopsis" class="shortcut">Top</a>
@@ -61,7 +61,6 @@
 #define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-TAB-POSITION:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION">CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION</a>
 #define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-PROJECTS-EXCLUDE-DIRS:CAPS" title="CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS">CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS</a>
 #define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-PROJECTS-EXCLUDE-TYPES:CAPS" title="CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES">CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-PROJECTS-SYNC-WITH-EDITOR:CAPS" title="CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR">CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR</a>
 struct              <a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-struct" title="struct CodeSlayerPreferences">CodeSlayerPreferences</a>;
 <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="returnvalue">CodeSlayerPreferences</span></a> * <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-new" title="codeslayer_preferences_new ()">codeslayer_preferences_new</a>      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-get-integer" title="codeslayer_preferences_get_integer ()">codeslayer_preferences_get_integer</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
@@ -102,6 +101,7 @@ struct              <a class="link" href="CodeSlayerPreferences.html#CodeSlayerP
   "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-editor-preferences-changed" title='The "editor-preferences-changed" signal'>editor-preferences-changed</a>"                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-initialize-preferences" title='The "initialize-preferences" signal'>initialize-preferences</a>"                         : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-notebook-preferences-changed" title='The "notebook-preferences-changed" signal'>notebook-preferences-changed</a>"                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-projects-preferences-changed" title='The "projects-preferences-changed" signal'>projects-preferences-changed</a>"                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-side-pane-preferences-changed" title='The "side-pane-preferences-changed" signal'>side-pane-preferences-changed</a>"                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
 </pre>
 </div>
@@ -213,12 +213,6 @@ users home directory under the .codeslayer/groups/"active group" folder.
 <div class="refsect2">
 <a name="CODESLAYER-PREFERENCES-PROJECTS-EXCLUDE-TYPES:CAPS"></a><h3>CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES</h3>
 <pre class="programlisting">#define CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES "projects_exclude_types"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-PROJECTS-SYNC-WITH-EDITOR:CAPS"></a><h3>CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_PROJECTS_SYNC_WITH_EDITOR "projects_sync_with_editor"
 </pre>
 </div>
 <hr>
@@ -590,6 +584,33 @@ the preferences need to be applied.
 The ::notebook-preferences-changed signal lets all observers know that 
 something in the preferences, related to the 
 <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>, changed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayerpreferences</code></em> :</span></p></td>
+<td>the preference that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerPreferences-projects-preferences-changed"></a><h3>The <code class="literal">"projects-preferences-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+The ::projects-preferences-changed signal lets all observers know that 
+something in the preferences, related to the 
+<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>, changed.
 </p>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>

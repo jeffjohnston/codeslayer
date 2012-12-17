@@ -56,7 +56,7 @@ void        codeslayer_notebook_search_find_next            (CodeSlayerNotebookS
 void        codeslayer_notebook_search_find_previous        (CodeSlayerNotebookSearch *notebook_search);
 void        codeslayer_notebook_search_sync_with_notebook   (CodeSlayerNotebookSearch *notebook_search);
 void        codeslayer_notebook_search_create_search_marks  (CodeSlayerNotebookSearch *notebook_search, 
-                                                             gboolean                  allowed_to_scroll);
+                                                             gboolean                  scrollable);
 
 G_END_DECLS
 

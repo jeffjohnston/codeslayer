@@ -81,7 +81,6 @@ codeslayer_notebook_page_finalize (CodeSlayerNotebookPage *notebook_page)
 /**
  * codeslayer_notebook_page_new:
  * @editor: a #CodeSlayerEditor.
- * @document: a #CodeSlayerDocument.
  *
  * Creates a new #CodeSlayerNotebookPage.
  *
