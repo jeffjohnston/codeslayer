@@ -41,8 +41,6 @@
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-projects-selection.h>
 #include <codeslayer/codeslayer-projects.h>
-#include <codeslayer/codeslayer-search-page.h>
-#include <codeslayer/codeslayer-search-tab.h>
 #include <codeslayer/codeslayer-search.h>
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-side-pane.h>
