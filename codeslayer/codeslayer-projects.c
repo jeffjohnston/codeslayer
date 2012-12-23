@@ -539,8 +539,10 @@ create_tree (CodeSlayerProjects *projects)
                             G_CALLBACK (edited_action), projects);
   
   g_signal_connect_swapped (G_OBJECT (priv->cell_text), "editing-canceled",
-                            G_CALLBACK (editing_canceled_action),
-                            projects);
+                            G_CALLBACK (editing_canceled_action), projects);
+
+  g_signal_connect_swapped (G_OBJECT (priv->preferences), "projects-preferences-changed",
+                            G_CALLBACK (codeslayer_projects_refresh), projects);
 
   gtk_tree_view_append_column (GTK_TREE_VIEW (priv->treeview), column);
 }
