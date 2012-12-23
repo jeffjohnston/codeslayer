@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <stdlib.h>
 #include <codeslayer/codeslayer-engine.h>
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-search.h>
@@ -69,6 +70,10 @@ static void search_find_previous_action                 (CodeSlayerEngine       
 static void search_replace_action                       (CodeSlayerEngine       *engine);
 static void search_find_projects_action                 (CodeSlayerEngine       *engine,
                                                          gchar                  *search_paths);
+static void go_to_line_action                           (CodeSlayerEngine       *engine);
+static gboolean go_to_line_keypress_action              (GtkWidget              *entry,
+                                                         GdkEventKey            *event, 
+                                                         CodeSlayerEngine       *engine);
 static void fullscreen_window_action                    (CodeSlayerEngine       *engine);
 static void toggle_side_pane_action                     (CodeSlayerEngine       *engine);
 static void open_side_pane_action                       (CodeSlayerEngine       *engine);
@@ -125,6 +130,10 @@ struct _CodeSlayerEnginePrivate
   GtkWidget             *bottom_pane;
   CodeSlayerGroups      *groups;
   GdkWindowState         window_state;
+
+  GtkWidget             *go_to_line_dialog;
+  GdkRGBA                go_to_line_error_color;
+  GdkRGBA                go_to_line_default_color;  
 };
 
 G_DEFINE_TYPE (CodeSlayerEngine, codeslayer_engine, G_TYPE_OBJECT)
@@ -233,6 +242,9 @@ codeslayer_engine_new (GtkWindow             *window,
   
   g_signal_connect_swapped (G_OBJECT (menubar), "find-projects",
                             G_CALLBACK (search_find_projects_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (menubar), "go-to-line",
+                            G_CALLBACK (go_to_line_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (projects), "find-projects",
                             G_CALLBACK (search_find_projects_action), engine);
@@ -758,7 +770,7 @@ search_find_previous_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   codeslayer_notebook_pane_search_find_previous (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
-}
+}                        
 
 static void
 search_find_projects_action (CodeSlayerEngine *engine,
@@ -1132,3 +1144,89 @@ notify_visible_pane_action (CodeSlayerEngine *engine,
                                       gtk_widget_get_visible (priv->side_pane), 
                                       gtk_widget_get_visible (priv->bottom_pane));
 }
+
+static void
+go_to_line_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  GtkWidget *content_area;
+  GtkWidget *hbox;
+  GtkWidget *entry;
+  GtkStyleContext *style_context;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  priv->go_to_line_dialog = gtk_dialog_new ();  
+  
+  gtk_window_set_title (GTK_WINDOW (priv->go_to_line_dialog), _("Go to Line"));
+  gtk_window_set_transient_for (GTK_WINDOW (priv->go_to_line_dialog), 
+                                GTK_WINDOW (priv->window));
+  
+  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (priv->go_to_line_dialog), TRUE);
+  gtk_window_set_skip_pager_hint (GTK_WINDOW (priv->go_to_line_dialog), TRUE);
+  gtk_dialog_set_default_response (GTK_DIALOG (priv->go_to_line_dialog), 
+                                   GTK_RESPONSE_OK);
+  
+  content_area = gtk_dialog_get_content_area (GTK_DIALOG (priv->go_to_line_dialog));
+  
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+
+  entry = gtk_entry_new ();
+  gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
+  gtk_entry_set_width_chars (GTK_ENTRY (entry), 15);
+  gtk_box_pack_start (GTK_BOX (hbox), entry, FALSE, FALSE, 3);
+
+  g_signal_connect (G_OBJECT (entry), "key-press-event",
+                    G_CALLBACK (go_to_line_keypress_action), engine);
+
+  gtk_widget_show_all (hbox);
+  gtk_container_add (GTK_CONTAINER (content_area), hbox);
+  
+  style_context = gtk_widget_get_style_context (entry);
+  
+  gdk_rgba_parse (&(priv->go_to_line_error_color), "#ed3636");
+  gtk_style_context_get_color (style_context, GTK_STATE_FLAG_NORMAL, 
+                               &(priv->go_to_line_default_color));    
+
+  gtk_dialog_run (GTK_DIALOG (priv->go_to_line_dialog));
+  gtk_widget_destroy (priv->go_to_line_dialog);
+}
+
+static gboolean            
+go_to_line_keypress_action (GtkWidget        *entry,
+                            GdkEventKey      *event, 
+                            CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  const gchar *text;
+  gchar *string;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  gtk_widget_override_color (entry, GTK_STATE_FLAG_NORMAL, 
+                             &(priv->go_to_line_default_color));
+
+  if (event->keyval != GDK_KEY_Return)
+    return FALSE;
+
+  text = gtk_entry_get_text (GTK_ENTRY (entry));
+    
+  string = g_strdup (text);
+  
+  if (codeslayer_utils_isdigit (string))
+    {
+      GtkWidget *editor;
+      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+      if (!codeslayer_editor_scroll_to_line (CODESLAYER_EDITOR (editor), atoi(string)))
+        {
+          gtk_widget_override_color (entry, GTK_STATE_FLAG_NORMAL, 
+                                     &(priv->go_to_line_error_color));
+          return FALSE;
+        }
+    }
+  
+  g_free (string);
+
+  g_signal_emit_by_name ((gpointer) priv->go_to_line_dialog, "close");
+  return FALSE;
+}    

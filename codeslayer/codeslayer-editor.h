@@ -59,7 +59,7 @@ GtkWidget*           codeslayer_editor_new                       (GtkWindow     
                                                                   CodeSlayerPreferences        *preferences,
                                                                   CodeSlayerSettings           *settings);
 
-void                 codeslayer_editor_scroll_to_line            (CodeSlayerEditor             *editor,
+gboolean             codeslayer_editor_scroll_to_line            (CodeSlayerEditor             *editor,
                                                                   gint                          line_number);
 void                 codeslayer_editor_sync_settings_preferences (CodeSlayerEditor             *editor);
 CodeSlayerDocument*  codeslayer_editor_get_document              (CodeSlayerEditor             *editor);

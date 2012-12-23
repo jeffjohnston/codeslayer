@@ -638,7 +638,7 @@ change_case (CodeSlayerEditor *editor,
  * @editor: a #CodeSlayerEditor.
  * @line_number: the line to scroll to within the editor.
  */
-void
+gboolean
 codeslayer_editor_scroll_to_line (CodeSlayerEditor *editor, 
                                   gint              line_number)
 {
@@ -650,18 +650,22 @@ codeslayer_editor_scroll_to_line (CodeSlayerEditor *editor,
 
   gtk_text_buffer_get_start_iter (buffer, &iter);
   gtk_text_iter_set_line_offset (&iter, 0);
-  gtk_text_iter_forward_lines (&iter, line_number - 1);
+
+  if (!gtk_text_iter_forward_lines (&iter, line_number - 1))
+    return FALSE;
 
   /* Checks if any events are pending. This can be used to update the GUI and invoke 
      timeouts etc. while doing some time intensive computation. This needs to be done
      so that the height can be computed. */
   while (gtk_events_pending ())
-      gtk_main_iteration ();
+    gtk_main_iteration ();
 
   text_mark = gtk_text_buffer_create_mark (buffer, NULL, &iter, TRUE);
   gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (editor), text_mark, .1, FALSE, 0, 0);
 
   gtk_text_buffer_place_cursor (buffer, &iter);
+  
+  return TRUE;
 }
 
 /**

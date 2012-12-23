@@ -74,6 +74,7 @@ enum
   FIND,
   FIND_NEXT,
   FIND_PREVIOUS,
+  GO_TO_LINE,
   FIND_INCREMENTAL,
   SHOW_PREFERENCES,
   SCAN_EXTERNAL_CHANGES,
@@ -391,19 +392,18 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerMenuBar::find-incremental
+   * CodeSlayerMenuBar::go-to-line
    * @menu: the menu that received the signal
    *
    * Note: for internal use only.
    *
-   * The ::find-incremental signal is a request to find the value using 
-   * the notebook search with the incremental turned on.
+   * The ::go-to-line signal is a request to jump to the line number.
    */
-  codeslayer_menubar_signals[FIND_INCREMENTAL] =
-    g_signal_new ("find-incremental", 
+  codeslayer_menubar_signals[GO_TO_LINE] =
+    g_signal_new ("go-to-line", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, find_incremental), 
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, go_to_line), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -957,16 +957,6 @@ codeslayer_menubar_find_previous (CodeSlayerMenuBar *menubar)
 }
 
 /**
- * codeslayer_menubar_find_incremental:
- * @menubar: a #CodeSlayerMenuBar.
- */
-void            
-codeslayer_menubar_find_incremental (CodeSlayerMenuBar *menubar)
-{
-  g_signal_emit_by_name ((gpointer) menubar, "find-incremental");
-}
-
-/**
  * codeslayer_menubar_find_projects:
  * @menubar: a #CodeSlayerMenuBar.
  */
@@ -974,6 +964,16 @@ void
 codeslayer_menubar_find_projects (CodeSlayerMenuBar *menubar)
 {
   g_signal_emit_by_name ((gpointer) menubar, "find-projects", NULL);
+}
+
+/**
+ * codeslayer_menubar_go_to_line:
+ * @menubar: a #CodeSlayerMenuBar.
+ */
+void            
+codeslayer_menubar_go_to_line (CodeSlayerMenuBar *menubar)
+{
+  g_signal_emit_by_name ((gpointer) menubar, "go-to-line", NULL);
 }
 
 /**

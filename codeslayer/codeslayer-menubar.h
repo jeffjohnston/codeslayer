@@ -63,7 +63,7 @@ struct _CodeSlayerMenuBarClass
   void (*replace) (CodeSlayerMenuBar *menubar);
   void (*find_next) (CodeSlayerMenuBar *menubar);
   void (*find_previous) (CodeSlayerMenuBar *menubar);
-  void (*find_incremental) (CodeSlayerMenuBar *menubar);
+  void (*go_to_line) (CodeSlayerMenuBar *menubar);
   void (*show_preferences) (CodeSlayerMenuBar *menubar);
   void (*show_plugins) (CodeSlayerMenuBar *menubar);  
   void (*undo) (CodeSlayerMenuBar *menubar);
@@ -109,8 +109,8 @@ void            codeslayer_menubar_find                       (CodeSlayerMenuBar
 void            codeslayer_menubar_replace                    (CodeSlayerMenuBar      *menubar);
 void            codeslayer_menubar_find_next                  (CodeSlayerMenuBar      *menubar);
 void            codeslayer_menubar_find_previous              (CodeSlayerMenuBar      *menubar);
-void            codeslayer_menubar_find_incremental           (CodeSlayerMenuBar      *menubar);
 void            codeslayer_menubar_find_projects              (CodeSlayerMenuBar      *menubar);
+void            codeslayer_menubar_go_to_line                 (CodeSlayerMenuBar      *menubar);
 
 void            codeslayer_menubar_fullscreen_window          (CodeSlayerMenuBar      *menubar);
 void            codeslayer_menubar_show_side_pane             (CodeSlayerMenuBar      *menubar);
