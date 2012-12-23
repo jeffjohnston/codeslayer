@@ -382,10 +382,8 @@ codeslayer_get_active_editor_project (CodeSlayer *codeslayer)
 }
 
 /**
- * codeslayer_side_pane_add:
- * @side_pane: a #CodeSlayerSidePane.
- * @widget: a #GtkWidget.
- * @title: the title for the tab.
+ * codeslayer_get_all_editors:
+ *  @codeslayer: a #CodeSlayer.
  *
  * Returns: a #GList of #CodeSlayerEditor. Note: you need to call g_list_free
  * when you are done with the list.

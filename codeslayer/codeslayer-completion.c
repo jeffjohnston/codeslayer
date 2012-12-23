@@ -282,6 +282,8 @@ add_proposals (CodeSlayerCompletion *completion,
         
       if (!found)
         priv->proposals = g_list_prepend (priv->proposals, proposal1);
+      else
+        g_object_unref (proposal1);
 
       proposals = g_list_next (proposals);
     }
