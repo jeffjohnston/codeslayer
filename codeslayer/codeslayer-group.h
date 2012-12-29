@@ -52,29 +52,31 @@ codeslayer_group_get_type (void) G_GNUC_CONST;
 
 CodeSlayerGroup*    codeslayer_group_new (void);
 
-const gchar*        codeslayer_group_get_name          (CodeSlayerGroup   *group);
-void                codeslayer_group_set_name          (CodeSlayerGroup   *group, 
-                                                       const gchar       *name);
-GList*              codeslayer_group_get_projects      (CodeSlayerGroup   *group);
-void                codeslayer_group_set_projects      (CodeSlayerGroup   *group,
-                                                        GList             *projects);
-CodeSlayerProject*  codeslayer_group_find_project       (CodeSlayerGroup   *group, 
-                                                        const gchar       *project_key);
-void                codeslayer_group_add_project       (CodeSlayerGroup   *group,
-                                                        CodeSlayerProject *project);
-void                codeslayer_group_remove_project    (CodeSlayerGroup   *group,
-                                                        CodeSlayerProject *project);
-gboolean            codeslayer_group_contains_project  (CodeSlayerGroup   *group,
-                                                        CodeSlayerProject *project);                                                        
-GList*              codeslayer_group_get_libs          (CodeSlayerGroup   *group);
-void                codeslayer_group_set_libs          (CodeSlayerGroup   *group, 
-                                                        GList             *libs);
-gboolean            codeslayer_group_contains_lib      (CodeSlayerGroup   *group, 
-                                                        const gchar       *lib);
-void                codeslayer_group_add_lib           (CodeSlayerGroup   *group, 
-                                                        const gchar       *lib);
-void                codeslayer_group_remove_lib        (CodeSlayerGroup   *group, 
-                                                        const gchar       *lib);
+const gchar*        codeslayer_group_get_name                  (CodeSlayerGroup   *group);
+void                codeslayer_group_set_name                  (CodeSlayerGroup   *group, 
+                                                                const gchar       *name);
+GList*              codeslayer_group_get_projects              (CodeSlayerGroup   *group);
+void                codeslayer_group_set_projects              (CodeSlayerGroup   *group,
+                                                                GList             *projects);
+CodeSlayerProject*  codeslayer_group_find_project              (CodeSlayerGroup   *group, 
+                                                                const gchar       *project_key);
+CodeSlayerProject*  codeslayer_group_get_project_by_file_path  (CodeSlayerGroup   *group, 
+                                                                const gchar       *file_path);                                                      
+void                codeslayer_group_add_project               (CodeSlayerGroup   *group,
+                                                                CodeSlayerProject *project);
+void                codeslayer_group_remove_project            (CodeSlayerGroup   *group,
+                                                                CodeSlayerProject *project);
+gboolean            codeslayer_group_contains_project          (CodeSlayerGroup   *group,
+                                                                CodeSlayerProject *project);                                                        
+GList*              codeslayer_group_get_libs                  (CodeSlayerGroup   *group);
+void                codeslayer_group_set_libs                  (CodeSlayerGroup   *group, 
+                                                                GList             *libs);
+gboolean            codeslayer_group_contains_lib              (CodeSlayerGroup   *group, 
+                                                                const gchar       *lib);
+void                codeslayer_group_add_lib                   (CodeSlayerGroup   *group, 
+                                                                const gchar       *lib);
+void                codeslayer_group_remove_lib                (CodeSlayerGroup   *group, 
+                                                                const gchar       *lib);
 
 G_END_DECLS
 

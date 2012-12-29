@@ -211,7 +211,7 @@ codeslayer_group_new (void)
  * codeslayer_group_get_name:
  * @group: a #CodeSlayerGroup.
  *
- * Returns: the text to display for the group.
+ * Returns: the text to display for the group. For internal use only.
  */
 const gchar *
 codeslayer_group_get_name (CodeSlayerGroup *group)
@@ -254,6 +254,8 @@ codeslayer_group_get_projects (CodeSlayerGroup *group)
  * codeslayer_group_set_projects:
  * @group: a #CodeSlayerGroup.
  * @projects: the list of #CodeSlayerProject objects to add to the group.
+ *
+ * For internal use only.
  */
 void
 codeslayer_group_set_projects (CodeSlayerGroup *group, 
@@ -294,9 +296,49 @@ codeslayer_group_find_project (CodeSlayerGroup  *group,
 }
 
 /**
+ * codeslayer_group_find_project:
+ * @group: a #CodeSlayerGroup.
+ * @file_path: the file_path of the #CodeSlayerProject to find.
+ *
+ * Returns: the project found by given file path. Will return NULL if the 
+ *          project specified is not found.
+ */
+CodeSlayerProject*
+codeslayer_group_get_project_by_file_path (CodeSlayerGroup *group, 
+                                           const gchar *file_path)
+{
+  CodeSlayerGroupPrivate *priv;
+  GList *list;
+  
+  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
+
+  list = priv->projects;
+  while (list != NULL)
+    {
+      CodeSlayerProject *project = list->data;
+      gchar *folder_path_expanded;
+      const gchar *folder_path = codeslayer_project_get_folder_path (project);
+      folder_path_expanded = g_strconcat (folder_path, G_DIR_SEPARATOR_S, NULL);
+      
+      if (g_str_has_prefix (file_path, folder_path_expanded))
+        {
+          g_free (folder_path_expanded);
+          return project;
+        }
+      
+      g_free (folder_path_expanded);
+      list = g_list_next (list);
+    }
+  
+  return NULL;
+}
+
+/**
  * codeslayer_group_add_project:
  * @group: a #CodeSlayerGroup.
  * @project: the #CodeSlayerProject to add to the group.
+ *
+ * For internal use only.
  */
 void
 codeslayer_group_add_project (CodeSlayerGroup   *group,
@@ -312,6 +354,8 @@ codeslayer_group_add_project (CodeSlayerGroup   *group,
  * codeslayer_group_remove_project:
  * @group: a #CodeSlayerGroup.
  * @project: the #CodeSlayerProject to remove from the group.
+ *
+ * For internal use only.
  */
 void
 codeslayer_group_remove_project (CodeSlayerGroup   *group,
@@ -350,7 +394,8 @@ codeslayer_group_remove_all_projects (CodeSlayerGroup *group)
  * codeslayer_group_get_libs:
  * @group: a #CodeSlayerGroup.
  *
- * Returns: The list of #CodeSlayerPlugin lib objects within the group.
+ * Returns: The list of #CodeSlayerPlugin lib objects within the group. For
+ *          internal use only.
  */
 GList*
 codeslayer_group_get_libs (CodeSlayerGroup *group)
@@ -364,6 +409,8 @@ codeslayer_group_get_libs (CodeSlayerGroup *group)
  * codeslayer_group_set_libs:
  * @group: a #CodeSlayerGroup.
  * @libs: the list of #CodeSlayerPlugin lib objects to add to the group.
+ *
+ * For internal use only.
  */
 void
 codeslayer_group_set_libs (CodeSlayerGroup *group, 
@@ -379,7 +426,7 @@ codeslayer_group_set_libs (CodeSlayerGroup *group,
  * @group: a #CodeSlayerGroup.
  * @lib: the lib to find.
  *
- * Returns: is TRUE if the lib is found in the group.
+ * Returns: is TRUE if the lib is found in the group. For internal use only.
  */
 gboolean
 codeslayer_group_contains_lib (CodeSlayerGroup *group, 
@@ -408,6 +455,8 @@ codeslayer_group_contains_lib (CodeSlayerGroup *group,
  * codeslayer_group_add_lib:
  * @group: a #CodeSlayerGroup.
  * @lib: the lib to add.
+ *
+ * For internal use only.
  */
 void
 codeslayer_group_add_lib (CodeSlayerGroup *group, 
@@ -422,6 +471,8 @@ codeslayer_group_add_lib (CodeSlayerGroup *group,
  * codeslayer_group_remove_lib:
  * @group: a #CodeSlayerGroup.
  * @lib: the lib to remove.
+ *
+ * For internal use only.
  */
 void
 codeslayer_group_remove_lib (CodeSlayerGroup *group, 

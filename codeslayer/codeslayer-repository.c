@@ -405,7 +405,6 @@ codeslayer_repository_get_documents (CodeSlayerGroup *group)
                                             FALSE,
                                             file_path, 
                                             "document",
-                                            "project_key", G_TYPE_STRING, 
                                             "file_path", G_TYPE_STRING, 
                                             "line_number", G_TYPE_INT, 
                                             NULL);
@@ -416,14 +415,10 @@ codeslayer_repository_get_documents (CodeSlayerGroup *group)
     {
       CodeSlayerDocument *document = tmp->data;
       CodeSlayerProject *project;
-      gchar *project_key;
-      g_object_get (document, "project_key", &project_key, NULL);
-      project = codeslayer_group_find_project (group, project_key);
-      if (project != NULL) /*here for backwards compatibility with file format change*/
-        {
-          codeslayer_document_set_project (document, project);
-          g_free (project_key);        
-        }
+      const gchar *file_path;
+      file_path = codeslayer_document_get_file_path (document);
+      project = codeslayer_group_get_project_by_file_path (group, file_path);
+      codeslayer_document_set_project (document, project);
       tmp = g_list_next (tmp);
     }
                                             
@@ -446,7 +441,6 @@ codeslayer_repository_save_documents (CodeSlayerGroup *group,
   codeslayer_utils_save_gobjects (documents, 
                                   file_path, 
                                   "document",
-                                  "project_key", G_TYPE_STRING, 
                                   "file_path", G_TYPE_STRING, 
                                   "line_number", G_TYPE_INT, 
                                   NULL);

@@ -488,3 +488,45 @@ codeslayer_utils_get_utf8_text (const gchar *file_path)
   
   return result;
 }
+
+gchar*
+codeslayer_utils_get_file_path (const gchar *folder_path, 
+                                const gchar *file_name)
+{
+  gchar *file_path;
+  GFile *file;
+
+  file_path = g_build_filename (folder_path, file_name, NULL);  
+  file = g_file_new_for_path (file_path);
+  if (!g_file_query_exists (file, NULL))
+    {
+      GFileIOStream *stream;
+      stream = g_file_create_readwrite (file, G_FILE_CREATE_NONE, NULL, NULL);
+      g_io_stream_close (G_IO_STREAM (stream), NULL, NULL);
+      g_object_unref (stream);
+    }
+
+  g_object_unref (file);
+
+  return file_path;
+}
+
+GKeyFile*      
+codeslayer_utils_get_keyfile (const gchar *file_path)
+{  
+  GKeyFile *keyfile;
+  keyfile = g_key_file_new ();
+  g_key_file_load_from_file (keyfile, file_path, G_KEY_FILE_NONE, NULL);
+  return keyfile;
+}
+
+void 
+codeslayer_utils_save_keyfile (GKeyFile    *keyfile, 
+                              const gchar *file_path)
+{
+  gchar *data;
+  gsize size;
+  data = g_key_file_to_data (keyfile, &size, NULL);
+  g_file_set_contents (file_path, data, size, NULL);
+  g_free (data);
+}

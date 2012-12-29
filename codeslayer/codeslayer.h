@@ -94,6 +94,8 @@ gboolean                  codeslayer_select_editor                   (CodeSlayer
 
 CodeSlayerEditor*         codeslayer_get_active_editor               (CodeSlayer                  *codeslayer);
 
+const gchar*              codeslayer_get_active_editor_file_path     (CodeSlayer                  *codeslayer);
+
 CodeSlayerProject*        codeslayer_get_active_editor_project       (CodeSlayer                  *codeslayer);
 
 CodeSlayerDocument*       codeslayer_get_active_editor_document      (CodeSlayer                  *codeslayer);
@@ -142,13 +144,20 @@ void                      codeslayer_remove_from_project_properties  (CodeSlayer
                                                         
 GtkAccelGroup*            codeslayer_get_menubar_accel_group         (CodeSlayer                  *codeslayer);
 
-CodeSlayerGroup*          codeslayer_get_active_group                (CodeSlayer                  *codeslayer);
+CodeSlayerGroup*          codeslayer_get_group                       (CodeSlayer                  *codeslayer);
 
-gchar*                    codeslayer_get_active_group_folder_path    (CodeSlayer                  *codeslayer);
+CodeSlayerGroup*          codeslayer_get_active_group                (CodeSlayer                  *codeslayer) __attribute__ ((deprecated));
 
-const gchar*              codeslayer_get_active_editor_file_path     (CodeSlayer                  *codeslayer);
+gchar*                    codeslayer_get_active_group_folder_path    (CodeSlayer                  *codeslayer) __attribute__ ((deprecated));
 
-gchar*                    codeslayer_get_configuration_folder_path   (CodeSlayer                  *codeslayer);
+gchar*                    codeslayer_get_configuration_folder_path   (CodeSlayer                  *codeslayer) __attribute__ ((deprecated));
+
+gchar*                    codeslayer_get_project_config_folder_path  (CodeSlayer                  *codeslayer, 
+                                                                      CodeSlayerProject           *project);
+
+gchar*                    codeslayer_get_plugins_config_folder_path  (CodeSlayer                  *codeslayer);
+
+gchar*                    codeslayer_get_group_config_folder_path    (CodeSlayer                  *codeslayer);
 
 CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer                  *codeslayer, 
                                                                       const gchar                 *file_path);

@@ -32,7 +32,7 @@ G_BEGIN_DECLS
 #define IS_CODESLAYER_PLUGINS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_PLUGINS_TYPE))
 
 #define CODESLAYER_PLUGINS_DIR "plugins"
-#define CODESLAYER_CONFIGURATION_DIR "configuration"
+#define CODESLAYER_PLUGINS_CONFIG_DIR "config"
 
 typedef struct _CodeSlayerPlugins CodeSlayerPlugins;
 typedef struct _CodeSlayerPluginsClass CodeSlayerPluginsClass;
@@ -49,16 +49,16 @@ struct _CodeSlayerPluginsClass
 
 GType codeslayer_plugins_get_type (void) G_GNUC_CONST;
 
-CodeSlayerPlugins*  codeslayer_plugins_new                 (GtkWidget         *window);
+CodeSlayerPlugins*  codeslayer_plugins_new         (GtkWidget         *window);
 
-void                codeslayer_plugins_load                (CodeSlayerPlugins *plugins, 
-                                                            GObject           *data);
-void                codeslayer_plugins_activate            (CodeSlayerPlugins *plugins, 
-                                                            CodeSlayerGroup   *group);
-void                codeslayer_plugins_deactivate          (CodeSlayerPlugins *plugins);
-GList*              codeslayer_plugins_get_list            (CodeSlayerPlugins *plugins);
-void                codeslayer_plugins_run_dialog          (CodeSlayerPlugins *plugins, 
-                                                            CodeSlayerGroup   *group);
+void                codeslayer_plugins_load        (CodeSlayerPlugins *plugins, 
+                                                    GObject           *data);
+void                codeslayer_plugins_activate    (CodeSlayerPlugins *plugins, 
+                                                    CodeSlayerGroup   *group);
+void                codeslayer_plugins_deactivate  (CodeSlayerPlugins *plugins);
+GList*              codeslayer_plugins_get_list    (CodeSlayerPlugins *plugins);
+void                codeslayer_plugins_run_dialog  (CodeSlayerPlugins *plugins, 
+                                                    CodeSlayerGroup   *group);
 
 G_END_DECLS
 

@@ -47,9 +47,6 @@ static void codeslayer_document_set_property  (GObject                 *object,
                                                guint                    prop_id,
                                                const GValue            *value,
                                                GParamSpec              *pspec);
-                                               
-static void set_project_key                   (CodeSlayerDocument      *document,
-                                               const gchar             *project_key);
 
 #define CODESLAYER_DOCUMENT_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENT_TYPE, CodeSlayerDocumentPrivate))
@@ -63,7 +60,6 @@ struct _CodeSlayerDocumentPrivate
   gchar               *file_path;
   gboolean             active;
   CodeSlayerProject   *project;
-  gchar               *project_key;
 };
 
 G_DEFINE_TYPE (CodeSlayerDocument, codeslayer_document, G_TYPE_OBJECT)
@@ -142,18 +138,6 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-   * CodeSlayerDocument:project_key:
-   *
-   * The key that corresponds to the project.
-   */
-  g_object_class_install_property (gobject_class, 
-                                   PROP_PROJECT_KEY,
-                                   g_param_spec_string ("project_key",
-                                                        "Project Key",
-                                                        "Project Key", "",
-                                                        G_PARAM_READWRITE));
-
-  /**
    * CodeSlayerDocument:tree-row-reference:
    *
    * The reference to the node in the tree.
@@ -185,9 +169,6 @@ codeslayer_document_finalize (CodeSlayerDocument *document)
 
   if (priv->file_path != NULL)
     g_free (priv->file_path);
-
-  if (priv->project_key != NULL)
-    g_free (priv->project_key);
 
   if (priv->tree_row_reference != NULL)
     gtk_tree_row_reference_free (priv->tree_row_reference);      
@@ -221,9 +202,6 @@ codeslayer_document_get_property (GObject    *object,
     case PROP_PROJECT:
       g_value_set_pointer (value, priv->project);
       break;
-    case PROP_PROJECT_KEY:
-      g_value_set_string (value, priv->project_key);
-      break;
     case PROP_TREE_ROW_REFERENCE:
       g_value_set_pointer (value, priv->tree_row_reference);
       break;
@@ -255,9 +233,6 @@ codeslayer_document_set_property (GObject      *object,
       break;
     case PROP_PROJECT:
       codeslayer_document_set_project (document, CODESLAYER_PROJECT (value));
-      break;
-    case PROP_PROJECT_KEY:
-      set_project_key (document, g_value_get_string (value));
       break;
     case PROP_TREE_ROW_REFERENCE:
       codeslayer_document_set_tree_row_reference (document, g_value_get_pointer (value));
@@ -423,23 +398,6 @@ codeslayer_document_set_project (CodeSlayerDocument *document,
                                  CodeSlayerProject  *project)
 {
   CodeSlayerDocumentPrivate *priv;
-  const gchar *project_key;
   priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
   priv->project = project;
-  project_key = codeslayer_project_get_key (project);
-  set_project_key (document, project_key);
-}
-
-static void
-set_project_key (CodeSlayerDocument *document,
-                 const gchar        *project_key)
-{
-  CodeSlayerDocumentPrivate *priv;
-  priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
-  if (priv->project_key)
-    {
-      g_free (priv->project_key);
-      priv->project_key = NULL;
-    }
-  priv->project_key = g_strdup (project_key);
 }

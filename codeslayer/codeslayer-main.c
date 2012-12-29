@@ -93,7 +93,7 @@ static void verify_home_dir_exists           (void);
 static void verify_groups_dir_exists         (void);
 static void verify_groups_conf_exists        (void);
 static void verify_plugins_dir_exists        (void);
-static void verify_configuration_dir_exists  (void);
+static void verify_plugins_config_dir_exists  (void);
 
 int
 main (int   argc, 
@@ -111,7 +111,7 @@ main (int   argc,
   verify_groups_dir_exists ();
   verify_groups_conf_exists ();
   verify_plugins_dir_exists ();
-  verify_configuration_dir_exists ();
+  verify_plugins_config_dir_exists ();
   
   create_window (&context);
 
@@ -609,7 +609,7 @@ verify_plugins_dir_exists (void)
 }
 
 static void
-verify_configuration_dir_exists (void)
+verify_plugins_config_dir_exists (void)
 {
   gchar *configuration_dir;
   GFile *file;
@@ -617,7 +617,7 @@ verify_configuration_dir_exists (void)
   configuration_dir = g_build_filename (g_get_home_dir (),
                                         CODESLAYER_HOME,
                                         CODESLAYER_PLUGINS_DIR,
-                                        CODESLAYER_CONFIGURATION_DIR,
+                                        CODESLAYER_PLUGINS_CONFIG_DIR,
                                         NULL);
   file = g_file_new_for_path (configuration_dir);
 

@@ -68,6 +68,11 @@ GList*    codeslayer_utils_get_gobjects                  (GType        type,
                                                           gboolean     floating,
                                                           gchar       *file_path,
                                                           gpointer  name, ...);
+gchar*    codeslayer_utils_get_file_path                 (const gchar *folder_path, 
+                                                          const gchar *file_name);
+GKeyFile* codeslayer_utils_get_keyfile                   (const gchar *file_path);
+void codeslayer_utils_save_keyfile                       (GKeyFile    *keyfile, 
+                                                          const gchar *file_path);
 void      codeslayer_utils_style_close_button            (GtkWidget   *widget);
 GTimeVal* codeslayer_utils_get_modification_time         (const gchar *file_path);
 gchar*    codeslayer_utils_get_utf8_text                 (const gchar *file_path);

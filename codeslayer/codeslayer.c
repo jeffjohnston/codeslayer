@@ -31,7 +31,8 @@
 
 #define GROUPS "groups"
 #define PLUGINS "plugins"
-#define CONFIGURATION "configuration"
+#define PROJECT_CONFIG "codeslayer.config"
+#define CONFIG "config"
 
 static void codeslayer_class_init            (CodeSlayerClass   *klass);
 static void codeslayer_init                  (CodeSlayer        *codeslayer);
@@ -55,6 +56,7 @@ static void editor_switched_action           (CodeSlayer        *codeslayer,
                                               GtkWidget         *child,
                                               guint              page_num);
 static void projects_changed_action          (CodeSlayer        *codeslayer);
+static void verify_project_config_dir_exists (CodeSlayerProject *project);
 
 #define CODESLAYER_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_TYPE, CodeSlayerPrivate))
@@ -328,6 +330,30 @@ codeslayer_get_active_editor (CodeSlayer *codeslayer)
 
   editor = codeslayer_notebook_get_active_editor (priv->notebook);
   return CODESLAYER_EDITOR(editor);
+}
+
+/**
+ * codeslayer_get_active_editor_file_path:
+ * @codeslayer: a #CodeSlayer.
+ *
+ * The file path for the active editor.
+ *
+ * Returns: a string that is owned by the editor and should not be freed.
+ */
+const gchar*
+codeslayer_get_active_editor_file_path (CodeSlayer *codeslayer)
+{
+  CodeSlayerEditor *editor;
+  CodeSlayerDocument *document;
+  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
+  
+  editor = codeslayer_get_active_editor (codeslayer);
+  
+  if (editor == NULL)
+    return NULL;
+  
+  document = codeslayer_editor_get_document (editor);
+  return codeslayer_document_get_file_path (document);;
 }
 
 /**
@@ -653,10 +679,27 @@ codeslayer_get_menubar_accel_group (CodeSlayer *codeslayer)
 }
 
 /**
+ * codeslayer_get_group:
+ * @codeslayer: a #CodeSlayer.
+ *
+ * Returns: The #CodeSlayerGroup that is currently opened.
+ */
+CodeSlayerGroup*
+codeslayer_get_group (CodeSlayer *codeslayer)
+{
+  CodeSlayerPrivate *priv;
+  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
+  priv = CODESLAYER_GET_PRIVATE (codeslayer);
+  return codeslayer_groups_get_active_group (priv->groups);
+}
+
+/**
  * codeslayer_get_active_group:
  * @codeslayer: a #CodeSlayer.
  *
  * Returns: The #CodeSlayerGroup that is currently opened.
+ *
+ * Deprecated: 3.0: use codeslayer_get_group now.
  */
 CodeSlayerGroup*
 codeslayer_get_active_group (CodeSlayer *codeslayer)
@@ -674,39 +717,17 @@ codeslayer_get_active_group (CodeSlayer *codeslayer)
  * The folder path to where you should place project/group configuration files.
  *
  * Returns: a newly-allocated string that must be freed with g_free().
+ *
+ * Deprecated: 3.0: use codeslayer_get_group_config_folder_path now.
  */
 gchar*
 codeslayer_get_active_group_folder_path (CodeSlayer *codeslayer)
 {
   CodeSlayerGroup *group;
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  group = codeslayer_get_active_group (codeslayer);
+  group = codeslayer_get_group (codeslayer);
   return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, GROUPS,
                            codeslayer_group_get_name (group), NULL);
-}
-
-/**
- * codeslayer_get_active_editor_file_path:
- * @codeslayer: a #CodeSlayer.
- *
- * The file path for the active editor.
- *
- * Returns: a string that is owned by the editor and should not be freed.
- */
-const gchar*
-codeslayer_get_active_editor_file_path (CodeSlayer *codeslayer)
-{
-  CodeSlayerEditor *editor;
-  CodeSlayerDocument *document;
-  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  
-  editor = codeslayer_get_active_editor (codeslayer);
-  
-  if (editor == NULL)
-    return NULL;
-  
-  document = codeslayer_editor_get_document (editor);
-  return codeslayer_document_get_file_path (document);;
 }
 
 /**
@@ -716,13 +737,68 @@ codeslayer_get_active_editor_file_path (CodeSlayer *codeslayer)
  * The folder path to where you should place plugin configuration files.
  *
  * Returns: a newly-allocated string that must be freed with g_free().
+ *
+ * Deprecated: 3.0: use codeslayer_get_plugins_config_folder_path now.
  */
 gchar*
 codeslayer_get_configuration_folder_path (CodeSlayer *codeslayer)
 {
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, 
-                           PLUGINS, CONFIGURATION, NULL);
+                           PLUGINS, CONFIG, NULL);
+}
+
+/**
+ * codeslayer_get_project_config_folder_path:
+ * @codeslayer: a #CodeSlayer.
+ * @project: a #CodeSlayerProject.
+ *
+ * The folder path to where you should place project configuration files.
+ *
+ * Returns: a newly-allocated string that must be freed with g_free().
+ */
+gchar*                    
+codeslayer_get_project_config_folder_path  (CodeSlayer        *codeslayer, 
+                                            CodeSlayerProject *project)
+{
+  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
+  verify_project_config_dir_exists (project);
+  return g_build_filename (codeslayer_project_get_folder_path (project), 
+                           PROJECT_CONFIG, NULL);
+}
+
+/**
+ * codeslayer_get_plugins_config_folder_path:
+ * @codeslayer: a #CodeSlayer.
+ *
+ * The folder path to where you should place plugin configuration files.
+ *
+ * Returns: a newly-allocated string that must be freed with g_free().
+ */
+gchar*                    
+codeslayer_get_plugins_config_folder_path (CodeSlayer *codeslayer)
+{
+  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
+  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, 
+                           PLUGINS, CONFIG, NULL);
+}
+
+/**
+ * codeslayer_get_group_config_folder_path:
+ * @codeslayer: a #CodeSlayer.
+ *
+ * The folder path to where you should place group configuration files.
+ *
+ * Returns: a newly-allocated string that must be freed with g_free().
+ */
+gchar*                    
+codeslayer_get_group_config_folder_path (CodeSlayer *codeslayer)
+{
+  CodeSlayerGroup *group;
+  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
+  group = codeslayer_get_group (codeslayer);
+  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, GROUPS,
+                           codeslayer_group_get_name (group), CONFIG, NULL);
 }
 
 /**
@@ -737,31 +813,9 @@ codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer,
                                      const gchar *file_path)
 {
   CodeSlayerGroup *group;
-  GList *projects; 
-  
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-
-  group = codeslayer_get_active_group (codeslayer);
-  projects = codeslayer_group_get_projects (group);
-
-  while (projects != NULL)
-    {
-      CodeSlayerProject *project = projects->data;
-      gchar *folder_path_expanded;
-      const gchar *folder_path = codeslayer_project_get_folder_path (project);
-      folder_path_expanded = g_strconcat (folder_path, G_DIR_SEPARATOR_S, NULL);
-      
-      if (g_str_has_prefix (file_path, folder_path_expanded))
-        {
-          g_free (folder_path_expanded);
-          return project;
-        }
-      
-      g_free (folder_path_expanded);
-      projects = g_list_next (projects);
-    }
-  
-  return NULL;
+  group = codeslayer_get_group (codeslayer);
+  return codeslayer_group_get_project_by_file_path (group, file_path);
 }
 
 /**
@@ -923,4 +977,22 @@ static void
 projects_changed_action (CodeSlayer *codeslayer)
 {
   g_signal_emit_by_name((gpointer) codeslayer, "projects-changed");
-}                                  
+}
+
+static void
+verify_project_config_dir_exists (CodeSlayerProject *project)
+{
+  gchar *config_dir;
+  GFile *file;
+  
+  config_dir = g_build_filename (codeslayer_project_get_folder_path (project),
+                                 PROJECT_CONFIG, NULL);
+                           
+  file = g_file_new_for_path (config_dir);
+
+  if (!g_file_query_exists (file, NULL)) 
+    g_file_make_directory (file, NULL, NULL);
+
+  g_free (config_dir);
+  g_object_unref (file);
+}
