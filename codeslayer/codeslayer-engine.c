@@ -538,7 +538,6 @@ add_projects_action (CodeSlayerEngine *engine,
 
       CodeSlayerProject *project;
       gchar *project_name;
-      gchar *project_key;
       gchar *folder_path;
 
       project = codeslayer_project_new ();
@@ -546,10 +545,6 @@ add_projects_action (CodeSlayerEngine *engine,
       project_name = g_file_get_basename (file);
       codeslayer_project_set_name (project, project_name);
       g_free (project_name);
-
-      project_key = codeslayer_utils_create_key();
-      codeslayer_project_set_key (project, project_key);
-      g_free (project_key);
 
       folder_path = g_file_get_path (file);
       codeslayer_project_set_folder_path (project, folder_path);

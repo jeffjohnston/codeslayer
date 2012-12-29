@@ -45,7 +45,6 @@ typedef struct _CodeSlayerProjectPrivate CodeSlayerProjectPrivate;
 struct _CodeSlayerProjectPrivate
 {
   gchar *name;
-  gchar *key;
   gchar *folder_path;
 };
 
@@ -53,7 +52,6 @@ enum
 {
   PROP_0,
   PROP_NAME,
-  PROP_KEY,
   PROP_FOLDER_PATH
 };
 
@@ -84,18 +82,6 @@ codeslayer_project_class_init (CodeSlayerProjectClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-   * CodeSlayerProject:key:
-   *
-   * The key for the project to uniquely identify it.
-   */
-  g_object_class_install_property (gobject_class, 
-                                   PROP_KEY,
-                                   g_param_spec_string ("key", 
-                                                        "Key",
-                                                        "Key", "",
-                                                        G_PARAM_READWRITE));
-
-  /**
    * CodeSlayerProject:folder_path:
    *
    * The fully qualified folder path where the project is located.
@@ -115,7 +101,7 @@ codeslayer_project_init (CodeSlayerProject *project)
   CodeSlayerProjectPrivate *priv;
   priv = CODESLAYER_PROJECT_GET_PRIVATE (project);
   priv->name = NULL;
-  priv->key = NULL;
+  priv->folder_path = NULL;
 }
 
 static void
@@ -127,11 +113,6 @@ codeslayer_project_finalize (CodeSlayerProject *project)
     {
       g_free (priv->name);
       priv->name = NULL;
-    }
-  if (priv->key)
-    {
-      g_free (priv->key);
-      priv->key = NULL;
     }
   if (priv->folder_path)
     {
@@ -158,9 +139,6 @@ codeslayer_project_get_property (GObject    *object,
     case PROP_NAME:
       g_value_set_string (value, priv->name);
       break;
-    case PROP_KEY:
-      g_value_set_string (value, priv->key);
-      break;
     case PROP_FOLDER_PATH:
       g_value_set_string (value, priv->folder_path);
       break;
@@ -183,9 +161,6 @@ codeslayer_project_set_property (GObject      *object,
     {
     case PROP_NAME:
       codeslayer_project_set_name (project, g_value_get_string (value));
-      break;
-    case PROP_KEY:
-      codeslayer_project_set_key (project, g_value_get_string (value));
       break;
     case PROP_FOLDER_PATH:
       codeslayer_project_set_folder_path (project, g_value_get_string (value));
@@ -238,37 +213,6 @@ codeslayer_project_set_name (CodeSlayerProject *project,
       priv->name = NULL;
     }
   priv->name = g_strdup (name);
-}
-
-/**
- * codeslayer_project_get_key:
- * @project: a #CodeSlayerProject.
- *
- * Returns: the unique identifier for the project
- */
-const gchar *
-codeslayer_project_get_key (CodeSlayerProject *project)
-{
-  return CODESLAYER_PROJECT_GET_PRIVATE (project)->key;
-}
-
-/**
- * codeslayer_project_set_key:
- * @project: a #CodeSlayerProject.
- * @key: the unique identifier for the project
- */
-void
-codeslayer_project_set_key (CodeSlayerProject *project, 
-                             const gchar       *key)
-{
-  CodeSlayerProjectPrivate *priv;
-  priv = CODESLAYER_PROJECT_GET_PRIVATE (project);
-  if (priv->key)
-    {
-      g_free (priv->key);
-      priv->key = NULL;
-    }
-  priv->key = g_strdup (key);
 }
 
 /**

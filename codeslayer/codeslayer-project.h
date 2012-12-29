@@ -49,9 +49,6 @@ CodeSlayerProject  *codeslayer_project_new                     (void);
 const gchar*       codeslayer_project_get_name                 (CodeSlayerProject *project);
 void               codeslayer_project_set_name                 (CodeSlayerProject *project,
                                                                 const gchar       *name);
-const gchar*       codeslayer_project_get_key                  (CodeSlayerProject *project);
-void               codeslayer_project_set_key                  (CodeSlayerProject *project,
-                                                                const gchar       *key);
 const gchar*       codeslayer_project_get_folder_path          (CodeSlayerProject *project);
 void               codeslayer_project_set_folder_path          (CodeSlayerProject *project,
                                                                 const gchar       *folder_path);

@@ -356,7 +356,6 @@ codeslayer_repository_get_projects (CodeSlayerGroup *group)
                                             file_path, 
                                             "project",
                                             "name", G_TYPE_STRING, 
-                                            "key", G_TYPE_STRING, 
                                             "folder_path", G_TYPE_STRING, 
                                             NULL);
 
@@ -382,7 +381,6 @@ codeslayer_repository_save_projects (CodeSlayerGroup *group)
                                   file_path, 
                                   "project",
                                   "name", G_TYPE_STRING, 
-                                  "key", G_TYPE_STRING, 
                                   "folder_path", G_TYPE_STRING, 
                                   NULL);
 

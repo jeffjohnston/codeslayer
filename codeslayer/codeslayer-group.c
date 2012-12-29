@@ -268,35 +268,7 @@ codeslayer_group_set_projects (CodeSlayerGroup *group,
 }
 
 /**
- * codeslayer_group_find_project:
- * @group: a #CodeSlayerGroup.
- * @project_key: the key of the #CodeSlayerProject to find.
- *
- * Returns: the project found by project_key. Will return NULL if the 
- *          project specified by project_key is not found.
- */
-CodeSlayerProject*
-codeslayer_group_find_project (CodeSlayerGroup  *group,
-                               const gchar      *project_key)
-{
-  CodeSlayerGroupPrivate *priv;
-  GList *projects;
-
-  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
-
-  projects = priv->projects;
-  while (projects != NULL)
-    {
-      CodeSlayerProject *project = projects->data;
-      if (g_strcmp0 (codeslayer_project_get_key (project), project_key) == 0)
-        return project;
-      projects = g_list_next (projects);
-    }
-  return NULL;
-}
-
-/**
- * codeslayer_group_find_project:
+ * codeslayer_group_get_project_by_file_path:
  * @group: a #CodeSlayerGroup.
  * @file_path: the file_path of the #CodeSlayerProject to find.
  *
