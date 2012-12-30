@@ -31,12 +31,12 @@
  * @include: codeslayer/codeslayer-menubar.h
  */
 
-static void codeslayer_menubar_class_init  (CodeSlayerMenuBarClass *klass);
-static void codeslayer_menubar_init        (CodeSlayerMenuBar      *menubar);
-static void codeslayer_menubar_finalize    (CodeSlayerMenuBar      *menubar);
+static void codeslayer_menu_bar_class_init  (CodeSlayerMenuBarClass *klass);
+static void codeslayer_menu_bar_init        (CodeSlayerMenuBar      *menu_bar);
+static void codeslayer_menu_bar_finalize    (CodeSlayerMenuBar      *menu_bar);
                             
-#define CODESLAYER_MENUBAR_GET_PRIVATE(obj) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENUBAR_TYPE, CodeSlayerMenuBarPrivate))
+#define CODESLAYER_MENU_BAR_GET_PRIVATE(obj) \
+  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_TYPE, CodeSlayerMenuBarPrivate))
 
 typedef struct _CodeSlayerMenuBarPrivate CodeSlayerMenuBarPrivate;
 
@@ -46,12 +46,12 @@ struct _CodeSlayerMenuBarPrivate
   GtkAccelGroup    *accel_group;
   GSList           *radio_group;
   GtkWidget        *window;
-  GtkWidget        *menubar_editor;
-  GtkWidget        *menubar_search;
-  GtkWidget        *menubar_view;
-  GtkWidget        *menubar_groups;
-  GtkWidget        *menubar_projects;
-  GtkWidget        *menubar_tools;
+  GtkWidget        *menu_bar_editor;
+  GtkWidget        *menu_bar_search;
+  GtkWidget        *menu_bar_view;
+  GtkWidget        *menu_bar_groups;
+  GtkWidget        *menu_bar_projects;
+  GtkWidget        *menu_bar_tools;
 };
 
 enum
@@ -93,12 +93,12 @@ enum
   LAST_SIGNAL
 };
 
-static guint codeslayer_menubar_signals[LAST_SIGNAL] = { 0 };
+static guint codeslayer_menu_bar_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (CodeSlayerMenuBar, codeslayer_menubar, GTK_TYPE_MENU_BAR)
+G_DEFINE_TYPE (CodeSlayerMenuBar, codeslayer_menu_bar, GTK_TYPE_MENU_BAR)
 
 static void
-codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
+codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
 {
 
   /**
@@ -109,7 +109,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::group-changed signal is a request for the active group to be changed.
    */
-  codeslayer_menubar_signals[GROUP_CHANGED] =
+  codeslayer_menu_bar_signals[GROUP_CHANGED] =
     g_signal_new ("group-changed", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -125,7 +125,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::new-group signal is a request to create a new group. 
    */
-  codeslayer_menubar_signals[NEW_GROUP] =
+  codeslayer_menu_bar_signals[NEW_GROUP] =
     g_signal_new ("new-group", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -141,7 +141,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::rename-group signal is a request to rename the active group. 
    */
-  codeslayer_menubar_signals[RENAME_GROUP] =
+  codeslayer_menu_bar_signals[RENAME_GROUP] =
     g_signal_new ("rename-group", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -157,7 +157,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::remove-group signal is a request to remove the active group. 
    */
-  codeslayer_menubar_signals[REMOVE_GROUP] =
+  codeslayer_menu_bar_signals[REMOVE_GROUP] =
     g_signal_new ("remove-group", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -173,7 +173,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::add-project signal is a request to add a new project to the active group. 
    */
-  codeslayer_menubar_signals[ADD_PROJECTS] =
+  codeslayer_menu_bar_signals[ADD_PROJECTS] =
     g_signal_new ("add-projects", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -189,7 +189,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::save-editor signal is a request to save the active editor. 
    */
-  codeslayer_menubar_signals[SAVE_EDITOR] =
+  codeslayer_menu_bar_signals[SAVE_EDITOR] =
     g_signal_new ("save-editor", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -205,7 +205,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::save-all-editors signal is a request to save all the open editors.
    */
-  codeslayer_menubar_signals[SAVE_ALL_EDITORS] =
+  codeslayer_menu_bar_signals[SAVE_ALL_EDITORS] =
     g_signal_new ("save-all-editors", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -221,7 +221,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::close-editor signal is a request to close the active editor.
    */
-  codeslayer_menubar_signals[CLOSE_EDITOR] =
+  codeslayer_menu_bar_signals[CLOSE_EDITOR] =
     g_signal_new ("close-editor", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -237,7 +237,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::quit-application signal is a request to close the application.
    */
-  codeslayer_menubar_signals[QUIT_APPLICATION] =
+  codeslayer_menu_bar_signals[QUIT_APPLICATION] =
     g_signal_new ("quit-application", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -253,7 +253,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::find-projects signal is a request to open up the search dialog.
    */
-  codeslayer_menubar_signals[FIND_GROUP] =
+  codeslayer_menu_bar_signals[FIND_GROUP] =
     g_signal_new ("find-projects", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -269,7 +269,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::fullscreen-window signal is a request to open up the search dialog.
    */
-  codeslayer_menubar_signals[FULLSCREEN_WINDOW] =
+  codeslayer_menu_bar_signals[FULLSCREEN_WINDOW] =
     g_signal_new ("fullscreen-window", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -285,7 +285,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::show-side-pane signal is a request to open up the side pane.
    */
-  codeslayer_menubar_signals[SHOW_SIDE_PANE] =
+  codeslayer_menu_bar_signals[SHOW_SIDE_PANE] =
     g_signal_new ("show-side-pane", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -301,7 +301,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::show-side-pane signal is a request to open up the bottom pane.
    */
-  codeslayer_menubar_signals[SHOW_BOTTOM_PANE] =
+  codeslayer_menu_bar_signals[SHOW_BOTTOM_PANE] =
     g_signal_new ("show-bottom-pane", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -317,7 +317,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::draw-spaces signal is a request to show the invisible characters in the editors.
    */
-  codeslayer_menubar_signals[DRAW_SPACES] =
+  codeslayer_menu_bar_signals[DRAW_SPACES] =
     g_signal_new ("draw-spaces", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -333,7 +333,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::find signal is a request to open up the notebook search.
    */
-  codeslayer_menubar_signals[FIND] =
+  codeslayer_menu_bar_signals[FIND] =
     g_signal_new ("find", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -349,7 +349,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::replace signal is a request to open up the notebook search.
    */
-  codeslayer_menubar_signals[REPLACE] =
+  codeslayer_menu_bar_signals[REPLACE] =
     g_signal_new ("replace", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -366,7 +366,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    * The ::find-next signal is a request to find the next 
    * value using the notebook search.
    */
-  codeslayer_menubar_signals[FIND_NEXT] =
+  codeslayer_menu_bar_signals[FIND_NEXT] =
     g_signal_new ("find-next", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -383,7 +383,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    * The ::find-previous signal is a request to find the previous 
    * value using the notebook search.
    */
-  codeslayer_menubar_signals[FIND_PREVIOUS] =
+  codeslayer_menu_bar_signals[FIND_PREVIOUS] =
     g_signal_new ("find-previous", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -399,7 +399,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::go-to-line signal is a request to jump to the line number.
    */
-  codeslayer_menubar_signals[GO_TO_LINE] =
+  codeslayer_menu_bar_signals[GO_TO_LINE] =
     g_signal_new ("go-to-line", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -415,7 +415,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::show-preferences signal is a request to open up the preferences dialog.
    */
-  codeslayer_menubar_signals[SHOW_PREFERENCES] =
+  codeslayer_menu_bar_signals[SHOW_PREFERENCES] =
     g_signal_new ("show-preferences", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -431,7 +431,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::scan-external-changes signal is a request to scan for changes outside editor.
    */
-  codeslayer_menubar_signals[SCAN_EXTERNAL_CHANGES] =
+  codeslayer_menu_bar_signals[SCAN_EXTERNAL_CHANGES] =
     g_signal_new ("scan-external-changes", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -447,7 +447,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::show-plugins signal is a request to open up the plugins dialog.
    */
-  codeslayer_menubar_signals[SHOW_PLUGINS] =
+  codeslayer_menu_bar_signals[SHOW_PLUGINS] =
     g_signal_new ("show-plugins", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -463,7 +463,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::undo signal is a request to undo the last change.
    */
-  codeslayer_menubar_signals[UNDO] =
+  codeslayer_menu_bar_signals[UNDO] =
     g_signal_new ("undo", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -479,7 +479,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::redo signal is a request to redo the last change.
    */
-  codeslayer_menubar_signals[REDO] =
+  codeslayer_menu_bar_signals[REDO] =
     g_signal_new ("redo", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -495,7 +495,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::cut signal is a request to cut the selected text.
    */
-  codeslayer_menubar_signals[CUT] =
+  codeslayer_menu_bar_signals[CUT] =
     g_signal_new ("cut", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -511,7 +511,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::copy signal is a request to copy the selected text.
    */
-  codeslayer_menubar_signals[COPY] =
+  codeslayer_menu_bar_signals[COPY] =
     g_signal_new ("copy", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -527,7 +527,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::paste signal is a request to paste the selected text.
    */
-  codeslayer_menubar_signals[PASTE] =
+  codeslayer_menu_bar_signals[PASTE] =
     g_signal_new ("paste", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -543,7 +543,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::del signal is a request to delete the selected text.
    */
-  codeslayer_menubar_signals[DELETE] =
+  codeslayer_menu_bar_signals[DELETE] =
     g_signal_new ("del", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -559,7 +559,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * The ::select-all signal is a request to select all the text.
    */
-  codeslayer_menubar_signals[SELECT_ALL] =
+  codeslayer_menu_bar_signals[SELECT_ALL] =
     g_signal_new ("select-all", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -574,7 +574,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    * The ::to-uppercase signal enables the (Ctrl + U) keystroke to uppercase 
    * the selected text.
    */
-  codeslayer_menubar_signals[TO_UPPERCASE] =
+  codeslayer_menu_bar_signals[TO_UPPERCASE] =
     g_signal_new ("to-uppercase", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -589,7 +589,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    * The ::to-lowercase signal enables the (Ctrl + L) keystroke to lowercase the 
    * selected text.
    */
-  codeslayer_menubar_signals[TO_LOWERCASE] =
+  codeslayer_menu_bar_signals[TO_LOWERCASE] =
     g_signal_new ("to-lowercase", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -604,7 +604,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    * The ::copy-lines signal enables the (Ctrl + Shift + Down) keystroke to copy 
    * the currently selected lines.
    */
-  codeslayer_menubar_signals[COPY_LINES] =
+  codeslayer_menu_bar_signals[COPY_LINES] =
     g_signal_new ("copy-lines", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -616,7 +616,7 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
    * CodeSlayerMenuBar::sync-projects-with-editor 
    * @menu: the menu that received the signal
    */
-  codeslayer_menubar_signals[SYNC_PROJECTS_WITH_EDITOR] =
+  codeslayer_menu_bar_signals[SYNC_PROJECTS_WITH_EDITOR] =
     g_signal_new ("sync-projects-with-editor", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -624,22 +624,22 @@ codeslayer_menubar_class_init (CodeSlayerMenuBarClass *klass)
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__BOOLEAN, G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
 
-  G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_menubar_finalize;
+  G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_menu_bar_finalize;
 
   g_type_class_add_private (klass, sizeof (CodeSlayerMenuBarPrivate));
 }
 
 static void
-codeslayer_menubar_init (CodeSlayerMenuBar *menu) {}
+codeslayer_menu_bar_init (CodeSlayerMenuBar *menu) {}
 
 static void
-codeslayer_menubar_finalize (CodeSlayerMenuBar *menu)
+codeslayer_menu_bar_finalize (CodeSlayerMenuBar *menu)
 {
-  G_OBJECT_CLASS (codeslayer_menubar_parent_class)->finalize (G_OBJECT (menu));
+  G_OBJECT_CLASS (codeslayer_menu_bar_parent_class)->finalize (G_OBJECT (menu));
 }
 
 /**
- * codeslayer_menubar_new:
+ * codeslayer_menu_bar_new:
  * @window: the main application window.
  * @groups: a #CodeSlayerGroups.
  * @preferences: a #CodeSlayerPreferences.
@@ -650,7 +650,7 @@ codeslayer_menubar_finalize (CodeSlayerMenuBar *menu)
  * Returns: a new #CodeSlayerMenuBar. 
  */
 GtkWidget*
-codeslayer_menubar_new (GtkWidget             *window,
+codeslayer_menu_bar_new (GtkWidget             *window,
                         CodeSlayerGroups      *groups, 
                         CodeSlayerPreferences *preferences, 
                         CodeSlayerSettings    *settings)
@@ -658,18 +658,18 @@ codeslayer_menubar_new (GtkWidget             *window,
   CodeSlayerMenuBarPrivate *priv;
   GtkWidget *menu;
   
-  GtkWidget *menubar_editor;
-  GtkWidget *menubar_search;
-  GtkWidget *menubar_view;
-  GtkWidget *menubar_groups;
-  GtkWidget *menubar_projects;
-  GtkWidget *menubar_tools;
+  GtkWidget *menu_bar_editor;
+  GtkWidget *menu_bar_search;
+  GtkWidget *menu_bar_view;
+  GtkWidget *menu_bar_groups;
+  GtkWidget *menu_bar_projects;
+  GtkWidget *menu_bar_tools;
   GtkWidget *menu_help;
   
   GtkAccelGroup *accel_group;
   
-  menu = g_object_new (codeslayer_menubar_get_type (), NULL);
-  priv = CODESLAYER_MENUBAR_GET_PRIVATE (menu);
+  menu = g_object_new (codeslayer_menu_bar_get_type (), NULL);
+  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu);
   priv->window = window;
   priv->groups = groups;
 
@@ -677,68 +677,68 @@ codeslayer_menubar_new (GtkWidget             *window,
   priv->accel_group = accel_group;
   gtk_window_add_accel_group (GTK_WINDOW (window), priv->accel_group);
 
-  menubar_editor = codeslayer_menubar_editor_new (menu, accel_group);
-  priv->menubar_editor = menubar_editor;
+  menu_bar_editor = codeslayer_menu_bar_editor_new (menu, accel_group);
+  priv->menu_bar_editor = menu_bar_editor;
 
-  menubar_search = codeslayer_menubar_search_new (menu, accel_group);
-  priv->menubar_search = menubar_search;
+  menu_bar_search = codeslayer_menu_bar_search_new (menu, accel_group);
+  priv->menu_bar_search = menu_bar_search;
 
-  menubar_view = codeslayer_menubar_view_new (menu, accel_group, settings);
-  priv->menubar_view = menubar_view;
+  menu_bar_view = codeslayer_menu_bar_view_new (menu, accel_group, settings);
+  priv->menu_bar_view = menu_bar_view;
 
-  menubar_groups = codeslayer_menubar_groups_new (window, menu, accel_group, groups);
-  priv->menubar_groups = menubar_groups;
+  menu_bar_groups = codeslayer_menu_bar_groups_new (window, menu, accel_group, groups);
+  priv->menu_bar_groups = menu_bar_groups;
 
-  menubar_projects = codeslayer_menubar_projects_new (window, menu, accel_group, settings);
-  priv->menubar_projects = menubar_projects;
+  menu_bar_projects = codeslayer_menu_bar_projects_new (window, menu, accel_group, settings);
+  priv->menu_bar_projects = menu_bar_projects;
 
-  menubar_tools = codeslayer_menubar_tools_new (menu, accel_group);
-  priv->menubar_tools = menubar_tools;
+  menu_bar_tools = codeslayer_menu_bar_tools_new (menu, accel_group);
+  priv->menu_bar_tools = menu_bar_tools;
 
-  menu_help = codeslayer_menubar_help_new (window, menu, accel_group);
+  menu_help = codeslayer_menu_bar_help_new (window, menu, accel_group);
 
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menubar_editor);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menubar_search);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menubar_view);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menubar_groups);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menubar_projects);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menubar_tools);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_editor);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_search);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_view);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_groups);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_projects);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_tools);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_help);
 
   return menu;
 }
 
 GtkAccelGroup *
-codeslayer_menubar_get_accel_group (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_get_accel_group (CodeSlayerMenuBar *menu_bar)
 {
   CodeSlayerMenuBarPrivate *priv;
-  priv = CODESLAYER_MENUBAR_GET_PRIVATE (menubar);
+  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
   return priv->accel_group;
 }
 
 /**
- * codeslayer_menubar_sync_with_notebook:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_sync_with_notebook:
+ * @menu_bar: a #CodeSlayerMenuBar.
  * @notebook: a #CodeSlayerNotebook.
  * 
  * Update the sensitivity of editor related menu items based on the current 
  * state of the notebook #CodeSlayerEditor widgets.
  */
 void
-codeslayer_menubar_sync_with_notebook (CodeSlayerMenuBar *menubar,
-                                       GtkWidget         *notebook)
+codeslayer_menu_bar_sync_with_notebook (CodeSlayerMenuBar *menu_bar,
+                                        GtkWidget         *notebook)
 {
   CodeSlayerMenuBarPrivate *priv;
-  priv = CODESLAYER_MENUBAR_GET_PRIVATE (menubar);
-  codeslayer_menubar_editor_sync_with_notebook (CODESLAYER_MENUBAR_EDITOR (priv->menubar_editor),
+  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
+  codeslayer_menu_bar_editor_sync_with_notebook (CODESLAYER_MENU_BAR_EDITOR (priv->menu_bar_editor),
                                                 notebook);                                               
-  codeslayer_menubar_search_sync_with_notebook (CODESLAYER_MENUBAR_SEARCH (priv->menubar_search),
+  codeslayer_menu_bar_search_sync_with_notebook (CODESLAYER_MENU_BAR_SEARCH (priv->menu_bar_search),
                                                 notebook);  
 }
 
 /**
- * codeslayer_menubar_sync_with_panes:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_sync_with_panes:
+ * @menu_bar: a #CodeSlayerMenuBar.
  * @show_side_pane: if TRUE then the side pane is shown
  * @show_bottom_pane: if TRUE then the bottom pane is shown
  * 
@@ -746,407 +746,407 @@ codeslayer_menubar_sync_with_notebook (CodeSlayerMenuBar *menubar,
  * state of the bottom and side pane.
  */
 void            
-codeslayer_menubar_sync_with_panes (CodeSlayerMenuBar *menubar, 
-                                    gboolean           show_side_pane, 
-                                    gboolean           show_bottom_pane)
+codeslayer_menu_bar_sync_with_panes (CodeSlayerMenuBar *menu_bar, 
+                                     gboolean           show_side_pane, 
+                                     gboolean           show_bottom_pane)
 {
   CodeSlayerMenuBarPrivate *priv;
-  priv = CODESLAYER_MENUBAR_GET_PRIVATE (menubar);
-  codeslayer_menubar_view_sync_with_panes (CODESLAYER_MENUBAR_VIEW (priv->menubar_view),
+  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
+  codeslayer_menu_bar_view_sync_with_panes (CODESLAYER_MENU_BAR_VIEW (priv->menu_bar_view),
                                            show_side_pane, show_bottom_pane);  
 }                                         
 
 /**
- * codeslayer_menubar_save_editor:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_save_editor:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_save_editor (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_save_editor (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "save-editor");
+  g_signal_emit_by_name ((gpointer) menu_bar, "save-editor");
 }
 
 /**
- * codeslayer_menubar_save_all_editors:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_save_all_editors:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_save_all_editors (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_save_all_editors (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "save-all-editors");
+  g_signal_emit_by_name ((gpointer) menu_bar, "save-all-editors");
 }
 
 /**
- * codeslayer_menubar_close_editor:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_close_editor:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_close_editor (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_close_editor (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "close-editor");
+  g_signal_emit_by_name ((gpointer) menu_bar, "close-editor");
 }
 
 /**
- * codeslayer_menubar_quit_editor:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_quit_editor:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_quit_application (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_quit_application (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "quit-application");
+  g_signal_emit_by_name ((gpointer) menu_bar, "quit-application");
 }
 
 /**
- * codeslayer_menubar_undo:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_undo:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_undo (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_undo (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "undo");
+  g_signal_emit_by_name ((gpointer) menu_bar, "undo");
 }
 
 /**
- * codeslayer_menubar_redo:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_redo:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_redo (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_redo (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "redo");
+  g_signal_emit_by_name ((gpointer) menu_bar, "redo");
 }
 
 /**
- * codeslayer_menubar_cut:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_cut:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_cut (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_cut (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "cut");
+  g_signal_emit_by_name ((gpointer) menu_bar, "cut");
 }
 
 /**
- * codeslayer_menubar_copy:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_copy:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_copy (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_copy (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "copy");
+  g_signal_emit_by_name ((gpointer) menu_bar, "copy");
 }
 
 /**
- * codeslayer_menubar_paste:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_paste:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_paste (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_paste (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "paste");
+  g_signal_emit_by_name ((gpointer) menu_bar, "paste");
 }
 
 /**
- * codeslayer_menubar_delete:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_delete:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_delete (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_delete (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "del");
+  g_signal_emit_by_name ((gpointer) menu_bar, "del");
 }
 
 /**
- * codeslayer_menubar_select_all:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_select_all:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_select_all (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_select_all (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "select-all");
+  g_signal_emit_by_name ((gpointer) menu_bar, "select-all");
 }
 
 /**
- * codeslayer_menubar_to_uppercas:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_to_uppercas:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_to_uppercase (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_to_uppercase (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "to-uppercase");
+  g_signal_emit_by_name ((gpointer) menu_bar, "to-uppercase");
 }
 
 /**
- * codeslayer_menubar_to_lowercase:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_to_lowercase:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_to_lowercase (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_to_lowercase (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "to-lowercase");
+  g_signal_emit_by_name ((gpointer) menu_bar, "to-lowercase");
 }
 
 /**
- * codeslayer_menubar_copy_lines:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_copy_lines:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_copy_lines (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_copy_lines (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "copy-lines");
+  g_signal_emit_by_name ((gpointer) menu_bar, "copy-lines");
 }
 
 /**
- * codeslayer_menubar_show_preferences:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_show_preferences:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_show_preferences (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_show_preferences (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "show-preferences");
+  g_signal_emit_by_name ((gpointer) menu_bar, "show-preferences");
 }
 
 /**
- * codeslayer_menubar_scan_external_changes:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_scan_external_changes:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_scan_external_changes (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_scan_external_changes (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "scan-external-changes");
+  g_signal_emit_by_name ((gpointer) menu_bar, "scan-external-changes");
 }
 
 /**
- * codeslayer_menubar_find:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_find:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_find (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_find (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "find");
+  g_signal_emit_by_name ((gpointer) menu_bar, "find");
 }
 
 /**
- * codeslayer_menubar_replace:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_replace:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_replace (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_replace (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "replace");
+  g_signal_emit_by_name ((gpointer) menu_bar, "replace");
 }
 
 /**
- * codeslayer_menubar_find_next:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_find_next:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_find_next (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_find_next (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "find-next");
+  g_signal_emit_by_name ((gpointer) menu_bar, "find-next");
 }
 
 /**
- * codeslayer_menubar_find_previous:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_find_previous:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_find_previous (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_find_previous (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "find-previous");
+  g_signal_emit_by_name ((gpointer) menu_bar, "find-previous");
 }
 
 /**
- * codeslayer_menubar_find_projects:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_find_projects:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_find_projects (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_find_projects (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "find-projects", NULL);
+  g_signal_emit_by_name ((gpointer) menu_bar, "find-projects", NULL);
 }
 
 /**
- * codeslayer_menubar_go_to_line:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_go_to_line:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menubar_go_to_line (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_go_to_line (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "go-to-line", NULL);
+  g_signal_emit_by_name ((gpointer) menu_bar, "go-to-line", NULL);
 }
 
 /**
- * codeslayer_menubar_fullscreen_window:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_fullscreen_window:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_fullscreen_window (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_fullscreen_window (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "fullscreen-window");
+  g_signal_emit_by_name ((gpointer) menu_bar, "fullscreen-window");
 }
 
 /**
- * codeslayer_menubar_show_side_pane:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_show_side_pane:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_show_side_pane (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_show_side_pane (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "show-side-pane");
+  g_signal_emit_by_name ((gpointer) menu_bar, "show-side-pane");
 }
 
 /**
- * codeslayer_menubar_show_bottom_pane:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_show_bottom_pane:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_show_bottom_pane (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_show_bottom_pane (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "show-bottom-pane");
+  g_signal_emit_by_name ((gpointer) menu_bar, "show-bottom-pane");
 }
 
 /**
- * codeslayer_menubar_draw_spaces:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_draw_spaces:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_draw_spaces (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_draw_spaces (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "draw-spaces");
+  g_signal_emit_by_name ((gpointer) menu_bar, "draw-spaces");
 }
 
 void            
 /**
- * codeslayer_menubar_refresh_groups:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_refresh_groups:
+ * @menu_bar: a #CodeSlayerMenuBar.
  * @groups: a #CodeSlayerGroups.
  */
-codeslayer_menubar_refresh_groups (CodeSlayerMenuBar       *menubar,
-                                   CodeSlayerGroups *groups)
+codeslayer_menu_bar_refresh_groups (CodeSlayerMenuBar *menu_bar,
+                                    CodeSlayerGroups  *groups)
 {
   CodeSlayerMenuBarPrivate *priv;
-  priv = CODESLAYER_MENUBAR_GET_PRIVATE (menubar);
-  codeslayer_menubar_groups_refresh_groups (CODESLAYER_MENUBAR_GROUPS (priv->menubar_groups), 
+  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
+  codeslayer_menu_bar_groups_refresh_groups (CODESLAYER_MENU_BAR_GROUPS (priv->menu_bar_groups), 
                                             groups);
 }                                                          
 
 /**
- * codeslayer_menubar_group_changed:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_group_changed:
+ * @menu_bar: a #CodeSlayerMenuBar.
  * @group_name: the group name.
  */
 void
-codeslayer_menubar_group_changed (CodeSlayerMenuBar *menubar, 
+codeslayer_menu_bar_group_changed (CodeSlayerMenuBar *menu_bar, 
+                                   const gchar       *group_name)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "group-changed", group_name);
+}                               
+
+/**
+ * codeslayer_menu_bar_new_group:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ * @group_name: the group name.
+ */
+void
+codeslayer_menu_bar_new_group (CodeSlayerMenuBar *menu_bar, 
+                               const gchar       *group_name)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "new-group", group_name);
+}                               
+
+/**
+ * codeslayer_menu_bar_rename_group:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ * @group_name: the group name.
+ */
+void
+codeslayer_menu_bar_rename_group (CodeSlayerMenuBar *menu_bar, 
                                   const gchar       *group_name)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "group-changed", group_name);
+  g_signal_emit_by_name ((gpointer) menu_bar, "rename-group", group_name);
 }                               
 
 /**
- * codeslayer_menubar_new_group:
- * @menubar: a #CodeSlayerMenuBar.
- * @group_name: the group name.
+ * codeslayer_menu_bar_remove_group:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_new_group (CodeSlayerMenuBar *menubar, 
-                              const gchar       *group_name)
+codeslayer_menu_bar_remove_group (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "new-group", group_name);
+  g_signal_emit_by_name ((gpointer) menu_bar, "remove-group");
 }                               
 
 /**
- * codeslayer_menubar_rename_group:
- * @menubar: a #CodeSlayerMenuBar.
- * @group_name: the group name.
- */
-void
-codeslayer_menubar_rename_group (CodeSlayerMenuBar *menubar, 
-                                 const gchar       *group_name)
-{
-  g_signal_emit_by_name ((gpointer) menubar, "rename-group", group_name);
-}                               
-
-/**
- * codeslayer_menubar_remove_group:
- * @menubar: a #CodeSlayerMenuBar.
- */
-void
-codeslayer_menubar_remove_group (CodeSlayerMenuBar *menubar)
-{
-  g_signal_emit_by_name ((gpointer) menubar, "remove-group");
-}                               
-
-/**
- * codeslayer_menubar_add_projects:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_add_projects:
+ * @menu_bar: a #CodeSlayerMenuBar.
  * @files: a list of #GFile.
  */
 void
-codeslayer_menubar_add_projects (CodeSlayerMenuBar *menubar, 
+codeslayer_menu_bar_add_projects (CodeSlayerMenuBar *menu_bar, 
                                  GSList            *files)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "add-projects", files);
+  g_signal_emit_by_name ((gpointer) menu_bar, "add-projects", files);
 }
 
 /**
- * codeslayer_menubar_show_plugins:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_show_plugins:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_show_plugins (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_show_plugins (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "show-plugins");
+  g_signal_emit_by_name ((gpointer) menu_bar, "show-plugins");
 }
 
 /**
- * codeslayer_menubar_sync_projects_with_editor:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_sync_projects_with_editor:
+ * @menu_bar: a #CodeSlayerMenuBar.
  * @sync_projects_with_editor: is TRUE if the projects should be synced with the editor.
  */
 void            
-codeslayer_menubar_sync_projects_with_editor (CodeSlayerMenuBar *menubar, 
-                                              gboolean           sync_projects_with_editor)
+codeslayer_menu_bar_sync_projects_with_editor (CodeSlayerMenuBar *menu_bar, 
+                                               gboolean           sync_projects_with_editor)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "sync-projects-with-editor", sync_projects_with_editor);
+  g_signal_emit_by_name ((gpointer) menu_bar, "sync-projects-with-editor", sync_projects_with_editor);
 }                                               
 
 /**
- * codeslayer_menubar_add_tools_item:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_add_tools_item:
+ * @menu_bar: a #CodeSlayerMenuBar.
  * @item: a #GtkMenuItem.
  */
 void
-codeslayer_menubar_add_tools_item (CodeSlayerMenuBar *menubar, 
-                                   GtkWidget         *item)
+codeslayer_menu_bar_add_tools_item (CodeSlayerMenuBar *menu_bar, 
+                                    GtkWidget         *item)
 {
   CodeSlayerMenuBarPrivate *priv;
-  priv = CODESLAYER_MENUBAR_GET_PRIVATE (menubar);  
-  codeslayer_menubar_tools_add_item (CODESLAYER_MENUBAR_TOOLS (priv->menubar_tools),
+  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);  
+  codeslayer_menu_bar_tools_add_item (CODESLAYER_MENU_BAR_TOOLS (priv->menu_bar_tools),
                                      item);
 }                                   
                                                              
 /**
- * codeslayer_menubar_remove_tools_item:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_remove_tools_item:
+ * @menu_bar: a #CodeSlayerMenuBar.
  * @item: a #GtkMenuItem.
  */
 void
-codeslayer_menubar_remove_tools_item (CodeSlayerMenuBar *menubar, 
-                                      GtkWidget         *item)
+codeslayer_menu_bar_remove_tools_item (CodeSlayerMenuBar *menu_bar, 
+                                       GtkWidget         *item)
 {
   CodeSlayerMenuBarPrivate *priv;
-  priv = CODESLAYER_MENUBAR_GET_PRIVATE (menubar);  
-  codeslayer_menubar_tools_remove_item (CODESLAYER_MENUBAR_TOOLS (priv->menubar_tools),
+  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);  
+  codeslayer_menu_bar_tools_remove_item (CODESLAYER_MENU_BAR_TOOLS (priv->menu_bar_tools),
                                         item);
 }
 
 /**
- * codeslayer_menubar_check_updates:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_check_updates:
+ * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menubar_check_updates (CodeSlayerMenuBar *menubar)
+codeslayer_menu_bar_check_updates (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menubar, "check-updates");
+  g_signal_emit_by_name ((gpointer) menu_bar, "check-updates");
 }

@@ -26,15 +26,15 @@
  * @include: codeslayer/codeslayer-menubar-help.h
  */
 
-static void codeslayer_menubar_help_class_init  (CodeSlayerMenuBarHelpClass *klass);
-static void codeslayer_menubar_help_init        (CodeSlayerMenuBarHelp      *menubar_help);
-static void codeslayer_menubar_help_finalize    (CodeSlayerMenuBarHelp      *menubar_help);
+static void codeslayer_menu_bar_help_class_init  (CodeSlayerMenuBarHelpClass *klass);
+static void codeslayer_menu_bar_help_init        (CodeSlayerMenuBarHelp      *menu_bar_help);
+static void codeslayer_menu_bar_help_finalize    (CodeSlayerMenuBarHelp      *menu_bar_help);
 
-static void add_menu_items                      (CodeSlayerMenuBarHelp      *menubar_help);
-static void about_action                        (CodeSlayerMenuBarHelp      *menubar_help);
+static void add_menu_items                       (CodeSlayerMenuBarHelp      *menu_bar_help);
+static void about_action                         (CodeSlayerMenuBarHelp      *menu_bar_help);
 
-#define CODESLAYER_MENUBAR_HELP_GET_PRIVATE(obj) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENUBAR_HELP_TYPE, CodeSlayerMenuBarHelpPrivate))
+#define CODESLAYER_MENU_BAR_HELP_GET_PRIVATE(obj) \
+  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_HELP_TYPE, CodeSlayerMenuBarHelpPrivate))
 
 typedef struct _CodeSlayerMenuBarHelpPrivate CodeSlayerMenuBarHelpPrivate;
 
@@ -42,44 +42,44 @@ struct _CodeSlayerMenuBarHelpPrivate
 {
   GtkWidget     *window;
   GtkAccelGroup *accel_group;
-  GtkWidget     *menubar;
+  GtkWidget     *menu_bar;
   GtkWidget     *menu;
 };
 
-G_DEFINE_TYPE (CodeSlayerMenuBarHelp, codeslayer_menubar_help, GTK_TYPE_MENU_ITEM)
+G_DEFINE_TYPE (CodeSlayerMenuBarHelp, codeslayer_menu_bar_help, GTK_TYPE_MENU_ITEM)
 
 static void
-codeslayer_menubar_help_class_init (CodeSlayerMenuBarHelpClass *klass)
+codeslayer_menu_bar_help_class_init (CodeSlayerMenuBarHelpClass *klass)
 {
-  G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_menubar_help_finalize;
+  G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_menu_bar_help_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerMenuBarHelpPrivate));
 }
 
 static void
-codeslayer_menubar_help_init (CodeSlayerMenuBarHelp *menubar_help)
+codeslayer_menu_bar_help_init (CodeSlayerMenuBarHelp *menu_bar_help)
 {
   CodeSlayerMenuBarHelpPrivate *priv;
   GtkWidget *menu;
 
-  priv = CODESLAYER_MENUBAR_HELP_GET_PRIVATE (menubar_help);
+  priv = CODESLAYER_MENU_BAR_HELP_GET_PRIVATE (menu_bar_help);
   
-  gtk_menu_item_set_label (GTK_MENU_ITEM (menubar_help), _("Help"));
+  gtk_menu_item_set_label (GTK_MENU_ITEM (menu_bar_help), _("Help"));
   
   menu = gtk_menu_new ();
   priv->menu = menu;
-  gtk_menu_item_set_submenu (GTK_MENU_ITEM (menubar_help), menu);
+  gtk_menu_item_set_submenu (GTK_MENU_ITEM (menu_bar_help), menu);
 }
 
 static void
-codeslayer_menubar_help_finalize (CodeSlayerMenuBarHelp *menubar_help)
+codeslayer_menu_bar_help_finalize (CodeSlayerMenuBarHelp *menu_bar_help)
 {
-  G_OBJECT_CLASS (codeslayer_menubar_help_parent_class)->finalize (G_OBJECT (menubar_help));
+  G_OBJECT_CLASS (codeslayer_menu_bar_help_parent_class)->finalize (G_OBJECT (menu_bar_help));
 }
 
 /**
- * codeslayer_menubar_help_new:
+ * codeslayer_menu_bar_help_new:
  * @window: a #GtkWindow.
- * @menubar: a #CodeSlayerMenuBar.
+ * @menu_bar: a #CodeSlayerMenuBar.
  * @accel_group: a #GtkAccelGroup.
  *
  * Creates a new #CodeSlayerMenuBarHelp.
@@ -87,46 +87,46 @@ codeslayer_menubar_help_finalize (CodeSlayerMenuBarHelp *menubar_help)
  * Returns: a new #CodeSlayerMenuBarHelp. 
  */
 GtkWidget*
-codeslayer_menubar_help_new (GtkWidget     *window, 
-                             GtkWidget     *menubar, 
-                             GtkAccelGroup *accel_group)
+codeslayer_menu_bar_help_new (GtkWidget     *window, 
+                              GtkWidget     *menu_bar, 
+                              GtkAccelGroup *accel_group)
 {
   CodeSlayerMenuBarHelpPrivate *priv;
-  GtkWidget *menubar_help;
+  GtkWidget *menu_bar_help;
   
-  menubar_help = g_object_new (codeslayer_menubar_help_get_type (), NULL);
-  priv = CODESLAYER_MENUBAR_HELP_GET_PRIVATE (menubar_help);
+  menu_bar_help = g_object_new (codeslayer_menu_bar_help_get_type (), NULL);
+  priv = CODESLAYER_MENU_BAR_HELP_GET_PRIVATE (menu_bar_help);
 
   priv->window = window;
-  priv->menubar = menubar;
+  priv->menu_bar = menu_bar;
   priv->accel_group = accel_group;
 
-  add_menu_items (CODESLAYER_MENUBAR_HELP (menubar_help));
+  add_menu_items (CODESLAYER_MENU_BAR_HELP (menu_bar_help));
 
-  return menubar_help;
+  return menu_bar_help;
 }
 
 static void
-add_menu_items (CodeSlayerMenuBarHelp *menubar_help)
+add_menu_items (CodeSlayerMenuBarHelp *menu_bar_help)
 {
   CodeSlayerMenuBarHelpPrivate *priv;
   GtkWidget *about_menu_item;
 
-  priv = CODESLAYER_MENUBAR_HELP_GET_PRIVATE (menubar_help);
+  priv = CODESLAYER_MENU_BAR_HELP_GET_PRIVATE (menu_bar_help);
 
   about_menu_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_ABOUT, 
                                                         priv->accel_group);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), about_menu_item);
 
   g_signal_connect_swapped (G_OBJECT (about_menu_item), "activate",
-                            G_CALLBACK (about_action), menubar_help);
+                            G_CALLBACK (about_action), menu_bar_help);
 }
 
 static void
-about_action (CodeSlayerMenuBarHelp *menubar_help)
+about_action (CodeSlayerMenuBarHelp *menu_bar_help)
 {
   CodeSlayerMenuBarHelpPrivate *priv;
-  priv = CODESLAYER_MENUBAR_HELP_GET_PRIVATE (menubar_help);
+  priv = CODESLAYER_MENU_BAR_HELP_GET_PRIVATE (menu_bar_help);
 
   gtk_show_about_dialog (GTK_WINDOW (priv->window), 
                          "program-name", PACKAGE_NAME,

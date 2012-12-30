@@ -562,7 +562,7 @@ codeslayer_add_to_menubar (CodeSlayer  *codeslayer,
   g_return_if_fail (IS_CODESLAYER (codeslayer));
   priv = CODESLAYER_GET_PRIVATE (codeslayer); 
   g_object_ref_sink (menuitem);  
-  codeslayer_menubar_add_tools_item (priv->menubar, GTK_WIDGET (menuitem));
+  codeslayer_menu_bar_add_tools_item (priv->menubar, GTK_WIDGET (menuitem));
 }                              
 
 /**
@@ -580,7 +580,7 @@ codeslayer_remove_from_menubar (CodeSlayer  *codeslayer,
   g_return_if_fail (IS_CODESLAYER (codeslayer));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  codeslayer_menubar_remove_tools_item (priv->menubar, GTK_WIDGET (menuitem));
+  codeslayer_menu_bar_remove_tools_item (priv->menubar, GTK_WIDGET (menuitem));
   
   gtk_widget_destroy (GTK_WIDGET (menuitem));
   g_object_unref (menuitem);   
@@ -675,7 +675,7 @@ codeslayer_get_menubar_accel_group (CodeSlayer *codeslayer)
   CodeSlayerPrivate *priv;
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
-  return codeslayer_menubar_get_accel_group (priv->menubar);
+  return codeslayer_menu_bar_get_accel_group (priv->menubar);
 }
 
 /**

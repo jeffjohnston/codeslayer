@@ -340,7 +340,7 @@ codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
   
   if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
     {
-      codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
+      codeslayer_menu_bar_refresh_groups (CODESLAYER_MENU_BAR (priv->menubar), priv->groups);
       return FALSE;
     }
 
@@ -410,7 +410,7 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
   g_list_foreach (documents, (GFunc) g_object_unref, NULL);
   g_list_free (documents);
 
-  codeslayer_menubar_sync_with_notebook (CODESLAYER_MENUBAR (priv->menubar), priv->notebook);
+  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 
   if (codeslayer_group_get_libs (active_group) == NULL)
@@ -483,7 +483,7 @@ rename_group_action (CodeSlayerEngine *engine,
   codeslayer_repository_rename_group (active_group, group_name);
   codeslayer_group_set_name (active_group, group_name);
 
-  codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
+  codeslayer_menu_bar_refresh_groups (CODESLAYER_MENU_BAR (priv->menubar), priv->groups);
 }
 
 static void
@@ -515,7 +515,7 @@ set_active_group (CodeSlayerEngine *engine,
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   codeslayer_groups_set_active_group (priv->groups, group);
   codeslayer_repository_save_groups (priv->groups);
-  codeslayer_menubar_refresh_groups (CODESLAYER_MENUBAR (priv->menubar), priv->groups);
+  codeslayer_menu_bar_refresh_groups (CODESLAYER_MENU_BAR (priv->menubar), priv->groups);
   if (priv->search != NULL)
     codeslayer_search_clear (CODESLAYER_SEARCH (priv->search));
   codeslayer_engine_open_active_group (engine);
@@ -654,7 +654,7 @@ select_projects_document_action (CodeSlayerEngine   *engine,
   /* all passed so add to the notebook */
 
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (notebook), document);
-  codeslayer_menubar_sync_with_notebook (CODESLAYER_MENUBAR (priv->menubar), priv->notebook);
+  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));  
 }
 
@@ -729,7 +729,7 @@ page_removed_action (CodeSlayerEngine *engine,
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_menubar_sync_with_notebook (CODESLAYER_MENUBAR (priv->menubar), priv->notebook);
+  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));  
 }
 
@@ -1141,7 +1141,7 @@ notify_visible_pane_action (CodeSlayerEngine *engine,
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_menubar_sync_with_panes (CODESLAYER_MENUBAR (priv->menubar), 
+  codeslayer_menu_bar_sync_with_panes (CODESLAYER_MENU_BAR (priv->menubar), 
                                       gtk_widget_get_visible (priv->side_pane), 
                                       gtk_widget_get_visible (priv->bottom_pane));
 }

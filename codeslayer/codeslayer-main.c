@@ -298,7 +298,7 @@ static void
 create_menu (Context *context)
 {
   GtkWidget *menubar;
-  menubar = codeslayer_menubar_new (context->window, context->groups, context->preferences, context->settings);
+  menubar = codeslayer_menu_bar_new (context->window, context->groups, context->preferences, context->settings);
   context->menubar = menubar;
   
   g_signal_connect_swapped (G_OBJECT (menubar), "quit-application",
@@ -321,7 +321,7 @@ load_plugins (Context *context)
   codeslayer = codeslayer_new (GTK_WINDOW (context->window), 
                                CODESLAYER_PREFERENCES (context->preferences), 
                                context->processes,
-                               CODESLAYER_MENUBAR (context->menubar), 
+                               CODESLAYER_MENU_BAR (context->menubar), 
                                CODESLAYER_NOTEBOOK (context->notebook), 
                                CODESLAYER_PROJECTS (context->projects), 
                                CODESLAYER_PROJECT_PROPERTIES (context->project_properties), 

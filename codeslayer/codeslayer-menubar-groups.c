@@ -27,24 +27,24 @@
  * @include: codeslayer/codeslayer-menu-groups.h
  */
 
-static void codeslayer_menubar_groups_class_init  (CodeSlayerMenuBarGroupsClass *klass);
-static void codeslayer_menubar_groups_init        (CodeSlayerMenuBarGroups      *menubar_groups);
-static void codeslayer_menubar_groups_finalize    (CodeSlayerMenuBarGroups      *menubar_groups);
+static void codeslayer_menu_bar_groups_class_init  (CodeSlayerMenuBarGroupsClass *klass);
+static void codeslayer_menu_bar_groups_init        (CodeSlayerMenuBarGroups      *menu_bar_groups);
+static void codeslayer_menu_bar_groups_finalize    (CodeSlayerMenuBarGroups      *menu_bar_groups);
 
-static void select_group_action                   (GtkCheckMenuItem             *radio_item, 
-                                                   CodeSlayerMenuBarGroups      *menubar_groups);
-static gint compare_groups                        (CodeSlayerGroup              *group1, 
-                                                   CodeSlayerGroup              *group2);
-static void new_group_action                      (CodeSlayerMenuBarGroups      *menubar_groups);
-static void remove_group_action                   (CodeSlayerMenuBarGroups      *menubar_groups);
-static void group_properties_action               (CodeSlayerMenuBarGroups      *menubar_groups);
-static void add_groups                            (CodeSlayerMenuBarGroups      *menubar_groups,
-                                                   CodeSlayerGroups             *groups);
-static void add_menu_items                        (CodeSlayerMenuBarGroups      *menubar_groups, 
-                                                   CodeSlayerGroups             *groups);
+static void select_group_action                    (GtkCheckMenuItem             *radio_item, 
+                                                    CodeSlayerMenuBarGroups      *menu_bar_groups);
+static gint compare_groups                         (CodeSlayerGroup              *group1, 
+                                                    CodeSlayerGroup              *group2);
+static void new_group_action                       (CodeSlayerMenuBarGroups      *menu_bar_groups);
+static void remove_group_action                    (CodeSlayerMenuBarGroups      *menu_bar_groups);
+static void group_properties_action                (CodeSlayerMenuBarGroups      *menu_bar_groups);
+static void add_groups                             (CodeSlayerMenuBarGroups      *menu_bar_groups,
+                                                    CodeSlayerGroups             *groups);
+static void add_menu_items                         (CodeSlayerMenuBarGroups      *menu_bar_groups, 
+                                                    CodeSlayerGroups             *groups);
                             
-#define CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE(obj) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENUBAR_GROUPS_TYPE, CodeSlayerMenuBarGroupsPrivate))
+#define CODESLAYER_MENU_BAR_GROUPS_GET_PRIVATE(obj) \
+  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_GROUPS_TYPE, CodeSlayerMenuBarGroupsPrivate))
 
 typedef struct _CodeSlayerMenuBarGroupsPrivate CodeSlayerMenuBarGroupsPrivate;
 
@@ -55,53 +55,53 @@ struct _CodeSlayerMenuBarGroupsPrivate
   GtkAccelGroup    *accel_group;
   GSList           *radio_group;
   GList            *radio_items;
-  GtkWidget        *menubar;
+  GtkWidget        *menu_bar;
   GtkWidget        *menu;
   GtkWidget        *remove_group_item;
 };
 
-G_DEFINE_TYPE (CodeSlayerMenuBarGroups, codeslayer_menubar_groups, GTK_TYPE_MENU_ITEM)
+G_DEFINE_TYPE (CodeSlayerMenuBarGroups, codeslayer_menu_bar_groups, GTK_TYPE_MENU_ITEM)
 
 static void
-codeslayer_menubar_groups_class_init (CodeSlayerMenuBarGroupsClass *klass)
+codeslayer_menu_bar_groups_class_init (CodeSlayerMenuBarGroupsClass *klass)
 {
-  G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_menubar_groups_finalize;
+  G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_menu_bar_groups_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerMenuBarGroupsPrivate));
 }
 
 static void
-codeslayer_menubar_groups_init (CodeSlayerMenuBarGroups *menubar_groups)
+codeslayer_menu_bar_groups_init (CodeSlayerMenuBarGroups *menu_bar_groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
   GtkWidget *menu;
 
-  priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
+  priv = CODESLAYER_MENU_BAR_GROUPS_GET_PRIVATE (menu_bar_groups);
   
-  gtk_menu_item_set_label (GTK_MENU_ITEM (menubar_groups), _("Groups"));
+  gtk_menu_item_set_label (GTK_MENU_ITEM (menu_bar_groups), _("Groups"));
   
   menu = gtk_menu_new ();
   priv->menu = menu;
   priv->radio_group = NULL;
   priv->radio_items = NULL;
-  gtk_menu_item_set_submenu (GTK_MENU_ITEM (menubar_groups), menu);
+  gtk_menu_item_set_submenu (GTK_MENU_ITEM (menu_bar_groups), menu);
 }
 
 static void
-codeslayer_menubar_groups_finalize (CodeSlayerMenuBarGroups *menubar_groups)
+codeslayer_menu_bar_groups_finalize (CodeSlayerMenuBarGroups *menu_bar_groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
-  priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
+  priv = CODESLAYER_MENU_BAR_GROUPS_GET_PRIVATE (menu_bar_groups);
 
   if (priv->radio_items != NULL)
     g_list_free (priv->radio_items);
 
-  G_OBJECT_CLASS (codeslayer_menubar_groups_parent_class)->finalize (G_OBJECT (menubar_groups));
+  G_OBJECT_CLASS (codeslayer_menu_bar_groups_parent_class)->finalize (G_OBJECT (menu_bar_groups));
 }
 
 /**
- * codeslayer_menubar_groups_new:
+ * codeslayer_menu_bar_groups_new:
  * @window: a #GtkWindow.
- * @menubar: a #CodeSlayerMenuBar.
+ * @menu_bar: a #CodeSlayerMenuBar.
  * @accel_group: a #GtkAccelGroup.
  * @groups: a #CodeSlayerGroups.
  *
@@ -110,30 +110,30 @@ codeslayer_menubar_groups_finalize (CodeSlayerMenuBarGroups *menubar_groups)
  * Returns: a new #CodeSlayerMenuBarGroups. 
  */
 GtkWidget*
-codeslayer_menubar_groups_new (GtkWidget        *window, 
-                               GtkWidget        *menubar, 
-                               GtkAccelGroup    *accel_group,
-                               CodeSlayerGroups *groups)
+codeslayer_menu_bar_groups_new (GtkWidget        *window, 
+                                GtkWidget        *menu_bar, 
+                                GtkAccelGroup    *accel_group,
+                                CodeSlayerGroups *groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
-  GtkWidget *menubar_groups;
+  GtkWidget *menu_bar_groups;
   
-  menubar_groups = g_object_new (codeslayer_menubar_groups_get_type (), NULL);
-  priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
+  menu_bar_groups = g_object_new (codeslayer_menu_bar_groups_get_type (), NULL);
+  priv = CODESLAYER_MENU_BAR_GROUPS_GET_PRIVATE (menu_bar_groups);
 
   priv->window = window;
-  priv->menubar = menubar;
+  priv->menu_bar = menu_bar;
   priv->accel_group = accel_group;
   priv->groups = groups;
   priv->remove_group_item = NULL;
 
-  add_menu_items (CODESLAYER_MENUBAR_GROUPS (menubar_groups), groups);
+  add_menu_items (CODESLAYER_MENU_BAR_GROUPS (menu_bar_groups), groups);
 
-  return menubar_groups;
+  return menu_bar_groups;
 }
 
 static void
-add_menu_items (CodeSlayerMenuBarGroups *menubar_groups, 
+add_menu_items (CodeSlayerMenuBarGroups *menu_bar_groups, 
                 CodeSlayerGroups        *groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
@@ -143,11 +143,11 @@ add_menu_items (CodeSlayerMenuBarGroups *menubar_groups,
   GtkWidget *properties_item;
   GList *list;
   
-  priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
+  priv = CODESLAYER_MENU_BAR_GROUPS_GET_PRIVATE (menu_bar_groups);
 
   gtk_menu_set_accel_group (GTK_MENU (priv->menu), priv->accel_group);
 
-  add_groups (CODESLAYER_MENUBAR_GROUPS (menubar_groups), groups);
+  add_groups (CODESLAYER_MENU_BAR_GROUPS (menu_bar_groups), groups);
 
   separator_item = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), separator_item);
@@ -169,13 +169,13 @@ add_menu_items (CodeSlayerMenuBarGroups *menubar_groups,
   gtk_widget_set_sensitive (priv->remove_group_item, g_list_length (list) != 1);
 
   g_signal_connect_swapped (G_OBJECT (new_group_item), "activate",
-                            G_CALLBACK (new_group_action), menubar_groups);
+                            G_CALLBACK (new_group_action), menu_bar_groups);
 
   g_signal_connect_swapped (G_OBJECT (remove_group_item), "activate",
-                            G_CALLBACK (remove_group_action), menubar_groups);
+                            G_CALLBACK (remove_group_action), menu_bar_groups);
 
   g_signal_connect_swapped (G_OBJECT (properties_item), "activate",
-                            G_CALLBACK (group_properties_action), menubar_groups);
+                            G_CALLBACK (group_properties_action), menu_bar_groups);
 }
 
 static gint
@@ -187,7 +187,7 @@ compare_groups (CodeSlayerGroup *group1,
 }
 
 static void
-add_groups (CodeSlayerMenuBarGroups *menubar_groups, 
+add_groups (CodeSlayerMenuBarGroups *menu_bar_groups, 
             CodeSlayerGroups        *groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
@@ -196,7 +196,7 @@ add_groups (CodeSlayerMenuBarGroups *menubar_groups,
   guint length;
   gboolean sensitive;
   
-  priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
+  priv = CODESLAYER_MENU_BAR_GROUPS_GET_PRIVATE (menu_bar_groups);
 
   list = g_list_copy (codeslayer_groups_get_list (groups));
   list = g_list_sort (list, (GCompareFunc) compare_groups);
@@ -223,30 +223,30 @@ add_groups (CodeSlayerMenuBarGroups *menubar_groups,
         }
 
       g_signal_connect (G_OBJECT (radio_item), "toggled",
-                        G_CALLBACK (select_group_action), menubar_groups);
+                        G_CALLBACK (select_group_action), menu_bar_groups);
     }
 
   g_list_free (list);
 
-  gtk_widget_show_all (GTK_WIDGET (menubar_groups));
+  gtk_widget_show_all (GTK_WIDGET (menu_bar_groups));
 }
 
 /**
- * codeslayer_menubar_groups_refresh_groups:
- * @menubar_groups: a #CodeSlayerMenuBarGroups.
+ * codeslayer_menu_bar_groups_refresh_groups:
+ * @menu_bar_groups: a #CodeSlayerMenuBarGroups.
  * @groups: a #CodeSlayerGroups.
  * 
  * Update the groups menu item to reflect the current #CodeSlayerGroup 
  * objects in the manager.
  */
 void
-codeslayer_menubar_groups_refresh_groups (CodeSlayerMenuBarGroups *menubar_groups,
-                                          CodeSlayerGroups        *groups)
+codeslayer_menu_bar_groups_refresh_groups (CodeSlayerMenuBarGroups *menu_bar_groups,
+                                           CodeSlayerGroups        *groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
   GList *radio_items;
   
-  priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
+  priv = CODESLAYER_MENU_BAR_GROUPS_GET_PRIVATE (menu_bar_groups);
   
   radio_items = priv->radio_items;
   while (radio_items != NULL)
@@ -262,27 +262,27 @@ codeslayer_menubar_groups_refresh_groups (CodeSlayerMenuBarGroups *menubar_group
   priv->radio_items = NULL;
   priv->radio_group = NULL;
 
-  add_groups (menubar_groups, groups);
+  add_groups (menu_bar_groups, groups);
 }
 
 static void
 select_group_action (GtkCheckMenuItem        *radio_item, 
-                     CodeSlayerMenuBarGroups *menubar_groups)
+                     CodeSlayerMenuBarGroups *menu_bar_groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
   const gchar *group_name;
   
-  priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
+  priv = CODESLAYER_MENU_BAR_GROUPS_GET_PRIVATE (menu_bar_groups);
 
   if (!gtk_check_menu_item_get_active (radio_item))
     return;
 
   group_name = gtk_menu_item_get_label (GTK_MENU_ITEM (radio_item));
-  codeslayer_menubar_group_changed (CODESLAYER_MENUBAR (priv->menubar), group_name);
+  codeslayer_menu_bar_group_changed (CODESLAYER_MENU_BAR (priv->menu_bar), group_name);
 }
 
 static void
-new_group_action (CodeSlayerMenuBarGroups *menubar_groups)
+new_group_action (CodeSlayerMenuBarGroups *menu_bar_groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
   GtkWidget *dialog;
@@ -293,7 +293,7 @@ new_group_action (CodeSlayerMenuBarGroups *menubar_groups)
   GtkWidget *entry;
   gint response;
   
-  priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
+  priv = CODESLAYER_MENU_BAR_GROUPS_GET_PRIVATE (menu_bar_groups);
   
   dialog = gtk_dialog_new_with_buttons (_("New Group"), 
                                         GTK_WINDOW (priv->window),
@@ -335,7 +335,7 @@ new_group_action (CodeSlayerMenuBarGroups *menubar_groups)
     {
       const gchar *text = gtk_entry_get_text (GTK_ENTRY (entry));
       gchar *group_name = g_strstrip (g_strdup (text));
-      codeslayer_menubar_new_group (CODESLAYER_MENUBAR (priv->menubar), group_name);
+      codeslayer_menu_bar_new_group (CODESLAYER_MENU_BAR (priv->menu_bar), group_name);
       g_free (group_name);
     }
 
@@ -343,7 +343,7 @@ new_group_action (CodeSlayerMenuBarGroups *menubar_groups)
 }
 
 static void
-remove_group_action (CodeSlayerMenuBarGroups *menubar_groups)
+remove_group_action (CodeSlayerMenuBarGroups *menu_bar_groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
   GtkWidget *dialog;
@@ -351,7 +351,7 @@ remove_group_action (CodeSlayerMenuBarGroups *menubar_groups)
   CodeSlayerGroup *active_group;
   gchar *text;
   
-  priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
+  priv = CODESLAYER_MENU_BAR_GROUPS_GET_PRIVATE (menu_bar_groups);
   
   active_group = codeslayer_groups_get_active_group (priv->groups);
   text = g_strdup_printf(_("Are you sure you want to remove the %s group?"), codeslayer_group_get_name (active_group));
@@ -378,11 +378,11 @@ remove_group_action (CodeSlayerMenuBarGroups *menubar_groups)
 
   /* confirmed that will remove the group */
   
-  codeslayer_menubar_remove_group (CODESLAYER_MENUBAR (priv->menubar));
+  codeslayer_menu_bar_remove_group (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void
-group_properties_action (CodeSlayerMenuBarGroups *menubar_groups)
+group_properties_action (CodeSlayerMenuBarGroups *menu_bar_groups)
 {
   CodeSlayerMenuBarGroupsPrivate *priv;
   GtkWidget *group_properties;
@@ -391,7 +391,7 @@ group_properties_action (CodeSlayerMenuBarGroups *menubar_groups)
   gint response;
   GtkWidget *content_area;
   
-  priv = CODESLAYER_MENUBAR_GROUPS_GET_PRIVATE (menubar_groups);
+  priv = CODESLAYER_MENU_BAR_GROUPS_GET_PRIVATE (menu_bar_groups);
   
   active_group = codeslayer_groups_get_active_group (priv->groups);
   group_properties = codeslayer_group_properties_new (active_group);
@@ -421,7 +421,7 @@ group_properties_action (CodeSlayerMenuBarGroups *menubar_groups)
       rename = g_strstrip (g_strdup (name));
 
       if (g_strcmp0 (rename, codeslayer_group_get_name (active_group)) != 0)
-        codeslayer_menubar_rename_group (CODESLAYER_MENUBAR (priv->menubar), rename);
+        codeslayer_menu_bar_rename_group (CODESLAYER_MENU_BAR (priv->menu_bar), rename);
 
       g_free (rename);
     }

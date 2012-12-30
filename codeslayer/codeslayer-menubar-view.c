@@ -27,27 +27,27 @@
  * @include: codeslayer/codeslayer-menubar-view.h
  */
 
-static void codeslayer_menubar_view_class_init  (CodeSlayerMenuBarViewClass *klass);
-static void codeslayer_menubar_view_init        (CodeSlayerMenuBarView      *menubar_view);
-static void codeslayer_menubar_view_finalize    (CodeSlayerMenuBarView      *menubar_view);
+static void codeslayer_menu_bar_view_class_init  (CodeSlayerMenuBarViewClass *klass);
+static void codeslayer_menu_bar_view_init        (CodeSlayerMenuBarView      *menu_bar_view);
+static void codeslayer_menu_bar_view_finalize    (CodeSlayerMenuBarView      *menu_bar_view);
 
-static void add_menu_items                      (CodeSlayerMenuBarView      *menubar_view, 
-                                                 CodeSlayerSettings         *settings);
+static void add_menu_items                       (CodeSlayerMenuBarView      *menu_bar_view, 
+                                                  CodeSlayerSettings         *settings);
 
-static void fullscreen_window_action            (CodeSlayerMenuBarView      *menubar_view);
-static void show_side_pane_action               (CodeSlayerMenuBarView      *menubar_view);
-static void show_bottom_pane_action             (CodeSlayerMenuBarView      *menubar_view);
-static void draw_spaces_action                  (CodeSlayerMenuBarView      *menubar_view);
+static void fullscreen_window_action             (CodeSlayerMenuBarView      *menu_bar_view);
+static void show_side_pane_action                (CodeSlayerMenuBarView      *menu_bar_view);
+static void show_bottom_pane_action              (CodeSlayerMenuBarView      *menu_bar_view);
+static void draw_spaces_action                   (CodeSlayerMenuBarView      *menu_bar_view);
 
-#define CODESLAYER_MENUBAR_VIEW_GET_PRIVATE(obj) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENUBAR_VIEW_TYPE, CodeSlayerMenuBarViewPrivate))
+#define CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE(obj) \
+  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_VIEW_TYPE, CodeSlayerMenuBarViewPrivate))
 
 typedef struct _CodeSlayerMenuBarViewPrivate CodeSlayerMenuBarViewPrivate;
 
 struct _CodeSlayerMenuBarViewPrivate
 {
   GtkAccelGroup      *accel_group;
-  GtkWidget          *menubar;
+  GtkWidget          *menu_bar;
   GtkWidget          *menu;
   GtkWidget          *fullscreen_window_item;
   GtkWidget          *draw_spaces_item;
@@ -57,39 +57,39 @@ struct _CodeSlayerMenuBarViewPrivate
   gulong              show_bottom_pane_id;
 };
 
-G_DEFINE_TYPE (CodeSlayerMenuBarView, codeslayer_menubar_view, GTK_TYPE_MENU_ITEM)
+G_DEFINE_TYPE (CodeSlayerMenuBarView, codeslayer_menu_bar_view, GTK_TYPE_MENU_ITEM)
 
 static void
-codeslayer_menubar_view_class_init (CodeSlayerMenuBarViewClass *klass)
+codeslayer_menu_bar_view_class_init (CodeSlayerMenuBarViewClass *klass)
 {
-  G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_menubar_view_finalize;
+  G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_menu_bar_view_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerMenuBarViewPrivate));
 }
 
 static void
-codeslayer_menubar_view_init (CodeSlayerMenuBarView *menubar_view)
+codeslayer_menu_bar_view_init (CodeSlayerMenuBarView *menu_bar_view)
 {
   CodeSlayerMenuBarViewPrivate *priv;
   GtkWidget *menu;
 
-  priv = CODESLAYER_MENUBAR_VIEW_GET_PRIVATE (menubar_view);
+  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
   
-  gtk_menu_item_set_label (GTK_MENU_ITEM (menubar_view), _("View"));
+  gtk_menu_item_set_label (GTK_MENU_ITEM (menu_bar_view), _("View"));
   
   menu = gtk_menu_new ();
   priv->menu = menu;
-  gtk_menu_item_set_submenu (GTK_MENU_ITEM (menubar_view), menu);
+  gtk_menu_item_set_submenu (GTK_MENU_ITEM (menu_bar_view), menu);
 }
 
 static void
-codeslayer_menubar_view_finalize (CodeSlayerMenuBarView *menubar_view)
+codeslayer_menu_bar_view_finalize (CodeSlayerMenuBarView *menu_bar_view)
 {
-  G_OBJECT_CLASS (codeslayer_menubar_view_parent_class)->finalize (G_OBJECT (menubar_view));
+  G_OBJECT_CLASS (codeslayer_menu_bar_view_parent_class)->finalize (G_OBJECT (menu_bar_view));
 }
 
 /**
- * codeslayer_menubar_view_new:
- * @menubar: a #CodeSlayerMenuBar.
+ * codeslayer_menu_bar_view_new:
+ * @menu_bar: a #CodeSlayerMenuBar.
  * @accel_group: a #GtkAccelGroup.
  * @settings: a #CodeSlayerSettings.
  *
@@ -98,26 +98,26 @@ codeslayer_menubar_view_finalize (CodeSlayerMenuBarView *menubar_view)
  * Returns: a new #CodeSlayerMenuBarView. 
  */
 GtkWidget*
-codeslayer_menubar_view_new (GtkWidget          *menubar, 
-                             GtkAccelGroup      *accel_group, 
-                             CodeSlayerSettings *settings)
+codeslayer_menu_bar_view_new (GtkWidget          *menu_bar, 
+                              GtkAccelGroup      *accel_group, 
+                              CodeSlayerSettings *settings)
 {
   CodeSlayerMenuBarViewPrivate *priv;
-  GtkWidget *menubar_view;
+  GtkWidget *menu_bar_view;
   
-  menubar_view = g_object_new (codeslayer_menubar_view_get_type (), NULL);
-  priv = CODESLAYER_MENUBAR_VIEW_GET_PRIVATE (menubar_view);
+  menu_bar_view = g_object_new (codeslayer_menu_bar_view_get_type (), NULL);
+  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
 
-  priv->menubar = menubar;
+  priv->menu_bar = menu_bar;
   priv->accel_group = accel_group;
 
-  add_menu_items (CODESLAYER_MENUBAR_VIEW (menubar_view), settings);
+  add_menu_items (CODESLAYER_MENU_BAR_VIEW (menu_bar_view), settings);
 
-  return menubar_view;
+  return menu_bar_view;
 }
 
 static void
-add_menu_items (CodeSlayerMenuBarView *menubar_view, 
+add_menu_items (CodeSlayerMenuBarView *menu_bar_view, 
                 CodeSlayerSettings    *settings)
 {
   CodeSlayerMenuBarViewPrivate *priv;
@@ -126,7 +126,7 @@ add_menu_items (CodeSlayerMenuBarView *menubar_view,
   GtkWidget *show_bottom_pane_item;
   GtkWidget *draw_spaces_item;
   
-  priv = CODESLAYER_MENUBAR_VIEW_GET_PRIVATE (menubar_view);
+  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
 
   fullscreen_window_item = gtk_check_menu_item_new_with_label (_("Full Screen"));
   priv->fullscreen_window_item = fullscreen_window_item;
@@ -154,21 +154,21 @@ add_menu_items (CodeSlayerMenuBarView *menubar_view,
                                                                    CODESLAYER_SETTINGS_DRAW_SPACES));
 
   g_signal_connect_swapped (G_OBJECT (fullscreen_window_item), "activate",
-                            G_CALLBACK (fullscreen_window_action), menubar_view);
+                            G_CALLBACK (fullscreen_window_action), menu_bar_view);
 
   priv->show_side_pane_id = g_signal_connect_swapped (G_OBJECT (show_side_pane_item), "activate",
-                                                      G_CALLBACK (show_side_pane_action), menubar_view);
+                                                      G_CALLBACK (show_side_pane_action), menu_bar_view);
 
   priv->show_bottom_pane_id = g_signal_connect_swapped (G_OBJECT (show_bottom_pane_item), "activate",
-                                                        G_CALLBACK (show_bottom_pane_action), menubar_view);
+                                                        G_CALLBACK (show_bottom_pane_action), menu_bar_view);
 
   g_signal_connect_swapped (G_OBJECT (draw_spaces_item), "activate",
-                            G_CALLBACK (draw_spaces_action), menubar_view);
+                            G_CALLBACK (draw_spaces_action), menu_bar_view);
 }
 
 /**
- * codeslayer_menubar_view_sync_with_panes:
- * @menubar_view: a #CodeSlayerMenuBarView.
+ * codeslayer_menu_bar_view_sync_with_panes:
+ * @menu_bar_view: a #CodeSlayerMenuBarView.
  * @show_side_pane: if TRUE then the side pane is shown
  * @show_bottom_pane: if TRUE then the bottom pane is shown
  * 
@@ -176,12 +176,12 @@ add_menu_items (CodeSlayerMenuBarView *menubar_view,
  * state of the bottom and side pane.
  */
 void
-codeslayer_menubar_view_sync_with_panes (CodeSlayerMenuBarView *menubar_view, 
-                                         gboolean               show_side_pane, 
-                                         gboolean               show_bottom_pane)
+codeslayer_menu_bar_view_sync_with_panes (CodeSlayerMenuBarView *menu_bar_view, 
+                                          gboolean               show_side_pane, 
+                                          gboolean               show_bottom_pane)
 {
   CodeSlayerMenuBarViewPrivate *priv;
-  priv = CODESLAYER_MENUBAR_VIEW_GET_PRIVATE (menubar_view);
+  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
   
   g_signal_handler_block (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_block (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
@@ -197,33 +197,33 @@ codeslayer_menubar_view_sync_with_panes (CodeSlayerMenuBarView *menubar_view,
 }                                        
 
 static void
-fullscreen_window_action (CodeSlayerMenuBarView *menubar_view)
+fullscreen_window_action (CodeSlayerMenuBarView *menu_bar_view)
 {
   CodeSlayerMenuBarViewPrivate *priv;
-  priv = CODESLAYER_MENUBAR_VIEW_GET_PRIVATE (menubar_view);
-  codeslayer_menubar_fullscreen_window (CODESLAYER_MENUBAR (priv->menubar));
+  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
+  codeslayer_menu_bar_fullscreen_window (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void
-show_side_pane_action (CodeSlayerMenuBarView *menubar_view)
+show_side_pane_action (CodeSlayerMenuBarView *menu_bar_view)
 {
   CodeSlayerMenuBarViewPrivate *priv;
-  priv = CODESLAYER_MENUBAR_VIEW_GET_PRIVATE (menubar_view);
-  codeslayer_menubar_show_side_pane (CODESLAYER_MENUBAR (priv->menubar));
+  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
+  codeslayer_menu_bar_show_side_pane (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void
-show_bottom_pane_action (CodeSlayerMenuBarView *menubar_view)
+show_bottom_pane_action (CodeSlayerMenuBarView *menu_bar_view)
 {
   CodeSlayerMenuBarViewPrivate *priv;
-  priv = CODESLAYER_MENUBAR_VIEW_GET_PRIVATE (menubar_view);
-  codeslayer_menubar_show_bottom_pane (CODESLAYER_MENUBAR (priv->menubar));
+  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
+  codeslayer_menu_bar_show_bottom_pane (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void
-draw_spaces_action (CodeSlayerMenuBarView *menubar_view)
+draw_spaces_action (CodeSlayerMenuBarView *menu_bar_view)
 {
   CodeSlayerMenuBarViewPrivate *priv;
-  priv = CODESLAYER_MENUBAR_VIEW_GET_PRIVATE (menubar_view);
-  codeslayer_menubar_draw_spaces (CODESLAYER_MENUBAR (priv->menubar));
+  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
+  codeslayer_menu_bar_draw_spaces (CODESLAYER_MENU_BAR (priv->menu_bar));
 }

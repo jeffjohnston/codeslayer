@@ -16,19 +16,19 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __CODESLAYER_MENUBAR_PROJECTS_H__
-#define	__CODESLAYER_MENUBAR_PROJECTS_H__
+#ifndef __CODESLAYER_MENU_BAR_PROJECTS_H__
+#define	__CODESLAYER_MENU_BAR_PROJECTS_H__
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-settings.h>
 
 G_BEGIN_DECLS
 
-#define CODESLAYER_MENUBAR_PROJECTS_TYPE            (codeslayer_menubar_projects_get_type ())
-#define CODESLAYER_MENUBAR_PROJECTS(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CODESLAYER_MENUBAR_PROJECTS_TYPE, CodeSlayerMenuBarProjects))
-#define CODESLAYER_MENUBAR_PROJECTS_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), CODESLAYER_MENUBAR_PROJECTS_TYPE, CodeSlayerMenuBarProjectsClass))
-#define IS_CODESLAYER_MENUBAR_PROJECTS(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_MENUBAR_PROJECTS_TYPE))
-#define IS_CODESLAYER_MENUBAR_PROJECTS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_MENUBAR_PROJECTS_TYPE))
+#define CODESLAYER_MENU_BAR_PROJECTS_TYPE            (codeslayer_menu_bar_projects_get_type ())
+#define CODESLAYER_MENU_BAR_PROJECTS(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CODESLAYER_MENU_BAR_PROJECTS_TYPE, CodeSlayerMenuBarProjects))
+#define CODESLAYER_MENU_BAR_PROJECTS_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), CODESLAYER_MENU_BAR_PROJECTS_TYPE, CodeSlayerMenuBarProjectsClass))
+#define IS_CODESLAYER_MENU_BAR_PROJECTS(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_MENU_BAR_PROJECTS_TYPE))
+#define IS_CODESLAYER_MENU_BAR_PROJECTS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_MENU_BAR_PROJECTS_TYPE))
 
 typedef struct _CodeSlayerMenuBarProjects CodeSlayerMenuBarProjects;
 typedef struct _CodeSlayerMenuBarProjectsClass CodeSlayerMenuBarProjectsClass;
@@ -43,13 +43,13 @@ struct _CodeSlayerMenuBarProjectsClass
   GtkMenuItemClass parent_class;
 };
 
-GType codeslayer_menubar_projects_get_type (void) G_GNUC_CONST;
+GType codeslayer_menu_bar_projects_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_menubar_projects_new  (GtkWidget          *window, 
-                                              GtkWidget          *menubar, 
-                                              GtkAccelGroup      *accel_group, 
-                                              CodeSlayerSettings *settings);
+GtkWidget*  codeslayer_menu_bar_projects_new  (GtkWidget          *window, 
+                                               GtkWidget          *menu_bar, 
+                                               GtkAccelGroup      *accel_group, 
+                                               CodeSlayerSettings *settings);
 
 G_END_DECLS
 
-#endif /* __CODESLAYER_MENUBAR_PROJECTS_H__ */
+#endif /* __CODESLAYER_MENU_BAR_PROJECTS_H__ */
