@@ -68,7 +68,7 @@ struct _CodeSlayerPrivate
   GtkWindow                   *window;
   CodeSlayerPreferences       *preferences;
   CodeSlayerProcesses         *processes;
-  CodeSlayerMenuBar           *menubar;
+  CodeSlayerMenuBar           *menu_bar;
   CodeSlayerNotebook          *notebook;
   CodeSlayerProjects          *projects;
   CodeSlayerProjectProperties *project_properties;
@@ -233,7 +233,7 @@ CodeSlayer*
 codeslayer_new (GtkWindow                   *window,
                 CodeSlayerPreferences       *preferences, 
                 CodeSlayerProcesses         *processes, 
-                CodeSlayerMenuBar           *menubar,
+                CodeSlayerMenuBar           *menu_bar,
                 CodeSlayerNotebook          *notebook,
                 CodeSlayerProjects          *projects, 
                 CodeSlayerProjectProperties *project_properties, 
@@ -248,7 +248,7 @@ codeslayer_new (GtkWindow                   *window,
   priv->window = window;
   priv->preferences = preferences;
   priv->processes = processes;
-  priv->menubar = menubar;
+  priv->menu_bar = menu_bar;
   priv->notebook = notebook;
   priv->projects = projects;
   priv->project_properties = project_properties;
@@ -558,11 +558,25 @@ void
 codeslayer_add_to_menubar (CodeSlayer  *codeslayer, 
                            GtkMenuItem *menuitem)
 {
+  codeslayer_add_to_menu_bar (codeslayer, menuitem);
+}                              
+
+/**
+ * codeslayer_add_to_menu_bar:
+ * @codeslayer: a #CodeSlayer.
+ * @menuitem: a #GtkMenuItem.
+ *
+ * Add the given menu item to the menu bar tools menu. 
+ */
+void
+codeslayer_add_to_menu_bar (CodeSlayer  *codeslayer, 
+                           GtkMenuItem *menuitem)
+{
   CodeSlayerPrivate *priv;
   g_return_if_fail (IS_CODESLAYER (codeslayer));
   priv = CODESLAYER_GET_PRIVATE (codeslayer); 
   g_object_ref_sink (menuitem);  
-  codeslayer_menu_bar_add_tools_item (priv->menubar, GTK_WIDGET (menuitem));
+  codeslayer_menu_bar_add_tools_item (priv->menu_bar, GTK_WIDGET (menuitem));
 }                              
 
 /**
@@ -576,11 +590,25 @@ void
 codeslayer_remove_from_menubar (CodeSlayer  *codeslayer, 
                                 GtkMenuItem *menuitem)
 {
+  codeslayer_remove_from_menu_bar (codeslayer, menuitem);
+}
+
+/**
+ * codeslayer_remove_from_menu_bar:
+ * @codeslayer: a #CodeSlayer.
+ * @menuitem: a #GtkMenuItem.
+ *
+ * Remove the given menu item from the menu bar tools menu. 
+ */
+void
+codeslayer_remove_from_menu_bar (CodeSlayer  *codeslayer, 
+                                GtkMenuItem *menuitem)
+{
   CodeSlayerPrivate *priv;
   g_return_if_fail (IS_CODESLAYER (codeslayer));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  codeslayer_menu_bar_remove_tools_item (priv->menubar, GTK_WIDGET (menuitem));
+  codeslayer_menu_bar_remove_tools_item (priv->menu_bar, GTK_WIDGET (menuitem));
   
   gtk_widget_destroy (GTK_WIDGET (menuitem));
   g_object_unref (menuitem);   
@@ -672,10 +700,22 @@ codeslayer_remove_from_project_properties (CodeSlayer *codeslayer,
 GtkAccelGroup*
 codeslayer_get_menubar_accel_group (CodeSlayer *codeslayer)
 {
+  return codeslayer_get_menu_bar_accel_group (codeslayer);
+}
+
+/**
+ * codeslayer_get_menu_bar_accel_group:
+ * @codeslayer: a #CodeSlayer.
+ *
+ * Returns: The #GtkAccelGroup associated with the menu.
+ */
+GtkAccelGroup*
+codeslayer_get_menu_bar_accel_group (CodeSlayer *codeslayer)
+{
   CodeSlayerPrivate *priv;
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
-  return codeslayer_menu_bar_get_accel_group (priv->menubar);
+  return codeslayer_menu_bar_get_accel_group (priv->menu_bar);
 }
 
 /**

@@ -81,7 +81,7 @@ GType codeslayer_get_type (void) G_GNUC_CONST;
 CodeSlayer*               codeslayer_new                             (GtkWindow                   *window,
                                                                       CodeSlayerPreferences       *preferences, 
                                                                       CodeSlayerProcesses         *processes, 
-                                                                      CodeSlayerMenuBar           *menubar,
+                                                                      CodeSlayerMenuBar           *menu_bar,
                                                                       CodeSlayerNotebook          *notebook,
                                                                       CodeSlayerProjects          *projects,
                                                                       CodeSlayerProjectProperties *project_properties,
@@ -124,9 +124,15 @@ void                      codeslayer_show_bottom_pane                (CodeSlayer
                                                                       GtkWidget                   *widget);
 
 void                      codeslayer_add_to_menubar                  (CodeSlayer                  *codeslayer, 
+                                                                      GtkMenuItem                 *menuitem) __attribute__ ((deprecated));
+
+void                      codeslayer_add_to_menu_bar                 (CodeSlayer                  *codeslayer, 
                                                                       GtkMenuItem                 *menuitem);
 
 void                      codeslayer_remove_from_menubar             (CodeSlayer                  *codeslayer, 
+                                                                      GtkMenuItem                 *menuitem) __attribute__ ((deprecated));
+                                                        
+void                      codeslayer_remove_from_menu_bar            (CodeSlayer                  *codeslayer, 
                                                                       GtkMenuItem                 *menuitem);
                                                         
 void                      codeslayer_add_to_projects_popup           (CodeSlayer                  *codeslayer, 
@@ -142,7 +148,9 @@ void                      codeslayer_add_to_project_properties       (CodeSlayer
 void                      codeslayer_remove_from_project_properties  (CodeSlayer                  *codeslayer, 
                                                                       GtkWidget                   *widget);
                                                         
-GtkAccelGroup*            codeslayer_get_menubar_accel_group         (CodeSlayer                  *codeslayer);
+GtkAccelGroup*            codeslayer_get_menubar_accel_group         (CodeSlayer                  *codeslayer) __attribute__ ((deprecated));
+
+GtkAccelGroup*            codeslayer_get_menu_bar_accel_group        (CodeSlayer                  *codeslayer);
 
 CodeSlayerGroup*          codeslayer_get_group                       (CodeSlayer                  *codeslayer);
 
