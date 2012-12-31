@@ -44,6 +44,7 @@ static gchar *get_conf_path                 (void);
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_SETTINGS_TYPE, CodeSlayerSettingsPrivate))
 
 #define MAIN "main"
+#define SETTINGS_CONF "settings.conf"
 
 typedef struct _CodeSlayerSettingsPrivate CodeSlayerSettingsPrivate;
 
@@ -122,7 +123,7 @@ codeslayer_settings_new ()
  */
 gint
 codeslayer_settings_get_integer (CodeSlayerSettings *settings,
-                                    gchar                 *key)
+                                 gchar              *key)
 {
   CodeSlayerSettingsPrivate *priv;
   
@@ -141,8 +142,8 @@ codeslayer_settings_get_integer (CodeSlayerSettings *settings,
  */
 void
 codeslayer_settings_set_integer (CodeSlayerSettings *settings,
-                                    gchar                 *key, 
-                                    gint                   value)
+                                 gchar              *key, 
+                                 gint                value)
 {
   CodeSlayerSettingsPrivate *priv;
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
@@ -326,8 +327,8 @@ verify_conf_exists ()
   return result;
 }
 
-static gchar *
-get_conf_path (void)
+static gchar*
+get_conf_path ()
 {
-  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, CODESLAYER_CONF, NULL);
+  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, SETTINGS_CONF, NULL);
 }

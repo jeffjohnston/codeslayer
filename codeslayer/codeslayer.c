@@ -31,7 +31,7 @@
 
 #define GROUPS "groups"
 #define PLUGINS "plugins"
-#define PROJECT_CONFIG "codeslayer.config"
+#define PROJECT_CONFIG ".codeslayer"
 #define CONFIG "config"
 
 static void codeslayer_class_init            (CodeSlayerClass   *klass);

@@ -29,11 +29,12 @@
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer-plugin.h>
 
-#define GROUPS_XML "groups.xml"
 #define PROJECTS_XML "projects.xml"
 #define DOCUMENTS_XML "documents.xml"
-#define PLUGINS_XML "plugins.xml"
+
 #define MAIN "main"
+#define LIBS "libs"
+#define LIBS_CONF "libs.conf"
 
 static GList* get_groups                        (void);
 static gchar* get_active_group                  (void);
@@ -257,15 +258,15 @@ codeslayer_repository_get_libs (CodeSlayerGroup *group)
                                 CODESLAYER_HOME, 
                                 CODESLAYER_GROUPS_DIR, 
                                 group_name,
-                                CODESLAYER_GROUP_CONF, 
+                                LIBS_CONF, 
                                 NULL);
                                 
   verify_group_conf_exists (conf_path);
                                 
   g_key_file_load_from_file (keyfile, conf_path, G_KEY_FILE_NONE, NULL);
   
-  if (g_key_file_has_key (keyfile, MAIN, CODESLAYER_GROUP_LIBS, NULL))
-    libs = g_key_file_get_string (keyfile, MAIN, CODESLAYER_GROUP_LIBS, NULL);
+  if (g_key_file_has_key (keyfile, MAIN, LIBS, NULL))
+    libs = g_key_file_get_string (keyfile, MAIN, LIBS, NULL);
 
   g_free (conf_path);
   g_key_file_free (keyfile);
@@ -301,13 +302,13 @@ codeslayer_repository_save_libs (CodeSlayerGroup *group)
                                 CODESLAYER_HOME, 
                                 CODESLAYER_GROUPS_DIR, 
                                 group_name,
-                                CODESLAYER_GROUP_CONF, 
+                                LIBS_CONF, 
                                 NULL);
 
   verify_group_conf_exists (conf_path);
                                 
   g_key_file_load_from_file (keyfile, conf_path, G_KEY_FILE_NONE, NULL);
-  g_key_file_set_string (keyfile, MAIN, CODESLAYER_GROUP_LIBS, value);
+  g_key_file_set_string (keyfile, MAIN, LIBS, value);
 
   data = g_key_file_to_data (keyfile, &size, NULL);
   g_file_set_contents (conf_path, data, size, NULL);

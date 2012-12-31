@@ -1159,9 +1159,10 @@ go_to_line_action (CodeSlayerEngine *engine)
   
   priv->go_to_line_dialog = gtk_dialog_new ();  
   
-  gtk_window_set_title (GTK_WINDOW (priv->go_to_line_dialog), _("Go to Line"));
+  gtk_window_set_title (GTK_WINDOW (priv->go_to_line_dialog), _("Go To Line"));
   gtk_window_set_transient_for (GTK_WINDOW (priv->go_to_line_dialog), 
                                 GTK_WINDOW (priv->window));
+  gtk_window_set_resizable (GTK_WINDOW (priv->go_to_line_dialog), FALSE);
   
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (priv->go_to_line_dialog), TRUE);
   gtk_window_set_skip_pager_hint (GTK_WINDOW (priv->go_to_line_dialog), TRUE);

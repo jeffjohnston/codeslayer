@@ -31,9 +31,6 @@ G_BEGIN_DECLS
 #define IS_CODESLAYER_GROUP(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_GROUP_TYPE))
 #define IS_CODESLAYER_GROUP_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_GROUP_TYPE))
 
-#define CODESLAYER_GROUP_CONF "group.conf"
-#define CODESLAYER_GROUP_LIBS "libs"
-
 typedef struct _CodeSlayerGroup CodeSlayerGroup;
 typedef struct _CodeSlayerGroupClass CodeSlayerGroupClass;
 

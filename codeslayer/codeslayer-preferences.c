@@ -46,6 +46,7 @@ static gchar *get_conf_path                    (CodeSlayerPreferences      *pref
 
 #define MAIN "main"
 #define GROUPS "groups"
+#define PREFERENCES_CONF "preferences.conf"
 
 typedef struct _CodeSlayerPreferencesPrivate CodeSlayerPreferencesPrivate;
 
@@ -515,7 +516,7 @@ get_conf_path (CodeSlayerPreferences *preferences)
   group_name = codeslayer_group_get_name (priv->group);
 
   return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, GROUPS,
-                           group_name, CODESLAYER_CONF, NULL);
+                           group_name, PREFERENCES_CONF, NULL);
 }
 
 /**
