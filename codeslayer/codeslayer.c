@@ -296,6 +296,8 @@ codeslayer_new (GtkWindow                   *window,
  * to call this method as much as you want because after the editor is initially
  * loaded up then subsequent calls are very efficient.
  *
+ * The minimum document attribute that needs to be filled in is the file_path.
+ *
  * Returns: is TRUE if the editor is able to be found in the tree. 
  */
 gboolean
@@ -303,10 +305,57 @@ codeslayer_select_editor (CodeSlayer         *codeslayer,
                           CodeSlayerDocument *document)
 {
   CodeSlayerPrivate *priv;
+  CodeSlayerProject *project;
+  
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), FALSE);
+  
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
+  
+  project = codeslayer_document_get_project (document);
+  if (project == NULL)
+    {
+      const gchar* file_path = codeslayer_document_get_file_path (document);
+      project = codeslayer_get_project_by_file_path (codeslayer, file_path);
+      codeslayer_document_set_project (document, project);
+    }
+
   return codeslayer_projects_select_document (priv->projects, document);
 }
+
+/**
+ * codeslayer_select_editor:
+ * @codeslayer: a #CodeSlayer.
+ * @file_path: the path to the editor to open.
+ * @line_number: the line in the editor to scroll to.
+ *
+ * Finds the editor based on the file path. First it will find the document in the 
+ * tree and then open up the editor in the notebook. It is Ok to call this method 
+ * as much as you want because after the editor is initially loaded up then 
+ * subsequent calls are very efficient.
+ *
+ * Returns: is TRUE if the editor is able to be found in the tree. 
+ */
+
+gboolean
+codeslayer_select_editor_by_file_path (CodeSlayer  *codeslayer, 
+                                       const gchar *file_path, 
+                                       const gint   line_number)
+{
+  CodeSlayerDocument *document;
+  gboolean result;
+  
+  g_return_val_if_fail (IS_CODESLAYER (codeslayer), FALSE);
+  
+  document = codeslayer_document_new ();
+  codeslayer_document_set_file_path (document, file_path);
+  codeslayer_document_set_line_number (document, line_number);
+  
+  result = codeslayer_select_editor (codeslayer, document);
+  
+  g_object_unref (document);
+  
+  return result;  
+}                                       
 
 /**
  * codeslayer_get_active_editor:
@@ -898,7 +947,7 @@ codeslayer_get_toplevel_window (CodeSlayer *codeslayer)
  */
 gint
 codeslayer_add_to_process_bar (CodeSlayer      *codeslayer,
-                               gchar           *name,
+                               const gchar     *name,
                                StopProcessFunc  func,
                                gpointer         data)
 {
@@ -942,11 +991,28 @@ codeslayer_remove_from_process_bar (CodeSlayer *codeslayer,
  * @text_view: the text_view to create the links in.
  *
  * Returns: Creates a new @CodeSlayerEditorLinker. You must free this with 
-            g_object_unref () when done with it.
+ *          g_object_unref () when done with it.
+ *
+ * Deprecated: 3.0: use codeslayer_create_editor_linker now.
  */
 CodeSlayerEditorLinker*   
 codeslayer_get_editor_linker (CodeSlayer  *codeslayer,
                               GtkTextView *text_view)
+{
+  return codeslayer_editor_linker_new (G_OBJECT (codeslayer), text_view);
+}
+
+/**
+ * codeslayer_create_editor_linker:
+ * @codeslayer: a #CodeSlayer.
+ * @text_view: the text_view to create the links in.
+ *
+ * Returns: Creates a new @CodeSlayerEditorLinker. You must free this with 
+            g_object_unref () when done with it.
+ */
+CodeSlayerEditorLinker*   
+codeslayer_create_editor_linker (CodeSlayer  *codeslayer,
+                                 GtkTextView *text_view)
 {
   return codeslayer_editor_linker_new (G_OBJECT (codeslayer), text_view);
 }

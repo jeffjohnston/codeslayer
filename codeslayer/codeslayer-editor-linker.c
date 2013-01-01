@@ -255,6 +255,7 @@ codeslayer_editor_linker_create_links (CodeSlayerEditorLinker *linker)
   clear_links (linker);
   priv->links = mark_links (linker, buffer, matches);
   g_list_foreach (matches, (GFunc) g_free, NULL);
+  g_list_free (matches);
   g_free (text);
   
   if (priv->links == NULL)
@@ -429,9 +430,6 @@ select_link_action (CodeSlayerEditorLinker *linker,
             {
               CodeSlayerDocument *document;
               CodeSlayerProject *project;
-              document = codeslayer_document_new ();
-              codeslayer_document_set_file_path (document, link->file_path);
-              codeslayer_document_set_line_number (document, link->line_number);
               
               project = codeslayer_get_project_by_file_path (priv->codeslayer, 
                                                              link->file_path);
@@ -447,12 +445,14 @@ select_link_action (CodeSlayerEditorLinker *linker,
                   gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
                   gtk_dialog_run (GTK_DIALOG (dialog));
                   gtk_widget_destroy (dialog);
-                  g_object_unref (document);
                   return TRUE;
                 }
 
+              document = codeslayer_document_new ();
+              codeslayer_document_set_file_path (document, link->file_path);
+              codeslayer_document_set_line_number (document, link->line_number);
               codeslayer_document_set_project (document, project);
-              
+
               codeslayer_select_editor (priv->codeslayer, document);
               g_object_unref (document);
               return TRUE;

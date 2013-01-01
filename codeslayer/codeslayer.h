@@ -92,6 +92,10 @@ CodeSlayer*               codeslayer_new                             (GtkWindow 
 gboolean                  codeslayer_select_editor                   (CodeSlayer                  *codeslayer, 
                                                                       CodeSlayerDocument          *document);
 
+gboolean                  codeslayer_select_editor_by_file_path      (CodeSlayer                  *codeslayer, 
+                                                                      const gchar                 *file_path, 
+                                                                      gint                         line_number);
+
 CodeSlayerEditor*         codeslayer_get_active_editor               (CodeSlayer                  *codeslayer);
 
 const gchar*              codeslayer_get_active_editor_file_path     (CodeSlayer                  *codeslayer);
@@ -173,13 +177,19 @@ CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer
 CodeSlayerPreferences*    codeslayer_get_preferences                 (CodeSlayer                  *codeslayer);
 
 GtkWindow*                codeslayer_get_toplevel_window             (CodeSlayer                  *codeslayer);
+
 gint                      codeslayer_add_to_process_bar              (CodeSlayer                  *codeslayer,
-                                                                      gchar                       *name,
+                                                                      const gchar                 *name,
                                                                       StopProcessFunc              func,
                                                                       gpointer                     data);
+
 void                      codeslayer_remove_from_process_bar         (CodeSlayer                  *codeslayer,
                                                                       gint                         id);
+
 CodeSlayerEditorLinker*   codeslayer_get_editor_linker               (CodeSlayer                  *codeslayer,
+                                                                      GtkTextView                 *text_view) __attribute__ ((deprecated));
+
+CodeSlayerEditorLinker*   codeslayer_create_editor_linker            (CodeSlayer                  *codeslayer,
                                                                       GtkTextView                 *text_view);
 
 G_END_DECLS
