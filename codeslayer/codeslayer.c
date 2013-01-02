@@ -21,6 +21,7 @@
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-process.h>
 #include <codeslayer/codeslayer.h>
+#include <codeslayer/codeslayer-marshaller.h>
 
 /**
  * SECTION:codeslayer
@@ -87,6 +88,7 @@ enum
   PROJECT_PROPERTIES_OPENED,
   PROJECT_PROPERTIES_SAVED,
   PROJECTS_CHANGED,
+  PLUGIN_MESSAGE,
   LAST_SIGNAL
 };
 
@@ -206,7 +208,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
 	 * CodeSlayer::projects-changed
 	 * @codeslayer: the plugin that received the signal
 	 *
-	 * The ::projects_changed signal is invoked when the projects structure changed.
+	 * The ::projects-changed signal is invoked when the projects structure changed.
 	 */
   codeslayer_signals[PROJECTS_CHANGED] =
     g_signal_new ("projects-changed", 
@@ -215,6 +217,24 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_STRUCT_OFFSET (CodeSlayerClass, projects_changed), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+
+  /**
+	 * CodeSlayer::plugin_message
+	 * @codeslayer: the plugin that received the signal
+	 * @message: the message sent from a different plugin
+	 * @program: the program that sent the plugin
+	 *
+	 * The ::plugin-message signal is emitted when a plugin wants to communicate to other plugins.
+	 */
+  codeslayer_signals[PLUGIN_MESSAGE] =
+    g_signal_new ("plugin-message", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerClass, plugin_message), 
+                  NULL, NULL,
+                   _codeslayer_marshal_VOID__STRING_STRING, G_TYPE_NONE, 
+                  2, G_TYPE_STRING, G_TYPE_STRING);
 
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerPrivate));
@@ -1015,6 +1035,19 @@ codeslayer_create_editor_linker (CodeSlayer  *codeslayer,
                                  GtkTextView *text_view)
 {
   return codeslayer_editor_linker_new (G_OBJECT (codeslayer), text_view);
+}
+
+/**
+ * codeslayer_send_plugin_message:
+ * @codeslayer: a #CodeSlayer.
+ * @message: the message that was sent.
+ */
+void 
+codeslayer_send_plugin_message (CodeSlayer   *codeslayer,
+                                const gchar *message, 
+                                const gchar *program)
+{
+  g_signal_emit_by_name ((gpointer) codeslayer, "plugin-message", message, program);
 }
 
 static void
