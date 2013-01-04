@@ -1040,7 +1040,7 @@ codeslayer_create_editor_linker (CodeSlayer  *codeslayer,
  * @message: the message that was sent.
  */
 void 
-codeslayer_send_plugin_message (CodeSlayer   *codeslayer,
+codeslayer_send_plugin_message (CodeSlayer  *codeslayer,
                                 const gchar *message, 
                                 const gchar *program)
 {
@@ -1062,9 +1062,9 @@ editors_all_saved_action (CodeSlayer *codeslayer,
 }
 
 static void
-editor_added_action (CodeSlayer  *codeslayer,
-                     GtkWidget   *page,
-                     guint        page_num)                     
+editor_added_action (CodeSlayer *codeslayer,
+                     GtkWidget  *page,
+                     guint       page_num)                     
 {
   GtkWidget *editor;
   editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (page));
@@ -1072,9 +1072,9 @@ editor_added_action (CodeSlayer  *codeslayer,
 }
 
 static void      
-editor_removed_action (CodeSlayer  *codeslayer, 
-                       GtkWidget   *page,
-                       guint        page_num)
+editor_removed_action (CodeSlayer *codeslayer, 
+                       GtkWidget  *page,
+                       guint       page_num)
 {
   GtkWidget *editor;
   editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (page));
@@ -1082,9 +1082,9 @@ editor_removed_action (CodeSlayer  *codeslayer,
 }
 
 static void
-editor_switched_action (CodeSlayer      *codeslayer, 
-                        GtkWidget       *notebook_page,
-                        guint            page_num)
+editor_switched_action (CodeSlayer *codeslayer, 
+                        GtkWidget  *notebook_page,
+                        guint       page_num)
 {
   CodeSlayerPrivate *priv;
   GtkWidget *editor;
