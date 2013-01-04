@@ -71,10 +71,10 @@ struct _CodeSlayerClass
   void (*editor_added) (CodeSlayer *codeslayer);
   void (*editor_removed) (CodeSlayer *codeslayer);
   void (*editor_switched) (CodeSlayer *codeslayer);
+  void (*editor_navigated) (CodeSlayer *codeslayer);
   void (*project_properties_opened) (CodeSlayer *codeslayer);
   void (*project_properties_saved) (CodeSlayer *codeslayer);
   void (*projects_changed) (CodeSlayer *codeslayer);
-  void (*plugin_message) (CodeSlayer *codeslayer);
 };
 
 GType codeslayer_get_type (void) G_GNUC_CONST;
@@ -192,10 +192,6 @@ CodeSlayerEditorLinker*   codeslayer_get_editor_linker               (CodeSlayer
 
 CodeSlayerEditorLinker*   codeslayer_create_editor_linker            (CodeSlayer                  *codeslayer,
                                                                       GtkTextView                 *text_view);
-
-void                      codeslayer_send_plugin_message             (CodeSlayer                  *codeslayer,
-                                                                      const gchar                 *message,
-                                                                      const gchar                 *program);
 
 G_END_DECLS
 

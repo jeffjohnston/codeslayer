@@ -85,10 +85,10 @@ enum
   EDITOR_ADDED,
   EDITOR_REMOVED,
   EDITOR_SWITCHED,
+  EDITOR_NAVIGATED,
   PROJECT_PROPERTIES_OPENED,
   PROJECT_PROPERTIES_SAVED,
   PROJECTS_CHANGED,
-  PLUGIN_MESSAGE,
   LAST_SIGNAL
 };
 
@@ -100,12 +100,12 @@ static void
 codeslayer_class_init (CodeSlayerClass *klass)
 {
   /**
-	 * CodeSlayer::editor-saved
-	 * @codeslayer: the plugin that received the signal
-	 * @editor: the #CodeSlayerEditor that was saved
-	 *
-	 * The ::editor-saved signal is emitted when an editor is saved successfully
-	 */
+   * CodeSlayer::editor-saved
+   * @codeslayer: the plugin that received the signal
+   * @editor: the #CodeSlayerEditor that was saved
+   *
+   * The ::editor-saved signal is emitted when an editor is saved successfully
+   */
   codeslayer_signals[EDITOR_SAVED] =
     g_signal_new ("editor-saved", 
                   G_TYPE_FROM_CLASS (klass),
@@ -115,12 +115,12 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
 
   /**
-	 * CodeSlayer::editors-all-saved
-	 * @codeslayer: the plugin that received the signal
-	 * @editors: a #GList of #CodeSlayerEditor objects that were saved
-	 *
-	 * The ::editors-all-saved signal is emitted when all the editors have been saved successfully
-	 */
+   * CodeSlayer::editors-all-saved
+   * @codeslayer: the plugin that received the signal
+   * @editors: a #GList of #CodeSlayerEditor objects that were saved
+   *
+   * The ::editors-all-saved signal is emitted when all the editors have been saved successfully
+   */
   codeslayer_signals[EDITORS_ALL_SAVED] =
     g_signal_new ("editors-all-saved", 
                   G_TYPE_FROM_CLASS (klass),
@@ -130,12 +130,12 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-	 * CodeSlayer::editor-added
-	 * @codeslayer: the plugin that received the signal
-	 * @editor: the #CodeSlayerEditor that was added
-	 *
-	 * The ::editor-added signal is emitted when the editor is added to the notebook
-	 */
+   * CodeSlayer::editor-added
+   * @codeslayer: the plugin that received the signal
+   * @editor: the #CodeSlayerEditor that was added
+   *
+   * The ::editor-added signal is emitted when the editor is added to the notebook
+   */
   codeslayer_signals[EDITOR_ADDED] =
     g_signal_new ("editor-added", 
                   G_TYPE_FROM_CLASS (klass),
@@ -145,12 +145,12 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
 
   /**
-	 * CodeSlayer::editor-removed
-	 * @codeslayer: the plugin that received the signal
-	 * @editor: the #CodeSlayerEditor that was removed
-	 *
-	 * The ::editor-removed signal is emitted when the editor is removed from the notebook
-	 */
+   * CodeSlayer::editor-removed
+   * @codeslayer: the plugin that received the signal
+   * @editor: the #CodeSlayerEditor that was removed
+   *
+   * The ::editor-removed signal is emitted when the editor is removed from the notebook
+   */
   codeslayer_signals[EDITOR_REMOVED] =
     g_signal_new ("editor-removed", 
                   G_TYPE_FROM_CLASS (klass),
@@ -160,12 +160,12 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
 
   /**
-	 * CodeSlayer::editor-switched
-	 * @codeslayer: the plugin that received the signal
-	 * @editor: the #CodeSlayerEditor switched to
-	 *
-	 * The ::editor-switched signal is emitted when the active editor is switched in the notebook
-	 */
+   * CodeSlayer::editor-switched
+   * @codeslayer: the plugin that received the signal
+   * @editor: the #CodeSlayerEditor switched to
+   *
+   * The ::editor-switched signal is emitted when the active editor is switched in the notebook
+   */
   codeslayer_signals[EDITOR_SWITCHED] =
     g_signal_new ("editor-switched", 
                   G_TYPE_FROM_CLASS (klass),
@@ -175,12 +175,27 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
 
   /**
-	 * CodeSlayer::project-properties-opened
-	 * @codeslayer: the plugin that received the signal
-	 * @project_properties: the #CodeSlayerProjectProperties switched to
-	 *
-	 * The ::project-properties-opened signal is emitted when the project properties window is opened
-	 */
+   * CodeSlayer::editor-navigated
+   * @codeslayer: the plugin that received the signal
+   * @editor: the #CodeSlayerEditor navigated to
+   *
+   * The ::editor-navigated signal is emitted when the editor is navigated to in the notebook
+   */
+  codeslayer_signals[EDITOR_NAVIGATED] =
+    g_signal_new ("editor-navigated", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerClass, editor_navigated), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
+
+  /**
+   * CodeSlayer::project-properties-opened
+   * @codeslayer: the plugin that received the signal
+   * @project_properties: the #CodeSlayerProjectProperties switched to
+   *
+   * The ::project-properties-opened signal is emitted when the project properties window is opened
+   */
   codeslayer_signals[PROJECT_PROPERTIES_OPENED] =
     g_signal_new ("project-properties-opened", 
                   G_TYPE_FROM_CLASS (klass),
@@ -190,12 +205,12 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_PROJECT_TYPE);
 
   /**
-	 * CodeSlayer::project-properties-saved
-	 * @codeslayer: the plugin that received the signal
-	 * @project_properties: the #CodeSlayerProjectProperties switched to
-	 *
-	 * The ::project-properties-saved signal is emitted when the project properties window is closed
-	 */
+	* CodeSlayer::project-properties-saved
+	* @codeslayer: the plugin that received the signal
+	* @project_properties: the #CodeSlayerProjectProperties switched to
+	*
+	* The ::project-properties-saved signal is emitted when the project properties window is closed
+	*/
   codeslayer_signals[PROJECT_PROPERTIES_SAVED] =
     g_signal_new ("project-properties-saved", 
                   G_TYPE_FROM_CLASS (klass),
@@ -205,11 +220,11 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_PROJECT_TYPE);
 
   /**
-	 * CodeSlayer::projects-changed
-	 * @codeslayer: the plugin that received the signal
-	 *
-	 * The ::projects-changed signal is invoked when the projects structure changed.
-	 */
+   * CodeSlayer::projects-changed
+   * @codeslayer: the plugin that received the signal
+   *
+   * The ::projects-changed signal is invoked when the projects structure changed.
+   */
   codeslayer_signals[PROJECTS_CHANGED] =
     g_signal_new ("projects-changed", 
                   G_TYPE_FROM_CLASS (klass),
@@ -217,24 +232,6 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_STRUCT_OFFSET (CodeSlayerClass, projects_changed), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
-
-  /**
-	 * CodeSlayer::plugin_message
-	 * @codeslayer: the plugin that received the signal
-	 * @message: the message sent from a different plugin
-	 * @program: the program that sent the plugin
-	 *
-	 * The ::plugin-message signal is emitted when a plugin wants to communicate to other plugins.
-	 */
-  codeslayer_signals[PLUGIN_MESSAGE] =
-    g_signal_new ("plugin-message", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerClass, plugin_message), 
-                  NULL, NULL,
-                   _codeslayer_marshal_VOID__STRING_STRING, G_TYPE_NONE, 
-                  2, G_TYPE_STRING, G_TYPE_STRING);
 
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerPrivate));
