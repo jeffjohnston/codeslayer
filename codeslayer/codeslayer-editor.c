@@ -642,10 +642,13 @@ gboolean
 codeslayer_editor_scroll_to_line (CodeSlayerEditor *editor, 
                                   gint              line_number)
 {
+  CodeSlayerEditorPrivate *priv;
   GtkTextBuffer *buffer;
   GtkTextIter iter;
   GtkTextMark *text_mark;
   
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
 
   gtk_text_buffer_get_start_iter (buffer, &iter);
@@ -662,6 +665,8 @@ codeslayer_editor_scroll_to_line (CodeSlayerEditor *editor,
 
   text_mark = gtk_text_buffer_create_mark (buffer, NULL, &iter, TRUE);
   gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (editor), text_mark, .1, FALSE, 0, 0);
+
+  codeslayer_document_set_line_number (priv->document, line_number);
 
   gtk_text_buffer_place_cursor (buffer, &iter);
   
