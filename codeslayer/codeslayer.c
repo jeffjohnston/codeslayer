@@ -177,6 +177,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
   /**
    * CodeSlayer::editor-navigated
    * @codeslayer: the plugin that received the signal
+   * @editor: the #CodeSlayerEditor navigated from
    * @editor: the #CodeSlayerEditor navigated to
    *
    * The ::editor-navigated signal is emitted when the editor is navigated to in the notebook
@@ -187,7 +188,8 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerClass, editor_navigated), 
                   NULL, NULL,
-                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
+                  _codeslayer_marshal_VOID__OBJECT_OBJECT, G_TYPE_NONE, 2, 
+                  CODESLAYER_EDITOR_TYPE, CODESLAYER_EDITOR_TYPE);
 
   /**
    * CodeSlayer::project-properties-opened
