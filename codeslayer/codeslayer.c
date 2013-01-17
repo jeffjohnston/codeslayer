@@ -85,7 +85,7 @@ enum
   EDITOR_ADDED,
   EDITOR_REMOVED,
   EDITOR_SWITCHED,
-  EDITOR_NAVIGATED,
+  PATH_NAVIGATED,
   PROJECT_PROPERTIES_OPENED,
   PROJECT_PROPERTIES_SAVED,
   PROJECTS_CHANGED,
@@ -175,21 +175,23 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
 
   /**
-   * CodeSlayer::editor-navigated
+   * CodeSlayer::path-navigated
    * @codeslayer: the plugin that received the signal
-   * @editor: the #CodeSlayerEditor navigated from
-   * @editor: the #CodeSlayerEditor navigated to
+   * @from_file_path: the file path navigated from
+   * @from_line_number: the line number navigated from
+   * @to_file_path: the file path navigated to
+   * @to_line_number: the line number navigated to
    *
-   * The ::editor-navigated signal is emitted when the editor is navigated to in the notebook
+   * The ::path-navigated signal is emitted when the editor is navigated to in the notebook
    */
-  codeslayer_signals[EDITOR_NAVIGATED] =
-    g_signal_new ("editor-navigated", 
+  codeslayer_signals[PATH_NAVIGATED] =
+    g_signal_new ("path-navigated", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerClass, editor_navigated), 
+                  G_STRUCT_OFFSET (CodeSlayerClass, path_navigated), 
                   NULL, NULL,
-                  _codeslayer_marshal_VOID__OBJECT_OBJECT, G_TYPE_NONE, 2, 
-                  CODESLAYER_EDITOR_TYPE, CODESLAYER_EDITOR_TYPE);
+                  _codeslayer_marshal_VOID__STRING_INT_STRING_INT, G_TYPE_NONE, 4, 
+                  G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_INT);
 
   /**
    * CodeSlayer::project-properties-opened

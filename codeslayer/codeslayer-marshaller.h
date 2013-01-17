@@ -14,14 +14,15 @@ extern void _codeslayer_marshal_VOID__STRING_STRING (GClosure     *closure,
                                                      gpointer      invocation_hint,
                                                      gpointer      marshal_data);
 
-/* VOID:OBJECT,OBJECT (codeslayer_marshal.list:2) */
-extern void _codeslayer_marshal_VOID__OBJECT_OBJECT (GClosure     *closure,
-                                                     GValue       *return_value,
-                                                     guint         n_param_values,
-                                                     const GValue *param_values,
-                                                     gpointer      invocation_hint,
-                                                     gpointer      marshal_data);
+/* VOID:STRING,INT,STRING,INT (codeslayer_marshal.list:2) */
+extern void _codeslayer_marshal_VOID__STRING_INT_STRING_INT (GClosure     *closure,
+                                                             GValue       *return_value,
+                                                             guint         n_param_values,
+                                                             const GValue *param_values,
+                                                             gpointer      invocation_hint,
+                                                             gpointer      marshal_data);
 
 G_END_DECLS
 
 #endif /* ___codeslayer_marshal_MARSHAL_H__ */
+

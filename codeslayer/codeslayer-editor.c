@@ -296,6 +296,20 @@ codeslayer_editor_get_file_path (CodeSlayerEditor *editor)
 }
 
 /**
+ * codeslayer_editor_get_line_number:
+ * @editor: a #CodeSlayerEditor  
+ *
+ * The current line number for the editors document.
+ */
+gint
+codeslayer_editor_get_line_number (CodeSlayerEditor *editor)
+{
+  CodeSlayerEditorPrivate *priv;
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+  return codeslayer_document_get_line_number (priv->document);
+}
+
+/**
  * codeslayer_editor_get_modification_time:
  * @editor: a #CodeSlayerEditor  
  *
