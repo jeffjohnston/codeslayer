@@ -51,6 +51,8 @@ static gboolean button_press_action           (CodeSlayerEditor             *edi
                                                GdkEvent                     *event);                                               
 static void screen_action                     (CodeSlayerEditor             *editor,
                                                GtkStateFlags                 flags);
+static void cursor_position_action            (CodeSlayerEditor             *editor,
+                                               GParamSpec                   *spec);
 static GtkSourceBuffer* create_source_buffer  (const gchar                  *file_name);
 static void copy_lines_action                 (CodeSlayerEditor             *editor);
 static void to_uppercase_action               (CodeSlayerEditor             *editor);
@@ -261,6 +263,9 @@ codeslayer_editor_new (GtkWindow             *window,
 
   g_signal_connect_swapped (G_OBJECT (editor), "state-flags-changed",
                             G_CALLBACK (screen_action), editor);
+                            
+  g_signal_connect_swapped (G_OBJECT (buffer), "notify::cursor-position",
+                            G_CALLBACK (cursor_position_action), editor);                            
 
   return editor;
 }
@@ -476,6 +481,29 @@ key_release_action (CodeSlayerEditor *editor,
   codeslayer_completion_filter (priv->completion, GTK_TEXT_VIEW (editor), iter);
 
   return FALSE;
+}
+
+static void
+cursor_position_action (CodeSlayerEditor *editor,
+                        GParamSpec       *spec)
+{
+  CodeSlayerEditorPrivate *priv;
+  GtkTextBuffer *buffer;
+  GtkTextIter iter;
+  gint offset;
+  gint line_number;
+
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+  
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+
+  g_object_get (buffer, "cursor-position", &offset, NULL);
+
+  gtk_text_buffer_get_iter_at_offset (buffer, &iter, offset);
+
+  line_number = gtk_text_iter_get_line (&iter);
+  
+  codeslayer_document_set_line_number (priv->document, ++line_number);
 }
 
 static gboolean
