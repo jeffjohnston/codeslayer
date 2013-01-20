@@ -512,21 +512,21 @@ codeslayer_utils_get_file_path (const gchar *folder_path,
 }
 
 GKeyFile*      
-codeslayer_utils_get_keyfile (const gchar *file_path)
+codeslayer_utils_get_key_file (const gchar *file_path)
 {  
-  GKeyFile *keyfile;
-  keyfile = g_key_file_new ();
-  g_key_file_load_from_file (keyfile, file_path, G_KEY_FILE_NONE, NULL);
-  return keyfile;
+  GKeyFile *key_file;
+  key_file = g_key_file_new ();
+  g_key_file_load_from_file (key_file, file_path, G_KEY_FILE_NONE, NULL);
+  return key_file;
 }
 
 void 
-codeslayer_utils_save_keyfile (GKeyFile    *keyfile, 
-                              const gchar *file_path)
+codeslayer_utils_save_key_file (GKeyFile    *key_file, 
+                                const gchar *file_path)
 {
   gchar *data;
   gsize size;
-  data = g_key_file_to_data (keyfile, &size, NULL);
+  data = g_key_file_to_data (key_file, &size, NULL);
   g_file_set_contents (file_path, data, size, NULL);
   g_free (data);
 }

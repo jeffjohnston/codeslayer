@@ -53,7 +53,7 @@ typedef struct _CodeSlayerPreferencesPrivate CodeSlayerPreferencesPrivate;
 struct _CodeSlayerPreferencesPrivate
 {
   GtkWidget       *window;
-  GKeyFile        *keyfile;
+  GKeyFile        *key_file;
   CodeSlayerGroup *group;
 };
 
@@ -180,7 +180,7 @@ codeslayer_preferences_init (CodeSlayerPreferences *preferences)
 {
   CodeSlayerPreferencesPrivate *priv;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  priv->keyfile = NULL;
+  priv->key_file = NULL;
 }
 
 static void
@@ -190,10 +190,10 @@ codeslayer_preferences_finalize (CodeSlayerPreferences *preferences)
   
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
 
-  if (priv->keyfile)
+  if (priv->key_file)
     {
-      g_key_file_free (priv->keyfile);
-      priv->keyfile = NULL;
+      g_key_file_free (priv->key_file);
+      priv->key_file = NULL;
     }
     
   G_OBJECT_CLASS (codeslayer_preferences_parent_class)->finalize (G_OBJECT (preferences));
@@ -234,8 +234,8 @@ codeslayer_preferences_get_integer (CodeSlayerPreferences *preferences,
   CodeSlayerPreferencesPrivate *priv;
   
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  if (g_key_file_has_key (priv->keyfile, MAIN, key, NULL))
-    return g_key_file_get_integer (priv->keyfile, MAIN, key, NULL);
+  if (g_key_file_has_key (priv->key_file, MAIN, key, NULL))
+    return g_key_file_get_integer (priv->key_file, MAIN, key, NULL);
   
   return -1;
 }
@@ -253,7 +253,7 @@ codeslayer_preferences_set_integer (CodeSlayerPreferences *preferences,
 {
   CodeSlayerPreferencesPrivate *priv;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  g_key_file_set_integer (priv->keyfile, MAIN, key, value);
+  g_key_file_set_integer (priv->key_file, MAIN, key, value);
 }
 
 /**
@@ -270,8 +270,8 @@ codeslayer_preferences_get_double (CodeSlayerPreferences *preferences,
   CodeSlayerPreferencesPrivate *priv;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
 
-  if (g_key_file_has_key (priv->keyfile, MAIN, key, NULL))
-    return g_key_file_get_double (priv->keyfile, MAIN, key, NULL);
+  if (g_key_file_has_key (priv->key_file, MAIN, key, NULL))
+    return g_key_file_get_double (priv->key_file, MAIN, key, NULL);
 
   return -1;
 }
@@ -289,7 +289,7 @@ codeslayer_preferences_set_double (CodeSlayerPreferences *preferences,
 {
   CodeSlayerPreferencesPrivate *priv;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  g_key_file_set_double (priv->keyfile, MAIN, key, value);
+  g_key_file_set_double (priv->key_file, MAIN, key, value);
 }
 
 /**
@@ -306,8 +306,8 @@ codeslayer_preferences_get_boolean (CodeSlayerPreferences *preferences,
   CodeSlayerPreferencesPrivate *priv;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
 
-  if (g_key_file_has_key (priv->keyfile, MAIN, key, NULL))
-    return g_key_file_get_boolean (priv->keyfile, MAIN, key, NULL);
+  if (g_key_file_has_key (priv->key_file, MAIN, key, NULL))
+    return g_key_file_get_boolean (priv->key_file, MAIN, key, NULL);
   
   return -1;
 }
@@ -325,7 +325,7 @@ codeslayer_preferences_set_boolean (CodeSlayerPreferences *preferences,
 {
   CodeSlayerPreferencesPrivate *priv;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  g_key_file_set_boolean (priv->keyfile, MAIN, key, value);
+  g_key_file_set_boolean (priv->key_file, MAIN, key, value);
 }
 
 /**
@@ -342,8 +342,8 @@ codeslayer_preferences_get_string (CodeSlayerPreferences *preferences,
   CodeSlayerPreferencesPrivate *priv;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   
-  if (g_key_file_has_key (priv->keyfile, MAIN, key, NULL))
-    return g_key_file_get_string (priv->keyfile, MAIN, key, NULL);
+  if (g_key_file_has_key (priv->key_file, MAIN, key, NULL))
+    return g_key_file_get_string (priv->key_file, MAIN, key, NULL);
 
   return g_strdup ("");
 }
@@ -361,7 +361,7 @@ codeslayer_preferences_set_string (CodeSlayerPreferences *preferences,
 {
   CodeSlayerPreferencesPrivate *priv;  
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  g_key_file_set_string (priv->keyfile, MAIN, key, value);
+  g_key_file_set_string (priv->key_file, MAIN, key, value);
 }
 
 /**
@@ -377,24 +377,24 @@ codeslayer_preferences_load (CodeSlayerPreferences *preferences,
 {
   CodeSlayerPreferencesPrivate *priv;
   gboolean conf_exists;
-  GKeyFile *keyfile;
+  GKeyFile *key_file;
   gchar *conf;
   
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   priv->group = group;
   
-  if (priv->keyfile)
+  if (priv->key_file)
     {
-      g_key_file_free (priv->keyfile);
-      priv->keyfile = NULL;
+      g_key_file_free (priv->key_file);
+      priv->key_file = NULL;
     }
   
   conf_exists = verify_conf_exists (preferences);
-  keyfile = g_key_file_new ();
+  key_file = g_key_file_new ();
 
   conf = get_conf_path (preferences);
-  g_key_file_load_from_file (keyfile, conf, G_KEY_FILE_NONE, NULL);
-  priv->keyfile = keyfile;
+  g_key_file_load_from_file (key_file, conf, G_KEY_FILE_NONE, NULL);
+  priv->key_file = key_file;
   g_free (conf);
 
   if (!conf_exists)
@@ -419,7 +419,7 @@ codeslayer_preferences_save (CodeSlayerPreferences *preferences)
   
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
 
-  data = g_key_file_to_data (priv->keyfile, &size, NULL);
+  data = g_key_file_to_data (priv->key_file, &size, NULL);
 
   conf_path = get_conf_path (preferences);
 
