@@ -70,6 +70,8 @@ gint                 codeslayer_editor_get_line_number           (CodeSlayerEdit
 GTimeVal*            codeslayer_editor_get_modification_time     (CodeSlayerEditor             *editor);
 void                 codeslayer_editor_set_modification_time     (CodeSlayerEditor             *editor, 
                                                                   GTimeVal                     *modification_time);
+void                 codeslayer_editor_set_text                  (CodeSlayerEditor             *editor, 
+                                                                  gchar                        *text);
 
 G_END_DECLS
 

@@ -74,6 +74,7 @@ struct _CodeSlayerEditorPrivate
   CodeSlayerPreferences *preferences;
   CodeSlayerSettings    *settings;
   CodeSlayerCompletion  *completion;
+  gulong                 cursor_position_id;
 };
 
 G_DEFINE_TYPE (CodeSlayerEditor, codeslayer_editor, GTK_SOURCE_TYPE_VIEW)
@@ -264,8 +265,8 @@ codeslayer_editor_new (GtkWindow             *window,
   g_signal_connect_swapped (G_OBJECT (editor), "state-flags-changed",
                             G_CALLBACK (screen_action), editor);
                             
-  g_signal_connect_swapped (G_OBJECT (buffer), "notify::cursor-position",
-                            G_CALLBACK (cursor_position_action), editor);                            
+  priv->cursor_position_id = g_signal_connect_swapped (G_OBJECT (buffer), "notify::cursor-position",
+                                                       G_CALLBACK (cursor_position_action), editor);                            
 
   return editor;
 }
@@ -347,7 +348,7 @@ codeslayer_editor_set_modification_time (CodeSlayerEditor *editor,
       priv->modification_time = NULL;
     }
   priv->modification_time = modification_time;
-}                                         
+}
 
 /**
  * codeslayer_editor_add_completion_provider:
@@ -481,29 +482,6 @@ key_release_action (CodeSlayerEditor *editor,
   codeslayer_completion_filter (priv->completion, GTK_TEXT_VIEW (editor), iter);
 
   return FALSE;
-}
-
-static void
-cursor_position_action (CodeSlayerEditor *editor,
-                        GParamSpec       *spec)
-{
-  CodeSlayerEditorPrivate *priv;
-  GtkTextBuffer *buffer;
-  GtkTextIter iter;
-  gint offset;
-  gint line_number;
-
-  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
-  
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
-
-  g_object_get (buffer, "cursor-position", &offset, NULL);
-
-  gtk_text_buffer_get_iter_at_offset (buffer, &iter, offset);
-
-  line_number = gtk_text_iter_get_line (&iter);
-  
-  codeslayer_document_set_line_number (priv->document, ++line_number);
 }
 
 static gboolean
@@ -674,6 +652,56 @@ change_case (CodeSlayerEditor *editor,
   /* remove the line marks */
   gtk_text_buffer_delete_mark (buffer, start_mark);
 }
+
+static void
+cursor_position_action (CodeSlayerEditor *editor,
+                        GParamSpec       *spec)
+{
+  CodeSlayerEditorPrivate *priv;
+  GtkTextBuffer *buffer;
+  GtkTextIter iter;
+  gint offset;
+  gint line_number;
+
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+  
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+
+  g_object_get (buffer, "cursor-position", &offset, NULL);
+
+  gtk_text_buffer_get_iter_at_offset (buffer, &iter, offset);
+
+  line_number = gtk_text_iter_get_line (&iter);
+  
+  g_print ("line_number %s %d : %d\n", codeslayer_document_get_file_path (priv->document),  ++line_number, gtk_text_buffer_get_line_count (buffer));
+  
+  codeslayer_document_set_line_number (priv->document, ++line_number);
+}
+
+/**
+ * codeslayer_editor_set_text:
+ * @editor: a #CodeSlayerEditor  
+ * @text: the text to set.
+ *
+ * Add the text to the editor, while blocking the cursor position signal. 
+ */
+void
+codeslayer_editor_set_text (CodeSlayerEditor *editor, 
+                            gchar            *text)
+{
+  CodeSlayerEditorPrivate *priv;
+  GtkTextBuffer *buffer;
+  
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+  
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+
+  g_signal_handler_block (buffer, priv->cursor_position_id);
+  
+  gtk_text_buffer_set_text (GTK_TEXT_BUFFER (buffer), text, -1);
+
+  g_signal_handler_unblock (buffer, priv->cursor_position_id);
+}                                                                  
 
 /**
  * codeslayer_editor_scroll_to_line:

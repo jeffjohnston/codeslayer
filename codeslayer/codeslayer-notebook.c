@@ -215,7 +215,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   if (contents != NULL)
     {
       gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
-      gtk_text_buffer_set_text (GTK_TEXT_BUFFER (buffer), contents, -1);
+      codeslayer_editor_set_text (CODESLAYER_EDITOR (editor), contents);
       gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
       gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
       g_free (contents);
