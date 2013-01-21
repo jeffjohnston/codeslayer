@@ -673,8 +673,6 @@ cursor_position_action (CodeSlayerEditor *editor,
 
   line_number = gtk_text_iter_get_line (&iter);
   
-  g_print ("line_number %s %d : %d\n", codeslayer_document_get_file_path (priv->document),  ++line_number, gtk_text_buffer_get_line_count (buffer));
-  
   codeslayer_document_set_line_number (priv->document, ++line_number);
 }
 
@@ -720,12 +718,12 @@ codeslayer_editor_scroll_to_line (CodeSlayerEditor *editor,
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
 
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
-
+  
   gtk_text_buffer_get_start_iter (buffer, &iter);
   gtk_text_iter_set_line_offset (&iter, 0);
 
   if (!gtk_text_iter_forward_lines (&iter, line_number - 1))
-    return FALSE;
+    return FALSE;    
 
   /* Checks if any events are pending. This can be used to update the GUI and invoke 
      timeouts etc. while doing some time intensive computation. This needs to be done
@@ -739,7 +737,7 @@ codeslayer_editor_scroll_to_line (CodeSlayerEditor *editor,
   codeslayer_document_set_line_number (priv->document, line_number);
 
   gtk_text_buffer_place_cursor (buffer, &iter);
-  
+
   return TRUE;
 }
 
