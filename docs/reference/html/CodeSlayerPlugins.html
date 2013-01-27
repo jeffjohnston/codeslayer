@@ -43,6 +43,7 @@
 #include &lt;codeslayer/codeslayer-plugins.h&gt;
 
 struct              <a class="link" href="CodeSlayerPlugins.html#CodeSlayerPlugins-struct" title="struct CodeSlayerPlugins">CodeSlayerPlugins</a>;
+#define             <a class="link" href="CodeSlayerPlugins.html#CODESLAYER-PLUGINS-CONFIG-DIR:CAPS" title="CODESLAYER_PLUGINS_CONFIG_DIR">CODESLAYER_PLUGINS_CONFIG_DIR</a>
 <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="returnvalue">CodeSlayerPlugins</span></a> * <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-new" title="codeslayer_plugins_new ()">codeslayer_plugins_new</a>              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-load" title="codeslayer_plugins_load ()">codeslayer_plugins_load</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *data</code></em>);
@@ -53,7 +54,6 @@ struct              <a class="link" href="CodeSlayerPlugins.html#CodeSlayerPlugi
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-run-dialog" title="codeslayer_plugins_run_dialog ()">codeslayer_plugins_run_dialog</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
 #define             <a class="link" href="CodeSlayerPlugins.html#CODESLAYER-PLUGINS-DIR:CAPS" title="CODESLAYER_PLUGINS_DIR">CODESLAYER_PLUGINS_DIR</a>
-#define             <a class="link" href="CodeSlayerPlugins.html#CODESLAYER-CONFIGURATION-DIR:CAPS" title="CODESLAYER_CONFIGURATION_DIR">CODESLAYER_CONFIGURATION_DIR</a>
 </pre>
 </div>
 <div class="refsect1">
@@ -71,6 +71,12 @@ struct              <a class="link" href="CodeSlayerPlugins.html#CodeSlayerPlugi
 <div class="refsect2">
 <a name="CodeSlayerPlugins-struct"></a><h3>struct CodeSlayerPlugins</h3>
 <pre class="programlisting">struct CodeSlayerPlugins;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-PLUGINS-CONFIG-DIR:CAPS"></a><h3>CODESLAYER_PLUGINS_CONFIG_DIR</h3>
+<pre class="programlisting">#define CODESLAYER_PLUGINS_CONFIG_DIR "config"
+</pre>
 </div>
 <hr>
 <div class="refsect2">
@@ -205,12 +211,6 @@ Show the plugins dialog.
 <div class="refsect2">
 <a name="CODESLAYER-PLUGINS-DIR:CAPS"></a><h3>CODESLAYER_PLUGINS_DIR</h3>
 <pre class="programlisting">#define CODESLAYER_PLUGINS_DIR "plugins"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-CONFIGURATION-DIR:CAPS"></a><h3>CODESLAYER_CONFIGURATION_DIR</h3>
-<pre class="programlisting">#define CODESLAYER_CONFIGURATION_DIR "configuration"
 </pre>
 </div>
 </div>

@@ -47,70 +47,74 @@
 #include &lt;codeslayer/codeslayer-menubar.h&gt;
 
 struct              <a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-struct" title="struct CodeSlayerMenuBar">CodeSlayerMenuBar</a>;
-<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-new" title="codeslayer_menubar_new ()">codeslayer_menubar_new</a>              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-new" title="codeslayer_menu_bar_new ()">codeslayer_menu_bar_new</a>             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-save-editor" title="codeslayer_menubar_save_editor ()">codeslayer_menubar_save_editor</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-save-all-editors" title="codeslayer_menubar_save_all_editors ()">codeslayer_menubar_save_all_editors</a> (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-close-editor" title="codeslayer_menubar_close_editor ()">codeslayer_menubar_close_editor</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-quit-application" title="codeslayer_menubar_quit_application ()">codeslayer_menubar_quit_application</a> (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-undo" title="codeslayer_menubar_undo ()">codeslayer_menubar_undo</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-redo" title="codeslayer_menubar_redo ()">codeslayer_menubar_redo</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-cut" title="codeslayer_menubar_cut ()">codeslayer_menubar_cut</a>              (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-copy" title="codeslayer_menubar_copy ()">codeslayer_menubar_copy</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-paste" title="codeslayer_menubar_paste ()">codeslayer_menubar_paste</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-delete" title="codeslayer_menubar_delete ()">codeslayer_menubar_delete</a>           (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-select-all" title="codeslayer_menubar_select_all ()">codeslayer_menubar_select_all</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-to-uppercase" title="codeslayer_menubar_to_uppercase ()">codeslayer_menubar_to_uppercase</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-to-lowercase" title="codeslayer_menubar_to_lowercase ()">codeslayer_menubar_to_lowercase</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-copy-lines" title="codeslayer_menubar_copy_lines ()">codeslayer_menubar_copy_lines</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-show-preferences" title="codeslayer_menubar_show_preferences ()">codeslayer_menubar_show_preferences</a> (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-find" title="codeslayer_menubar_find ()">codeslayer_menubar_find</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-replace" title="codeslayer_menubar_replace ()">codeslayer_menubar_replace</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-find-next" title="codeslayer_menubar_find_next ()">codeslayer_menubar_find_next</a>        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-find-previous" title="codeslayer_menubar_find_previous ()">codeslayer_menubar_find_previous</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-find-projects" title="codeslayer_menubar_find_projects ()">codeslayer_menubar_find_projects</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-fullscreen-window" title="codeslayer_menubar_fullscreen_window ()">codeslayer_menubar_fullscreen_window</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-show-side-pane" title="codeslayer_menubar_show_side_pane ()">codeslayer_menubar_show_side_pane</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-show-bottom-pane" title="codeslayer_menubar_show_bottom_pane ()">codeslayer_menubar_show_bottom_pane</a> (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-draw-spaces" title="codeslayer_menubar_draw_spaces ()">codeslayer_menubar_draw_spaces</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-refresh-groups" title="codeslayer_menubar_refresh_groups ()">codeslayer_menubar_refresh_groups</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-editor" title="codeslayer_menu_bar_save_editor ()">codeslayer_menu_bar_save_editor</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-all-editors" title="codeslayer_menu_bar_save_all_editors ()">codeslayer_menu_bar_save_all_editors</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-close-editor" title="codeslayer_menu_bar_close_editor ()">codeslayer_menu_bar_close_editor</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-quit-application" title="codeslayer_menu_bar_quit_application ()">codeslayer_menu_bar_quit_application</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-undo" title="codeslayer_menu_bar_undo ()">codeslayer_menu_bar_undo</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-redo" title="codeslayer_menu_bar_redo ()">codeslayer_menu_bar_redo</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-cut" title="codeslayer_menu_bar_cut ()">codeslayer_menu_bar_cut</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-copy" title="codeslayer_menu_bar_copy ()">codeslayer_menu_bar_copy</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-paste" title="codeslayer_menu_bar_paste ()">codeslayer_menu_bar_paste</a>           (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-delete" title="codeslayer_menu_bar_delete ()">codeslayer_menu_bar_delete</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-select-all" title="codeslayer_menu_bar_select_all ()">codeslayer_menu_bar_select_all</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-to-uppercase" title="codeslayer_menu_bar_to_uppercase ()">codeslayer_menu_bar_to_uppercase</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-to-lowercase" title="codeslayer_menu_bar_to_lowercase ()">codeslayer_menu_bar_to_lowercase</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-copy-lines" title="codeslayer_menu_bar_copy_lines ()">codeslayer_menu_bar_copy_lines</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-preferences" title="codeslayer_menu_bar_show_preferences ()">codeslayer_menu_bar_show_preferences</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-find" title="codeslayer_menu_bar_find ()">codeslayer_menu_bar_find</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-replace" title="codeslayer_menu_bar_replace ()">codeslayer_menu_bar_replace</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-find-next" title="codeslayer_menu_bar_find_next ()">codeslayer_menu_bar_find_next</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-find-previous" title="codeslayer_menu_bar_find_previous ()">codeslayer_menu_bar_find_previous</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-find-projects" title="codeslayer_menu_bar_find_projects ()">codeslayer_menu_bar_find_projects</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-go-to-line" title="codeslayer_menu_bar_go_to_line ()">codeslayer_menu_bar_go_to_line</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-fullscreen-window" title="codeslayer_menu_bar_fullscreen_window ()">codeslayer_menu_bar_fullscreen_window</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-side-pane" title="codeslayer_menu_bar_show_side_pane ()">codeslayer_menu_bar_show_side_pane</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-bottom-pane" title="codeslayer_menu_bar_show_bottom_pane ()">codeslayer_menu_bar_show_bottom_pane</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-draw-spaces" title="codeslayer_menu_bar_draw_spaces ()">codeslayer_menu_bar_draw_spaces</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-refresh-groups" title="codeslayer_menu_bar_refresh_groups ()">codeslayer_menu_bar_refresh_groups</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-group-changed" title="codeslayer_menubar_group_changed ()">codeslayer_menubar_group_changed</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-group-changed" title="codeslayer_menu_bar_group_changed ()">codeslayer_menu_bar_group_changed</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-new-group" title="codeslayer_menubar_new_group ()">codeslayer_menubar_new_group</a>        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-new-group" title="codeslayer_menu_bar_new_group ()">codeslayer_menu_bar_new_group</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-rename-group" title="codeslayer_menubar_rename_group ()">codeslayer_menubar_rename_group</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-rename-group" title="codeslayer_menu_bar_rename_group ()">codeslayer_menu_bar_rename_group</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-remove-group" title="codeslayer_menubar_remove_group ()">codeslayer_menubar_remove_group</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-sync-with-notebook" title="codeslayer_menubar_sync_with_notebook ()">codeslayer_menubar_sync_with_notebook</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-remove-group" title="codeslayer_menu_bar_remove_group ()">codeslayer_menu_bar_remove_group</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-with-notebook" title="codeslayer_menu_bar_sync_with_notebook ()">codeslayer_menu_bar_sync_with_notebook</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-sync-with-panes" title="codeslayer_menubar_sync_with_panes ()">codeslayer_menubar_sync_with_panes</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-with-panes" title="codeslayer_menu_bar_sync_with_panes ()">codeslayer_menu_bar_sync_with_panes</a> (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_side_pane</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_bottom_pane</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-add-tools-item" title="codeslayer_menubar_add_tools_item ()">codeslayer_menubar_add_tools_item</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-add-tools-item" title="codeslayer_menu_bar_add_tools_item ()">codeslayer_menu_bar_add_tools_item</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
-<a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *     <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-get-accel-group" title="codeslayer_menubar_get_accel_group ()">codeslayer_menubar_get_accel_group</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-add-projects" title="codeslayer_menubar_add_projects ()">codeslayer_menubar_add_projects</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *     <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-get-accel-group" title="codeslayer_menu_bar_get_accel_group ()">codeslayer_menu_bar_get_accel_group</a> (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-add-projects" title="codeslayer_menu_bar_add_projects ()">codeslayer_menu_bar_add_projects</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *files</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-show-plugins" title="codeslayer_menubar_show_plugins ()">codeslayer_menubar_show_plugins</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-find-incremental" title="codeslayer_menubar_find_incremental ()">codeslayer_menubar_find_incremental</a> (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-remove-tools-item" title="codeslayer_menubar_remove_tools_item ()">codeslayer_menubar_remove_tools_item</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-plugins" title="codeslayer_menu_bar_show_plugins ()">codeslayer_menu_bar_show_plugins</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-remove-tools-item" title="codeslayer_menu_bar_remove_tools_item ()">codeslayer_menu_bar_remove_tools_item</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-tools-add-item" title="codeslayer_menubar_tools_add_item ()">codeslayer_menubar_tools_add_item</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menubar_tools</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-tools-add-item" title="codeslayer_menu_bar_tools_add_item ()">codeslayer_menu_bar_tools_add_item</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-tools-remove-item" title="codeslayer_menubar_tools_remove_item ()">codeslayer_menubar_tools_remove_item</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menubar_tools</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-tools-remove-item" title="codeslayer_menu_bar_tools_remove_item ()">codeslayer_menu_bar_tools_remove_item</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-sync-projects-with-editor" title="codeslayer_menubar_sync_projects_with_editor ()">codeslayer_menubar_sync_projects_with_editor</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-projects-with-editor" title="codeslayer_menu_bar_sync_projects_with_editor ()">codeslayer_menu_bar_sync_projects_with_editor</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sync_projects_with_editor</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menubar-scan-external-changes" title="codeslayer_menubar_scan_external_changes ()">codeslayer_menubar_scan_external_changes</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-scan-external-changes" title="codeslayer_menu_bar_scan_external_changes ()">codeslayer_menu_bar_scan_external_changes</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -142,11 +146,11 @@ CodeSlayerMenuBar implements
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-del" title='The "del" signal'>del</a>"                                            : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-draw-spaces" title='The "draw-spaces" signal'>draw-spaces</a>"                                    : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-find" title='The "find" signal'>find</a>"                                           : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-find-incremental" title='The "find-incremental" signal'>find-incremental</a>"                               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-find-next" title='The "find-next" signal'>find-next</a>"                                      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-find-previous" title='The "find-previous" signal'>find-previous</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-find-projects" title='The "find-projects" signal'>find-projects</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-fullscreen-window" title='The "fullscreen-window" signal'>fullscreen-window</a>"                              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-go-to-line" title='The "go-to-line" signal'>go-to-line</a>"                                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-group-changed" title='The "group-changed" signal'>group-changed</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-new-group" title='The "new-group" signal'>new-group</a>"                                      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-paste" title='The "paste" signal'>paste</a>"                                          : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
@@ -180,8 +184,8 @@ CodeSlayerMenuBar implements
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-new"></a><h3>codeslayer_menubar_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menubar_new              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
+<a name="codeslayer-menu-bar-new"></a><h3>codeslayer_menu_bar_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menu_bar_new             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);</pre>
@@ -219,349 +223,368 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-save-editor"></a><h3>codeslayer_menubar_save_editor ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_save_editor      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-save-editor"></a><h3>codeslayer_menu_bar_save_editor ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_save_editor     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-save-all-editors"></a><h3>codeslayer_menubar_save_all_editors ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_save_all_editors (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-save-all-editors"></a><h3>codeslayer_menu_bar_save_all_editors ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_save_all_editors
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-close-editor"></a><h3>codeslayer_menubar_close_editor ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_close_editor     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-close-editor"></a><h3>codeslayer_menu_bar_close_editor ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_close_editor    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-quit-application"></a><h3>codeslayer_menubar_quit_application ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_quit_application (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-quit-application"></a><h3>codeslayer_menu_bar_quit_application ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_quit_application
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-undo"></a><h3>codeslayer_menubar_undo ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_undo             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-undo"></a><h3>codeslayer_menu_bar_undo ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_undo            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-redo"></a><h3>codeslayer_menubar_redo ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_redo             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-redo"></a><h3>codeslayer_menu_bar_redo ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_redo            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-cut"></a><h3>codeslayer_menubar_cut ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_cut              (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-cut"></a><h3>codeslayer_menu_bar_cut ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_cut             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-copy"></a><h3>codeslayer_menubar_copy ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_copy             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-copy"></a><h3>codeslayer_menu_bar_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_copy            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-paste"></a><h3>codeslayer_menubar_paste ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_paste            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-paste"></a><h3>codeslayer_menu_bar_paste ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_paste           (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-delete"></a><h3>codeslayer_menubar_delete ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_delete           (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-delete"></a><h3>codeslayer_menu_bar_delete ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_delete          (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-select-all"></a><h3>codeslayer_menubar_select_all ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_select_all       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-select-all"></a><h3>codeslayer_menu_bar_select_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_select_all      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-to-uppercase"></a><h3>codeslayer_menubar_to_uppercase ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_to_uppercase     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-to-uppercase"></a><h3>codeslayer_menu_bar_to_uppercase ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_to_uppercase    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-to-lowercase"></a><h3>codeslayer_menubar_to_lowercase ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_to_lowercase     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-to-lowercase"></a><h3>codeslayer_menu_bar_to_lowercase ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_to_lowercase    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-copy-lines"></a><h3>codeslayer_menubar_copy_lines ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_copy_lines       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-copy-lines"></a><h3>codeslayer_menu_bar_copy_lines ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_copy_lines      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-show-preferences"></a><h3>codeslayer_menubar_show_preferences ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_show_preferences (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-show-preferences"></a><h3>codeslayer_menu_bar_show_preferences ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_show_preferences
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-find"></a><h3>codeslayer_menubar_find ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_find             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-find"></a><h3>codeslayer_menu_bar_find ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_find            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-replace"></a><h3>codeslayer_menubar_replace ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_replace          (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-replace"></a><h3>codeslayer_menu_bar_replace ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_replace         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-find-next"></a><h3>codeslayer_menubar_find_next ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_find_next        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-find-next"></a><h3>codeslayer_menu_bar_find_next ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_find_next       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-find-previous"></a><h3>codeslayer_menubar_find_previous ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_find_previous    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-find-previous"></a><h3>codeslayer_menu_bar_find_previous ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_find_previous   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-find-projects"></a><h3>codeslayer_menubar_find_projects ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_find_projects    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-find-projects"></a><h3>codeslayer_menu_bar_find_projects ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_find_projects   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-fullscreen-window"></a><h3>codeslayer_menubar_fullscreen_window ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_fullscreen_window
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-go-to-line"></a><h3>codeslayer_menu_bar_go_to_line ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_go_to_line      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-show-side-pane"></a><h3>codeslayer_menubar_show_side_pane ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_show_side_pane   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-fullscreen-window"></a><h3>codeslayer_menu_bar_fullscreen_window ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_fullscreen_window
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-show-bottom-pane"></a><h3>codeslayer_menubar_show_bottom_pane ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_show_bottom_pane (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-show-side-pane"></a><h3>codeslayer_menu_bar_show_side_pane ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_show_side_pane  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-draw-spaces"></a><h3>codeslayer_menubar_draw_spaces ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_draw_spaces      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-show-bottom-pane"></a><h3>codeslayer_menu_bar_show_bottom_pane ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_show_bottom_pane
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-refresh-groups"></a><h3>codeslayer_menubar_refresh_groups ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_refresh_groups   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-draw-spaces"></a><h3>codeslayer_menu_bar_draw_spaces ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_draw_spaces     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-menu-bar-refresh-groups"></a><h3>codeslayer_menu_bar_refresh_groups ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_refresh_groups  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -570,7 +593,7 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -582,8 +605,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-group-changed"></a><h3>codeslayer_menubar_group_changed ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_group_changed    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-group-changed"></a><h3>codeslayer_menu_bar_group_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_group_changed   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -592,7 +615,7 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -604,8 +627,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-new-group"></a><h3>codeslayer_menubar_new_group ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_new_group        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-new-group"></a><h3>codeslayer_menu_bar_new_group ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_new_group       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -614,7 +637,7 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -626,8 +649,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-rename-group"></a><h3>codeslayer_menubar_rename_group ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_rename_group     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-rename-group"></a><h3>codeslayer_menu_bar_rename_group ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_rename_group    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -636,7 +659,7 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -648,24 +671,24 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-remove-group"></a><h3>codeslayer_menubar_remove_group ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_remove_group     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-remove-group"></a><h3>codeslayer_menu_bar_remove_group ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_remove_group    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-sync-with-notebook"></a><h3>codeslayer_menubar_sync_with_notebook ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_sync_with_notebook
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-sync-with-notebook"></a><h3>codeslayer_menu_bar_sync_with_notebook ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_sync_with_notebook
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>);</pre>
 <p>
 Update the sensitivity of editor related menu items based on the current 
@@ -678,7 +701,7 @@ state of the notebook <a class="link" href="CodeSlayerEditor.html" title="CodeSl
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -690,8 +713,8 @@ state of the notebook <a class="link" href="CodeSlayerEditor.html" title="CodeSl
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-sync-with-panes"></a><h3>codeslayer_menubar_sync_with_panes ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_sync_with_panes  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-sync-with-panes"></a><h3>codeslayer_menu_bar_sync_with_panes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_sync_with_panes (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_side_pane</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_bottom_pane</code></em>);</pre>
 <p>
@@ -705,7 +728,7 @@ state of the bottom and side pane.
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -721,8 +744,8 @@ state of the bottom and side pane.
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-add-tools-item"></a><h3>codeslayer_menubar_add_tools_item ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_add_tools_item   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-add-tools-item"></a><h3>codeslayer_menu_bar_add_tools_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_add_tools_item  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -731,7 +754,7 @@ state of the bottom and side pane.
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -743,13 +766,13 @@ state of the bottom and side pane.
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-get-accel-group"></a><h3>codeslayer_menubar_get_accel_group ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *     codeslayer_menubar_get_accel_group  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-get-accel-group"></a><h3>codeslayer_menu_bar_get_accel_group ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *     codeslayer_menu_bar_get_accel_group (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-add-projects"></a><h3>codeslayer_menubar_add_projects ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_add_projects     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-add-projects"></a><h3>codeslayer_menu_bar_add_projects ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_add_projects    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *files</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -758,7 +781,7 @@ state of the bottom and side pane.
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -770,39 +793,24 @@ state of the bottom and side pane.
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-show-plugins"></a><h3>codeslayer_menubar_show_plugins ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_show_plugins     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-show-plugins"></a><h3>codeslayer_menu_bar_show_plugins ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_show_plugins    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-find-incremental"></a><h3>codeslayer_menubar_find_incremental ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_find_incremental (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menubar-remove-tools-item"></a><h3>codeslayer_menubar_remove_tools_item ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_remove_tools_item
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-remove-tools-item"></a><h3>codeslayer_menu_bar_remove_tools_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_remove_tools_item
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -811,7 +819,7 @@ state of the bottom and side pane.
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -823,8 +831,8 @@ state of the bottom and side pane.
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-tools-add-item"></a><h3>codeslayer_menubar_tools_add_item ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_tools_add_item   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menubar_tools</code></em>,
+<a name="codeslayer-menu-bar-tools-add-item"></a><h3>codeslayer_menu_bar_tools_add_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_tools_add_item  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -833,7 +841,7 @@ state of the bottom and side pane.
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar_tools</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar_tools</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a>.</td>
 </tr>
 <tr>
@@ -845,9 +853,9 @@ state of the bottom and side pane.
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-tools-remove-item"></a><h3>codeslayer_menubar_tools_remove_item ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_tools_remove_item
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menubar_tools</code></em>,
+<a name="codeslayer-menu-bar-tools-remove-item"></a><h3>codeslayer_menu_bar_tools_remove_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_tools_remove_item
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -856,7 +864,7 @@ state of the bottom and side pane.
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar_tools</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar_tools</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a>.</td>
 </tr>
 <tr>
@@ -868,9 +876,9 @@ state of the bottom and side pane.
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-sync-projects-with-editor"></a><h3>codeslayer_menubar_sync_projects_with_editor ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_sync_projects_with_editor
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-sync-projects-with-editor"></a><h3>codeslayer_menu_bar_sync_projects_with_editor ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_sync_projects_with_editor
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sync_projects_with_editor</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -879,7 +887,7 @@ state of the bottom and side pane.
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -891,16 +899,16 @@ state of the bottom and side pane.
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-scan-external-changes"></a><h3>codeslayer_menubar_scan_external_changes ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_scan_external_changes
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menubar</code></em>);</pre>
+<a name="codeslayer-menu-bar-scan-external-changes"></a><h3>codeslayer_menu_bar_scan_external_changes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_scan_external_changes
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
 <tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
 </table></div>
@@ -1110,35 +1118,6 @@ The ::find signal is a request to open up the notebook search.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerMenuBar-find-incremental"></a><h3>The <code class="literal">"find-incremental"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-Note: for internal use only.
-</p>
-<p>
-The ::find-incremental signal is a request to find the value using 
-the notebook search with the incremental turned on.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
-<td>the menu that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
 <a name="CodeSlayerMenuBar-find-next"></a><h3>The <code class="literal">"find-next"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
                                                         <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
@@ -1234,6 +1213,34 @@ Note: for internal use only.
 </p>
 <p>
 The ::fullscreen-window signal is a request to open up the search dialog.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
+<td>the menu that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerMenuBar-go-to-line"></a><h3>The <code class="literal">"go-to-line"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::go-to-line signal is a request to jump to the line number.
 </p>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>

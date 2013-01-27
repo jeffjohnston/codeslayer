@@ -344,7 +344,7 @@ codeslayer_select_editor (CodeSlayer         *codeslayer,
 }
 
 /**
- * codeslayer_select_editor:
+ * codeslayer_select_editor_by_file_path:
  * @codeslayer: a #CodeSlayer.
  * @file_path: the path to the editor to open.
  * @line_number: the line in the editor to scroll to.
@@ -356,11 +356,10 @@ codeslayer_select_editor (CodeSlayer         *codeslayer,
  *
  * Returns: is TRUE if the editor is able to be found in the tree. 
  */
-
 gboolean
 codeslayer_select_editor_by_file_path (CodeSlayer  *codeslayer, 
                                        const gchar *file_path, 
-                                       const gint   line_number)
+                                       gint         line_number)
 {
   CodeSlayerDocument *document;
   gboolean result;

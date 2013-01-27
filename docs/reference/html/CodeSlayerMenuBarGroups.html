@@ -45,12 +45,12 @@
 #include &lt;codeslayer/codeslayer-menu-groups.h&gt;
 
 struct              <a class="link" href="CodeSlayerMenuBarGroups.html#CodeSlayerMenuBarGroups-struct" title="struct CodeSlayerMenuBarGroups">CodeSlayerMenuBarGroups</a>;
-<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBarGroups.html#codeslayer-menubar-groups-new" title="codeslayer_menubar_groups_new ()">codeslayer_menubar_groups_new</a>       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBarGroups.html#codeslayer-menu-bar-groups-new" title="codeslayer_menu_bar_groups_new ()">codeslayer_menu_bar_groups_new</a>      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBarGroups.html#codeslayer-menubar-groups-refresh-groups" title="codeslayer_menubar_groups_refresh_groups ()">codeslayer_menubar_groups_refresh_groups</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarGroups.html" title="CodeSlayerMenuBarGroups"><span class="type">CodeSlayerMenuBarGroups</span></a> *menubar_groups</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBarGroups.html#codeslayer-menu-bar-groups-refresh-groups" title="codeslayer_menu_bar_groups_refresh_groups ()">codeslayer_menu_bar_groups_refresh_groups</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarGroups.html" title="CodeSlayerMenuBarGroups"><span class="type">CodeSlayerMenuBarGroups</span></a> *menu_bar_groups</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>);
 </pre>
 </div>
@@ -83,9 +83,9 @@ CodeSlayerMenuBarGroups implements
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-groups-new"></a><h3>codeslayer_menubar_groups_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menubar_groups_new       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-groups-new"></a><h3>codeslayer_menu_bar_groups_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menu_bar_groups_new      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>);</pre>
 <p>
@@ -102,7 +102,7 @@ Creates a new <a class="link" href="CodeSlayerMenuBarGroups.html" title="CodeSla
 <td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -122,9 +122,9 @@ Creates a new <a class="link" href="CodeSlayerMenuBarGroups.html" title="CodeSla
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-groups-refresh-groups"></a><h3>codeslayer_menubar_groups_refresh_groups ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_groups_refresh_groups
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarGroups.html" title="CodeSlayerMenuBarGroups"><span class="type">CodeSlayerMenuBarGroups</span></a> *menubar_groups</code></em>,
+<a name="codeslayer-menu-bar-groups-refresh-groups"></a><h3>codeslayer_menu_bar_groups_refresh_groups ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_groups_refresh_groups
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarGroups.html" title="CodeSlayerMenuBarGroups"><span class="type">CodeSlayerMenuBarGroups</span></a> *menu_bar_groups</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>);</pre>
 <p>
 Update the groups menu item to reflect the current <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> 
@@ -137,7 +137,7 @@ objects in the manager.
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar_groups</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar_groups</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBarGroups.html" title="CodeSlayerMenuBarGroups"><span class="type">CodeSlayerMenuBarGroups</span></a>.</td>
 </tr>
 <tr>

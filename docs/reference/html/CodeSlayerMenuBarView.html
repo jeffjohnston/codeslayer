@@ -45,11 +45,11 @@
 #include &lt;codeslayer/codeslayer-menubar-view.h&gt;
 
 struct              <a class="link" href="CodeSlayerMenuBarView.html#CodeSlayerMenuBarView-struct" title="struct CodeSlayerMenuBarView">CodeSlayerMenuBarView</a>;
-<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBarView.html#codeslayer-menubar-view-new" title="codeslayer_menubar_view_new ()">codeslayer_menubar_view_new</a>         (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBarView.html#codeslayer-menu-bar-view-new" title="codeslayer_menu_bar_view_new ()">codeslayer_menu_bar_view_new</a>        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBarView.html#codeslayer-menubar-view-sync-with-panes" title="codeslayer_menubar_view_sync_with_panes ()">codeslayer_menubar_view_sync_with_panes</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlayerMenuBarView"><span class="type">CodeSlayerMenuBarView</span></a> *menubar_view</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBarView.html#codeslayer-menu-bar-view-sync-with-panes" title="codeslayer_menu_bar_view_sync_with_panes ()">codeslayer_menu_bar_view_sync_with_panes</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlayerMenuBarView"><span class="type">CodeSlayerMenuBarView</span></a> *menu_bar_view</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_side_pane</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_bottom_pane</code></em>);
 </pre>
@@ -83,8 +83,8 @@ CodeSlayerMenuBarView implements
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-view-new"></a><h3>codeslayer_menubar_view_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menubar_view_new         (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menubar</code></em>,
+<a name="codeslayer-menu-bar-view-new"></a><h3>codeslayer_menu_bar_view_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menu_bar_view_new        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);</pre>
 <p>
@@ -97,7 +97,7 @@ Creates a new <a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlaye
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr>
 <tr>
@@ -117,9 +117,9 @@ Creates a new <a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlaye
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menubar-view-sync-with-panes"></a><h3>codeslayer_menubar_view_sync_with_panes ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menubar_view_sync_with_panes
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlayerMenuBarView"><span class="type">CodeSlayerMenuBarView</span></a> *menubar_view</code></em>,
+<a name="codeslayer-menu-bar-view-sync-with-panes"></a><h3>codeslayer_menu_bar_view_sync_with_panes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_view_sync_with_panes
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlayerMenuBarView"><span class="type">CodeSlayerMenuBarView</span></a> *menu_bar_view</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_side_pane</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_bottom_pane</code></em>);</pre>
 <p>
@@ -133,7 +133,7 @@ state of the bottom and side pane.
 </colgroup>
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>menubar_view</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>menu_bar_view</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlayerMenuBarView"><span class="type">CodeSlayerMenuBarView</span></a>.</td>
 </tr>
 <tr>
