@@ -1,6 +1,13 @@
 version=3.0.0
 projects=( codeslayer
-           spikeplugin
+           autotoolscodeslayerplugin 
+           commentscodeslayerplugin
+           ctagscodeslayerplugin
+           filesearchcodeslayerplugin
+           launchercodeslayerplugin
+           navigationcodeslayerplugin
+           scratchpadcodeslayerplugin 
+           wordcompletioncodeslayerplugin
           )
           
 BASE_FOLDER=`pwd`;          
@@ -20,6 +27,7 @@ do
   
   ./configure
   make
-#  sudo make install
+  sudo make install
+  sudo ldconfig
 
 done
