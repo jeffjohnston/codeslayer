@@ -7,6 +7,7 @@ projects=( codeslayer
            codeslayer.launcher-plugin
            codeslayer.navigation-plugin
            codeslayer.scratchpad-plugin 
+           codeslayer.snippets-plugin 
            codeslayer.wordcomplete-plugin
           )
 
