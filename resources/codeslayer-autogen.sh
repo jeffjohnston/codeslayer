@@ -7,6 +7,7 @@ projects=( codeslayer
            launchercodeslayerplugin
            navigationcodeslayerplugin
            scratchpadcodeslayerplugin 
+           snippetscodeslayerplugin 
            wordcompletioncodeslayerplugin
           )
           
