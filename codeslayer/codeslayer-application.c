@@ -240,8 +240,9 @@ codeslayer_application_open (GApplication *application,
 CodeSlayerApplication*
 codeslayer_application_new (void)
 {
-  CodeSlayerApplication *application = CODESLAYER_APPLICATION (g_object_new (codeslayer_application_get_type (), NULL));
-  g_application_set_application_id (G_APPLICATION (application), "org.codeslayer");
+  CodeSlayerApplication *application;
+  application = CODESLAYER_APPLICATION (g_object_new (codeslayer_application_get_type (), NULL));
+  g_application_set_application_id (G_APPLICATION (application), NULL);
   g_application_set_flags (G_APPLICATION (application), G_APPLICATION_HANDLES_OPEN);
   return application;
 }
