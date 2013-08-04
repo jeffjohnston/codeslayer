@@ -17,13 +17,11 @@ pkginclude_HEADERS = \
     codeslayer-menubar-editor.h \
     codeslayer-menubar-search.h \
     codeslayer-menubar-view.h \
-    codeslayer-menubar-groups.h \
     codeslayer-menubar-projects.h \
     codeslayer-menubar-tools.h \
     codeslayer-menubar-help.h \
     codeslayer-project.h \
     codeslayer-group.h \
-    codeslayer-group-properties.h \
     codeslayer-groups.h \
     codeslayer-document.h \
     codeslayer-repository.h \
@@ -73,13 +71,11 @@ libcodeslayer_la_SOURCES = \
     codeslayer-menubar-editor.c \
     codeslayer-menubar-search.c \
     codeslayer-menubar-view.c \
-    codeslayer-menubar-groups.c \
     codeslayer-menubar-projects.c \
     codeslayer-menubar-tools.c \
     codeslayer-menubar-help.c \
     codeslayer-project.c \
     codeslayer-group.c \
-    codeslayer-group-properties.c \
     codeslayer-groups.c \
     codeslayer-document.c \
     codeslayer-repository.c \

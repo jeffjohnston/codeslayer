@@ -20,8 +20,6 @@
 #define	__CODESLAYER_MENU_BAR_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-groups.h>
-#include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-settings.h>
 
@@ -45,10 +43,6 @@ struct _CodeSlayerMenuBarClass
 {
   GtkMenuBarClass parent_class;
 
-  void (*group_changed) (CodeSlayerMenuBar *menu_bar);
-  void (*new_group) (CodeSlayerMenuBar *menu_bar);
-  void (*rename_group) (CodeSlayerMenuBar *menu_bar);
-  void (*remove_group) (CodeSlayerMenuBar *menu_bar);
   void (*add_projects) (CodeSlayerMenuBar *menu_bar);
   void (*find_projects) (CodeSlayerMenuBar *menu_bar);
   void (*fullscreen_window) (CodeSlayerMenuBar *menu_bar);
@@ -82,8 +76,7 @@ struct _CodeSlayerMenuBarClass
 
 GType codeslayer_menu_bar_get_type (void) G_GNUC_CONST;
   
-GtkWidget*      codeslayer_menu_bar_new                        (GtkWidget             *window,
-                                                                CodeSlayerGroups      *groups, 
+GtkWidget*      codeslayer_menu_bar_new                        (GtkWidget             *window, 
                                                                 CodeSlayerPreferences *preferences, 
                                                                 CodeSlayerSettings    *settings);
                                                              
@@ -117,16 +110,6 @@ void            codeslayer_menu_bar_show_side_pane             (CodeSlayerMenuBa
 void            codeslayer_menu_bar_show_bottom_pane           (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_draw_spaces                (CodeSlayerMenuBar     *menu_bar);
 
-void            codeslayer_menu_bar_refresh_groups             (CodeSlayerMenuBar     *menu_bar,
-                                                                CodeSlayerGroups      *groups);
-void            codeslayer_menu_bar_group_changed              (CodeSlayerMenuBar     *menu_bar, 
-                                                                const gchar           *group_name);
-void            codeslayer_menu_bar_new_group                  (CodeSlayerMenuBar     *menu_bar, 
-                                                                const gchar           *group_name);
-void            codeslayer_menu_bar_rename_group               (CodeSlayerMenuBar     *menu_bar, 
-                                                                const gchar           *group_name);
-void            codeslayer_menu_bar_remove_group               (CodeSlayerMenuBar     *menu_bar);
-                                                          
 void            codeslayer_menu_bar_sync_with_notebook         (CodeSlayerMenuBar     *menu_bar,
                                                                 GtkWidget             *notebook);
 

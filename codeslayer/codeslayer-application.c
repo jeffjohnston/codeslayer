@@ -434,7 +434,7 @@ create_menu (CodeSlayerApplication *application)
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  menubar = codeslayer_menu_bar_new (priv->window, priv->groups, priv->preferences, priv->settings);
+  menubar = codeslayer_menu_bar_new (priv->window, priv->preferences, priv->settings);
   priv->menubar = menubar;
   
   g_signal_connect_swapped (G_OBJECT (menubar), "quit-application",

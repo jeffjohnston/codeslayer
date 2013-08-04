@@ -29,8 +29,6 @@
 #include <codeslayer/codeslayer-bottom-pane.h>
 #include <codeslayer/codeslayer-editor-linker.h>
 #include <codeslayer/codeslayer-editor.h>
-#include <codeslayer/codeslayer-group.h>
-#include <codeslayer/codeslayer-groups.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-menuitem.h>
@@ -157,20 +155,12 @@ GtkAccelGroup*            codeslayer_get_menubar_accel_group         (CodeSlayer
 
 GtkAccelGroup*            codeslayer_get_menu_bar_accel_group        (CodeSlayer                  *codeslayer);
 
-CodeSlayerGroup*          codeslayer_get_group                       (CodeSlayer                  *codeslayer);
-
-CodeSlayerGroup*          codeslayer_get_active_group                (CodeSlayer                  *codeslayer) __attribute__ ((deprecated));
-
-gchar*                    codeslayer_get_active_group_folder_path    (CodeSlayer                  *codeslayer) __attribute__ ((deprecated));
-
 gchar*                    codeslayer_get_configuration_folder_path   (CodeSlayer                  *codeslayer) __attribute__ ((deprecated));
 
 gchar*                    codeslayer_get_project_config_folder_path  (CodeSlayer                  *codeslayer, 
                                                                       CodeSlayerProject           *project);
 
 gchar*                    codeslayer_get_plugins_config_folder_path  (CodeSlayer                  *codeslayer);
-
-gchar*                    codeslayer_get_group_config_folder_path    (CodeSlayer                  *codeslayer);
 
 CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer                  *codeslayer, 
                                                                       const gchar                 *file_path);

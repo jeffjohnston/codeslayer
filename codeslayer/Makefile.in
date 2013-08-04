@@ -143,13 +143,11 @@ am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-menubar-editor.lo \
 	libcodeslayer_la-codeslayer-menubar-search.lo \
 	libcodeslayer_la-codeslayer-menubar-view.lo \
-	libcodeslayer_la-codeslayer-menubar-groups.lo \
 	libcodeslayer_la-codeslayer-menubar-projects.lo \
 	libcodeslayer_la-codeslayer-menubar-tools.lo \
 	libcodeslayer_la-codeslayer-menubar-help.lo \
 	libcodeslayer_la-codeslayer-project.lo \
 	libcodeslayer_la-codeslayer-group.lo \
-	libcodeslayer_la-codeslayer-group-properties.lo \
 	libcodeslayer_la-codeslayer-groups.lo \
 	libcodeslayer_la-codeslayer-document.lo \
 	libcodeslayer_la-codeslayer-repository.lo \
@@ -426,13 +424,11 @@ pkginclude_HEADERS = \
     codeslayer-menubar-editor.h \
     codeslayer-menubar-search.h \
     codeslayer-menubar-view.h \
-    codeslayer-menubar-groups.h \
     codeslayer-menubar-projects.h \
     codeslayer-menubar-tools.h \
     codeslayer-menubar-help.h \
     codeslayer-project.h \
     codeslayer-group.h \
-    codeslayer-group-properties.h \
     codeslayer-groups.h \
     codeslayer-document.h \
     codeslayer-repository.h \
@@ -482,13 +478,11 @@ libcodeslayer_la_SOURCES = \
     codeslayer-menubar-editor.c \
     codeslayer-menubar-search.c \
     codeslayer-menubar-view.c \
-    codeslayer-menubar-groups.c \
     codeslayer-menubar-projects.c \
     codeslayer-menubar-tools.c \
     codeslayer-menubar-help.c \
     codeslayer-project.c \
     codeslayer-group.c \
-    codeslayer-group-properties.c \
     codeslayer-groups.c \
     codeslayer-document.c \
     codeslayer-repository.c \
@@ -670,13 +664,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-editor-linker.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-editor.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-engine.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-group-properties.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-group.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-groups.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-listview.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-marshaller.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-menubar-groups.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-menubar-help.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-menubar-projects.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-menubar-search.Plo@am__quote@
@@ -849,13 +841,6 @@ libcodeslayer_la-codeslayer-menubar-view.lo: codeslayer-menubar-view.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-view.lo `test -f 'codeslayer-menubar-view.c' || echo '$(srcdir)/'`codeslayer-menubar-view.c
 
-libcodeslayer_la-codeslayer-menubar-groups.lo: codeslayer-menubar-groups.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-groups.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-groups.Tpo -c -o libcodeslayer_la-codeslayer-menubar-groups.lo `test -f 'codeslayer-menubar-groups.c' || echo '$(srcdir)/'`codeslayer-menubar-groups.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-groups.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-groups.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menubar-groups.c' object='libcodeslayer_la-codeslayer-menubar-groups.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-groups.lo `test -f 'codeslayer-menubar-groups.c' || echo '$(srcdir)/'`codeslayer-menubar-groups.c
-
 libcodeslayer_la-codeslayer-menubar-projects.lo: codeslayer-menubar-projects.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-projects.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-projects.Tpo -c -o libcodeslayer_la-codeslayer-menubar-projects.lo `test -f 'codeslayer-menubar-projects.c' || echo '$(srcdir)/'`codeslayer-menubar-projects.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-projects.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-projects.Plo
@@ -890,13 +875,6 @@ libcodeslayer_la-codeslayer-group.lo: codeslayer-group.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-group.c' object='libcodeslayer_la-codeslayer-group.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-group.lo `test -f 'codeslayer-group.c' || echo '$(srcdir)/'`codeslayer-group.c
-
-libcodeslayer_la-codeslayer-group-properties.lo: codeslayer-group-properties.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-group-properties.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-group-properties.Tpo -c -o libcodeslayer_la-codeslayer-group-properties.lo `test -f 'codeslayer-group-properties.c' || echo '$(srcdir)/'`codeslayer-group-properties.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-group-properties.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-group-properties.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-group-properties.c' object='libcodeslayer_la-codeslayer-group-properties.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-group-properties.lo `test -f 'codeslayer-group-properties.c' || echo '$(srcdir)/'`codeslayer-group-properties.c
 
 libcodeslayer_la-codeslayer-groups.lo: codeslayer-groups.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-groups.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-groups.Tpo -c -o libcodeslayer_la-codeslayer-groups.lo `test -f 'codeslayer-groups.c' || echo '$(srcdir)/'`codeslayer-groups.c

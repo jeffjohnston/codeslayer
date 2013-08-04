@@ -788,58 +788,6 @@ codeslayer_get_menu_bar_accel_group (CodeSlayer *codeslayer)
 }
 
 /**
- * codeslayer_get_group:
- * @codeslayer: a #CodeSlayer.
- *
- * Returns: The #CodeSlayerGroup that is currently opened.
- */
-CodeSlayerGroup*
-codeslayer_get_group (CodeSlayer *codeslayer)
-{
-  CodeSlayerPrivate *priv;
-  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  priv = CODESLAYER_GET_PRIVATE (codeslayer);
-  return codeslayer_groups_get_active_group (priv->groups);
-}
-
-/**
- * codeslayer_get_active_group:
- * @codeslayer: a #CodeSlayer.
- *
- * Returns: The #CodeSlayerGroup that is currently opened.
- *
- * Deprecated: 3.0: use codeslayer_get_group now.
- */
-CodeSlayerGroup*
-codeslayer_get_active_group (CodeSlayer *codeslayer)
-{
-  CodeSlayerPrivate *priv;
-  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  priv = CODESLAYER_GET_PRIVATE (codeslayer);
-  return codeslayer_groups_get_active_group (priv->groups);
-}
-
-/**
- * codeslayer_get_active_group_folder_path:
- * @codeslayer: a #CodeSlayer.
- *
- * The folder path to where you should place project/group configuration files.
- *
- * Returns: a newly-allocated string that must be freed with g_free().
- *
- * Deprecated: 3.0: use codeslayer_get_group_config_folder_path now.
- */
-gchar*
-codeslayer_get_active_group_folder_path (CodeSlayer *codeslayer)
-{
-  CodeSlayerGroup *group;
-  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  group = codeslayer_get_group (codeslayer);
-  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, GROUPS,
-                           codeslayer_group_get_name (group), NULL);
-}
-
-/**
  * codeslayer_get_configuration_folder_path:
  * @codeslayer: a #CodeSlayer.
  *
@@ -893,24 +841,6 @@ codeslayer_get_plugins_config_folder_path (CodeSlayer *codeslayer)
 }
 
 /**
- * codeslayer_get_group_config_folder_path:
- * @codeslayer: a #CodeSlayer.
- *
- * The folder path to where you should place group configuration files.
- *
- * Returns: a newly-allocated string that must be freed with g_free().
- */
-gchar*                    
-codeslayer_get_group_config_folder_path (CodeSlayer *codeslayer)
-{
-  CodeSlayerGroup *group;
-  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  group = codeslayer_get_group (codeslayer);
-  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, GROUPS,
-                           codeslayer_group_get_name (group), CONFIG, NULL);
-}
-
-/**
  * codeslayer_get_project_by_file_path:
  * @codeslayer: a #CodeSlayer.
  * @file_path: the file path to match against the projects folder path.
@@ -921,10 +851,11 @@ CodeSlayerProject*
 codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer, 
                                      const gchar *file_path)
 {
-  CodeSlayerGroup *group;
+  /*CodeSlayerGroup *group;
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   group = codeslayer_get_group (codeslayer);
-  return codeslayer_group_get_project_by_file_path (group, file_path);
+  return codeslayer_group_get_project_by_file_path (group, file_path);*/
+  return NULL;
 }
 
 /**

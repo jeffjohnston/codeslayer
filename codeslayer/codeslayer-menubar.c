@@ -19,7 +19,6 @@
 #include <codeslayer/codeslayer-menubar-editor.h>
 #include <codeslayer/codeslayer-menubar-search.h>
 #include <codeslayer/codeslayer-menubar-view.h>
-#include <codeslayer/codeslayer-menubar-groups.h>
 #include <codeslayer/codeslayer-menubar-projects.h>
 #include <codeslayer/codeslayer-menubar-tools.h>
 #include <codeslayer/codeslayer-menubar-help.h>
@@ -42,14 +41,12 @@ typedef struct _CodeSlayerMenuBarPrivate CodeSlayerMenuBarPrivate;
 
 struct _CodeSlayerMenuBarPrivate
 {
-  CodeSlayerGroups *groups;
   GtkAccelGroup    *accel_group;
   GSList           *radio_group;
   GtkWidget        *window;
   GtkWidget        *menu_bar_editor;
   GtkWidget        *menu_bar_search;
   GtkWidget        *menu_bar_view;
-  GtkWidget        *menu_bar_groups;
   GtkWidget        *menu_bar_projects;
   GtkWidget        *menu_bar_tools;
 };
@@ -100,78 +97,13 @@ G_DEFINE_TYPE (CodeSlayerMenuBar, codeslayer_menu_bar, GTK_TYPE_MENU_BAR)
 static void
 codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
 {
-
-  /**
-   * CodeSlayerMenuBar::group-changed
-   * @menu: the menu that received the signal
-   *
-   * Note: for internal use only.
-   *
-   * The ::group-changed signal is a request for the active group to be changed.
-   */
-  codeslayer_menu_bar_signals[GROUP_CHANGED] =
-    g_signal_new ("group-changed", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, group_changed),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
-
-  /**
-   * CodeSlayerMenuBar::new-group
-   * @menu: the menu that received the signal
-   *
-   * Note: for internal use only.
-   *
-   * The ::new-group signal is a request to create a new group. 
-   */
-  codeslayer_menu_bar_signals[NEW_GROUP] =
-    g_signal_new ("new-group", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, new_group),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
-
-  /**
-   * CodeSlayerMenuBar::rename-group
-   * @menu: the menu that received the signal
-   *
-   * Note: for internal use only.
-   *
-   * The ::rename-group signal is a request to rename the active group. 
-   */
-  codeslayer_menu_bar_signals[RENAME_GROUP] =
-    g_signal_new ("rename-group", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, rename_group),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
-
-  /**
-   * CodeSlayerMenuBar::remove-group
-   * @menu: the menu that received the signal
-   *
-   * Note: for internal use only.
-   *
-   * The ::remove-group signal is a request to remove the active group. 
-   */
-  codeslayer_menu_bar_signals[REMOVE_GROUP] =
-    g_signal_new ("remove-group", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, remove_group),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
   /**
    * CodeSlayerMenuBar::add-project
    * @menu: the menu that received the signal
    *
    * Note: for internal use only.
    *
-   * The ::add-project signal is a request to add a new project to the active group. 
+   * The ::add-project signal is a request to add a new project. 
    */
   codeslayer_menu_bar_signals[ADD_PROJECTS] =
     g_signal_new ("add-projects", 
@@ -641,7 +573,6 @@ codeslayer_menu_bar_finalize (CodeSlayerMenuBar *menu)
 /**
  * codeslayer_menu_bar_new:
  * @window: the main application window.
- * @groups: a #CodeSlayerGroups.
  * @preferences: a #CodeSlayerPreferences.
  * @settings: a #CodeSlayerSettings.
  *
@@ -650,8 +581,7 @@ codeslayer_menu_bar_finalize (CodeSlayerMenuBar *menu)
  * Returns: a new #CodeSlayerMenuBar. 
  */
 GtkWidget*
-codeslayer_menu_bar_new (GtkWidget             *window,
-                        CodeSlayerGroups      *groups, 
+codeslayer_menu_bar_new (GtkWidget             *window, 
                         CodeSlayerPreferences *preferences, 
                         CodeSlayerSettings    *settings)
 {
@@ -661,7 +591,6 @@ codeslayer_menu_bar_new (GtkWidget             *window,
   GtkWidget *menu_bar_editor;
   GtkWidget *menu_bar_search;
   GtkWidget *menu_bar_view;
-  GtkWidget *menu_bar_groups;
   GtkWidget *menu_bar_projects;
   GtkWidget *menu_bar_tools;
   GtkWidget *menu_help;
@@ -671,7 +600,6 @@ codeslayer_menu_bar_new (GtkWidget             *window,
   menu = g_object_new (codeslayer_menu_bar_get_type (), NULL);
   priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu);
   priv->window = window;
-  priv->groups = groups;
 
   accel_group = gtk_accel_group_new ();
   priv->accel_group = accel_group;
@@ -686,9 +614,6 @@ codeslayer_menu_bar_new (GtkWidget             *window,
   menu_bar_view = codeslayer_menu_bar_view_new (menu, accel_group, settings);
   priv->menu_bar_view = menu_bar_view;
 
-  menu_bar_groups = codeslayer_menu_bar_groups_new (window, menu, accel_group, groups);
-  priv->menu_bar_groups = menu_bar_groups;
-
   menu_bar_projects = codeslayer_menu_bar_projects_new (window, menu, accel_group, settings);
   priv->menu_bar_projects = menu_bar_projects;
 
@@ -700,7 +625,6 @@ codeslayer_menu_bar_new (GtkWidget             *window,
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_editor);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_search);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_view);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_groups);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_tools);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_help);
@@ -1015,67 +939,6 @@ codeslayer_menu_bar_draw_spaces (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "draw-spaces");
 }
-
-void            
-/**
- * codeslayer_menu_bar_refresh_groups:
- * @menu_bar: a #CodeSlayerMenuBar.
- * @groups: a #CodeSlayerGroups.
- */
-codeslayer_menu_bar_refresh_groups (CodeSlayerMenuBar *menu_bar,
-                                    CodeSlayerGroups  *groups)
-{
-  CodeSlayerMenuBarPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
-  codeslayer_menu_bar_groups_refresh_groups (CODESLAYER_MENU_BAR_GROUPS (priv->menu_bar_groups), 
-                                            groups);
-}                                                          
-
-/**
- * codeslayer_menu_bar_group_changed:
- * @menu_bar: a #CodeSlayerMenuBar.
- * @group_name: the group name.
- */
-void
-codeslayer_menu_bar_group_changed (CodeSlayerMenuBar *menu_bar, 
-                                   const gchar       *group_name)
-{
-  g_signal_emit_by_name ((gpointer) menu_bar, "group-changed", group_name);
-}                               
-
-/**
- * codeslayer_menu_bar_new_group:
- * @menu_bar: a #CodeSlayerMenuBar.
- * @group_name: the group name.
- */
-void
-codeslayer_menu_bar_new_group (CodeSlayerMenuBar *menu_bar, 
-                               const gchar       *group_name)
-{
-  g_signal_emit_by_name ((gpointer) menu_bar, "new-group", group_name);
-}                               
-
-/**
- * codeslayer_menu_bar_rename_group:
- * @menu_bar: a #CodeSlayerMenuBar.
- * @group_name: the group name.
- */
-void
-codeslayer_menu_bar_rename_group (CodeSlayerMenuBar *menu_bar, 
-                                  const gchar       *group_name)
-{
-  g_signal_emit_by_name ((gpointer) menu_bar, "rename-group", group_name);
-}                               
-
-/**
- * codeslayer_menu_bar_remove_group:
- * @menu_bar: a #CodeSlayerMenuBar.
- */
-void
-codeslayer_menu_bar_remove_group (CodeSlayerMenuBar *menu_bar)
-{
-  g_signal_emit_by_name ((gpointer) menu_bar, "remove-group");
-}                               
 
 /**
  * codeslayer_menu_bar_add_projects:

@@ -55,15 +55,6 @@ static void codeslayer_engine_class_init                (CodeSlayerEngineClass  
 static void codeslayer_engine_init                      (CodeSlayerEngine       *engine);
 static void codeslayer_engine_finalize                  (CodeSlayerEngine       *engine);
 
-static void group_changed_action                        (CodeSlayerEngine       *engine, 
-                                                         gchar                  *group_name);
-static void new_group_action                            (CodeSlayerEngine       *engine,
-                                                         gchar                  *group_name);
-static void rename_group_action                         (CodeSlayerEngine       *engine,  
-                                                         gchar                  *group_name);
-static void remove_group_action                         (CodeSlayerEngine       *engine);
-static void set_active_group                            (CodeSlayerEngine       *engine, 
-                                                         CodeSlayerGroup        *group);
 static void save_editor_action                          (CodeSlayerEngine       *engine);
 static void save_all_editors_action                     (CodeSlayerEngine       *engine);
 static void close_editor_action                         (CodeSlayerEngine       *engine);
@@ -211,18 +202,6 @@ codeslayer_engine_new (GtkWindow             *window,
   priv->side_pane = side_pane;
   priv->bottom_pane = bottom_pane;
   
-  g_signal_connect_swapped (G_OBJECT (menubar), "group-changed",
-                            G_CALLBACK (group_changed_action), engine);
-  
-  g_signal_connect_swapped (G_OBJECT (menubar), "new-group",
-                            G_CALLBACK (new_group_action), engine);
-  
-  g_signal_connect_swapped (G_OBJECT (menubar), "rename-group",
-                            G_CALLBACK (rename_group_action), engine);
-  
-  g_signal_connect_swapped (G_OBJECT (menubar), "remove-group",
-                            G_CALLBACK (remove_group_action), engine);
-  
   g_signal_connect_swapped (G_OBJECT (menubar), "save-editor",
                             G_CALLBACK (save_editor_action), engine);
   
@@ -340,7 +319,6 @@ codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
   
   if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
     {
-      codeslayer_menu_bar_refresh_groups (CODESLAYER_MENU_BAR (priv->menubar), priv->groups);
       return FALSE;
     }
 
@@ -421,104 +399,6 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
     }
   
   codeslayer_plugins_activate (priv->plugins, active_group);
-}
-
-static void
-group_changed_action (CodeSlayerEngine *engine,
-                      gchar            *group_name)
-{
-  CodeSlayerEnginePrivate *priv;
-  GList *list;
-  
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  
-  if (!codeslayer_engine_close_active_group (engine))
-    return;
-
-  list = codeslayer_groups_get_list (priv->groups);
-  while (list != NULL)
-    {
-      CodeSlayerGroup *group = list->data;
-      if (g_strcmp0 (group_name, codeslayer_group_get_name (group)) == 0)
-        {
-          set_active_group (engine, group);
-          return;
-        }
-      list = g_list_next (list);
-    }
-}
-
-static void
-new_group_action (CodeSlayerEngine *engine, 
-                  gchar            *group_name)
-{
-  CodeSlayerEnginePrivate *priv;
-  CodeSlayerGroup *group;
-
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  
-  if (!codeslayer_engine_close_active_group (engine))
-    return;
-
-  group = codeslayer_group_new ();
-  codeslayer_group_set_name (group, group_name);
-  g_object_force_floating (G_OBJECT (group));
-  codeslayer_repository_create_group (group);
-
-  codeslayer_groups_add_group (priv->groups, group);
-  set_active_group (engine, group);
-}
-
-static void
-rename_group_action (CodeSlayerEngine *engine,
-                     gchar            *group_name)
-{
-  CodeSlayerEnginePrivate *priv;
-  CodeSlayerGroup *active_group;
-  
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  
-  active_group = codeslayer_groups_get_active_group (priv->groups);
-
-  codeslayer_repository_rename_group (active_group, group_name);
-  codeslayer_group_set_name (active_group, group_name);
-
-  codeslayer_menu_bar_refresh_groups (CODESLAYER_MENU_BAR (priv->menubar), priv->groups);
-}
-
-static void
-remove_group_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  CodeSlayerGroup *active_group;
-  const gchar *group_name;
-  CodeSlayerGroup *next_group;
-    
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-
-  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
-
-  active_group = codeslayer_groups_get_active_group (priv->groups);
-  group_name = codeslayer_group_get_name (active_group);
-  next_group = codeslayer_groups_find_next_group (priv->groups, group_name);
-
-  codeslayer_repository_delete_group (active_group);
-  codeslayer_groups_remove_group (priv->groups, active_group);
-  set_active_group (engine, next_group);
-}
-
-static void
-set_active_group (CodeSlayerEngine *engine, 
-                  CodeSlayerGroup  *group)
-{
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_groups_set_active_group (priv->groups, group);
-  codeslayer_repository_save_groups (priv->groups);
-  codeslayer_menu_bar_refresh_groups (CODESLAYER_MENU_BAR (priv->menubar), priv->groups);
-  if (priv->search != NULL)
-    codeslayer_search_clear (CODESLAYER_SEARCH (priv->search));
-  codeslayer_engine_open_active_group (engine);
 }
 
 static void
