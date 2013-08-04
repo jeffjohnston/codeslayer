@@ -17,6 +17,7 @@
  */
 
 #include <gdk/gdkkeysyms.h>
+#include <gtksourceview/gtksource.h>
 #include <gtksourceview/gtksourceview.h>
 #include <gtksourceview/gtksourcestyleschememanager.h>
 #include <gtksourceview/gtksourcelanguage.h>

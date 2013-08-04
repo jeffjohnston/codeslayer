@@ -17,6 +17,7 @@
  */
 
 #include "encoding.h"
+#include <gtksourceview/gtksource.h>
 #include <codeslayer/codeslayer-notebook.h>
 #include <codeslayer/codeslayer-notebook-tab.h>
 #include <codeslayer/codeslayer-notebook-page.h>

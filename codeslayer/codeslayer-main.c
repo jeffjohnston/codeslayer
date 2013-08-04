@@ -25,7 +25,6 @@ main (int   argc,
 {
   CodeSlayerApplication *application;
   int status;
-  g_type_init ();
   application = codeslayer_application_new ();
   status = g_application_run (G_APPLICATION (application), argc, argv);
   g_object_unref (application);
