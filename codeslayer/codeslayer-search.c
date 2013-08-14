@@ -22,7 +22,6 @@
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-utils.h>
-#include <codeslayer/codeslayer-group.h>
 
 /**
  * SECTION:codeslayer-search
@@ -108,7 +107,7 @@ typedef struct _CodeSlayerSearchPrivate CodeSlayerSearchPrivate;
 struct _CodeSlayerSearchPrivate
 {
   GtkWindow               *parent;
-  CodeSlayerGroups        *groups;
+  CodeSlayerGroup         *group;
   CodeSlayerPreferences   *preferences;
   GtkWidget               *vbox;
   GtkWidget               *grid;
@@ -254,7 +253,7 @@ codeslayer_search_finalize (CodeSlayerSearch *search)
 GtkWidget*
 codeslayer_search_new (GtkWindow             *window, 
                        CodeSlayerPreferences *preferences, 
-                       CodeSlayerGroups      *groups)
+                       CodeSlayerGroup       *group)
 {
   CodeSlayerSearchPrivate *priv;
   GtkWidget *search;
@@ -263,7 +262,7 @@ codeslayer_search_new (GtkWindow             *window,
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
   priv->parent = window;
   priv->preferences = preferences;
-  priv->groups = groups;
+  priv->group = group;
   priv->file_paths = NULL;
   
   gtk_window_set_transient_for (GTK_WINDOW (search), window);
@@ -745,13 +744,11 @@ search_projects (CodeSlayerSearch *search,
                  GList                *exclude_dirs)
 {
   CodeSlayerSearchPrivate *priv;
-  CodeSlayerGroup *group;
   GList *projects;
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
   
-  group = codeslayer_groups_get_active_group (priv->groups);
-  projects = codeslayer_group_get_projects (group);
+  projects = codeslayer_group_get_projects (priv->group);
   
   while (projects != NULL)
     {

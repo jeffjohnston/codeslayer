@@ -20,14 +20,13 @@
 #define __CODESLAYER_REPOSITORY_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-groups.h>
 #include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-project.h>
 
 G_BEGIN_DECLS 
 
-CodeSlayerGroups*  codeslayer_repository_get_groups   (void);
-GList*             codeslayer_repository_get_plugins  (GObject *data);
+CodeSlayerGroup*  codeslayer_repository_get_group    (void);
+GList*            codeslayer_repository_get_plugins  (GObject *data);
 
 G_END_DECLS
 

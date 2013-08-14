@@ -31,7 +31,6 @@
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-menubar.h>
 #include <codeslayer/codeslayer-processbar.h>
-#include <codeslayer/codeslayer-groups.h>
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer-repository.h>
 #include <codeslayer/codeslayer-settings.h>
@@ -83,8 +82,6 @@ static void load_settings                      (CodeSlayerApplication      *appl
 static void save_settings                      (CodeSlayerApplication      *application);
 static void quit_application_action            (CodeSlayerApplication      *application);
 static void verify_home_dir_exists             (void);
-static void verify_groups_dir_exists           (void);
-static void verify_groups_conf_exists          (void);
 static void verify_plugins_dir_exists          (void);
 static void verify_plugins_config_dir_exists   (void);
 
@@ -106,7 +103,7 @@ struct _CodeSlayerApplicationPrivate
   CodeSlayer            *codeslayer;
   GtkWidget             *process_bar;
   GtkWidget             *notebook;
-  CodeSlayerGroups      *groups;
+  CodeSlayerGroup       *group;
   CodeSlayerPlugins     *plugins;
   GtkWidget             *notebook_pane;
   GtkWidget             *side_pane;
@@ -144,7 +141,7 @@ codeslayer_application_finalize (CodeSlayerApplication *application)
   g_object_unref (priv->preferences);
   g_object_unref (priv->settings);
   g_object_unref (priv->engine);
-  g_object_unref (priv->groups);
+  /*g_object_unref (priv->group);*/
   g_object_unref (priv->plugins);
   g_object_unref (priv->codeslayer);
 
@@ -165,8 +162,6 @@ codeslayer_application_startup (GApplication *application)
   textdomain (PACKAGE);
   
   verify_home_dir_exists ();
-  verify_groups_dir_exists ();
-  verify_groups_conf_exists ();
   verify_plugins_dir_exists ();
   verify_plugins_config_dir_exists ();
   
@@ -336,7 +331,7 @@ create_projects (CodeSlayerApplication *application)
   projects = codeslayer_projects_new (priv->window,
                                       priv->preferences, 
                                       priv->settings, 
-                                      priv->groups, 
+                                      priv->group, 
                                       priv->project_properties);
   priv->projects = projects;
 }
@@ -417,7 +412,7 @@ create_engine (CodeSlayerApplication *application)
                                   priv->settings, 
                                   priv->preferences, 
                                   priv->plugins, 
-                                  priv->groups, 
+                                  priv->group, 
                                   priv->projects, 
                                   priv->menubar, 
                                   priv->notebook_pane, 
@@ -445,12 +440,8 @@ static void
 create_groups (CodeSlayerApplication *application)
 {
   CodeSlayerApplicationPrivate *priv;
-  CodeSlayerGroups *groups;
-  
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
-
-  groups = codeslayer_repository_get_groups ();
-  priv->groups = groups;
+  priv->group = codeslayer_repository_get_group ();
 }
 
 static void
@@ -469,8 +460,7 @@ load_plugins (CodeSlayerApplication *application)
                                CODESLAYER_PROJECTS (priv->projects), 
                                CODESLAYER_PROJECT_PROPERTIES (priv->project_properties), 
                                CODESLAYER_SIDE_PANE (priv->side_pane), 
-                               CODESLAYER_BOTTOM_PANE (priv->bottom_pane),
-                               priv->groups);
+                               CODESLAYER_BOTTOM_PANE (priv->bottom_pane));
                                
   priv->codeslayer = codeslayer;
   codeslayer_plugins_load (priv->plugins, G_OBJECT(codeslayer));
@@ -688,63 +678,6 @@ verify_home_dir_exists (void)
 
   g_free (home_dir);
   g_object_unref (file);
-}
-
-static void
-verify_groups_dir_exists (void)
-{
-  gchar *groups_path;
-  GFile *groups_file;
-
-  groups_path = g_build_filename (g_get_home_dir (), 
-                                  CODESLAYER_HOME, CODESLAYER_GROUPS_DIR, NULL);
-  groups_file = g_file_new_for_path (groups_path);
-  if (!g_file_query_exists (groups_file, NULL))
-    {
-      gchar *default_group_path;
-      GFile *default_group_file;
-
-      g_file_make_directory (groups_file, NULL, NULL);
-
-      default_group_path = g_build_filename (g_get_home_dir (), 
-                                             CODESLAYER_HOME, 
-                                             CODESLAYER_GROUPS_DIR, 
-                                             CODESLAYER_DEFAULT_GROUP_DIR, NULL);
-      default_group_file = g_file_new_for_path (default_group_path);
-      if (!g_file_query_exists (default_group_file, NULL))
-        g_file_make_directory (default_group_file, NULL, NULL);
-
-      g_free (default_group_path);
-      g_object_unref (default_group_file);
-    }
-
-  g_free (groups_path);
-  g_object_unref (groups_file);
-}
-
-static void
-verify_groups_conf_exists ()
-{
-  gchar *conf_path;
-  GFile *conf_file;
-
-  conf_path = g_build_filename (g_get_home_dir (), 
-                                CODESLAYER_HOME, 
-                                CODESLAYER_GROUPS_DIR, 
-                                CODESLAYER_GROUPS_CONF, 
-                                NULL);
-  
-  conf_file = g_file_new_for_path (conf_path);
-  if (!g_file_query_exists (conf_file, NULL))
-    {
-      GFileIOStream *stream;
-      stream = g_file_create_readwrite (conf_file, G_FILE_CREATE_NONE, NULL, NULL);
-      g_io_stream_close (G_IO_STREAM (stream), NULL, NULL);
-      g_object_unref (stream);
-    }
-
-  g_free (conf_path);
-  g_object_unref (conf_file);
 }
 
 static void

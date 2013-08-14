@@ -21,7 +21,7 @@
 
 #include <gtk/gtk.h>
 
-#include <codeslayer/codeslayer-groups.h>
+#include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-processes.h>
@@ -54,7 +54,7 @@ CodeSlayerEngine*  codeslayer_engine_new                 (GtkWindow             
                                                           CodeSlayerSettings    *settings,
                                                           CodeSlayerPreferences  *preferences,
                                                           CodeSlayerPlugins      *plugins,
-                                                          CodeSlayerGroups       *groups,
+                                                          CodeSlayerGroup        *group,
                                                           GtkWidget              *projects,
                                                           GtkWidget              *menubar,
                                                           GtkWidget              *notebook_pane,

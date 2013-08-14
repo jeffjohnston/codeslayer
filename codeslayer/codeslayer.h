@@ -85,8 +85,7 @@ CodeSlayer*               codeslayer_new                             (GtkWindow 
                                                                       CodeSlayerProjects          *projects,
                                                                       CodeSlayerProjectProperties *project_properties,
                                                                       CodeSlayerSidePane          *side_pane,
-                                                                      CodeSlayerBottomPane        *bottom_pane,
-                                                                      CodeSlayerGroups            *groups);
+                                                                      CodeSlayerBottomPane        *bottom_pane);
 
 gboolean                  codeslayer_select_editor                   (CodeSlayer                  *codeslayer, 
                                                                       CodeSlayerDocument          *document);

@@ -103,7 +103,6 @@ static void editor_settings_preferences_changed_action  (CodeSlayerEngine       
 
 static void notify_visible_pane_action                  (CodeSlayerEngine       *engine,
                                                          GParamSpec             *spec);
-static void verify_group_config_dir_exists              (CodeSlayerGroup        *group);
                                                    
 #define CODESLAYER_ENGINE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_ENGINE_TYPE, CodeSlayerEnginePrivate))
@@ -123,7 +122,7 @@ struct _CodeSlayerEnginePrivate
   GtkWidget             *notebook_pane;
   GtkWidget             *side_pane;
   GtkWidget             *bottom_pane;
-  CodeSlayerGroups      *groups;
+  CodeSlayerGroup       *group;
   GdkWindowState         window_state;
 
   GtkWidget             *go_to_line_dialog;
@@ -177,7 +176,7 @@ codeslayer_engine_new (GtkWindow             *window,
                        CodeSlayerSettings    *settings,
                        CodeSlayerPreferences *preferences,
                        CodeSlayerPlugins     *plugins,
-                       CodeSlayerGroups      *groups,
+                       CodeSlayerGroup       *group,
                        GtkWidget             *projects, 
                        GtkWidget             *menubar,
                        GtkWidget             *notebook_pane, 
@@ -194,7 +193,7 @@ codeslayer_engine_new (GtkWindow             *window,
   priv->settings = settings;
   priv->preferences = preferences;
   priv->plugins = plugins;
-  priv->groups = groups;
+  priv->group = group;
   priv->projects = projects;
   priv->menubar = menubar;
   priv->notebook = codeslayer_notebook_pane_get_notebook (CODESLAYER_NOTEBOOK_PANE (notebook_pane));
@@ -359,9 +358,7 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  active_group = codeslayer_groups_get_active_group (priv->groups);
-  
-  verify_group_config_dir_exists (active_group);
+  active_group = priv->group;
   
   codeslayer_preferences_load (priv->preferences, active_group);
 
@@ -410,7 +407,7 @@ add_projects_action (CodeSlayerEngine *engine,
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  active_group = codeslayer_groups_get_active_group (priv->groups);
+  active_group = priv->group;
   
   while (files != NULL)
     {
@@ -453,7 +450,7 @@ remove_project_action (CodeSlayerEngine  *engine,
   CodeSlayerGroup *active_group;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  active_group = codeslayer_groups_get_active_group (priv->groups);
+  active_group = priv->group;
 
   codeslayer_group_remove_project (active_group, project);
   
@@ -673,7 +670,7 @@ search_find_projects_action (CodeSlayerEngine *engine,
     {
       priv->search = codeslayer_search_new (priv->window, 
                                             priv->preferences, 
-                                            priv->groups);
+                                            priv->group);
 
       g_signal_connect_swapped (G_OBJECT (priv->search), "close",
                                 G_CALLBACK (close_search_action), engine);
@@ -942,7 +939,7 @@ show_plugins_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   CodeSlayerGroup *active_group;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  active_group = codeslayer_groups_get_active_group (priv->groups);
+  active_group = priv->group;
   codeslayer_plugins_run_dialog (priv->plugins, active_group);
 }
 
@@ -1116,21 +1113,3 @@ go_to_line_keypress_action (GtkWidget        *entry,
   g_signal_emit_by_name ((gpointer) priv->go_to_line_dialog, "close");
   return FALSE;
 }    
-
-static void
-verify_group_config_dir_exists (CodeSlayerGroup *group)
-{
-  gchar *config_dir;
-  GFile *file;
-  
-  config_dir = g_build_filename (g_get_home_dir (), CODESLAYER_HOME, GROUPS,
-                                 codeslayer_group_get_name (group), CONFIG, NULL);
-                           
-  file = g_file_new_for_path (config_dir);
-
-  if (!g_file_query_exists (file, NULL)) 
-    g_file_make_directory (file, NULL, NULL);
-
-  g_free (config_dir);
-  g_object_unref (file);
-}

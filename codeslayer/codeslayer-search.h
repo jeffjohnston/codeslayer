@@ -21,7 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-preferences.h>
-#include <codeslayer/codeslayer-groups.h>
+#include <codeslayer/codeslayer-group.h>
 
 G_BEGIN_DECLS
 
@@ -51,7 +51,7 @@ GType codeslayer_search_get_type (void) G_GNUC_CONST;
      
 GtkWidget*    codeslayer_search_new             (GtkWindow             *window, 
                                                  CodeSlayerPreferences *preferences, 
-                                                 CodeSlayerGroups      *groups);
+                                                 CodeSlayerGroup       *group);
 
 void          codeslayer_search_find_projects   (CodeSlayerSearch      *search);
 void          codeslayer_search_find_selection  (CodeSlayerSearch      *search, 

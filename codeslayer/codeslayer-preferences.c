@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <codeslayer/codeslayer-preference.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-preferences-editor.h>
 #include <codeslayer/codeslayer-preferences-theme.h>
@@ -37,9 +38,7 @@ static void codeslayer_preferences_class_init  (CodeSlayerPreferencesClass *klas
 static void codeslayer_preferences_init        (CodeSlayerPreferences      *preferences);
 static void codeslayer_preferences_finalize    (CodeSlayerPreferences      *preferences);
 
-static gboolean verify_conf_exists             (CodeSlayerPreferences      *preferences);
 static void set_defaults                       (CodeSlayerPreferences      *preferences);
-static gchar *get_conf_path                    (CodeSlayerPreferences      *preferences);
 
 #define CODESLAYER_PREFERENCES_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PREFERENCES_TYPE, CodeSlayerPreferencesPrivate))
@@ -376,9 +375,8 @@ codeslayer_preferences_load (CodeSlayerPreferences *preferences,
                              CodeSlayerGroup       *group)
 {
   CodeSlayerPreferencesPrivate *priv;
-  gboolean conf_exists;
+  GList *list;
   GKeyFile *key_file;
-  gchar *conf;
   
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   priv->group = group;
@@ -388,18 +386,30 @@ codeslayer_preferences_load (CodeSlayerPreferences *preferences,
       g_key_file_free (priv->key_file);
       priv->key_file = NULL;
     }
+
+  list = codeslayer_group_get_preferences (group);
   
-  conf_exists = verify_conf_exists (preferences);
   key_file = g_key_file_new ();
-
-  conf = get_conf_path (preferences);
-  g_key_file_load_from_file (key_file, conf, G_KEY_FILE_NONE, NULL);
   priv->key_file = key_file;
-  g_free (conf);
 
-  if (!conf_exists)
-    set_defaults (preferences);
-    
+  if (list == NULL)
+    {
+      set_defaults (preferences);    
+    }
+  else
+    {
+      while (list != NULL)
+      {
+        CodeSlayerPreference *preference = list->data;
+        const gchar *name;
+        const gchar *value;
+        name = codeslayer_preference_get_name (preference);
+        value = codeslayer_preference_get_value (preference);
+        g_key_file_set_value (key_file, MAIN, name, value);
+        list = g_list_next (list);
+      }
+    }
+
   g_signal_emit_by_name ((gpointer) preferences, "initialize-preferences");
 }                             
 
@@ -412,7 +422,7 @@ codeslayer_preferences_load (CodeSlayerPreferences *preferences,
 void
 codeslayer_preferences_save (CodeSlayerPreferences *preferences)
 {
-  CodeSlayerPreferencesPrivate *priv;
+  /*CodeSlayerPreferencesPrivate *priv;
   gchar *data;
   gchar *conf_path;
   gsize size;
@@ -426,7 +436,7 @@ codeslayer_preferences_save (CodeSlayerPreferences *preferences)
   g_file_set_contents (conf_path, data, size, NULL);
 
   g_free (conf_path);
-  g_free (data);
+  g_free (data);*/
 }
 
 static void
@@ -478,45 +488,6 @@ set_defaults (CodeSlayerPreferences *preferences)
                                      CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES,
                                      ".txt");
   codeslayer_preferences_save (preferences);
-}
-
-static gboolean
-verify_conf_exists (CodeSlayerPreferences *preferences)
-{
-  gboolean result = TRUE;
-  gchar *conf_path;
-  GFile *conf_file;
-
-  conf_path = get_conf_path (preferences);
-  conf_file = g_file_new_for_path (conf_path);
-  if (!g_file_query_exists (conf_file, NULL))
-    {
-      GFileIOStream *stream;
-      stream = g_file_create_readwrite (conf_file, G_FILE_CREATE_NONE, 
-                                        NULL, NULL);
-      g_io_stream_close (G_IO_STREAM (stream), NULL, NULL);
-      g_object_unref (stream);
-      result = FALSE;
-    }
-
-  g_free (conf_path);
-  g_object_unref (conf_file);
-
-  return result;
-}
-
-static gchar*
-get_conf_path (CodeSlayerPreferences *preferences)
-{
-  CodeSlayerPreferencesPrivate *priv;
-  const gchar *group_name;
-
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-
-  group_name = codeslayer_group_get_name (priv->group);
-
-  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, GROUPS,
-                           group_name, PREFERENCES_CONF, NULL);
 }
 
 /**

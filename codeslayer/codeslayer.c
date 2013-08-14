@@ -30,7 +30,6 @@
  * @include: codeslayer/codeslayer.h
  */
 
-#define GROUPS "groups"
 #define PLUGINS "plugins"
 #define PROJECT_CONFIG ".codeslayer"
 #define CONFIG "config"
@@ -75,7 +74,6 @@ struct _CodeSlayerPrivate
   CodeSlayerProjectProperties *project_properties;
   CodeSlayerSidePane          *side_pane;
   CodeSlayerBottomPane        *bottom_pane;
-  CodeSlayerGroups            *groups;
 };
 
 enum
@@ -259,8 +257,7 @@ codeslayer_new (GtkWindow                   *window,
                 CodeSlayerProjects          *projects, 
                 CodeSlayerProjectProperties *project_properties, 
                 CodeSlayerSidePane          *side_pane,
-                CodeSlayerBottomPane        *bottom_pane, 
-                CodeSlayerGroups            *groups)
+                CodeSlayerBottomPane        *bottom_pane)
 {
   CodeSlayerPrivate *priv;
   CodeSlayer *codeslayer;
@@ -275,7 +272,6 @@ codeslayer_new (GtkWindow                   *window,
   priv->project_properties = project_properties;
   priv->side_pane = side_pane;
   priv->bottom_pane = bottom_pane;
-  priv->groups = groups;
   
   g_signal_connect_swapped (G_OBJECT (notebook), "page-added",
                             G_CALLBACK (editor_added_action), codeslayer);

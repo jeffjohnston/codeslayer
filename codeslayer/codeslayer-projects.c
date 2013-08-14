@@ -21,10 +21,6 @@
 #include <codeslayer/codeslayer-projects.h>
 #include <codeslayer/codeslayer-project-properties.h>
 #include <codeslayer/codeslayer-utils.h>
-#include <codeslayer/codeslayer-groups.h>
-#include <codeslayer/codeslayer-group.h>
-#include <codeslayer/codeslayer-project.h>
-#include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-menuitem.h>
 #include <codeslayer/codeslayer-marshaller.h>
 
@@ -126,7 +122,7 @@ struct _CodeSlayerProjectsPrivate
   GtkWidget             *window;
   CodeSlayerPreferences *preferences;
   CodeSlayerSettings    *settings;
-  CodeSlayerGroups      *groups;
+  CodeSlayerGroup       *group;
   GtkWidget             *project_properties;
   GtkWidget             *properties_dialog;
   GtkWidget             *name_entry;
@@ -443,7 +439,7 @@ GtkWidget*
 codeslayer_projects_new (GtkWidget             *window, 
                          CodeSlayerPreferences *preferences,
                          CodeSlayerSettings    *settings,
-                         CodeSlayerGroups      *groups,
+                         CodeSlayerGroup       *group,
                          GtkWidget             *project_properties)
 {
   CodeSlayerProjectsPrivate *priv;
@@ -456,7 +452,7 @@ codeslayer_projects_new (GtkWidget             *window,
   priv->window = window;
   priv->preferences = preferences;
   priv->settings = settings;
-  priv->groups = groups;
+  priv->group = group;
   priv->project_properties = project_properties;
   
   create_tree (CODESLAYER_PROJECTS (projects));
@@ -808,7 +804,6 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
                                      CodeSlayerDocument *document)
 {
   CodeSlayerProjectsPrivate *priv;
-  CodeSlayerGroup *group;
   CodeSlayerProject *project;
   const gchar *project_folder_path;
   const gchar *document_file_path;
@@ -828,8 +823,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
     
   project = codeslayer_document_get_project (document);
   
-  group = codeslayer_groups_get_active_group (priv->groups);
-  if (project == NULL || !codeslayer_group_contains_project (group, project))
+  if (project == NULL || !codeslayer_group_contains_project (priv->group, project))
     {
       g_warning ("Cannot select document from the tree because the project is invalid.");  
       return FALSE;

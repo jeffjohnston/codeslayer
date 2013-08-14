@@ -19,11 +19,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <libxml/parser.h>
+#include <libxml/tree.h>
 
 #include <codeslayer/codeslayer-repository.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-preference.h>
-#include <codeslayer/codeslayer-groups.h>
 #include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
@@ -31,32 +32,18 @@
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer-plugin.h>
 
-#include <stdio.h>
-#include <libxml/parser.h>
-#include <libxml/tree.h>
-
-#define PROJECTS_XML "projects.xml"
-#define DOCUMENTS_XML "documents.xml"
-
-#define MAIN "main"
-#define LIBS "libs"
-#define LIBS_CONF "libs.conf"
-
 static void load_group                          (CodeSlayerGroup *group, 
                                                  xmlNode         *a_node);
 static CodeSlayerPlugin* load_plugin_from_file  (gchar           *file_path);
 
-CodeSlayerGroups*
-codeslayer_repository_get_groups (void)
+CodeSlayerGroup*
+codeslayer_repository_get_group (void)
 {
-  CodeSlayerGroups *groups;  
   CodeSlayerGroup *group;
   xmlDoc *doc = NULL;
   xmlNode *root_element = NULL;
   gchar *file_path = NULL;
   
-  groups = codeslayer_groups_new ();
-
   file_path = "/home/jeff/workspace/codeslayer.projects";
 
   doc = xmlReadFile (file_path, NULL, 0);
@@ -64,14 +51,11 @@ codeslayer_repository_get_groups (void)
     {
       g_warning ("could not parse projects file %s\n", file_path);
       xmlCleanupParser();
-      return groups;
+      return NULL;
     }
 
   group = codeslayer_group_new ();
   codeslayer_group_set_name (group, "default");
-  
-  codeslayer_groups_add_group (groups, group);
-  codeslayer_groups_set_active_group (groups, group);
   
   root_element = xmlDocGetRootElement (doc);
 
@@ -80,7 +64,7 @@ codeslayer_repository_get_groups (void)
   xmlFreeDoc (doc);
   xmlCleanupParser ();
   
-  return groups;
+  return group;
 }
 
 static void
