@@ -152,6 +152,7 @@ am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-document.lo \
 	libcodeslayer_la-codeslayer-repository.lo \
 	libcodeslayer_la-codeslayer-settings.lo \
+	libcodeslayer_la-codeslayer-preference.lo \
 	libcodeslayer_la-codeslayer-preferences.lo \
 	libcodeslayer_la-codeslayer-preferences-editor.lo \
 	libcodeslayer_la-codeslayer-preferences-misc.lo \
@@ -433,6 +434,7 @@ pkginclude_HEADERS = \
     codeslayer-document.h \
     codeslayer-repository.h \
     codeslayer-settings.h \
+    codeslayer-preference.h \
     codeslayer-preferences.h \
     codeslayer-preferences-misc.h \
     codeslayer-preferences-projects.h \
@@ -487,6 +489,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-document.c \
     codeslayer-repository.c \
     codeslayer-settings.c \
+    codeslayer-preference.c \
     codeslayer-preferences.c \
     codeslayer-preferences-editor.c \
     codeslayer-preferences-misc.c \
@@ -684,6 +687,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-plugin.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-plugins-selector.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-plugins.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preference.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preferences-editor.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preferences-listview.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-preferences-misc.Plo@am__quote@
@@ -903,6 +907,13 @@ libcodeslayer_la-codeslayer-settings.lo: codeslayer-settings.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-settings.c' object='libcodeslayer_la-codeslayer-settings.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-settings.lo `test -f 'codeslayer-settings.c' || echo '$(srcdir)/'`codeslayer-settings.c
+
+libcodeslayer_la-codeslayer-preference.lo: codeslayer-preference.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preference.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preference.Tpo -c -o libcodeslayer_la-codeslayer-preference.lo `test -f 'codeslayer-preference.c' || echo '$(srcdir)/'`codeslayer-preference.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-preference.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-preference.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-preference.c' object='libcodeslayer_la-codeslayer-preference.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-preference.lo `test -f 'codeslayer-preference.c' || echo '$(srcdir)/'`codeslayer-preference.c
 
 libcodeslayer_la-codeslayer-preferences.lo: codeslayer-preferences.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-preferences.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-preferences.Tpo -c -o libcodeslayer_la-codeslayer-preferences.lo `test -f 'codeslayer-preferences.c' || echo '$(srcdir)/'`codeslayer-preferences.c

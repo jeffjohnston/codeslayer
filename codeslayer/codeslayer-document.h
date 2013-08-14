@@ -20,7 +20,6 @@
 #define __CODESLAYER_DOCUMENT_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-project.h>
 
 G_BEGIN_DECLS

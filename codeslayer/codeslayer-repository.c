@@ -16,11 +16,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
 #include <codeslayer/codeslayer-repository.h>
 #include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-preference.h>
 #include <codeslayer/codeslayer-groups.h>
 #include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-project.h>
@@ -29,6 +31,10 @@
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer-plugin.h>
 
+#include <stdio.h>
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+
 #define PROJECTS_XML "projects.xml"
 #define DOCUMENTS_XML "documents.xml"
 
@@ -36,10 +42,122 @@
 #define LIBS "libs"
 #define LIBS_CONF "libs.conf"
 
+static void       load_group                  (CodeSlayerGroup *group, 
+                                                 xmlNode         *a_node);
+              
 static GList* get_groups                        (void);
 static gchar* get_active_group                  (void);
 static CodeSlayerPlugin* load_plugin_from_file  (gchar *file_path);
 static gboolean verify_group_conf_exists        (gchar *conf_path);
+
+void
+codeslayer_repository_load_projects (void)
+{
+  CodeSlayerGroup *group;
+
+  xmlDoc *doc = NULL;
+  xmlNode *root_element = NULL;
+  
+  gchar *file_path = "/home/jeff/workspace/codeslayer.projects";
+
+  doc = xmlReadFile (file_path, NULL, 0);
+
+  if (doc == NULL) 
+    {
+      g_warning ("could not parse projects file %s\n", file_path);
+      xmlCleanupParser();
+      return;
+    }
+
+  group = codeslayer_group_new ();
+  
+  root_element = xmlDocGetRootElement (doc);
+
+  load_group (group, root_element);
+
+  xmlFreeDoc (doc);
+  xmlCleanupParser ();
+}
+
+static void
+load_group (CodeSlayerGroup *group, 
+            xmlNode         *a_node)
+{
+  xmlNode *cur_node = NULL;
+
+  for (cur_node = a_node; cur_node; cur_node = cur_node->next) 
+    {
+      if (cur_node->type == XML_ELEMENT_NODE)
+        {
+          if (g_strcmp0 ((gchar*)cur_node->name, "project") == 0)
+            {
+              CodeSlayerProject *project;
+              xmlChar *name;
+              xmlChar *folder_path;
+              
+              name = xmlGetProp (cur_node, (const xmlChar*)"name");
+              folder_path = xmlGetProp (cur_node, (const xmlChar*)"folder_path");
+              
+              g_print ("project name %s:folder_path %s\n", name, folder_path);
+              
+              project = codeslayer_project_new ();
+              codeslayer_project_set_name (project, (gchar*) name);
+              codeslayer_project_set_folder_path (project, (gchar*) folder_path);
+              codeslayer_group_add_project (group, project);
+              
+              xmlFree (name);
+              xmlFree (folder_path);
+            }
+          else if (g_strcmp0 ((gchar*)cur_node->name, "document") == 0)
+            {
+              CodeSlayerDocument *document;
+              xmlChar *file_path;
+              xmlChar *line_number;
+              
+              file_path = xmlGetProp (cur_node, (const xmlChar*)"file_path");
+              line_number = xmlGetProp (cur_node, (const xmlChar*)"line_number");
+              
+              g_print ("document file_path %s:line_number %s\n", file_path, line_number);
+              
+              document = codeslayer_document_new ();
+              codeslayer_document_set_file_path (document, (gchar*) file_path);
+              codeslayer_document_set_line_number (document, atoi ((gchar*) line_number));
+              codeslayer_group_add_document (group, document);
+              
+              xmlFree (file_path);
+              xmlFree (line_number);
+            }
+          else if (g_strcmp0 ((gchar*)cur_node->name, "preference") == 0)
+            {
+              CodeSlayerPreference *preference;
+              xmlChar *name;
+              xmlChar *value;
+              
+              name = xmlGetProp (cur_node, (const xmlChar*)"name");
+              value = xmlGetProp (cur_node, (const xmlChar*)"value");
+              
+              g_print ("preference name %s:value %s\n", name, value);
+              
+              preference = codeslayer_preference_new ();
+              codeslayer_preference_set_name (preference, (gchar*) name);
+              codeslayer_preference_set_value (preference, (gchar*) value);
+              codeslayer_group_add_preference (group, preference);
+              
+              xmlFree (name);
+              xmlFree (value);
+            }
+          else if (g_strcmp0 ((gchar*)cur_node->name, "lib") == 0)
+            {
+              xmlChar *name;
+              name = xmlGetProp (cur_node, (const xmlChar*)"name");
+              g_print ("lib name %s\n", name);
+              codeslayer_group_add_lib (group, (gchar*) name);
+              xmlFree (name);
+            }
+        }
+      load_group (group, cur_node->children);
+    }
+}
 
 CodeSlayerGroups*
 codeslayer_repository_get_groups (void)
@@ -48,6 +166,8 @@ codeslayer_repository_get_groups (void)
   GList *list;
   GList *tmp;
   gchar *active_group;
+  
+  codeslayer_repository_load_projects ();
   
   groups = codeslayer_groups_new ();
   

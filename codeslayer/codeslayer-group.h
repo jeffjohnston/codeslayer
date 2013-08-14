@@ -21,6 +21,8 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-project.h>
+#include <codeslayer/codeslayer-document.h>
+#include <codeslayer/codeslayer-preference.h>
 #include <codeslayer/codeslayer-plugin.h>
 
 G_BEGIN_DECLS
@@ -65,6 +67,13 @@ void                codeslayer_group_remove_project            (CodeSlayerGroup 
                                                                 CodeSlayerProject *project);
 gboolean            codeslayer_group_contains_project          (CodeSlayerGroup   *group,
                                                                 CodeSlayerProject *project);                                                        
+
+void                codeslayer_group_add_document              (CodeSlayerGroup    *group,
+                                                                CodeSlayerDocument *document);
+
+void                codeslayer_group_add_preference            (CodeSlayerGroup    *group,
+                                                                CodeSlayerPreference *preference);
+
 GList*              codeslayer_group_get_libs                  (CodeSlayerGroup   *group);
 void                codeslayer_group_set_libs                  (CodeSlayerGroup   *group, 
                                                                 GList             *libs);

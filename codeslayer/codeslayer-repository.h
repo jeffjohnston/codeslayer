@@ -26,6 +26,8 @@
 
 G_BEGIN_DECLS 
 
+void               codeslayer_repository_load_projects    (void);
+
 CodeSlayerGroups*  codeslayer_repository_get_groups      (void);
 void               codeslayer_repository_save_groups     (CodeSlayerGroups  *groups);
 
