@@ -68,9 +68,15 @@ void                codeslayer_group_remove_project            (CodeSlayerGroup 
 gboolean            codeslayer_group_contains_project          (CodeSlayerGroup   *group,
                                                                 CodeSlayerProject *project);                                                        
 
+GList*              codeslayer_group_get_documents             (CodeSlayerGroup   *group);
+void                codeslayer_group_set_documents             (CodeSlayerGroup   *group,
+                                                                GList             *documents);
 void                codeslayer_group_add_document              (CodeSlayerGroup    *group,
                                                                 CodeSlayerDocument *document);
 
+GList*              codeslayer_group_get_preferences           (CodeSlayerGroup   *group);
+void                codeslayer_group_set_preferences           (CodeSlayerGroup   *group,
+                                                                GList             *preferences);
 void                codeslayer_group_add_preference            (CodeSlayerGroup    *group,
                                                                 CodeSlayerPreference *preference);
 

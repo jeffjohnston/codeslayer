@@ -26,28 +26,8 @@
 
 G_BEGIN_DECLS 
 
-void               codeslayer_repository_load_projects    (void);
-
-CodeSlayerGroups*  codeslayer_repository_get_groups      (void);
-void               codeslayer_repository_save_groups     (CodeSlayerGroups  *groups);
-
-void               codeslayer_repository_create_group    (CodeSlayerGroup   *group);
-void               codeslayer_repository_delete_group    (CodeSlayerGroup   *group);
-void               codeslayer_repository_rename_group    (CodeSlayerGroup   *group, 
-                                                          const gchar       *name);
-
-GList*             codeslayer_repository_get_projects    (CodeSlayerGroup   *group);
-void               codeslayer_repository_save_projects   (CodeSlayerGroup   *group);
-
-GList*             codeslayer_repository_get_libs        (CodeSlayerGroup   *group);
-void               codeslayer_repository_save_libs       (CodeSlayerGroup   *group);
-
-GList*             codeslayer_repository_get_documents   (CodeSlayerGroup   *group);
-void               codeslayer_repository_save_documents  (CodeSlayerGroup   *group, 
-                                                          GList             *documents);
-
-GList*             codeslayer_repository_get_plugins     (GObject           *data);
-
+CodeSlayerGroups*  codeslayer_repository_get_groups   (void);
+GList*             codeslayer_repository_get_plugins  (GObject *data);
 
 G_END_DECLS
 

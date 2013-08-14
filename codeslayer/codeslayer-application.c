@@ -573,7 +573,8 @@ delete_event (GtkWidget             *window,
     return TRUE;
 
   save_settings (application);
-  codeslayer_repository_save_groups (priv->groups);
+  /*TODO: this is where we want to save the projects file*/
+  /*codeslayer_repository_save_groups (priv->groups);*/
   return FALSE;
 }
 

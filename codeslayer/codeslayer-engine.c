@@ -311,7 +311,6 @@ codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   gint pages;
-  CodeSlayerGroup *active_group;
   GList *documents = NULL;
   gint page;
   
@@ -334,8 +333,9 @@ codeslayer_engine_close_active_group (CodeSlayerEngine *engine)
       documents = g_list_append (documents, document);
     }
   
-  active_group = codeslayer_groups_get_active_group (priv->groups);
-  codeslayer_repository_save_documents (active_group, documents);
+  /*active_group = codeslayer_groups_get_active_group (priv->groups);*/
+  /*TODO: this is where we save the documents*/
+  /*codeslayer_repository_save_documents (active_group, documents);*/
   g_list_free (documents);
   
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
@@ -368,13 +368,13 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
   if (codeslayer_group_get_projects (active_group) == NULL)
     {
       GList* projects;
-      projects = codeslayer_repository_get_projects (active_group);
+      projects = codeslayer_group_get_projects (active_group);
       codeslayer_group_set_projects (active_group, projects);
     }
   
   codeslayer_projects_load_group (CODESLAYER_PROJECTS (priv->projects), active_group);
 
-  documents = codeslayer_repository_get_documents (active_group);
+  documents = codeslayer_group_get_documents (active_group);
   tmp = documents;
 
   while (tmp != NULL)
@@ -391,12 +391,12 @@ codeslayer_engine_open_active_group (CodeSlayerEngine *engine)
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 
-  if (codeslayer_group_get_libs (active_group) == NULL)
+  /*if (codeslayer_group_get_libs (active_group) == NULL)
     {
       GList *libs;
       libs = codeslayer_repository_get_libs (active_group);
       codeslayer_group_set_libs (active_group, libs);
-    }
+    }*/
   
   codeslayer_plugins_activate (priv->plugins, active_group);
 }
@@ -434,7 +434,8 @@ add_projects_action (CodeSlayerEngine *engine,
 
       codeslayer_group_add_project (active_group, project);
 
-      codeslayer_repository_save_projects (active_group);
+      /*TODO: this was where we saved the projects*/
+      /*codeslayer_repository_save_projects (active_group);*/
 
       codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
       
@@ -455,7 +456,9 @@ remove_project_action (CodeSlayerEngine  *engine,
   active_group = codeslayer_groups_get_active_group (priv->groups);
 
   codeslayer_group_remove_project (active_group, project);
-  codeslayer_repository_save_projects (active_group);
+  
+  /*TODO: this is where we saved the projects*/
+  /*codeslayer_repository_save_projects (active_group);*/
   
   g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
 }
@@ -464,13 +467,14 @@ static void
 project_renamed_action (CodeSlayerEngine  *engine,
                          CodeSlayerProject *project)
 {
-  CodeSlayerEnginePrivate *priv;
+  /*CodeSlayerEnginePrivate *priv;
   CodeSlayerGroup *active_group;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  active_group = codeslayer_groups_get_active_group (priv->groups);
-  
-  codeslayer_repository_save_projects (active_group);
+  active_group = codeslayer_groups_get_active_group (priv->groups);*/
+
+  /*TODO: this is where we saved the projects*/
+  /*codeslayer_repository_save_projects (active_group);*/
 }
 
 static void

@@ -42,34 +42,36 @@
 #define LIBS "libs"
 #define LIBS_CONF "libs.conf"
 
-static void       load_group                  (CodeSlayerGroup *group, 
+static void load_group                          (CodeSlayerGroup *group, 
                                                  xmlNode         *a_node);
-              
-static GList* get_groups                        (void);
-static gchar* get_active_group                  (void);
-static CodeSlayerPlugin* load_plugin_from_file  (gchar *file_path);
-static gboolean verify_group_conf_exists        (gchar *conf_path);
+static CodeSlayerPlugin* load_plugin_from_file  (gchar           *file_path);
 
-void
-codeslayer_repository_load_projects (void)
+CodeSlayerGroups*
+codeslayer_repository_get_groups (void)
 {
+  CodeSlayerGroups *groups;  
   CodeSlayerGroup *group;
-
   xmlDoc *doc = NULL;
   xmlNode *root_element = NULL;
+  gchar *file_path = NULL;
   
-  gchar *file_path = "/home/jeff/workspace/codeslayer.projects";
+  groups = codeslayer_groups_new ();
+
+  file_path = "/home/jeff/workspace/codeslayer.projects";
 
   doc = xmlReadFile (file_path, NULL, 0);
-
   if (doc == NULL) 
     {
       g_warning ("could not parse projects file %s\n", file_path);
       xmlCleanupParser();
-      return;
+      return groups;
     }
 
   group = codeslayer_group_new ();
+  codeslayer_group_set_name (group, "default");
+  
+  codeslayer_groups_add_group (groups, group);
+  codeslayer_groups_set_active_group (groups, group);
   
   root_element = xmlDocGetRootElement (doc);
 
@@ -77,6 +79,8 @@ codeslayer_repository_load_projects (void)
 
   xmlFreeDoc (doc);
   xmlCleanupParser ();
+  
+  return groups;
 }
 
 static void
@@ -98,7 +102,7 @@ load_group (CodeSlayerGroup *group,
               name = xmlGetProp (cur_node, (const xmlChar*)"name");
               folder_path = xmlGetProp (cur_node, (const xmlChar*)"folder_path");
               
-              g_print ("project name %s:folder_path %s\n", name, folder_path);
+              /*g_print ("project name %s:folder_path %s\n", name, folder_path);*/
               
               project = codeslayer_project_new ();
               codeslayer_project_set_name (project, (gchar*) name);
@@ -110,6 +114,7 @@ load_group (CodeSlayerGroup *group,
             }
           else if (g_strcmp0 ((gchar*)cur_node->name, "document") == 0)
             {
+              CodeSlayerProject *project;
               CodeSlayerDocument *document;
               xmlChar *file_path;
               xmlChar *line_number;
@@ -117,12 +122,15 @@ load_group (CodeSlayerGroup *group,
               file_path = xmlGetProp (cur_node, (const xmlChar*)"file_path");
               line_number = xmlGetProp (cur_node, (const xmlChar*)"line_number");
               
-              g_print ("document file_path %s:line_number %s\n", file_path, line_number);
+              /*g_print ("document file_path %s:line_number %s\n", file_path, line_number);*/
               
               document = codeslayer_document_new ();
               codeslayer_document_set_file_path (document, (gchar*) file_path);
               codeslayer_document_set_line_number (document, atoi ((gchar*) line_number));
               codeslayer_group_add_document (group, document);
+              
+              project = codeslayer_group_get_project_by_file_path (group, (gchar*) file_path);
+              codeslayer_document_set_project (document, project);
               
               xmlFree (file_path);
               xmlFree (line_number);
@@ -136,7 +144,7 @@ load_group (CodeSlayerGroup *group,
               name = xmlGetProp (cur_node, (const xmlChar*)"name");
               value = xmlGetProp (cur_node, (const xmlChar*)"value");
               
-              g_print ("preference name %s:value %s\n", name, value);
+              /*g_print ("preference name %s:value %s\n", name, value);*/
               
               preference = codeslayer_preference_new ();
               codeslayer_preference_set_name (preference, (gchar*) name);
@@ -150,421 +158,15 @@ load_group (CodeSlayerGroup *group,
             {
               xmlChar *name;
               name = xmlGetProp (cur_node, (const xmlChar*)"name");
-              g_print ("lib name %s\n", name);
+
+              /*g_print ("lib name %s\n", name);*/
+
               codeslayer_group_add_lib (group, (gchar*) name);
               xmlFree (name);
             }
         }
       load_group (group, cur_node->children);
     }
-}
-
-CodeSlayerGroups*
-codeslayer_repository_get_groups (void)
-{
-  CodeSlayerGroups *groups;
-  GList *list;
-  GList *tmp;
-  gchar *active_group;
-  
-  codeslayer_repository_load_projects ();
-  
-  groups = codeslayer_groups_new ();
-  
-  active_group = get_active_group ();
-
-  list = get_groups ();
-  tmp = list;
-        
-  while (tmp != NULL)
-    {
-      CodeSlayerGroup *group = tmp->data;
-      codeslayer_groups_add_group (groups, group);
-      
-      if (g_strcmp0 (codeslayer_group_get_name (group), active_group) == 0)
-        codeslayer_groups_set_active_group (groups, group);        
-      
-      tmp = g_list_next (tmp);
-    }
-  
-  g_free (active_group);
-  g_list_free (list);
-
-  return groups;
-}
-
-static GList*
-get_groups (void)
-{
-  GList* list = NULL;
-  
-  GFile *file;
-  gchar *file_path;
-  GFileEnumerator *enumerator;
-
-  file_path = g_build_filename (g_get_home_dir (), 
-                                CODESLAYER_HOME, CODESLAYER_GROUPS_DIR, NULL);
-  
-  file = g_file_new_for_path (file_path);
-
-  enumerator = g_file_enumerate_children (file, "standard::*",
-                                          G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, 
-                                          NULL, NULL);
-  if (enumerator != NULL)
-    {
-      GFileInfo *file_info;
-      while ((file_info = g_file_enumerator_next_file (enumerator, NULL, NULL)) != NULL)
-        {
-          const char *file_name;
-          GFileType file_type;
-          file_name = g_file_info_get_name (file_info);
-          file_type = g_file_info_get_file_type (file_info);
-          if (file_type == G_FILE_TYPE_DIRECTORY)
-            {
-              CodeSlayerGroup *group;
-              group = codeslayer_group_new ();
-              codeslayer_group_set_name (group, file_name);
-              g_object_force_floating (G_OBJECT (group));
-              list = g_list_prepend (list, group);
-            }
-          g_object_unref (file_info);
-        }      
-      g_object_unref (enumerator);
-    }
-    
-  g_object_unref (file);
-  g_free (file_path);
-  
-  return list;
-}
-
-static gchar*
-get_active_group ()
-{
-  gchar *result;
-  GKeyFile *keyfile;
-  gchar *conf_path;
-
-  keyfile = g_key_file_new ();
-
-  conf_path = g_build_filename (g_get_home_dir (), 
-                                CODESLAYER_HOME, 
-                                CODESLAYER_GROUPS_DIR, 
-                                CODESLAYER_GROUPS_CONF, 
-                                NULL);
-                                
-  g_key_file_load_from_file (keyfile, conf_path, G_KEY_FILE_NONE, NULL);
-  
-  if (g_key_file_has_key (keyfile, MAIN, CODESLAYER_GROUPS_ACTVIE, NULL))
-    result = g_key_file_get_string (keyfile, MAIN, CODESLAYER_GROUPS_ACTVIE, NULL);
-  else
-    result = g_strdup ("");
-
-  g_free (conf_path);
-  g_key_file_free (keyfile);
-  
-  return result;
-}
-
-void
-codeslayer_repository_save_groups (CodeSlayerGroups *groups)
-{
-  CodeSlayerGroup *group;
-  const gchar *group_name;
-  GKeyFile *keyfile;
-  gchar *conf_path;
-  gchar *data;
-  gsize size;
-
-  group = codeslayer_groups_get_active_group (groups);
-  group_name = codeslayer_group_get_name (group);
-  
-  keyfile = g_key_file_new ();
-
-  conf_path = g_build_filename (g_get_home_dir (), 
-                                CODESLAYER_HOME, 
-                                CODESLAYER_GROUPS_DIR, 
-                                CODESLAYER_GROUPS_CONF, 
-                                NULL);
-                                
-  g_key_file_load_from_file (keyfile, conf_path, G_KEY_FILE_NONE, NULL);
-  g_key_file_set_string (keyfile, MAIN, CODESLAYER_GROUPS_ACTVIE, group_name);
-
-  data = g_key_file_to_data (keyfile, &size, NULL);
-  g_file_set_contents (conf_path, data, size, NULL);
-
-  g_free (conf_path);
-  g_free (data);
-  g_key_file_free (keyfile);
-}
-
-void
-codeslayer_repository_create_group (CodeSlayerGroup *group)
-{
-  gchar *group_path;
-  GFile *group_file;
-
-  group_path = g_build_filename (g_get_home_dir (), 
-                                 CODESLAYER_HOME, CODESLAYER_GROUPS_DIR, 
-                                 codeslayer_group_get_name (group), NULL);
-  group_file = g_file_new_for_path (group_path);
-  if (!g_file_query_exists (group_file, NULL))
-      g_file_make_directory (group_file, NULL, NULL);
-
-  g_free (group_path);
-  g_object_unref (group_file);
-}
-
-void
-codeslayer_repository_delete_group (CodeSlayerGroup *group)
-{
-  gchar *group_path;
-  GFile *group_file;
-
-  group_path = g_build_filename (g_get_home_dir (), 
-                                 CODESLAYER_HOME, CODESLAYER_GROUPS_DIR, 
-                                 codeslayer_group_get_name (group), NULL);
-  group_file = g_file_new_for_path (group_path);
-  if (g_file_query_exists (group_file, NULL))
-    codeslayer_utils_file_delete (group_file, NULL);
-
-  g_free (group_path);
-  g_object_unref (group_file);
-}
-
-void
-codeslayer_repository_rename_group (CodeSlayerGroup *group, 
-                                    const gchar     *name)
-{
-  gchar *source_path;
-  GFile *source_file;
-  gchar *destination_path;
-  GFile *destination_file;
-
-  source_path = g_build_filename (g_get_home_dir (), 
-                                  CODESLAYER_HOME, CODESLAYER_GROUPS_DIR, 
-                                  codeslayer_group_get_name (group), NULL);
-  
-  destination_path = g_build_filename (g_get_home_dir (), 
-                                 CODESLAYER_HOME, CODESLAYER_GROUPS_DIR, 
-                                 name, NULL);
-  
-  source_file = g_file_new_for_path (source_path);
-  destination_file = g_file_new_for_path (destination_path);
-  
-  g_file_move (source_file, destination_file, 
-               G_FILE_COPY_NONE, NULL, NULL, NULL, NULL);
-
-  g_free (source_path);
-  g_object_unref (source_file);
-  g_free (destination_path);
-  g_object_unref (destination_file);
-}
-
-GList*
-codeslayer_repository_get_libs (CodeSlayerGroup *group)
-{
-  GList *list = NULL;
-  gchar *libs = NULL;
-  GKeyFile *keyfile;
-  gchar *conf_path;
-  const gchar *group_name;
-
-  keyfile = g_key_file_new ();
-
-  group_name = codeslayer_group_get_name (group);
-
-  conf_path = g_build_filename (g_get_home_dir (), 
-                                CODESLAYER_HOME, 
-                                CODESLAYER_GROUPS_DIR, 
-                                group_name,
-                                LIBS_CONF, 
-                                NULL);
-                                
-  verify_group_conf_exists (conf_path);
-                                
-  g_key_file_load_from_file (keyfile, conf_path, G_KEY_FILE_NONE, NULL);
-  
-  if (g_key_file_has_key (keyfile, MAIN, LIBS, NULL))
-    libs = g_key_file_get_string (keyfile, MAIN, LIBS, NULL);
-
-  g_free (conf_path);
-  g_key_file_free (keyfile);
-  
-  if (libs != NULL)
-    {
-      list = codeslayer_utils_string_to_list (libs);
-      g_free (libs);
-    }
-  
-  return list;
-}
-
-void
-codeslayer_repository_save_libs (CodeSlayerGroup *group)
-{
-  const gchar *group_name;
-  GList *group_libs;
-  GKeyFile *keyfile;
-  gchar *conf_path;
-  gchar *value;
-  gchar *data;
-  gsize size;
-
-  group_name = codeslayer_group_get_name (group);
-  group_libs = codeslayer_group_get_libs (group);
-  
-  value = codeslayer_utils_list_to_string (group_libs);
-  
-  keyfile = g_key_file_new ();
-
-  conf_path = g_build_filename (g_get_home_dir (), 
-                                CODESLAYER_HOME, 
-                                CODESLAYER_GROUPS_DIR, 
-                                group_name,
-                                LIBS_CONF, 
-                                NULL);
-
-  verify_group_conf_exists (conf_path);
-                                
-  g_key_file_load_from_file (keyfile, conf_path, G_KEY_FILE_NONE, NULL);
-  g_key_file_set_string (keyfile, MAIN, LIBS, value);
-
-  data = g_key_file_to_data (keyfile, &size, NULL);
-  g_file_set_contents (conf_path, data, size, NULL);
-
-  g_free (conf_path);
-  g_free (value);
-  g_free (data);
-  g_key_file_free (keyfile);
-}
-
-static gboolean
-verify_group_conf_exists (gchar *conf_path)
-{
-  gboolean result = TRUE;
-  GFile *conf_file;
-
-  conf_file = g_file_new_for_path (conf_path);
-  if (!g_file_query_exists (conf_file, NULL))
-    {
-      GFileIOStream *stream;
-      stream = g_file_create_readwrite (conf_file, G_FILE_CREATE_NONE, 
-                                        NULL, NULL);
-      g_io_stream_close (G_IO_STREAM (stream), NULL, NULL);
-      g_object_unref (stream);
-      result = FALSE;
-    }
-
-  g_object_unref (conf_file);
-
-  return result;
-}
-
-GList*
-codeslayer_repository_get_projects (CodeSlayerGroup *group)
-{
-  GList *gobjects;
-  gchar *file_path;
-
-  file_path = g_build_filename (g_get_home_dir (), 
-                                CODESLAYER_HOME, CODESLAYER_GROUPS_DIR, 
-                                codeslayer_group_get_name (group),
-                                PROJECTS_XML, NULL);
-
-  gobjects = codeslayer_utils_get_gobjects (CODESLAYER_PROJECT_TYPE,
-                                            TRUE,
-                                            file_path, 
-                                            "project",
-                                            "name", G_TYPE_STRING, 
-                                            "folder_path", G_TYPE_STRING, 
-                                            NULL);
-
-  g_free (file_path);
-  
-  return gobjects;
-}
-
-void
-codeslayer_repository_save_projects (CodeSlayerGroup *group)
-{
-  GList *projects;
-  gchar *file_path;
-
-  projects = codeslayer_group_get_projects (group);
-  
-  file_path = g_build_filename (g_get_home_dir (), 
-                                CODESLAYER_HOME, CODESLAYER_GROUPS_DIR, 
-                                codeslayer_group_get_name (group),
-                                PROJECTS_XML, NULL);
-
-  codeslayer_utils_save_gobjects (projects, 
-                                  file_path, 
-                                  "project",
-                                  "name", G_TYPE_STRING, 
-                                  "folder_path", G_TYPE_STRING, 
-                                  NULL);
-
-  g_free (file_path);
-}
-
-GList*
-codeslayer_repository_get_documents (CodeSlayerGroup *group)
-{
-  GList *gobjects;  
-  GList *tmp;  
-  gchar *file_path;
-  
-  file_path = g_build_filename (g_get_home_dir (), 
-                                CODESLAYER_HOME, CODESLAYER_GROUPS_DIR, 
-                                codeslayer_group_get_name (group),
-                                DOCUMENTS_XML, NULL);
-
-  gobjects = codeslayer_utils_get_gobjects (CODESLAYER_DOCUMENT_TYPE,
-                                            FALSE,
-                                            file_path, 
-                                            "document",
-                                            "file_path", G_TYPE_STRING, 
-                                            "line_number", G_TYPE_INT, 
-                                            NULL);
-     
-  tmp = gobjects;
-
-  while (tmp != NULL)
-    {
-      CodeSlayerDocument *document = tmp->data;
-      CodeSlayerProject *project;
-      const gchar *file_path;
-      file_path = codeslayer_document_get_file_path (document);
-      project = codeslayer_group_get_project_by_file_path (group, file_path);
-      codeslayer_document_set_project (document, project);
-      tmp = g_list_next (tmp);
-    }
-                                            
-  g_free (file_path);                                  
-  
-  return gobjects;
-}
-
-void
-codeslayer_repository_save_documents (CodeSlayerGroup *group, 
-                                      GList           *documents)
-{
-  gchar *file_path;
-
-  file_path = g_build_filename (g_get_home_dir (), 
-                                CODESLAYER_HOME, CODESLAYER_GROUPS_DIR, 
-                                codeslayer_group_get_name (group),
-                                DOCUMENTS_XML, NULL);
-
-  codeslayer_utils_save_gobjects (documents, 
-                                  file_path, 
-                                  "document",
-                                  "file_path", G_TYPE_STRING, 
-                                  "line_number", G_TYPE_INT, 
-                                  NULL);
-
-  g_free (file_path);
 }
 
 GList*
