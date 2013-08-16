@@ -21,7 +21,6 @@
 
 #include <gtk/gtk.h>
 
-#include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-processes.h>
@@ -50,19 +49,14 @@ struct _CodeSlayerEngineClass
 
 GType codeslayer_engine_get_type (void) G_GNUC_CONST;
 
-CodeSlayerEngine*  codeslayer_engine_new                 (GtkWindow              *window,
-                                                          CodeSlayerSettings    *settings,
-                                                          CodeSlayerPreferences  *preferences,
-                                                          CodeSlayerPlugins      *plugins,
-                                                          CodeSlayerGroup        *group,
-                                                          GtkWidget              *projects,
-                                                          GtkWidget              *menubar,
-                                                          GtkWidget              *notebook_pane,
-                                                          GtkWidget              *side_pane,
-                                                          GtkWidget              *bottom_pane);
-
-gboolean           codeslayer_engine_close_active_group  (CodeSlayerEngine       *engine);
-void               codeslayer_engine_open_active_group   (CodeSlayerEngine       *engine);
+CodeSlayerEngine*  codeslayer_engine_new  (GtkWindow             *window,
+                                           CodeSlayerSettings    *settings,
+                                           CodeSlayerPreferences *preferences,
+                                           CodeSlayerPlugins     *plugins,
+                                           GtkWidget             *menubar,
+                                           GtkWidget             *notebook_pane,
+                                           GtkWidget             *side_pane,
+                                           GtkWidget             *bottom_pane);
 
 G_END_DECLS
 

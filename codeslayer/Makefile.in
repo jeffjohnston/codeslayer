@@ -129,6 +129,7 @@ libcodeslayer_la_LIBADD =
 am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-application.lo \
 	libcodeslayer_la-codeslayer-engine.lo \
+	libcodeslayer_la-codeslayer-engine-projects.lo \
 	libcodeslayer_la-codeslayer-process.lo \
 	libcodeslayer_la-codeslayer-processbar.lo \
 	libcodeslayer_la-codeslayer-processes.lo \
@@ -410,6 +411,7 @@ lib_LTLIBRARIES = libcodeslayer.la
 pkginclude_HEADERS = \
     codeslayer-application.h \
     codeslayer-engine.h \
+    codeslayer-engine-projects.h \
     codeslayer-process.h \
     codeslayer-processbar.h \
     codeslayer-processes.h \
@@ -464,6 +466,7 @@ pkginclude_HEADERS = \
 libcodeslayer_la_SOURCES = \
     codeslayer-application.c \
     codeslayer-engine.c \
+    codeslayer-engine-projects.c \
     codeslayer-process.c \
     codeslayer-processbar.c \
     codeslayer-processes.c \
@@ -663,6 +666,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-document.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-editor-linker.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-editor.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-engine-projects.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-engine.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-group.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-listview.Plo@am__quote@
@@ -742,6 +746,13 @@ libcodeslayer_la-codeslayer-engine.lo: codeslayer-engine.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-engine.c' object='libcodeslayer_la-codeslayer-engine.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-engine.lo `test -f 'codeslayer-engine.c' || echo '$(srcdir)/'`codeslayer-engine.c
+
+libcodeslayer_la-codeslayer-engine-projects.lo: codeslayer-engine-projects.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-engine-projects.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-engine-projects.Tpo -c -o libcodeslayer_la-codeslayer-engine-projects.lo `test -f 'codeslayer-engine-projects.c' || echo '$(srcdir)/'`codeslayer-engine-projects.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-engine-projects.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-engine-projects.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-engine-projects.c' object='libcodeslayer_la-codeslayer-engine-projects.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-engine-projects.lo `test -f 'codeslayer-engine-projects.c' || echo '$(srcdir)/'`codeslayer-engine-projects.c
 
 libcodeslayer_la-codeslayer-process.lo: codeslayer-process.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-process.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-process.Tpo -c -o libcodeslayer_la-codeslayer-process.lo `test -f 'codeslayer-process.c' || echo '$(srcdir)/'`codeslayer-process.c
