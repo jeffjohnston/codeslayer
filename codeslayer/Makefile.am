@@ -3,7 +3,6 @@ lib_LTLIBRARIES = libcodeslayer.la
 pkginclude_HEADERS = \
     codeslayer-application.h \
     codeslayer-engine.h \
-    codeslayer-engine-projects.h \
     codeslayer-process.h \
     codeslayer-processbar.h \
     codeslayer-processes.h \
@@ -34,8 +33,10 @@ pkginclude_HEADERS = \
     codeslayer-preferences-theme.h \
     codeslayer-preferences-utils.h \
     codeslayer-preferences-listview.h \
-    codeslayer-projects-selection.h \
     codeslayer-projects.h \
+    codeslayer-projects-engine.h \
+    codeslayer-projects-search.h \
+    codeslayer-projects-selection.h \
     codeslayer-project-properties.h \
     codeslayer-menuitem.h \
     codeslayer-notebook-pane.h \
@@ -45,7 +46,6 @@ pkginclude_HEADERS = \
     codeslayer-notebook-page.h \
     codeslayer-editor-linker.h \
     codeslayer-editor.h \
-    codeslayer-search.h \
     codeslayer-utils.h \
     codeslayer-xml.h \
     codeslayer-marshaller.h \
@@ -58,7 +58,6 @@ pkginclude_HEADERS = \
 libcodeslayer_la_SOURCES = \
     codeslayer-application.c \
     codeslayer-engine.c \
-    codeslayer-engine-projects.c \
     codeslayer-process.c \
     codeslayer-processbar.c \
     codeslayer-processes.c \
@@ -90,6 +89,8 @@ libcodeslayer_la_SOURCES = \
     codeslayer-preferences-utils.c \
     codeslayer-preferences-listview.c \
     codeslayer-projects.c \
+    codeslayer-projects-engine.c \
+    codeslayer-projects-search.c \
     codeslayer-projects-selection.c \
     codeslayer-project-properties.c \
     codeslayer-menuitem.c \
@@ -100,7 +101,6 @@ libcodeslayer_la_SOURCES = \
     codeslayer-notebook-page.c \
     codeslayer-editor-linker.c \
     codeslayer-editor.c \
-    codeslayer-search.c \
     codeslayer-utils.c \
     codeslayer-xml.c \
     codeslayer-marshaller.c \
