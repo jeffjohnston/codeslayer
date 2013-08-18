@@ -173,37 +173,6 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
 }
 
 static void
-open_projects_action (CodeSlayerMenuBarProjects *menu_bar_projects)
-{
-  CodeSlayerMenuBarProjectsPrivate *priv;
-  GtkWidget *dialog;
-  gint response;
-  
-  priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
-  
-  dialog = gtk_file_chooser_dialog_new (_("Select Projects File"), 
-                                        GTK_WINDOW (priv->window),
-                                        GTK_FILE_CHOOSER_ACTION_OPEN,
-                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                        GTK_STOCK_OPEN, GTK_RESPONSE_OK, 
-                                        NULL);
-                                        
-  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
-  gtk_window_set_skip_pager_hint (GTK_WINDOW (dialog), TRUE);
-  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-
-  response = gtk_dialog_run (GTK_DIALOG (dialog));
-  if (response == GTK_RESPONSE_OK)
-    {
-      GFile *file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog));
-      codeslayer_menu_bar_open_projects (CODESLAYER_MENU_BAR (priv->menu_bar), file);
-      g_object_unref (file);
-    }
-
-  gtk_widget_destroy (GTK_WIDGET (dialog));
-}
-
-static void
 new_projects_action (CodeSlayerMenuBarProjects *menu_bar_projects)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
@@ -232,6 +201,39 @@ new_projects_action (CodeSlayerMenuBarProjects *menu_bar_projects)
     }
 
   gtk_widget_destroy (GTK_WIDGET (dialog));
+}
+
+static void
+open_projects_action (CodeSlayerMenuBarProjects *menu_bar_projects)
+{
+  CodeSlayerMenuBarProjectsPrivate *priv;
+  GtkWidget *dialog;
+  gint response;
+  GFile *file = NULL;
+  
+  priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
+  
+  dialog = gtk_file_chooser_dialog_new (_("Select Projects File"), 
+                                        GTK_WINDOW (priv->window),
+                                        GTK_FILE_CHOOSER_ACTION_OPEN,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OPEN, GTK_RESPONSE_OK, 
+                                        NULL);
+                                        
+  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
+  gtk_window_set_skip_pager_hint (GTK_WINDOW (dialog), TRUE);
+  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+  response = gtk_dialog_run (GTK_DIALOG (dialog));
+  if (response == GTK_RESPONSE_OK)
+    file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog));
+  gtk_widget_destroy (GTK_WIDGET (dialog));
+
+  if (file != NULL)
+    {
+      codeslayer_menu_bar_open_projects (CODESLAYER_MENU_BAR (priv->menu_bar), file);
+      g_object_unref (file);    
+    }    
 }
 
 static void
