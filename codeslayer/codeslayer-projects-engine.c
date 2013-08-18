@@ -58,6 +58,8 @@ static void codeslayer_projects_engine_finalize    (CodeSlayerProjectsEngine    
 
 static void search_find_projects_action            (CodeSlayerProjectsEngine      *engine,
                                                     gchar                         *search_paths);
+static void new_projects_action                    (CodeSlayerProjectsEngine      *engine,
+                                                    gchar                         *file_name);
 static void open_projects_action                   (CodeSlayerProjectsEngine      *engine,
                                                     GFile                         *file);
 static void add_projects_action                    (CodeSlayerProjectsEngine      *engine,
@@ -182,6 +184,9 @@ codeslayer_projects_engine_new (GtkWindow             *window,
   g_signal_connect_swapped (G_OBJECT (projects), "find-projects",
                             G_CALLBACK (search_find_projects_action), engine);
   
+  g_signal_connect_swapped (G_OBJECT (menubar), "new-projects",
+                            G_CALLBACK (new_projects_action), engine);
+  
   g_signal_connect_swapped (G_OBJECT (menubar), "open-projects",
                             G_CALLBACK (open_projects_action), engine);
   
@@ -254,6 +259,13 @@ codeslayer_projects_engine_save_projects (CodeSlayerProjectsEngine *engine)
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   
   return TRUE;
+}
+
+static void
+new_projects_action (CodeSlayerProjectsEngine *engine,
+                     gchar                    *file_name)
+{
+  g_print ("new_projects_action\n");
 }
 
 static void

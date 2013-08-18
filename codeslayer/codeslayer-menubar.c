@@ -58,7 +58,10 @@ enum
   REMOVE_GROUP,
   GROUP_CHANGED,
   OPEN_PROJECTS,
+  NEW_PROJECTS,
   ADD_PROJECTS,
+  NEW_EDITOR,
+  OPEN_EDITOR,
   SAVE_EDITOR,
   SAVE_ALL_EDITORS,
   CLOSE_EDITOR,
@@ -99,6 +102,22 @@ static void
 codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
 {
   /**
+   * CodeSlayerMenuBar::new-projects
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::new-projects signal is a request to add a new project. 
+   */
+  codeslayer_menu_bar_signals[NEW_PROJECTS] =
+    g_signal_new ("new-projects", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, new_projects),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
+
+  /**
    * CodeSlayerMenuBar::open-projects
    * @menu: the menu that received the signal
    *
@@ -130,6 +149,38 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
+  /**
+   * CodeSlayerMenuBar::new-editor
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::new-editor signal is a request to save the active editor. 
+   */
+  codeslayer_menu_bar_signals[NEW_EDITOR] =
+    g_signal_new ("new-editor", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, new_editor),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+                  
+  /**
+   * CodeSlayerMenuBar::open-editor
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::open-editor signal is a request to save the active editor. 
+   */
+  codeslayer_menu_bar_signals[OPEN_EDITOR] =
+    g_signal_new ("open-editor", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, open_editor),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+                  
   /**
    * CodeSlayerMenuBar::save-editor
    * @menu: the menu that received the signal
@@ -698,6 +749,26 @@ codeslayer_menu_bar_sync_with_panes (CodeSlayerMenuBar *menu_bar,
 }                                         
 
 /**
+ * codeslayer_menu_bar_new_editor:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ */
+void
+codeslayer_menu_bar_new_editor (CodeSlayerMenuBar *menu_bar)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "new-editor");
+}
+
+/**
+ * codeslayer_menu_bar_open_editor:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ */
+void
+codeslayer_menu_bar_open_editor (CodeSlayerMenuBar *menu_bar)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "open-editor");
+}
+
+/**
  * codeslayer_menu_bar_save_editor:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
@@ -967,6 +1038,18 @@ codeslayer_menu_bar_open_projects (CodeSlayerMenuBar *menu_bar,
                                    GFile             *file)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "open-projects", file);
+}
+
+/**
+ * codeslayer_menu_bar_new_projects:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ * @file: a #GFile.
+ */
+void
+codeslayer_menu_bar_new_projects (CodeSlayerMenuBar *menu_bar, 
+                                  gchar             *file_name)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "new-projects", file_name);
 }
 
 /**

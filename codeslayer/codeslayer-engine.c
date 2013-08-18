@@ -50,6 +50,8 @@ static void codeslayer_engine_class_init                (CodeSlayerEngineClass  
 static void codeslayer_engine_init                      (CodeSlayerEngine       *engine);
 static void codeslayer_engine_finalize                  (CodeSlayerEngine       *engine);
 
+static void new_editor_action                           (CodeSlayerEngine       *engine);
+static void open_editor_action                          (CodeSlayerEngine       *engine);
 static void save_editor_action                          (CodeSlayerEngine       *engine);
 static void save_all_editors_action                     (CodeSlayerEngine       *engine);
 static void close_editor_action                         (CodeSlayerEngine       *engine);
@@ -167,6 +169,12 @@ codeslayer_engine_new (GtkWindow             *window,
   priv->side_pane = side_pane;
   priv->bottom_pane = bottom_pane;
   
+  g_signal_connect_swapped (G_OBJECT (menubar), "new-editor",
+                            G_CALLBACK (new_editor_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (menubar), "open-editor",
+                            G_CALLBACK (open_editor_action), engine);
+  
   g_signal_connect_swapped (G_OBJECT (menubar), "save-editor",
                             G_CALLBACK (save_editor_action), engine);
   
@@ -231,6 +239,18 @@ codeslayer_engine_new (GtkWindow             *window,
                             G_CALLBACK (notify_visible_pane_action), engine);
 
   return engine;
+}
+
+static void
+new_editor_action (CodeSlayerEngine *engine)
+{
+  g_print ("new_editor_action\n");
+}
+
+static void
+open_editor_action (CodeSlayerEngine *engine)
+{
+  g_print ("open_editor_action\n");
 }
 
 static void

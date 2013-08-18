@@ -43,6 +43,7 @@ struct _CodeSlayerMenuBarClass
 {
   GtkMenuBarClass parent_class;
 
+  void (*new_projects) (CodeSlayerMenuBar *menu_bar);
   void (*open_projects) (CodeSlayerMenuBar *menu_bar);
   void (*add_projects) (CodeSlayerMenuBar *menu_bar);
   void (*find_projects) (CodeSlayerMenuBar *menu_bar);
@@ -50,6 +51,8 @@ struct _CodeSlayerMenuBarClass
   void (*show_side_pane) (CodeSlayerMenuBar *menu_bar);
   void (*show_bottom_pane) (CodeSlayerMenuBar *menu_bar);
   void (*draw_spaces) (CodeSlayerMenuBar *menu_bar);
+  void (*new_editor) (CodeSlayerMenuBar *menu_bar);
+  void (*open_editor) (CodeSlayerMenuBar *menu_bar);
   void (*save_editor) (CodeSlayerMenuBar *menu_bar);
   void (*save_all_editors) (CodeSlayerMenuBar *menu_bar);
   void (*close_editor) (CodeSlayerMenuBar *menu_bar);
@@ -81,6 +84,8 @@ GtkWidget*      codeslayer_menu_bar_new                        (GtkWidget       
                                                                 CodeSlayerPreferences *preferences, 
                                                                 CodeSlayerSettings    *settings);
                                                              
+void            codeslayer_menu_bar_new_editor                 (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_open_editor                (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_save_editor                (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_save_all_editors           (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_close_editor               (CodeSlayerMenuBar     *menu_bar);
@@ -126,6 +131,8 @@ GtkAccelGroup*  codeslayer_menu_bar_get_accel_group            (CodeSlayerMenuBa
 
 void            codeslayer_menu_bar_open_projects              (CodeSlayerMenuBar     *menu_bar, 
                                                                 GFile                 *file);
+void            codeslayer_menu_bar_new_projects               (CodeSlayerMenuBar     *menu_bar, 
+                                                                gchar                 *file_name);
 void            codeslayer_menu_bar_add_projects               (CodeSlayerMenuBar     *menu_bar, 
                                                                 GSList                *files);
 void            codeslayer_menu_bar_show_plugins               (CodeSlayerMenuBar     *menu_bar);

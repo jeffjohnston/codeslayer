@@ -33,6 +33,8 @@ static void codeslayer_menu_bar_editor_finalize    (CodeSlayerMenuBarEditor     
 
 static void add_menu_items                         (CodeSlayerMenuBarEditor      *menu_bar_editor);
 
+static void new_editor_action                      (CodeSlayerMenuBarEditor      *menu_bar_editor);
+static void open_editor_action                     (CodeSlayerMenuBarEditor      *menu_bar_editor);
 static void save_editor_action                     (CodeSlayerMenuBarEditor      *menu_bar_editor);
 static void save_all_editors_action                (CodeSlayerMenuBarEditor      *menu_bar_editor);
 static void close_editor_action                    (CodeSlayerMenuBarEditor      *menu_bar_editor);
@@ -50,6 +52,8 @@ struct _CodeSlayerMenuBarEditorPrivate
   GtkAccelGroup *accel_group;
   GtkWidget     *menu_bar;
   GtkWidget     *menu;  
+  GtkWidget     *new_item;
+  GtkWidget     *open_item;
   GtkWidget     *save_item;
   GtkWidget     *save_all_item;
   GtkWidget     *close_tab_item;
@@ -116,6 +120,8 @@ static void
 add_menu_items (CodeSlayerMenuBarEditor *menu_bar_editor)
 {
   CodeSlayerMenuBarEditorPrivate *priv;
+  GtkWidget *new_item;
+  GtkWidget *open_item;
   GtkWidget *save_item;
   GtkWidget *save_all_item;
   GtkWidget *close_tab_item;
@@ -124,8 +130,17 @@ add_menu_items (CodeSlayerMenuBarEditor *menu_bar_editor)
   
   priv = CODESLAYER_MENU_BAR_EDITOR_GET_PRIVATE (menu_bar_editor);
 
-  save_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_SAVE, 
-                                                       priv->accel_group);
+  new_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, priv->accel_group);
+  priv->new_item = new_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), new_item);
+
+  open_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_OPEN, priv->accel_group);
+  priv->open_item = open_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), open_item);
+
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
+
+  save_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_SAVE, priv->accel_group);
   priv->save_item = save_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), save_item);
 
@@ -155,6 +170,12 @@ add_menu_items (CodeSlayerMenuBarEditor *menu_bar_editor)
   g_signal_connect_swapped (G_OBJECT (preferences_item), "activate",
                             G_CALLBACK (show_preferences_action), menu_bar_editor);  
 
+  g_signal_connect_swapped (G_OBJECT (new_item), "activate",
+                            G_CALLBACK (new_editor_action), menu_bar_editor);
+  
+  g_signal_connect_swapped (G_OBJECT (open_item), "activate",
+                            G_CALLBACK (open_editor_action), menu_bar_editor);
+  
   g_signal_connect_swapped (G_OBJECT (save_item), "activate",
                             G_CALLBACK (save_editor_action), menu_bar_editor);
   
@@ -190,6 +211,22 @@ codeslayer_menu_bar_editor_sync_with_notebook (CodeSlayerMenuBarEditor *menu_bar
   gtk_widget_set_sensitive (priv->save_all_item, sensitive);
   gtk_widget_set_sensitive (priv->close_tab_item, sensitive);
 }                                                         
+
+static void
+new_editor_action (CodeSlayerMenuBarEditor *menu_bar_editor)
+{
+  CodeSlayerMenuBarEditorPrivate *priv;
+  priv = CODESLAYER_MENU_BAR_EDITOR_GET_PRIVATE (menu_bar_editor);
+  codeslayer_menu_bar_new_editor (CODESLAYER_MENU_BAR (priv->menu_bar));
+}
+
+static void
+open_editor_action (CodeSlayerMenuBarEditor *menu_bar_editor)
+{
+  CodeSlayerMenuBarEditorPrivate *priv;
+  priv = CODESLAYER_MENU_BAR_EDITOR_GET_PRIVATE (menu_bar_editor);
+  codeslayer_menu_bar_open_editor (CODESLAYER_MENU_BAR (priv->menu_bar));
+}
 
 static void
 save_editor_action (CodeSlayerMenuBarEditor *menu_bar_editor)
