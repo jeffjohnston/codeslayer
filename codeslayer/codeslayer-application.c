@@ -33,7 +33,6 @@
 #include <codeslayer/codeslayer-menubar.h>
 #include <codeslayer/codeslayer-processbar.h>
 #include <codeslayer/codeslayer-plugins.h>
-#include <codeslayer/codeslayer-repository.h>
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-plugins.h>
@@ -61,7 +60,6 @@ static void create_settings                    (CodeSlayerApplication      *appl
 static void create_preferences                 (CodeSlayerApplication      *application);
 static void create_plugins                     (CodeSlayerApplication      *application);
 static void create_window                      (CodeSlayerApplication      *application);
-static void create_groups                      (CodeSlayerApplication      *application);
 static void create_menu                        (CodeSlayerApplication      *application);
 static void create_projects                    (CodeSlayerApplication      *application);
 static void create_project_properties          (CodeSlayerApplication      *application);
@@ -105,7 +103,6 @@ struct _CodeSlayerApplicationPrivate
   CodeSlayer               *codeslayer;
   GtkWidget                *process_bar;
   GtkWidget                *notebook;
-  CodeSlayerGroup          *group;
   CodeSlayerPlugins        *plugins;
   GtkWidget                *notebook_pane;
   GtkWidget                *side_pane;
@@ -143,7 +140,6 @@ codeslayer_application_finalize (CodeSlayerApplication *application)
   g_object_unref (priv->preferences);
   g_object_unref (priv->settings);
   g_object_unref (priv->engine);
-  /*g_object_unref (priv->group);*/
   g_object_unref (priv->plugins);
   g_object_unref (priv->codeslayer);
 
@@ -177,8 +173,6 @@ codeslayer_application_startup (GApplication *application)
 
   load_settings (CODESLAYER_APPLICATION (application));
 
-  create_groups (CODESLAYER_APPLICATION (application));
-
   create_menu (CODESLAYER_APPLICATION (application));
 
   create_notebook (CODESLAYER_APPLICATION (application));
@@ -204,8 +198,6 @@ codeslayer_application_startup (GApplication *application)
   set_visbility_of_panes (CODESLAYER_APPLICATION (application));
 
   load_plugins (CODESLAYER_APPLICATION (application));
-  
-  codeslayer_projects_engine_open_active_group (priv->projects_engine);  
 }
 
 static void
@@ -333,7 +325,6 @@ create_projects (CodeSlayerApplication *application)
   projects = codeslayer_projects_new (priv->window,
                                       priv->preferences, 
                                       priv->settings, 
-                                      priv->group, 
                                       priv->project_properties);
   priv->projects = projects;
 }
@@ -371,9 +362,6 @@ create_side_and_bottom_pane (CodeSlayerApplication *application)
   side_pane = codeslayer_side_pane_new (priv->preferences, priv->process_bar);
   priv->side_pane = side_pane;
   
-  codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (side_pane), 
-                                priv->projects, "Projects");
-
   bottom_pane = codeslayer_bottom_pane_new (priv->preferences);
   priv->bottom_pane = bottom_pane;
 }
@@ -422,16 +410,14 @@ create_engine (CodeSlayerApplication *application)
   priv->engine = engine;
 
   projects_engine = codeslayer_projects_engine_new (GTK_WINDOW (priv->window), 
-                                  priv->settings, 
-                                  priv->preferences, 
-                                  priv->plugins, 
-                                  priv->group, 
-                                  priv->projects, 
-                                  priv->menubar, 
-                                  priv->notebook_pane, 
-                                  priv->side_pane, 
-                                  priv->bottom_pane);
-  priv->engine = engine;
+                                                    priv->settings, 
+                                                    priv->preferences, 
+                                                    priv->plugins,
+                                                    priv->projects, 
+                                                    priv->menubar, 
+                                                    priv->notebook_pane, 
+                                                    priv->side_pane, 
+                                                    priv->bottom_pane);
   priv->projects_engine = projects_engine;
 }
 
@@ -448,14 +434,6 @@ create_menu (CodeSlayerApplication *application)
   
   g_signal_connect_swapped (G_OBJECT (menubar), "quit-application",
                             G_CALLBACK (quit_application_action), application);
-}
-
-static void 
-create_groups (CodeSlayerApplication *application)
-{
-  CodeSlayerApplicationPrivate *priv;
-  priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
-  priv->group = codeslayer_repository_get_group ();
 }
 
 static void
@@ -573,12 +551,10 @@ delete_event (GtkWidget             *window,
   CodeSlayerApplicationPrivate *priv;
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  if (!codeslayer_projects_engine_close_active_group (priv->projects_engine))
+  if (!codeslayer_projects_engine_save_projects (priv->projects_engine))
     return TRUE;
 
   save_settings (application);
-  /*TODO: this is where we want to save the projects file*/
-  /*codeslayer_repository_save_groups (priv->groups);*/
   return FALSE;
 }
 
@@ -588,7 +564,7 @@ quit_application_action (CodeSlayerApplication *application)
   CodeSlayerApplicationPrivate *priv;
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  if (!codeslayer_projects_engine_close_active_group (priv->projects_engine))
+  if (!codeslayer_projects_engine_save_projects (priv->projects_engine))
     return;
   
   save_settings (application);

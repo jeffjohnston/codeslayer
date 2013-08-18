@@ -69,7 +69,6 @@ GType codeslayer_projects_get_type (void) G_GNUC_CONST;
 GtkWidget*  codeslayer_projects_new                (GtkWidget             *window, 
                                                     CodeSlayerPreferences *preferences, 
                                                     CodeSlayerSettings    *settings, 
-                                                    CodeSlayerGroup       *group, 
                                                     GtkWidget             *project_properties);
 
 void        codeslayer_projects_load_group         (CodeSlayerProjects    *projects, 

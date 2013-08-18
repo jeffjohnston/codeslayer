@@ -51,6 +51,9 @@ codeslayer_group_get_type (void) G_GNUC_CONST;
 
 CodeSlayerGroup*    codeslayer_group_new (void);
 
+const gchar*        codeslayer_group_get_file_path             (CodeSlayerGroup   *group);
+void                codeslayer_group_set_file_path             (CodeSlayerGroup   *group, 
+                                                                const gchar       *file_path);
 const gchar*        codeslayer_group_get_name                  (CodeSlayerGroup   *group);
 void                codeslayer_group_set_name                  (CodeSlayerGroup   *group, 
                                                                 const gchar       *name);

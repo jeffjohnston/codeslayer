@@ -439,7 +439,6 @@ GtkWidget*
 codeslayer_projects_new (GtkWidget             *window, 
                          CodeSlayerPreferences *preferences,
                          CodeSlayerSettings    *settings,
-                         CodeSlayerGroup       *group,
                          GtkWidget             *project_properties)
 {
   CodeSlayerProjectsPrivate *priv;
@@ -452,7 +451,6 @@ codeslayer_projects_new (GtkWidget             *window,
   priv->window = window;
   priv->preferences = preferences;
   priv->settings = settings;
-  priv->group = group;
   priv->project_properties = project_properties;
   
   create_tree (CODESLAYER_PROJECTS (projects));
@@ -745,6 +743,7 @@ codeslayer_projects_load_group (CodeSlayerProjects *projects,
   CodeSlayerProjectsPrivate *priv;
   GList *list;  
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
+  priv->group = group;
   gtk_tree_store_clear (priv->treestore);
   list = codeslayer_group_get_projects (group);
   g_list_foreach (list, (GFunc) add_project, projects);

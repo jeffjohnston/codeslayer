@@ -50,19 +50,17 @@ struct _CodeSlayerProjectsEngineClass
 
 GType codeslayer_projects_engine_get_type (void) G_GNUC_CONST;
 
-CodeSlayerProjectsEngine*  codeslayer_projects_engine_new                 (GtkWindow                *window,
-                                                                           CodeSlayerSettings       *settings,
-                                                                           CodeSlayerPreferences    *preferences,
-                                                                           CodeSlayerPlugins        *plugins,
-                                                                           CodeSlayerGroup          *group,
-                                                                           GtkWidget                *projects,
-                                                                           GtkWidget                *menubar,
-                                                                           GtkWidget                *notebook_pane,
-                                                                           GtkWidget                *side_pane,
-                                                                           GtkWidget                *bottom_pane);
+CodeSlayerProjectsEngine*  codeslayer_projects_engine_new            (GtkWindow                *window,
+                                                                      CodeSlayerSettings       *settings,
+                                                                      CodeSlayerPreferences    *preferences,
+                                                                      CodeSlayerPlugins        *plugins,
+                                                                      GtkWidget                *projects,
+                                                                      GtkWidget                *menubar,
+                                                                      GtkWidget                *notebook_pane,
+                                                                      GtkWidget                *side_pane,
+                                                                      GtkWidget                *bottom_pane);
 
-gboolean                   codeslayer_projects_engine_close_active_group  (CodeSlayerProjectsEngine *engine);
-void                       codeslayer_projects_engine_open_active_group   (CodeSlayerProjectsEngine *engine);
+gboolean                   codeslayer_projects_engine_save_projects  (CodeSlayerProjectsEngine *engine);
 
 G_END_DECLS
 

@@ -172,6 +172,36 @@ codeslayer_abstract_pane_add  (CodeSlayerAbstractPane *abstract_pane,
 }
 
 /**
+ * codeslayer_abstract_pane_insert:
+ * @abstract_pane: a #CodeSlayerAbstractPane.
+ * @widget: a #GtkWidget.
+ * @title: the title for the tab.
+ * @position: the position to set.
+ *
+ * Add the widget to the side pane.
+ */
+void
+codeslayer_abstract_pane_insert  (CodeSlayerAbstractPane *abstract_pane, 
+                                  GtkWidget              *widget, 
+                                  const gchar            *title, 
+                                  gint                    position)
+{
+  CodeSlayerAbstractPanePrivate *priv;
+  GtkWidget *label;
+  gint page_num;
+  
+  priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
+
+  page_num = gtk_notebook_page_num (GTK_NOTEBOOK (priv->notebook), widget);
+
+  if (page_num == -1)
+    {
+      label = gtk_label_new (title); 
+      gtk_notebook_insert_page (GTK_NOTEBOOK (priv->notebook), widget, label, position);
+    }
+}
+
+/**
  * codeslayer_abstract_pane_remove:
  * @abstract_pane: a #CodeSlayerAbstractPane.
  * @widget: a #GtkWidget.

@@ -37,15 +37,15 @@ static void load_group                          (CodeSlayerGroup *group,
 static CodeSlayerPlugin* load_plugin_from_file  (gchar           *file_path);
 
 CodeSlayerGroup*
-codeslayer_repository_get_group (void)
+codeslayer_repository_get_group (GFile *file)
 {
   CodeSlayerGroup *group;
   xmlDoc *doc = NULL;
   xmlNode *root_element = NULL;
   gchar *file_path = NULL;
   
-  file_path = "/home/jeff/workspace/codeslayer.projects";
-
+  file_path = g_file_get_path (file);
+  
   doc = xmlReadFile (file_path, NULL, 0);
   if (doc == NULL) 
     {
@@ -60,6 +60,7 @@ codeslayer_repository_get_group (void)
   root_element = xmlDocGetRootElement (doc);
 
   load_group (group, root_element);
+  codeslayer_group_set_file_path (group, file_path);
 
   xmlFreeDoc (doc);
   xmlCleanupParser ();

@@ -22,6 +22,7 @@
 #include <codeslayer/codeslayer-projects-search.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-project.h>
+#include <codeslayer/codeslayer-project-properties.h>
 #include <codeslayer/codeslayer-repository.h>
 #include <codeslayer/codeslayer-menubar.h>
 #include <codeslayer/codeslayer-projects.h>
@@ -57,6 +58,8 @@ static void codeslayer_projects_engine_finalize    (CodeSlayerProjectsEngine    
 
 static void search_find_projects_action            (CodeSlayerProjectsEngine      *engine,
                                                     gchar                         *search_paths);
+static void open_projects_action                   (CodeSlayerProjectsEngine      *engine,
+                                                    GFile                         *file);
 static void add_projects_action                    (CodeSlayerProjectsEngine      *engine,
                                                     GSList                        *files);
 static void remove_project_action                  (CodeSlayerProjectsEngine      *engine,
@@ -150,7 +153,6 @@ codeslayer_projects_engine_new (GtkWindow             *window,
                                 CodeSlayerSettings    *settings,
                                 CodeSlayerPreferences *preferences,
                                 CodeSlayerPlugins     *plugins,
-                                CodeSlayerGroup       *group,
                                 GtkWidget             *projects, 
                                 GtkWidget             *menubar,
                                 GtkWidget             *notebook_pane, 
@@ -167,7 +169,6 @@ codeslayer_projects_engine_new (GtkWindow             *window,
   priv->settings = settings;
   priv->preferences = preferences;
   priv->plugins = plugins;
-  priv->group = group;
   priv->projects = projects;
   priv->menubar = menubar;
   priv->notebook = codeslayer_notebook_pane_get_notebook (CODESLAYER_NOTEBOOK_PANE (notebook_pane));
@@ -180,6 +181,9 @@ codeslayer_projects_engine_new (GtkWindow             *window,
   
   g_signal_connect_swapped (G_OBJECT (projects), "find-projects",
                             G_CALLBACK (search_find_projects_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (menubar), "open-projects",
+                            G_CALLBACK (open_projects_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (menubar), "add-projects",
                             G_CALLBACK (add_projects_action), engine);
@@ -209,15 +213,15 @@ codeslayer_projects_engine_new (GtkWindow             *window,
 }
 
 /**
- * codeslayer_projects_engine_close_active_group:
+ * codeslayer_projects_engine_save_projects:
  * @engine: a #CodeSlayerProjectsEngine.
  *
  * Close the current active #CodeSlayerGroup.
  *
- * Returns: TRUE if the active group closed successfully.
+ * Returns: TRUE if the projects closed successfully.
  */
 gboolean
-codeslayer_projects_engine_close_active_group (CodeSlayerProjectsEngine *engine)
+codeslayer_projects_engine_save_projects (CodeSlayerProjectsEngine *engine)
 {
   CodeSlayerProjectsEnginePrivate *priv;
   gint pages;
@@ -242,47 +246,42 @@ codeslayer_projects_engine_close_active_group (CodeSlayerProjectsEngine *engine)
       document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
       documents = g_list_append (documents, document);
     }
+  g_list_free (documents);
   
-  /*active_group = codeslayer_groups_get_active_group (priv->groups);*/
   /*TODO: this is where we save the documents*/
   /*codeslayer_repository_save_documents (active_group, documents);*/
-  g_list_free (documents);
   
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   
   return TRUE;
 }
 
-/**
- * codeslayer_projects_engine_open_active_group:
- * @engine: a #CodeSlayerProjectsEngine.
- *
- * Open the #CodeSlayerGroup marked as active.
- */
-void
-codeslayer_projects_engine_open_active_group (CodeSlayerProjectsEngine *engine)
+static void
+open_projects_action (CodeSlayerProjectsEngine *engine,
+                      GFile                    *file)
 {
   CodeSlayerProjectsEnginePrivate *priv;
-  CodeSlayerGroup *active_group;
+  CodeSlayerGroup *group;
   GList *documents;
   GList *tmp;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
-
-  active_group = priv->group;
   
-  codeslayer_preferences_load (priv->preferences, active_group);
-
-  if (codeslayer_group_get_projects (active_group) == NULL)
+  group = codeslayer_repository_get_group (file);
+  
+  if (group == NULL)
     {
-      GList* projects;
-      projects = codeslayer_group_get_projects (active_group);
-      codeslayer_group_set_projects (active_group, projects);
+      return;
     }
+    
+  codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
+                                   priv->projects, "Projects", 0);
   
-  codeslayer_projects_load_group (CODESLAYER_PROJECTS (priv->projects), active_group);
+  codeslayer_preferences_load (priv->preferences, group);
 
-  documents = codeslayer_group_get_documents (active_group);
+  codeslayer_projects_load_group (CODESLAYER_PROJECTS (priv->projects), group);
+
+  documents = codeslayer_group_get_documents (group);
   tmp = documents;
 
   while (tmp != NULL)
@@ -299,19 +298,12 @@ codeslayer_projects_engine_open_active_group (CodeSlayerProjectsEngine *engine)
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 
-  /*if (codeslayer_group_get_libs (active_group) == NULL)
-    {
-      GList *libs;
-      libs = codeslayer_repository_get_libs (active_group);
-      codeslayer_group_set_libs (active_group, libs);
-    }*/
-  
-  codeslayer_plugins_activate (priv->plugins, active_group);
+  codeslayer_plugins_activate (priv->plugins, group);
 }
 
 static void
 add_projects_action (CodeSlayerProjectsEngine *engine,
-                     GSList           *files)
+                     GSList                   *files)
 {
   CodeSlayerProjectsEnginePrivate *priv;
   CodeSlayerGroup *active_group;

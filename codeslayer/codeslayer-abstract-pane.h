@@ -58,6 +58,10 @@ void        codeslayer_abstract_pane_set_preferences   (CodeSlayerAbstractPane *
 void        codeslayer_abstract_pane_add               (CodeSlayerAbstractPane *abstract_pane, 
                                                         GtkWidget              *widget,
                                                         const gchar            *title);
+void        codeslayer_abstract_pane_insert            (CodeSlayerAbstractPane *abstract_pane, 
+                                                        GtkWidget              *widget,
+                                                        const gchar            *title, 
+                                                        gint                    position);
 void        codeslayer_abstract_pane_remove            (CodeSlayerAbstractPane *abstract_pane, 
                                                         GtkWidget              *widget);                                         
 

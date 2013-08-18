@@ -57,6 +57,7 @@ enum
   RENAME_GROUP,
   REMOVE_GROUP,
   GROUP_CHANGED,
+  OPEN_PROJECTS,
   ADD_PROJECTS,
   SAVE_EDITOR,
   SAVE_ALL_EDITORS,
@@ -97,6 +98,22 @@ G_DEFINE_TYPE (CodeSlayerMenuBar, codeslayer_menu_bar, GTK_TYPE_MENU_BAR)
 static void
 codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
 {
+  /**
+   * CodeSlayerMenuBar::open-projects
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::open-projects signal is a request to add a new project. 
+   */
+  codeslayer_menu_bar_signals[OPEN_PROJECTS] =
+    g_signal_new ("open-projects", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, open_projects),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
+
   /**
    * CodeSlayerMenuBar::add-project
    * @menu: the menu that received the signal
@@ -938,6 +955,18 @@ void
 codeslayer_menu_bar_draw_spaces (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "draw-spaces");
+}
+
+/**
+ * codeslayer_menu_bar_open_projects:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ * @file: a #GFile.
+ */
+void
+codeslayer_menu_bar_open_projects (CodeSlayerMenuBar *menu_bar, 
+                                   GFile             *file)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "open-projects", file);
 }
 
 /**

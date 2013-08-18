@@ -43,6 +43,7 @@ struct _CodeSlayerMenuBarClass
 {
   GtkMenuBarClass parent_class;
 
+  void (*open_projects) (CodeSlayerMenuBar *menu_bar);
   void (*add_projects) (CodeSlayerMenuBar *menu_bar);
   void (*find_projects) (CodeSlayerMenuBar *menu_bar);
   void (*fullscreen_window) (CodeSlayerMenuBar *menu_bar);
@@ -123,6 +124,8 @@ void            codeslayer_menu_bar_remove_tools_item          (CodeSlayerMenuBa
                                                                 GtkWidget             *item);
 GtkAccelGroup*  codeslayer_menu_bar_get_accel_group            (CodeSlayerMenuBar     *menu_bar);
 
+void            codeslayer_menu_bar_open_projects              (CodeSlayerMenuBar     *menu_bar, 
+                                                                GFile                 *file);
 void            codeslayer_menu_bar_add_projects               (CodeSlayerMenuBar     *menu_bar, 
                                                                 GSList                *files);
 void            codeslayer_menu_bar_show_plugins               (CodeSlayerMenuBar     *menu_bar);

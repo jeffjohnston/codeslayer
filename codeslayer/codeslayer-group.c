@@ -47,6 +47,7 @@ typedef struct _CodeSlayerGroupPrivate CodeSlayerGroupPrivate;
 
 struct _CodeSlayerGroupPrivate
 {
+  gchar *file_path;
   gchar *name;
   GList *projects;
   GList *documents;
@@ -59,6 +60,7 @@ G_DEFINE_TYPE (CodeSlayerGroup, codeslayer_group, G_TYPE_OBJECT)
 enum
 {
   PROP_0,
+  PROP_FILE_PATH,
   PROP_NAME,
   PROP_PROJECTS,
   PROP_LIBS
@@ -75,6 +77,17 @@ codeslayer_group_class_init (CodeSlayerGroupClass *klass)
   gobject_class->set_property = codeslayer_group_set_property;
 
   g_type_class_add_private (klass, sizeof (CodeSlayerGroupPrivate));
+
+  /**
+   * CodeSlayerGroup:file_path:
+   *
+   * The text that will be displayed for the group.
+   */
+  g_object_class_install_property (gobject_class, PROP_FILE_PATH,
+                                   g_param_spec_string ("file_path", 
+                                                        "File Path", 
+                                                        "File Path", "",
+                                                        G_PARAM_READWRITE));
 
   /**
    * CodeSlayerGroup:name:
@@ -115,6 +128,7 @@ codeslayer_group_init (CodeSlayerGroup *group)
 {
   CodeSlayerGroupPrivate *priv; 
   priv = CODESLAYER_GROUP_GET_PRIVATE (group);
+  priv->file_path = NULL;
   priv->name = NULL;
   priv->projects = NULL;
   priv->documents = NULL;
@@ -127,6 +141,10 @@ codeslayer_group_finalize (CodeSlayerGroup *group)
 {
   CodeSlayerGroupPrivate *priv;
   priv = CODESLAYER_GROUP_GET_PRIVATE (group);
+  if (priv->file_path)
+    {
+      g_free (priv->file_path);
+    }
   if (priv->name)
     {
       g_free (priv->name);
@@ -168,6 +186,9 @@ codeslayer_group_get_property (GObject    *object,
 
   switch (prop_id)
     {
+    case PROP_FILE_PATH:
+      g_value_set_string (value, priv->file_path);
+      break;
     case PROP_NAME:
       g_value_set_string (value, priv->name);
       break;
@@ -195,6 +216,9 @@ codeslayer_group_set_property (GObject      *object,
 
   switch (prop_id)
     {
+    case PROP_FILE_PATH:
+      codeslayer_group_set_file_path (group, g_value_get_string (value));
+      break;
     case PROP_NAME:
       codeslayer_group_set_name (group, g_value_get_string (value));
       break;
@@ -221,6 +245,37 @@ CodeSlayerGroup*
 codeslayer_group_new (void)
 {
   return CODESLAYER_GROUP (g_object_new (codeslayer_group_get_type (), NULL));
+}
+
+/**
+ * codeslayer_group_get_file_path:
+ * @group: a #CodeSlayerGroup.
+ *
+ * Returns: the text to display for the group. For internal use only.
+ */
+const gchar*
+codeslayer_group_get_file_path (CodeSlayerGroup *group)
+{
+  return CODESLAYER_GROUP_GET_PRIVATE (group)->file_path;
+}
+
+/**
+ * codeslayer_group_set_file_path:
+ * @group: a #CodeSlayerGroup.
+ * @name: the text to display for the group.
+ */
+void
+codeslayer_group_set_file_path (CodeSlayerGroup *group, 
+                                const gchar     *file_path)
+{
+  CodeSlayerGroupPrivate *priv;
+  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
+  if (priv->file_path)
+    {
+      g_free (priv->file_path);
+      priv->file_path = NULL;
+    }
+  priv->file_path = g_strdup (file_path);
 }
 
 /**
