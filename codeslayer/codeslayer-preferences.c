@@ -51,9 +51,8 @@ typedef struct _CodeSlayerPreferencesPrivate CodeSlayerPreferencesPrivate;
 
 struct _CodeSlayerPreferencesPrivate
 {
-  GtkWidget       *window;
-  GKeyFile        *key_file;
-  CodeSlayerGroup *group;
+  GtkWidget *window;
+  GKeyFile  *key_file;
 };
 
 enum
@@ -379,7 +378,6 @@ codeslayer_preferences_load (CodeSlayerPreferences *preferences,
   GKeyFile *key_file;
   
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  priv->group = group;
   
   if (priv->key_file)
     {

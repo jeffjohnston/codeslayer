@@ -41,7 +41,7 @@ typedef struct _CodeSlayerPluginsPrivate CodeSlayerPluginsPrivate;
 struct _CodeSlayerPluginsPrivate
 {
   GtkWidget *window;
-  GList *list;
+  GList     *list;
 };
 
 G_DEFINE_TYPE (CodeSlayerPlugins, codeslayer_plugins, G_TYPE_OBJECT)

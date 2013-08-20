@@ -54,9 +54,6 @@ CodeSlayerGroup*    codeslayer_group_new (void);
 const gchar*        codeslayer_group_get_file_path             (CodeSlayerGroup   *group);
 void                codeslayer_group_set_file_path             (CodeSlayerGroup   *group, 
                                                                 const gchar       *file_path);
-const gchar*        codeslayer_group_get_name                  (CodeSlayerGroup   *group);
-void                codeslayer_group_set_name                  (CodeSlayerGroup   *group, 
-                                                                const gchar       *name);
 GList*              codeslayer_group_get_projects              (CodeSlayerGroup   *group);
 void                codeslayer_group_set_projects              (CodeSlayerGroup   *group,
                                                                 GList             *projects);
@@ -70,19 +67,18 @@ void                codeslayer_group_remove_project            (CodeSlayerGroup 
                                                                 CodeSlayerProject *project);
 gboolean            codeslayer_group_contains_project          (CodeSlayerGroup   *group,
                                                                 CodeSlayerProject *project);                                                        
-
 GList*              codeslayer_group_get_documents             (CodeSlayerGroup   *group);
 void                codeslayer_group_set_documents             (CodeSlayerGroup   *group,
                                                                 GList             *documents);
 void                codeslayer_group_add_document              (CodeSlayerGroup    *group,
                                                                 CodeSlayerDocument *document);
-
+void                codeslayer_group_remove_document           (CodeSlayerGroup    *group,
+                                                                CodeSlayerDocument *document);
 GList*              codeslayer_group_get_preferences           (CodeSlayerGroup   *group);
 void                codeslayer_group_set_preferences           (CodeSlayerGroup   *group,
                                                                 GList             *preferences);
 void                codeslayer_group_add_preference            (CodeSlayerGroup    *group,
                                                                 CodeSlayerPreference *preference);
-
 GList*              codeslayer_group_get_libs                  (CodeSlayerGroup   *group);
 void                codeslayer_group_set_libs                  (CodeSlayerGroup   *group, 
                                                                 GList             *libs);

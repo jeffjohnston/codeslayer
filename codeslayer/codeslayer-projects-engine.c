@@ -81,7 +81,9 @@ static void rename_file_path_action                (CodeSlayerProjectsEngine    
                                                     gchar                         *file_path,
                                                     gchar                         *renamed_file_path);
 static void show_plugins_action                    (CodeSlayerProjectsEngine      *engine);
-                            
+static void page_removed_action                    (CodeSlayerProjectsEngine      *engine, 
+                                                    GtkWidget                     *page,
+                                                    guint                          removed_page_num);
                                                    
 #define CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROJECTS_ENGINE_TYPE, CodeSlayerProjectsEnginePrivate))
@@ -214,6 +216,9 @@ codeslayer_projects_engine_new (GtkWindow             *window,
   g_signal_connect_swapped (G_OBJECT (menubar), "show-plugins",
                             G_CALLBACK (show_plugins_action), engine);
   
+  g_signal_connect_swapped (G_OBJECT (priv->notebook), "page-removed",
+                            G_CALLBACK (page_removed_action), engine);
+
   return engine;
 }
 
@@ -229,34 +234,15 @@ gboolean
 codeslayer_projects_engine_save_projects (CodeSlayerProjectsEngine *engine)
 {
   CodeSlayerProjectsEnginePrivate *priv;
-  gint pages;
-  GList *documents = NULL;
-  gint page;
-  
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
+  if (priv->group == NULL)
+    return TRUE;
+  
   if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
-    {
-      return FALSE;
-    }
+    return FALSE;
 
-  codeslayer_plugins_deactivate (priv->plugins);
-
-  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
-  for (page = 0; page < pages; page++)
-    {
-      GtkWidget *notebook_page;
-      CodeSlayerDocument *document;
-      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
-      document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-      documents = g_list_append (documents, document);
-    }
-  g_list_free (documents);
-  
-  /*TODO: this is where we save the documents*/
-  /*codeslayer_repository_save_documents (active_group, documents);*/
-  
-  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
+  codeslayer_repository_save_projects (priv->group);
   
   return TRUE;
 }
@@ -273,44 +259,47 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
                       GFile                    *file)
 {
   CodeSlayerProjectsEnginePrivate *priv;
-  CodeSlayerGroup *group;
+  GList *projects;
   GList *documents;
-  GList *tmp;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  group = codeslayer_repository_get_group (file);
+  if (priv->group != NULL)
+    g_object_unref (priv->group);
   
-  if (group == NULL)
-    {
-      return;
-    }
+  priv->group = codeslayer_repository_get_projects (file);  
+  if (priv->group == NULL)
+    return;
     
   codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
                                    priv->projects, "Projects", 0);
   
-  codeslayer_preferences_load (priv->preferences, group);
+  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
+  codeslayer_projects_close_all (CODESLAYER_PROJECTS (priv->projects));
 
-  codeslayer_projects_load_group (CODESLAYER_PROJECTS (priv->projects), group);
+  codeslayer_preferences_load (priv->preferences, priv->group);
 
-  documents = codeslayer_group_get_documents (group);
-  tmp = documents;
-
-  while (tmp != NULL)
+  projects = codeslayer_group_get_projects (priv->group);
+  while (projects != NULL)
     {
-      CodeSlayerDocument *document = tmp->data;
-      codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), 
-                                           document);
-      tmp = g_list_next (tmp);
+      CodeSlayerProject *project = projects->data;
+      codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
+      projects = g_list_next (projects);
     }
 
-  g_list_foreach (documents, (GFunc) g_object_unref, NULL);
-  g_list_free (documents);
+  documents = codeslayer_group_get_documents (priv->group);
+  while (documents != NULL)
+    {
+      CodeSlayerDocument *document = documents->data;
+      codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), 
+                                           document);
+      documents = g_list_next (documents);
+    }
 
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 
-  codeslayer_plugins_activate (priv->plugins, group);
+  codeslayer_plugins_activate (priv->plugins, priv->group);
 }
 
 static void
@@ -318,12 +307,9 @@ add_projects_action (CodeSlayerProjectsEngine *engine,
                      GSList                   *files)
 {
   CodeSlayerProjectsEnginePrivate *priv;
-  CodeSlayerGroup *active_group;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
 
-  active_group = priv->group;
-  
   while (files != NULL)
     {
       GFile *file = files->data;
@@ -344,10 +330,10 @@ add_projects_action (CodeSlayerProjectsEngine *engine,
       
       g_object_force_floating (G_OBJECT (project));
 
-      codeslayer_group_add_project (active_group, project);
+      codeslayer_group_add_project (priv->group, project);
 
       /*TODO: this was where we saved the projects*/
-      /*codeslayer_repository_save_projects (active_group);*/
+      /*codeslayer_repository_save_projects (priv->group);*/
 
       codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
       
@@ -362,15 +348,13 @@ remove_project_action (CodeSlayerProjectsEngine *engine,
                        CodeSlayerProject        *project)
 {
   CodeSlayerProjectsEnginePrivate *priv;
-  CodeSlayerGroup *active_group;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
-  active_group = priv->group;
 
-  codeslayer_group_remove_project (active_group, project);
+  codeslayer_group_remove_project (priv->group, project);
   
   /*TODO: this is where we saved the projects*/
-  /*codeslayer_repository_save_projects (active_group);*/
+  /*codeslayer_repository_save_projects (priv->group);*/
   
   g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
 }
@@ -380,13 +364,9 @@ project_renamed_action (CodeSlayerProjectsEngine *engine,
                         CodeSlayerProject        *project)
 {
   /*CodeSlayerProjectsEnginePrivate *priv;
-  CodeSlayerGroup *active_group;
-  
-  priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
-  active_group = codeslayer_groups_get_active_group (priv->groups);*/
-
+  priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);*/
   /*TODO: this is where we saved the projects*/
-  /*codeslayer_repository_save_projects (active_group);*/
+  /*codeslayer_repository_save_projects (priv->group);*/
 }
 
 static void
@@ -449,6 +429,7 @@ select_projects_document_action (CodeSlayerProjectsEngine *engine,
 
   /* all passed so add to the notebook */
 
+  codeslayer_group_add_document (priv->group, document);
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (notebook), document);
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));  
@@ -676,8 +657,20 @@ static void
 show_plugins_action (CodeSlayerProjectsEngine *engine)
 {
   CodeSlayerProjectsEnginePrivate *priv;
-  CodeSlayerGroup *active_group;
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
-  active_group = priv->group;
-  codeslayer_plugins_run_dialog (priv->plugins, active_group);
+  codeslayer_plugins_run_dialog (priv->plugins, priv->group);
+}
+
+static void
+page_removed_action (CodeSlayerProjectsEngine *engine, 
+                     GtkWidget                *page,
+                     guint                     removed_page_num)
+{
+  CodeSlayerProjectsEnginePrivate *priv;
+  CodeSlayerDocument *document;
+  
+  priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
+  
+  document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (page));
+  codeslayer_group_remove_document (priv->group, document);
 }

@@ -42,9 +42,9 @@ typedef struct _CodeSlayerNotebookPagePrivate CodeSlayerNotebookPagePrivate;
 
 struct _CodeSlayerNotebookPagePrivate
 {
-  GtkWidget          *editor;
-  GtkWidget          *document_not_found_info_bar;
-  GtkWidget          *external_changes_info_bar;
+  GtkWidget *editor;
+  GtkWidget *document_not_found_info_bar;
+  GtkWidget *external_changes_info_bar;
 };
 
 enum

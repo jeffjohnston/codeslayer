@@ -178,6 +178,7 @@ new_projects_action (CodeSlayerMenuBarProjects *menu_bar_projects)
   CodeSlayerMenuBarProjectsPrivate *priv;
   GtkWidget *dialog;
   gint response;
+  gchar *file_name = NULL;
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
@@ -194,13 +195,14 @@ new_projects_action (CodeSlayerMenuBarProjects *menu_bar_projects)
 
   response = gtk_dialog_run (GTK_DIALOG (dialog));
   if (response == GTK_RESPONSE_OK)
+    file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+  gtk_widget_destroy (GTK_WIDGET (dialog));
+
+  if (file_name != NULL)
     {
-      gchar *file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
       codeslayer_menu_bar_new_projects (CODESLAYER_MENU_BAR (priv->menu_bar), file_name);
       g_free (file_name);
     }
-
-  gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 static void

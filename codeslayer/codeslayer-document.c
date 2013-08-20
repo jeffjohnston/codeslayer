@@ -174,6 +174,8 @@ codeslayer_document_finalize (CodeSlayerDocument *document)
     gtk_tree_row_reference_free (priv->tree_row_reference);      
       
   G_OBJECT_CLASS (codeslayer_document_parent_class)->finalize (G_OBJECT (document));
+  
+  g_print ("codeslayer_document_finalize\n");
 }
 
 static void

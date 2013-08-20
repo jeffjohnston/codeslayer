@@ -37,7 +37,7 @@ static void load_group                          (CodeSlayerGroup *group,
 static CodeSlayerPlugin* load_plugin_from_file  (gchar           *file_path);
 
 CodeSlayerGroup*
-codeslayer_repository_get_group (GFile *file)
+codeslayer_repository_get_projects (GFile *file)
 {
   CodeSlayerGroup *group;
   xmlDoc *doc = NULL;
@@ -55,7 +55,6 @@ codeslayer_repository_get_group (GFile *file)
     }
 
   group = codeslayer_group_new ();
-  codeslayer_group_set_name (group, "default");
   
   root_element = xmlDocGetRootElement (doc);
 
@@ -152,6 +151,12 @@ load_group (CodeSlayerGroup *group,
         }
       load_group (group, cur_node->children);
     }
+}
+
+void
+codeslayer_repository_save_projects (CodeSlayerGroup *group)
+{
+
 }
 
 GList*

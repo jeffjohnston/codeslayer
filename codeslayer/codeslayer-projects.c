@@ -45,8 +45,6 @@ static void create_popup_menu                 (CodeSlayerProjects      *projects
 static gboolean treeview_row_expanded_action  (CodeSlayerProjects      *projects, 
                                                GtkTreeIter             *iter, 
                                                GtkTreePath             *path);
-static void add_project                       (CodeSlayerProject       *project, 
-                                               CodeSlayerProjects      *projects);
 static gboolean select_document               (CodeSlayerDocument      *document, 
                                                CodeSlayerProjects      *projects);
 
@@ -122,7 +120,6 @@ struct _CodeSlayerProjectsPrivate
   GtkWidget             *window;
   CodeSlayerPreferences *preferences;
   CodeSlayerSettings    *settings;
-  CodeSlayerGroup       *group;
   GtkWidget             *project_properties;
   GtkWidget             *properties_dialog;
   GtkWidget             *name_entry;
@@ -730,30 +727,17 @@ create_project_properties_dialog (CodeSlayerProjects *projects)
 }
 
 /**
- * codeslayer_projects_load_group:
+ * codeslayer_projects_close_all:
  * @projects: a #CodeSlayerProjects.
- * @group: a #CodeSlayerGroup to load into the tree.
  *
- * Load the group projects into the tree.
+ * Clear the projects in the tree.
  */
 void
-codeslayer_projects_load_group (CodeSlayerProjects *projects,
-                                CodeSlayerGroup    *group)
+codeslayer_projects_close_all (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
-  GList *list;  
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-  priv->group = group;
   gtk_tree_store_clear (priv->treestore);
-  list = codeslayer_group_get_projects (group);
-  g_list_foreach (list, (GFunc) add_project, projects);
-}
-
-static void
-add_project (CodeSlayerProject  *project, 
-             CodeSlayerProjects *projects)
-{
-  codeslayer_projects_add_project (projects, project);
 }
 
 /**
@@ -822,7 +806,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
     
   project = codeslayer_document_get_project (document);
   
-  if (project == NULL || !codeslayer_group_contains_project (priv->group, project))
+  if (project == NULL)
     {
       g_warning ("Cannot select document from the tree because the project is invalid.");  
       return FALSE;

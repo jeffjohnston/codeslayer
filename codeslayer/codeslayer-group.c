@@ -25,19 +25,20 @@
  * @include: codeslayer/codeslayer-group.h
  */
 
-static void codeslayer_group_class_init            (CodeSlayerGroupClass *klass);
-static void codeslayer_group_init                  (CodeSlayerGroup      *group);
-static void codeslayer_group_finalize              (CodeSlayerGroup      *group);
-static void codeslayer_group_get_property          (GObject              *object, 
-                                                    guint                 prop_id, 
-                                                    GValue               *value, 
-                                                    GParamSpec           *pspec);
-static void codeslayer_group_set_property          (GObject              *object, 
-                                                    guint                 prop_id, 
-                                                    const GValue         *value, 
-                                                    GParamSpec           *pspec);
-static void codeslayer_group_remove_all_projects   (CodeSlayerGroup      *group);
-static void codeslayer_group_remove_all_documents  (CodeSlayerGroup      *group);
+static void codeslayer_group_class_init              (CodeSlayerGroupClass *klass);
+static void codeslayer_group_init                    (CodeSlayerGroup      *group);
+static void codeslayer_group_finalize                (CodeSlayerGroup      *group);
+static void codeslayer_group_get_property            (GObject              *object, 
+                                                      guint                 prop_id, 
+                                                      GValue               *value, 
+                                                      GParamSpec           *pspec);
+static void codeslayer_group_set_property            (GObject              *object, 
+                                                      guint                 prop_id, 
+                                                      const GValue         *value, 
+                                                      GParamSpec           *pspec);
+static void codeslayer_group_remove_all_projects     (CodeSlayerGroup      *group);
+static void codeslayer_group_remove_all_documents    (CodeSlayerGroup      *group);
+static void codeslayer_group_remove_all_libs         (CodeSlayerGroup      *group);
 static void codeslayer_group_remove_all_preferences  (CodeSlayerGroup      *group);
 
 #define CODESLAYER_GROUP_GET_PRIVATE(obj) \
@@ -48,11 +49,10 @@ typedef struct _CodeSlayerGroupPrivate CodeSlayerGroupPrivate;
 struct _CodeSlayerGroupPrivate
 {
   gchar *file_path;
-  gchar *name;
   GList *projects;
   GList *documents;
-  GList *preferences;
   GList *libs;
+  GList *preferences;
 };
 
 G_DEFINE_TYPE (CodeSlayerGroup, codeslayer_group, G_TYPE_OBJECT)
@@ -61,9 +61,10 @@ enum
 {
   PROP_0,
   PROP_FILE_PATH,
-  PROP_NAME,
   PROP_PROJECTS,
-  PROP_LIBS
+  PROP_DOCUMENTS,
+  PROP_LIBS, 
+  PROP_PREFERENCES  
 };
 
 static void 
@@ -90,17 +91,6 @@ codeslayer_group_class_init (CodeSlayerGroupClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-   * CodeSlayerGroup:name:
-   *
-   * The text that will be displayed for the group.
-   */
-  g_object_class_install_property (gobject_class, PROP_NAME,
-                                   g_param_spec_string ("name", 
-                                                        "Name", 
-                                                        "Name", "",
-                                                        G_PARAM_READWRITE));
-
-  /**
    * CodeSlayerGroup:projects:
    *
    * The list of projects in the group.
@@ -109,6 +99,17 @@ codeslayer_group_class_init (CodeSlayerGroupClass *klass)
                                    g_param_spec_pointer ("projects",
                                                          "Projects",
                                                          "Projects",
+                                                         G_PARAM_READWRITE));
+
+  /**
+   * CodeSlayerGroup:documents:
+   *
+   * The list of documents in the group.
+   */
+  g_object_class_install_property (gobject_class, PROP_LIBS,
+                                   g_param_spec_pointer ("documents",
+                                                         "Documents",
+                                                         "Documents",
                                                          G_PARAM_READWRITE));
                                                          
   /**
@@ -121,6 +122,17 @@ codeslayer_group_class_init (CodeSlayerGroupClass *klass)
                                                          "Libs",
                                                          "Libs",
                                                          G_PARAM_READWRITE));
+                                                         
+  /**
+   * CodeSlayerGroup:preferences:
+   *
+   * The list of preferences in the group.
+   */
+  g_object_class_install_property (gobject_class, PROP_LIBS,
+                                   g_param_spec_pointer ("preferences",
+                                                         "Preferences",
+                                                         "Preferences",
+                                                         G_PARAM_READWRITE));                                                         
 }
 
 static void
@@ -129,11 +141,10 @@ codeslayer_group_init (CodeSlayerGroup *group)
   CodeSlayerGroupPrivate *priv; 
   priv = CODESLAYER_GROUP_GET_PRIVATE (group);
   priv->file_path = NULL;
-  priv->name = NULL;
   priv->projects = NULL;
   priv->documents = NULL;
-  priv->preferences = NULL;
   priv->libs = NULL;
+  priv->preferences = NULL;
 }
 
 static void
@@ -141,35 +152,18 @@ codeslayer_group_finalize (CodeSlayerGroup *group)
 {
   CodeSlayerGroupPrivate *priv;
   priv = CODESLAYER_GROUP_GET_PRIVATE (group);
+  
   if (priv->file_path)
-    {
-      g_free (priv->file_path);
-    }
-  if (priv->name)
-    {
-      g_free (priv->name);
-    }
-  if (priv->libs)
-    {
-      g_list_foreach (priv->libs, (GFunc) g_free, NULL);    
-      g_list_free (priv->libs);
-    }
-  if (priv->projects)
-    {
-      codeslayer_group_remove_all_projects (group);
-      g_list_free (priv->projects);          
-    }
-  if (priv->documents)
-    {
-      codeslayer_group_remove_all_documents (group);
-      g_list_free (priv->documents);          
-    }
-  if (priv->preferences)
-    {
-      codeslayer_group_remove_all_preferences (group);
-      g_list_free (priv->preferences);          
-    }
+    g_free (priv->file_path);
+  
+  codeslayer_group_remove_all_projects (group);
+  codeslayer_group_remove_all_documents (group);
+  codeslayer_group_remove_all_libs (group);
+  codeslayer_group_remove_all_preferences (group);
+
   G_OBJECT_CLASS (codeslayer_group_parent_class)->finalize (G_OBJECT (group));
+  
+  g_print ("codeslayer_group_finalize\n");
 }
 
 static void
@@ -189,14 +183,17 @@ codeslayer_group_get_property (GObject    *object,
     case PROP_FILE_PATH:
       g_value_set_string (value, priv->file_path);
       break;
-    case PROP_NAME:
-      g_value_set_string (value, priv->name);
-      break;
     case PROP_PROJECTS:
       g_value_set_pointer (value, priv->projects);
       break;
+    case PROP_DOCUMENTS:
+      g_value_set_pointer (value, priv->documents);
+      break;
     case PROP_LIBS:
       g_value_set_pointer (value, priv->libs);
+      break;
+    case PROP_PREFERENCES:
+      g_value_set_pointer (value, priv->preferences);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -219,14 +216,17 @@ codeslayer_group_set_property (GObject      *object,
     case PROP_FILE_PATH:
       codeslayer_group_set_file_path (group, g_value_get_string (value));
       break;
-    case PROP_NAME:
-      codeslayer_group_set_name (group, g_value_get_string (value));
-      break;
     case PROP_PROJECTS:
       codeslayer_group_set_projects (group, g_value_get_pointer (value));
       break;
+    case PROP_DOCUMENTS:
+      codeslayer_group_set_documents (group, g_value_get_pointer (value));
+      break;
     case PROP_LIBS:
       codeslayer_group_set_libs (group, g_value_get_pointer (value));
+      break;
+    case PROP_PREFERENCES:
+      codeslayer_group_set_preferences (group, g_value_get_pointer (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -279,43 +279,12 @@ codeslayer_group_set_file_path (CodeSlayerGroup *group,
 }
 
 /**
- * codeslayer_group_get_name:
- * @group: a #CodeSlayerGroup.
- *
- * Returns: the text to display for the group. For internal use only.
- */
-const gchar*
-codeslayer_group_get_name (CodeSlayerGroup *group)
-{
-  return CODESLAYER_GROUP_GET_PRIVATE (group)->name;
-}
-
-/**
- * codeslayer_group_set_name:
- * @group: a #CodeSlayerGroup.
- * @name: the text to display for the group.
- */
-void
-codeslayer_group_set_name (CodeSlayerGroup *group, 
-                           const gchar     *name)
-{
-  CodeSlayerGroupPrivate *priv;
-  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
-  if (priv->name)
-    {
-      g_free (priv->name);
-      priv->name = NULL;
-    }
-  priv->name = g_strdup (name);
-}
-
-/**
  * codeslayer_group_get_projects:
  * @group: a #CodeSlayerGroup.
  *
  * Returns: The list of #CodeSlayerProject objects within the group.
  */
-GList *
+GList*
 codeslayer_group_get_projects (CodeSlayerGroup *group)
 {
   return CODESLAYER_GROUP_GET_PRIVATE (group)->projects;
@@ -428,9 +397,14 @@ static void
 codeslayer_group_remove_all_projects (CodeSlayerGroup *group)
 {
   CodeSlayerGroupPrivate *priv;
-  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
-  g_list_foreach (priv->projects, (GFunc) g_object_unref, NULL);
-  priv->projects = g_list_remove_all (priv->projects, NULL);
+  priv = CODESLAYER_GROUP_GET_PRIVATE (group);  
+  if (priv->projects)
+    {
+      g_list_foreach (priv->projects, (GFunc) g_object_unref, NULL);
+      priv->projects = g_list_remove_all (priv->projects, NULL);
+      g_list_free (priv->projects);
+      priv->projects = NULL;
+    }
 }
 
 /**
@@ -475,8 +449,27 @@ codeslayer_group_add_document (CodeSlayerGroup    *group,
 {
   CodeSlayerGroupPrivate *priv;
   priv = CODESLAYER_GROUP_GET_PRIVATE (group);
-  priv->documents = g_list_prepend (priv->documents, document);
-  g_object_ref_sink (G_OBJECT (document));
+  if (priv->documents == NULL || g_list_index (priv->documents, document) == -1)
+    {
+      priv->documents = g_list_prepend (priv->documents, document);
+      g_object_ref_sink (G_OBJECT (document));
+    }
+}
+
+/**
+ * codeslayer_group_remove_document:
+ * @group: a #CodeSlayerGroup.
+ * @document: the #CodeSlayerDocument to remove from the group.
+ *
+ * For internal use only.
+ */
+void
+codeslayer_group_remove_document (CodeSlayerGroup    *group,
+                                  CodeSlayerDocument *document)
+{
+  CodeSlayerGroupPrivate *priv;
+  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
+  priv->documents = g_list_remove (priv->documents, document);
 }
 
 static void
@@ -484,63 +477,13 @@ codeslayer_group_remove_all_documents (CodeSlayerGroup *group)
 {
   CodeSlayerGroupPrivate *priv;
   priv = CODESLAYER_GROUP_GET_PRIVATE (group);
-  g_list_foreach (priv->documents, (GFunc) g_object_unref, NULL);
-  priv->documents = g_list_remove_all (priv->documents, NULL);
-}
-
-/**
- * codeslayer_group_get_preferences:
- * @group: a #CodeSlayerGroup.
- *
- * Returns: The list of #CodeSlayerPreference objects within the group.
- */
-GList *
-codeslayer_group_get_preferences (CodeSlayerGroup *group)
-{
-  return CODESLAYER_GROUP_GET_PRIVATE (group)->preferences;
-}
-
-/**
- * codeslayer_group_set_preferences:
- * @group: a #CodeSlayerGroup.
- * @projects: the list of #CodeSlayerPreference objects to add to the group.
- *
- * For internal use only.
- */
-void
-codeslayer_group_set_preferences (CodeSlayerGroup *group, 
-                                  GList           *preferences)
-{
-  CodeSlayerGroupPrivate *priv;
-  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
-  priv->preferences = preferences;
-  g_list_foreach (priv->preferences, (GFunc) g_object_ref_sink, NULL);
-}
-
-/**
- * codeslayer_group_add_preference:
- * @group: a #CodeSlayerGroup.
- * @preference: the #CodeSlayerPreference to add to the group.
- *
- * For internal use only.
- */
-void
-codeslayer_group_add_preference (CodeSlayerGroup      *group,
-                                 CodeSlayerPreference *preference)
-{
-  CodeSlayerGroupPrivate *priv;
-  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
-  priv->preferences = g_list_prepend (priv->preferences, preference);
-  g_object_ref_sink (G_OBJECT (preference));
-}
-
-static void
-codeslayer_group_remove_all_preferences (CodeSlayerGroup *group)
-{
-  CodeSlayerGroupPrivate *priv;
-  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
-  g_list_foreach (priv->preferences, (GFunc) g_object_unref, NULL);
-  priv->preferences = g_list_remove_all (priv->preferences, NULL);
+  if (priv->documents)
+    {
+      /*g_list_foreach (priv->documents, (GFunc) g_object_unref, NULL);*/
+      priv->documents = g_list_remove_all (priv->documents, NULL);
+      g_list_free (priv->documents);
+      priv->documents = NULL;
+    }  
 }
 
 /**
@@ -620,6 +563,20 @@ codeslayer_group_add_lib (CodeSlayerGroup *group,
   priv->libs = g_list_prepend (priv->libs, g_strdup (lib));
 }                                                        
 
+static void
+codeslayer_group_remove_all_libs (CodeSlayerGroup *group)
+{
+  CodeSlayerGroupPrivate *priv;
+  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
+  if (priv->libs)
+    {
+      g_list_foreach (priv->libs, (GFunc) g_free, NULL);
+      priv->libs = g_list_remove_all (priv->libs, NULL);
+      g_list_free (priv->libs);
+      priv->libs = NULL;
+    }
+}
+
 /**
  * codeslayer_group_remove_lib:
  * @group: a #CodeSlayerGroup.
@@ -648,4 +605,64 @@ codeslayer_group_remove_lib (CodeSlayerGroup *group,
         }
       libs = g_list_next (libs);
     }
-}                             
+}
+
+/**
+ * codeslayer_group_get_preferences:
+ * @group: a #CodeSlayerGroup.
+ *
+ * Returns: The list of #CodeSlayerPreference objects within the group.
+ */
+GList *
+codeslayer_group_get_preferences (CodeSlayerGroup *group)
+{
+  return CODESLAYER_GROUP_GET_PRIVATE (group)->preferences;
+}
+
+/**
+ * codeslayer_group_set_preferences:
+ * @group: a #CodeSlayerGroup.
+ * @projects: the list of #CodeSlayerPreference objects to add to the group.
+ *
+ * For internal use only.
+ */
+void
+codeslayer_group_set_preferences (CodeSlayerGroup *group, 
+                                  GList           *preferences)
+{
+  CodeSlayerGroupPrivate *priv;
+  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
+  priv->preferences = preferences;
+  g_list_foreach (priv->preferences, (GFunc) g_object_ref_sink, NULL);
+}
+
+/**
+ * codeslayer_group_add_preference:
+ * @group: a #CodeSlayerGroup.
+ * @preference: the #CodeSlayerPreference to add to the group.
+ *
+ * For internal use only.
+ */
+void
+codeslayer_group_add_preference (CodeSlayerGroup      *group,
+                                 CodeSlayerPreference *preference)
+{
+  CodeSlayerGroupPrivate *priv;
+  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
+  priv->preferences = g_list_prepend (priv->preferences, preference);
+  g_object_ref_sink (G_OBJECT (preference));
+}
+
+static void
+codeslayer_group_remove_all_preferences (CodeSlayerGroup *group)
+{
+  CodeSlayerGroupPrivate *priv;
+  priv = CODESLAYER_GROUP_GET_PRIVATE (group);
+  if (priv->preferences)
+    {
+      g_list_foreach (priv->preferences, (GFunc) g_object_unref, NULL);
+      priv->preferences = g_list_remove_all (priv->preferences, NULL);
+      g_list_free (priv->preferences);
+      priv->preferences = NULL;
+    }
+}

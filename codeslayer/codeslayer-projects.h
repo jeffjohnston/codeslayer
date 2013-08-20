@@ -23,7 +23,6 @@
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-project.h>
-#include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-document.h>
 
 G_BEGIN_DECLS
@@ -71,8 +70,7 @@ GtkWidget*  codeslayer_projects_new                (GtkWidget             *windo
                                                     CodeSlayerSettings    *settings, 
                                                     GtkWidget             *project_properties);
 
-void        codeslayer_projects_load_group         (CodeSlayerProjects    *projects, 
-                                                    CodeSlayerGroup       *group);
+void        codeslayer_projects_close_all          (CodeSlayerProjects    *projects);
 void        codeslayer_projects_add_project        (CodeSlayerProjects    *projects, 
                                                     CodeSlayerProject     *project);
 gboolean    codeslayer_projects_select_document    (CodeSlayerProjects    *projects, 

@@ -554,6 +554,8 @@ delete_event (GtkWidget             *window,
   if (!codeslayer_projects_engine_save_projects (priv->projects_engine))
     return TRUE;
 
+  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
+  codeslayer_plugins_deactivate (priv->plugins);
   save_settings (application);
   return FALSE;
 }
@@ -567,6 +569,8 @@ quit_application_action (CodeSlayerApplication *application)
   if (!codeslayer_projects_engine_save_projects (priv->projects_engine))
     return;
   
+  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
+  codeslayer_plugins_deactivate (priv->plugins);
   save_settings (application);
   gtk_widget_destroy (priv->window);
 }

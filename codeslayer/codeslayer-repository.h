@@ -25,8 +25,9 @@
 
 G_BEGIN_DECLS 
 
-CodeSlayerGroup*  codeslayer_repository_get_group    (GFile   *file);
-GList*            codeslayer_repository_get_plugins  (GObject *data);
+CodeSlayerGroup*  codeslayer_repository_get_projects   (GFile           *file);
+void              codeslayer_repository_save_projects  (CodeSlayerGroup *group);
+GList*            codeslayer_repository_get_plugins    (GObject         *data);
 
 G_END_DECLS
 
