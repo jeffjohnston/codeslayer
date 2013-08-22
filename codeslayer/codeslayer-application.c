@@ -23,7 +23,6 @@
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
 #include <codeslayer/codeslayer-projects.h>
-#include <codeslayer/codeslayer-projects-engine.h>
 #include <codeslayer/codeslayer-project-properties.h>
 #include <codeslayer/codeslayer-notebook.h>
 #include <codeslayer/codeslayer-editor.h>
@@ -98,7 +97,6 @@ struct _CodeSlayerApplicationPrivate
   GtkWidget                *project_properties;
   GtkWidget                *menubar;
   CodeSlayerEngine         *engine;
-  CodeSlayerProjectsEngine *projects_engine;
   CodeSlayerProcesses      *processes;
   CodeSlayer               *codeslayer;
   GtkWidget                *process_bar;
@@ -395,30 +393,19 @@ create_engine (CodeSlayerApplication *application)
 {
   CodeSlayerApplicationPrivate *priv;
   CodeSlayerEngine *engine;
-  CodeSlayerProjectsEngine *projects_engine;
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
   engine = codeslayer_engine_new (GTK_WINDOW (priv->window), 
                                   priv->settings, 
                                   priv->preferences, 
-                                  priv->plugins, 
+                                  priv->plugins,
+                                  priv->projects,
                                   priv->menubar, 
                                   priv->notebook_pane, 
                                   priv->side_pane, 
                                   priv->bottom_pane);
   priv->engine = engine;
-
-  projects_engine = codeslayer_projects_engine_new (GTK_WINDOW (priv->window), 
-                                                    priv->settings, 
-                                                    priv->preferences, 
-                                                    priv->plugins,
-                                                    priv->projects, 
-                                                    priv->menubar, 
-                                                    priv->notebook_pane, 
-                                                    priv->side_pane, 
-                                                    priv->bottom_pane);
-  priv->projects_engine = projects_engine;
 }
 
 static void 
@@ -551,7 +538,7 @@ delete_event (GtkWidget             *window,
   CodeSlayerApplicationPrivate *priv;
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  if (!codeslayer_projects_engine_save_projects (priv->projects_engine))
+  if (!codeslayer_engine_save_projects (priv->engine))
     return TRUE;
 
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
@@ -566,7 +553,7 @@ quit_application_action (CodeSlayerApplication *application)
   CodeSlayerApplicationPrivate *priv;
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  if (!codeslayer_projects_engine_save_projects (priv->projects_engine))
+  if (!codeslayer_engine_save_projects (priv->engine))
     return;
   
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));

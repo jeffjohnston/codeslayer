@@ -207,6 +207,8 @@ codeslayer_editor_finalize (CodeSlayerEditor *editor)
   g_object_unref (priv->document);
 
   G_OBJECT_CLASS (codeslayer_editor_parent_class)->finalize (G_OBJECT (editor));
+  
+  g_print ("codeslayer_editor_finalize\n");
 }
 
 /**

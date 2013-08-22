@@ -40,63 +40,63 @@ typedef struct
   CodeSlayerProject *project;
 } SearchContext;
 
-static void codeslayer_projects_search_class_init    (CodeSlayerProjectsSearchClass *klass);
-static void codeslayer_projects_search_init          (CodeSlayerProjectsSearch      *search);
-static void codeslayer_projects_search_finalize      (CodeSlayerProjectsSearch      *search);
+static void codeslayer_projects_search_class_init  (CodeSlayerProjectsSearchClass *klass);
+static void codeslayer_projects_search_init        (CodeSlayerProjectsSearch      *search);
+static void codeslayer_projects_search_finalize    (CodeSlayerProjectsSearch      *search);
 
-static gboolean on_delete_event             (CodeSlayerProjectsSearch      *search);
-static void add_search_fields               (CodeSlayerProjectsSearch      *search);
-static void add_more_options                (CodeSlayerProjectsSearch      *search);
-static void add_results_window              (CodeSlayerProjectsSearch      *search);
-static void add_button_box                  (CodeSlayerProjectsSearch      *search);
-static void add_find_entry                  (CodeSlayerProjectsSearch      *search);
-static void add_file_entry                  (CodeSlayerProjectsSearch      *search);
-static void add_scope_combo_box             (CodeSlayerProjectsSearch      *search);
-static void add_stop_button                 (CodeSlayerProjectsSearch      *search);
-static void add_match_case_button           (CodeSlayerProjectsSearch      *search);
-static void close_action                    (CodeSlayerProjectsSearch      *search);
-static void find_action                     (CodeSlayerProjectsSearch      *search);                                             
-static void stop_action                     (CodeSlayerProjectsSearch      *search);
-static void match_case_action               (CodeSlayerProjectsSearch      *search);
-static void scope_combo_box_changed         (CodeSlayerProjectsSearch      *search);
-static gboolean has_selection_scope         (CodeSlayerProjectsSearch      *search);
-static void execute                         (CodeSlayerProjectsSearch      *search);
-static void search_projects                 (CodeSlayerProjectsSearch      *search,
-                                             GPatternSpec          *find_pattern,
-                                             GPatternSpec          *file_pattern,
-                                             GList                 *include_types,
-                                             GList                 *exclude_dirs);
-static void create_search_files             (CodeSlayerProjectsSearch      *search,
-                                             GPatternSpec          *find_pattern, 
-                                             GPatternSpec          *file_pattern, 
-                                             GFile                 *file,
-                                             GList                 **search_files, 
-                                             GList                 *include_types,
-                                             GList                 *exclude_dirs);
-static void create_search_results           (CodeSlayerProjectsSearch      *search,
-                                             GPatternSpec          *find_pattern, 
-                                             GPatternSpec          *file_pattern, 
-                                             GFile                 *file, 
-                                             GList                 **search_files);
-static void add_project                     (CodeSlayerProjectsSearch      *search,
-                                             CodeSlayerProject     *project,
-                                             GtkTreeIter           *project_iter);
-static gboolean select_document             (CodeSlayerProjectsSearch      *search,
-                                             GtkTreeIter           *treeiter,
-                                             GtkTreeViewColumn     *column);
-static gchar* get_globbing                  (const gchar           *entry, 
-                                             gboolean               to_lowercase);
-static void get_text                        (gchar                 **text, 
-                                             gboolean               to_lowercase);
-static gboolean is_active                   (GtkWidget             *toggle_button);
-static gint sort_iter_compare_func          (GtkTreeModel          *model, 
-                                             GtkTreeIter           *a, 
-                                             GtkTreeIter           *b, 
-                                             gpointer               userdata);
+static gboolean on_delete_event                    (CodeSlayerProjectsSearch      *search);
+static void add_search_fields                      (CodeSlayerProjectsSearch      *search);
+static void add_more_options                       (CodeSlayerProjectsSearch      *search);
+static void add_results_window                     (CodeSlayerProjectsSearch      *search);
+static void add_button_box                         (CodeSlayerProjectsSearch      *search);
+static void add_find_entry                         (CodeSlayerProjectsSearch      *search);
+static void add_file_entry                         (CodeSlayerProjectsSearch      *search);
+static void add_scope_combo_box                    (CodeSlayerProjectsSearch      *search);
+static void add_stop_button                        (CodeSlayerProjectsSearch      *search);
+static void add_match_case_button                  (CodeSlayerProjectsSearch      *search);
+static void close_action                           (CodeSlayerProjectsSearch      *search);
+static void find_action                            (CodeSlayerProjectsSearch      *search);                                             
+static void stop_action                            (CodeSlayerProjectsSearch      *search);
+static void match_case_action                      (CodeSlayerProjectsSearch      *search);
+static void scope_combo_box_changed                (CodeSlayerProjectsSearch      *search);
+static gboolean has_selection_scope                (CodeSlayerProjectsSearch      *search);
+static void execute                                (CodeSlayerProjectsSearch      *search);
+static void search_projects                        (CodeSlayerProjectsSearch      *search,
+                                                    GPatternSpec                  *find_pattern,
+                                                    GPatternSpec                  *file_pattern,
+                                                    GList                         *include_types,
+                                                    GList                         *exclude_dirs);
+static void create_search_files                    (CodeSlayerProjectsSearch      *search,
+                                                    GPatternSpec                  *find_pattern, 
+                                                    GPatternSpec                  *file_pattern, 
+                                                    GFile                         *file,
+                                                    GList                         **search_files, 
+                                                    GList                         *include_types,
+                                                    GList                         *exclude_dirs);
+static void create_search_results                  (CodeSlayerProjectsSearch      *search,
+                                                    GPatternSpec                  *find_pattern, 
+                                                    GPatternSpec                  *file_pattern, 
+                                                    GFile                         *file, 
+                                                    GList                         **search_files);
+static void add_project                            (CodeSlayerProjectsSearch      *search,
+                                                    CodeSlayerProject             *project,
+                                                    GtkTreeIter                   *project_iter);
+static gboolean select_document                    (CodeSlayerProjectsSearch      *search,
+                                                    GtkTreeIter                   *treeiter,
+                                                    GtkTreeViewColumn             *column);
+static gchar* get_globbing                         (const gchar                   *entry, 
+                                                    gboolean                       to_lowercase);
+static void get_text                               (gchar                         **text, 
+                                                    gboolean                       to_lowercase);
+static gboolean is_active                          (GtkWidget                     *toggle_button);
+static gint sort_iter_compare_func                 (GtkTreeModel                  *model, 
+                                                    GtkTreeIter                   *a, 
+                                                    GtkTreeIter                   *b, 
+                                                    gpointer                       userdata);
                                                   
-static gboolean set_stop_button_sensitive   (GtkWidget             *stop_button);
-static gboolean create_search_tree          (SearchContext         *context);
-static void destroy_search_tree             (SearchContext         *context);
+static gboolean set_stop_button_sensitive          (GtkWidget                     *stop_button);
+static gboolean create_search_tree                 (SearchContext                 *context);
+static void destroy_search_tree                    (SearchContext                 *context);
 
 
 #define CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE(obj) \
@@ -106,25 +106,25 @@ typedef struct _CodeSlayerProjectsSearchPrivate CodeSlayerProjectsSearchPrivate;
 
 struct _CodeSlayerProjectsSearchPrivate
 {
-  GtkWindow               *parent;
-  CodeSlayerGroup         *group;
-  CodeSlayerPreferences   *preferences;
-  GtkWidget               *vbox;
-  GtkWidget               *grid;
-  GtkWidget               *find_entry;
-  GtkWidget               *file_entry;
-  GtkWidget               *stop_button;
-  GtkWidget               *find_button;
-  GtkWidget               *match_case_button;
-  GtkWidget               *treeview;
-  GtkTreeStore            *treestore;
-  GtkCellRenderer         *renderer;
-  GtkWidget               *options_grid;
-  GtkWidget               *scope_combo_box;
-  gchar                   *file_paths;
-  gboolean                 stop_request;
-  const gchar             *find_text;
-  const gchar             *file_text;
+  GtkWindow              *parent;
+  CodeSlayerGroup        *group;
+  CodeSlayerPreferences  *preferences;
+  GtkWidget              *vbox;
+  GtkWidget              *grid;
+  GtkWidget              *find_entry;
+  GtkWidget              *file_entry;
+  GtkWidget              *stop_button;
+  GtkWidget              *find_button;
+  GtkWidget              *match_case_button;
+  GtkWidget              *treeview;
+  GtkTreeStore           *treestore;
+  GtkCellRenderer        *renderer;
+  GtkWidget              *options_grid;
+  GtkWidget              *scope_combo_box;
+  gchar                  *file_paths;
+  gboolean                stop_request;
+  const gchar            *find_text;
+  const gchar            *file_text;
 };
 
 enum
@@ -252,8 +252,7 @@ codeslayer_projects_search_finalize (CodeSlayerProjectsSearch *search)
  */
 GtkWidget*
 codeslayer_projects_search_new (GtkWindow             *window, 
-                       CodeSlayerPreferences *preferences, 
-                       CodeSlayerGroup       *group)
+                                CodeSlayerPreferences *preferences)
 {
   CodeSlayerProjectsSearchPrivate *priv;
   GtkWidget *search;
@@ -262,7 +261,6 @@ codeslayer_projects_search_new (GtkWindow             *window,
   priv = CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE (search);
   priv->parent = window;
   priv->preferences = preferences;
-  priv->group = group;
   priv->file_paths = NULL;
   
   gtk_window_set_transient_for (GTK_WINDOW (search), window);
@@ -352,6 +350,15 @@ codeslayer_projects_search_clear (CodeSlayerProjectsSearch *search)
   gtk_entry_set_text (GTK_ENTRY (priv->find_entry), ""); 
   gtk_entry_set_text (GTK_ENTRY (priv->file_entry), ""); 
 }
+
+void 
+codeslayer_projects_search_set_group (CodeSlayerProjectsSearch *search, 
+                                      CodeSlayerGroup          *group)
+{
+  CodeSlayerProjectsSearchPrivate *priv;
+  priv = CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE (search);
+  priv->group = group;
+}                                 
 
 static void
 add_search_fields (CodeSlayerProjectsSearch *search)
@@ -738,10 +745,10 @@ execute (CodeSlayerProjectsSearch *search)
 
 static void
 search_projects (CodeSlayerProjectsSearch *search,
-                 GPatternSpec         *find_pattern,
-                 GPatternSpec         *file_pattern,
-                 GList                *exclude_types,
-                 GList                *exclude_dirs)
+                 GPatternSpec             *find_pattern,
+                 GPatternSpec             *file_pattern,
+                 GList                    *exclude_types,
+                 GList                    *exclude_dirs)
 {
   CodeSlayerProjectsSearchPrivate *priv;
   GList *projects;

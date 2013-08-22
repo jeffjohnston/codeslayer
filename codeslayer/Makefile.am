@@ -34,7 +34,6 @@ pkginclude_HEADERS = \
     codeslayer-preferences-utils.h \
     codeslayer-preferences-listview.h \
     codeslayer-projects.h \
-    codeslayer-projects-engine.h \
     codeslayer-projects-search.h \
     codeslayer-projects-selection.h \
     codeslayer-project-properties.h \
@@ -89,7 +88,6 @@ libcodeslayer_la_SOURCES = \
     codeslayer-preferences-utils.c \
     codeslayer-preferences-listview.c \
     codeslayer-projects.c \
-    codeslayer-projects-engine.c \
     codeslayer-projects-search.c \
     codeslayer-projects-selection.c \
     codeslayer-project-properties.c \

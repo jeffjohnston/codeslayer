@@ -49,14 +49,15 @@ struct _CodeSlayerProjectsSearchClass
 
 GType codeslayer_projects_search_get_type (void) G_GNUC_CONST;
      
-GtkWidget*    codeslayer_projects_search_new             (GtkWindow             *window, 
-                                                 CodeSlayerPreferences *preferences, 
-                                                 CodeSlayerGroup       *group);
+GtkWidget*  codeslayer_projects_search_new             (GtkWindow                *window, 
+                                                        CodeSlayerPreferences    *preferences);
 
-void          codeslayer_projects_search_find_projects   (CodeSlayerProjectsSearch      *search);
-void          codeslayer_projects_search_find_selection  (CodeSlayerProjectsSearch      *search, 
-                                                 const gchar           *file_paths);
-void          codeslayer_projects_search_clear           (CodeSlayerProjectsSearch      *search);
+void        codeslayer_projects_search_find_projects   (CodeSlayerProjectsSearch *search);
+void        codeslayer_projects_search_find_selection  (CodeSlayerProjectsSearch *search, 
+                                                        const gchar              *file_paths);
+void        codeslayer_projects_search_clear           (CodeSlayerProjectsSearch *search);
+void        codeslayer_projects_search_set_group       (CodeSlayerProjectsSearch *search, 
+                                                        CodeSlayerGroup          *group);
 
 G_END_DECLS
 

@@ -118,6 +118,7 @@ typedef struct
 struct _CodeSlayerProjectsPrivate
 {
   GtkWidget             *window;
+  CodeSlayerGroup       *group;
   CodeSlayerPreferences *preferences;
   CodeSlayerSettings    *settings;
   GtkWidget             *project_properties;
@@ -727,18 +728,27 @@ create_project_properties_dialog (CodeSlayerProjects *projects)
 }
 
 /**
- * codeslayer_projects_close_all:
+ * codeslayer_projects_clear:
  * @projects: a #CodeSlayerProjects.
  *
  * Clear the projects in the tree.
  */
 void
-codeslayer_projects_close_all (CodeSlayerProjects *projects)
+codeslayer_projects_clear (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   gtk_tree_store_clear (priv->treestore);
 }
+
+void
+codeslayer_projects_set_group (CodeSlayerProjects *projects, 
+                               CodeSlayerGroup    *group)
+{
+  CodeSlayerProjectsPrivate *priv;
+  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
+  priv->group = group;
+}                               
 
 /**
  * codeslayer_projects_add_project:
@@ -806,7 +816,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
     
   project = codeslayer_document_get_project (document);
   
-  if (project == NULL)
+  if (project == NULL || !codeslayer_group_contains_project (priv->group, project))
     {
       g_warning ("Cannot select document from the tree because the project is invalid.");  
       return FALSE;
