@@ -118,7 +118,7 @@ typedef struct
 struct _CodeSlayerProjectsPrivate
 {
   GtkWidget             *window;
-  CodeSlayerGroup       *group;
+  CodeSlayerConfig       *config;
   CodeSlayerPreferences *preferences;
   CodeSlayerSettings    *settings;
   GtkWidget             *project_properties;
@@ -223,7 +223,7 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
    *
    * Note: for internal use only.
    *
-   * The ::remove-project signal is a request to remove the project from the group.
+   * The ::remove-project signal is a request to remove the project from the config.
    */
   codeslayer_projects_signals[REMOVE_PROJECT] =
     g_signal_new ("remove-project", 
@@ -426,7 +426,6 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
  * @window: a #GtkWindow.
  * @preferences: a #CodeSlayerPreferences.
  * @settings: a #CodeSlayerSettings.
- * @groups: a #CodeSlayerGroups.
  * @project_properties: a #CodeSlayerProjectProperties.
  *
  * Creates a new #CodeSlayerProjects.
@@ -742,12 +741,12 @@ codeslayer_projects_clear (CodeSlayerProjects *projects)
 }
 
 void
-codeslayer_projects_set_group (CodeSlayerProjects *projects, 
-                               CodeSlayerGroup    *group)
+codeslayer_projects_set_config (CodeSlayerProjects *projects, 
+                               CodeSlayerConfig    *config)
 {
   CodeSlayerProjectsPrivate *priv;
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-  priv->group = group;
+  priv->config = config;
 }                               
 
 /**
@@ -816,7 +815,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
     
   project = codeslayer_document_get_project (document);
   
-  if (project == NULL || !codeslayer_group_contains_project (priv->group, project))
+  if (project == NULL || !codeslayer_config_contains_project (priv->config, project))
     {
       g_warning ("Cannot select document from the tree because the project is invalid.");  
       return FALSE;

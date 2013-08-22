@@ -21,7 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-preferences.h>
-#include <codeslayer/codeslayer-group.h>
+#include <codeslayer/codeslayer-config.h>
 
 G_BEGIN_DECLS
 
@@ -56,8 +56,8 @@ void        codeslayer_projects_search_find_projects   (CodeSlayerProjectsSearch
 void        codeslayer_projects_search_find_selection  (CodeSlayerProjectsSearch *search, 
                                                         const gchar              *file_paths);
 void        codeslayer_projects_search_clear           (CodeSlayerProjectsSearch *search);
-void        codeslayer_projects_search_set_group       (CodeSlayerProjectsSearch *search, 
-                                                        CodeSlayerGroup          *group);
+void        codeslayer_projects_search_set_config      (CodeSlayerProjectsSearch *search, 
+                                                        CodeSlayerConfig         *config);
 
 G_END_DECLS
 

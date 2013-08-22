@@ -26,12 +26,12 @@
 
 /**
  * SECTION:codeslayer-preferences
- * @short_description: The group preferences.
+ * @short_description: The config preferences.
  * @title: CodeSlayerPreferences
  * @include: codeslayer/codeslayer-preferences.h
  *
- * Saves the group preferences using the GKeyFile. The file is saved in the 
- * users home directory under the .codeslayer/groups/"active group" folder.
+ * Saves the config preferences using the GKeyFile. The file is saved in the 
+ * users home directory under the .codeslayer" folder.
  */
 
 static void codeslayer_preferences_class_init  (CodeSlayerPreferencesClass *klass);
@@ -365,13 +365,13 @@ codeslayer_preferences_set_string (CodeSlayerPreferences *preferences,
 /**
  * codeslayer_preferences_load:
  * @preferences: a #CodeSlayerPreferences.
- * @group: a #CodeSlayerGroup.
+ * @config: a #CodeSlayerConfig.
  *
- * Load the group preferences.
+ * Load the config preferences.
  */
 void
 codeslayer_preferences_load (CodeSlayerPreferences *preferences, 
-                             CodeSlayerGroup       *group)
+                             CodeSlayerConfig      *config)
 {
   CodeSlayerPreferencesPrivate *priv;
   GList *list;
@@ -385,7 +385,7 @@ codeslayer_preferences_load (CodeSlayerPreferences *preferences,
       priv->key_file = NULL;
     }
 
-  list = codeslayer_group_get_preferences (group);
+  list = codeslayer_config_get_preferences (config);
   
   key_file = g_key_file_new ();
   priv->key_file = key_file;

@@ -58,7 +58,7 @@ struct _CodeSlayerPluginsSelectorPrivate
   GtkWidget         *tree;
   GtkListStore      *store;
   CodeSlayerPlugins *plugins;
-  CodeSlayerGroup   *group;
+  CodeSlayerConfig   *config;
 };
 
 enum
@@ -96,7 +96,7 @@ codeslayer_plugins_selector_finalize (CodeSlayerPluginsSelector *plugins_selecto
 
 GtkWidget*
 codeslayer_plugins_selector_new (CodeSlayerPlugins *plugins, 
-                                  CodeSlayerGroup   *group)
+                                  CodeSlayerConfig   *config)
 {
   CodeSlayerPluginsSelectorPrivate *priv;
   GtkWidget *plugins_selector;
@@ -105,7 +105,7 @@ codeslayer_plugins_selector_new (CodeSlayerPlugins *plugins,
                                       NULL);
   priv = CODESLAYER_PLUGINS_SELECTOR_GET_PRIVATE (plugins_selector);
   priv->plugins = plugins;
-  priv->group = group;
+  priv->config = config;
   
   load_plugins (CODESLAYER_PLUGINS_SELECTOR (plugins_selector));
   
@@ -271,20 +271,20 @@ plugin_enabled_action (CodeSlayerPluginsSelector *plugins_selector,
                           
       if (codeslayer_plugin_get_enabled (plugin))
         {
-          codeslayer_group_add_lib (priv->group, lib);  
+          codeslayer_config_add_lib (priv->config, lib);  
           codeslayer_plugin_activate (plugin);
           if (codeslayer_plugin_is_configurable (plugin))
             gtk_widget_set_sensitive (priv->configure_button, TRUE);
         }      
       else
         {
-          codeslayer_group_remove_lib (priv->group, lib);
+          codeslayer_config_remove_lib (priv->config, lib);
           codeslayer_plugin_deactivate (plugin);
           gtk_widget_set_sensitive (priv->configure_button, FALSE);    
         }
         
       /*TODO: we need to save the libs*/
-      /*codeslayer_repository_save_libs (priv->group);*/
+      /*codeslayer_repository_save_libs (priv->config);*/
     } 
 }
 

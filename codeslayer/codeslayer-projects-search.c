@@ -29,7 +29,7 @@
  * @title: CodeSlayerProjectsSearch
  * @include: codeslayer/codeslayer-search.h
  *
- * The global search will find text in the files under the active group.
+ * The global search will find text in the files under the active config.
  */
 
 typedef struct
@@ -107,7 +107,7 @@ typedef struct _CodeSlayerProjectsSearchPrivate CodeSlayerProjectsSearchPrivate;
 struct _CodeSlayerProjectsSearchPrivate
 {
   GtkWindow              *parent;
-  CodeSlayerGroup        *group;
+  CodeSlayerConfig        *config;
   CodeSlayerPreferences  *preferences;
   GtkWidget              *vbox;
   GtkWidget              *grid;
@@ -244,7 +244,7 @@ codeslayer_projects_search_finalize (CodeSlayerProjectsSearch *search)
  * codeslayer_projects_search_new:
  * @window: a #GtkWindow.
  * @preferences: a #CodeSlayerPreferences.
- * @groups: a #CodeSlayerGroups.
+ * @configs: a #CodeSlayerConfigs.
  *
  * Creates a new #CodeSlayerProjectsSearch.
  *
@@ -352,12 +352,12 @@ codeslayer_projects_search_clear (CodeSlayerProjectsSearch *search)
 }
 
 void 
-codeslayer_projects_search_set_group (CodeSlayerProjectsSearch *search, 
-                                      CodeSlayerGroup          *group)
+codeslayer_projects_search_set_config (CodeSlayerProjectsSearch *search, 
+                                      CodeSlayerConfig          *config)
 {
   CodeSlayerProjectsSearchPrivate *priv;
   priv = CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE (search);
-  priv->group = group;
+  priv->config = config;
 }                                 
 
 static void
@@ -755,7 +755,7 @@ search_projects (CodeSlayerProjectsSearch *search,
   
   priv = CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE (search);
   
-  projects = codeslayer_group_get_projects (priv->group);
+  projects = codeslayer_config_get_projects (priv->config);
   
   while (projects != NULL)
     {

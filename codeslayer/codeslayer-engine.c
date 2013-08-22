@@ -25,6 +25,7 @@
 #include <codeslayer/codeslayer-projects-search.h>
 #include <codeslayer/codeslayer-repository.h>
 #include <codeslayer/codeslayer-menubar.h>
+#include <codeslayer/codeslayer-config.h>
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
 #include <codeslayer/codeslayer-notebook.h>
@@ -130,7 +131,7 @@ struct _CodeSlayerEnginePrivate
   GtkWidget             *bottom_pane;
   GdkWindowState         window_state;
   GtkWidget             *projects;
-  CodeSlayerGroup       *group;
+  CodeSlayerConfig      *config;
 
   GtkWidget             *go_to_line_dialog;
   GdkRGBA                go_to_line_error_color;
@@ -677,7 +678,7 @@ show_plugins_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_plugins_run_dialog (priv->plugins, priv->group);
+  codeslayer_plugins_run_dialog (priv->plugins, priv->config);
 }
 
 
@@ -687,7 +688,7 @@ show_plugins_action (CodeSlayerEngine *engine)
  * codeslayer_engine_save_projects:
  * @engine: a #CodeSlayerEngine.
  *
- * Close the current active #CodeSlayerGroup.
+ * Close the current active #CodeSlayerConfig.
  *
  * Returns: TRUE if the projects closed successfully.
  */
@@ -697,13 +698,13 @@ codeslayer_engine_save_projects (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  if (priv->group == NULL)
+  if (priv->config == NULL)
     return TRUE;
   
   if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
     return FALSE;
 
-  codeslayer_repository_save_projects (priv->group);
+  /*codeslayer_repository_save_config (priv->config);*/
   
   return TRUE;
 }
@@ -725,11 +726,11 @@ open_projects_action (CodeSlayerEngine *engine,
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  if (priv->group != NULL)
-    g_object_unref (priv->group);
+  if (priv->config != NULL)
+    g_object_unref (priv->config);
   
-  priv->group = codeslayer_repository_get_projects (file);  
-  if (priv->group == NULL)
+  priv->config = codeslayer_repository_get_config (file);
+  if (priv->config == NULL)
     return;
     
   codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
@@ -738,11 +739,11 @@ open_projects_action (CodeSlayerEngine *engine,
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
 
-  codeslayer_preferences_load (priv->preferences, priv->group);
+  codeslayer_preferences_load (priv->preferences, priv->config);
   
-  codeslayer_projects_set_group (CODESLAYER_PROJECTS (priv->projects), priv->group);
+  codeslayer_projects_set_config (CODESLAYER_PROJECTS (priv->projects), priv->config);
 
-  projects = codeslayer_group_get_projects (priv->group);
+  projects = codeslayer_config_get_projects (priv->config);
   while (projects != NULL)
     {
       CodeSlayerProject *project = projects->data;
@@ -750,7 +751,7 @@ open_projects_action (CodeSlayerEngine *engine,
       projects = g_list_next (projects);
     }
 
-  documents = codeslayer_group_get_documents (priv->group);
+  documents = codeslayer_config_get_documents (priv->config);
   while (documents != NULL)
     {
       CodeSlayerDocument *document = documents->data;
@@ -762,7 +763,7 @@ open_projects_action (CodeSlayerEngine *engine,
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 
-  codeslayer_plugins_activate (priv->plugins, priv->group);
+  codeslayer_plugins_activate (priv->plugins, priv->config);
 }
 
 static void
@@ -793,10 +794,10 @@ add_projects_action (CodeSlayerEngine *engine,
       
       g_object_force_floating (G_OBJECT (project));
 
-      codeslayer_group_add_project (priv->group, project);
+      codeslayer_config_add_project (priv->config, project);
 
       /*TODO: this was where we saved the projects*/
-      /*codeslayer_repository_save_projects (priv->group);*/
+      /*codeslayer_repository_save_projects (priv->config);*/
 
       codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
       
@@ -814,10 +815,10 @@ remove_project_action (CodeSlayerEngine *engine,
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  codeslayer_group_remove_project (priv->group, project);
+  codeslayer_config_remove_project (priv->config, project);
   
   /*TODO: this is where we saved the projects*/
-  /*codeslayer_repository_save_projects (priv->group);*/
+  /*codeslayer_repository_save_projects (priv->config);*/
   
   g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
 }
@@ -829,7 +830,7 @@ project_renamed_action (CodeSlayerEngine *engine,
   /*CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);*/
   /*TODO: this is where we saved the projects*/
-  /*codeslayer_repository_save_projects (priv->group);*/
+  /*codeslayer_repository_save_projects (priv->config);*/
 }
 
 static void
@@ -978,7 +979,7 @@ search_find_projects_action (CodeSlayerEngine *engine,
   gtk_window_present (GTK_WINDOW (priv->search));
   gtk_widget_show_all (GTK_WIDGET (priv->search));
   
-  codeslayer_projects_search_set_group (CODESLAYER_PROJECTS_SEARCH (priv->search), priv->group);
+  codeslayer_projects_search_set_config (CODESLAYER_PROJECTS_SEARCH (priv->search), priv->config);
   
   if (codeslayer_utils_has_text (file_paths))
     codeslayer_projects_search_find_selection (CODESLAYER_PROJECTS_SEARCH (priv->search), file_paths);

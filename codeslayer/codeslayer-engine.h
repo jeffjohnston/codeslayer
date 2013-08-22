@@ -23,7 +23,6 @@
 
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-preferences.h>
-#include <codeslayer/codeslayer-processes.h>
 #include <codeslayer/codeslayer-plugins.h>
 
 G_BEGIN_DECLS

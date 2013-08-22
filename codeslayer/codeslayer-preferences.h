@@ -20,7 +20,7 @@
 #define __CODESLAYER_PREFERENCES_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-group.h>
+#include <codeslayer/codeslayer-config.h>
 
 G_BEGIN_DECLS
 
@@ -92,7 +92,7 @@ void                    codeslayer_preferences_set_string   (CodeSlayerPreferenc
                                                              gchar                 *key,
                                                              const gchar           *value);
 void                    codeslayer_preferences_load         (CodeSlayerPreferences *preferences, 
-                                                             CodeSlayerGroup       *group);
+                                                             CodeSlayerConfig      *config);
 void                    codeslayer_preferences_save         (CodeSlayerPreferences *preferences);
 void                    codeslayer_preferences_run_dialog   (CodeSlayerPreferences *preferences);
 

@@ -25,21 +25,20 @@
 #include <codeslayer/codeslayer-repository.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-preference.h>
-#include <codeslayer/codeslayer-group.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer-plugin.h>
 
-static void load_group                          (CodeSlayerGroup *group, 
+static void load_config                          (CodeSlayerConfig *config, 
                                                  xmlNode         *a_node);
 static CodeSlayerPlugin* load_plugin_from_file  (gchar           *file_path);
 
-CodeSlayerGroup*
-codeslayer_repository_get_projects (GFile *file)
+CodeSlayerConfig*
+codeslayer_repository_get_config (GFile *file)
 {
-  CodeSlayerGroup *group;
+  CodeSlayerConfig *config;
   xmlDoc *doc = NULL;
   xmlNode *root_element = NULL;
   gchar *file_path = NULL;
@@ -54,21 +53,21 @@ codeslayer_repository_get_projects (GFile *file)
       return NULL;
     }
 
-  group = codeslayer_group_new ();
+  config = codeslayer_config_new ();
   
   root_element = xmlDocGetRootElement (doc);
 
-  load_group (group, root_element);
-  codeslayer_group_set_file_path (group, file_path);
+  load_config (config, root_element);
+  codeslayer_config_set_file_path (config, file_path);
 
   xmlFreeDoc (doc);
   xmlCleanupParser ();
   
-  return group;
+  return config;
 }
 
 static void
-load_group (CodeSlayerGroup *group, 
+load_config (CodeSlayerConfig *config, 
             xmlNode         *a_node)
 {
   xmlNode *cur_node = NULL;
@@ -91,7 +90,7 @@ load_group (CodeSlayerGroup *group,
               project = codeslayer_project_new ();
               codeslayer_project_set_name (project, (gchar*) name);
               codeslayer_project_set_folder_path (project, (gchar*) folder_path);
-              codeslayer_group_add_project (group, project);
+              codeslayer_config_add_project (config, project);
               
               xmlFree (name);
               xmlFree (folder_path);
@@ -111,9 +110,9 @@ load_group (CodeSlayerGroup *group,
               document = codeslayer_document_new ();
               codeslayer_document_set_file_path (document, (gchar*) file_path);
               codeslayer_document_set_line_number (document, atoi ((gchar*) line_number));
-              codeslayer_group_add_document (group, document);
+              codeslayer_config_add_document (config, document);
               
-              project = codeslayer_group_get_project_by_file_path (group, (gchar*) file_path);
+              project = codeslayer_config_get_project_by_file_path (config, (gchar*) file_path);
               codeslayer_document_set_project (document, project);
               
               xmlFree (file_path);
@@ -133,7 +132,7 @@ load_group (CodeSlayerGroup *group,
               preference = codeslayer_preference_new ();
               codeslayer_preference_set_name (preference, (gchar*) name);
               codeslayer_preference_set_value (preference, (gchar*) value);
-              codeslayer_group_add_preference (group, preference);
+              codeslayer_config_add_preference (config, preference);
               
               xmlFree (name);
               xmlFree (value);
@@ -145,16 +144,16 @@ load_group (CodeSlayerGroup *group,
 
               /*g_print ("lib name %s\n", name);*/
 
-              codeslayer_group_add_lib (group, (gchar*) name);
+              codeslayer_config_add_lib (config, (gchar*) name);
               xmlFree (name);
             }
         }
-      load_group (group, cur_node->children);
+      load_config (config, cur_node->children);
     }
 }
 
 void
-codeslayer_repository_save_projects (CodeSlayerGroup *group)
+codeslayer_repository_save_config (CodeSlayerConfig *config)
 {
 
 }
