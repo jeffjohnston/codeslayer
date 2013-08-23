@@ -71,11 +71,6 @@ GType codeslayer_preferences_get_type (void) G_GNUC_CONST;
 
 CodeSlayerPreferences*  codeslayer_preferences_new          (GtkWidget             *window);
 
-gint                    codeslayer_preferences_get_integer  (CodeSlayerPreferences *preferences, 
-                                                             gchar                 *key);
-void                    codeslayer_preferences_set_integer  (CodeSlayerPreferences *preferences, 
-                                                             gchar                 *key,
-                                                             gint                   value);
 gdouble                 codeslayer_preferences_get_double   (CodeSlayerPreferences *preferences, 
                                                              gchar                 *key);
 void                    codeslayer_preferences_set_double   (CodeSlayerPreferences *preferences, 
@@ -90,10 +85,9 @@ gchar*                  codeslayer_preferences_get_string   (CodeSlayerPreferenc
                                                              gchar                 *key);
 void                    codeslayer_preferences_set_string   (CodeSlayerPreferences *preferences, 
                                                              gchar                 *key,
-                                                             const gchar           *value);
+                                                             gchar                 *value);
 void                    codeslayer_preferences_load         (CodeSlayerPreferences *preferences, 
                                                              CodeSlayerConfig      *config);
-void                    codeslayer_preferences_save         (CodeSlayerPreferences *preferences);
 void                    codeslayer_preferences_run_dialog   (CodeSlayerPreferences *preferences);
 
 G_END_DECLS

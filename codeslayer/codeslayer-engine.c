@@ -316,6 +316,31 @@ codeslayer_engine_new (GtkWindow             *window,
   return engine;
 }
 
+/**
+ * codeslayer_engine_save_config:
+ * @engine: a #CodeSlayerEngine.
+ *
+ * Close the current active #CodeSlayerConfig.
+ *
+ * Returns: TRUE if the config was saved successfully.
+ */
+gboolean
+codeslayer_engine_save_config (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  if (priv->config == NULL)
+    return TRUE;
+  
+  if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
+    return FALSE;
+
+  codeslayer_repository_save_config (priv->config);
+  
+  return TRUE;
+}
+
 static void
 new_editor_action (CodeSlayerEngine *engine)
 {
@@ -683,31 +708,6 @@ show_plugins_action (CodeSlayerEngine *engine)
 
 
 /*******projects specific code******/
-
-/**
- * codeslayer_engine_save_projects:
- * @engine: a #CodeSlayerEngine.
- *
- * Close the current active #CodeSlayerConfig.
- *
- * Returns: TRUE if the projects closed successfully.
- */
-gboolean
-codeslayer_engine_save_projects (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  
-  if (priv->config == NULL)
-    return TRUE;
-  
-  if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
-    return FALSE;
-
-  /*codeslayer_repository_save_config (priv->config);*/
-  
-  return TRUE;
-}
 
 static void
 new_projects_action (CodeSlayerEngine *engine,

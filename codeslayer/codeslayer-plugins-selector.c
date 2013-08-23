@@ -282,9 +282,6 @@ plugin_enabled_action (CodeSlayerPluginsSelector *plugins_selector,
           codeslayer_plugin_deactivate (plugin);
           gtk_widget_set_sensitive (priv->configure_button, FALSE);    
         }
-        
-      /*TODO: we need to save the libs*/
-      /*codeslayer_repository_save_libs (priv->config);*/
     } 
 }
 

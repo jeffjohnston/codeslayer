@@ -210,7 +210,6 @@ list_changed_action (CodeSlayerPreferencesListView *preferences_listview,
   value = g_string_free (gs, FALSE);
 
   codeslayer_preferences_set_string (priv->preferences, priv->key, value);
-  codeslayer_preferences_save (priv->preferences);
   codeslayer_preferences_utils_notify_editors (priv->preferences);
   
   g_signal_emit_by_name ((gpointer) preferences_listview, "list-changed");

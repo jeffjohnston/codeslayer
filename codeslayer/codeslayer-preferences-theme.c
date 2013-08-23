@@ -417,15 +417,19 @@ font_action (CodeSlayerPreferencesTheme *preferences_theme)
 {
   CodeSlayerPreferencesThemePrivate *priv;
   const gchar *value;
+  gchar *font_name;
   
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
 
   value = gtk_font_button_get_font_name (priv->font);
+  font_name = g_strdup (value);
+  
   codeslayer_preferences_set_string (priv->preferences,
                                      CODESLAYER_PREFERENCES_EDITOR_FONT,
-                                     value);
+                                     font_name);
+                                     
+  g_free (font_name);                                     
 
-  codeslayer_preferences_save (priv->preferences);
   codeslayer_preferences_utils_notify_editors (priv->preferences);
 }
 
@@ -447,7 +451,6 @@ editor_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
   codeslayer_preferences_set_string (priv->preferences,
                                      CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION,
                                      value);
-  codeslayer_preferences_save (priv->preferences);
   codeslayer_preferences_utils_notify_notebook (priv->preferences);
 
   g_free (value);
@@ -471,7 +474,6 @@ side_pane_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
   codeslayer_preferences_set_string (priv->preferences,
                                      CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION,
                                      value);
-  codeslayer_preferences_save (priv->preferences);
   codeslayer_preferences_utils_notify_side_pane (priv->preferences);
 
   g_free (value);
@@ -495,7 +497,6 @@ bottom_pane_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
   codeslayer_preferences_set_string (priv->preferences,
                                      CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION,
                                      value);
-  codeslayer_preferences_save (priv->preferences);
   codeslayer_preferences_utils_notify_bottom_pane (priv->preferences);
 
   g_free (value);
@@ -527,7 +528,6 @@ theme_action (GtkTreeView                *treeview,
           g_free (value);
         }
 
-      codeslayer_preferences_save (priv->preferences);
       codeslayer_preferences_utils_notify_editors (priv->preferences);
     }
   

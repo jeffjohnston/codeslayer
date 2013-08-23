@@ -16,7 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <codeslayer/codeslayer-preference.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-preferences-editor.h>
 #include <codeslayer/codeslayer-preferences-theme.h>
@@ -38,8 +40,6 @@ static void codeslayer_preferences_class_init  (CodeSlayerPreferencesClass *klas
 static void codeslayer_preferences_init        (CodeSlayerPreferences      *preferences);
 static void codeslayer_preferences_finalize    (CodeSlayerPreferences      *preferences);
 
-static void set_defaults                       (CodeSlayerPreferences      *preferences);
-
 #define CODESLAYER_PREFERENCES_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PREFERENCES_TYPE, CodeSlayerPreferencesPrivate))
 
@@ -51,8 +51,8 @@ typedef struct _CodeSlayerPreferencesPrivate CodeSlayerPreferencesPrivate;
 
 struct _CodeSlayerPreferencesPrivate
 {
-  GtkWidget *window;
-  GKeyFile  *key_file;
+  GtkWidget        *window;
+  CodeSlayerConfig *config;
 };
 
 enum
@@ -176,24 +176,11 @@ codeslayer_preferences_class_init (CodeSlayerPreferencesClass *klass)
 static void
 codeslayer_preferences_init (CodeSlayerPreferences *preferences)
 {
-  CodeSlayerPreferencesPrivate *priv;
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  priv->key_file = NULL;
 }
 
 static void
 codeslayer_preferences_finalize (CodeSlayerPreferences *preferences)
 {
-  CodeSlayerPreferencesPrivate *priv;
-  
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-
-  if (priv->key_file)
-    {
-      g_key_file_free (priv->key_file);
-      priv->key_file = NULL;
-    }
-    
   G_OBJECT_CLASS (codeslayer_preferences_parent_class)->finalize (G_OBJECT (preferences));
 }
 
@@ -219,42 +206,6 @@ codeslayer_preferences_new (GtkWidget *window)
 }
 
 /**
- * codeslayer_preferences_get_integer:
- * @preferences: a #CodeSlayerPreferences.
- * @key: a property name.
- *
- * Returns: the value as an integer for the given key.
- */
-gint
-codeslayer_preferences_get_integer (CodeSlayerPreferences *preferences,
-                                    gchar                 *key)
-{
-  CodeSlayerPreferencesPrivate *priv;
-  
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  if (g_key_file_has_key (priv->key_file, MAIN, key, NULL))
-    return g_key_file_get_integer (priv->key_file, MAIN, key, NULL);
-  
-  return -1;
-}
-
-/**
- * codeslayer_preferences_set_integer:
- * @preferences: a #CodeSlayerPreferences.
- * @key: a property name.
- * @value: a property value as a gint.
- */
-void
-codeslayer_preferences_set_integer (CodeSlayerPreferences *preferences,
-                                    gchar                 *key, 
-                                    gint                   value)
-{
-  CodeSlayerPreferencesPrivate *priv;
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  g_key_file_set_integer (priv->key_file, MAIN, key, value);
-}
-
-/**
  * codeslayer_preferences_get_double:
  * @preferences: a #CodeSlayerPreferences.
  * @key: a property name.
@@ -263,13 +214,16 @@ codeslayer_preferences_set_integer (CodeSlayerPreferences *preferences,
  */
 gdouble
 codeslayer_preferences_get_double (CodeSlayerPreferences *preferences,
-                                   gchar                 *key)
+                                   gchar                 *name)
 {
   CodeSlayerPreferencesPrivate *priv;
+  const gchar *value;
+
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
 
-  if (g_key_file_has_key (priv->key_file, MAIN, key, NULL))
-    return g_key_file_get_double (priv->key_file, MAIN, key, NULL);
+  value = codeslayer_config_get_preference (priv->config, name);
+  if (value != NULL)
+    return atof (value);
 
   return -1;
 }
@@ -282,32 +236,43 @@ codeslayer_preferences_get_double (CodeSlayerPreferences *preferences,
  */
 void
 codeslayer_preferences_set_double (CodeSlayerPreferences *preferences,
-                                   gchar                 *key, 
+                                   gchar                 *name, 
                                    gdouble                value)
 {
   CodeSlayerPreferencesPrivate *priv;
+  gchar *val;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  g_key_file_set_double (priv->key_file, MAIN, key, value);
+  val = g_strdup_printf ("%f", value);
+  codeslayer_config_set_preference (priv->config, name, val);
+  g_free (val);
 }
 
 /**
  * codeslayer_preferences_get_boolean:
  * @preferences: a #CodeSlayerPreferences.
- * @key: a property name.
+ * @name: a property name.
  *
- * Returns: the value as a boolean for the given key.
+ * Returns: the value as a boolean for the given name.
  */
 gboolean
 codeslayer_preferences_get_boolean (CodeSlayerPreferences *preferences,
-                                    gchar                 *key)
+                                    gchar                 *name)
 {
   CodeSlayerPreferencesPrivate *priv;
+  const gchar *value;
+
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
 
-  if (g_key_file_has_key (priv->key_file, MAIN, key, NULL))
-    return g_key_file_get_boolean (priv->key_file, MAIN, key, NULL);
+  value = codeslayer_config_get_preference (priv->config, name);
+  if (value != NULL)
+    {
+      if (g_strcmp0 (value, "true") == 0)
+        return TRUE;
+      else
+        return FALSE;
+    }
   
-  return -1;
+  return FALSE;
 }
 
 /**
@@ -318,12 +283,16 @@ codeslayer_preferences_get_boolean (CodeSlayerPreferences *preferences,
  */
 void
 codeslayer_preferences_set_boolean (CodeSlayerPreferences *preferences,
-                                    gchar                 *key, 
+                                    gchar                 *name, 
                                     gboolean               value)
 {
   CodeSlayerPreferencesPrivate *priv;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  g_key_file_set_boolean (priv->key_file, MAIN, key, value);
+  
+  if (value == TRUE)  
+    codeslayer_config_set_preference (priv->config, name, "true");
+  else
+    codeslayer_config_set_preference (priv->config, name, "false");
 }
 
 /**
@@ -333,15 +302,18 @@ codeslayer_preferences_set_boolean (CodeSlayerPreferences *preferences,
  *
  * Returns: the value as a string for the given key.
  */
-gchar *
+gchar*
 codeslayer_preferences_get_string (CodeSlayerPreferences *preferences,
-                                   gchar                 *key)
+                                   gchar                 *name)
 {
   CodeSlayerPreferencesPrivate *priv;
+  const gchar *value;
+
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  
-  if (g_key_file_has_key (priv->key_file, MAIN, key, NULL))
-    return g_key_file_get_string (priv->key_file, MAIN, key, NULL);
+
+  value = codeslayer_config_get_preference (priv->config, name);
+  if (value != NULL)
+    return g_strdup (value);
 
   return g_strdup ("");
 }
@@ -354,12 +326,12 @@ codeslayer_preferences_get_string (CodeSlayerPreferences *preferences,
  */
 void
 codeslayer_preferences_set_string (CodeSlayerPreferences *preferences,
-                                   gchar                 *key, 
-                                   const gchar           *value)
+                                   gchar                 *name, 
+                                   gchar                 *value)
 {
   CodeSlayerPreferencesPrivate *priv;  
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  g_key_file_set_string (priv->key_file, MAIN, key, value);
+  codeslayer_config_set_preference (priv->config, name, value);
 }
 
 /**
@@ -374,119 +346,10 @@ codeslayer_preferences_load (CodeSlayerPreferences *preferences,
                              CodeSlayerConfig      *config)
 {
   CodeSlayerPreferencesPrivate *priv;
-  GList *list;
-  GKeyFile *key_file;
-  
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  
-  if (priv->key_file)
-    {
-      g_key_file_free (priv->key_file);
-      priv->key_file = NULL;
-    }
-
-  list = codeslayer_config_get_preferences (config);
-  
-  key_file = g_key_file_new ();
-  priv->key_file = key_file;
-
-  if (list == NULL)
-    {
-      set_defaults (preferences);    
-    }
-  else
-    {
-      while (list != NULL)
-      {
-        CodeSlayerPreference *preference = list->data;
-        const gchar *name;
-        const gchar *value;
-        name = codeslayer_preference_get_name (preference);
-        value = codeslayer_preference_get_value (preference);
-        g_key_file_set_value (key_file, MAIN, name, value);
-        list = g_list_next (list);
-      }
-    }
-
+  priv->config = config;
   g_signal_emit_by_name ((gpointer) preferences, "initialize-preferences");
 }                             
-
-/**
- * codeslayer_preferences_save:
- * @preferences: a #CodeSlayerPreferences.
- *
- * Save the users preference to disk.
- */
-void
-codeslayer_preferences_save (CodeSlayerPreferences *preferences)
-{
-  /*CodeSlayerPreferencesPrivate *priv;
-  gchar *data;
-  gchar *conf_path;
-  gsize size;
-  
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-
-  data = g_key_file_to_data (priv->key_file, &size, NULL);
-
-  conf_path = get_conf_path (preferences);
-
-  g_file_set_contents (conf_path, data, size, NULL);
-
-  g_free (conf_path);
-  g_free (data);*/
-}
-
-static void
-set_defaults (CodeSlayerPreferences *preferences)
-{
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS,
-                                      TRUE);
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE,
-                                      TRUE);
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN,
-                                      TRUE);
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET,
-                                      TRUE);
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS,
-                                      TRUE);
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION,
-                                      TRUE);
-  codeslayer_preferences_set_double (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION,
-                                     80);
-  codeslayer_preferences_set_double (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH,
-                                     2);
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_FONT,
-                                     "Monospace 9");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_THEME,
-                                     "classic");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION,
-                                     "top");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION,
-                                     "top");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION,
-                                     "left");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS,
-                                     ".csv,.git,.svn");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES,
-                                     ".txt");
-  codeslayer_preferences_save (preferences);
-}
 
 /**
  * codeslayer_preferences_run_dialog:

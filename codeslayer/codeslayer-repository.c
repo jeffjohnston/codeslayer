@@ -23,8 +23,6 @@
 #include <libxml/tree.h>
 
 #include <codeslayer/codeslayer-repository.h>
-#include <codeslayer/codeslayer-preferences.h>
-#include <codeslayer/codeslayer-preference.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-utils.h>
@@ -120,7 +118,6 @@ load_config (CodeSlayerConfig *config,
             }
           else if (g_strcmp0 ((gchar*)cur_node->name, "preference") == 0)
             {
-              CodeSlayerPreference *preference;
               xmlChar *name;
               xmlChar *value;
               
@@ -129,10 +126,7 @@ load_config (CodeSlayerConfig *config,
               
               /*g_print ("preference name %s:value %s\n", name, value);*/
               
-              preference = codeslayer_preference_new ();
-              codeslayer_preference_set_name (preference, (gchar*) name);
-              codeslayer_preference_set_value (preference, (gchar*) value);
-              codeslayer_config_add_preference (config, preference);
+              codeslayer_config_set_preference (config, (gchar*) name, (gchar*) value);
               
               xmlFree (name);
               xmlFree (value);
@@ -151,6 +145,59 @@ load_config (CodeSlayerConfig *config,
       load_config (config, cur_node->children);
     }
 }
+
+
+/*static void
+set_defaults (CodeSlayerPreferences *preferences)
+{
+  codeslayer_preferences_set_boolean (preferences,
+                                      CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS,
+                                      TRUE);
+  codeslayer_preferences_set_boolean (preferences,
+                                      CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE,
+                                      TRUE);
+  codeslayer_preferences_set_boolean (preferences,
+                                      CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN,
+                                      TRUE);
+  codeslayer_preferences_set_boolean (preferences,
+                                      CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET,
+                                      TRUE);
+  codeslayer_preferences_set_boolean (preferences,
+                                      CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS,
+                                      TRUE);
+  codeslayer_preferences_set_boolean (preferences,
+                                      CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION,
+                                      TRUE);
+  codeslayer_preferences_set_double (preferences,
+                                     CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION,
+                                     80);
+  codeslayer_preferences_set_double (preferences,
+                                     CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH,
+                                     2);
+  codeslayer_preferences_set_string (preferences,
+                                     CODESLAYER_PREFERENCES_EDITOR_FONT,
+                                     "Monospace 9");
+  codeslayer_preferences_set_string (preferences,
+                                     CODESLAYER_PREFERENCES_EDITOR_THEME,
+                                     "classic");
+  codeslayer_preferences_set_string (preferences,
+                                     CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION,
+                                     "top");
+  codeslayer_preferences_set_string (preferences,
+                                     CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION,
+                                     "top");
+  codeslayer_preferences_set_string (preferences,
+                                     CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION,
+                                     "left");
+  codeslayer_preferences_set_string (preferences,
+                                     CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS,
+                                     ".csv,.git,.svn");
+  codeslayer_preferences_set_string (preferences,
+                                     CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES,
+                                     ".txt");
+  codeslayer_preferences_save (preferences);
+}*/
+
 
 void
 codeslayer_repository_save_config (CodeSlayerConfig *config)

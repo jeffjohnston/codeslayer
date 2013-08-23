@@ -538,7 +538,7 @@ delete_event (GtkWidget             *window,
   CodeSlayerApplicationPrivate *priv;
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  if (!codeslayer_engine_save_projects (priv->engine))
+  if (!codeslayer_engine_save_config (priv->engine))
     return TRUE;
 
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
@@ -553,7 +553,7 @@ quit_application_action (CodeSlayerApplication *application)
   CodeSlayerApplicationPrivate *priv;
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  if (!codeslayer_engine_save_projects (priv->engine))
+  if (!codeslayer_engine_save_config (priv->engine))
     return;
   
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));

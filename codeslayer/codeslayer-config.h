@@ -22,7 +22,6 @@
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
-#include <codeslayer/codeslayer-preference.h>
 #include <codeslayer/codeslayer-plugin.h>
 
 G_BEGIN_DECLS
@@ -51,43 +50,44 @@ codeslayer_config_get_type (void) G_GNUC_CONST;
 
 CodeSlayerConfig*    codeslayer_config_new (void);
 
-const gchar*        codeslayer_config_get_file_path             (CodeSlayerConfig   *group);
-void                codeslayer_config_set_file_path             (CodeSlayerConfig   *group, 
-                                                                const gchar       *file_path);
-GList*              codeslayer_config_get_projects              (CodeSlayerConfig   *group);
-void                codeslayer_config_set_projects              (CodeSlayerConfig   *group,
-                                                                GList             *projects);
-CodeSlayerProject*  codeslayer_config_find_project              (CodeSlayerConfig   *group, 
-                                                                const gchar       *project_key);
-CodeSlayerProject*  codeslayer_config_get_project_by_file_path  (CodeSlayerConfig   *group, 
-                                                                const gchar       *file_path);                                                      
-void                codeslayer_config_add_project               (CodeSlayerConfig   *group,
-                                                                CodeSlayerProject *project);
-void                codeslayer_config_remove_project            (CodeSlayerConfig   *group,
-                                                                CodeSlayerProject *project);
-gboolean            codeslayer_config_contains_project          (CodeSlayerConfig   *group,
-                                                                CodeSlayerProject *project);                                                        
-GList*              codeslayer_config_get_documents             (CodeSlayerConfig   *group);
-void                codeslayer_config_set_documents             (CodeSlayerConfig   *group,
-                                                                GList             *documents);
-void                codeslayer_config_add_document              (CodeSlayerConfig    *group,
-                                                                CodeSlayerDocument *document);
-void                codeslayer_config_remove_document           (CodeSlayerConfig    *group,
-                                                                CodeSlayerDocument *document);
-GList*              codeslayer_config_get_preferences           (CodeSlayerConfig   *group);
-void                codeslayer_config_set_preferences           (CodeSlayerConfig   *group,
-                                                                GList             *preferences);
-void                codeslayer_config_add_preference            (CodeSlayerConfig    *group,
-                                                                CodeSlayerPreference *preference);
-GList*              codeslayer_config_get_libs                  (CodeSlayerConfig   *group);
-void                codeslayer_config_set_libs                  (CodeSlayerConfig   *group, 
-                                                                GList             *libs);
-gboolean            codeslayer_config_contains_lib              (CodeSlayerConfig   *group, 
-                                                                const gchar       *lib);
-void                codeslayer_config_add_lib                   (CodeSlayerConfig   *group, 
-                                                                const gchar       *lib);
-void                codeslayer_config_remove_lib                (CodeSlayerConfig   *group, 
-                                                                const gchar       *lib);
+const gchar*        codeslayer_config_get_file_path             (CodeSlayerConfig     *config);
+void                codeslayer_config_set_file_path             (CodeSlayerConfig     *config, 
+                                                                 const gchar          *file_path);
+GList*              codeslayer_config_get_projects              (CodeSlayerConfig     *config);
+void                codeslayer_config_set_projects              (CodeSlayerConfig     *config,
+                                                                 GList                *projects);
+CodeSlayerProject*  codeslayer_config_find_project              (CodeSlayerConfig     *config, 
+                                                                 const gchar          *project_key);
+CodeSlayerProject*  codeslayer_config_get_project_by_file_path  (CodeSlayerConfig     *config, 
+                                                                 const gchar          *file_path);                                                      
+void                codeslayer_config_add_project               (CodeSlayerConfig     *config,
+                                                                 CodeSlayerProject    *project);
+void                codeslayer_config_remove_project            (CodeSlayerConfig     *config,
+                                                                 CodeSlayerProject    *project);
+gboolean            codeslayer_config_contains_project          (CodeSlayerConfig     *config,
+                                                                 CodeSlayerProject    *project);                                                        
+GList*              codeslayer_config_get_documents             (CodeSlayerConfig     *config);
+void                codeslayer_config_set_documents             (CodeSlayerConfig     *config,
+                                                                 GList                *documents);
+void                codeslayer_config_add_document              (CodeSlayerConfig     *config,
+                                                                 CodeSlayerDocument   *document);
+void                codeslayer_config_remove_document           (CodeSlayerConfig     *config,
+                                                                 CodeSlayerDocument   *document);
+GHashTable*         codeslayer_config_get_preferences           (CodeSlayerConfig     *config);
+const gchar*        codeslayer_config_get_preference            (CodeSlayerConfig     *config,
+                                                                 gchar                *name);
+void                codeslayer_config_set_preference            (CodeSlayerConfig     *config,
+                                                                 gchar                *name, 
+                                                                 gchar                *value);
+GList*              codeslayer_config_get_libs                  (CodeSlayerConfig     *config);
+void                codeslayer_config_set_libs                  (CodeSlayerConfig     *config, 
+                                                                 GList                *libs);
+gboolean            codeslayer_config_contains_lib              (CodeSlayerConfig     *config, 
+                                                                 const gchar          *lib);
+void                codeslayer_config_add_lib                   (CodeSlayerConfig     *config, 
+                                                                 const gchar          *lib);
+void                codeslayer_config_remove_lib                (CodeSlayerConfig     *config, 
+                                                                 const gchar          *lib);
 
 G_END_DECLS
 
