@@ -117,7 +117,8 @@ codeslayer_config_new (void)
   config = CODESLAYER_CONFIG (g_object_new (codeslayer_config_get_type (), NULL));
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
   
-  priv->preferences = g_hash_table_new ((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal);
+  priv->preferences = g_hash_table_new_full ((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal, 
+                                             (GDestroyNotify)g_free, (GDestroyNotify)g_free);
 
   return config;
 }
@@ -505,16 +506,7 @@ codeslayer_config_set_preference (CodeSlayerConfig *config,
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  g_hash_table_insert (priv->preferences, g_strdup (name), g_strdup (value));
-}
-
-static gboolean
-hashtable_free (gpointer key,
-                gpointer value)
-{
-  g_free (key);
-  g_free (value);
-  return TRUE;
+  g_hash_table_replace (priv->preferences, g_strdup (name), g_strdup (value));
 }
 
 static void
@@ -522,7 +514,6 @@ codeslayer_config_remove_all_preferences (CodeSlayerConfig *config)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  g_hash_table_foreach_remove (priv->preferences, (GHRFunc) hashtable_free, NULL);
   g_hash_table_destroy (priv->preferences);
   priv->preferences = NULL;
 }

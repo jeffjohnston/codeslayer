@@ -317,6 +317,29 @@ codeslayer_engine_new (GtkWindow             *window,
 }
 
 /**
+ * codeslayer_engine_load_default_config:
+ * @engine: a #CodeSlayerEngine.
+ */
+void
+codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerConfig *config;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  config = codeslayer_repository_get_default_config ();
+  priv->config = config;
+  
+  codeslayer_preferences_load (priv->preferences, priv->config);
+
+  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+
+  codeslayer_plugins_activate (priv->plugins, priv->config);  
+}
+
+/**
  * codeslayer_engine_save_config:
  * @engine: a #CodeSlayerEngine.
  *

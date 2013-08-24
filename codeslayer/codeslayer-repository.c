@@ -22,6 +22,7 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
+#include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-repository.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
@@ -29,9 +30,53 @@
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer-plugin.h>
 
-static void load_config                          (CodeSlayerConfig *config, 
-                                                 xmlNode         *a_node);
-static CodeSlayerPlugin* load_plugin_from_file  (gchar           *file_path);
+#define CONFIG "codeslayer.config"
+
+static void load_config                                   (CodeSlayerConfig *config, 
+                                                           xmlNode          *a_node);
+static CodeSlayerPlugin* load_plugin_from_file            (gchar            *file_path);
+static void              set_config_preferences_defaults  (CodeSlayerConfig *config);
+
+CodeSlayerConfig*
+codeslayer_repository_get_default_config ()
+{
+  CodeSlayerConfig *config;
+  gchar *file_path;
+  GFile *file;
+  
+  config = codeslayer_config_new ();
+  file_path = g_build_filename (g_get_home_dir (), CODESLAYER_HOME, CONFIG, NULL);
+
+  codeslayer_config_set_file_path (config, file_path);
+  
+  file = g_file_new_for_path (file_path);
+  if (!g_file_query_exists (file, NULL)) 
+    set_config_preferences_defaults (config);
+    
+  g_object_unref (file);    
+                                
+  return config;
+}
+
+static void
+set_config_preferences_defaults (CodeSlayerConfig *config)
+{
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS, "true");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE, "true");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN, "true");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET, "true");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS, "true");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION, "true");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION, "80");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH, "2");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_FONT, "Monospace 9");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_THEME, "classic");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION, "top");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION, "top");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION, "left");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS, ".csv,.git,.svn");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES, ".txt");
+}
 
 CodeSlayerConfig*
 codeslayer_repository_get_config (GFile *file)
@@ -83,8 +128,6 @@ load_config (CodeSlayerConfig *config,
               name = xmlGetProp (cur_node, (const xmlChar*)"name");
               folder_path = xmlGetProp (cur_node, (const xmlChar*)"folder_path");
               
-              /*g_print ("project name %s:folder_path %s\n", name, folder_path);*/
-              
               project = codeslayer_project_new ();
               codeslayer_project_set_name (project, (gchar*) name);
               codeslayer_project_set_folder_path (project, (gchar*) folder_path);
@@ -102,8 +145,6 @@ load_config (CodeSlayerConfig *config,
               
               file_path = xmlGetProp (cur_node, (const xmlChar*)"file_path");
               line_number = xmlGetProp (cur_node, (const xmlChar*)"line_number");
-              
-              /*g_print ("document file_path %s:line_number %s\n", file_path, line_number);*/
               
               document = codeslayer_document_new ();
               codeslayer_document_set_file_path (document, (gchar*) file_path);
@@ -124,8 +165,6 @@ load_config (CodeSlayerConfig *config,
               name = xmlGetProp (cur_node, (const xmlChar*)"name");
               value = xmlGetProp (cur_node, (const xmlChar*)"value");
               
-              /*g_print ("preference name %s:value %s\n", name, value);*/
-              
               codeslayer_config_set_preference (config, (gchar*) name, (gchar*) value);
               
               xmlFree (name);
@@ -136,8 +175,6 @@ load_config (CodeSlayerConfig *config,
               xmlChar *name;
               name = xmlGetProp (cur_node, (const xmlChar*)"name");
 
-              /*g_print ("lib name %s\n", name);*/
-
               codeslayer_config_add_lib (config, (gchar*) name);
               xmlFree (name);
             }
@@ -146,63 +183,121 @@ load_config (CodeSlayerConfig *config,
     }
 }
 
-
-/*static void
-set_defaults (CodeSlayerPreferences *preferences)
+void build_projects_xml (CodeSlayerProject *project,
+                         GString           **xml)
 {
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS,
-                                      TRUE);
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE,
-                                      TRUE);
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN,
-                                      TRUE);
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET,
-                                      TRUE);
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS,
-                                      TRUE);
-  codeslayer_preferences_set_boolean (preferences,
-                                      CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION,
-                                      TRUE);
-  codeslayer_preferences_set_double (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION,
-                                     80);
-  codeslayer_preferences_set_double (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH,
-                                     2);
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_FONT,
-                                     "Monospace 9");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_THEME,
-                                     "classic");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION,
-                                     "top");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION,
-                                     "top");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION,
-                                     "left");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS,
-                                     ".csv,.git,.svn");
-  codeslayer_preferences_set_string (preferences,
-                                     CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES,
-                                     ".txt");
-  codeslayer_preferences_save (preferences);
-}*/
+  const gchar *name;
+  const gchar *folder_path;
+  
+  name = codeslayer_project_get_name (project);
+  folder_path = codeslayer_project_get_folder_path (project);
 
+  *xml = g_string_append (*xml, "\n\t\t<project ");
+  *xml = g_string_append (*xml, "name=\"");
+  *xml = g_string_append (*xml, name);
+  *xml = g_string_append (*xml, "\" ");
+  *xml = g_string_append (*xml, "folder_path=\"");
+  *xml = g_string_append (*xml, folder_path);
+  *xml = g_string_append (*xml, "\"/>");
+}
+
+void build_documents_xml (CodeSlayerDocument *document,
+                          GString            **xml)
+{
+  const gchar *file_path;
+  gint line_number;
+  gchar *line_number_str;
+  
+  file_path = codeslayer_document_get_file_path (document);
+  line_number = codeslayer_document_get_line_number (document);
+  line_number_str = g_strdup_printf ("%d", line_number);
+
+  *xml = g_string_append (*xml, "\n\t\t<document ");
+  *xml = g_string_append (*xml, "file_path=\"");
+  *xml = g_string_append (*xml, file_path);
+  *xml = g_string_append (*xml, "\" ");
+  *xml = g_string_append (*xml, "line_number=\"");
+  *xml = g_string_append (*xml, line_number_str);
+  *xml = g_string_append (*xml, "\"/>");
+  
+  g_free (line_number_str);
+}
+
+void build_libs_xml (gchar   *name, 
+                     GString **xml)
+{
+  *xml = g_string_append (*xml, "\n\t\t<lib ");
+  *xml = g_string_append (*xml, "name=\"");
+  *xml = g_string_append (*xml, name);
+  *xml = g_string_append (*xml, "\"/>");
+}
+
+void build_preferences_xml (gchar   *name,
+                            gchar   *value, 
+                            GString **xml)
+{
+  *xml = g_string_append (*xml, "\n\t\t<preference ");
+  *xml = g_string_append (*xml, "name=\"");
+  *xml = g_string_append (*xml, name);
+  *xml = g_string_append (*xml, "\" ");
+  *xml = g_string_append (*xml, "value=\"");
+  *xml = g_string_append (*xml, value);
+  *xml = g_string_append (*xml, "\"/>");
+}
 
 void
 codeslayer_repository_save_config (CodeSlayerConfig *config)
 {
+  GString *xml;
+  gchar *contents;
+  const gchar *file_path;
+  
+  GList *projects;
+  GList *documents;
+  GList *libs;
+  GHashTable *preferences;
+  
+  projects = codeslayer_config_get_projects (config);         
+  documents = codeslayer_config_get_documents (config);         
+  libs = codeslayer_config_get_libs (config);         
+  preferences = codeslayer_config_get_preferences (config);
+  
+  xml = g_string_new ("<config>");
+  
+  if (projects != NULL)
+    {
+      xml = g_string_append (xml, "\n\t<projects>");
+      g_list_foreach (projects, (GFunc)build_projects_xml, &xml);
+      xml = g_string_append (xml, "\n\t</projects>");    
+    }
 
+  if (documents != NULL)
+    {
+      xml = g_string_append (xml, "\n\t<documents>");
+      g_list_foreach (documents, (GFunc)build_documents_xml, &xml);
+      xml = g_string_append (xml, "\n\t</documents>");    
+    }
+
+  if (libs != NULL)
+    {
+      xml = g_string_append (xml, "\n\t<libs>");
+      g_list_foreach (libs, (GFunc)build_libs_xml, &xml);
+      xml = g_string_append (xml, "\n\t</libs>");    
+    }
+
+  xml = g_string_append (xml, "\n\t<preferences>");
+  g_hash_table_foreach (preferences, (GHFunc)build_preferences_xml, &xml);
+  xml = g_string_append (xml, "\n\t</preferences>");
+
+  xml = g_string_append (xml, "\n</config>");
+  
+  contents = g_string_free (xml, FALSE);
+  
+  file_path = codeslayer_config_get_file_path (config);
+
+  g_file_set_contents (file_path, contents, -1, NULL);
+  
+  g_free (contents);
 }
 
 GList*

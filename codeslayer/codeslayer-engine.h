@@ -48,17 +48,18 @@ struct _CodeSlayerEngineClass
 
 GType codeslayer_engine_get_type (void) G_GNUC_CONST;
 
-CodeSlayerEngine*  codeslayer_engine_new          (GtkWindow             *window,
-                                                   CodeSlayerSettings    *settings,
-                                                   CodeSlayerPreferences *preferences,
-                                                   CodeSlayerPlugins     *plugins,
-                                                   GtkWidget             *projects, 
-                                                   GtkWidget             *menubar,
-                                                   GtkWidget             *notebook_pane,
-                                                   GtkWidget             *side_pane,
-                                                   GtkWidget             *bottom_pane);
+CodeSlayerEngine*  codeslayer_engine_new                  (GtkWindow             *window,
+                                                           CodeSlayerSettings    *settings,
+                                                           CodeSlayerPreferences *preferences,
+                                                           CodeSlayerPlugins     *plugins,
+                                                           GtkWidget             *projects, 
+                                                           GtkWidget             *menubar,
+                                                           GtkWidget             *notebook_pane,
+                                                           GtkWidget             *side_pane,
+                                                           GtkWidget             *bottom_pane);
 
-gboolean           codeslayer_engine_save_config  (CodeSlayerEngine      *engine);
+void               codeslayer_engine_load_default_config  (CodeSlayerEngine      *engine);
+gboolean           codeslayer_engine_save_config          (CodeSlayerEngine      *engine);
 
 G_END_DECLS
 

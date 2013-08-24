@@ -196,6 +196,8 @@ codeslayer_application_startup (GApplication *application)
   set_visbility_of_panes (CODESLAYER_APPLICATION (application));
 
   load_plugins (CODESLAYER_APPLICATION (application));
+  
+  codeslayer_engine_load_default_config (priv->engine);
 }
 
 static void
