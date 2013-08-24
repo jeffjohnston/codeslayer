@@ -523,28 +523,14 @@ static void
 set_tooltip (CodeSlayerNotebookTab *notebook_tab)
 {
   CodeSlayerNotebookTabPrivate *priv;
-  CodeSlayerProject *project;
   CodeSlayerDocument *document;
   const gchar *file_path;
-  const gchar *folder_path;
-  const gchar *project_name;
-  gchar *substr;
-  gchar *text;
 
   priv = CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE (notebook_tab);
   
   document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (priv->notebook_page));
-  project = codeslayer_document_get_project (document);
-  
   file_path = codeslayer_document_get_file_path (document);
-  folder_path = codeslayer_project_get_folder_path (project);
-  project_name = codeslayer_project_get_name (project);
-  
-  substr = codeslayer_utils_substr (file_path, strlen(folder_path) + 1, strlen(file_path));
-  text = g_strconcat (project_name, " - ", substr, NULL);
-    
-  gtk_widget_set_tooltip_text (priv->label, text);
-  
-  g_free (substr);
-  g_free (text);
+
+  if (file_path != NULL)
+    gtk_widget_set_tooltip_text (priv->label, file_path);
 }

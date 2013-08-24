@@ -324,12 +324,10 @@ void
 codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerConfig *config;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  config = codeslayer_repository_get_default_config ();
-  priv->config = config;
+  priv->config = codeslayer_repository_get_default_config ();
   
   codeslayer_preferences_load (priv->preferences, priv->config);
 
@@ -367,13 +365,69 @@ codeslayer_engine_save_config (CodeSlayerEngine *engine)
 static void
 new_editor_action (CodeSlayerEngine *engine)
 {
-  g_print ("new_editor_action\n");
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerDocument *document;
+
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+
+  document = codeslayer_document_new ();
+  codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
+  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }
 
 static void
 open_editor_action (CodeSlayerEngine *engine)
 {
-  g_print ("open_editor_action\n");
+  CodeSlayerEnginePrivate *priv;
+  GtkWidget *dialog;
+  gint response;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  dialog = gtk_file_chooser_dialog_new (_("Select File"), 
+                                        GTK_WINDOW (priv->window),
+                                        GTK_FILE_CHOOSER_ACTION_OPEN,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OPEN, GTK_RESPONSE_OK, 
+                                        NULL);
+                                        
+  gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (dialog), TRUE);;
+  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
+  gtk_window_set_skip_pager_hint (GTK_WINDOW (dialog), TRUE);
+  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+  response = gtk_dialog_run (GTK_DIALOG (dialog));
+  if (response == GTK_RESPONSE_OK)
+    {
+      GSList *files = gtk_file_chooser_get_files (GTK_FILE_CHOOSER (dialog));
+      GSList *list;
+      list = files;
+      
+      while (list != NULL)
+        {
+          GFile *file = list->data;
+          gchar *file_path;
+          CodeSlayerDocument *document;
+
+          file_path = g_file_get_path (file);
+          
+          document = codeslayer_document_new ();
+          codeslayer_document_set_file_path (document, file_path);
+          
+          codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
+
+          g_free (file_path);
+          list = g_slist_next (list);
+        }
+
+      g_slist_foreach (files, (GFunc) g_object_unref, NULL);
+      g_slist_free (files);
+    }
+  gtk_widget_destroy (GTK_WIDGET (dialog));
+
+  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }
 
 static void
@@ -868,7 +922,7 @@ select_projects_document_action (CodeSlayerEngine *engine,
   gint page;
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-
+  
   notebook = priv->notebook;
   file_path = codeslayer_document_get_file_path (document);
 
@@ -923,7 +977,7 @@ select_projects_document_action (CodeSlayerEngine *engine,
 
 static void
 select_editor_action (CodeSlayerEngine *engine, 
-                      guint                     page_num)
+                      guint             page_num)
 {
   CodeSlayerEnginePrivate *priv;
   GtkWidget *notebook_page;
@@ -932,6 +986,9 @@ select_editor_action (CodeSlayerEngine *engine,
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
+  if (codeslayer_config_get_projects (priv->config) == NULL)
+    return;
+
   notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);
   if (notebook_page == NULL)
     return;

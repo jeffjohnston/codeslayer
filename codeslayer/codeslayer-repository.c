@@ -44,14 +44,19 @@ codeslayer_repository_get_default_config ()
   gchar *file_path;
   GFile *file;
   
-  config = codeslayer_config_new ();
   file_path = g_build_filename (g_get_home_dir (), CODESLAYER_HOME, CONFIG, NULL);
 
-  codeslayer_config_set_file_path (config, file_path);
-  
   file = g_file_new_for_path (file_path);
-  if (!g_file_query_exists (file, NULL)) 
-    set_config_preferences_defaults (config);
+  if (!g_file_query_exists (file, NULL))
+    {
+      config = codeslayer_config_new ();      
+      codeslayer_config_set_file_path (config, file_path);      
+      set_config_preferences_defaults (config);
+    }
+  else
+    {
+      config = codeslayer_repository_get_config (file);
+    }    
     
   g_object_unref (file);    
                                 
@@ -111,7 +116,7 @@ codeslayer_repository_get_config (GFile *file)
 
 static void
 load_config (CodeSlayerConfig *config, 
-            xmlNode         *a_node)
+             xmlNode          *a_node)
 {
   xmlNode *cur_node = NULL;
 

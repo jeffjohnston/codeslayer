@@ -53,6 +53,8 @@ static void buffer_modified_action          (GtkTextBuffer           *buffer,
                                              CodeSlayerNotebook      *notebook);
 static gboolean has_clean_buffer            (CodeSlayerNotebook      *notebook, 
                                              gint                     page);
+static void save_as_dialog                  (CodeSlayerNotebook      *notebook, 
+                                             CodeSlayerDocument      *document);
 static void preferences_changed_action      (CodeSlayerNotebook      *notebook);
 static GtkWidget* save_editor               (CodeSlayerNotebook      *notebook, 
                                              gint                     page_num);
@@ -181,10 +183,7 @@ codeslayer_notebook_new (GtkWindow             *window,
  * @document: a #CodeSlayerDocument.
  * 
  * Add a new page to the notebook based on the document. This method is 
- * for internal use only. The correct way for  plugins to add a page is to call 
- * the codeslayer_projects_select_document() method. That will 
- * select the document in the tree and then call this method to add the page 
- * to the notebook.
+ * for internal use only.
  */
 void
 codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
@@ -206,28 +205,34 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
 
   /* create page, editor and buffer */
 
-  file_path = codeslayer_document_get_file_path (document);
-  file_name = g_path_get_basename (file_path);
-
   editor = codeslayer_editor_new (priv->window, document, priv->preferences, priv->settings);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
 
-  contents = codeslayer_utils_get_utf8_text (file_path);
-  if (contents != NULL)
-    {
-      gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
-      codeslayer_editor_set_text (CODESLAYER_EDITOR (editor), contents);
-      gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
-      gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
-      g_free (contents);
-    }
+  file_path = codeslayer_document_get_file_path (document);
   
-  modification_time = codeslayer_utils_get_modification_time (file_path);
-  codeslayer_editor_set_modification_time (CODESLAYER_EDITOR (editor), modification_time);
+  if (file_path != NULL)
+    {
+      file_name = g_path_get_basename (file_path);
+      contents = codeslayer_utils_get_utf8_text (file_path);
+      if (contents != NULL)
+        {
+          gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
+          codeslayer_editor_set_text (CODESLAYER_EDITOR (editor), contents);
+          gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
+          gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
+          g_free (contents);
+        }
+      
+      modification_time = codeslayer_utils_get_modification_time (file_path);
+      codeslayer_editor_set_modification_time (CODESLAYER_EDITOR (editor), modification_time);
+    }
 
   notebook_page = codeslayer_notebook_page_new (editor);
 
   /* create tab */
+  
+  if (!file_name)
+    file_name = g_strdup ("Untitled");
 
   notebook_tab = codeslayer_notebook_tab_new (GTK_WIDGET (notebook), file_name);
   codeslayer_notebook_tab_set_notebook_page (CODESLAYER_NOTEBOOK_TAB (notebook_tab), 
@@ -255,7 +260,8 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   g_signal_connect (G_OBJECT (buffer), "modified-changed",
                     G_CALLBACK (buffer_modified_action), notebook);
 
-  g_free (file_name);
+  if (file_name)
+    g_free (file_name);
 
   gtk_widget_show_all (GTK_WIDGET (notebook_tab));
   gtk_widget_show_all (GTK_WIDGET (notebook_page));
@@ -350,19 +356,28 @@ save_editor (CodeSlayerNotebook *notebook,
 
       document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
       file_path = codeslayer_document_get_file_path (document);
-
-      if (!g_file_set_contents (file_path, contents, -1, NULL))
-        {
-          g_free (contents);
-          return NULL;
-        }
-      g_free (contents);
       
-      modification_time = codeslayer_utils_get_modification_time (file_path);
-      codeslayer_editor_set_modification_time (CODESLAYER_EDITOR (editor), modification_time);
+      if (file_path == NULL)
+        {
+          save_as_dialog (notebook, document);
+          file_path = codeslayer_document_get_file_path (document);
+        }
+
+      if (file_path != NULL)
+        {
+          if (!g_file_set_contents (file_path, contents, -1, NULL))
+            {
+              g_free (contents);
+              return NULL;
+            }
+          g_free (contents);
           
-      g_signal_emit_by_name((gpointer)notebook, "editor-saved", editor);          
-      gtk_text_buffer_set_modified (buffer, FALSE);
+          modification_time = codeslayer_utils_get_modification_time (file_path);
+          codeslayer_editor_set_modification_time (CODESLAYER_EDITOR (editor), modification_time);
+              
+          g_signal_emit_by_name((gpointer)notebook, "editor-saved", editor);          
+          gtk_text_buffer_set_modified (buffer, FALSE);
+        }      
     }
 
   notebook_tab = gtk_notebook_get_tab_label (GTK_NOTEBOOK (notebook),
@@ -370,6 +385,44 @@ save_editor (CodeSlayerNotebook *notebook,
   codeslayer_notebook_tab_show_buffer_clean (CODESLAYER_NOTEBOOK_TAB (notebook_tab));
   
   return editor;
+}
+
+static void
+save_as_dialog (CodeSlayerNotebook *notebook, 
+                CodeSlayerDocument *document)
+{
+  CodeSlayerNotebookPrivate *priv;
+  GtkWidget *dialog;
+  gint response;
+  
+  priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
+  
+  dialog = gtk_file_chooser_dialog_new (_("Save As"), 
+                                        GTK_WINDOW (priv->window),
+                                        GTK_FILE_CHOOSER_ACTION_SAVE,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_SAVE, GTK_RESPONSE_OK, 
+                                        NULL);
+                                        
+  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
+  gtk_window_set_skip_pager_hint (GTK_WINDOW (dialog), TRUE);
+  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+  response = gtk_dialog_run (GTK_DIALOG (dialog));
+  if (response == GTK_RESPONSE_OK)
+    {
+      GFile *file;
+      gchar *file_path;
+
+      file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog));
+      file_path = g_file_get_path (file);
+
+      codeslayer_document_set_file_path (document, file_path);
+
+      g_object_unref (file);
+      g_free (file_path);
+    }
+  gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 /**
@@ -609,10 +662,14 @@ has_clean_buffer (CodeSlayerNotebook *notebook,
   if (!gtk_text_buffer_get_modified (buffer)) 
     return TRUE;
 
-  document = codeslayer_notebook_page_get_document (
-                                            CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+  document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
   file_path = codeslayer_document_get_file_path (document);
-  base_name = g_path_get_basename (file_path);
+  
+  if (file_path != NULL)
+    base_name = g_path_get_basename (file_path);
+  else
+    base_name = g_strdup ("Untitled");
+  
   text = g_strdup_printf (_("Save changes to %s?"), base_name);
 
   dialog = gtk_message_dialog_new_with_markup (NULL, GTK_DIALOG_MODAL,

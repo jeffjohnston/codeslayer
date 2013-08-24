@@ -232,7 +232,6 @@ codeslayer_editor_new (GtkWindow             *window,
   GtkWidget *editor;
   GtkSourceBuffer *buffer;
   const gchar *file_path;
-  gchar *file_name;
   
   editor = g_object_new (codeslayer_editor_get_type (), NULL);
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
@@ -244,13 +243,25 @@ codeslayer_editor_new (GtkWindow             *window,
   g_object_ref_sink (G_OBJECT (priv->document));
   
   file_path = codeslayer_document_get_file_path (document);
-  file_name = g_path_get_basename (file_path);
-  buffer = create_source_buffer (file_name);
-  g_free (file_name);
+  
+  if (file_path != NULL)
+    {
+      gchar *file_name;
+      file_name = g_path_get_basename (file_path);
+      buffer = create_source_buffer (file_name);
+      g_free (file_name);    
+    }
+  else
+    {
+      buffer = gtk_source_buffer_new (NULL);
+      gtk_source_buffer_set_highlight_syntax (buffer, TRUE);
+      gtk_text_buffer_create_tag (GTK_TEXT_BUFFER (buffer), 
+                                  "search-marks", "background", "#fff3a0", NULL);
+    }    
   
   gtk_text_view_set_buffer (GTK_TEXT_VIEW (editor), GTK_TEXT_BUFFER (buffer));
   g_object_unref (buffer);
-
+  
   codeslayer_editor_sync_settings_preferences (CODESLAYER_EDITOR (editor));
 
   g_signal_connect_swapped (G_OBJECT (editor), "key-press-event",
@@ -857,7 +868,7 @@ codeslayer_editor_sync_settings_preferences (CodeSlayerEditor *editor)
 
   word_wrap_types = codeslayer_utils_string_to_list (word_wrap_types_str);
   
-  if (codeslayer_utils_contains_element_with_suffix (word_wrap_types, document_file_path))
+  if (document_file_path != NULL && codeslayer_utils_contains_element_with_suffix (word_wrap_types, document_file_path))
     gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (GTK_WIDGET (editor)), GTK_WRAP_WORD);
   else
     gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (GTK_WIDGET (editor)), GTK_WRAP_NONE);
