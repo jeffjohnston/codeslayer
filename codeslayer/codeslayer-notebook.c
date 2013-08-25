@@ -191,7 +191,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
 {
   CodeSlayerNotebookPrivate *priv;
   const gchar *file_path;
-  gchar *file_name;
+  gchar *file_name = NULL;
   GtkTextBuffer *buffer;
   GtkWidget *editor;
   GtkWidget *notebook_page;
@@ -231,9 +231,9 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
 
   /* create tab */
   
-  if (!file_name)
+  if (file_name == NULL)
     file_name = g_strdup ("Untitled");
-
+    
   notebook_tab = codeslayer_notebook_tab_new (GTK_WIDGET (notebook), file_name);
   codeslayer_notebook_tab_set_notebook_page (CODESLAYER_NOTEBOOK_TAB (notebook_tab), 
                                              notebook_page);
@@ -260,7 +260,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   g_signal_connect (G_OBJECT (buffer), "modified-changed",
                     G_CALLBACK (buffer_modified_action), notebook);
 
-  if (file_name)
+  if (file_name != NULL)
     g_free (file_name);
 
   gtk_widget_show_all (GTK_WIDGET (notebook_tab));
