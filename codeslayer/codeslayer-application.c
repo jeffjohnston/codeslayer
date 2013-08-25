@@ -217,6 +217,21 @@ codeslayer_application_open (GApplication *application,
                              gint         n_files,
                              const gchar  *hint)
 {
+  CodeSlayerApplicationPrivate *priv;
+  gint i;
+
+  priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
+
+  for (i = 0; i < n_files; i++)
+    {
+      GFile *file = files[i];
+      if (g_file_query_exists (file, NULL))
+        {
+          gchar *file_path = g_file_get_path (file);
+          codeslayer_engine_open_editor (priv->engine, file_path);
+          g_free (file_path);
+        }
+    }
 }
 
 /**

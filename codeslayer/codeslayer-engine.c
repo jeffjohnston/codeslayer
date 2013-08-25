@@ -362,6 +362,23 @@ codeslayer_engine_save_config (CodeSlayerEngine *engine)
   return TRUE;
 }
 
+void
+codeslayer_engine_open_editor (CodeSlayerEngine *engine, 
+                               gchar            *file_path)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerDocument *document;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  document = codeslayer_document_new ();
+  codeslayer_document_set_file_path (document, file_path);
+  codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
+  
+  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+}
+
 static void
 new_editor_action (CodeSlayerEngine *engine)
 {

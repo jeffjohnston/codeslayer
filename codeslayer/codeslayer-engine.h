@@ -60,6 +60,8 @@ CodeSlayerEngine*  codeslayer_engine_new                  (GtkWindow            
 
 void               codeslayer_engine_load_default_config  (CodeSlayerEngine      *engine);
 gboolean           codeslayer_engine_save_config          (CodeSlayerEngine      *engine);
+void               codeslayer_engine_open_editor          (CodeSlayerEngine      *engine, 
+                                                           gchar                 *file_path);
 
 G_END_DECLS
 
