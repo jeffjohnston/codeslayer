@@ -210,7 +210,20 @@ codeslayer_menu_bar_editor_sync_with_notebook (CodeSlayerMenuBarEditor *menu_bar
   gtk_widget_set_sensitive (priv->save_item, sensitive);
   gtk_widget_set_sensitive (priv->save_all_item, sensitive);
   gtk_widget_set_sensitive (priv->close_tab_item, sensitive);
-}                                                         
+}
+
+void
+codeslayer_menu_bar_editor_sync_with_config (CodeSlayerMenuBarEditor *menu_bar_editor,
+                                             CodeSlayerConfig        *config)
+{
+  CodeSlayerMenuBarEditorPrivate *priv;
+  priv = CODESLAYER_MENU_BAR_EDITOR_GET_PRIVATE (menu_bar_editor);
+  
+  gtk_widget_set_sensitive (priv->new_item, 
+                            codeslayer_config_get_projects_mode (config) == FALSE);
+  gtk_widget_set_sensitive (priv->open_item, 
+                            codeslayer_config_get_projects_mode (config) == FALSE);
+}
 
 static void
 new_editor_action (CodeSlayerMenuBarEditor *menu_bar_editor)

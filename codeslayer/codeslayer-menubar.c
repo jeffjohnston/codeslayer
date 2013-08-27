@@ -723,9 +723,26 @@ codeslayer_menu_bar_sync_with_notebook (CodeSlayerMenuBar *menu_bar,
   CodeSlayerMenuBarPrivate *priv;
   priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
   codeslayer_menu_bar_editor_sync_with_notebook (CODESLAYER_MENU_BAR_EDITOR (priv->menu_bar_editor),
-                                                notebook);                                               
+                                                 notebook);                                               
   codeslayer_menu_bar_search_sync_with_notebook (CODESLAYER_MENU_BAR_SEARCH (priv->menu_bar_search),
-                                                notebook);  
+                                                 notebook);  
+  codeslayer_menu_bar_view_sync_with_notebook (CODESLAYER_MENU_BAR_VIEW (priv->menu_bar_view),
+                                               notebook);  
+}
+
+void 
+codeslayer_menu_bar_sync_with_config (CodeSlayerMenuBar     *menu_bar,
+                                      CodeSlayerConfig      *config)
+{
+  CodeSlayerMenuBarPrivate *priv;
+  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
+
+  codeslayer_menu_bar_editor_sync_with_config (CODESLAYER_MENU_BAR_EDITOR (priv->menu_bar_editor),
+                                               config);
+  codeslayer_menu_bar_search_sync_with_config (CODESLAYER_MENU_BAR_SEARCH (priv->menu_bar_search),
+                                               config);
+  codeslayer_menu_bar_projects_sync_with_config (CODESLAYER_MENU_BAR_PROJECTS (priv->menu_bar_projects),
+                                                 config);
 }
 
 /**

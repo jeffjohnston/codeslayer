@@ -394,9 +394,12 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_theme, 
                             gtk_label_new (_("Theme")));
 
-  preferences_projects = codeslayer_preferences_projects_new (preferences);
-  gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_projects, 
-                            gtk_label_new (_("Projects")));
+  if (codeslayer_config_get_projects_mode (priv->config))
+    {
+      preferences_projects = codeslayer_preferences_projects_new (preferences);
+      gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_projects, 
+                                gtk_label_new (_("Projects")));    
+    }
 
   preferences_misc = codeslayer_preferences_misc_new (preferences);
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_misc, 

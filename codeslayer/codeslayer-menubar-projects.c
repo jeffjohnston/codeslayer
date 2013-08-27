@@ -50,6 +50,8 @@ struct _CodeSlayerMenuBarProjectsPrivate
   GtkWidget          *menu_bar;
   GtkWidget          *menu;
   GtkWidget          *sync_with_editor_item;
+  GtkWidget          *scan_external_changes_item;
+  GtkWidget          *add_projects_item;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarProjects, codeslayer_menu_bar_projects, GTK_TYPE_MENU_ITEM)
@@ -138,7 +140,8 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
 
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
 
-  add_projects_item = gtk_menu_item_new_with_label (_("Add"));
+  add_projects_item = gtk_menu_item_new_with_label (_("Add Project"));
+  priv->add_projects_item = add_projects_item;
   gtk_menu_set_accel_group (GTK_MENU (priv->menu), priv->accel_group);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), add_projects_item);
 
@@ -154,6 +157,7 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
 
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
   scan_external_changes_item = gtk_menu_item_new_with_label (_("Scan External Changes"));
+  priv->scan_external_changes_item = scan_external_changes_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), scan_external_changes_item);
 
   g_signal_connect_swapped (G_OBJECT (new_projects_item), "activate",
@@ -170,6 +174,21 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
 
   g_signal_connect_swapped (G_OBJECT (scan_external_changes_item), "activate",
                             G_CALLBACK (scan_external_changes_action), menu_bar_projects);  
+}
+
+void
+codeslayer_menu_bar_projects_sync_with_config (CodeSlayerMenuBarProjects *menu_bar_projects,
+                                               CodeSlayerConfig          *config)
+{
+  CodeSlayerMenuBarProjectsPrivate *priv;
+  priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
+
+  gtk_widget_set_sensitive (priv->sync_with_editor_item, 
+                            codeslayer_config_get_projects_mode (config));
+  gtk_widget_set_sensitive (priv->scan_external_changes_item, 
+                            codeslayer_config_get_projects_mode (config));
+  gtk_widget_set_sensitive (priv->add_projects_item, 
+                            codeslayer_config_get_projects_mode (config));
 }
 
 static void

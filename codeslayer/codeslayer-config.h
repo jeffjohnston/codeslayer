@@ -53,6 +53,9 @@ CodeSlayerConfig*    codeslayer_config_new (void);
 const gchar*        codeslayer_config_get_file_path             (CodeSlayerConfig     *config);
 void                codeslayer_config_set_file_path             (CodeSlayerConfig     *config, 
                                                                  const gchar          *file_path);
+gboolean            codeslayer_config_get_projects_mode         (CodeSlayerConfig     *config);
+void                codeslayer_config_set_projects_mode         (CodeSlayerConfig     *config, 
+                                                                 gboolean              projects_mode);
 GList*              codeslayer_config_get_projects              (CodeSlayerConfig     *config);
 void                codeslayer_config_set_projects              (CodeSlayerConfig     *config,
                                                                  GList                *projects);

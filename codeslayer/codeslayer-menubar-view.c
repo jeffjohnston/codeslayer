@@ -166,6 +166,22 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view,
                             G_CALLBACK (draw_spaces_action), menu_bar_view);
 }
 
+void
+codeslayer_menu_bar_view_sync_with_notebook (CodeSlayerMenuBarView *menu_bar_view,
+                                             GtkWidget             *notebook)
+{
+  CodeSlayerMenuBarViewPrivate *priv;
+  gboolean sensitive;
+  gint pages;
+  
+  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
+  
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
+  sensitive = pages > 0;
+  
+  gtk_widget_set_sensitive (priv->draw_spaces_item, sensitive);
+}                                             
+
 /**
  * codeslayer_menu_bar_view_sync_with_panes:
  * @menu_bar_view: a #CodeSlayerMenuBarView.

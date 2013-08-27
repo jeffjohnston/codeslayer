@@ -207,10 +207,22 @@ codeslayer_menu_bar_search_sync_with_notebook (CodeSlayerMenuBarSearch *menu_bar
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
   sensitive = pages > 0;
   
-  gtk_widget_set_sensitive (priv->replace_item, sensitive);
+  gtk_widget_set_sensitive (priv->find_item, sensitive);
   gtk_widget_set_sensitive (priv->find_next_item, sensitive);
   gtk_widget_set_sensitive (priv->find_previous_item, sensitive);
-}                                              
+  gtk_widget_set_sensitive (priv->replace_item, sensitive);
+  gtk_widget_set_sensitive (priv->go_to_line_item, sensitive);
+}
+
+void
+codeslayer_menu_bar_search_sync_with_config (CodeSlayerMenuBarSearch *menu_bar_search,
+                                             CodeSlayerConfig        *config)
+{
+  CodeSlayerMenuBarSearchPrivate *priv;
+  priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
+  gtk_widget_set_sensitive (priv->find_projects_item, 
+                            codeslayer_config_get_projects_mode (config));
+}
 
 static void
 find_action (CodeSlayerMenuBarSearch *menu_bar_search)

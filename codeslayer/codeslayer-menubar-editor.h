@@ -20,6 +20,7 @@
 #define	__CODESLAYER_MENU_BAR_EDITOR_H__
 
 #include <gtk/gtk.h>
+#include <codeslayer/codeslayer-config.h>
 
 G_BEGIN_DECLS
 
@@ -49,6 +50,8 @@ GtkWidget*  codeslayer_menu_bar_editor_new                 (GtkWidget           
                                           
 void        codeslayer_menu_bar_editor_sync_with_notebook  (CodeSlayerMenuBarEditor *menu_bar_editor,
                                                             GtkWidget               *notebook);
+void        codeslayer_menu_bar_editor_sync_with_config    (CodeSlayerMenuBarEditor *menu_bar_editor,
+                                                            CodeSlayerConfig        *config);
                                           
 
 G_END_DECLS

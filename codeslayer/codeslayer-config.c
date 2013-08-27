@@ -42,6 +42,7 @@ typedef struct _CodeSlayerConfigPrivate CodeSlayerConfigPrivate;
 struct _CodeSlayerConfigPrivate
 {
   gchar      *file_path;
+  gboolean    projects_mode;
   GList      *projects;
   GList      *documents;
   GList      *libs;
@@ -50,16 +51,6 @@ struct _CodeSlayerConfigPrivate
 
 G_DEFINE_TYPE (CodeSlayerConfig, codeslayer_config, G_TYPE_OBJECT)
      
-enum
-{
-  PROP_0,
-  PROP_FILE_PATH,
-  PROP_PROJECTS,
-  PROP_DOCUMENTS,
-  PROP_LIBS, 
-  PROP_PREFERENCES  
-};
-
 static void 
 codeslayer_config_class_init (CodeSlayerConfigClass *klass)
 {
@@ -76,6 +67,7 @@ codeslayer_config_init (CodeSlayerConfig *config)
   CodeSlayerConfigPrivate *priv; 
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
   priv->file_path = NULL;
+  priv->projects_mode = FALSE;
   priv->projects = NULL;
   priv->documents = NULL;
   priv->libs = NULL;
@@ -152,6 +144,23 @@ codeslayer_config_set_file_path (CodeSlayerConfig *config,
       priv->file_path = NULL;
     }
   priv->file_path = g_strdup (file_path);
+}
+
+gboolean
+codeslayer_config_get_projects_mode (CodeSlayerConfig *config)
+{
+  CodeSlayerConfigPrivate *priv;
+  priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
+  return priv->projects_mode;
+}
+
+void 
+codeslayer_config_set_projects_mode (CodeSlayerConfig *config, 
+                                     gboolean          projects_mode)
+{
+  CodeSlayerConfigPrivate *priv;
+  priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
+  priv->projects_mode = projects_mode;
 }
 
 /**

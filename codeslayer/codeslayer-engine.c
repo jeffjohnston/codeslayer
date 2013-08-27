@@ -332,6 +332,7 @@ codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
   codeslayer_preferences_load (priv->preferences, priv->config);
 
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 
   codeslayer_plugins_activate (priv->plugins, priv->config);  
@@ -376,6 +377,7 @@ codeslayer_engine_open_editor (CodeSlayerEngine *engine,
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
   
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }
 
@@ -390,6 +392,7 @@ new_editor_action (CodeSlayerEngine *engine)
   document = codeslayer_document_new ();
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }
 
@@ -444,6 +447,7 @@ open_editor_action (CodeSlayerEngine *engine)
   gtk_widget_destroy (GTK_WIDGET (dialog));
 
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }
 
@@ -492,6 +496,7 @@ page_removed_action (CodeSlayerEngine *engine,
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));  
 }
 
@@ -827,6 +832,8 @@ open_projects_action (CodeSlayerEngine *engine,
   if (priv->config == NULL)
     return;
     
+  codeslayer_config_set_projects_mode (priv->config, TRUE);    
+    
   codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
                                    priv->projects, "Projects", 0);
   
@@ -855,6 +862,7 @@ open_projects_action (CodeSlayerEngine *engine,
     }
 
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 
   codeslayer_plugins_activate (priv->plugins, priv->config);
@@ -989,6 +997,7 @@ select_projects_document_action (CodeSlayerEngine *engine,
 
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (notebook), document);
   codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));  
 }
 

@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-settings.h>
+#include <codeslayer/codeslayer-config.h>
 
 G_BEGIN_DECLS
 
@@ -118,6 +119,8 @@ void            codeslayer_menu_bar_draw_spaces                (CodeSlayerMenuBa
 
 void            codeslayer_menu_bar_sync_with_notebook         (CodeSlayerMenuBar     *menu_bar,
                                                                 GtkWidget             *notebook);
+void            codeslayer_menu_bar_sync_with_config           (CodeSlayerMenuBar     *menu_bar,
+                                                                CodeSlayerConfig      *config);
 
 void            codeslayer_menu_bar_sync_with_panes            (CodeSlayerMenuBar     *menu_bar, 
                                                                 gboolean               show_side_pane, 

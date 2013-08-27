@@ -20,6 +20,7 @@
 #define	__CODESLAYER_MENU_BAR_SEARCH_H__
 
 #include <gtk/gtk.h>
+#include <codeslayer/codeslayer-config.h>
 
 G_BEGIN_DECLS
 
@@ -49,7 +50,9 @@ GtkWidget*  codeslayer_menu_bar_search_new                 (GtkWidget           
                                             
 void        codeslayer_menu_bar_search_sync_with_notebook  (CodeSlayerMenuBarSearch *menu_bar_search,
                                                             GtkWidget               *notebook);
-
+void        codeslayer_menu_bar_search_sync_with_config    (CodeSlayerMenuBarSearch *menu_bar_search,
+                                                            CodeSlayerConfig        *config);
+                                                              
 G_END_DECLS
 
 #endif /* __CODESLAYER_MENU_BAR_SEARCH_H__ */
