@@ -54,6 +54,7 @@ static void buffer_modified_action          (GtkTextBuffer           *buffer,
 static gboolean has_clean_buffer            (CodeSlayerNotebook      *notebook, 
                                              gint                     page);
 static void save_as_dialog                  (CodeSlayerNotebook      *notebook, 
+                                             GtkWidget               *notebook_page, 
                                              CodeSlayerDocument      *document);
 static void preferences_changed_action      (CodeSlayerNotebook      *notebook);
 static GtkWidget* save_editor               (CodeSlayerNotebook      *notebook, 
@@ -359,7 +360,7 @@ save_editor (CodeSlayerNotebook *notebook,
       
       if (file_path == NULL)
         {
-          save_as_dialog (notebook, document);
+          save_as_dialog (notebook, notebook_page, document);
           file_path = codeslayer_document_get_file_path (document);
         }
 
@@ -389,6 +390,7 @@ save_editor (CodeSlayerNotebook *notebook,
 
 static void
 save_as_dialog (CodeSlayerNotebook *notebook, 
+                GtkWidget          *notebook_page, 
                 CodeSlayerDocument *document)
 {
   CodeSlayerNotebookPrivate *priv;
@@ -413,14 +415,23 @@ save_as_dialog (CodeSlayerNotebook *notebook,
     {
       GFile *file;
       gchar *file_path;
+      GtkWidget *notebook_label;
+      gchar *basename;
 
       file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (dialog));
       file_path = g_file_get_path (file);
+      basename = g_path_get_basename (file_path);
 
       codeslayer_document_set_file_path (document, file_path);
+      
+      notebook_label = gtk_notebook_get_tab_label (GTK_NOTEBOOK (notebook), 
+                                                   notebook_page);
+      codeslayer_notebook_tab_set_label_name (CODESLAYER_NOTEBOOK_TAB (notebook_label),
+                                              basename);
 
       g_object_unref (file);
       g_free (file_path);
+      g_free (basename);
     }
   gtk_widget_destroy (GTK_WIDGET (dialog));
 }
