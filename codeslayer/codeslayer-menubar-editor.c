@@ -56,6 +56,7 @@ struct _CodeSlayerMenuBarEditorPrivate
   GtkWidget     *open_item;
   GtkWidget     *save_item;
   GtkWidget     *save_all_item;
+  GtkWidget     *save_separator_item;
   GtkWidget     *close_tab_item;
 };
 
@@ -124,6 +125,7 @@ add_menu_items (CodeSlayerMenuBarEditor *menu_bar_editor)
   GtkWidget *open_item;
   GtkWidget *save_item;
   GtkWidget *save_all_item;
+  GtkWidget *save_separator_item;
   GtkWidget *close_tab_item;
   GtkWidget *preferences_item;
   GtkWidget *quit_application_item;
@@ -137,8 +139,10 @@ add_menu_items (CodeSlayerMenuBarEditor *menu_bar_editor)
   open_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_OPEN, priv->accel_group);
   priv->open_item = open_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), open_item);
-
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
+  
+  save_separator_item = gtk_separator_menu_item_new ();
+  priv->save_separator_item = save_separator_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu),save_separator_item );
 
   save_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_SAVE, priv->accel_group);
   priv->save_item = save_item;
@@ -219,10 +223,18 @@ codeslayer_menu_bar_editor_sync_with_config (CodeSlayerMenuBarEditor *menu_bar_e
   CodeSlayerMenuBarEditorPrivate *priv;
   priv = CODESLAYER_MENU_BAR_EDITOR_GET_PRIVATE (menu_bar_editor);
   
-  gtk_widget_set_sensitive (priv->new_item, 
-                            codeslayer_config_get_projects_mode (config) == FALSE);
-  gtk_widget_set_sensitive (priv->open_item, 
-                            codeslayer_config_get_projects_mode (config) == FALSE);
+  if (codeslayer_config_get_projects_mode (config) == TRUE)
+    {
+      gtk_widget_hide (priv->new_item);
+      gtk_widget_hide (priv->open_item);
+      gtk_widget_hide (priv->save_separator_item);
+    }
+  else
+    {
+      gtk_widget_show (priv->new_item);
+      gtk_widget_show (priv->open_item);
+      gtk_widget_show (priv->save_separator_item);
+    }
 }
 
 static void

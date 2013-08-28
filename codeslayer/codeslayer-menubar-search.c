@@ -55,6 +55,7 @@ struct _CodeSlayerMenuBarSearchPrivate
   GtkWidget     *find_next_item;
   GtkWidget     *find_previous_item;
   GtkWidget     *find_projects_item;
+  GtkWidget     *find_projects_separator_item;
   GtkWidget     *go_to_line_item;
 };
 
@@ -124,6 +125,7 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
   GtkWidget *find_previous_item;
   GtkWidget *replace_item;
   GtkWidget *find_projects_item;
+  GtkWidget *find_projects_separator_item;
   GtkWidget *go_to_line_item;
   
   priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
@@ -151,8 +153,10 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
   gtk_widget_add_accelerator (replace_item, "activate", priv->accel_group,
                               GDK_KEY_H, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), replace_item);
-
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
+  
+  find_projects_separator_item = gtk_separator_menu_item_new ();
+  priv->find_projects_separator_item = find_projects_separator_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_projects_separator_item);
 
   find_projects_item = gtk_menu_item_new_with_label (_("Find In Projects"));
   priv->find_projects_item = find_projects_item;
@@ -220,8 +224,17 @@ codeslayer_menu_bar_search_sync_with_config (CodeSlayerMenuBarSearch *menu_bar_s
 {
   CodeSlayerMenuBarSearchPrivate *priv;
   priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
-  gtk_widget_set_sensitive (priv->find_projects_item, 
-                            codeslayer_config_get_projects_mode (config));
+
+  if (codeslayer_config_get_projects_mode (config) == TRUE)
+    {
+      gtk_widget_show (priv->find_projects_item);
+      gtk_widget_show (priv->find_projects_separator_item);
+    }
+  else
+    {
+      gtk_widget_hide (priv->find_projects_item);
+      gtk_widget_hide (priv->find_projects_separator_item);
+    }
 }
 
 static void
