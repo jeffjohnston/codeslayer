@@ -228,10 +228,10 @@ void build_documents_xml (CodeSlayerDocument *document,
   g_free (line_number_str);
 }
 
-void build_libs_xml (gchar   *name, 
+void build_plugins_xml (gchar   *name, 
                      GString **xml)
 {
-  *xml = g_string_append (*xml, "\n\t\t<lib ");
+  *xml = g_string_append (*xml, "\n\t\t<plugin ");
   *xml = g_string_append (*xml, "name=\"");
   *xml = g_string_append (*xml, name);
   *xml = g_string_append (*xml, "\"/>");
@@ -285,9 +285,9 @@ codeslayer_repository_save_config (CodeSlayerConfig *config)
 
   if (libs != NULL)
     {
-      xml = g_string_append (xml, "\n\t<libs>");
-      g_list_foreach (libs, (GFunc)build_libs_xml, &xml);
-      xml = g_string_append (xml, "\n\t</libs>");    
+      xml = g_string_append (xml, "\n\t<plugins>");
+      g_list_foreach (libs, (GFunc)build_plugins_xml, &xml);
+      xml = g_string_append (xml, "\n\t</plugins>");    
     }
 
   xml = g_string_append (xml, "\n\t<preferences>");
