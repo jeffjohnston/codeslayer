@@ -56,7 +56,9 @@ CodeSlayerEngine*  codeslayer_engine_new                  (GtkWindow            
                                                            GtkWidget             *menubar,
                                                            GtkWidget             *notebook_pane,
                                                            GtkWidget             *side_pane,
-                                                           GtkWidget             *bottom_pane);
+                                                           GtkWidget             *bottom_pane, 
+                                                           GtkWidget             *hpaned,
+                                                           GtkWidget             *vpaned);
 
 void               codeslayer_engine_load_default_config  (CodeSlayerEngine      *engine);
 gboolean           codeslayer_engine_save_config          (CodeSlayerEngine      *engine);

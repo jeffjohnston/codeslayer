@@ -20,6 +20,7 @@
 #define __CODESLAYER_SETTINGS_H__
 
 #include <gtk/gtk.h>
+#include <codeslayer/codeslayer-config.h>
 
 G_BEGIN_DECLS
 
@@ -65,26 +66,22 @@ GType codeslayer_settings_get_type (void) G_GNUC_CONST;
 CodeSlayerSettings*  codeslayer_settings_new          (void);
 
 gint                 codeslayer_settings_get_integer  (CodeSlayerSettings *settings, 
-                                                       gchar              *key);
+                                                       gchar              *name);
 void                 codeslayer_settings_set_integer  (CodeSlayerSettings *settings, 
-                                                       gchar              *key,
+                                                       gchar              *name,
                                                        gint                value);
-gdouble              codeslayer_settings_get_double   (CodeSlayerSettings *settings, 
-                                                       gchar              *key);
-void                 codeslayer_settings_set_double   (CodeSlayerSettings *settings, 
-                                                       gchar              *key,
-                                                       gdouble             value);
 gboolean             codeslayer_settings_get_boolean  (CodeSlayerSettings *settings, 
-                                                       gchar              *key);
+                                                       gchar              *name);
 void                 codeslayer_settings_set_boolean  (CodeSlayerSettings *settings, 
-                                                       gchar              *key,
+                                                       gchar              *name,
                                                        gboolean            value);
 gchar*               codeslayer_settings_get_string   (CodeSlayerSettings *settings,
-                                                       gchar              *key);
+                                                       gchar              *name);
 void                 codeslayer_settings_set_string   (CodeSlayerSettings *settings, 
-                                                       gchar              *key,
-                                                       const gchar        *value);
-void                 codeslayer_settings_save         (CodeSlayerSettings *settings);
+                                                       gchar              *name,
+                                                       gchar              *value);
+void                 codeslayer_settings_load         (CodeSlayerSettings *settings, 
+                                                       CodeSlayerConfig   *config);
 
 G_END_DECLS
 

@@ -43,10 +43,6 @@ static void codeslayer_preferences_finalize    (CodeSlayerPreferences      *pref
 #define CODESLAYER_PREFERENCES_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PREFERENCES_TYPE, CodeSlayerPreferencesPrivate))
 
-#define MAIN "main"
-#define GROUPS "groups"
-#define PREFERENCES_CONF "preferences.conf"
-
 typedef struct _CodeSlayerPreferencesPrivate CodeSlayerPreferencesPrivate;
 
 struct _CodeSlayerPreferencesPrivate

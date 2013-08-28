@@ -738,9 +738,11 @@ codeslayer_menu_bar_sync_with_config (CodeSlayerMenuBar     *menu_bar,
   priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
 
   codeslayer_menu_bar_editor_sync_with_config (CODESLAYER_MENU_BAR_EDITOR (priv->menu_bar_editor),
-                                               config);
+                                               config);                                               
   codeslayer_menu_bar_search_sync_with_config (CODESLAYER_MENU_BAR_SEARCH (priv->menu_bar_search),
                                                config);
+  codeslayer_menu_bar_view_sync_with_config (CODESLAYER_MENU_BAR_VIEW (priv->menu_bar_view),
+                                             config);                                
   codeslayer_menu_bar_projects_sync_with_config (CODESLAYER_MENU_BAR_PROJECTS (priv->menu_bar_projects),
                                                  config);
 }

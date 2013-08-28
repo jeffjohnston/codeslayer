@@ -441,7 +441,7 @@ add_match_case_button (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *match_case_button;
-  gboolean match_case_selected;
+  /*gboolean match_case_selected;*/
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
@@ -449,9 +449,9 @@ add_match_case_button (CodeSlayerNotebookSearch *notebook_search)
   gtk_widget_set_can_focus (match_case_button, FALSE);
   priv->match_case_button = match_case_button;
   
-  match_case_selected = codeslayer_settings_get_boolean (priv->settings,
+  /*match_case_selected = codeslayer_settings_get_boolean (priv->settings,
                                                          CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE);
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_case_button), match_case_selected);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_case_button), match_case_selected);*/
 
   g_signal_connect_swapped (G_OBJECT (match_case_button), "clicked",
                             G_CALLBACK (create_search_marks), notebook_search);
@@ -468,7 +468,7 @@ add_match_word_button (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *match_word_button;
-  gboolean match_word_selected;
+  /*gboolean match_word_selected;*/
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
@@ -478,9 +478,9 @@ add_match_word_button (CodeSlayerNotebookSearch *notebook_search)
                                                 TRUE);
   priv->match_word_button = match_word_button;
   
-  match_word_selected = codeslayer_settings_get_boolean (priv->settings,
+  /*match_word_selected = codeslayer_settings_get_boolean (priv->settings,
                                                          CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD);
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_word_button), match_word_selected);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (match_word_button), match_word_selected);*/
 
   g_signal_connect_swapped (G_OBJECT (match_word_button), "clicked",
                             G_CALLBACK (create_search_marks), notebook_search);
@@ -781,8 +781,6 @@ save_search_options (CodeSlayerNotebookSearch *notebook_search)
   codeslayer_settings_set_boolean (priv->settings, 
                                    CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD,
                                    match_word_selected);
-
-  codeslayer_settings_save (priv->settings);
 }
 
 static void

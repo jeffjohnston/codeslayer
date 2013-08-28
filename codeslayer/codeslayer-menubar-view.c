@@ -46,6 +46,7 @@ typedef struct _CodeSlayerMenuBarViewPrivate CodeSlayerMenuBarViewPrivate;
 
 struct _CodeSlayerMenuBarViewPrivate
 {
+  CodeSlayerSettings *settings;
   GtkAccelGroup      *accel_group;
   GtkWidget          *menu_bar;
   GtkWidget          *menu;
@@ -110,6 +111,7 @@ codeslayer_menu_bar_view_new (GtkWidget          *menu_bar,
 
   priv->menu_bar = menu_bar;
   priv->accel_group = accel_group;
+  priv->settings = settings;
 
   add_menu_items (CODESLAYER_MENU_BAR_VIEW (menu_bar_view), settings);
 
@@ -149,10 +151,7 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view,
   draw_spaces_item = gtk_check_menu_item_new_with_label (_("Draw Spaces"));
   priv->draw_spaces_item = draw_spaces_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), draw_spaces_item);
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->draw_spaces_item),
-                                  codeslayer_settings_get_boolean (settings, 
-                                                                   CODESLAYER_SETTINGS_DRAW_SPACES));
-
+  
   g_signal_connect_swapped (G_OBJECT (fullscreen_window_item), "activate",
                             G_CALLBACK (fullscreen_window_action), menu_bar_view);
 
@@ -210,7 +209,19 @@ codeslayer_menu_bar_view_sync_with_panes (CodeSlayerMenuBarView *menu_bar_view,
 
   g_signal_handler_unblock (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_unblock (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
-}                                        
+}
+
+void
+codeslayer_menu_bar_view_sync_with_config (CodeSlayerMenuBarView *menu_bar_view,
+                                           CodeSlayerConfig      *config)
+{
+  CodeSlayerMenuBarViewPrivate *priv;
+  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
+
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->draw_spaces_item),
+                                  codeslayer_settings_get_boolean (priv->settings, 
+                                                                   CODESLAYER_SETTINGS_DRAW_SPACES));
+}
 
 static void
 fullscreen_window_action (CodeSlayerMenuBarView *menu_bar_view)

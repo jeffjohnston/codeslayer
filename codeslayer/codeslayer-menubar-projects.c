@@ -132,7 +132,6 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
   GtkWidget *sync_with_editor_separator_item;
   GtkWidget *scan_external_changes_item;
   GtkWidget *scan_external_changes_separator_item;
-  gboolean sync_with_editor;
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
@@ -161,10 +160,6 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
   priv->sync_with_editor_item = sync_with_editor_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), sync_with_editor_item);
   
-  sync_with_editor = codeslayer_settings_get_boolean (priv->settings, 
-                                                      CODESLAYER_SETTINGS_SYNC_WITH_EDITOR);
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (sync_with_editor_item), sync_with_editor);
-
   scan_external_changes_separator_item = gtk_separator_menu_item_new ();
   priv->scan_external_changes_separator_item = scan_external_changes_separator_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), scan_external_changes_separator_item);
@@ -194,16 +189,23 @@ codeslayer_menu_bar_projects_sync_with_config (CodeSlayerMenuBarProjects *menu_b
                                                CodeSlayerConfig          *config)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
+  
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
 
   if (codeslayer_config_get_projects_mode (config) == TRUE)
-    {
+    {    
+      gboolean sync_with_editor;
+     
       gtk_widget_show (priv->add_projects_item);
       gtk_widget_show (priv->add_projects_separator_item);
       gtk_widget_show (priv->sync_with_editor_item);
       gtk_widget_show (priv->sync_with_editor_separator_item);
       gtk_widget_show (priv->scan_external_changes_item);
       gtk_widget_show (priv->scan_external_changes_separator_item);
+
+      sync_with_editor = codeslayer_settings_get_boolean (priv->settings, 
+                                                          CODESLAYER_SETTINGS_SYNC_WITH_EDITOR);
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item), sync_with_editor);    
     }
   else
     {
@@ -329,7 +331,6 @@ sync_with_editor_action (CodeSlayerMenuBarProjects *menu_bar_projects)
                                                 
   codeslayer_settings_set_boolean (priv->settings, CODESLAYER_SETTINGS_SYNC_WITH_EDITOR,
                                    sync_with_editor);
-  codeslayer_settings_save (priv->settings);
 }
 
 static void

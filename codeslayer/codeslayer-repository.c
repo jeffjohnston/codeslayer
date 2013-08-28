@@ -23,6 +23,7 @@
 #include <libxml/tree.h>
 
 #include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-repository.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
@@ -36,6 +37,7 @@ static void load_config                                   (CodeSlayerConfig *con
                                                            xmlNode          *a_node);
 static CodeSlayerPlugin* load_plugin_from_file            (gchar            *file_path);
 static void              set_config_preferences_defaults  (CodeSlayerConfig *config);
+static void              set_config_settings_defaults     (CodeSlayerConfig *config);
 
 CodeSlayerConfig*
 codeslayer_repository_get_default_config ()
@@ -52,6 +54,7 @@ codeslayer_repository_get_default_config ()
       config = codeslayer_config_new ();      
       codeslayer_config_set_file_path (config, file_path);      
       set_config_preferences_defaults (config);
+      set_config_settings_defaults (config);
     }
   else
     {
@@ -68,8 +71,8 @@ set_config_preferences_defaults (CodeSlayerConfig *config)
 {
   codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS, "true");
   codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE, "true");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN, "true");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET, "true");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN, "false");
+  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET, "false");
   codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS, "true");
   codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION, "true");
   codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION, "80");
@@ -81,6 +84,15 @@ set_config_preferences_defaults (CodeSlayerConfig *config)
   codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION, "left");
   codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS, ".csv,.git,.svn");
   codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES, ".txt");
+}
+
+static void
+set_config_settings_defaults (CodeSlayerConfig *config)
+{
+  codeslayer_config_set_setting (config, CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE, "false");
+  codeslayer_config_set_setting (config, CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE, "false");
+  codeslayer_config_set_setting (config, CODESLAYER_SETTINGS_DRAW_SPACES, "false");
+  codeslayer_config_set_setting (config, CODESLAYER_SETTINGS_SYNC_WITH_EDITOR, "true");
 }
 
 CodeSlayerConfig*
@@ -175,6 +187,19 @@ load_config (CodeSlayerConfig *config,
               xmlFree (name);
               xmlFree (value);
             }
+          else if (g_strcmp0 ((gchar*)cur_node->name, "setting") == 0)
+            {
+              xmlChar *name;
+              xmlChar *value;
+              
+              name = xmlGetProp (cur_node, (const xmlChar*)"name");
+              value = xmlGetProp (cur_node, (const xmlChar*)"value");
+              
+              codeslayer_config_set_setting (config, (gchar*) name, (gchar*) value);
+              
+              xmlFree (name);
+              xmlFree (value);
+            }
           else if (g_strcmp0 ((gchar*)cur_node->name, "plugin") == 0)
             {
               xmlChar *name;
@@ -250,6 +275,19 @@ void build_preferences_xml (gchar   *name,
   *xml = g_string_append (*xml, "\"/>");
 }
 
+void build_settings_xml (gchar   *name,
+                         gchar   *value, 
+                         GString **xml)
+{
+  *xml = g_string_append (*xml, "\n\t\t<setting ");
+  *xml = g_string_append (*xml, "name=\"");
+  *xml = g_string_append (*xml, name);
+  *xml = g_string_append (*xml, "\" ");
+  *xml = g_string_append (*xml, "value=\"");
+  *xml = g_string_append (*xml, value);
+  *xml = g_string_append (*xml, "\"/>");
+}
+
 void
 codeslayer_repository_save_config (CodeSlayerConfig *config)
 {
@@ -261,11 +299,13 @@ codeslayer_repository_save_config (CodeSlayerConfig *config)
   GList *documents;
   GList *plugins;
   GHashTable *preferences;
+  GHashTable *settings;
   
   projects = codeslayer_config_get_projects (config);         
   documents = codeslayer_config_get_documents (config);         
   plugins = codeslayer_config_get_plugins (config);         
   preferences = codeslayer_config_get_preferences (config);
+  settings = codeslayer_config_get_settings (config);
   
   xml = g_string_new ("<config>");
   
@@ -293,6 +333,10 @@ codeslayer_repository_save_config (CodeSlayerConfig *config)
   xml = g_string_append (xml, "\n\t<preferences>");
   g_hash_table_foreach (preferences, (GHFunc)build_preferences_xml, &xml);
   xml = g_string_append (xml, "\n\t</preferences>");
+
+  xml = g_string_append (xml, "\n\t<settings>");
+  g_hash_table_foreach (settings, (GHFunc)build_settings_xml, &xml);
+  xml = g_string_append (xml, "\n\t</settings>");
 
   xml = g_string_append (xml, "\n</config>");
   

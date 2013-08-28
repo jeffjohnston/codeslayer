@@ -50,12 +50,12 @@ GtkWidget*  codeslayer_menu_bar_view_new                 (GtkWidget             
                                                           CodeSlayerSettings    *settings);
                                          
 void        codeslayer_menu_bar_view_sync_with_notebook  (CodeSlayerMenuBarView *menu_bar_view,
-                                                          GtkWidget             *notebook);
-                                                     
+                                                          GtkWidget             *notebook);                                                     
 void        codeslayer_menu_bar_view_sync_with_panes     (CodeSlayerMenuBarView *menu_bar_view, 
                                                           gboolean               show_side_pane, 
-                                                          gboolean               show_bottom_pane);
-                                                     
+                                                          gboolean               show_bottom_pane);                                                          
+void        codeslayer_menu_bar_view_sync_with_config    (CodeSlayerMenuBarView *menu_bar_view,
+                                                          CodeSlayerConfig      *config);                                                     
 
 G_END_DECLS
 
