@@ -175,12 +175,12 @@ load_config (CodeSlayerConfig *config,
               xmlFree (name);
               xmlFree (value);
             }
-          else if (g_strcmp0 ((gchar*)cur_node->name, "lib") == 0)
+          else if (g_strcmp0 ((gchar*)cur_node->name, "plugin") == 0)
             {
               xmlChar *name;
               name = xmlGetProp (cur_node, (const xmlChar*)"name");
 
-              codeslayer_config_add_lib (config, (gchar*) name);
+              codeslayer_config_add_plugin (config, (gchar*) name);
               xmlFree (name);
             }
         }
@@ -259,12 +259,12 @@ codeslayer_repository_save_config (CodeSlayerConfig *config)
   
   GList *projects;
   GList *documents;
-  GList *libs;
+  GList *plugins;
   GHashTable *preferences;
   
   projects = codeslayer_config_get_projects (config);         
   documents = codeslayer_config_get_documents (config);         
-  libs = codeslayer_config_get_libs (config);         
+  plugins = codeslayer_config_get_plugins (config);         
   preferences = codeslayer_config_get_preferences (config);
   
   xml = g_string_new ("<config>");
@@ -283,10 +283,10 @@ codeslayer_repository_save_config (CodeSlayerConfig *config)
       xml = g_string_append (xml, "\n\t</documents>");    
     }
 
-  if (libs != NULL)
+  if (plugins != NULL)
     {
       xml = g_string_append (xml, "\n\t<plugins>");
-      g_list_foreach (libs, (GFunc)build_plugins_xml, &xml);
+      g_list_foreach (plugins, (GFunc)build_plugins_xml, &xml);
       xml = g_string_append (xml, "\n\t</plugins>");    
     }
 

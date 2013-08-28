@@ -31,7 +31,7 @@ static void codeslayer_config_finalize                (CodeSlayerConfig      *co
 
 static void codeslayer_config_remove_all_projects     (CodeSlayerConfig      *config);
 static void codeslayer_config_remove_all_documents    (CodeSlayerConfig      *config);
-static void codeslayer_config_remove_all_libs         (CodeSlayerConfig      *config);
+static void codeslayer_config_remove_all_plugins      (CodeSlayerConfig      *config);
 static void codeslayer_config_remove_all_preferences  (CodeSlayerConfig      *config);
 
 #define CODESLAYER_CONFIG_GET_PRIVATE(obj) \
@@ -45,7 +45,7 @@ struct _CodeSlayerConfigPrivate
   gboolean    projects_mode;
   GList      *projects;
   GList      *documents;
-  GList      *libs;
+  GList      *plugins;
   GHashTable *preferences;
 };
 
@@ -70,7 +70,7 @@ codeslayer_config_init (CodeSlayerConfig *config)
   priv->projects_mode = FALSE;
   priv->projects = NULL;
   priv->documents = NULL;
-  priv->libs = NULL;
+  priv->plugins = NULL;
   priv->preferences = NULL;
 }
 
@@ -85,7 +85,7 @@ codeslayer_config_finalize (CodeSlayerConfig *config)
   
   codeslayer_config_remove_all_projects (config);
   codeslayer_config_remove_all_documents (config);
-  codeslayer_config_remove_all_libs (config);
+  codeslayer_config_remove_all_plugins (config);
   codeslayer_config_remove_all_preferences (config);
 
   G_OBJECT_CLASS (codeslayer_config_parent_class)->finalize (G_OBJECT (config));
@@ -359,58 +359,58 @@ codeslayer_config_remove_all_documents (CodeSlayerConfig *config)
 }
 
 /**
- * codeslayer_config_get_libs:
+ * codeslayer_config_get_plugins:
  * @config: a #CodeSlayerConfig.
  *
- * Returns: The list of #CodeSlayerPlugin lib objects within the config. For
+ * Returns: The list of #CodeSlayerPlugin plugin objects within the config. For
  *          internal use only.
  */
 GList*
-codeslayer_config_get_libs (CodeSlayerConfig *config)
+codeslayer_config_get_plugins (CodeSlayerConfig *config)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  return priv->libs;
+  return priv->plugins;
 }
 
 /**
- * codeslayer_config_set_libs:
+ * codeslayer_config_set_plugins:
  * @config: a #CodeSlayerConfig.
- * @libs: the list of #CodeSlayerPlugin lib objects to add to the config.
+ * @plugins: the list of #CodeSlayerPlugin plugin objects to add to the config.
  */
 void
-codeslayer_config_set_libs (CodeSlayerConfig *config, 
-                            GList            *libs)
+codeslayer_config_set_plugins (CodeSlayerConfig *config, 
+                               GList            *plugins)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  priv->libs = libs;
+  priv->plugins = plugins;
 }
 
 /**
- * codeslayer_config_contains_lib:
+ * codeslayer_config_contains_plugin:
  * @config: a #CodeSlayerConfig.
- * @lib: the lib to find.
+ * @plugin: the plugin to find.
  *
- * Returns: is TRUE if the lib is found in the config.
+ * Returns: is TRUE if the plugin is found in the config.
  */
 gboolean
-codeslayer_config_contains_lib (CodeSlayerConfig *config, 
-                                const gchar      *lib)
+codeslayer_config_contains_plugin (CodeSlayerConfig *config, 
+                                   const gchar      *plugin)
 {
   CodeSlayerConfigPrivate *priv;
-  GList *libs;
+  GList *plugins;
 
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
 
-  libs = priv->libs;
+  plugins = priv->plugins;
 
-  while (libs != NULL)
+  while (plugins != NULL)
     {
-      gchar *name = libs->data;
-      if (g_strcmp0 (name, lib) == 0)
+      gchar *name = plugins->data;
+      if (g_strcmp0 (name, plugin) == 0)
         return TRUE;
-      libs = g_list_next (libs);
+      plugins = g_list_next (plugins);
     }
     
   return FALSE;
@@ -418,58 +418,58 @@ codeslayer_config_contains_lib (CodeSlayerConfig *config,
 }                                                        
 
 /**
- * codeslayer_config_add_lib:
+ * codeslayer_config_add_plugin:
  * @config: a #CodeSlayerConfig.
- * @lib: the lib to add.
+ * @plugin: the plugin to add.
  */
 void
-codeslayer_config_add_lib (CodeSlayerConfig *config, 
-                           const gchar      *lib)
+codeslayer_config_add_plugin (CodeSlayerConfig *config, 
+                              const gchar      *plugin)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  priv->libs = g_list_prepend (priv->libs, g_strdup (lib));
+  priv->plugins = g_list_prepend (priv->plugins, g_strdup (plugin));
 }                                                        
 
 static void
-codeslayer_config_remove_all_libs (CodeSlayerConfig *config)
+codeslayer_config_remove_all_plugins (CodeSlayerConfig *config)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  if (priv->libs)
+  if (priv->plugins)
     {
-      g_list_foreach (priv->libs, (GFunc) g_free, NULL);
-      priv->libs = g_list_remove_all (priv->libs, NULL);
-      g_list_free (priv->libs);
-      priv->libs = NULL;
+      g_list_foreach (priv->plugins, (GFunc) g_free, NULL);
+      priv->plugins = g_list_remove_all (priv->plugins, NULL);
+      g_list_free (priv->plugins);
+      priv->plugins = NULL;
     }
 }
 
 /**
- * codeslayer_config_remove_lib:
+ * codeslayer_config_remove_plugin:
  * @config: a #CodeSlayerConfig.
- * @lib: the lib to remove.
+ * @plugin: the plugin to remove.
  */
 void
-codeslayer_config_remove_lib (CodeSlayerConfig *config, 
-                              const gchar      *lib)
+codeslayer_config_remove_plugin (CodeSlayerConfig *config, 
+                                 const gchar      *plugin)
 {
   CodeSlayerConfigPrivate *priv;
-  GList *libs;
+  GList *plugins;
 
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
 
-  libs = priv->libs;
+  plugins = priv->plugins;
 
-  while (libs != NULL)
+  while (plugins != NULL)
     {
-      gchar *name = libs->data;
-      if (g_strcmp0 (name, lib) == 0)
+      gchar *name = plugins->data;
+      if (g_strcmp0 (name, plugin) == 0)
         {
-          priv->libs = g_list_remove (priv->libs, name);
+          priv->plugins = g_list_remove (priv->plugins, name);
           return;
         }
-      libs = g_list_next (libs);
+      plugins = g_list_next (plugins);
     }
 }
 

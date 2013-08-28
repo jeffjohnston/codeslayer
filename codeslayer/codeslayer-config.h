@@ -82,15 +82,15 @@ const gchar*        codeslayer_config_get_preference            (CodeSlayerConfi
 void                codeslayer_config_set_preference            (CodeSlayerConfig     *config,
                                                                  gchar                *name, 
                                                                  gchar                *value);
-GList*              codeslayer_config_get_libs                  (CodeSlayerConfig     *config);
-void                codeslayer_config_set_libs                  (CodeSlayerConfig     *config, 
-                                                                 GList                *libs);
-gboolean            codeslayer_config_contains_lib              (CodeSlayerConfig     *config, 
-                                                                 const gchar          *lib);
-void                codeslayer_config_add_lib                   (CodeSlayerConfig     *config, 
-                                                                 const gchar          *lib);
-void                codeslayer_config_remove_lib                (CodeSlayerConfig     *config, 
-                                                                 const gchar          *lib);
+GList*              codeslayer_config_get_plugins               (CodeSlayerConfig     *config);
+void                codeslayer_config_set_plugins               (CodeSlayerConfig     *config, 
+                                                                 GList                *plugins);
+gboolean            codeslayer_config_contains_plugin           (CodeSlayerConfig     *config, 
+                                                                 const gchar          *plugin);
+void                codeslayer_config_add_plugin                (CodeSlayerConfig     *config, 
+                                                                 const gchar          *plugin);
+void                codeslayer_config_remove_plugin             (CodeSlayerConfig     *config, 
+                                                                 const gchar          *plugin);
 
 G_END_DECLS
 

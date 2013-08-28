@@ -134,7 +134,7 @@ codeslayer_plugins_activate (CodeSlayerPlugins *plugins,
       CodeSlayerPlugin *plugin = list->data;
       const gchar *lib;
       lib = codeslayer_plugin_get_lib (plugin);
-      if (codeslayer_config_contains_lib (config, lib) && 
+      if (codeslayer_config_contains_plugin (config, lib) && 
           !codeslayer_plugin_get_enabled (plugin))
         {
           codeslayer_plugin_set_enabled (plugin, TRUE);

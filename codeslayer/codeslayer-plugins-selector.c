@@ -271,14 +271,14 @@ plugin_enabled_action (CodeSlayerPluginsSelector *plugins_selector,
                           
       if (codeslayer_plugin_get_enabled (plugin))
         {
-          codeslayer_config_add_lib (priv->config, lib);  
+          codeslayer_config_add_plugin (priv->config, lib);  
           codeslayer_plugin_activate (plugin);
           if (codeslayer_plugin_is_configurable (plugin))
             gtk_widget_set_sensitive (priv->configure_button, TRUE);
         }      
       else
         {
-          codeslayer_config_remove_lib (priv->config, lib);
+          codeslayer_config_remove_plugin (priv->config, lib);
           codeslayer_plugin_deactivate (plugin);
           gtk_widget_set_sensitive (priv->configure_button, FALSE);    
         }
