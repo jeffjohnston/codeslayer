@@ -202,11 +202,11 @@ load_config (CodeSlayerConfig *config,
             }
           else if (g_strcmp0 ((gchar*)cur_node->name, "plugin") == 0)
             {
-              xmlChar *name;
-              name = xmlGetProp (cur_node, (const xmlChar*)"name");
+              xmlChar *lib;
+              lib = xmlGetProp (cur_node, (const xmlChar*)"lib");
 
-              codeslayer_config_add_plugin (config, (gchar*) name);
-              xmlFree (name);
+              codeslayer_config_add_plugin (config, (gchar*) lib);
+              xmlFree (lib);
             }
         }
       load_config (config, cur_node->children);
@@ -257,7 +257,7 @@ void build_plugins_xml (gchar   *name,
                      GString **xml)
 {
   *xml = g_string_append (*xml, "\n\t\t<plugin ");
-  *xml = g_string_append (*xml, "name=\"");
+  *xml = g_string_append (*xml, "lib=\"");
   *xml = g_string_append (*xml, name);
   *xml = g_string_append (*xml, "\"/>");
 }

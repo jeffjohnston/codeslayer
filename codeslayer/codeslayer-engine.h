@@ -54,6 +54,7 @@ CodeSlayerEngine*  codeslayer_engine_new                  (GtkWindow            
                                                            CodeSlayerPlugins     *plugins,
                                                            GtkWidget             *projects, 
                                                            GtkWidget             *menubar,
+                                                           GtkWidget             *notebook,
                                                            GtkWidget             *notebook_pane,
                                                            GtkWidget             *side_pane,
                                                            GtkWidget             *bottom_pane, 

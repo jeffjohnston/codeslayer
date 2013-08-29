@@ -411,6 +411,7 @@ create_engine (CodeSlayerApplication *application)
                                   priv->plugins,
                                   priv->projects,
                                   priv->menubar, 
+                                  priv->notebook, 
                                   priv->notebook_pane, 
                                   priv->side_pane, 
                                   priv->bottom_pane, 

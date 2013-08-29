@@ -111,6 +111,7 @@ static void rename_file_path_action                     (CodeSlayerEngine      *
                                                          gchar                 *file_path,
                                                          gchar                 *renamed_file_path);
 static void show_plugins_action                         (CodeSlayerEngine      *engine);
+static void sync_settings                               (CodeSlayerEngine      *engine);
                                                          
                                                    
 #define CODESLAYER_ENGINE_GET_PRIVATE(obj) \
@@ -187,6 +188,7 @@ codeslayer_engine_new (GtkWindow             *window,
                        CodeSlayerPlugins     *plugins,
                        GtkWidget             *projects, 
                        GtkWidget             *menubar,
+                       GtkWidget             *notebook,
                        GtkWidget             *notebook_pane, 
                        GtkWidget             *side_pane,
                        GtkWidget             *bottom_pane, 
@@ -205,7 +207,7 @@ codeslayer_engine_new (GtkWindow             *window,
   priv->plugins = plugins;
   priv->projects = projects;
   priv->menubar = menubar;
-  priv->notebook = codeslayer_notebook_pane_get_notebook (CODESLAYER_NOTEBOOK_PANE (notebook_pane));
+  priv->notebook = notebook;
   priv->notebook_pane = notebook_pane;
   priv->side_pane = side_pane;
   priv->bottom_pane = bottom_pane;
@@ -340,10 +342,8 @@ codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
   codeslayer_preferences_load (priv->preferences, priv->config);
 
   load_window_settings (engine);
-
-  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
-  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
-  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+  
+  sync_settings (engine);
 
   codeslayer_plugins_activate (priv->plugins, priv->config);  
 }
@@ -505,10 +505,8 @@ codeslayer_engine_open_editor (CodeSlayerEngine *engine,
   document = codeslayer_document_new ();
   codeslayer_document_set_file_path (document, file_path);
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
-  
-  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
-  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
-  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+
+  sync_settings (engine);
 }
 
 static void
@@ -521,9 +519,8 @@ new_editor_action (CodeSlayerEngine *engine)
 
   document = codeslayer_document_new ();
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
-  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
-  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
-  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+  
+  sync_settings (engine);
 }
 
 static void
@@ -576,9 +573,7 @@ open_editor_action (CodeSlayerEngine *engine)
     }
   gtk_widget_destroy (GTK_WIDGET (dialog));
 
-  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
-  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
-  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+  sync_settings (engine);
 }
 
 static void
@@ -623,11 +618,7 @@ page_removed_action (CodeSlayerEngine *engine,
                      GtkWidget        *page,
                      guint             removed_page_num)
 {
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
-  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
-  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));  
+  sync_settings (engine);
 }
 
 static void
@@ -994,9 +985,7 @@ open_projects_action (CodeSlayerEngine *engine,
       documents = g_list_next (documents);
     }
 
-  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
-  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
-  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+  sync_settings (engine);
 
   codeslayer_plugins_activate (priv->plugins, priv->config);
 }
@@ -1129,9 +1118,8 @@ select_projects_document_action (CodeSlayerEngine *engine,
   /* all passed so add to the notebook */
 
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (notebook), document);
-  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
-  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
-  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));  
+
+  sync_settings (engine);
 }
 
 static void
@@ -1307,8 +1295,8 @@ scan_external_changes_action (CodeSlayerEngine *engine)
 
 static void
 rename_file_path_action (CodeSlayerEngine *engine, 
-                         gchar                    *file_path,
-                         gchar                    *renamed_file_path)
+                         gchar            *file_path,
+                         gchar            *renamed_file_path)
 {
   CodeSlayerEnginePrivate *priv;
   gint pages;
@@ -1354,4 +1342,14 @@ rename_file_path_action (CodeSlayerEngine *engine,
           g_free (replacement_basename);
         }
     }
+}
+
+static void 
+sync_settings (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
+  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
+  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }
