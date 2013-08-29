@@ -179,7 +179,7 @@ load_config (CodeSlayerConfig *config,
               xmlChar *name;
               xmlChar *value;
               
-              name = xmlGetProp (cur_node, (const xmlChar*)"name");
+              name = xmlGetProp (cur_node, (const xmlChar*)"key");
               value = xmlGetProp (cur_node, (const xmlChar*)"value");
               
               codeslayer_config_set_preference (config, (gchar*) name, (gchar*) value);
@@ -192,7 +192,7 @@ load_config (CodeSlayerConfig *config,
               xmlChar *name;
               xmlChar *value;
               
-              name = xmlGetProp (cur_node, (const xmlChar*)"name");
+              name = xmlGetProp (cur_node, (const xmlChar*)"key");
               value = xmlGetProp (cur_node, (const xmlChar*)"value");
               
               codeslayer_config_set_setting (config, (gchar*) name, (gchar*) value);
@@ -267,7 +267,7 @@ void build_preferences_xml (gchar   *name,
                             GString **xml)
 {
   *xml = g_string_append (*xml, "\n\t\t<preference ");
-  *xml = g_string_append (*xml, "name=\"");
+  *xml = g_string_append (*xml, "key=\"");
   *xml = g_string_append (*xml, name);
   *xml = g_string_append (*xml, "\" ");
   *xml = g_string_append (*xml, "value=\"");
@@ -280,7 +280,7 @@ void build_settings_xml (gchar   *name,
                          GString **xml)
 {
   *xml = g_string_append (*xml, "\n\t\t<setting ");
-  *xml = g_string_append (*xml, "name=\"");
+  *xml = g_string_append (*xml, "key=\"");
   *xml = g_string_append (*xml, name);
   *xml = g_string_append (*xml, "\" ");
   *xml = g_string_append (*xml, "value=\"");

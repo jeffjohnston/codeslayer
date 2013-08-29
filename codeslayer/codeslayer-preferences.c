@@ -204,20 +204,20 @@ codeslayer_preferences_new (GtkWidget *window)
 /**
  * codeslayer_preferences_get_double:
  * @preferences: a #CodeSlayerPreferences.
- * @key: a property name.
+ * @key: a property key.
  *
  * Returns: the value as a double for the given key.
  */
 gdouble
 codeslayer_preferences_get_double (CodeSlayerPreferences *preferences,
-                                   gchar                 *name)
+                                   gchar                 *key)
 {
   CodeSlayerPreferencesPrivate *priv;
   const gchar *value;
 
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
 
-  value = codeslayer_config_get_preference (priv->config, name);
+  value = codeslayer_config_get_preference (priv->config, key);
   if (value != NULL)
     return atof (value);
 
@@ -227,39 +227,39 @@ codeslayer_preferences_get_double (CodeSlayerPreferences *preferences,
 /**
  * codeslayer_preferences_set_double:
  * @preferences: a #CodeSlayerPreferences.
- * @key: a property name.
+ * @key: a property key.
  * @value: a property value as a gdouble.
  */
 void
 codeslayer_preferences_set_double (CodeSlayerPreferences *preferences,
-                                   gchar                 *name, 
+                                   gchar                 *key, 
                                    gdouble                value)
 {
   CodeSlayerPreferencesPrivate *priv;
   gchar *val;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   val = g_strdup_printf ("%f", value);
-  codeslayer_config_set_preference (priv->config, name, val);
+  codeslayer_config_set_preference (priv->config, key, val);
   g_free (val);
 }
 
 /**
  * codeslayer_preferences_get_boolean:
  * @preferences: a #CodeSlayerPreferences.
- * @name: a property name.
+ * @key: a property key.
  *
- * Returns: the value as a boolean for the given name.
+ * Returns: the value as a boolean for the given key.
  */
 gboolean
 codeslayer_preferences_get_boolean (CodeSlayerPreferences *preferences,
-                                    gchar                 *name)
+                                    gchar                 *key)
 {
   CodeSlayerPreferencesPrivate *priv;
   const gchar *value;
 
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
 
-  value = codeslayer_config_get_preference (priv->config, name);
+  value = codeslayer_config_get_preference (priv->config, key);
   if (value != NULL)
     {
       if (g_strcmp0 (value, "true") == 0)
@@ -274,40 +274,40 @@ codeslayer_preferences_get_boolean (CodeSlayerPreferences *preferences,
 /**
  * codeslayer_preferences_set_boolean:
  * @preferences: a #CodeSlayerPreferences.
- * @key: a property name.
+ * @key: a property key.
  * @value: a property value as a gboolean.
  */
 void
 codeslayer_preferences_set_boolean (CodeSlayerPreferences *preferences,
-                                    gchar                 *name, 
+                                    gchar                 *key, 
                                     gboolean               value)
 {
   CodeSlayerPreferencesPrivate *priv;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   
   if (value == TRUE)  
-    codeslayer_config_set_preference (priv->config, name, "true");
+    codeslayer_config_set_preference (priv->config, key, "true");
   else
-    codeslayer_config_set_preference (priv->config, name, "false");
+    codeslayer_config_set_preference (priv->config, key, "false");
 }
 
 /**
  * codeslayer_preferences_get_string:
  * @preferences: a #CodeSlayerPreferences.
- * @key: a property name.
+ * @key: a property key.
  *
  * Returns: the value as a string for the given key.
  */
 gchar*
 codeslayer_preferences_get_string (CodeSlayerPreferences *preferences,
-                                   gchar                 *name)
+                                   gchar                 *key)
 {
   CodeSlayerPreferencesPrivate *priv;
   const gchar *value;
 
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
 
-  value = codeslayer_config_get_preference (priv->config, name);
+  value = codeslayer_config_get_preference (priv->config, key);
   if (value != NULL)
     return g_strdup (value);
 
@@ -317,17 +317,17 @@ codeslayer_preferences_get_string (CodeSlayerPreferences *preferences,
 /**
  * codeslayer_preferences_set_string:
  * @preferences: a #CodeSlayerPreferences.
- * @key: a property name.
+ * @key: a property key.
  * @value: a property value as a gchar pointer.
  */
 void
 codeslayer_preferences_set_string (CodeSlayerPreferences *preferences,
-                                   gchar                 *name, 
+                                   gchar                 *key, 
                                    gchar                 *value)
 {
   CodeSlayerPreferencesPrivate *priv;  
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  codeslayer_config_set_preference (priv->config, name, value);
+  codeslayer_config_set_preference (priv->config, key, value);
 }
 
 /**

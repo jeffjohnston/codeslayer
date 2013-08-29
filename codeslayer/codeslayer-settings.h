@@ -66,19 +66,19 @@ GType codeslayer_settings_get_type (void) G_GNUC_CONST;
 CodeSlayerSettings*  codeslayer_settings_new          (void);
 
 gint                 codeslayer_settings_get_integer  (CodeSlayerSettings *settings, 
-                                                       gchar              *name);
+                                                       gchar              *key);
 void                 codeslayer_settings_set_integer  (CodeSlayerSettings *settings, 
-                                                       gchar              *name,
+                                                       gchar              *key,
                                                        gint                value);
 gboolean             codeslayer_settings_get_boolean  (CodeSlayerSettings *settings, 
-                                                       gchar              *name);
+                                                       gchar              *key);
 void                 codeslayer_settings_set_boolean  (CodeSlayerSettings *settings, 
-                                                       gchar              *name,
+                                                       gchar              *key,
                                                        gboolean            value);
 gchar*               codeslayer_settings_get_string   (CodeSlayerSettings *settings,
-                                                       gchar              *name);
+                                                       gchar              *key);
 void                 codeslayer_settings_set_string   (CodeSlayerSettings *settings, 
-                                                       gchar              *name,
+                                                       gchar              *key,
                                                        gchar              *value);
 void                 codeslayer_settings_load         (CodeSlayerSettings *settings, 
                                                        CodeSlayerConfig   *config);

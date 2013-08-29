@@ -86,20 +86,20 @@ codeslayer_settings_new ()
 /**
  * codeslayer_settings_get_integer:
  * @settings: a #CodeSlayerSettings.
- * @name: a property name.
+ * @key: a property key.
  *
- * Returns: the value as an integer for the given name.
+ * Returns: the value as an integer for the given key.
  */
 gint
 codeslayer_settings_get_integer (CodeSlayerSettings *settings,
-                                 gchar              *name)
+                                 gchar              *key)
 {
   CodeSlayerSettingsPrivate *priv;
   const gchar *value;
 
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
 
-  value = codeslayer_config_get_setting (priv->config, name);
+  value = codeslayer_config_get_setting (priv->config, key);
   if (value != NULL)
     return atoi (value);
 
@@ -109,39 +109,39 @@ codeslayer_settings_get_integer (CodeSlayerSettings *settings,
 /**
  * codeslayer_settings_set_integer:
  * @settings: a #CodeSlayerSettings.
- * @name: a property name.
+ * @key: a property key.
  * @value: a property value as a gint.
  */
 void
 codeslayer_settings_set_integer (CodeSlayerSettings *settings,
-                                 gchar              *name, 
+                                 gchar              *key, 
                                  gint                value)
 {
   CodeSlayerSettingsPrivate *priv;
   gchar *val;
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
   val = g_strdup_printf ("%d", value);
-  codeslayer_config_set_setting (priv->config, name, val);
+  codeslayer_config_set_setting (priv->config, key, val);
   g_free (val);
 }
 
 /**
  * codeslayer_settings_get_boolean:
  * @settings: a #CodeSlayerSettings.
- * @name: a property name.
+ * @key: a property key.
  *
- * Returns: the value as a boolean for the given name.
+ * Returns: the value as a boolean for the given key.
  */
 gboolean
 codeslayer_settings_get_boolean (CodeSlayerSettings *settings,
-                                 gchar              *name)
+                                 gchar              *key)
 {
   CodeSlayerSettingsPrivate *priv;
   const gchar *value;
 
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
 
-  value = codeslayer_config_get_setting (priv->config, name);
+  value = codeslayer_config_get_setting (priv->config, key);
   if (value != NULL)
     {
       if (g_strcmp0 (value, "true") == 0)
@@ -156,40 +156,40 @@ codeslayer_settings_get_boolean (CodeSlayerSettings *settings,
 /**
  * codeslayer_settings_set_boolean:
  * @settings: a #CodeSlayerSettings.
- * @name: a property name.
+ * @key: a property key.
  * @value: a property value as a gboolean.
  */
 void
 codeslayer_settings_set_boolean (CodeSlayerSettings *settings,
-                                 gchar                 *name, 
+                                 gchar                 *key, 
                                  gboolean               value)
 {
   CodeSlayerSettingsPrivate *priv;
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
   
   if (value == TRUE)  
-    codeslayer_config_set_setting (priv->config, name, "true");
+    codeslayer_config_set_setting (priv->config, key, "true");
   else
-    codeslayer_config_set_setting (priv->config, name, "false");
+    codeslayer_config_set_setting (priv->config, key, "false");
 }
 
 /**
  * codeslayer_settings_get_string:
  * @settings: a #CodeSlayerSettings.
- * @name: a property name.
+ * @key: a property key.
  *
- * Returns: the value as a string for the given name.
+ * Returns: the value as a string for the given key.
  */
 gchar*
 codeslayer_settings_get_string (CodeSlayerSettings *settings,
-                                   gchar                 *name)
+                                gchar              *key)
 {
   CodeSlayerSettingsPrivate *priv;
   const gchar *value;
 
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
 
-  value = codeslayer_config_get_setting (priv->config, name);
+  value = codeslayer_config_get_setting (priv->config, key);
   if (value != NULL)
     return g_strdup (value);
 
@@ -199,17 +199,17 @@ codeslayer_settings_get_string (CodeSlayerSettings *settings,
 /**
  * codeslayer_settings_set_string:
  * @settings: a #CodeSlayerSettings.
- * @name: a property name.
+ * @key: a property key.
  * @value: a property value as a gchar pointer.
  */
 void
 codeslayer_settings_set_string (CodeSlayerSettings *settings,
-                                gchar                 *name, 
-                                gchar           *value)
+                                gchar              *key, 
+                                gchar              *value)
 {
   CodeSlayerSettingsPrivate *priv;  
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
-  codeslayer_config_set_setting (priv->config, name, value);
+  codeslayer_config_set_setting (priv->config, key, value);
 }
 
 /**

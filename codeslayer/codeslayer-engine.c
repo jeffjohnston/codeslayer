@@ -96,8 +96,6 @@ static void add_projects_action                         (CodeSlayerEngine      *
                                                          GSList                *files);
 static void remove_project_action                       (CodeSlayerEngine      *engine,
                                                          CodeSlayerProject     *project);
-static void project_renamed_action                      (CodeSlayerEngine      *engine,
-                                                         CodeSlayerProject     *project);
 static void select_projects_document_action             (CodeSlayerEngine      *engine,
                                                          CodeSlayerDocument    *document);
 static void select_editor_action                        (CodeSlayerEngine      *engine, 
@@ -309,9 +307,6 @@ codeslayer_engine_new (GtkWindow             *window,
   
   g_signal_connect_swapped (G_OBJECT (projects), "remove-project",
                             G_CALLBACK (remove_project_action), engine);
-  
-  g_signal_connect_swapped (G_OBJECT (projects), "project_renamed",
-                            G_CALLBACK (project_renamed_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (projects), "select-document",
                             G_CALLBACK (select_projects_document_action), engine);
@@ -1045,16 +1040,6 @@ remove_project_action (CodeSlayerEngine *engine,
   /*codeslayer_repository_save_projects (priv->config);*/
   
   g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
-}
-
-static void
-project_renamed_action (CodeSlayerEngine *engine,
-                        CodeSlayerProject        *project)
-{
-  /*CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);*/
-  /*TODO: this is where we saved the projects*/
-  /*codeslayer_repository_save_projects (priv->config);*/
 }
 
 static void

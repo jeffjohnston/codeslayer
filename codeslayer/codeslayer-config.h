@@ -78,15 +78,15 @@ void                codeslayer_config_remove_document           (CodeSlayerConfi
                                                                  CodeSlayerDocument   *document);
 GHashTable*         codeslayer_config_get_preferences           (CodeSlayerConfig     *config);
 const gchar*        codeslayer_config_get_preference            (CodeSlayerConfig     *config,
-                                                                 gchar                *name);
+                                                                 gchar                *key);
 void                codeslayer_config_set_preference            (CodeSlayerConfig     *config,
-                                                                 gchar                *name, 
+                                                                 gchar                *key, 
                                                                  gchar                *value);
 GHashTable*         codeslayer_config_get_settings              (CodeSlayerConfig     *config);
 const gchar*        codeslayer_config_get_setting               (CodeSlayerConfig     *config,
-                                                                 gchar                *name);
+                                                                 gchar                *key);
 void                codeslayer_config_set_setting               (CodeSlayerConfig     *config,
-                                                                 gchar                *name, 
+                                                                 gchar                *key, 
                                                                  gchar                *value);
 GList*              codeslayer_config_get_plugins               (CodeSlayerConfig     *config);
 void                codeslayer_config_set_plugins               (CodeSlayerConfig     *config, 

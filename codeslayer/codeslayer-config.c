@@ -414,8 +414,8 @@ codeslayer_config_contains_plugin (CodeSlayerConfig *config,
 
   while (plugins != NULL)
     {
-      gchar *name = plugins->data;
-      if (g_strcmp0 (name, plugin) == 0)
+      gchar *lib = plugins->data;
+      if (g_strcmp0 (lib, plugin) == 0)
         return TRUE;
       plugins = g_list_next (plugins);
     }
@@ -470,10 +470,10 @@ codeslayer_config_remove_plugin (CodeSlayerConfig *config,
 
   while (plugins != NULL)
     {
-      gchar *name = plugins->data;
-      if (g_strcmp0 (name, plugin) == 0)
+      gchar *lib = plugins->data;
+      if (g_strcmp0 (lib, plugin) == 0)
         {
-          priv->plugins = g_list_remove (priv->plugins, name);
+          priv->plugins = g_list_remove (priv->plugins, lib);
           return;
         }
       plugins = g_list_next (plugins);
@@ -495,34 +495,34 @@ codeslayer_config_get_preferences (CodeSlayerConfig *config)
 /**
  * codeslayer_config_get_preference:
  * @config: a #CodeSlayerConfig.
- * @name: use the name to find the value from the preferences.
+ * @key: use the key to find the value from the preferences.
  *
  * Returns: The value for the preference.
  */
 const gchar*
 codeslayer_config_get_preference (CodeSlayerConfig *config,
-                                  gchar            *name)
+                                  gchar            *key)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  return g_hash_table_lookup (priv->preferences, name);
+  return g_hash_table_lookup (priv->preferences, key);
 }
 
 
 /**
  * codeslayer_config_set_preference:
  * @config: a #CodeSlayerConfig.
- * @name: the name for the preference.
+ * @key: the key for the preference.
  * @value: the value for the preference.
  */
 void
 codeslayer_config_set_preference (CodeSlayerConfig *config,
-                                  gchar            *name, 
+                                  gchar            *key, 
                                   gchar            *value)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  g_hash_table_replace (priv->preferences, g_strdup (name), g_strdup (value));
+  g_hash_table_replace (priv->preferences, g_strdup (key), g_strdup (value));
 }
 
 static void
@@ -549,34 +549,34 @@ codeslayer_config_get_settings (CodeSlayerConfig *config)
 /**
  * codeslayer_config_get_settings:
  * @config: a #CodeSlayerConfig.
- * @name: use the name to find the value from the settings.
+ * @key: use the key to find the value from the settings.
  *
  * Returns: The value for the setting.
  */
 const gchar*
 codeslayer_config_get_setting (CodeSlayerConfig *config,
-                               gchar            *name)
+                               gchar            *key)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  return g_hash_table_lookup (priv->settings, name);
+  return g_hash_table_lookup (priv->settings, key);
 }
 
 
 /**
  * codeslayer_config_set_setting:
  * @config: a #CodeSlayerConfig.
- * @name: the name for the setting.
+ * @key: the key for the setting.
  * @value: the value for the setting.
  */
 void
 codeslayer_config_set_setting (CodeSlayerConfig *config,
-                               gchar            *name, 
+                               gchar            *key, 
                                gchar            *value)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  g_hash_table_replace (priv->settings, g_strdup (name), g_strdup (value));
+  g_hash_table_replace (priv->settings, g_strdup (key), g_strdup (value));
 }
 
 static void
