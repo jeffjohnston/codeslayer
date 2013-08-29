@@ -472,7 +472,7 @@ load_window_settings (CodeSlayerEngine *engine)
 
   gtk_paned_set_position (GTK_PANED (priv->vpaned), vpaned_position);
     
-  /* TODO: this has to before we show or hide the panes */
+  /* we have to this before we show or hide the panes */
   gtk_widget_show_all (GTK_WIDGET (priv->window));
     
   /* show or hide panes */

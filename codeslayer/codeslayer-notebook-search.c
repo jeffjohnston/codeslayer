@@ -186,6 +186,7 @@ codeslayer_notebook_search_new (GtkWidget          *notebook,
   priv->grid = gtk_grid_new ();
   gtk_grid_set_row_spacing (GTK_GRID (priv->grid), 2);
   gtk_grid_set_column_spacing (GTK_GRID (priv->grid), 2);
+  gtk_widget_set_margin_left (priv->grid, 4);
   
   add_close_button (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
   add_find_entry (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
