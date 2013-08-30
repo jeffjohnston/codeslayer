@@ -333,8 +333,8 @@ codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
   
   priv->config = codeslayer_repository_get_default_config ();
   
-  codeslayer_settings_load (priv->settings, priv->config);
-  codeslayer_preferences_load (priv->preferences, priv->config);
+  codeslayer_settings_set_config (priv->settings, priv->config);
+  codeslayer_preferences_set_config (priv->preferences, priv->config);
 
   load_window_settings (engine);
   
@@ -933,7 +933,7 @@ new_projects_action (CodeSlayerEngine *engine,
 
 static void
 open_projects_action (CodeSlayerEngine *engine,
-                      GFile                    *file)
+                      GFile            *file)
 {
   CodeSlayerEnginePrivate *priv;
   GList *projects;
@@ -941,6 +941,12 @@ open_projects_action (CodeSlayerEngine *engine,
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
+  if (!codeslayer_engine_save_config (engine))
+    return;
+  
+  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
+  codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
+
   if (priv->config != NULL)
     g_object_unref (priv->config);
   
@@ -948,21 +954,17 @@ open_projects_action (CodeSlayerEngine *engine,
   if (priv->config == NULL)
     return;
     
-  codeslayer_config_set_projects_mode (priv->config, TRUE);    
+  codeslayer_config_set_projects_mode (priv->config, TRUE);
     
   codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
                                    priv->projects, "Projects", 0);
   
-  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
-  codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
-
-  codeslayer_settings_load (priv->settings, priv->config);
-  codeslayer_preferences_load (priv->preferences, priv->config);
+  codeslayer_settings_set_config (priv->settings, priv->config);
+  codeslayer_preferences_set_config (priv->preferences, priv->config);
+  codeslayer_projects_set_config (CODESLAYER_PROJECTS (priv->projects), priv->config);
   
   load_window_settings (engine);
-  
-  codeslayer_projects_set_config (CODESLAYER_PROJECTS (priv->projects), priv->config);
-
+ 
   projects = codeslayer_config_get_projects (priv->config);
   while (projects != NULL)
     {

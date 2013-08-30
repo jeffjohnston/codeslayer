@@ -80,7 +80,7 @@ gchar*               codeslayer_settings_get_string   (CodeSlayerSettings *setti
 void                 codeslayer_settings_set_string   (CodeSlayerSettings *settings, 
                                                        gchar              *key,
                                                        gchar              *value);
-void                 codeslayer_settings_load         (CodeSlayerSettings *settings, 
+void                 codeslayer_settings_set_config   (CodeSlayerSettings *settings, 
                                                        CodeSlayerConfig   *config);
 
 G_END_DECLS

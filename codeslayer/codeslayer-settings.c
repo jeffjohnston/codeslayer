@@ -220,8 +220,8 @@ codeslayer_settings_set_string (CodeSlayerSettings *settings,
  * Load the config settings.
  */
 void
-codeslayer_settings_load (CodeSlayerSettings *settings, 
-                          CodeSlayerConfig   *config)
+codeslayer_settings_set_config (CodeSlayerSettings *settings, 
+                                CodeSlayerConfig   *config)
 {
   CodeSlayerSettingsPrivate *priv;
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);

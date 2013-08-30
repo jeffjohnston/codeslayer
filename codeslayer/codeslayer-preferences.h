@@ -86,7 +86,7 @@ gchar*                  codeslayer_preferences_get_string   (CodeSlayerPreferenc
 void                    codeslayer_preferences_set_string   (CodeSlayerPreferences *preferences, 
                                                              gchar                 *key,
                                                              gchar                 *value);
-void                    codeslayer_preferences_load         (CodeSlayerPreferences *preferences, 
+void                    codeslayer_preferences_set_config   (CodeSlayerPreferences *preferences, 
                                                              CodeSlayerConfig      *config);
 void                    codeslayer_preferences_run_dialog   (CodeSlayerPreferences *preferences);
 

@@ -338,8 +338,8 @@ codeslayer_preferences_set_string (CodeSlayerPreferences *preferences,
  * Load the config preferences.
  */
 void
-codeslayer_preferences_load (CodeSlayerPreferences *preferences, 
-                             CodeSlayerConfig      *config)
+codeslayer_preferences_set_config (CodeSlayerPreferences *preferences, 
+                                   CodeSlayerConfig      *config)
 {
   CodeSlayerPreferencesPrivate *priv;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
