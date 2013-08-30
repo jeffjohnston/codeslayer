@@ -29,11 +29,11 @@ static void codeslayer_config_class_init              (CodeSlayerConfigClass *kl
 static void codeslayer_config_init                    (CodeSlayerConfig      *config);
 static void codeslayer_config_finalize                (CodeSlayerConfig      *config);
 
-static void codeslayer_config_remove_all_projects     (CodeSlayerConfig      *config);
-static void codeslayer_config_remove_all_documents    (CodeSlayerConfig      *config);
-static void codeslayer_config_remove_all_plugins      (CodeSlayerConfig      *config);
-static void codeslayer_config_remove_all_preferences  (CodeSlayerConfig      *config);
-static void codeslayer_config_remove_all_settings     (CodeSlayerConfig      *config);
+static void remove_all_projects     (CodeSlayerConfig      *config);
+static void remove_all_documents    (CodeSlayerConfig      *config);
+static void remove_all_plugins      (CodeSlayerConfig      *config);
+static void remove_all_preferences  (CodeSlayerConfig      *config);
+static void remove_all_settings     (CodeSlayerConfig      *config);
 
 #define CODESLAYER_CONFIG_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_CONFIG_TYPE, CodeSlayerConfigPrivate))
@@ -86,11 +86,11 @@ codeslayer_config_finalize (CodeSlayerConfig *config)
   if (priv->file_path)
     g_free (priv->file_path);
   
-  codeslayer_config_remove_all_projects (config);
-  codeslayer_config_remove_all_documents (config);
-  codeslayer_config_remove_all_plugins (config);
-  codeslayer_config_remove_all_preferences (config);
-  codeslayer_config_remove_all_settings (config);
+  remove_all_projects (config);
+  remove_all_documents (config);
+  remove_all_plugins (config);
+  remove_all_preferences (config);
+  remove_all_settings (config);
 
   G_OBJECT_CLASS (codeslayer_config_parent_class)->finalize (G_OBJECT (config));
   
@@ -246,7 +246,7 @@ codeslayer_config_add_project (CodeSlayerConfig  *config,
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  priv->projects = g_list_prepend (priv->projects, project);
+  priv->projects = g_list_append (priv->projects, project);
   g_object_ref_sink (G_OBJECT (project));
 }
 
@@ -280,7 +280,7 @@ codeslayer_config_contains_project (CodeSlayerConfig  *config,
 }                                   
 
 static void
-codeslayer_config_remove_all_projects (CodeSlayerConfig *config)
+remove_all_projects (CodeSlayerConfig *config)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);  
@@ -316,8 +316,8 @@ codeslayer_config_set_documents (CodeSlayerConfig *config,
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
+  remove_all_documents (config);
   priv->documents = documents;
-  g_list_foreach (priv->documents, (GFunc) g_object_ref_sink, NULL);
 }
 
 /**
@@ -332,10 +332,7 @@ codeslayer_config_add_document (CodeSlayerConfig   *config,
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
   if (priv->documents == NULL || g_list_index (priv->documents, document) == -1)
-    {
-      priv->documents = g_list_prepend (priv->documents, document);
-      g_object_ref_sink (G_OBJECT (document));
-    }
+    priv->documents = g_list_append (priv->documents, document);
 }
 
 /**
@@ -353,12 +350,13 @@ codeslayer_config_remove_document (CodeSlayerConfig   *config,
 }
 
 static void
-codeslayer_config_remove_all_documents (CodeSlayerConfig *config)
+remove_all_documents (CodeSlayerConfig *config)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
   if (priv->documents)
     {
+      /*g_list_foreach (priv->documents, (GFunc) g_object_unref, NULL);*/
       priv->documents = g_list_remove_all (priv->documents, NULL);
       g_list_free (priv->documents);
       priv->documents = NULL;
@@ -439,7 +437,7 @@ codeslayer_config_add_plugin (CodeSlayerConfig *config,
 }                                                        
 
 static void
-codeslayer_config_remove_all_plugins (CodeSlayerConfig *config)
+remove_all_plugins (CodeSlayerConfig *config)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
@@ -526,7 +524,7 @@ codeslayer_config_set_preference (CodeSlayerConfig *config,
 }
 
 static void
-codeslayer_config_remove_all_preferences (CodeSlayerConfig *config)
+remove_all_preferences (CodeSlayerConfig *config)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
@@ -580,7 +578,7 @@ codeslayer_config_set_setting (CodeSlayerConfig *config,
 }
 
 static void
-codeslayer_config_remove_all_settings (CodeSlayerConfig *config)
+remove_all_settings (CodeSlayerConfig *config)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);

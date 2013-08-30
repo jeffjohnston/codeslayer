@@ -240,7 +240,7 @@ codeslayer_editor_new (GtkWindow             *window,
   priv->settings = settings;
   priv->window = window;
   
-  g_object_ref_sink (G_OBJECT (priv->document));
+  g_object_ref_sink (G_OBJECT (document));
   
   file_path = codeslayer_document_get_file_path (document);
   

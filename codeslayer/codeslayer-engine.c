@@ -81,6 +81,7 @@ static void editor_settings_preferences_changed_action  (CodeSlayerEngine       
 
 static void notify_visible_pane_action                  (CodeSlayerEngine       *engine,
                                                          GParamSpec             *spec);
+static void save_document_settings                      (CodeSlayerEngine       *engine);
 static void save_window_settings                        (CodeSlayerEngine       *engine);
 static void load_window_settings                        (CodeSlayerEngine       *engine);
 
@@ -160,6 +161,11 @@ codeslayer_engine_init (CodeSlayerEngine *engine)
 static void
 codeslayer_engine_finalize (CodeSlayerEngine *engine)
 {
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  g_object_unref (priv->config);
+  
   G_OBJECT_CLASS (codeslayer_engine_parent_class)->finalize (G_OBJECT (engine));
 }
 
@@ -364,9 +370,36 @@ codeslayer_engine_save_config (CodeSlayerEngine *engine)
     return FALSE;
 
   save_window_settings (engine);
+  save_document_settings (engine);
   codeslayer_repository_save_config (priv->config);
   
   return TRUE;
+}
+
+static void
+save_document_settings (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  GList *documents = NULL;
+  gint pages;
+  gint page;
+
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  if (codeslayer_config_get_projects_mode (priv->config) == FALSE)
+    return;
+  
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
+  for (page = 0; page < pages; page++)
+    {
+      GtkWidget *notebook_page;
+      CodeSlayerDocument *document;
+      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
+      document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      documents = g_list_append (documents, document);
+    }
+    
+  codeslayer_config_set_documents (priv->config, documents);
 }
 
 static void
@@ -500,7 +533,7 @@ codeslayer_engine_open_editor (CodeSlayerEngine *engine,
   document = codeslayer_document_new ();
   codeslayer_document_set_file_path (document, file_path);
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
-
+  
   sync_settings (engine);
 }
 

@@ -35,12 +35,12 @@ typedef struct _CodeSlayerDocumentClass CodeSlayerDocumentClass;
 
 struct _CodeSlayerDocument
 {
-  GObject parent_instance;
+  GInitiallyUnowned parent_instance;
 };
 
 struct _CodeSlayerDocumentClass
 {
-  GObjectClass parent_class;
+  GInitiallyUnownedClass parent_class;
 };
 
 GType codeslayer_document_get_type (void) G_GNUC_CONST;

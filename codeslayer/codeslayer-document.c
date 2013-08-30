@@ -62,7 +62,7 @@ struct _CodeSlayerDocumentPrivate
   CodeSlayerProject   *project;
 };
 
-G_DEFINE_TYPE (CodeSlayerDocument, codeslayer_document, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CodeSlayerDocument, codeslayer_document, G_TYPE_INITIALLY_UNOWNED)
 
 enum
 {
