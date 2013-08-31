@@ -193,6 +193,7 @@ codeslayer_config_set_projects (CodeSlayerConfig *config,
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
+  remove_all_projects (config);
   priv->projects = projects;
   g_list_foreach (priv->projects, (GFunc) g_object_ref_sink, NULL);
 }
@@ -318,6 +319,7 @@ codeslayer_config_set_documents (CodeSlayerConfig *config,
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
   remove_all_documents (config);
   priv->documents = documents;
+  g_list_foreach (priv->projects, (GFunc) g_object_ref_sink, NULL);
 }
 
 /**
@@ -331,8 +333,8 @@ codeslayer_config_add_document (CodeSlayerConfig   *config,
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  if (priv->documents == NULL || g_list_index (priv->documents, document) == -1)
-    priv->documents = g_list_append (priv->documents, document);
+  priv->documents = g_list_append (priv->documents, document);
+  /*g_object_ref_sink (G_OBJECT (document));*/
 }
 
 /**
@@ -347,6 +349,7 @@ codeslayer_config_remove_document (CodeSlayerConfig   *config,
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
   priv->documents = g_list_remove (priv->documents, document);
+  /*g_object_unref (document);*/
 }
 
 static void

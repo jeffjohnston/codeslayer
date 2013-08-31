@@ -534,6 +534,8 @@ codeslayer_engine_open_editor (CodeSlayerEngine *engine,
   codeslayer_document_set_file_path (document, file_path);
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
   
+  g_object_unref (document);
+
   sync_settings (engine);
 }
 
@@ -547,6 +549,8 @@ new_editor_action (CodeSlayerEngine *engine)
 
   document = codeslayer_document_new ();
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
+  
+  g_object_unref (document);
   
   sync_settings (engine);
 }
@@ -591,6 +595,8 @@ open_editor_action (CodeSlayerEngine *engine)
           codeslayer_document_set_file_path (document, file_path);
           
           codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
+          
+          g_object_unref (document);
 
           g_free (file_path);
           list = g_slist_next (list);
@@ -1012,6 +1018,8 @@ open_projects_action (CodeSlayerEngine *engine,
       CodeSlayerDocument *document = documents->data;
       codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), 
                                            document);
+      g_object_unref (document);
+      /*codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);*/
       documents = g_list_next (documents);
     }
 

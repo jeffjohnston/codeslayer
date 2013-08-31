@@ -166,6 +166,8 @@ load_config (CodeSlayerConfig *config,
               document = codeslayer_document_new ();
               codeslayer_document_set_file_path (document, (gchar*) file_path);
               codeslayer_document_set_line_number (document, atoi ((gchar*) line_number));
+              
+              /*g_object_force_floating (G_OBJECT (document));*/
               codeslayer_config_add_document (config, document);
               
               project = codeslayer_config_get_project_by_file_path (config, (gchar*) file_path);
