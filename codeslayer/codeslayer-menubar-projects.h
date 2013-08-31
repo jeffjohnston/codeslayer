@@ -52,7 +52,7 @@ GtkWidget*  codeslayer_menu_bar_projects_new   (GtkWidget                 *windo
                                                 CodeSlayerSettings        *settings);
                                                
 void        codeslayer_menu_bar_projects_sync  (CodeSlayerMenuBarProjects *menu_bar_projects,
-                                                CodeSlayerConfig          *config);
+                                                gboolean                   projects_mode);
                                                
 
 G_END_DECLS

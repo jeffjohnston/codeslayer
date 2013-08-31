@@ -48,9 +48,9 @@ GType codeslayer_menu_bar_search_get_type (void) G_GNUC_CONST;
 GtkWidget*  codeslayer_menu_bar_search_new   (GtkWidget               *menu_bar, 
                                               GtkAccelGroup           *accel_group);
                                             
-void        codeslayer_menu_bar_search_sync  (CodeSlayerMenuBarSearch *menu_bar_search,
-                                              GtkWidget               *notebook, 
-                                              CodeSlayerConfig        *config);
+void        codeslayer_menu_bar_search_sync  (CodeSlayerMenuBarSearch *menu_bar_search, 
+                                              gboolean                 projects_mode,
+                                              gboolean                 has_open_editors);
                                                             
 G_END_DECLS
 

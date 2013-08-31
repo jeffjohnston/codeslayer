@@ -49,9 +49,8 @@ GtkWidget*  codeslayer_menu_bar_view_new   (GtkWidget             *menu_bar,
                                             GtkAccelGroup         *accel_group,
                                             CodeSlayerSettings    *settings);
                                          
-void        codeslayer_menu_bar_view_sync  (CodeSlayerMenuBarView *menu_bar_view, 
-                                            GtkWidget             *notebook,
-                                            CodeSlayerConfig      *config);                                                          
+void        codeslayer_menu_bar_view_sync  (CodeSlayerMenuBarView *menu_bar_view,
+                                            gboolean               has_open_editors);
 
 G_END_DECLS
 

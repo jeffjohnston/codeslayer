@@ -199,27 +199,20 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
  * @notebook: a #GtkNotebook.
  */
 void  
-codeslayer_menu_bar_search_sync (CodeSlayerMenuBarSearch *menu_bar_search,
-                                 GtkWidget               *notebook, 
-                                 CodeSlayerConfig        *config)
+codeslayer_menu_bar_search_sync (CodeSlayerMenuBarSearch *menu_bar_search, 
+                                 gboolean                 projects_mode,
+                                 gboolean                 has_open_editors)
 {
   CodeSlayerMenuBarSearchPrivate *priv;
-  gboolean sensitive;
-  gint pages;
-  
   priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
   
-  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
-  sensitive = pages > 0;
-  
-  gtk_widget_set_sensitive (priv->find_item, sensitive);
-  gtk_widget_set_sensitive (priv->find_next_item, sensitive);
-  gtk_widget_set_sensitive (priv->find_previous_item, sensitive);
-  gtk_widget_set_sensitive (priv->replace_item, sensitive);
-  gtk_widget_set_sensitive (priv->go_to_line_item, sensitive);
+  gtk_widget_set_sensitive (priv->find_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->find_next_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->find_previous_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->replace_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->go_to_line_item, has_open_editors);
 
-
-  if (codeslayer_config_get_projects_mode (config) == TRUE)
+  if (projects_mode)
     {
       gtk_widget_show (priv->find_projects_item);
       gtk_widget_show (priv->find_projects_separator_item);

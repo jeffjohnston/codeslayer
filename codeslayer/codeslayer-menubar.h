@@ -75,7 +75,7 @@ struct _CodeSlayerMenuBarClass
   void (*to_uppercase) (CodeSlayerMenuBar *menu_bar);
   void (*to_lowercase) (CodeSlayerMenuBar *menu_bar);
   void (*copy_lines) (CodeSlayerMenuBar *menu_bar);
-  void (*sync_projects_with_editor) (CodeSlayerMenuBar *menu_bar);
+  void (*sync_with_editor) (CodeSlayerMenuBar *menu_bar);
   void (*scan_external_changes) (CodeSlayerMenuBar *menu_bar);
 };
 
@@ -103,6 +103,8 @@ void            codeslayer_menu_bar_to_uppercase               (CodeSlayerMenuBa
 void            codeslayer_menu_bar_to_lowercase               (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_copy_lines                 (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_show_preferences           (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_sync_with_editor           (CodeSlayerMenuBar     *menu_bar, 
+                                                                gboolean               sync_with_editor);
 void            codeslayer_menu_bar_scan_external_changes      (CodeSlayerMenuBar     *menu_bar);
 
 void            codeslayer_menu_bar_find                       (CodeSlayerMenuBar     *menu_bar);
@@ -132,10 +134,8 @@ void            codeslayer_menu_bar_add_projects               (CodeSlayerMenuBa
 void            codeslayer_menu_bar_show_plugins               (CodeSlayerMenuBar     *menu_bar);
 
 void            codeslayer_menu_bar_sync                       (CodeSlayerMenuBar     *menu_bar,
-                                                                GtkWidget             *notebook,
-                                                                CodeSlayerConfig      *config);
-void            codeslayer_menu_bar_sync_projects_with_editor  (CodeSlayerMenuBar     *menu_bar, 
-                                                                gboolean               sync_projects_with_editor);
+                                                                gboolean               projects_mode, 
+                                                                gboolean               has_open_editors);
 
 G_END_DECLS
 

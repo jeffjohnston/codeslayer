@@ -186,13 +186,13 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
 
 void
 codeslayer_menu_bar_projects_sync (CodeSlayerMenuBarProjects *menu_bar_projects,
-                                   CodeSlayerConfig          *config)
+                                   gboolean                   projects_mode)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
 
-  if (codeslayer_config_get_projects_mode (config) == TRUE)
+  if (projects_mode)
     {    
       gboolean sync_with_editor;
      
@@ -326,8 +326,8 @@ sync_with_editor_action (CodeSlayerMenuBarProjects *menu_bar_projects)
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
   sync_with_editor = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item));
-  codeslayer_menu_bar_sync_projects_with_editor (CODESLAYER_MENU_BAR (priv->menu_bar),
-                                                sync_with_editor);
+  codeslayer_menu_bar_sync_with_editor (CODESLAYER_MENU_BAR (priv->menu_bar),
+                                        sync_with_editor);
                                                 
   codeslayer_settings_set_boolean (priv->settings, CODESLAYER_SETTINGS_SYNC_WITH_EDITOR,
                                    sync_with_editor);

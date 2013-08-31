@@ -20,7 +20,6 @@
 #define	__CODESLAYER_MENU_BAR_EDITOR_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-config.h>
 
 G_BEGIN_DECLS
 
@@ -48,9 +47,9 @@ GType codeslayer_menu_bar_editor_get_type (void) G_GNUC_CONST;
 GtkWidget*  codeslayer_menu_bar_editor_new   (GtkWidget               *menu_bar, 
                                               GtkAccelGroup           *accel_group);
                                           
-void        codeslayer_menu_bar_editor_sync  (CodeSlayerMenuBarEditor *menu_bar_editor,
-                                              GtkWidget               *notebook, 
-                                              CodeSlayerConfig        *config);
+void        codeslayer_menu_bar_editor_sync  (CodeSlayerMenuBarEditor *menu_bar_editor, 
+                                              gboolean                 projects_mode,
+                                              gboolean                 has_open_editors);
                                           
 
 G_END_DECLS

@@ -199,25 +199,18 @@ add_menu_items (CodeSlayerMenuBarEditor *menu_bar_editor)
  * @notebook: a #GtkNotebook.
  */
 void
-codeslayer_menu_bar_editor_sync (CodeSlayerMenuBarEditor *menu_bar_editor,
-                                 GtkWidget               *notebook, 
-                                 CodeSlayerConfig        *config)
+codeslayer_menu_bar_editor_sync (CodeSlayerMenuBarEditor *menu_bar_editor, 
+                                 gboolean                 projects_mode,
+                                 gboolean                 has_open_editors)
 {
   CodeSlayerMenuBarEditorPrivate *priv;
-  gboolean sensitive;
-  gint pages;
-  
   priv = CODESLAYER_MENU_BAR_EDITOR_GET_PRIVATE (menu_bar_editor);
 
-  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
-  sensitive = pages > 0;
+  gtk_widget_set_sensitive (priv->save_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->save_all_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->close_tab_item, has_open_editors);
 
-  gtk_widget_set_sensitive (priv->save_item, sensitive);
-  gtk_widget_set_sensitive (priv->save_all_item, sensitive);
-  gtk_widget_set_sensitive (priv->close_tab_item, sensitive);
-
-
-  if (codeslayer_config_get_projects_mode (config) == TRUE)
+  if (projects_mode)
     {
       gtk_widget_hide (priv->new_item);
       gtk_widget_hide (priv->open_item);

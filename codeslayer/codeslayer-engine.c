@@ -108,7 +108,7 @@ static void rename_file_path_action                     (CodeSlayerEngine      *
                                                          gchar                 *file_path,
                                                          gchar                 *renamed_file_path);
 static void show_plugins_action                         (CodeSlayerEngine      *engine);
-static void sync_settings                               (CodeSlayerEngine      *engine);
+static void sync_menu_bar                               (CodeSlayerEngine      *engine);
                                                          
                                                    
 #define CODESLAYER_ENGINE_GET_PRIVATE(obj) \
@@ -336,7 +336,7 @@ codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
 
   load_window_settings (engine);
   
-  sync_settings (engine);
+  sync_menu_bar (engine);
 
   codeslayer_plugins_activate (priv->plugins, priv->config);  
 }
@@ -528,7 +528,7 @@ codeslayer_engine_open_editor (CodeSlayerEngine *engine,
   
   g_object_unref (document);
 
-  sync_settings (engine);
+  sync_menu_bar (engine);
 }
 
 static void
@@ -544,7 +544,7 @@ new_editor_action (CodeSlayerEngine *engine)
   
   g_object_unref (document);
   
-  sync_settings (engine);
+  sync_menu_bar (engine);
 }
 
 static void
@@ -599,7 +599,7 @@ open_editor_action (CodeSlayerEngine *engine)
     }
   gtk_widget_destroy (GTK_WIDGET (dialog));
 
-  sync_settings (engine);
+  sync_menu_bar (engine);
 }
 
 static void
@@ -644,7 +644,7 @@ page_removed_action (CodeSlayerEngine *engine,
                      GtkWidget        *page,
                      guint             removed_page_num)
 {
-  sync_settings (engine);
+  sync_menu_bar (engine);
 }
 
 static void
@@ -767,7 +767,7 @@ toggle_bottom_pane_action (CodeSlayerEngine *engine)
                                        TRUE);
     }
     
-  sync_settings (engine);    
+  sync_menu_bar (engine);    
 }
 
 static void
@@ -779,7 +779,7 @@ open_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_settings_set_boolean (priv->settings, 
                                    CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
                                    TRUE);
-  sync_settings (engine);                                   
+  sync_menu_bar (engine);                                   
 }
 
 static void
@@ -791,7 +791,7 @@ close_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_settings_set_boolean (priv->settings, 
                                    CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
                                    FALSE);
-  sync_settings (engine);                                   
+  sync_menu_bar (engine);                                   
 }
 
 static void
@@ -1008,7 +1008,7 @@ open_projects_action (CodeSlayerEngine *engine,
       documents = g_list_next (documents);
     }
 
-  sync_settings (engine);
+  sync_menu_bar (engine);
 
   codeslayer_plugins_activate (priv->plugins, priv->config);
 }
@@ -1132,7 +1132,7 @@ select_projects_document_action (CodeSlayerEngine *engine,
 
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (notebook), document);
 
-  sync_settings (engine);
+  sync_menu_bar (engine);
 }
 
 static void
@@ -1358,14 +1358,21 @@ rename_file_path_action (CodeSlayerEngine *engine,
 }
 
 static void 
-sync_settings (CodeSlayerEngine *engine)
+sync_menu_bar (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
+  gboolean projects_mode;
+  gboolean has_open_editors;
+  gint pages;
+
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  codeslayer_menu_bar_sync (CODESLAYER_MENU_BAR (priv->menubar), 
-                            priv->notebook, 
-                            priv->config);
+  projects_mode = codeslayer_config_get_projects_mode (priv->config);
+
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
+  has_open_editors = pages > 0;
+  
+  codeslayer_menu_bar_sync (CODESLAYER_MENU_BAR (priv->menubar), projects_mode, has_open_editors);
   
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }

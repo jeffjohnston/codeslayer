@@ -167,19 +167,12 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view,
 
 void
 codeslayer_menu_bar_view_sync (CodeSlayerMenuBarView *menu_bar_view,
-                               GtkWidget             *notebook, 
-                               CodeSlayerConfig      *config)
+                               gboolean               has_open_editors)
 {
   CodeSlayerMenuBarViewPrivate *priv;
-  gboolean sensitive;
-  gint pages;
-  
   priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
   
-  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
-  sensitive = pages > 0;
-  
-  gtk_widget_set_sensitive (priv->draw_spaces_item, sensitive);
+  gtk_widget_set_sensitive (priv->draw_spaces_item, has_open_editors);
   
   g_signal_handler_block (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_block (priv->show_bottom_pane_item, priv->show_bottom_pane_id);

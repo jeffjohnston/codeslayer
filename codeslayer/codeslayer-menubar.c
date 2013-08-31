@@ -90,7 +90,7 @@ enum
   TO_UPPERCASE,
   TO_LOWERCASE,
   COPY_LINES,  
-  SYNC_PROJECTS_WITH_EDITOR,  
+  SYNC_WITH_EDITOR,  
   LAST_SIGNAL
 };
 
@@ -613,14 +613,14 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerMenuBar::sync-projects-with-editor 
+   * CodeSlayerMenuBar::sync-with-editor 
    * @menu: the menu that received the signal
    */
-  codeslayer_menu_bar_signals[SYNC_PROJECTS_WITH_EDITOR] =
-    g_signal_new ("sync-projects-with-editor", 
+  codeslayer_menu_bar_signals[SYNC_WITH_EDITOR] =
+    g_signal_new ("sync-with-editor", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, sync_projects_with_editor),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, sync_with_editor),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__BOOLEAN, G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
 
@@ -710,25 +710,23 @@ codeslayer_menu_bar_get_accel_group (CodeSlayerMenuBar *menu_bar)
 
 void 
 codeslayer_menu_bar_sync (CodeSlayerMenuBar *menu_bar,
-                          GtkWidget         *notebook,
-                          CodeSlayerConfig  *config)
+                          gboolean           projects_mode, 
+                          gboolean           has_open_editors)
 {
   CodeSlayerMenuBarPrivate *priv;
   priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
 
-  codeslayer_menu_bar_editor_sync (CODESLAYER_MENU_BAR_EDITOR (priv->menu_bar_editor),
-                                   notebook, config);                                               
+  codeslayer_menu_bar_editor_sync (CODESLAYER_MENU_BAR_EDITOR (priv->menu_bar_editor), 
+                                   projects_mode, has_open_editors);                                               
 
-  codeslayer_menu_bar_view_sync (CODESLAYER_MENU_BAR_VIEW (priv->menu_bar_view),
-                                 notebook, config);  
+  codeslayer_menu_bar_view_sync (CODESLAYER_MENU_BAR_VIEW (priv->menu_bar_view), 
+                                 has_open_editors);  
 
-
-
-  codeslayer_menu_bar_search_sync (CODESLAYER_MENU_BAR_SEARCH (priv->menu_bar_search),
-                                   notebook, config);  
+  codeslayer_menu_bar_search_sync (CODESLAYER_MENU_BAR_SEARCH (priv->menu_bar_search), 
+                                   projects_mode, has_open_editors);  
 
   codeslayer_menu_bar_projects_sync (CODESLAYER_MENU_BAR_PROJECTS (priv->menu_bar_projects),
-                                     config);
+                                     projects_mode);
 }
 
 /**
@@ -1058,15 +1056,15 @@ codeslayer_menu_bar_show_plugins (CodeSlayerMenuBar *menu_bar)
 }
 
 /**
- * codeslayer_menu_bar_sync_projects_with_editor:
+ * codeslayer_menu_bar_sync_with_editor:
  * @menu_bar: a #CodeSlayerMenuBar.
- * @sync_projects_with_editor: is TRUE if the projects should be synced with the editor.
+ * @sync_with_editor: is TRUE if the projects should be synced with the editor.
  */
 void            
-codeslayer_menu_bar_sync_projects_with_editor (CodeSlayerMenuBar *menu_bar, 
-                                               gboolean           sync_projects_with_editor)
+codeslayer_menu_bar_sync_with_editor (CodeSlayerMenuBar *menu_bar, 
+                                      gboolean           sync_with_editor)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "sync-projects-with-editor", sync_projects_with_editor);
+  g_signal_emit_by_name ((gpointer) menu_bar, "sync-with-editor", sync_with_editor);
 }                                               
 
 /**
