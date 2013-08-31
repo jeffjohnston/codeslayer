@@ -46,13 +46,13 @@ struct _CodeSlayerMenuBarProjectsClass
 
 GType codeslayer_menu_bar_projects_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_menu_bar_projects_new                 (GtkWidget                 *window, 
-                                                              GtkWidget                 *menu_bar, 
-                                                              GtkAccelGroup             *accel_group, 
-                                                              CodeSlayerSettings        *settings);
+GtkWidget*  codeslayer_menu_bar_projects_new   (GtkWidget                 *window, 
+                                                GtkWidget                 *menu_bar, 
+                                                GtkAccelGroup             *accel_group, 
+                                                CodeSlayerSettings        *settings);
                                                
-void        codeslayer_menu_bar_projects_sync_with_config    (CodeSlayerMenuBarProjects *menu_bar_projects,
-                                                              CodeSlayerConfig          *config);
+void        codeslayer_menu_bar_projects_sync  (CodeSlayerMenuBarProjects *menu_bar_projects,
+                                                CodeSlayerConfig          *config);
                                                
 
 G_END_DECLS

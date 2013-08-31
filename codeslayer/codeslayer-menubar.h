@@ -117,15 +117,6 @@ void            codeslayer_menu_bar_show_side_pane             (CodeSlayerMenuBa
 void            codeslayer_menu_bar_show_bottom_pane           (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_draw_spaces                (CodeSlayerMenuBar     *menu_bar);
 
-void            codeslayer_menu_bar_sync_with_notebook         (CodeSlayerMenuBar     *menu_bar,
-                                                                GtkWidget             *notebook);
-void            codeslayer_menu_bar_sync_with_config           (CodeSlayerMenuBar     *menu_bar,
-                                                                CodeSlayerConfig      *config);
-
-void            codeslayer_menu_bar_sync_with_panes            (CodeSlayerMenuBar     *menu_bar, 
-                                                                gboolean               show_side_pane, 
-                                                                gboolean               show_bottom_pane);
-
 void            codeslayer_menu_bar_add_tools_item             (CodeSlayerMenuBar     *menu_bar, 
                                                                 GtkWidget             *item);
 void            codeslayer_menu_bar_remove_tools_item          (CodeSlayerMenuBar     *menu_bar, 
@@ -140,6 +131,11 @@ void            codeslayer_menu_bar_add_projects               (CodeSlayerMenuBa
                                                                 GSList                *files);
 void            codeslayer_menu_bar_show_plugins               (CodeSlayerMenuBar     *menu_bar);
 
+void            codeslayer_menu_bar_sync                       (CodeSlayerMenuBar     *menu_bar,
+                                                                GtkWidget             *notebook,
+                                                                CodeSlayerConfig      *config, 
+                                                                gboolean               show_side_pane, 
+                                                                gboolean               show_bottom_pane);
 void            codeslayer_menu_bar_sync_projects_with_editor  (CodeSlayerMenuBar     *menu_bar, 
                                                                 gboolean               sync_projects_with_editor);
 

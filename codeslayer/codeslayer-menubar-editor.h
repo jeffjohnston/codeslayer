@@ -45,13 +45,12 @@ struct _CodeSlayerMenuBarEditorClass
 
 GType codeslayer_menu_bar_editor_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_menu_bar_editor_new                 (GtkWidget               *menu_bar, 
-                                                            GtkAccelGroup           *accel_group);
+GtkWidget*  codeslayer_menu_bar_editor_new   (GtkWidget               *menu_bar, 
+                                              GtkAccelGroup           *accel_group);
                                           
-void        codeslayer_menu_bar_editor_sync_with_notebook  (CodeSlayerMenuBarEditor *menu_bar_editor,
-                                                            GtkWidget               *notebook);
-void        codeslayer_menu_bar_editor_sync_with_config    (CodeSlayerMenuBarEditor *menu_bar_editor,
-                                                            CodeSlayerConfig        *config);
+void        codeslayer_menu_bar_editor_sync  (CodeSlayerMenuBarEditor *menu_bar_editor,
+                                              GtkWidget               *notebook, 
+                                              CodeSlayerConfig        *config);
                                           
 
 G_END_DECLS

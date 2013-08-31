@@ -858,11 +858,7 @@ static void
 notify_visible_pane_action (CodeSlayerEngine *engine,
                             GParamSpec       *spec)
 {
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_menu_bar_sync_with_panes (CODESLAYER_MENU_BAR (priv->menubar), 
-                                      gtk_widget_get_visible (priv->side_pane), 
-                                      gtk_widget_get_visible (priv->bottom_pane));
+  sync_settings (engine);
 }
 
 static void
@@ -1377,7 +1373,12 @@ sync_settings (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_menu_bar_sync_with_notebook (CODESLAYER_MENU_BAR (priv->menubar), priv->notebook);
-  codeslayer_menu_bar_sync_with_config (CODESLAYER_MENU_BAR (priv->menubar), priv->config);
+
+  codeslayer_menu_bar_sync (CODESLAYER_MENU_BAR (priv->menubar), 
+                            priv->notebook, 
+                            priv->config, 
+                            gtk_widget_get_visible (priv->side_pane), 
+                            gtk_widget_get_visible (priv->bottom_pane));
+  
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }

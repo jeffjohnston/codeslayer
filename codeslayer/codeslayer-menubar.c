@@ -708,64 +708,30 @@ codeslayer_menu_bar_get_accel_group (CodeSlayerMenuBar *menu_bar)
   return priv->accel_group;
 }
 
-/**
- * codeslayer_menu_bar_sync_with_notebook:
- * @menu_bar: a #CodeSlayerMenuBar.
- * @notebook: a #CodeSlayerNotebook.
- * 
- * Update the sensitivity of editor related menu items based on the current 
- * state of the notebook #CodeSlayerEditor widgets.
- */
-void
-codeslayer_menu_bar_sync_with_notebook (CodeSlayerMenuBar *menu_bar,
-                                        GtkWidget         *notebook)
-{
-  CodeSlayerMenuBarPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
-  codeslayer_menu_bar_editor_sync_with_notebook (CODESLAYER_MENU_BAR_EDITOR (priv->menu_bar_editor),
-                                                 notebook);                                               
-  codeslayer_menu_bar_search_sync_with_notebook (CODESLAYER_MENU_BAR_SEARCH (priv->menu_bar_search),
-                                                 notebook);  
-  codeslayer_menu_bar_view_sync_with_notebook (CODESLAYER_MENU_BAR_VIEW (priv->menu_bar_view),
-                                               notebook);  
-}
-
 void 
-codeslayer_menu_bar_sync_with_config (CodeSlayerMenuBar     *menu_bar,
-                                      CodeSlayerConfig      *config)
+codeslayer_menu_bar_sync (CodeSlayerMenuBar *menu_bar,
+                          GtkWidget         *notebook,
+                          CodeSlayerConfig  *config, 
+                          gboolean           show_side_pane, 
+                          gboolean           show_bottom_pane)
 {
   CodeSlayerMenuBarPrivate *priv;
   priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
 
-  codeslayer_menu_bar_editor_sync_with_config (CODESLAYER_MENU_BAR_EDITOR (priv->menu_bar_editor),
-                                               config);                                               
-  codeslayer_menu_bar_search_sync_with_config (CODESLAYER_MENU_BAR_SEARCH (priv->menu_bar_search),
-                                               config);
-  codeslayer_menu_bar_view_sync_with_config (CODESLAYER_MENU_BAR_VIEW (priv->menu_bar_view),
-                                             config);                                
-  codeslayer_menu_bar_projects_sync_with_config (CODESLAYER_MENU_BAR_PROJECTS (priv->menu_bar_projects),
-                                                 config);
+  codeslayer_menu_bar_editor_sync (CODESLAYER_MENU_BAR_EDITOR (priv->menu_bar_editor),
+                                   notebook, config);                                               
+
+  codeslayer_menu_bar_view_sync (CODESLAYER_MENU_BAR_VIEW (priv->menu_bar_view),
+                                 notebook, config, show_side_pane, show_bottom_pane);  
+
+
+
+  codeslayer_menu_bar_search_sync (CODESLAYER_MENU_BAR_SEARCH (priv->menu_bar_search),
+                                   notebook, config);  
+
+  codeslayer_menu_bar_projects_sync (CODESLAYER_MENU_BAR_PROJECTS (priv->menu_bar_projects),
+                                     config);
 }
-
-/**
- * codeslayer_menu_bar_sync_with_panes:
- * @menu_bar: a #CodeSlayerMenuBar.
- * @show_side_pane: if TRUE then the side pane is shown
- * @show_bottom_pane: if TRUE then the bottom pane is shown
- * 
- * Update the sensitivity of view related menu items based on the current 
- * state of the bottom and side pane.
- */
-void            
-codeslayer_menu_bar_sync_with_panes (CodeSlayerMenuBar *menu_bar, 
-                                     gboolean           show_side_pane, 
-                                     gboolean           show_bottom_pane)
-{
-  CodeSlayerMenuBarPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
-  codeslayer_menu_bar_view_sync_with_panes (CODESLAYER_MENU_BAR_VIEW (priv->menu_bar_view),
-                                           show_side_pane, show_bottom_pane);  
-}                                         
 
 /**
  * codeslayer_menu_bar_new_editor:

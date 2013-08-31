@@ -194,13 +194,14 @@ add_menu_items (CodeSlayerMenuBarEditor *menu_bar_editor)
 }
 
 /**
- * codeslayer_menu_bar_editor_sync_with_notebook:
+ * codeslayer_menu_bar_editor_sync:
  * @menu_bar_editor: a #CodeSlayerMenuBarEditor.
  * @notebook: a #GtkNotebook.
  */
 void
-codeslayer_menu_bar_editor_sync_with_notebook (CodeSlayerMenuBarEditor *menu_bar_editor,
-                                               GtkWidget               *notebook)
+codeslayer_menu_bar_editor_sync (CodeSlayerMenuBarEditor *menu_bar_editor,
+                                 GtkWidget               *notebook, 
+                                 CodeSlayerConfig        *config)
 {
   CodeSlayerMenuBarEditorPrivate *priv;
   gboolean sensitive;
@@ -214,15 +215,8 @@ codeslayer_menu_bar_editor_sync_with_notebook (CodeSlayerMenuBarEditor *menu_bar
   gtk_widget_set_sensitive (priv->save_item, sensitive);
   gtk_widget_set_sensitive (priv->save_all_item, sensitive);
   gtk_widget_set_sensitive (priv->close_tab_item, sensitive);
-}
 
-void
-codeslayer_menu_bar_editor_sync_with_config (CodeSlayerMenuBarEditor *menu_bar_editor,
-                                             CodeSlayerConfig        *config)
-{
-  CodeSlayerMenuBarEditorPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_EDITOR_GET_PRIVATE (menu_bar_editor);
-  
+
   if (codeslayer_config_get_projects_mode (config) == TRUE)
     {
       gtk_widget_hide (priv->new_item);

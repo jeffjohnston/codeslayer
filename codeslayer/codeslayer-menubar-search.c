@@ -194,13 +194,14 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
 }
 
 /**
- * codeslayer_menu_bar_search_sync_with_preferences:
+ * codeslayer_menu_bar_search_sync:
  * @menu_bar_search: a #CodeSlayerMenuBarSearch.
  * @notebook: a #GtkNotebook.
  */
 void  
-codeslayer_menu_bar_search_sync_with_notebook (CodeSlayerMenuBarSearch *menu_bar_search,
-                                               GtkWidget               *notebook)
+codeslayer_menu_bar_search_sync (CodeSlayerMenuBarSearch *menu_bar_search,
+                                 GtkWidget               *notebook, 
+                                 CodeSlayerConfig        *config)
 {
   CodeSlayerMenuBarSearchPrivate *priv;
   gboolean sensitive;
@@ -216,14 +217,7 @@ codeslayer_menu_bar_search_sync_with_notebook (CodeSlayerMenuBarSearch *menu_bar
   gtk_widget_set_sensitive (priv->find_previous_item, sensitive);
   gtk_widget_set_sensitive (priv->replace_item, sensitive);
   gtk_widget_set_sensitive (priv->go_to_line_item, sensitive);
-}
 
-void
-codeslayer_menu_bar_search_sync_with_config (CodeSlayerMenuBarSearch *menu_bar_search,
-                                             CodeSlayerConfig        *config)
-{
-  CodeSlayerMenuBarSearchPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
 
   if (codeslayer_config_get_projects_mode (config) == TRUE)
     {

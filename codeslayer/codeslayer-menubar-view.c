@@ -166,8 +166,11 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view,
 }
 
 void
-codeslayer_menu_bar_view_sync_with_notebook (CodeSlayerMenuBarView *menu_bar_view,
-                                             GtkWidget             *notebook)
+codeslayer_menu_bar_view_sync (CodeSlayerMenuBarView *menu_bar_view,
+                               GtkWidget             *notebook, 
+                               CodeSlayerConfig      *config, 
+                               gboolean               show_side_pane, 
+                               gboolean               show_bottom_pane)
 {
   CodeSlayerMenuBarViewPrivate *priv;
   gboolean sensitive;
@@ -179,24 +182,6 @@ codeslayer_menu_bar_view_sync_with_notebook (CodeSlayerMenuBarView *menu_bar_vie
   sensitive = pages > 0;
   
   gtk_widget_set_sensitive (priv->draw_spaces_item, sensitive);
-}                                             
-
-/**
- * codeslayer_menu_bar_view_sync_with_panes:
- * @menu_bar_view: a #CodeSlayerMenuBarView.
- * @show_side_pane: if TRUE then the side pane is shown
- * @show_bottom_pane: if TRUE then the bottom pane is shown
- * 
- * Update the sensitivity of view related menu items based on the current 
- * state of the bottom and side pane.
- */
-void
-codeslayer_menu_bar_view_sync_with_panes (CodeSlayerMenuBarView *menu_bar_view, 
-                                          gboolean               show_side_pane, 
-                                          gboolean               show_bottom_pane)
-{
-  CodeSlayerMenuBarViewPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
   
   g_signal_handler_block (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_block (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
@@ -209,19 +194,12 @@ codeslayer_menu_bar_view_sync_with_panes (CodeSlayerMenuBarView *menu_bar_view,
 
   g_signal_handler_unblock (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_unblock (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
-}
-
-void
-codeslayer_menu_bar_view_sync_with_config (CodeSlayerMenuBarView *menu_bar_view,
-                                           CodeSlayerConfig      *config)
-{
-  CodeSlayerMenuBarViewPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
+  
 
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->draw_spaces_item),
                                   codeslayer_settings_get_boolean (priv->settings, 
                                                                    CODESLAYER_SETTINGS_DRAW_SPACES));
-}
+}                                             
 
 static void
 fullscreen_window_action (CodeSlayerMenuBarView *menu_bar_view)

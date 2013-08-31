@@ -185,8 +185,8 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
 }
 
 void
-codeslayer_menu_bar_projects_sync_with_config (CodeSlayerMenuBarProjects *menu_bar_projects,
-                                               CodeSlayerConfig          *config)
+codeslayer_menu_bar_projects_sync (CodeSlayerMenuBarProjects *menu_bar_projects,
+                                   CodeSlayerConfig          *config)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   
