@@ -133,9 +133,7 @@ void            codeslayer_menu_bar_show_plugins               (CodeSlayerMenuBa
 
 void            codeslayer_menu_bar_sync                       (CodeSlayerMenuBar     *menu_bar,
                                                                 GtkWidget             *notebook,
-                                                                CodeSlayerConfig      *config, 
-                                                                gboolean               show_side_pane, 
-                                                                gboolean               show_bottom_pane);
+                                                                CodeSlayerConfig      *config);
 void            codeslayer_menu_bar_sync_projects_with_editor  (CodeSlayerMenuBar     *menu_bar, 
                                                                 gboolean               sync_projects_with_editor);
 

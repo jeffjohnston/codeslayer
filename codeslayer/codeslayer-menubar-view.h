@@ -51,9 +51,7 @@ GtkWidget*  codeslayer_menu_bar_view_new   (GtkWidget             *menu_bar,
                                          
 void        codeslayer_menu_bar_view_sync  (CodeSlayerMenuBarView *menu_bar_view, 
                                             GtkWidget             *notebook,
-                                            CodeSlayerConfig      *config,
-                                            gboolean               show_side_pane, 
-                                            gboolean               show_bottom_pane);                                                          
+                                            CodeSlayerConfig      *config);                                                          
 
 G_END_DECLS
 

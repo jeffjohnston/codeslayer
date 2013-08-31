@@ -168,9 +168,7 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view,
 void
 codeslayer_menu_bar_view_sync (CodeSlayerMenuBarView *menu_bar_view,
                                GtkWidget             *notebook, 
-                               CodeSlayerConfig      *config, 
-                               gboolean               show_side_pane, 
-                               gboolean               show_bottom_pane)
+                               CodeSlayerConfig      *config)
 {
   CodeSlayerMenuBarViewPrivate *priv;
   gboolean sensitive;
@@ -187,10 +185,12 @@ codeslayer_menu_bar_view_sync (CodeSlayerMenuBarView *menu_bar_view,
   g_signal_handler_block (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
   
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->show_side_pane_item),
-                                  show_side_pane);
+                                  codeslayer_settings_get_boolean (priv->settings, 
+                                                                   CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE));
 
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->show_bottom_pane_item),
-                                  show_bottom_pane);
+                                  codeslayer_settings_get_boolean (priv->settings, 
+                                                                   CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE));
 
   g_signal_handler_unblock (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_unblock (priv->show_bottom_pane_item, priv->show_bottom_pane_id);

@@ -79,8 +79,6 @@ static void page_removed_action                         (CodeSlayerEngine       
 static void show_preferences_action                     (CodeSlayerEngine       *engine);
 static void editor_settings_preferences_changed_action  (CodeSlayerEngine       *engine);
 
-static void notify_visible_pane_action                  (CodeSlayerEngine       *engine,
-                                                         GParamSpec             *spec);
 static void save_document_settings                      (CodeSlayerEngine       *engine);
 static void save_window_settings                        (CodeSlayerEngine       *engine);
 static void load_window_settings                        (CodeSlayerEngine       *engine);
@@ -280,12 +278,6 @@ codeslayer_engine_new (GtkWindow             *window,
   
   g_signal_connect_swapped (G_OBJECT (preferences), "editor-preferences-changed",
                             G_CALLBACK (editor_settings_preferences_changed_action), engine);
-                    
-  g_signal_connect_swapped (G_OBJECT (priv->side_pane), "notify::visible",
-                            G_CALLBACK (notify_visible_pane_action), engine);
-
-  g_signal_connect_swapped (G_OBJECT (priv->bottom_pane), "notify::visible",
-                            G_CALLBACK (notify_visible_pane_action), engine);
 
   g_signal_connect_swapped (G_OBJECT (menubar), "show-plugins",
                             G_CALLBACK (show_plugins_action), engine);
@@ -774,6 +766,8 @@ toggle_bottom_pane_action (CodeSlayerEngine *engine)
                                        CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
                                        TRUE);
     }
+    
+  sync_settings (engine);    
 }
 
 static void
@@ -785,6 +779,7 @@ open_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_settings_set_boolean (priv->settings, 
                                    CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
                                    TRUE);
+  sync_settings (engine);                                   
 }
 
 static void
@@ -796,6 +791,7 @@ close_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_settings_set_boolean (priv->settings, 
                                    CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
                                    FALSE);
+  sync_settings (engine);                                   
 }
 
 static void
@@ -852,13 +848,6 @@ editor_settings_preferences_changed_action (CodeSlayerEngine *engine)
       editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
       codeslayer_editor_sync_settings_preferences (CODESLAYER_EDITOR (editor));
     }
-}
-
-static void
-notify_visible_pane_action (CodeSlayerEngine *engine,
-                            GParamSpec       *spec)
-{
-  sync_settings (engine);
 }
 
 static void
@@ -1376,9 +1365,7 @@ sync_settings (CodeSlayerEngine *engine)
 
   codeslayer_menu_bar_sync (CODESLAYER_MENU_BAR (priv->menubar), 
                             priv->notebook, 
-                            priv->config, 
-                            gtk_widget_get_visible (priv->side_pane), 
-                            gtk_widget_get_visible (priv->bottom_pane));
+                            priv->config);
   
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }

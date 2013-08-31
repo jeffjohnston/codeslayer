@@ -711,9 +711,7 @@ codeslayer_menu_bar_get_accel_group (CodeSlayerMenuBar *menu_bar)
 void 
 codeslayer_menu_bar_sync (CodeSlayerMenuBar *menu_bar,
                           GtkWidget         *notebook,
-                          CodeSlayerConfig  *config, 
-                          gboolean           show_side_pane, 
-                          gboolean           show_bottom_pane)
+                          CodeSlayerConfig  *config)
 {
   CodeSlayerMenuBarPrivate *priv;
   priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
@@ -722,7 +720,7 @@ codeslayer_menu_bar_sync (CodeSlayerMenuBar *menu_bar,
                                    notebook, config);                                               
 
   codeslayer_menu_bar_view_sync (CODESLAYER_MENU_BAR_VIEW (priv->menu_bar_view),
-                                 notebook, config, show_side_pane, show_bottom_pane);  
+                                 notebook, config);  
 
 
 
