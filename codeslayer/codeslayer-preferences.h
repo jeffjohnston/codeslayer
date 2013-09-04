@@ -21,6 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-config.h>
+#include <codeslayer/codeslayer-config-handler.h>
 
 G_BEGIN_DECLS
 
@@ -69,7 +70,8 @@ struct _CodeSlayerPreferencesClass
 
 GType codeslayer_preferences_get_type (void) G_GNUC_CONST;
 
-CodeSlayerPreferences*  codeslayer_preferences_new          (GtkWidget             *window);
+CodeSlayerPreferences*  codeslayer_preferences_new          (GtkWidget             *window, 
+                                                             CodeSlayerConfigHandler *config_handler);
 
 gdouble                 codeslayer_preferences_get_double   (CodeSlayerPreferences *preferences, 
                                                              gchar                 *key);
@@ -86,8 +88,6 @@ gchar*                  codeslayer_preferences_get_string   (CodeSlayerPreferenc
 void                    codeslayer_preferences_set_string   (CodeSlayerPreferences *preferences, 
                                                              gchar                 *key,
                                                              gchar                 *value);
-void                    codeslayer_preferences_set_config   (CodeSlayerPreferences *preferences, 
-                                                             CodeSlayerConfig      *config);
 void                    codeslayer_preferences_run_dialog   (CodeSlayerPreferences *preferences);
 
 G_END_DECLS

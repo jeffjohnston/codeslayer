@@ -148,6 +148,7 @@ am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-menubar-help.lo \
 	libcodeslayer_la-codeslayer-project.lo \
 	libcodeslayer_la-codeslayer-config.lo \
+	libcodeslayer_la-codeslayer-config-handler.lo \
 	libcodeslayer_la-codeslayer-document.lo \
 	libcodeslayer_la-codeslayer-repository.lo \
 	libcodeslayer_la-codeslayer-settings.lo \
@@ -428,6 +429,7 @@ pkginclude_HEADERS = \
     codeslayer-menubar-help.h \
     codeslayer-project.h \
     codeslayer-config.h \
+    codeslayer-config-handler.h \
     codeslayer-document.h \
     codeslayer-repository.h \
     codeslayer-settings.h \
@@ -481,6 +483,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-menubar-help.c \
     codeslayer-project.c \
     codeslayer-config.c \
+    codeslayer-config-handler.c \
     codeslayer-document.c \
     codeslayer-repository.c \
     codeslayer-settings.c \
@@ -657,6 +660,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-completion-proposal.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-completion-provider.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-completion.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-config-handler.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-config.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-document.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-editor-linker.Plo@am__quote@
@@ -871,6 +875,13 @@ libcodeslayer_la-codeslayer-config.lo: codeslayer-config.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-config.c' object='libcodeslayer_la-codeslayer-config.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-config.lo `test -f 'codeslayer-config.c' || echo '$(srcdir)/'`codeslayer-config.c
+
+libcodeslayer_la-codeslayer-config-handler.lo: codeslayer-config-handler.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-config-handler.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-config-handler.Tpo -c -o libcodeslayer_la-codeslayer-config-handler.lo `test -f 'codeslayer-config-handler.c' || echo '$(srcdir)/'`codeslayer-config-handler.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-config-handler.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-config-handler.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-config-handler.c' object='libcodeslayer_la-codeslayer-config-handler.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-config-handler.lo `test -f 'codeslayer-config-handler.c' || echo '$(srcdir)/'`codeslayer-config-handler.c
 
 libcodeslayer_la-codeslayer-document.lo: codeslayer-document.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-document.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-document.Tpo -c -o libcodeslayer_la-codeslayer-document.lo `test -f 'codeslayer-document.c' || echo '$(srcdir)/'`codeslayer-document.c

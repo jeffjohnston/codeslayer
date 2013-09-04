@@ -45,7 +45,7 @@ typedef struct _CodeSlayerSettingsPrivate CodeSlayerSettingsPrivate;
 
 struct _CodeSlayerSettingsPrivate
 {
-  CodeSlayerConfig *config;
+  CodeSlayerConfigHandler *config_handler;
 };
 
 G_DEFINE_TYPE (CodeSlayerSettings, codeslayer_settings, G_TYPE_OBJECT)
@@ -76,10 +76,15 @@ codeslayer_settings_finalize (CodeSlayerSettings *settings)
  * Returns: a new #CodeSlayerSettings. 
  */
 CodeSlayerSettings*
-codeslayer_settings_new ()
+codeslayer_settings_new (CodeSlayerConfigHandler *config_handler)
 {
   CodeSlayerSettings *settings;
+  CodeSlayerSettingsPrivate *priv;
+
   settings = g_object_new (codeslayer_settings_get_type (), NULL);
+  priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
+  priv->config_handler = config_handler;
+
   return settings;
 }
 
@@ -95,11 +100,13 @@ codeslayer_settings_get_integer (CodeSlayerSettings *settings,
                                  gchar              *key)
 {
   CodeSlayerSettingsPrivate *priv;
+  CodeSlayerConfig *config;
   const gchar *value;
 
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  value = codeslayer_config_get_setting (priv->config, key);
+  value = codeslayer_config_get_setting (config, key);
   if (value != NULL)
     return atoi (value);
 
@@ -118,10 +125,14 @@ codeslayer_settings_set_integer (CodeSlayerSettings *settings,
                                  gint                value)
 {
   CodeSlayerSettingsPrivate *priv;
+  CodeSlayerConfig *config;
   gchar *val;
+
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
+
   val = g_strdup_printf ("%d", value);
-  codeslayer_config_set_setting (priv->config, key, val);
+  codeslayer_config_set_setting (config, key, val);
   g_free (val);
 }
 
@@ -137,11 +148,13 @@ codeslayer_settings_get_boolean (CodeSlayerSettings *settings,
                                  gchar              *key)
 {
   CodeSlayerSettingsPrivate *priv;
+  CodeSlayerConfig *config;
   const gchar *value;
 
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  value = codeslayer_config_get_setting (priv->config, key);
+  value = codeslayer_config_get_setting (config, key);
   if (value != NULL)
     {
       if (g_strcmp0 (value, "true") == 0)
@@ -165,12 +178,15 @@ codeslayer_settings_set_boolean (CodeSlayerSettings *settings,
                                  gboolean               value)
 {
   CodeSlayerSettingsPrivate *priv;
+  CodeSlayerConfig *config;
+  
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
   
   if (value == TRUE)  
-    codeslayer_config_set_setting (priv->config, key, "true");
+    codeslayer_config_set_setting (config, key, "true");
   else
-    codeslayer_config_set_setting (priv->config, key, "false");
+    codeslayer_config_set_setting (config, key, "false");
 }
 
 /**
@@ -185,11 +201,13 @@ codeslayer_settings_get_string (CodeSlayerSettings *settings,
                                 gchar              *key)
 {
   CodeSlayerSettingsPrivate *priv;
+  CodeSlayerConfig *config;
   const gchar *value;
 
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  value = codeslayer_config_get_setting (priv->config, key);
+  value = codeslayer_config_get_setting (config, key);
   if (value != NULL)
     return g_strdup (value);
 
@@ -207,23 +225,11 @@ codeslayer_settings_set_string (CodeSlayerSettings *settings,
                                 gchar              *key, 
                                 gchar              *value)
 {
-  CodeSlayerSettingsPrivate *priv;  
-  priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
-  codeslayer_config_set_setting (priv->config, key, value);
-}
-
-/**
- * codeslayer_settings_load:
- * @settings: a #CodeSlayerSettings.
- * @config: a #CodeSlayerConfig.
- *
- * Load the config settings.
- */
-void
-codeslayer_settings_set_config (CodeSlayerSettings *settings, 
-                                CodeSlayerConfig   *config)
-{
   CodeSlayerSettingsPrivate *priv;
+  CodeSlayerConfig *config;
+  
   priv = CODESLAYER_SETTINGS_GET_PRIVATE (settings);
-  priv->config = config;
-}                             
+  config = codeslayer_config_handler_get_config (priv->config_handler);
+
+  codeslayer_config_set_setting (config, key, value);
+}

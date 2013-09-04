@@ -117,44 +117,45 @@ typedef struct
 
 struct _CodeSlayerProjectsPrivate
 {
-  GtkWidget             *window;
-  CodeSlayerConfig       *config;
-  CodeSlayerPreferences *preferences;
-  CodeSlayerSettings    *settings;
-  GtkWidget             *project_properties;
-  GtkWidget             *properties_dialog;
-  GtkWidget             *name_entry;
-  GtkWidget             *folder_entry;
-  GtkBindingSet         *binding_set;
-  GtkWidget             *scrolled_window;
-  GtkWidget             *treeview;
-  GtkTreeStore          *treestore;
-  GtkTreeSortable       *sortable;
-  GdkPixbuf             *project_pixbuf;
-  GdkPixbuf             *folder_pixbuf;
-  GdkPixbuf             *text_pixbuf;
-  GtkCellRenderer       *cell_text;
-  CutCopyPaste          *ccp;
+  GtkWidget               *window;
+  CodeSlayerConfig        *config;
+  CodeSlayerPreferences   *preferences;
+  CodeSlayerConfigHandler *config_handler;
+  CodeSlayerSettings      *settings;
+  GtkWidget               *project_properties;
+  GtkWidget               *properties_dialog;
+  GtkWidget               *name_entry;
+  GtkWidget               *folder_entry;
+  GtkBindingSet           *binding_set;
+  GtkWidget               *scrolled_window;
+  GtkWidget               *treeview;
+  GtkTreeStore            *treestore;
+  GtkTreeSortable         *sortable;
+  GdkPixbuf               *project_pixbuf;
+  GdkPixbuf               *folder_pixbuf;
+  GdkPixbuf               *text_pixbuf;
+  GtkCellRenderer         *cell_text;
+  CutCopyPaste            *ccp;
   
-  GList                 *plugins;
+  GList                   *plugins;
 
   /* popup menu items */
-  GtkWidget             *menu;
-  GtkWidget             *remove_project_item;
-  GtkWidget             *project_separator;
-  GtkWidget             *new_folder_item;
-  GtkWidget             *new_file_item;
-  GtkWidget             *new_separator;
-  GtkWidget             *cut_item;
-  GtkWidget             *copy_item;
-  GtkWidget             *paste_item;
-  GtkWidget             *ccp_separator;
-  GtkWidget             *rename_item;
-  GtkWidget             *move_to_trash_item;
-  GtkWidget             *properties_separator;
-  GtkWidget             *properties_item;
-  GtkWidget             *find_item;
-  GtkWidget             *plugins_separator;
+  GtkWidget               *menu;
+  GtkWidget               *remove_project_item;
+  GtkWidget               *project_separator;
+  GtkWidget               *new_folder_item;
+  GtkWidget               *new_file_item;
+  GtkWidget               *new_separator;
+  GtkWidget               *cut_item;
+  GtkWidget               *copy_item;
+  GtkWidget               *paste_item;
+  GtkWidget               *ccp_separator;
+  GtkWidget               *rename_item;
+  GtkWidget               *move_to_trash_item;
+  GtkWidget               *properties_separator;
+  GtkWidget               *properties_item;
+  GtkWidget               *find_item;
+  GtkWidget               *plugins_separator;
 };
 
 enum
@@ -433,10 +434,11 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
  * Returns: a new #CodeSlayerProjects. 
  */
 GtkWidget*
-codeslayer_projects_new (GtkWidget             *window, 
-                         CodeSlayerPreferences *preferences,
-                         CodeSlayerSettings    *settings,
-                         GtkWidget             *project_properties)
+codeslayer_projects_new (GtkWidget               *window, 
+                         CodeSlayerPreferences   *preferences,
+                         CodeSlayerConfigHandler *config_handler,
+                         CodeSlayerSettings      *settings,
+                         GtkWidget               *project_properties)
 {
   CodeSlayerProjectsPrivate *priv;
   GtkWidget *projects;  
@@ -447,6 +449,7 @@ codeslayer_projects_new (GtkWidget             *window,
   
   priv->window = window;
   priv->preferences = preferences;
+  priv->config_handler = config_handler;
   priv->settings = settings;
   priv->project_properties = project_properties;
   
@@ -740,15 +743,6 @@ codeslayer_projects_clear (CodeSlayerProjects *projects)
   gtk_tree_store_clear (priv->treestore);
 }
 
-void
-codeslayer_projects_set_config (CodeSlayerProjects *projects, 
-                               CodeSlayerConfig    *config)
-{
-  CodeSlayerProjectsPrivate *priv;
-  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-  priv->config = config;
-}                               
-
 /**
  * codeslayer_projects_add_project:
  * @projects: a #CodeSlayerProjects.
@@ -796,6 +790,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
                                      CodeSlayerDocument *document)
 {
   CodeSlayerProjectsPrivate *priv;
+  CodeSlayerConfig *config;
   CodeSlayerProject *project;
   const gchar *project_folder_path;
   const gchar *document_file_path;
@@ -809,13 +804,14 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
   gchar *destination_path;
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
 
   if (select_document (document, projects))
     return TRUE;
     
   project = codeslayer_document_get_project (document);
   
-  if (project == NULL || !codeslayer_config_contains_project (priv->config, project))
+  if (project == NULL || !codeslayer_config_contains_project (config, project))
     {
       g_warning ("Cannot select document from the tree because the project is invalid.");  
       return FALSE;

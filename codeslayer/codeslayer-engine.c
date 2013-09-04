@@ -46,8 +46,6 @@
  * parts of the application very decoupled.
  */
 
-#define CONFIG "config"
-
 static void codeslayer_engine_class_init                (CodeSlayerEngineClass  *klass);
 static void codeslayer_engine_init                      (CodeSlayerEngine       *engine);
 static void codeslayer_engine_finalize                  (CodeSlayerEngine       *engine);
@@ -118,25 +116,25 @@ typedef struct _CodeSlayerEnginePrivate CodeSlayerEnginePrivate;
 
 struct _CodeSlayerEnginePrivate
 {
-  GtkWindow             *window;
-  CodeSlayerSettings    *settings;
-  CodeSlayerPreferences *preferences;
-  CodeSlayerPlugins     *plugins;
-  GtkWidget             *search;
-  GtkWidget             *menubar;
-  GtkWidget             *notebook;
-  GtkWidget             *notebook_pane;
-  GtkWidget             *side_pane;
-  GtkWidget             *bottom_pane;
-  GtkWidget             *hpaned;
-  GtkWidget             *vpaned;
-  GdkWindowState         window_state;
-  GtkWidget             *projects;
-  CodeSlayerConfig      *config;
+  GtkWindow               *window;
+  CodeSlayerSettings      *settings;
+  CodeSlayerPreferences   *preferences;
+  CodeSlayerConfigHandler *config_handler;
+  CodeSlayerPlugins       *plugins;
+  GtkWidget               *search;
+  GtkWidget               *menubar;
+  GtkWidget               *notebook;
+  GtkWidget               *notebook_pane;
+  GtkWidget               *side_pane;
+  GtkWidget               *bottom_pane;
+  GtkWidget               *hpaned;
+  GtkWidget               *vpaned;
+  GdkWindowState           window_state;
+  GtkWidget               *projects;
 
-  GtkWidget             *go_to_line_dialog;
-  GdkRGBA                go_to_line_error_color;
-  GdkRGBA                go_to_line_default_color;  
+  GtkWidget               *go_to_line_dialog;
+  GdkRGBA                  go_to_line_error_color;
+  GdkRGBA                  go_to_line_default_color;  
 };
 
 G_DEFINE_TYPE (CodeSlayerEngine, codeslayer_engine, G_TYPE_OBJECT)
@@ -159,11 +157,6 @@ codeslayer_engine_init (CodeSlayerEngine *engine)
 static void
 codeslayer_engine_finalize (CodeSlayerEngine *engine)
 {
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  
-  g_object_unref (priv->config);
-  
   G_OBJECT_CLASS (codeslayer_engine_parent_class)->finalize (G_OBJECT (engine));
 }
 
@@ -184,18 +177,19 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
  * Returns: a new #CodeSlayerEngine. 
  */
 CodeSlayerEngine*
-codeslayer_engine_new (GtkWindow             *window,
-                       CodeSlayerSettings    *settings,
-                       CodeSlayerPreferences *preferences,
-                       CodeSlayerPlugins     *plugins,
-                       GtkWidget             *projects, 
-                       GtkWidget             *menubar,
-                       GtkWidget             *notebook,
-                       GtkWidget             *notebook_pane, 
-                       GtkWidget             *side_pane,
-                       GtkWidget             *bottom_pane, 
-                       GtkWidget             *hpaned,
-                       GtkWidget             *vpaned)
+codeslayer_engine_new (GtkWindow               *window,
+                       CodeSlayerSettings      *settings,
+                       CodeSlayerPreferences   *preferences,
+                       CodeSlayerConfigHandler *config_handler,
+                       CodeSlayerPlugins       *plugins,
+                       GtkWidget               *projects, 
+                       GtkWidget               *menubar,
+                       GtkWidget               *notebook,
+                       GtkWidget               *notebook_pane, 
+                       GtkWidget               *side_pane,
+                       GtkWidget               *bottom_pane, 
+                       GtkWidget               *hpaned,
+                       GtkWidget               *vpaned)
 {
   CodeSlayerEnginePrivate *priv;
   CodeSlayerEngine *engine;
@@ -206,6 +200,7 @@ codeslayer_engine_new (GtkWindow             *window,
   priv->window = window;
   priv->settings = settings;
   priv->preferences = preferences;
+  priv->config_handler = config_handler;
   priv->plugins = plugins;
   priv->projects = projects;
   priv->menubar = menubar;
@@ -326,19 +321,20 @@ void
 codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
+  CodeSlayerConfig *config;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  priv->config = codeslayer_repository_get_default_config ();
+  config = codeslayer_config_handler_get_default_config (priv->config_handler);
   
-  codeslayer_settings_set_config (priv->settings, priv->config);
-  codeslayer_preferences_set_config (priv->preferences, priv->config);
+  /*codeslayer_settings_set_config (priv->settings, priv->config);*/
+  /*codeslayer_preferences_set_config (priv->preferences, priv->config);*/
 
   load_window_settings (engine);
   
   sync_menu_bar (engine);
 
-  codeslayer_plugins_activate (priv->plugins, priv->config);  
+  codeslayer_plugins_activate (priv->plugins, config);  
 }
 
 /**
@@ -353,9 +349,12 @@ gboolean
 codeslayer_engine_save_config (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  CodeSlayerConfig *config;
   
-  if (priv->config == NULL)
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
+  
+  if (config == NULL)
     return TRUE;
   
   if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
@@ -363,7 +362,7 @@ codeslayer_engine_save_config (CodeSlayerEngine *engine)
 
   save_window_settings (engine);
   save_document_settings (engine);
-  codeslayer_repository_save_config (priv->config);
+  codeslayer_config_handler_save_config (priv->config_handler);
   
   return TRUE;
 }
@@ -372,13 +371,15 @@ static void
 save_document_settings (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
+  CodeSlayerConfig *config;
   GList *documents = NULL;
   gint pages;
   gint page;
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
   
-  if (codeslayer_config_get_projects_mode (priv->config) == FALSE)
+  if (codeslayer_config_get_projects_mode (config) == FALSE)
     return;
   
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
@@ -391,7 +392,7 @@ save_document_settings (CodeSlayerEngine *engine)
       documents = g_list_append (documents, document);
     }
     
-  codeslayer_config_set_documents (priv->config, documents);
+  codeslayer_config_set_documents (config, documents);
 }
 
 static void
@@ -941,8 +942,12 @@ static void
 show_plugins_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
+  CodeSlayerConfig *config;
+  
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_plugins_run_dialog (priv->plugins, priv->config);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
+  
+  codeslayer_plugins_run_dialog (priv->plugins, config);
 }
 
 
@@ -960,6 +965,7 @@ open_projects_action (CodeSlayerEngine *engine,
                       GFile            *file)
 {
   CodeSlayerEnginePrivate *priv;
+  CodeSlayerConfig *config;
   GList *projects;
   GList *documents;
   
@@ -971,25 +977,22 @@ open_projects_action (CodeSlayerEngine *engine,
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
 
-  if (priv->config != NULL)
-    g_object_unref (priv->config);
-  
-  priv->config = codeslayer_repository_get_config (file);
-  if (priv->config == NULL)
+  config = codeslayer_config_handler_get_file_config (priv->config_handler, file);
+  if (config == NULL)
     return;
     
-  codeslayer_config_set_projects_mode (priv->config, TRUE);
+  codeslayer_config_set_projects_mode (config, TRUE);
     
   codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
                                    priv->projects, "Projects", 0);
   
-  codeslayer_settings_set_config (priv->settings, priv->config);
-  codeslayer_preferences_set_config (priv->preferences, priv->config);
-  codeslayer_projects_set_config (CODESLAYER_PROJECTS (priv->projects), priv->config);
+  /*codeslayer_settings_set_config (priv->settings, priv->config);*/
+  /*codeslayer_preferences_set_config (priv->preferences, priv->config);*/
+  /*codeslayer_projects_set_config (CODESLAYER_PROJECTS (priv->projects), priv->config);*/
   
   load_window_settings (engine);
  
-  projects = codeslayer_config_get_projects (priv->config);
+  projects = codeslayer_config_get_projects (config);
   while (projects != NULL)
     {
       CodeSlayerProject *project = projects->data;
@@ -997,7 +1000,7 @@ open_projects_action (CodeSlayerEngine *engine,
       projects = g_list_next (projects);
     }
 
-  documents = codeslayer_config_get_documents (priv->config);
+  documents = codeslayer_config_get_documents (config);
   while (documents != NULL)
     {
       CodeSlayerDocument *document = documents->data;
@@ -1010,7 +1013,7 @@ open_projects_action (CodeSlayerEngine *engine,
 
   sync_menu_bar (engine);
 
-  codeslayer_plugins_activate (priv->plugins, priv->config);
+  codeslayer_plugins_activate (priv->plugins, config);
 }
 
 static void
@@ -1018,8 +1021,10 @@ add_projects_action (CodeSlayerEngine *engine,
                      GSList                   *files)
 {
   CodeSlayerEnginePrivate *priv;
+  CodeSlayerConfig *config;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
 
   while (files != NULL)
     {
@@ -1041,7 +1046,7 @@ add_projects_action (CodeSlayerEngine *engine,
       
       g_object_force_floating (G_OBJECT (project));
 
-      codeslayer_config_add_project (priv->config, project);
+      codeslayer_config_add_project (config, project);
 
       /*TODO: this was where we saved the projects*/
       /*codeslayer_repository_save_projects (priv->config);*/
@@ -1059,10 +1064,12 @@ remove_project_action (CodeSlayerEngine *engine,
                        CodeSlayerProject        *project)
 {
   CodeSlayerEnginePrivate *priv;
+  CodeSlayerConfig *config;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  codeslayer_config_remove_project (priv->config, project);
+  codeslayer_config_remove_project (config, project);
   
   /*TODO: this is where we saved the projects*/
   /*codeslayer_repository_save_projects (priv->config);*/
@@ -1140,13 +1147,15 @@ select_editor_action (CodeSlayerEngine *engine,
                       guint             page_num)
 {
   CodeSlayerEnginePrivate *priv;
+  CodeSlayerConfig *config;
   GtkWidget *notebook_page;
   CodeSlayerDocument *document;
   gboolean sync_with_editor;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
   
-  if (codeslayer_config_get_projects (priv->config) == NULL)
+  if (codeslayer_config_get_projects (config) == NULL)
     return;
 
   notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);
@@ -1170,12 +1179,14 @@ search_find_projects_action (CodeSlayerEngine *engine,
                              gchar                    *file_paths)
 {
   CodeSlayerEnginePrivate *priv;
+  CodeSlayerConfig *config;
   gint search_width;
   gint search_height;
   gint search_x;
   gint search_y;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
   
   if (priv->search == NULL)
     {
@@ -1219,7 +1230,7 @@ search_find_projects_action (CodeSlayerEngine *engine,
   gtk_window_present (GTK_WINDOW (priv->search));
   gtk_widget_show_all (GTK_WIDGET (priv->search));
   
-  codeslayer_projects_search_set_config (CODESLAYER_PROJECTS_SEARCH (priv->search), priv->config);
+  codeslayer_projects_search_set_config (CODESLAYER_PROJECTS_SEARCH (priv->search), config);
   
   if (codeslayer_utils_has_text (file_paths))
     codeslayer_projects_search_find_selection (CODESLAYER_PROJECTS_SEARCH (priv->search), file_paths);
@@ -1361,13 +1372,15 @@ static void
 sync_menu_bar (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
+  CodeSlayerConfig *config;
   gboolean projects_mode;
   gboolean has_open_editors;
   gint pages;
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  projects_mode = codeslayer_config_get_projects_mode (priv->config);
+  projects_mode = codeslayer_config_get_projects_mode (config);
 
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
   has_open_editors = pages > 0;

@@ -24,10 +24,7 @@
 
 G_BEGIN_DECLS 
 
-CodeSlayerConfig*  codeslayer_repository_get_default_config  (void);
-CodeSlayerConfig*  codeslayer_repository_get_config          (GFile            *file);
-void               codeslayer_repository_save_config         (CodeSlayerConfig *config);
-GList*             codeslayer_repository_get_plugins         (GObject          *data);
+GList*  codeslayer_repository_get_plugins  (GObject *data);
 
 G_END_DECLS
 

@@ -47,8 +47,8 @@ typedef struct _CodeSlayerPreferencesPrivate CodeSlayerPreferencesPrivate;
 
 struct _CodeSlayerPreferencesPrivate
 {
-  GtkWidget        *window;
-  CodeSlayerConfig *config;
+  GtkWidget               *window;
+  CodeSlayerConfigHandler *config_handler;
 };
 
 enum
@@ -189,7 +189,8 @@ codeslayer_preferences_finalize (CodeSlayerPreferences *preferences)
  * Returns: a new #CodeSlayerPreferences. 
  */
 CodeSlayerPreferences*
-codeslayer_preferences_new (GtkWidget *window)
+codeslayer_preferences_new (GtkWidget               *window, 
+                            CodeSlayerConfigHandler *config_handler)
 {
   CodeSlayerPreferencesPrivate *priv;
   CodeSlayerPreferences *preferences;
@@ -197,6 +198,7 @@ codeslayer_preferences_new (GtkWidget *window)
   preferences = g_object_new (codeslayer_preferences_get_type (), NULL);
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   priv->window = window;
+  priv->config_handler = config_handler;
   
   return preferences;
 }
@@ -213,11 +215,14 @@ codeslayer_preferences_get_double (CodeSlayerPreferences *preferences,
                                    gchar                 *key)
 {
   CodeSlayerPreferencesPrivate *priv;
+  CodeSlayerConfig *config;
   const gchar *value;
 
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
+  
+  config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  value = codeslayer_config_get_preference (priv->config, key);
+  value = codeslayer_config_get_preference (config, key);
   if (value != NULL)
     return atof (value);
 
@@ -236,10 +241,14 @@ codeslayer_preferences_set_double (CodeSlayerPreferences *preferences,
                                    gdouble                value)
 {
   CodeSlayerPreferencesPrivate *priv;
+  CodeSlayerConfig *config;
   gchar *val;
+  
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
+  
   val = g_strdup_printf ("%f", value);
-  codeslayer_config_set_preference (priv->config, key, val);
+  codeslayer_config_set_preference (config, key, val);
   g_free (val);
 }
 
@@ -255,11 +264,13 @@ codeslayer_preferences_get_boolean (CodeSlayerPreferences *preferences,
                                     gchar                 *key)
 {
   CodeSlayerPreferencesPrivate *priv;
+  CodeSlayerConfig *config;
   const gchar *value;
 
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  value = codeslayer_config_get_preference (priv->config, key);
+  value = codeslayer_config_get_preference (config, key);
   if (value != NULL)
     {
       if (g_strcmp0 (value, "true") == 0)
@@ -283,12 +294,15 @@ codeslayer_preferences_set_boolean (CodeSlayerPreferences *preferences,
                                     gboolean               value)
 {
   CodeSlayerPreferencesPrivate *priv;
+  CodeSlayerConfig *config;
+  
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
   
   if (value == TRUE)  
-    codeslayer_config_set_preference (priv->config, key, "true");
+    codeslayer_config_set_preference (config, key, "true");
   else
-    codeslayer_config_set_preference (priv->config, key, "false");
+    codeslayer_config_set_preference (config, key, "false");
 }
 
 /**
@@ -303,11 +317,13 @@ codeslayer_preferences_get_string (CodeSlayerPreferences *preferences,
                                    gchar                 *key)
 {
   CodeSlayerPreferencesPrivate *priv;
+  CodeSlayerConfig *config;
   const gchar *value;
 
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  value = codeslayer_config_get_preference (priv->config, key);
+  value = codeslayer_config_get_preference (config, key);
   if (value != NULL)
     return g_strdup (value);
 
@@ -325,9 +341,13 @@ codeslayer_preferences_set_string (CodeSlayerPreferences *preferences,
                                    gchar                 *key, 
                                    gchar                 *value)
 {
-  CodeSlayerPreferencesPrivate *priv;  
+  CodeSlayerPreferencesPrivate *priv;
+  CodeSlayerConfig *config;
+  
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  codeslayer_config_set_preference (priv->config, key, value);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
+
+  codeslayer_config_set_preference (config, key, value);
 }
 
 /**
@@ -337,15 +357,16 @@ codeslayer_preferences_set_string (CodeSlayerPreferences *preferences,
  *
  * Load the config preferences.
  */
-void
+/*void
 codeslayer_preferences_set_config (CodeSlayerPreferences *preferences, 
                                    CodeSlayerConfig      *config)
 {
   CodeSlayerPreferencesPrivate *priv;
+  CodeSlayerConfig *config;
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   priv->config = config;
   g_signal_emit_by_name ((gpointer) preferences, "initialize-preferences");
-}                             
+}*/
 
 /**
  * codeslayer_preferences_run_dialog:
@@ -356,7 +377,8 @@ codeslayer_preferences_set_config (CodeSlayerPreferences *preferences,
 void
 codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
 {
-  CodeSlayerPreferencesPrivate *priv;  
+  CodeSlayerPreferencesPrivate *priv;
+  CodeSlayerConfig *config; 
   GtkWidget *dialog;
   GtkWidget *content_area;
   GtkWidget *preferences_editor;
@@ -366,6 +388,7 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   GtkWidget *notebook;
   
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
 
   dialog = gtk_dialog_new_with_buttons (_("Preferences"), 
                                         GTK_WINDOW (priv->window),
@@ -390,7 +413,7 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_theme, 
                             gtk_label_new (_("Theme")));
 
-  if (codeslayer_config_get_projects_mode (priv->config))
+  if (codeslayer_config_get_projects_mode (config))
     {
       preferences_projects = codeslayer_preferences_projects_new (preferences);
       gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_projects, 

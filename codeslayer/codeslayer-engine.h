@@ -23,6 +23,7 @@
 
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-config-handler.h>
 #include <codeslayer/codeslayer-plugins.h>
 
 G_BEGIN_DECLS
@@ -51,6 +52,7 @@ GType codeslayer_engine_get_type (void) G_GNUC_CONST;
 CodeSlayerEngine*  codeslayer_engine_new                  (GtkWindow             *window,
                                                            CodeSlayerSettings    *settings,
                                                            CodeSlayerPreferences *preferences,
+                                                           CodeSlayerConfigHandler *config_handler,
                                                            CodeSlayerPlugins     *plugins,
                                                            GtkWidget             *projects, 
                                                            GtkWidget             *menubar,
