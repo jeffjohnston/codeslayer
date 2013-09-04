@@ -24,7 +24,6 @@ pkginclude_HEADERS = \
     codeslayer-config.h \
     codeslayer-config-handler.h \
     codeslayer-document.h \
-    codeslayer-repository.h \
     codeslayer-settings.h \
     codeslayer-preferences.h \
     codeslayer-preferences-misc.h \
@@ -78,7 +77,6 @@ libcodeslayer_la_SOURCES = \
     codeslayer-config.c \
     codeslayer-config-handler.c \
     codeslayer-document.c \
-    codeslayer-repository.c \
     codeslayer-settings.c \
     codeslayer-preferences.c \
     codeslayer-preferences-editor.c \

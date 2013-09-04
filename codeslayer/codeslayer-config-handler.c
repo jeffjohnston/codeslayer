@@ -35,14 +35,14 @@
  * @include: codeslayer/codeslayer-config_handler.h
  */
 
-static void codeslayer_config_handler_class_init              (CodeSlayerConfigHandlerClass *klass);
-static void codeslayer_config_handler_init                    (CodeSlayerConfigHandler      *config_handler);
-static void codeslayer_config_handler_finalize                (CodeSlayerConfigHandler      *config_handler);
+static void codeslayer_config_handler_class_init  (CodeSlayerConfigHandlerClass *klass);
+static void codeslayer_config_handler_init        (CodeSlayerConfigHandler      *config_handler);
+static void codeslayer_config_handler_finalize    (CodeSlayerConfigHandler      *config_handler);
 
-static void load_config                                       (CodeSlayerConfig             *config, 
-                                                               xmlNode                      *a_node);
-static void set_config_preferences_defaults                   (CodeSlayerConfig             *config);
-static void set_config_settings_defaults                      (CodeSlayerConfig             *config);
+static void load_config                           (CodeSlayerConfig             *config, 
+                                                   xmlNode                      *a_node);
+static void set_config_preferences_defaults       (CodeSlayerConfig             *config);
+static void set_config_settings_defaults          (CodeSlayerConfig             *config);
 
 #define CODESLAYER_CONFIG_HANDLER_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_CONFIG_HANDLER_TYPE, CodeSlayerConfigHandlerPrivate))

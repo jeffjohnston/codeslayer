@@ -56,6 +56,7 @@ static void codeslayer_application_open        (GApplication               *appl
                                                 GFile                      **files,
                                                 gint                       n_files,
                                                 const gchar                *hint);
+static void create_config_handler              (CodeSlayerApplication      *application);
 static void create_settings                    (CodeSlayerApplication      *application);
 static void create_preferences                 (CodeSlayerApplication      *application);
 static void create_plugins                     (CodeSlayerApplication      *application);
@@ -162,8 +163,8 @@ codeslayer_application_startup (GApplication *application)
   verify_plugins_dir_exists ();
   verify_plugins_config_dir_exists ();
   
-  priv->config_handler = codeslayer_config_handler_new ();
-  
+  create_config_handler (CODESLAYER_APPLICATION (application));
+
   create_window (CODESLAYER_APPLICATION (application));
 
   create_settings (CODESLAYER_APPLICATION (application));
@@ -246,6 +247,18 @@ codeslayer_application_new (void)
   g_application_set_application_id (G_APPLICATION (application), NULL);
   g_application_set_flags (G_APPLICATION (application), G_APPLICATION_HANDLES_OPEN);
   return application;
+}
+
+static void
+create_config_handler (CodeSlayerApplication *application)
+{
+  CodeSlayerApplicationPrivate *priv;
+  CodeSlayerConfigHandler *config_handler;
+  
+  priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
+
+  config_handler = codeslayer_config_handler_new ();
+  priv->config_handler = config_handler;
 }
 
 static void

@@ -23,7 +23,6 @@
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-projects.h>
 #include <codeslayer/codeslayer-projects-search.h>
-#include <codeslayer/codeslayer-repository.h>
 #include <codeslayer/codeslayer-menubar.h>
 #include <codeslayer/codeslayer-config.h>
 #include <codeslayer/codeslayer-side-pane.h>
@@ -327,8 +326,7 @@ codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
   
   config = codeslayer_config_handler_get_default_config (priv->config_handler);
   
-  /*codeslayer_settings_set_config (priv->settings, priv->config);*/
-  /*codeslayer_preferences_set_config (priv->preferences, priv->config);*/
+  g_signal_emit_by_name ((gpointer) priv->preferences, "initialize-preferences");
 
   load_window_settings (engine);
   
@@ -353,7 +351,7 @@ codeslayer_engine_save_config (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   config = codeslayer_config_handler_get_config (priv->config_handler);
-  
+
   if (config == NULL)
     return TRUE;
   
@@ -986,9 +984,7 @@ open_projects_action (CodeSlayerEngine *engine,
   codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
                                    priv->projects, "Projects", 0);
   
-  /*codeslayer_settings_set_config (priv->settings, priv->config);*/
-  /*codeslayer_preferences_set_config (priv->preferences, priv->config);*/
-  /*codeslayer_projects_set_config (CODESLAYER_PROJECTS (priv->projects), priv->config);*/
+  g_signal_emit_by_name ((gpointer) priv->preferences, "initialize-preferences");
   
   load_window_settings (engine);
  

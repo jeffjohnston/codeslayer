@@ -18,7 +18,6 @@
 
 #include <codeslayer/codeslayer-plugins-selector.h>
 #include <codeslayer/codeslayer-utils.h>
-#include <codeslayer/codeslayer-repository.h>
 
 /**
  * SECTION:codeslayer-plugins-selector
