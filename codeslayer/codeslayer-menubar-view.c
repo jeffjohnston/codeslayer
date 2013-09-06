@@ -59,6 +59,7 @@ struct _CodeSlayerMenuBarViewPrivate
   gulong              show_side_pane_id;
   gulong              show_bottom_pane_id;
   gulong              word_wrap_id;
+  gulong              draw_spaces_id;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarView, codeslayer_menu_bar_view, GTK_TYPE_MENU_ITEM)
@@ -174,8 +175,8 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view,
   priv->word_wrap_id = g_signal_connect_swapped (G_OBJECT (word_wrap_item), "activate",
                                                  G_CALLBACK (word_wrap_action), menu_bar_view);
 
-  g_signal_connect_swapped (G_OBJECT (draw_spaces_item), "activate",
-                            G_CALLBACK (draw_spaces_action), menu_bar_view);
+  priv->draw_spaces_id = g_signal_connect_swapped (G_OBJECT (draw_spaces_item), "activate",
+                                                   G_CALLBACK (draw_spaces_action), menu_bar_view);
 }
 
 void
@@ -191,6 +192,7 @@ codeslayer_menu_bar_view_sync (CodeSlayerMenuBarView *menu_bar_view,
   g_signal_handler_block (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_block (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
   g_signal_handler_block (priv->word_wrap_item, priv->word_wrap_id);
+  g_signal_handler_block (priv->draw_spaces_item, priv->draw_spaces_id);
   
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->show_side_pane_item),
                                   codeslayer_settings_get_boolean (priv->settings, 
@@ -204,13 +206,14 @@ codeslayer_menu_bar_view_sync (CodeSlayerMenuBarView *menu_bar_view,
                                   codeslayer_settings_get_boolean (priv->settings, 
                                                                    CODESLAYER_SETTINGS_WORD_WRAP));
 
-  g_signal_handler_unblock (priv->show_side_pane_item, priv->show_side_pane_id);
-  g_signal_handler_unblock (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
-  g_signal_handler_unblock (priv->word_wrap_item, priv->word_wrap_id);
-  
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->draw_spaces_item),
                                   codeslayer_settings_get_boolean (priv->settings, 
                                                                    CODESLAYER_SETTINGS_DRAW_SPACES));
+
+  g_signal_handler_unblock (priv->show_side_pane_item, priv->show_side_pane_id);
+  g_signal_handler_unblock (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
+  g_signal_handler_unblock (priv->word_wrap_item, priv->word_wrap_id);
+  g_signal_handler_unblock (priv->draw_spaces_item, priv->draw_spaces_id);
 }                                             
 
 static void

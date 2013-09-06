@@ -832,9 +832,7 @@ word_wrap_action (CodeSlayerEngine *engine)
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
   word_wrap = codeslayer_settings_get_boolean (priv->settings, 
-                                                 CODESLAYER_SETTINGS_WORD_WRAP);
-                                                 
-  g_print ("word_wrap_action\n");
+                                               CODESLAYER_SETTINGS_WORD_WRAP);
                                                    
   if (word_wrap)
     {
