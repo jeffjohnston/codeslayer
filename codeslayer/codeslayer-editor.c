@@ -770,6 +770,7 @@ codeslayer_editor_sync_settings_preferences (CodeSlayerEditor *editor)
   gdouble right_margin_position;
   gdouble editor_tab_width;
   gboolean draw_spaces;
+  gboolean word_wrap;
   gboolean enable_automatic_indentation;
   gboolean insert_spaces_instead_of_tabs;
   gboolean highlight_current_line;
@@ -861,22 +862,31 @@ codeslayer_editor_sync_settings_preferences (CodeSlayerEditor *editor)
   
   /* word wrap */
   
-  document_file_path = codeslayer_document_get_file_path (priv->document);
-  
-  word_wrap_types_str = codeslayer_preferences_get_string (priv->preferences,
-                                                           CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES);
-
-  word_wrap_types = codeslayer_utils_string_to_list (word_wrap_types_str);
-  
-  if (document_file_path != NULL && codeslayer_utils_contains_element_with_suffix (word_wrap_types, document_file_path))
-    gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (GTK_WIDGET (editor)), GTK_WRAP_WORD);
-  else
-    gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (GTK_WIDGET (editor)), GTK_WRAP_NONE);
-  
-  g_free (word_wrap_types_str);
-  if (word_wrap_types)
+  word_wrap = codeslayer_settings_get_boolean (priv->settings,
+                                               CODESLAYER_SETTINGS_WORD_WRAP);
+  if (word_wrap)
     {
-      g_list_foreach (word_wrap_types, (GFunc) g_free, NULL);
-      g_list_free (word_wrap_types);
+      gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (GTK_WIDGET (editor)), GTK_WRAP_WORD);
+    }
+  else
+    {
+      document_file_path = codeslayer_document_get_file_path (priv->document);
+      
+      word_wrap_types_str = codeslayer_preferences_get_string (priv->preferences,
+                                                               CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES);
+
+      word_wrap_types = codeslayer_utils_string_to_list (word_wrap_types_str);
+      
+      if (document_file_path != NULL && codeslayer_utils_contains_element_with_suffix (word_wrap_types, document_file_path))
+        gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (GTK_WIDGET (editor)), GTK_WRAP_WORD);
+      else
+        gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (GTK_WIDGET (editor)), GTK_WRAP_NONE);
+      
+      g_free (word_wrap_types_str);
+      if (word_wrap_types)
+        {
+          g_list_foreach (word_wrap_types, (GFunc) g_free, NULL);
+          g_list_free (word_wrap_types);
+        }
     }
 }

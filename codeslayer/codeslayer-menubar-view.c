@@ -38,6 +38,7 @@ static void fullscreen_window_action             (CodeSlayerMenuBarView      *me
 static void show_side_pane_action                (CodeSlayerMenuBarView      *menu_bar_view);
 static void show_bottom_pane_action              (CodeSlayerMenuBarView      *menu_bar_view);
 static void draw_spaces_action                   (CodeSlayerMenuBarView      *menu_bar_view);
+static void word_wrap_action                     (CodeSlayerMenuBarView      *menu_bar_view);
 
 #define CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_VIEW_TYPE, CodeSlayerMenuBarViewPrivate))
@@ -51,9 +52,10 @@ struct _CodeSlayerMenuBarViewPrivate
   GtkWidget          *menu_bar;
   GtkWidget          *menu;
   GtkWidget          *fullscreen_window_item;
-  GtkWidget          *draw_spaces_item;
   GtkWidget          *show_side_pane_item;
   GtkWidget          *show_bottom_pane_item;
+  GtkWidget          *draw_spaces_item;
+  GtkWidget          *word_wrap_item;
   gulong              show_side_pane_id;
   gulong              show_bottom_pane_id;
 };
@@ -127,6 +129,7 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view,
   GtkWidget *show_side_pane_item;
   GtkWidget *show_bottom_pane_item;
   GtkWidget *draw_spaces_item;
+  GtkWidget *word_wrap_item;
   
   priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
 
@@ -147,7 +150,13 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view,
   gtk_widget_add_accelerator (show_side_pane_item, "activate", 
                               priv->accel_group, GDK_KEY_F12, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), show_side_pane_item);
+  
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
 
+  word_wrap_item = gtk_check_menu_item_new_with_label (_("Word Wrap"));
+  priv->word_wrap_item = word_wrap_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), word_wrap_item);
+  
   draw_spaces_item = gtk_check_menu_item_new_with_label (_("Draw Spaces"));
   priv->draw_spaces_item = draw_spaces_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), draw_spaces_item);
@@ -161,6 +170,9 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view,
   priv->show_bottom_pane_id = g_signal_connect_swapped (G_OBJECT (show_bottom_pane_item), "activate",
                                                         G_CALLBACK (show_bottom_pane_action), menu_bar_view);
 
+  g_signal_connect_swapped (G_OBJECT (word_wrap_item), "activate",
+                            G_CALLBACK (word_wrap_action), menu_bar_view);
+
   g_signal_connect_swapped (G_OBJECT (draw_spaces_item), "activate",
                             G_CALLBACK (draw_spaces_action), menu_bar_view);
 }
@@ -173,6 +185,7 @@ codeslayer_menu_bar_view_sync (CodeSlayerMenuBarView *menu_bar_view,
   priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
   
   gtk_widget_set_sensitive (priv->draw_spaces_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->word_wrap_item, has_open_editors);
   
   g_signal_handler_block (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_block (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
@@ -188,10 +201,13 @@ codeslayer_menu_bar_view_sync (CodeSlayerMenuBarView *menu_bar_view,
   g_signal_handler_unblock (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_unblock (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
   
-
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->draw_spaces_item),
                                   codeslayer_settings_get_boolean (priv->settings, 
                                                                    CODESLAYER_SETTINGS_DRAW_SPACES));
+
+  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->word_wrap_item),
+                                  codeslayer_settings_get_boolean (priv->settings, 
+                                                                   CODESLAYER_SETTINGS_WORD_WRAP));
 }                                             
 
 static void
@@ -224,4 +240,12 @@ draw_spaces_action (CodeSlayerMenuBarView *menu_bar_view)
   CodeSlayerMenuBarViewPrivate *priv;
   priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
   codeslayer_menu_bar_draw_spaces (CODESLAYER_MENU_BAR (priv->menu_bar));
+}
+
+static void
+word_wrap_action (CodeSlayerMenuBarView *menu_bar_view)
+{
+  CodeSlayerMenuBarViewPrivate *priv;
+  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
+  codeslayer_menu_bar_word_wrap (CODESLAYER_MENU_BAR (priv->menu_bar));
 }

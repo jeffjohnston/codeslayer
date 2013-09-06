@@ -71,6 +71,7 @@ enum
   SHOW_SIDE_PANE,
   SHOW_BOTTOM_PANE,
   DRAW_SPACES,
+  WORD_WRAP,
   REPLACE,
   FIND,
   FIND_NEXT,
@@ -322,6 +323,22 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerMenuBarClass, draw_spaces),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  /**
+   * CodeSlayerMenuBar::word_wrap
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::word-wrap signal is a request to show the invisible characters in the editors.
+   */
+  codeslayer_menu_bar_signals[WORD_WRAP] =
+    g_signal_new ("word-wrap", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, word_wrap),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -1007,6 +1024,16 @@ void
 codeslayer_menu_bar_draw_spaces (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "draw-spaces");
+}
+
+/**
+ * codeslayer_menu_bar_word_wrap:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ */
+void
+codeslayer_menu_bar_word_wrap (CodeSlayerMenuBar *menu_bar)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "word-wrap");
 }
 
 /**

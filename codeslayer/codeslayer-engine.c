@@ -70,6 +70,7 @@ static void toggle_bottom_pane_action                   (CodeSlayerEngine       
 static void open_bottom_pane_action                     (CodeSlayerEngine       *engine);
 static void close_bottom_pane_action                    (CodeSlayerEngine       *engine);
 static void draw_spaces_action                          (CodeSlayerEngine       *engine);
+static void word_wrap_action                            (CodeSlayerEngine       *engine);
 static void page_removed_action                         (CodeSlayerEngine       *engine,
                                                          GtkWidget              *page, 
                                                          guint                   page_num);
@@ -263,6 +264,9 @@ codeslayer_engine_new (GtkWindow               *window,
   
   g_signal_connect_swapped (G_OBJECT (menubar), "draw-spaces",
                             G_CALLBACK (draw_spaces_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (menubar), "word-wrap",
+                            G_CALLBACK (word_wrap_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (menubar), "show-preferences",
                             G_CALLBACK (show_preferences_action), engine);
@@ -814,6 +818,32 @@ draw_spaces_action (CodeSlayerEngine *engine)
     {
       codeslayer_settings_set_boolean (priv->settings, 
                                        CODESLAYER_SETTINGS_DRAW_SPACES,
+                                       TRUE);
+      editor_settings_preferences_changed_action (engine);
+    }
+}
+
+static void
+word_wrap_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  gboolean word_wrap;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  word_wrap = codeslayer_settings_get_boolean (priv->settings, 
+                                                 CODESLAYER_SETTINGS_WORD_WRAP);
+  if (word_wrap)
+    {
+      codeslayer_settings_set_boolean (priv->settings, 
+                                       CODESLAYER_SETTINGS_WORD_WRAP,
+                                       FALSE);
+      editor_settings_preferences_changed_action (engine);
+    }
+  else
+    {
+      codeslayer_settings_set_boolean (priv->settings, 
+                                       CODESLAYER_SETTINGS_WORD_WRAP,
                                        TRUE);
       editor_settings_preferences_changed_action (engine);
     }

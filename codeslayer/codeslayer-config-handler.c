@@ -106,28 +106,30 @@ codeslayer_config_handler_get_config (CodeSlayerConfigHandler *config_handler)
 CodeSlayerConfig*       
 codeslayer_config_handler_get_default_config (CodeSlayerConfigHandler *config_handler)
 {
-  CodeSlayerConfig *config;
+  CodeSlayerConfigHandlerPrivate *priv; 
   gchar *file_path;
   GFile *file;
+  
+  priv = CODESLAYER_CONFIG_HANDLER_GET_PRIVATE (config_handler);  
   
   file_path = g_build_filename (g_get_home_dir (), CODESLAYER_HOME, CONFIG, NULL);
 
   file = g_file_new_for_path (file_path);
   if (!g_file_query_exists (file, NULL))
     {
-      config = codeslayer_config_new ();      
-      codeslayer_config_set_file_path (config, file_path);      
-      set_config_preferences_defaults (config);
-      set_config_settings_defaults (config);
+      priv->config = codeslayer_config_new ();      
+      codeslayer_config_set_file_path (priv->config, file_path);      
+      set_config_preferences_defaults (priv->config);
+      set_config_settings_defaults (priv->config);
     }
   else
     {
-      config = codeslayer_config_handler_get_file_config (config_handler, file);
+      priv->config = codeslayer_config_handler_get_file_config (config_handler, file);
     }    
     
   g_object_unref (file);    
                                 
-  return config;
+  return priv->config;
 }
 
 static void
@@ -169,6 +171,9 @@ codeslayer_config_handler_get_file_config (CodeSlayerConfigHandler *config_handl
   gchar *file_path = NULL;
   
   priv = CODESLAYER_CONFIG_HANDLER_GET_PRIVATE (config_handler);  
+  
+  if (priv->config)
+    g_object_unref (priv->config);
   
   file_path = g_file_get_path (file);
   

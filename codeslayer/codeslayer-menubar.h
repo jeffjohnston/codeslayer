@@ -52,6 +52,7 @@ struct _CodeSlayerMenuBarClass
   void (*show_side_pane) (CodeSlayerMenuBar *menu_bar);
   void (*show_bottom_pane) (CodeSlayerMenuBar *menu_bar);
   void (*draw_spaces) (CodeSlayerMenuBar *menu_bar);
+  void (*word_wrap) (CodeSlayerMenuBar *menu_bar);
   void (*new_editor) (CodeSlayerMenuBar *menu_bar);
   void (*open_editor) (CodeSlayerMenuBar *menu_bar);
   void (*save_editor) (CodeSlayerMenuBar *menu_bar);
@@ -118,6 +119,7 @@ void            codeslayer_menu_bar_fullscreen_window          (CodeSlayerMenuBa
 void            codeslayer_menu_bar_show_side_pane             (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_show_bottom_pane           (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_draw_spaces                (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_word_wrap                  (CodeSlayerMenuBar     *menu_bar);
 
 void            codeslayer_menu_bar_add_tools_item             (CodeSlayerMenuBar     *menu_bar, 
                                                                 GtkWidget             *item);
