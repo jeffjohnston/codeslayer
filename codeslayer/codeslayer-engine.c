@@ -334,11 +334,9 @@ codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
 
   load_window_settings (engine);
   
-  sync_menu_bar (engine);
-
-  codeslayer_plugins_activate (priv->plugins, config);
-  
   new_editor_action (engine);
+
+  codeslayer_plugins_activate (priv->plugins, config);  
 }
 
 /**
@@ -835,6 +833,9 @@ word_wrap_action (CodeSlayerEngine *engine)
   
   word_wrap = codeslayer_settings_get_boolean (priv->settings, 
                                                  CODESLAYER_SETTINGS_WORD_WRAP);
+                                                 
+  g_print ("word_wrap_action\n");
+                                                   
   if (word_wrap)
     {
       codeslayer_settings_set_boolean (priv->settings, 
@@ -985,9 +986,9 @@ show_plugins_action (CodeSlayerEngine *engine)
 
 static void
 new_projects_action (CodeSlayerEngine *engine,
-                     gchar                    *file_name)
+                     gchar            *file_name)
 {
-  g_print ("new_projects_action\n");
+  g_print ("new_projects_action %s\n", file_name);
 }
 
 static void
