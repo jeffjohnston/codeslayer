@@ -336,7 +336,9 @@ codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
   
   sync_menu_bar (engine);
 
-  codeslayer_plugins_activate (priv->plugins, config);  
+  codeslayer_plugins_activate (priv->plugins, config);
+  
+  new_editor_action (engine);
 }
 
 /**
