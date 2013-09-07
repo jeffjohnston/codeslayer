@@ -21,6 +21,7 @@
 
 #include <gtk/gtk.h>
 
+#include <codeslayer/codeslayer-abstract-engine.h>
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-config-handler.h>
@@ -39,12 +40,12 @@ typedef struct _CodeSlayerProjectsEngineClass CodeSlayerProjectsEngineClass;
 
 struct _CodeSlayerProjectsEngine
 {
-  GObject parent_instance;
+  CodeSlayerAbstractEngine parent_instance;
 };
 
 struct _CodeSlayerProjectsEngineClass
 {
-  GObjectClass parent_class;
+  CodeSlayerAbstractEngineClass parent_class;
 };
 
 GType codeslayer_projects_engine_get_type (void) G_GNUC_CONST;

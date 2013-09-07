@@ -77,9 +77,6 @@ static void page_removed_action                         (CodeSlayerEngine       
 static void show_preferences_action                     (CodeSlayerEngine       *engine);
 static void editor_settings_preferences_changed_action  (CodeSlayerEngine       *engine);
 
-static void save_document_settings                      (CodeSlayerEngine       *engine);
-static void save_window_settings                        (CodeSlayerEngine       *engine);
-static void load_window_settings                        (CodeSlayerEngine       *engine);
 static void show_plugins_action                         (CodeSlayerEngine      *engine);
 static void sync_menu_bar                               (CodeSlayerEngine      *engine);
                                                    
@@ -110,7 +107,7 @@ struct _CodeSlayerEnginePrivate
   GdkRGBA                  go_to_line_default_color;  
 };
 
-G_DEFINE_TYPE (CodeSlayerEngine, codeslayer_engine, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CodeSlayerEngine, codeslayer_engine, CODESLAYER_ABSTRACT_ENGINE_TYPE)
 
 static void
 codeslayer_engine_class_init (CodeSlayerEngineClass *klass)
@@ -181,6 +178,18 @@ codeslayer_engine_new (GtkWindow               *window,
   priv->bottom_pane = bottom_pane;
   priv->hpaned = hpaned;
   priv->vpaned = vpaned;
+  
+  g_object_set (CODESLAYER_ABSTRACT_ENGINE (engine), 
+                "window", window, 
+                "settings", settings, 
+                "preferences", preferences, 
+                "config_handler", config_handler, 
+                "notebook", notebook, 
+                "side_pane", side_pane, 
+                "bottom_pane", bottom_pane, 
+                "hpaned", hpaned, 
+                "vpaned", vpaned, 
+                NULL);
   
   g_signal_connect_swapped (G_OBJECT (menubar), "new-editor",
                             G_CALLBACK (new_editor_action), engine);
@@ -270,188 +279,11 @@ codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
   
   g_signal_emit_by_name ((gpointer) priv->preferences, "initialize-preferences");
 
-  load_window_settings (engine);
+  codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
   
   new_editor_action (engine);
 
   codeslayer_plugins_activate (priv->plugins, config);  
-}
-
-/**
- * codeslayer_engine_save_config:
- * @engine: a #CodeSlayerEngine.
- *
- * Close the current active #CodeSlayerConfig.
- *
- * Returns: TRUE if the config was saved successfully.
- */
-gboolean
-codeslayer_engine_save_config (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  CodeSlayerConfig *config;
-  
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
-
-  if (config == NULL)
-    return TRUE;
-  
-  if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
-    return FALSE;
-
-  save_window_settings (engine);
-  save_document_settings (engine);
-  codeslayer_config_handler_save_config (priv->config_handler);
-  
-  return TRUE;
-}
-
-static void
-save_document_settings (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  CodeSlayerConfig *config;
-  GList *documents = NULL;
-  gint pages;
-  gint page;
-
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
-  
-  if (codeslayer_config_get_projects_mode (config) == FALSE)
-    return;
-  
-  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
-  for (page = 0; page < pages; page++)
-    {
-      GtkWidget *notebook_page;
-      CodeSlayerDocument *document;
-      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
-      document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-      documents = g_list_append (documents, document);
-    }
-    
-  codeslayer_config_set_documents (config, documents);
-}
-
-static void
-save_window_settings (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  gint width;
-  gint height;
-  gint x;
-  gint y;
-  gint position;
-  
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-
-  gtk_window_get_size (GTK_WINDOW (priv->window), &width, &height);
-  codeslayer_settings_set_integer (priv->settings,
-                                   CODESLAYER_SETTINGS_WINDOW_WIDTH,
-                                   width);
-  codeslayer_settings_set_integer (priv->settings,
-                                   CODESLAYER_SETTINGS_WINDOW_HEIGHT,
-                                   height);
-
-  gtk_window_get_position (GTK_WINDOW (priv->window), &x, &y);
-  codeslayer_settings_set_integer (priv->settings,
-                                   CODESLAYER_SETTINGS_WINDOW_X, x);
-  codeslayer_settings_set_integer (priv->settings,
-                                   CODESLAYER_SETTINGS_WINDOW_Y, y);
-
-  position = gtk_paned_get_position (GTK_PANED (priv->hpaned));
-  codeslayer_settings_set_integer (priv->settings,
-                                   CODESLAYER_SETTINGS_HPANED_POSITION,
-                                   position);
-
-  position = gtk_paned_get_position (GTK_PANED (priv->vpaned));
-  codeslayer_settings_set_integer (priv->settings,
-                                   CODESLAYER_SETTINGS_VPANED_POSITION,
-                                   position);
-}
-
-static void
-load_window_settings (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  gint window_width;
-  gint window_height;
-  gint window_x;
-  gint window_y;
-  gint hpaned_position;
-  gint vpaned_position;
-  gboolean show_side_pane;
-  gboolean show_bottom_pane;
-  
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-    
-  /* window specific settings */                                              
-
-  window_width = codeslayer_settings_get_integer (priv->settings,
-                                                  CODESLAYER_SETTINGS_WINDOW_WIDTH);
-  if (window_width < 0)
-    {
-      window_width = 800;
-    }
-  
-  window_height = codeslayer_settings_get_integer (priv->settings,
-                                                   CODESLAYER_SETTINGS_WINDOW_HEIGHT);
-  if (window_height < 0)
-    {
-      window_height = 600;
-    }
-    
-  /*gtk_window_set_default_size (GTK_WINDOW (priv->window), window_width, window_height);*/
-  gtk_window_resize (GTK_WINDOW (priv->window), window_width, window_height);
-
-  window_x = codeslayer_settings_get_integer (priv->settings,
-                                              CODESLAYER_SETTINGS_WINDOW_X);
-  if (window_x < 0)
-    {
-      window_x = 10;
-    }
-    
-  window_y = codeslayer_settings_get_integer (priv->settings,
-                                              CODESLAYER_SETTINGS_WINDOW_Y);
-  if (window_y < 0)
-    {
-      window_y = 10;
-    }
-    
-  gtk_window_move (GTK_WINDOW (priv->window), window_x, window_y);
-    
-  /* side and bottom pane settings */
-  
-  hpaned_position = codeslayer_settings_get_integer (priv->settings,
-                                                     CODESLAYER_SETTINGS_HPANED_POSITION);
-  if (hpaned_position == -1)
-    hpaned_position = 250;
-
-  gtk_paned_set_position (GTK_PANED (priv->hpaned), hpaned_position);
-                                                
-  vpaned_position = codeslayer_settings_get_integer (priv->settings,
-                                                     CODESLAYER_SETTINGS_VPANED_POSITION);
-  if (vpaned_position == -1)
-    vpaned_position = 250;
-
-  gtk_paned_set_position (GTK_PANED (priv->vpaned), vpaned_position);
-    
-  /* we have to this before we show or hide the panes */
-  gtk_widget_show_all (GTK_WIDGET (priv->window));
-    
-  /* show or hide panes */
-  
-  show_side_pane = codeslayer_settings_get_boolean (priv->settings,
-                                                    CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE);
-  gtk_widget_set_visible (gtk_paned_get_child1 (GTK_PANED(priv->hpaned)), 
-                                                show_side_pane);
-                                                
-  show_bottom_pane = codeslayer_settings_get_boolean (priv->settings,
-                                                      CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE);
-  gtk_widget_set_visible (gtk_paned_get_child2 (GTK_PANED(priv->vpaned)), 
-                                                show_bottom_pane);
 }
 
 void

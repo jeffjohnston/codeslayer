@@ -103,7 +103,7 @@ struct _CodeSlayerProjectsEnginePrivate
   GdkRGBA                  go_to_line_default_color;  
 };
 
-G_DEFINE_TYPE (CodeSlayerProjectsEngine, codeslayer_projects_engine, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CodeSlayerProjectsEngine, codeslayer_projects_engine, CODESLAYER_ABSTRACT_ENGINE_TYPE)
 
 static void
 codeslayer_projects_engine_class_init (CodeSlayerProjectsEngineClass *klass)
@@ -178,6 +178,18 @@ codeslayer_projects_engine_new (GtkWindow               *window,
   priv->hpaned = hpaned;
   priv->vpaned = vpaned;
     
+  g_object_set (CODESLAYER_ABSTRACT_ENGINE (engine), 
+                "window", window, 
+                "settings", settings, 
+                "preferences", preferences, 
+                "config_handler", config_handler, 
+                "notebook", notebook, 
+                "side_pane", side_pane, 
+                "bottom_pane", bottom_pane, 
+                "hpaned", hpaned, 
+                "vpaned", vpaned, 
+                NULL);
+    
   g_signal_connect_swapped (G_OBJECT (menubar), "find-projects",
                             G_CALLBACK (search_find_projects_action), engine);
   
@@ -229,8 +241,8 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  /*if (!codeslayer_projects_engine_save_config (engine))
-    return;*/
+  if (!codeslayer_abstract_engine_save_config (CODESLAYER_ABSTRACT_ENGINE (engine)))
+    return;
   
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
@@ -246,7 +258,7 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
   
   g_signal_emit_by_name ((gpointer) priv->preferences, "initialize-preferences");
   
-  /*load_window_settings (engine);*/
+  codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
  
   projects = codeslayer_config_get_projects (config);
   while (projects != NULL)

@@ -21,6 +21,7 @@
 
 #include <gtk/gtk.h>
 
+#include <codeslayer/codeslayer-abstract-engine.h>
 #include <codeslayer/codeslayer-settings.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-config-handler.h>
@@ -39,12 +40,12 @@ typedef struct _CodeSlayerEngineClass CodeSlayerEngineClass;
 
 struct _CodeSlayerEngine
 {
-  GObject parent_instance;
+  CodeSlayerAbstractEngine parent_instance;
 };
 
 struct _CodeSlayerEngineClass
 {
-  GObjectClass parent_class;
+  CodeSlayerAbstractEngineClass parent_class;
 };
 
 GType codeslayer_engine_get_type (void) G_GNUC_CONST;
@@ -63,7 +64,6 @@ CodeSlayerEngine*  codeslayer_engine_new                  (GtkWindow            
                                                            GtkWidget             *vpaned);
 
 void               codeslayer_engine_load_default_config  (CodeSlayerEngine      *engine);
-gboolean           codeslayer_engine_save_config          (CodeSlayerEngine      *engine);
 void               codeslayer_engine_open_editor          (CodeSlayerEngine      *engine, 
                                                            gchar                 *file_path);
 
