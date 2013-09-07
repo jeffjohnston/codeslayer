@@ -23,6 +23,7 @@
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
 #include <codeslayer/codeslayer-projects.h>
+#include <codeslayer/codeslayer-projects-engine.h>
 #include <codeslayer/codeslayer-project-properties.h>
 #include <codeslayer/codeslayer-notebook.h>
 #include <codeslayer/codeslayer-editor.h>
@@ -90,24 +91,25 @@ typedef struct _CodeSlayerApplicationPrivate CodeSlayerApplicationPrivate;
 
 struct _CodeSlayerApplicationPrivate
 {
-  GtkWidget               *window;
-  CodeSlayerSettings      *settings;
-  CodeSlayerPreferences   *preferences;
-  CodeSlayerConfigHandler *config_handler;
-  GtkWidget               *projects;
-  GtkWidget               *project_properties;
-  GtkWidget               *menubar;
-  CodeSlayerEngine        *engine;
-  CodeSlayerProcesses     *processes;
-  CodeSlayer              *codeslayer;
-  GtkWidget               *process_bar;
-  GtkWidget               *notebook;
-  CodeSlayerPlugins       *plugins;
-  GtkWidget               *notebook_pane;
-  GtkWidget               *side_pane;
-  GtkWidget               *bottom_pane;
-  GtkWidget               *hpaned;
-  GtkWidget               *vpaned;
+  GtkWidget                *window;
+  CodeSlayerSettings       *settings;
+  CodeSlayerPreferences    *preferences;
+  CodeSlayerConfigHandler  *config_handler;
+  GtkWidget                *projects;
+  GtkWidget                *project_properties;
+  GtkWidget                *menubar;
+  CodeSlayerEngine         *engine;
+  CodeSlayerProjectsEngine *projects_engine;
+  CodeSlayerProcesses      *processes;
+  CodeSlayer               *codeslayer;
+  GtkWidget                *process_bar;
+  GtkWidget                *notebook;
+  CodeSlayerPlugins        *plugins;
+  GtkWidget                *notebook_pane;
+  GtkWidget                *side_pane;
+  GtkWidget                *bottom_pane;
+  GtkWidget                *hpaned;
+  GtkWidget                *vpaned;
 };
 
 G_DEFINE_TYPE (CodeSlayerApplication, codeslayer_application, GTK_TYPE_APPLICATION)
@@ -140,6 +142,7 @@ codeslayer_application_finalize (CodeSlayerApplication *application)
   g_object_unref (priv->config_handler);
   g_object_unref (priv->settings);
   g_object_unref (priv->engine);
+  g_object_unref (priv->projects_engine);
   g_object_unref (priv->plugins);
   g_object_unref (priv->codeslayer);
 
@@ -421,6 +424,7 @@ create_engine (CodeSlayerApplication *application)
 {
   CodeSlayerApplicationPrivate *priv;
   CodeSlayerEngine *engine;
+  CodeSlayerProjectsEngine *projects_engine;
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
@@ -429,7 +433,6 @@ create_engine (CodeSlayerApplication *application)
                                   priv->preferences, 
                                   priv->config_handler,
                                   priv->plugins,
-                                  priv->projects,
                                   priv->menubar, 
                                   priv->notebook, 
                                   priv->notebook_pane, 
@@ -438,6 +441,21 @@ create_engine (CodeSlayerApplication *application)
                                   priv->hpaned, 
                                   priv->vpaned);
   priv->engine = engine;
+
+  projects_engine = codeslayer_projects_engine_new (GTK_WINDOW (priv->window), 
+                                                    priv->settings, 
+                                                    priv->preferences, 
+                                                    priv->config_handler,
+                                                    priv->plugins,
+                                                    priv->projects,
+                                                    priv->menubar, 
+                                                    priv->notebook, 
+                                                    priv->notebook_pane, 
+                                                    priv->side_pane, 
+                                                    priv->bottom_pane, 
+                                                    priv->hpaned, 
+                                                    priv->vpaned);
+  priv->projects_engine = projects_engine;
 }
 
 static void 

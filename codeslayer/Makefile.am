@@ -35,6 +35,7 @@ pkginclude_HEADERS = \
     codeslayer-projects.h \
     codeslayer-projects-search.h \
     codeslayer-projects-selection.h \
+    codeslayer-projects-engine.h \
     codeslayer-project-properties.h \
     codeslayer-menuitem.h \
     codeslayer-notebook-pane.h \
@@ -88,6 +89,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-projects.c \
     codeslayer-projects-search.c \
     codeslayer-projects-selection.c \
+    codeslayer-projects-engine.c \
     codeslayer-project-properties.c \
     codeslayer-menuitem.c \
     codeslayer-notebook-pane.c \
