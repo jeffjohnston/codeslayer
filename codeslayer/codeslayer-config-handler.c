@@ -125,6 +125,9 @@ codeslayer_config_handler_load_new_config (CodeSlayerConfigHandler *config_handl
 
   priv = CODESLAYER_CONFIG_HANDLER_GET_PRIVATE (config_handler);
   
+  if (priv->config)
+    g_object_unref (priv->config);
+
   file_path = g_file_get_path (file);
   
   priv->config = codeslayer_config_new ();      
@@ -162,7 +165,7 @@ codeslayer_config_handler_load_default_config (CodeSlayerConfigHandler *config_h
       priv->config = codeslayer_config_handler_load_file_config (config_handler, file);
     }    
     
-  g_free (file_path);    
+  g_free (file_path);
   g_object_unref (file);    
                                 
   return priv->config;
@@ -189,6 +192,8 @@ codeslayer_config_handler_load_file_config (CodeSlayerConfigHandler *config_hand
     {
       g_warning ("could not parse projects file %s\n", file_path);
       xmlCleanupParser();
+      if (file_path)
+        g_free (file_path);
       return NULL;
     }
 
@@ -201,6 +206,7 @@ codeslayer_config_handler_load_file_config (CodeSlayerConfigHandler *config_hand
 
   xmlFreeDoc (doc);
   xmlCleanupParser ();
+  g_free (file_path);
   
   return priv->config;
 }
