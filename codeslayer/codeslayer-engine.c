@@ -276,7 +276,7 @@ codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  config = codeslayer_config_handler_get_default_config (priv->config_handler);
+  config = codeslayer_config_handler_load_default_config (priv->config_handler);
   
   g_signal_emit_by_name ((gpointer) priv->preferences, "initialize-preferences");
 

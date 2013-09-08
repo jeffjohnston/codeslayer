@@ -46,17 +46,15 @@ struct _CodeSlayerConfigHandlerClass
 GType
 codeslayer_config_handler_get_type (void) G_GNUC_CONST;
 
-CodeSlayerConfigHandler*  codeslayer_config_handler_new                 (void);
+CodeSlayerConfigHandler*  codeslayer_config_handler_new                  (void);
                                                
-CodeSlayerConfig*         codeslayer_config_handler_get_config          (CodeSlayerConfigHandler *config_handler);
-
-CodeSlayerConfig*         codeslayer_config_handler_get_default_config  (CodeSlayerConfigHandler *config_handler);
-
-CodeSlayerConfig*         codeslayer_config_handler_get_file_config     (CodeSlayerConfigHandler *config_handler, 
-                                                                         GFile                   *file);
-void                      codeslayer_config_handler_save_config         (CodeSlayerConfigHandler *config_handler);
-
-
+CodeSlayerConfig*         codeslayer_config_handler_get_config           (CodeSlayerConfigHandler *config_handler);
+CodeSlayerConfig*         codeslayer_config_handler_load_default_config  (CodeSlayerConfigHandler *config_handler);
+CodeSlayerConfig*         codeslayer_config_handler_load_new_config      (CodeSlayerConfigHandler *config_handler, 
+                                                                          GFile                   *file);
+CodeSlayerConfig*         codeslayer_config_handler_load_file_config     (CodeSlayerConfigHandler *config_handler, 
+                                                                          GFile                   *file);
+void                      codeslayer_config_handler_save_config          (CodeSlayerConfigHandler *config_handler);
 
 G_END_DECLS
 

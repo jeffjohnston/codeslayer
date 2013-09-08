@@ -227,7 +227,38 @@ static void
 new_projects_action (CodeSlayerProjectsEngine *engine,
                      gchar                    *file_name)
 {
-  g_print ("new_projects_action %s\n", file_name);
+  CodeSlayerProjectsEnginePrivate *priv;
+  CodeSlayerConfig *config;
+  GFile *file;
+
+  file = g_file_new_for_path (file_name);
+
+  priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
+  
+  if (!codeslayer_abstract_engine_save_config (CODESLAYER_ABSTRACT_ENGINE (engine)))
+    return;
+  
+  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
+  codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
+
+  config = codeslayer_config_handler_load_new_config (priv->config_handler, file);
+  if (config == NULL)
+    return;
+    
+  codeslayer_config_set_projects_mode (config, TRUE);
+    
+  codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
+                                   priv->projects, "Projects", 0);
+  
+  g_signal_emit_by_name ((gpointer) priv->preferences, "initialize-preferences");
+  
+  codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
+
+  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
+
+  codeslayer_plugins_activate (priv->plugins, config);
+
+  g_object_unref (file);
 }
 
 static void
@@ -247,7 +278,7 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
 
-  config = codeslayer_config_handler_get_file_config (priv->config_handler, file);
+  config = codeslayer_config_handler_load_file_config (priv->config_handler, file);
   if (config == NULL)
     return;
     
@@ -316,8 +347,7 @@ add_projects_action (CodeSlayerProjectsEngine *engine,
 
       codeslayer_config_add_project (config, project);
 
-      /*TODO: this was where we saved the projects*/
-      /*codeslayer_repository_save_projects (priv->config);*/
+      codeslayer_config_handler_save_config (priv->config_handler);
 
       codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
       
@@ -339,8 +369,7 @@ remove_project_action (CodeSlayerProjectsEngine *engine,
 
   codeslayer_config_remove_project (config, project);
   
-  /*TODO: this is where we saved the projects*/
-  /*codeslayer_repository_save_projects (priv->config);*/
+  codeslayer_config_handler_save_config (priv->config_handler);
   
   g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
 }
