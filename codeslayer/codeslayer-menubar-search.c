@@ -39,6 +39,9 @@ static void find_previous_action                   (CodeSlayerMenuBarSearch     
 static void replace_action                         (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void find_projects_action                   (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void go_to_line_action                      (CodeSlayerMenuBarSearch      *menu_bar_search);
+static void sync_engine_action                     (CodeSlayerMenuBarSearch      *menu_bar_search,
+                                                    gboolean                      projects_mode,
+                                                    gboolean                      has_open_editors);
 
 #define CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_SEARCH_TYPE, CodeSlayerMenuBarSearchPrivate))
@@ -112,6 +115,9 @@ codeslayer_menu_bar_search_new (GtkWidget     *menu_bar,
   priv->accel_group = accel_group;
 
   add_menu_items (CODESLAYER_MENU_BAR_SEARCH (menu_bar_search));
+
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-engine",
+                            G_CALLBACK (sync_engine_action), menu_bar_search);
 
   return menu_bar_search;
 }
@@ -193,15 +199,10 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
                             G_CALLBACK (go_to_line_action), menu_bar_search);
 }
 
-/**
- * codeslayer_menu_bar_search_sync:
- * @menu_bar_search: a #CodeSlayerMenuBarSearch.
- * @notebook: a #GtkNotebook.
- */
-void  
-codeslayer_menu_bar_search_sync (CodeSlayerMenuBarSearch *menu_bar_search, 
-                                 gboolean                 projects_mode,
-                                 gboolean                 has_open_editors)
+static void
+sync_engine_action (CodeSlayerMenuBarSearch *menu_bar_search,
+                    gboolean                 projects_mode,
+                    gboolean                 has_open_editors)
 {
   CodeSlayerMenuBarSearchPrivate *priv;
   priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);

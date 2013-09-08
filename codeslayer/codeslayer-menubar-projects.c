@@ -36,6 +36,9 @@ static void new_projects_action                      (CodeSlayerMenuBarProjects 
 static void add_projects_action                      (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void sync_with_editor_action                  (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void scan_external_changes_action             (CodeSlayerMenuBarProjects      *menu_bar_projects);
+static void sync_engine_action                       (CodeSlayerMenuBarProjects      *menu_bar_projects,
+                                                      gboolean                        projects_mode,
+                                                      gboolean                        has_open_editors);
 
 #define CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_PROJECTS_TYPE, CodeSlayerMenuBarProjectsPrivate))
@@ -117,6 +120,9 @@ codeslayer_menu_bar_projects_new (GtkWidget          *window,
 
   add_menu_items (CODESLAYER_MENU_BAR_PROJECTS (menu_bar_projects));
 
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-engine",
+                            G_CALLBACK (sync_engine_action), menu_bar_projects);
+
   return menu_bar_projects;
 }
 
@@ -184,9 +190,10 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
                             G_CALLBACK (scan_external_changes_action), menu_bar_projects);  
 }
 
-void
-codeslayer_menu_bar_projects_sync (CodeSlayerMenuBarProjects *menu_bar_projects,
-                                   gboolean                   projects_mode)
+static void
+sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
+                    gboolean                   projects_mode,
+                    gboolean                   has_open_editors)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   

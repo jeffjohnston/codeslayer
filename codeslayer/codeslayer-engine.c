@@ -78,7 +78,6 @@ static void show_preferences_action                     (CodeSlayerEngine       
 static void editor_settings_preferences_changed_action  (CodeSlayerEngine       *engine);
 
 static void show_plugins_action                         (CodeSlayerEngine      *engine);
-static void sync_menu_bar                               (CodeSlayerEngine      *engine);
                                                    
 #define CODESLAYER_ENGINE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_ENGINE_TYPE, CodeSlayerEnginePrivate))
@@ -184,7 +183,9 @@ codeslayer_engine_new (GtkWindow               *window,
                 "settings", settings, 
                 "preferences", preferences, 
                 "config_handler", config_handler, 
+                "menubar", menubar, 
                 "notebook", notebook, 
+                "notebook_pane", notebook_pane, 
                 "side_pane", side_pane, 
                 "bottom_pane", bottom_pane, 
                 "hpaned", hpaned, 
@@ -301,7 +302,7 @@ codeslayer_engine_open_editor (CodeSlayerEngine *engine,
   
   g_object_unref (document);
 
-  sync_menu_bar (engine);
+  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
 }
 
 static void
@@ -317,7 +318,7 @@ new_editor_action (CodeSlayerEngine *engine)
   
   g_object_unref (document);
   
-  sync_menu_bar (engine);
+  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
 }
 
 static void
@@ -372,7 +373,7 @@ open_editor_action (CodeSlayerEngine *engine)
     }
   gtk_widget_destroy (GTK_WIDGET (dialog));
 
-  sync_menu_bar (engine);
+  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
 }
 
 static void
@@ -417,7 +418,7 @@ page_removed_action (CodeSlayerEngine *engine,
                      GtkWidget        *page,
                      guint             removed_page_num)
 {
-  sync_menu_bar (engine);
+  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
 }
 
 static void
@@ -540,7 +541,7 @@ toggle_bottom_pane_action (CodeSlayerEngine *engine)
                                        TRUE);
     }
     
-  sync_menu_bar (engine);    
+  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
 }
 
 static void
@@ -552,7 +553,7 @@ open_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_settings_set_boolean (priv->settings, 
                                    CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
                                    TRUE);
-  sync_menu_bar (engine);                                   
+  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
 }
 
 static void
@@ -564,7 +565,7 @@ close_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_settings_set_boolean (priv->settings, 
                                    CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE,
                                    FALSE);
-  sync_menu_bar (engine);                                   
+  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
 }
 
 static void
@@ -747,26 +748,4 @@ show_plugins_action (CodeSlayerEngine *engine)
   config = codeslayer_config_handler_get_config (priv->config_handler);
   
   codeslayer_plugins_run_dialog (priv->plugins, config);
-}
-
-static void 
-sync_menu_bar (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  CodeSlayerConfig *config;
-  gboolean projects_mode;
-  gboolean has_open_editors;
-  gint pages;
-
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
-
-  projects_mode = codeslayer_config_get_projects_mode (config);
-
-  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
-  has_open_editors = pages > 0;
-  
-  codeslayer_menu_bar_sync (CODESLAYER_MENU_BAR (priv->menubar), projects_mode, has_open_editors);
-  
-  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }

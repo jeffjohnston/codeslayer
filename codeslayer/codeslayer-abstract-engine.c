@@ -71,7 +71,9 @@ struct _CodeSlayerAbstractEnginePrivate
   CodeSlayerSettings      *settings;
   CodeSlayerPreferences   *preferences;
   CodeSlayerConfigHandler *config_handler;
+  GtkWidget               *menubar;
   GtkWidget               *notebook;
+  GtkWidget               *notebook_pane;
   GtkWidget               *side_pane;
   GtkWidget               *bottom_pane;
   GtkWidget               *hpaned;
@@ -87,7 +89,9 @@ enum
   PROP_SETTINGS,
   PROP_PREFERENCES,
   PROP_CONFIG_HANDLER,
+  PROP_MENUBAR,
   PROP_NOTEBOOK,
+  PROP_NOTEBOOK_PANE,
   PROP_SIDE_PANE,
   PROP_BOTTOM_PANE,
   PROP_HPANED, 
@@ -134,10 +138,24 @@ codeslayer_abstract_engine_class_init (CodeSlayerAbstractEngineClass *klass)
                                                          G_PARAM_READWRITE));  
   
   g_object_class_install_property (gobject_class, 
+                                   PROP_MENUBAR,
+                                   g_param_spec_pointer ("menubar",
+                                                         "CodeSlayerMenuBar",
+                                                         "CodeSlayerMenuBar",
+                                                         G_PARAM_READWRITE));  
+  
+  g_object_class_install_property (gobject_class, 
                                    PROP_NOTEBOOK,
                                    g_param_spec_pointer ("notebook",
                                                          "CodeSlayerNotebook",
                                                          "CodeSlayerNotebook",
+                                                         G_PARAM_READWRITE));  
+  
+  g_object_class_install_property (gobject_class, 
+                                   PROP_NOTEBOOK_PANE,
+                                   g_param_spec_pointer ("notebook_pane",
+                                                         "CodeSlayerNotebookPane",
+                                                         "CodeSlayerNotebookPane",
                                                          G_PARAM_READWRITE));  
   
   g_object_class_install_property (gobject_class, 
@@ -206,8 +224,14 @@ codeslayer_abstract_engine_get_property (GObject    *object,
     case PROP_CONFIG_HANDLER:
       g_value_set_pointer (value, priv->config_handler);
       break;
+    case PROP_MENUBAR:
+      g_value_set_pointer (value, priv->menubar);
+      break;
     case PROP_NOTEBOOK:
       g_value_set_pointer (value, priv->notebook);
+      break;
+    case PROP_NOTEBOOK_PANE:
+      g_value_set_pointer (value, priv->notebook_pane);
       break;
     case PROP_SIDE_PANE:
       g_value_set_pointer (value, priv->side_pane);
@@ -250,8 +274,14 @@ codeslayer_abstract_engine_set_property (GObject      *object,
     case PROP_CONFIG_HANDLER:
       priv->config_handler = g_value_get_pointer (value);
       break;
+    case PROP_MENUBAR:
+      priv->menubar = g_value_get_pointer (value);
+      break;
     case PROP_NOTEBOOK:
       priv->notebook = g_value_get_pointer (value);
+      break;
+    case PROP_NOTEBOOK_PANE:
+      priv->notebook_pane = g_value_get_pointer (value);
       break;
     case PROP_SIDE_PANE:
       priv->side_pane = g_value_get_pointer (value);
@@ -438,4 +468,26 @@ codeslayer_abstract_engine_load_window_settings (CodeSlayerAbstractEngine *abstr
                                                       CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE);
   gtk_widget_set_visible (gtk_paned_get_child2 (GTK_PANED(priv->vpaned)), 
                                                 show_bottom_pane);
+}
+
+void 
+codeslayer_abstract_engine_sync_menu_bar (CodeSlayerAbstractEngine *abstract_engine)
+{
+  CodeSlayerAbstractEnginePrivate *priv;
+  CodeSlayerConfig *config;
+  gboolean projects_mode;
+  gboolean has_open_editors;
+  gint pages;
+
+  priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
+
+  projects_mode = codeslayer_config_get_projects_mode (config);
+
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
+  has_open_editors = pages > 0;
+  
+  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+  
+  g_signal_emit_by_name ((gpointer) priv->menubar, "sync-engine", projects_mode, has_open_editors);
 }

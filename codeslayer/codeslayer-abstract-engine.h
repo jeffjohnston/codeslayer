@@ -53,6 +53,7 @@ CodeSlayerAbstractEngine*  codeslayer_abstract_engine_new  ();
 
 gboolean                   codeslayer_abstract_engine_save_config           (CodeSlayerAbstractEngine *abstract_engine);
 void                       codeslayer_abstract_engine_load_window_settings  (CodeSlayerAbstractEngine *abstract_engine);
+void                       codeslayer_abstract_engine_sync_menu_bar         (CodeSlayerAbstractEngine *abstract_engine);
 
 G_END_DECLS
 

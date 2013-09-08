@@ -39,6 +39,9 @@ static void show_side_pane_action                (CodeSlayerMenuBarView      *me
 static void show_bottom_pane_action              (CodeSlayerMenuBarView      *menu_bar_view);
 static void draw_spaces_action                   (CodeSlayerMenuBarView      *menu_bar_view);
 static void word_wrap_action                     (CodeSlayerMenuBarView      *menu_bar_view);
+static void sync_engine_action                   (CodeSlayerMenuBarView      *menu_bar_view,
+                                                  gboolean                    projects_mode,
+                                                  gboolean                    has_open_editors);
 
 #define CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_VIEW_TYPE, CodeSlayerMenuBarViewPrivate))
@@ -118,6 +121,9 @@ codeslayer_menu_bar_view_new (GtkWidget          *menu_bar,
   priv->settings = settings;
 
   add_menu_items (CODESLAYER_MENU_BAR_VIEW (menu_bar_view), settings);
+  
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-engine",
+                            G_CALLBACK (sync_engine_action), menu_bar_view);
 
   return menu_bar_view;
 }
@@ -179,9 +185,10 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view,
                                                    G_CALLBACK (draw_spaces_action), menu_bar_view);
 }
 
-void
-codeslayer_menu_bar_view_sync (CodeSlayerMenuBarView *menu_bar_view,
-                               gboolean               has_open_editors)
+static void
+sync_engine_action (CodeSlayerMenuBarView *menu_bar_view,
+                    gboolean               projects_mode,
+                    gboolean               has_open_editors)
 {
   CodeSlayerMenuBarViewPrivate *priv;
   priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);

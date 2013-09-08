@@ -22,6 +22,7 @@
 #include <codeslayer/codeslayer-menubar-projects.h>
 #include <codeslayer/codeslayer-menubar-tools.h>
 #include <codeslayer/codeslayer-menubar-help.h>
+#include <codeslayer/codeslayer-marshaller.h>
 
 /**
  * SECTION:codeslayer-menubar
@@ -92,6 +93,7 @@ enum
   TO_LOWERCASE,
   COPY_LINES,  
   SYNC_WITH_EDITOR,  
+  SYNC_ENGINE,  
   LAST_SIGNAL
 };
 
@@ -640,6 +642,19 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   G_STRUCT_OFFSET (CodeSlayerMenuBarClass, sync_with_editor),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__BOOLEAN, G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
+                  
+  /**
+   * CodeSlayerMenuBar::sync-engine 
+   * @menu: the menu that received the signal
+   */
+  codeslayer_menu_bar_signals[SYNC_ENGINE] =
+    g_signal_new ("sync-engine", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, sync_engine), 
+                  NULL, NULL,
+                  _codeslayer_marshal_VOID__BOOLEAN_BOOLEAN, G_TYPE_NONE, 2, 
+                  G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);                  
 
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_menu_bar_finalize;
 
@@ -723,27 +738,6 @@ codeslayer_menu_bar_get_accel_group (CodeSlayerMenuBar *menu_bar)
   CodeSlayerMenuBarPrivate *priv;
   priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
   return priv->accel_group;
-}
-
-void 
-codeslayer_menu_bar_sync (CodeSlayerMenuBar *menu_bar,
-                          gboolean           projects_mode, 
-                          gboolean           has_open_editors)
-{
-  CodeSlayerMenuBarPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
-
-  codeslayer_menu_bar_editor_sync (CODESLAYER_MENU_BAR_EDITOR (priv->menu_bar_editor), 
-                                   projects_mode, has_open_editors);                                               
-
-  codeslayer_menu_bar_view_sync (CODESLAYER_MENU_BAR_VIEW (priv->menu_bar_view), 
-                                 has_open_editors);  
-
-  codeslayer_menu_bar_search_sync (CODESLAYER_MENU_BAR_SEARCH (priv->menu_bar_search), 
-                                   projects_mode, has_open_editors);  
-
-  codeslayer_menu_bar_projects_sync (CODESLAYER_MENU_BAR_PROJECTS (priv->menu_bar_projects),
-                                     projects_mode);
 }
 
 /**

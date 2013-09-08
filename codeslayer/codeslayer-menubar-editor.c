@@ -40,7 +40,9 @@ static void save_all_editors_action                (CodeSlayerMenuBarEditor     
 static void close_editor_action                    (CodeSlayerMenuBarEditor      *menu_bar_editor);
 static void quit_application_action                (CodeSlayerMenuBarEditor      *menu_bar_editor);
 static void show_preferences_action                (CodeSlayerMenuBarEditor      *menu_bar_editor);
-
+static void sync_engine_action                     (CodeSlayerMenuBarEditor      *menu_bar_editor,
+                                                    gboolean                      projects_mode,
+                                                    gboolean                      has_open_editors);
 
 #define CODESLAYER_MENU_BAR_EDITOR_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_EDITOR_TYPE, CodeSlayerMenuBarEditorPrivate))
@@ -113,6 +115,9 @@ codeslayer_menu_bar_editor_new (GtkWidget     *menu_bar,
   priv->accel_group = accel_group;
 
   add_menu_items (CODESLAYER_MENU_BAR_EDITOR (menu_bar_editor));
+
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-engine",
+                            G_CALLBACK (sync_engine_action), menu_bar_editor);
 
   return menu_bar_editor;
 }
@@ -193,15 +198,10 @@ add_menu_items (CodeSlayerMenuBarEditor *menu_bar_editor)
                             G_CALLBACK (quit_application_action), menu_bar_editor);
 }
 
-/**
- * codeslayer_menu_bar_editor_sync:
- * @menu_bar_editor: a #CodeSlayerMenuBarEditor.
- * @notebook: a #GtkNotebook.
- */
-void
-codeslayer_menu_bar_editor_sync (CodeSlayerMenuBarEditor *menu_bar_editor, 
-                                 gboolean                 projects_mode,
-                                 gboolean                 has_open_editors)
+static void
+sync_engine_action (CodeSlayerMenuBarEditor *menu_bar_editor,
+                    gboolean                 projects_mode,
+                    gboolean                 has_open_editors)
 {
   CodeSlayerMenuBarEditorPrivate *priv;
   priv = CODESLAYER_MENU_BAR_EDITOR_GET_PRIVATE (menu_bar_editor);

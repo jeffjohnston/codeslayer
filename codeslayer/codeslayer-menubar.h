@@ -78,6 +78,7 @@ struct _CodeSlayerMenuBarClass
   void (*copy_lines) (CodeSlayerMenuBar *menu_bar);
   void (*sync_with_editor) (CodeSlayerMenuBar *menu_bar);
   void (*scan_external_changes) (CodeSlayerMenuBar *menu_bar);
+  void (*sync_engine) (CodeSlayerMenuBar *menu_bar);
 };
 
 GType codeslayer_menu_bar_get_type (void) G_GNUC_CONST;
@@ -134,10 +135,6 @@ void            codeslayer_menu_bar_new_projects               (CodeSlayerMenuBa
 void            codeslayer_menu_bar_add_projects               (CodeSlayerMenuBar     *menu_bar, 
                                                                 GSList                *files);
 void            codeslayer_menu_bar_show_plugins               (CodeSlayerMenuBar     *menu_bar);
-
-void            codeslayer_menu_bar_sync                       (CodeSlayerMenuBar     *menu_bar,
-                                                                gboolean               projects_mode, 
-                                                                gboolean               has_open_editors);
 
 G_END_DECLS
 
