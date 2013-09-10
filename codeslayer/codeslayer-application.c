@@ -483,6 +483,7 @@ load_plugins (CodeSlayerApplication *application)
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
   codeslayer = codeslayer_new (GTK_WINDOW (priv->window), 
+                               priv->config_handler,
                                CODESLAYER_PREFERENCES (priv->preferences), 
                                priv->processes,
                                CODESLAYER_MENU_BAR (priv->menubar), 

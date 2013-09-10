@@ -66,6 +66,7 @@ typedef struct _CodeSlayerPrivate CodeSlayerPrivate;
 struct _CodeSlayerPrivate
 {
   GtkWindow                   *window;
+  CodeSlayerConfigHandler     *config_handler;
   CodeSlayerPreferences       *preferences;
   CodeSlayerProcesses         *processes;
   CodeSlayerMenuBar           *menu_bar;
@@ -250,6 +251,7 @@ codeslayer_finalize (CodeSlayer *codeslayer)
 
 CodeSlayer*
 codeslayer_new (GtkWindow                   *window,
+                CodeSlayerConfigHandler     *config_handler,
                 CodeSlayerPreferences       *preferences, 
                 CodeSlayerProcesses         *processes, 
                 CodeSlayerMenuBar           *menu_bar,
@@ -264,6 +266,7 @@ codeslayer_new (GtkWindow                   *window,
   codeslayer = CODESLAYER (g_object_new (codeslayer_get_type (), NULL));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   priv->window = window;
+  priv->config_handler = config_handler;
   priv->preferences = preferences;
   priv->processes = processes;
   priv->menu_bar = menu_bar;
@@ -847,11 +850,18 @@ CodeSlayerProject*
 codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer, 
                                      const gchar *file_path)
 {
-  /*CodeSlayerGroup *group;
+  CodeSlayerPrivate *priv;
+  CodeSlayerConfig *config;
+  
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  group = codeslayer_get_group (codeslayer);
-  return codeslayer_group_get_project_by_file_path (group, file_path);*/
-  return NULL;
+  priv = CODESLAYER_GET_PRIVATE (codeslayer);
+
+  config = codeslayer_config_handler_get_config (priv->config_handler);
+  
+  if (!codeslayer_config_get_projects_mode (config))
+    return NULL;
+
+  return codeslayer_config_get_project_by_file_path (config, file_path);
 }
 
 /**

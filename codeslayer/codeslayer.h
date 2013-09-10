@@ -20,6 +20,7 @@
 #define	__CODESLAYER_H__
 
 #include <gtk/gtk.h>
+#include <codeslayer/codeslayer-config-handler.h>
 #include <codeslayer/codeslayer-menubar.h>
 #include <codeslayer/codeslayer-notebook.h>
 #include <codeslayer/codeslayer-projects-selection.h>
@@ -78,6 +79,7 @@ struct _CodeSlayerClass
 GType codeslayer_get_type (void) G_GNUC_CONST;
   
 CodeSlayer*               codeslayer_new                             (GtkWindow                   *window,
+                                                                      CodeSlayerConfigHandler     *config_handler,
                                                                       CodeSlayerPreferences       *preferences, 
                                                                       CodeSlayerProcesses         *processes, 
                                                                       CodeSlayerMenuBar           *menu_bar,
