@@ -79,7 +79,6 @@ static void destroy                            (GtkWidget                  *wind
 static gboolean delete_event                   (GtkWidget                  *window, 
                                                 GdkEvent                   *event,
                                                 CodeSlayerApplication      *application);
-/*static void load_settings                      (CodeSlayerApplication      *application);*/
 static void quit_application_action            (CodeSlayerApplication      *application);
 static void verify_home_dir_exists             (void);
 static void verify_plugins_dir_exists          (void);
@@ -223,7 +222,7 @@ codeslayer_application_open (GApplication *application,
   gint i;
 
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
-
+  
   for (i = 0; i < n_files; i++)
     {
       GFile *file = files[i];
