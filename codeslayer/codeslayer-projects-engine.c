@@ -238,6 +238,7 @@ new_projects_action (CodeSlayerProjectsEngine *engine,
   if (!codeslayer_abstract_engine_save_config (CODESLAYER_ABSTRACT_ENGINE (engine)))
     return;
   
+  codeslayer_plugins_deactivate (priv->plugins);
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
 
@@ -275,6 +276,7 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
   if (!codeslayer_abstract_engine_save_config (CODESLAYER_ABSTRACT_ENGINE (engine)))
     return;
   
+  codeslayer_plugins_deactivate (priv->plugins);
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
 
@@ -306,7 +308,6 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
       codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), 
                                            document);
       g_object_unref (document);
-      /*codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);*/
       documents = g_list_next (documents);
     }
 
