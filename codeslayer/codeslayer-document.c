@@ -18,7 +18,6 @@
 
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-project.h>
-#include <codeslayer/codeslayer-group.h>
 
 /**
  * SECTION:codeslayer-document

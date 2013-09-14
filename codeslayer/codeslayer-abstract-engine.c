@@ -19,7 +19,6 @@
 #include <stdlib.h>
 #include <codeslayer/codeslayer-abstract-engine.h>
 #include <codeslayer/codeslayer-utils.h>
-#include <codeslayer/codeslayer-search.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-projects.h>
 #include <codeslayer/codeslayer-projects-search.h>
