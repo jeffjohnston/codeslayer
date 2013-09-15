@@ -38,6 +38,7 @@
 #include <codeslayer/codeslayer-completion-proposal.h>
 #include <codeslayer/codeslayer-processes.h>
 #include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-xml.h>
 
@@ -81,6 +82,7 @@ GType codeslayer_get_type (void) G_GNUC_CONST;
 CodeSlayer*               codeslayer_new                             (GtkWindow                   *window,
                                                                       CodeSlayerConfigHandler     *config_handler,
                                                                       CodeSlayerPreferences       *preferences, 
+                                                                      CodeSlayerRegistry          *registry, 
                                                                       CodeSlayerProcesses         *processes, 
                                                                       CodeSlayerMenuBar           *menu_bar,
                                                                       CodeSlayerNotebook          *notebook,
@@ -166,7 +168,7 @@ gchar*                    codeslayer_get_plugins_config_folder_path  (CodeSlayer
 CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer                  *codeslayer, 
                                                                       const gchar                 *file_path);
 
-CodeSlayerPreferences*    codeslayer_get_preferences                 (CodeSlayer                  *codeslayer);
+CodeSlayerRegistry*       codeslayer_get_registry                    (CodeSlayer                  *codeslayer);
 
 GtkWindow*                codeslayer_get_toplevel_window             (CodeSlayer                  *codeslayer);
 

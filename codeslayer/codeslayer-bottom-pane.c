@@ -79,17 +79,16 @@ codeslayer_bottom_pane_new (CodeSlayerPreferences *preferences,
   GtkWidget *bottom_pane;
   bottom_pane = g_object_new (codeslayer_bottom_pane_get_type (), NULL);
 
-  codeslayer_abstract_pane_set_preferences (CODESLAYER_ABSTRACT_PANE (bottom_pane), preferences);
   codeslayer_abstract_pane_set_registry (CODESLAYER_ABSTRACT_PANE (bottom_pane), registry);
   
   create_close_button (CODESLAYER_BOTTOM_PANE (bottom_pane));
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (bottom_pane));
 
   g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
-                            G_CALLBACK ( codeslayer_abstract_pane_sync_preferences), CODESLAYER_ABSTRACT_PANE (bottom_pane));
+                            G_CALLBACK ( codeslayer_abstract_pane_sync_registry), CODESLAYER_ABSTRACT_PANE (bottom_pane));
 
   g_signal_connect_swapped (G_OBJECT (preferences), "bottom-pane-preferences-changed",
-                            G_CALLBACK (codeslayer_abstract_pane_sync_preferences), bottom_pane);
+                            G_CALLBACK (codeslayer_abstract_pane_sync_registry), bottom_pane);
 
   return bottom_pane;
 }

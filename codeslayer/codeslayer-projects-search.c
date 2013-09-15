@@ -244,8 +244,7 @@ codeslayer_projects_search_finalize (CodeSlayerProjectsSearch *search)
 /**
  * codeslayer_projects_search_new:
  * @window: a #GtkWindow.
- * @preferences: a #CodeSlayerPreferences.
- * @configs: a #CodeSlayerConfigs.
+ * @registry: a #CodeSlayerRegistry.
  *
  * Creates a new #CodeSlayerProjectsSearch.
  *

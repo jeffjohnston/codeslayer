@@ -68,7 +68,6 @@ struct _CodeSlayerAbstractEnginePrivate
 {
   GtkWindow               *window;
   CodeSlayerRegistry      *registry;
-  CodeSlayerPreferences   *preferences;
   CodeSlayerConfigHandler *config_handler;
   GtkWidget               *menubar;
   GtkWidget               *notebook;
@@ -86,7 +85,6 @@ enum
   PROP_0,
   PROP_WINDOW,
   PROP_SETTINGS,
-  PROP_PREFERENCES,
   PROP_CONFIG_HANDLER,
   PROP_MENUBAR,
   PROP_NOTEBOOK,
@@ -118,13 +116,6 @@ codeslayer_abstract_engine_class_init (CodeSlayerAbstractEngineClass *klass)
   g_object_class_install_property (gobject_class, 
                                    PROP_SETTINGS,
                                    g_param_spec_pointer ("registry",
-                                                         "CodeSlayerRegistry",
-                                                         "CodeSlayerRegistry",
-                                                         G_PARAM_READWRITE));  
-  
-  g_object_class_install_property (gobject_class, 
-                                   PROP_PREFERENCES,
-                                   g_param_spec_pointer ("preferences",
                                                          "CodeSlayerRegistry",
                                                          "CodeSlayerRegistry",
                                                          G_PARAM_READWRITE));  
@@ -217,9 +208,6 @@ codeslayer_abstract_engine_get_property (GObject    *object,
     case PROP_SETTINGS:
       g_value_set_pointer (value, priv->registry);
       break;
-    case PROP_PREFERENCES:
-      g_value_set_pointer (value, priv->preferences);
-      break;
     case PROP_CONFIG_HANDLER:
       g_value_set_pointer (value, priv->config_handler);
       break;
@@ -266,9 +254,6 @@ codeslayer_abstract_engine_set_property (GObject      *object,
       break;
     case PROP_SETTINGS:
       priv->registry = g_value_get_pointer (value);
-      break;
-    case PROP_PREFERENCES:
-      priv->preferences = g_value_get_pointer (value);
       break;
     case PROP_CONFIG_HANDLER:
       priv->config_handler = g_value_get_pointer (value);

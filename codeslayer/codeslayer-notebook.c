@@ -206,7 +206,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
 
   /* create page, editor and buffer */
 
-  editor = codeslayer_editor_new (priv->window, document, priv->preferences, priv->registry);
+  editor = codeslayer_editor_new (priv->window, document, priv->registry);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
 
   file_path = codeslayer_document_get_file_path (document);

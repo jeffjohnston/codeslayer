@@ -67,7 +67,7 @@ struct _CodeSlayerPrivate
 {
   GtkWindow                   *window;
   CodeSlayerConfigHandler     *config_handler;
-  CodeSlayerPreferences       *preferences;
+  CodeSlayerRegistry          *registry;
   CodeSlayerProcesses         *processes;
   CodeSlayerMenuBar           *menu_bar;
   CodeSlayerNotebook          *notebook;
@@ -253,6 +253,7 @@ CodeSlayer*
 codeslayer_new (GtkWindow                   *window,
                 CodeSlayerConfigHandler     *config_handler,
                 CodeSlayerPreferences       *preferences, 
+                CodeSlayerRegistry          *registry, 
                 CodeSlayerProcesses         *processes, 
                 CodeSlayerMenuBar           *menu_bar,
                 CodeSlayerNotebook          *notebook,
@@ -267,7 +268,7 @@ codeslayer_new (GtkWindow                   *window,
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   priv->window = window;
   priv->config_handler = config_handler;
-  priv->preferences = preferences;
+  priv->registry = registry;
   priv->processes = processes;
   priv->menu_bar = menu_bar;
   priv->notebook = notebook;
@@ -865,18 +866,18 @@ codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer,
 }
 
 /**
- * codeslayer_get_preferences:
+ * codeslayer_get_registry:
  * @codeslayer: a #CodeSlayer.
  *
- * Returns: The #CodeSlayerPreferences.
+ * Returns: The #CodeSlayerRegistry.
  */
-CodeSlayerPreferences*
-codeslayer_get_preferences (CodeSlayer *codeslayer)
+CodeSlayerRegistry*
+codeslayer_get_registry (CodeSlayer *codeslayer)
 {
   CodeSlayerPrivate *priv;
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
-  return priv->preferences;
+  return priv->registry;
 }
 
 /**

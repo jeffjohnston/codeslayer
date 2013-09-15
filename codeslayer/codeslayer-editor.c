@@ -72,7 +72,6 @@ struct _CodeSlayerEditorPrivate
   GtkWindow             *window;
   CodeSlayerDocument    *document;
   GTimeVal              *modification_time;
-  CodeSlayerPreferences *preferences;
   CodeSlayerRegistry    *registry;
   CodeSlayerCompletion  *completion;
   gulong                 cursor_position_id;
@@ -215,7 +214,6 @@ codeslayer_editor_finalize (CodeSlayerEditor *editor)
  * codeslayer_editor_new:
  * @window: a #GtkWindow.
  * @document: the #CodeSlayerDocument for this editor.
- * @preferences: a #CodeSlayerPreferences.
  * @registry: a #CodeSlayerRegistry.
  *
  * Creates a new #CodeSlayerEditor.
@@ -225,7 +223,6 @@ codeslayer_editor_finalize (CodeSlayerEditor *editor)
 GtkWidget*
 codeslayer_editor_new (GtkWindow             *window, 
                        CodeSlayerDocument    *document,
-                       CodeSlayerPreferences *preferences,
                        CodeSlayerRegistry    *registry)
 {
   CodeSlayerEditorPrivate *priv;
@@ -236,7 +233,6 @@ codeslayer_editor_new (GtkWindow             *window,
   editor = g_object_new (codeslayer_editor_get_type (), NULL);
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   priv->document = document;
-  priv->preferences = preferences;
   priv->registry = registry;
   priv->window = window;
   
@@ -756,10 +752,10 @@ codeslayer_editor_scroll_to_line (CodeSlayerEditor *editor,
 }
 
 /**
- * codeslayer_editor_sync_preferences:
+ * codeslayer_editor_sync_registry:
  * @editor: a #CodeSlayerEditor.
  *
- * Apply the #CodeSlayerPreferences settings to the current editor.
+ * Apply the preferences to the current editor.
  */
 void
 codeslayer_editor_sync_registry (CodeSlayerEditor *editor)

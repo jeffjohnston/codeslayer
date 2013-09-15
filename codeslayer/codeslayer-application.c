@@ -466,7 +466,7 @@ create_menu (CodeSlayerApplication *application)
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  menubar = codeslayer_menu_bar_new (priv->window, priv->preferences, priv->registry);
+  menubar = codeslayer_menu_bar_new (priv->window, priv->registry);
   priv->menubar = menubar;
   
   g_signal_connect_swapped (G_OBJECT (menubar), "quit-application",
@@ -484,6 +484,7 @@ load_plugins (CodeSlayerApplication *application)
   codeslayer = codeslayer_new (GTK_WINDOW (priv->window), 
                                priv->config_handler,
                                CODESLAYER_PREFERENCES (priv->preferences), 
+                               priv->registry,
                                priv->processes,
                                CODESLAYER_MENU_BAR (priv->menubar), 
                                CODESLAYER_NOTEBOOK (priv->notebook), 

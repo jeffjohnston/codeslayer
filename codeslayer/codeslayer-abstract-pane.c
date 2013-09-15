@@ -47,7 +47,6 @@ typedef struct _CodeSlayerAbstractPanePrivate CodeSlayerAbstractPanePrivate;
 
 struct _CodeSlayerAbstractPanePrivate
 {
-  CodeSlayerPreferences *preferences;
   CodeSlayerRegistry    *registry;
   GtkWidget             *notebook;
   GList                 *plugins;
@@ -141,15 +140,6 @@ codeslayer_abstract_pane_create_notebook (CodeSlayerAbstractPane *abstract_pane)
                             
   g_signal_connect (G_OBJECT (priv->notebook), "create-window",
                     G_CALLBACK (codeslayer_tearoff_window), NULL);
-}
-
-void
-codeslayer_abstract_pane_set_preferences (CodeSlayerAbstractPane *abstract_pane, 
-                                          CodeSlayerPreferences  *preferences)
-{
-  CodeSlayerAbstractPanePrivate *priv;
-  priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
-  priv->preferences = preferences;
 }
 
 void
@@ -296,7 +286,7 @@ codeslayer_abstract_pane_close (CodeSlayerAbstractPane *abstract_pane)
 }                        
 
 void
-codeslayer_abstract_pane_sync_preferences (CodeSlayerAbstractPane *abstract_pane)
+codeslayer_abstract_pane_sync_registry (CodeSlayerAbstractPane *abstract_pane)
 {
   CodeSlayerAbstractPanePrivate *priv;
   gchar *editor_value;

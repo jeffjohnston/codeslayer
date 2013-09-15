@@ -673,7 +673,6 @@ codeslayer_menu_bar_finalize (CodeSlayerMenuBar *menu)
 /**
  * codeslayer_menu_bar_new:
  * @window: the main application window.
- * @preferences: a #CodeSlayerPreferences.
  * @registry: a #CodeSlayerRegistry.
  *
  * Creates a new #CodeSlayerMenuBar.
@@ -682,7 +681,6 @@ codeslayer_menu_bar_finalize (CodeSlayerMenuBar *menu)
  */
 GtkWidget*
 codeslayer_menu_bar_new (GtkWidget             *window, 
-                        CodeSlayerPreferences *preferences, 
                         CodeSlayerRegistry    *registry)
 {
   CodeSlayerMenuBarPrivate *priv;

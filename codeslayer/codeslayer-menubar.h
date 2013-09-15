@@ -20,7 +20,6 @@
 #define	__CODESLAYER_MENU_BAR_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-config.h>
 
@@ -84,7 +83,6 @@ struct _CodeSlayerMenuBarClass
 GType codeslayer_menu_bar_get_type (void) G_GNUC_CONST;
   
 GtkWidget*      codeslayer_menu_bar_new                        (GtkWidget             *window, 
-                                                                CodeSlayerPreferences *preferences, 
                                                                 CodeSlayerRegistry    *registry);
                                                              
 void            codeslayer_menu_bar_new_editor                 (CodeSlayerMenuBar     *menu_bar);

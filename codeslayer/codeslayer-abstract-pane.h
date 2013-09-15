@@ -20,7 +20,7 @@
 #define	__CODESLAYER_ABSTRACT_PANE_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-registry.h>
 
 G_BEGIN_DECLS
 
@@ -52,9 +52,7 @@ struct _CodeSlayerAbstractPaneClass
 GType codeslayer_abstract_pane_get_type (void) G_GNUC_CONST;
 
 void        codeslayer_abstract_pane_create_notebook   (CodeSlayerAbstractPane *abstract_pane);
-void        codeslayer_abstract_pane_sync_preferences  (CodeSlayerAbstractPane *abstract_pane);
-void        codeslayer_abstract_pane_set_preferences   (CodeSlayerAbstractPane *abstract_pane, 
-                                                        CodeSlayerPreferences  *preferences);
+void        codeslayer_abstract_pane_sync_registry  (CodeSlayerAbstractPane *abstract_pane);
 void        codeslayer_abstract_pane_set_registry      (CodeSlayerAbstractPane *abstract_pane, 
                                                         CodeSlayerRegistry  *registry);
 void        codeslayer_abstract_pane_add               (CodeSlayerAbstractPane *abstract_pane, 

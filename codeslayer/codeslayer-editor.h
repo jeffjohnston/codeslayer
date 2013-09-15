@@ -22,7 +22,6 @@
 #include <gtk/gtk.h>
 #include <gtksourceview/gtksourceview.h>
 #include <codeslayer/codeslayer-document.h>
-#include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-completion-provider.h>
 
@@ -56,7 +55,6 @@ GType codeslayer_editor_get_type (void) G_GNUC_CONST;
 
 GtkWidget*           codeslayer_editor_new                       (GtkWindow                    *window,
                                                                   CodeSlayerDocument           *document,
-                                                                  CodeSlayerPreferences        *preferences,
                                                                   CodeSlayerRegistry           *registry);
 
 gboolean             codeslayer_editor_scroll_to_line            (CodeSlayerEditor             *editor,
