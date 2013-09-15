@@ -41,7 +41,6 @@ static void codeslayer_config_handler_finalize    (CodeSlayerConfigHandler      
 
 static void load_config                           (CodeSlayerConfig             *config, 
                                                    xmlNode                      *a_node);
-static void set_config_preferences_defaults       (CodeSlayerConfig             *config);
 static void set_config_registry_defaults          (CodeSlayerConfig             *config);
 
 static void build_projects_xml                    (CodeSlayerProject            *project,
@@ -53,10 +52,6 @@ static void build_plugins_xml                     (gchar                        
 static void build_registry_xml                    (gchar                        *name,
                                                    gchar                        *value, 
                                                    GString                      **xml);
-static void build_preferences_xml                 (gchar                        *name,
-                                                   gchar                        *value, 
-                                                   GString                      **xml);
-
 #define CODESLAYER_CONFIG_HANDLER_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_CONFIG_HANDLER_TYPE, CodeSlayerConfigHandlerPrivate))
 
@@ -133,7 +128,6 @@ codeslayer_config_handler_load_new_config (CodeSlayerConfigHandler *config_handl
   priv->config = codeslayer_config_new ();      
 
   codeslayer_config_set_file_path (priv->config, file_path);
-  set_config_preferences_defaults (priv->config);
   set_config_registry_defaults (priv->config);
   
   g_free (file_path);
@@ -157,7 +151,6 @@ codeslayer_config_handler_load_default_config (CodeSlayerConfigHandler *config_h
     {
       priv->config = codeslayer_config_new ();      
       codeslayer_config_set_file_path (priv->config, file_path);
-      set_config_preferences_defaults (priv->config);
       set_config_registry_defaults (priv->config);
     }
   else
@@ -221,7 +214,6 @@ codeslayer_config_handler_save_config (CodeSlayerConfigHandler *config_handler)
   GList *projects;
   GList *documents;
   GList *plugins;
-  GHashTable *preferences;
   GHashTable *registry;
   
   priv = CODESLAYER_CONFIG_HANDLER_GET_PRIVATE (config_handler);  
@@ -229,7 +221,6 @@ codeslayer_config_handler_save_config (CodeSlayerConfigHandler *config_handler)
   projects = codeslayer_config_get_projects (priv->config);         
   documents = codeslayer_config_get_documents (priv->config);         
   plugins = codeslayer_config_get_plugins (priv->config);         
-  preferences = codeslayer_config_get_preferences (priv->config);
   registry = codeslayer_config_get_registry (priv->config);
   
   xml = g_string_new ("<config>");
@@ -254,10 +245,6 @@ codeslayer_config_handler_save_config (CodeSlayerConfigHandler *config_handler)
       g_list_foreach (plugins, (GFunc)build_plugins_xml, &xml);
       xml = g_string_append (xml, "\n\t</plugins>");    
     }
-
-  xml = g_string_append (xml, "\n\t<preferences>");
-  g_hash_table_foreach (preferences, (GHFunc)build_preferences_xml, &xml);
-  xml = g_string_append (xml, "\n\t</preferences>");
 
   xml = g_string_append (xml, "\n\t<registry>");
   g_hash_table_foreach (registry, (GHFunc)build_registry_xml, &xml);
@@ -323,19 +310,6 @@ load_config (CodeSlayerConfig *config,
               
               xmlFree (file_path);
               xmlFree (line_number);
-            }
-          else if (g_strcmp0 ((gchar*)cur_node->name, "preference") == 0)
-            {
-              xmlChar *name;
-              xmlChar *value;
-              
-              name = xmlGetProp (cur_node, (const xmlChar*)"key");
-              value = xmlGetProp (cur_node, (const xmlChar*)"value");
-              
-              codeslayer_config_set_preference (config, (gchar*) name, (gchar*) value);
-              
-              xmlFree (name);
-              xmlFree (value);
             }
           else if (g_strcmp0 ((gchar*)cur_node->name, "setting") == 0)
             {
@@ -416,20 +390,6 @@ build_plugins_xml (gchar   *name,
 }
 
 static void 
-build_preferences_xml (gchar   *name,
-                       gchar   *value, 
-                       GString **xml)
-{
-  *xml = g_string_append (*xml, "\n\t\t<preference ");
-  *xml = g_string_append (*xml, "key=\"");
-  *xml = g_string_append (*xml, name);
-  *xml = g_string_append (*xml, "\" ");
-  *xml = g_string_append (*xml, "value=\"");
-  *xml = g_string_append (*xml, value);
-  *xml = g_string_append (*xml, "\"/>");
-}
-
-static void 
 build_registry_xml (gchar   *name,
                     gchar   *value, 
                     GString **xml)
@@ -444,30 +404,26 @@ build_registry_xml (gchar   *name,
 }
 
 static void
-set_config_preferences_defaults (CodeSlayerConfig *config)
-{
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS, "true");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE, "true");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN, "false");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET, "false");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS, "true");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION, "true");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION, "80");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH, "2");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_FONT, "Monospace 9");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_THEME, "classic");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION, "top");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION, "top");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION, "left");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS, ".csv,.git,.svn");
-  codeslayer_config_set_preference (config, CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES, ".txt");
-}
-
-static void
 set_config_registry_defaults (CodeSlayerConfig *config)
 {
   codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE, "false");
   codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE, "false");
   codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_DRAW_SPACES, "false");
   codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR, "true");
+  
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS, "true");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE, "true");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN, "false");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET, "false");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS, "true");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION, "true");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION, "80");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH, "2");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_FONT, "Monospace 9");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_THEME, "classic");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION, "top");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION, "top");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION, "left");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS, ".csv,.git,.svn");
+  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES, ".txt");
 }

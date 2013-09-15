@@ -222,7 +222,7 @@ codeslayer_preferences_get_double (CodeSlayerPreferences *preferences,
   
   config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  value = codeslayer_config_get_preference (config, key);
+  value = codeslayer_config_get_setting (config, key);
   if (value != NULL)
     return atof (value);
 
@@ -248,7 +248,7 @@ codeslayer_preferences_set_double (CodeSlayerPreferences *preferences,
   config = codeslayer_config_handler_get_config (priv->config_handler);
   
   val = g_strdup_printf ("%f", value);
-  codeslayer_config_set_preference (config, key, val);
+  codeslayer_config_set_setting (config, key, val);
   g_free (val);
 }
 
@@ -270,7 +270,7 @@ codeslayer_preferences_get_boolean (CodeSlayerPreferences *preferences,
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  value = codeslayer_config_get_preference (config, key);
+  value = codeslayer_config_get_setting (config, key);
   if (value != NULL)
     {
       if (g_strcmp0 (value, "true") == 0)
@@ -300,9 +300,9 @@ codeslayer_preferences_set_boolean (CodeSlayerPreferences *preferences,
   config = codeslayer_config_handler_get_config (priv->config_handler);
   
   if (value == TRUE)  
-    codeslayer_config_set_preference (config, key, "true");
+    codeslayer_config_set_setting (config, key, "true");
   else
-    codeslayer_config_set_preference (config, key, "false");
+    codeslayer_config_set_setting (config, key, "false");
 }
 
 /**
@@ -323,7 +323,7 @@ codeslayer_preferences_get_string (CodeSlayerPreferences *preferences,
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  value = codeslayer_config_get_preference (config, key);
+  value = codeslayer_config_get_setting (config, key);
   if (value != NULL)
     return g_strdup (value);
 
@@ -347,7 +347,7 @@ codeslayer_preferences_set_string (CodeSlayerPreferences *preferences,
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   config = codeslayer_config_handler_get_config (priv->config_handler);
 
-  codeslayer_config_set_preference (config, key, value);
+  codeslayer_config_set_setting (config, key, value);
 }
 
 /**

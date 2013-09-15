@@ -32,7 +32,6 @@ static void codeslayer_config_finalize                (CodeSlayerConfig      *co
 static void remove_all_projects     (CodeSlayerConfig      *config);
 static void remove_all_documents    (CodeSlayerConfig      *config);
 static void remove_all_plugins      (CodeSlayerConfig      *config);
-static void remove_all_preferences  (CodeSlayerConfig      *config);
 static void remove_all_registry     (CodeSlayerConfig      *config);
 
 #define CODESLAYER_CONFIG_GET_PRIVATE(obj) \
@@ -47,7 +46,6 @@ struct _CodeSlayerConfigPrivate
   GList      *projects;
   GList      *documents;
   GList      *plugins;
-  GHashTable *preferences;
   GHashTable *registry;
 };
 
@@ -73,7 +71,6 @@ codeslayer_config_init (CodeSlayerConfig *config)
   priv->projects = NULL;
   priv->documents = NULL;
   priv->plugins = NULL;
-  priv->preferences = NULL;
   priv->registry = NULL;
 }
 
@@ -89,7 +86,6 @@ codeslayer_config_finalize (CodeSlayerConfig *config)
   remove_all_projects (config);
   remove_all_documents (config);
   remove_all_plugins (config);
-  remove_all_preferences (config);
   remove_all_registry (config);
 
   G_OBJECT_CLASS (codeslayer_config_parent_class)->finalize (G_OBJECT (config));
@@ -113,9 +109,6 @@ codeslayer_config_new (void)
   config = CODESLAYER_CONFIG (g_object_new (codeslayer_config_get_type (), NULL));
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
   
-  priv->preferences = g_hash_table_new_full ((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal, 
-                                             (GDestroyNotify)g_free, (GDestroyNotify)g_free);
-
   priv->registry = g_hash_table_new_full ((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal, 
                                           (GDestroyNotify)g_free, (GDestroyNotify)g_free);
 
@@ -479,60 +472,6 @@ codeslayer_config_remove_plugin (CodeSlayerConfig *config,
         }
       plugins = g_list_next (plugins);
     }
-}
-
-/**
- * codeslayer_config_get_preferences:
- * @config: a #CodeSlayerConfig.
- *
- * Returns: The hashtable of preferences.
- */
-GHashTable*
-codeslayer_config_get_preferences (CodeSlayerConfig *config)
-{
-  return CODESLAYER_CONFIG_GET_PRIVATE (config)->preferences;
-}
-
-/**
- * codeslayer_config_get_preference:
- * @config: a #CodeSlayerConfig.
- * @key: use the key to find the value from the preferences.
- *
- * Returns: The value for the preference.
- */
-const gchar*
-codeslayer_config_get_preference (CodeSlayerConfig *config,
-                                  gchar            *key)
-{
-  CodeSlayerConfigPrivate *priv;
-  priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  return g_hash_table_lookup (priv->preferences, key);
-}
-
-
-/**
- * codeslayer_config_set_preference:
- * @config: a #CodeSlayerConfig.
- * @key: the key for the preference.
- * @value: the value for the preference.
- */
-void
-codeslayer_config_set_preference (CodeSlayerConfig *config,
-                                  gchar            *key, 
-                                  gchar            *value)
-{
-  CodeSlayerConfigPrivate *priv;
-  priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  g_hash_table_replace (priv->preferences, g_strdup (key), g_strdup (value));
-}
-
-static void
-remove_all_preferences (CodeSlayerConfig *config)
-{
-  CodeSlayerConfigPrivate *priv;
-  priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  g_hash_table_destroy (priv->preferences);
-  priv->preferences = NULL;
 }
 
 /**

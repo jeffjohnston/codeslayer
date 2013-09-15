@@ -76,12 +76,6 @@ void                codeslayer_config_add_document              (CodeSlayerConfi
                                                                  CodeSlayerDocument   *document);
 void                codeslayer_config_remove_document           (CodeSlayerConfig     *config,
                                                                  CodeSlayerDocument   *document);
-GHashTable*         codeslayer_config_get_preferences           (CodeSlayerConfig     *config);
-const gchar*        codeslayer_config_get_preference            (CodeSlayerConfig     *config,
-                                                                 gchar                *key);
-void                codeslayer_config_set_preference            (CodeSlayerConfig     *config,
-                                                                 gchar                *key, 
-                                                                 gchar                *value);
 GHashTable*         codeslayer_config_get_registry              (CodeSlayerConfig     *config);
 const gchar*        codeslayer_config_get_setting               (CodeSlayerConfig     *config,
                                                                  gchar                *key);
