@@ -32,23 +32,6 @@ G_BEGIN_DECLS
 #define IS_CODESLAYER_PREFERENCES(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_PREFERENCES_TYPE))
 #define IS_CODESLAYER_PREFERENCES_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_PREFERENCES_TYPE))
 
-#define CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS "editor_display_line_numbers"
-#define CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE "editor_highlight_current_line"
-#define CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN "editor_display_right_margin"
-#define CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET "editor_highlight_matching_bracket"
-#define CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS "editor_insert_spaces_instead_of_tabs"
-#define CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION "editor_enable_automatic_indentation"
-#define CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION "editor_right_margin_position"
-#define CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH "editor_tab_width"
-#define CODESLAYER_PREFERENCES_EDITOR_FONT "editor_font"
-#define CODESLAYER_PREFERENCES_EDITOR_THEME "editor_theme"
-#define CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION "editor_tab_position"
-#define CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES "editor_word_wrap_types"
-#define CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION "side_pane_tab_position"
-#define CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION "bottom_pane_tab_position"
-#define CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES "projects_exclude_types"
-#define CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS "projects_exclude_dirs"
-
 typedef struct _CodeSlayerPreferences CodeSlayerPreferences;
 typedef struct _CodeSlayerPreferencesClass CodeSlayerPreferencesClass;
 

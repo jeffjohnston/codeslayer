@@ -93,7 +93,7 @@ codeslayer_side_pane_new (CodeSlayerPreferences *preferences,
 static gchar* 
 tab_position_key (CodeSlayerAbstractPane *abstract_pane)
 {
-  return CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION;
+  return CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION;
 }
 
 static gint 

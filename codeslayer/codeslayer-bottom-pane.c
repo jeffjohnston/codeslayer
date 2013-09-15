@@ -122,7 +122,7 @@ create_close_button (CodeSlayerBottomPane *bottom_pane)
 static gchar* 
 tab_position_key (CodeSlayerAbstractPane *abstract_pane)
 {
-  return CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION;
+  return CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION;
 }
 
 static gint 

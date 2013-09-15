@@ -90,11 +90,11 @@ codeslayer_preferences_projects_new (CodeSlayerPreferences *preferences,
   priv = CODESLAYER_PREFERENCES_PROJECTS_GET_PRIVATE (preferences_projects);
   
   priv->exclude_file_types = codeslayer_preferences_list_view_new (preferences, registry, 
-                                       CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES,
+                                       CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES,
                                        preferences_projects, _("Exclude File Types"));
   
   priv->exclude_directories = codeslayer_preferences_list_view_new (preferences, registry, 
-                                       CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS,
+                                       CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS,
                                        preferences_projects, _("Exclude Directories"));
                                        
   g_signal_connect_swapped (G_OBJECT (priv->exclude_file_types), "list-changed",

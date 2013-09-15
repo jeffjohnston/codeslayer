@@ -2120,7 +2120,7 @@ is_file_shown (CodeSlayerRegistry *registry,
   gboolean result = TRUE;
 
   exclude_types_str = codeslayer_registry_get_string (registry,
-                                                      CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES);
+                                                      CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES);
 
   exclude_types = codeslayer_utils_string_to_list (exclude_types_str);
   
@@ -2131,7 +2131,7 @@ is_file_shown (CodeSlayerRegistry *registry,
     }
   
   exclude_dirs_str = codeslayer_registry_get_string (registry,
-                                                     CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS);
+                                                     CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS);
 
   exclude_dirs = codeslayer_utils_string_to_list (exclude_dirs_str);
   

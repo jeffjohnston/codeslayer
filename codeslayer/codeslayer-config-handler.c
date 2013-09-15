@@ -411,19 +411,19 @@ set_config_registry_defaults (CodeSlayerConfig *config)
   codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_DRAW_SPACES, "false");
   codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR, "true");
   
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS, "true");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE, "true");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN, "false");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET, "false");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS, "true");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION, "true");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION, "80");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH, "2");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_FONT, "Monospace 9");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_THEME, "classic");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION, "top");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION, "top");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION, "left");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS, ".csv,.git,.svn");
-  codeslayer_config_set_setting (config, CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES, ".txt");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_DISPLAY_LINE_NUMBERS, "true");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_CURRENT_LINE, "true");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_DISPLAY_RIGHT_MARGIN, "false");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_MATCHING_BRACKET, "false");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS, "true");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_ENABLE_AUTOMATIC_INDENTATION, "true");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_RIGHT_MARGIN_POSITION, "80");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_TAB_WIDTH, "2");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_FONT, "Monospace 9");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_THEME, "classic");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_TAB_POSITION, "top");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION, "top");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION, "left");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS, ".csv,.git,.svn");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_EDITOR_WORD_WRAP_TYPES, ".txt");
 }
