@@ -48,6 +48,7 @@ typedef struct _CodeSlayerPreferencesPrivate CodeSlayerPreferencesPrivate;
 struct _CodeSlayerPreferencesPrivate
 {
   GtkWidget               *window;
+  CodeSlayerRegistry      *registry;
   CodeSlayerConfigHandler *config_handler;
 };
 
@@ -190,7 +191,8 @@ codeslayer_preferences_finalize (CodeSlayerPreferences *preferences)
  */
 CodeSlayerPreferences*
 codeslayer_preferences_new (GtkWidget               *window, 
-                            CodeSlayerConfigHandler *config_handler)
+                            CodeSlayerConfigHandler *config_handler, 
+                            CodeSlayerRegistry      *registry)
 {
   CodeSlayerPreferencesPrivate *priv;
   CodeSlayerPreferences *preferences;
@@ -199,174 +201,10 @@ codeslayer_preferences_new (GtkWidget               *window,
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   priv->window = window;
   priv->config_handler = config_handler;
+  priv->registry = registry;
   
   return preferences;
 }
-
-/**
- * codeslayer_preferences_get_double:
- * @preferences: a #CodeSlayerPreferences.
- * @key: a property key.
- *
- * Returns: the value as a double for the given key.
- */
-gdouble
-codeslayer_preferences_get_double (CodeSlayerPreferences *preferences,
-                                   gchar                 *key)
-{
-  CodeSlayerPreferencesPrivate *priv;
-  CodeSlayerConfig *config;
-  const gchar *value;
-
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  
-  config = codeslayer_config_handler_get_config (priv->config_handler);
-
-  value = codeslayer_config_get_setting (config, key);
-  if (value != NULL)
-    return atof (value);
-
-  return -1;
-}
-
-/**
- * codeslayer_preferences_set_double:
- * @preferences: a #CodeSlayerPreferences.
- * @key: a property key.
- * @value: a property value as a gdouble.
- */
-void
-codeslayer_preferences_set_double (CodeSlayerPreferences *preferences,
-                                   gchar                 *key, 
-                                   gdouble                value)
-{
-  CodeSlayerPreferencesPrivate *priv;
-  CodeSlayerConfig *config;
-  gchar *val;
-  
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
-  
-  val = g_strdup_printf ("%f", value);
-  codeslayer_config_set_setting (config, key, val);
-  g_free (val);
-}
-
-/**
- * codeslayer_preferences_get_boolean:
- * @preferences: a #CodeSlayerPreferences.
- * @key: a property key.
- *
- * Returns: the value as a boolean for the given key.
- */
-gboolean
-codeslayer_preferences_get_boolean (CodeSlayerPreferences *preferences,
-                                    gchar                 *key)
-{
-  CodeSlayerPreferencesPrivate *priv;
-  CodeSlayerConfig *config;
-  const gchar *value;
-
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
-
-  value = codeslayer_config_get_setting (config, key);
-  if (value != NULL)
-    {
-      if (g_strcmp0 (value, "true") == 0)
-        return TRUE;
-      else
-        return FALSE;
-    }
-  
-  return FALSE;
-}
-
-/**
- * codeslayer_preferences_set_boolean:
- * @preferences: a #CodeSlayerPreferences.
- * @key: a property key.
- * @value: a property value as a gboolean.
- */
-void
-codeslayer_preferences_set_boolean (CodeSlayerPreferences *preferences,
-                                    gchar                 *key, 
-                                    gboolean               value)
-{
-  CodeSlayerPreferencesPrivate *priv;
-  CodeSlayerConfig *config;
-  
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
-  
-  if (value == TRUE)  
-    codeslayer_config_set_setting (config, key, "true");
-  else
-    codeslayer_config_set_setting (config, key, "false");
-}
-
-/**
- * codeslayer_preferences_get_string:
- * @preferences: a #CodeSlayerPreferences.
- * @key: a property key.
- *
- * Returns: the value as a string for the given key.
- */
-gchar*
-codeslayer_preferences_get_string (CodeSlayerPreferences *preferences,
-                                   gchar                 *key)
-{
-  CodeSlayerPreferencesPrivate *priv;
-  CodeSlayerConfig *config;
-  const gchar *value;
-
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
-
-  value = codeslayer_config_get_setting (config, key);
-  if (value != NULL)
-    return g_strdup (value);
-
-  return g_strdup ("");
-}
-
-/**
- * codeslayer_preferences_set_string:
- * @preferences: a #CodeSlayerPreferences.
- * @key: a property key.
- * @value: a property value as a gchar pointer.
- */
-void
-codeslayer_preferences_set_string (CodeSlayerPreferences *preferences,
-                                   gchar                 *key, 
-                                   gchar                 *value)
-{
-  CodeSlayerPreferencesPrivate *priv;
-  CodeSlayerConfig *config;
-  
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
-
-  codeslayer_config_set_setting (config, key, value);
-}
-
-/**
- * codeslayer_preferences_load:
- * @preferences: a #CodeSlayerPreferences.
- * @config: a #CodeSlayerConfig.
- *
- * Load the config preferences.
- */
-/*void
-codeslayer_preferences_set_config (CodeSlayerPreferences *preferences, 
-                                   CodeSlayerConfig      *config)
-{
-  CodeSlayerPreferencesPrivate *priv;
-  CodeSlayerConfig *config;
-  priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  priv->config = config;
-  g_signal_emit_by_name ((gpointer) preferences, "initialize-preferences");
-}*/
 
 /**
  * codeslayer_preferences_run_dialog:
@@ -405,22 +243,22 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   gtk_container_set_border_width (GTK_CONTAINER (notebook), 2);
   gtk_box_pack_start (GTK_BOX (content_area), notebook, TRUE, TRUE, 0);  
   
-  preferences_editor = codeslayer_preferences_editor_new (preferences);
+  preferences_editor = codeslayer_preferences_editor_new (preferences, priv->registry);
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_editor, 
                             gtk_label_new (_("Editor")));
 
-  preferences_theme = codeslayer_preferences_theme_new (preferences);
+  preferences_theme = codeslayer_preferences_theme_new (preferences, priv->registry);
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_theme, 
                             gtk_label_new (_("Theme")));
 
   if (codeslayer_config_get_projects_mode (config))
     {
-      preferences_projects = codeslayer_preferences_projects_new (preferences);
+      preferences_projects = codeslayer_preferences_projects_new (preferences, priv->registry);
       gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_projects, 
                                 gtk_label_new (_("Projects")));    
     }
 
-  preferences_misc = codeslayer_preferences_misc_new (preferences);
+  preferences_misc = codeslayer_preferences_misc_new (preferences, priv->registry);
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_misc, 
                             gtk_label_new (_("Misc")));
 

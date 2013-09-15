@@ -52,7 +52,7 @@ static void append_treestore_children         (CodeSlayerProjects      *projects
                                                CodeSlayerProject       *project, 
                                                GtkTreeIter              iter, 
                                                const gchar             *folder_path);
-static gboolean is_file_shown                 (CodeSlayerPreferences   *preferences, 
+static gboolean is_file_shown                 (CodeSlayerRegistry      *registry, 
                                                const char              *file_name, 
                                                GFileType                file_type);
 static gboolean row_activated_action          (CodeSlayerProjects      *projects, 
@@ -2076,7 +2076,7 @@ append_treestore_children (CodeSlayerProjects *projects,
           file_name = g_file_info_get_name (file_info);
           file_type = g_file_info_get_file_type (file_info);
 
-          if (!is_file_shown (priv->preferences, file_name, file_type))
+          if (!is_file_shown (priv->registry, file_name, file_type))
             {
               g_object_unref (file_info);
               continue;
@@ -2109,9 +2109,9 @@ append_treestore_children (CodeSlayerProjects *projects,
 }
 
 static gboolean
-is_file_shown (CodeSlayerPreferences *preferences, 
-               const char            *file_name, 
-               GFileType              file_type)
+is_file_shown (CodeSlayerRegistry *registry, 
+               const char         *file_name, 
+               GFileType          file_type)
 {
   gchar *exclude_types_str;
   GList *exclude_types = NULL;
@@ -2119,8 +2119,8 @@ is_file_shown (CodeSlayerPreferences *preferences,
   GList *exclude_dirs = NULL;
   gboolean result = TRUE;
 
-  exclude_types_str = codeslayer_preferences_get_string (preferences,
-                                                         CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES);
+  exclude_types_str = codeslayer_registry_get_string (registry,
+                                                      CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES);
 
   exclude_types = codeslayer_utils_string_to_list (exclude_types_str);
   
@@ -2130,8 +2130,8 @@ is_file_shown (CodeSlayerPreferences *preferences,
       result = FALSE;
     }
   
-  exclude_dirs_str = codeslayer_preferences_get_string (preferences,
-                                                        CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS);
+  exclude_dirs_str = codeslayer_registry_get_string (registry,
+                                                     CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS);
 
   exclude_dirs = codeslayer_utils_string_to_list (exclude_dirs_str);
   

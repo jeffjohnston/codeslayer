@@ -737,8 +737,8 @@ preferences_changed_action (CodeSlayerNotebook *notebook)
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
 
-  editor_value = codeslayer_preferences_get_string (priv->preferences,
-                                                    CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION);
+  editor_value = codeslayer_registry_get_string (priv->registry,
+                                                 CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION);
 
   if (g_strcmp0 (editor_value, "left") == 0)
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_LEFT);

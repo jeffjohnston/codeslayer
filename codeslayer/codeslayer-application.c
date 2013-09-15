@@ -284,7 +284,7 @@ create_preferences (CodeSlayerApplication *application)
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  preferences = codeslayer_preferences_new (priv->window, priv->config_handler);
+  preferences = codeslayer_preferences_new (priv->window, priv->config_handler, priv->registry);
   priv->preferences = preferences;
 }
 
@@ -388,10 +388,10 @@ create_side_and_bottom_pane (CodeSlayerApplication *application)
 
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  side_pane = codeslayer_side_pane_new (priv->preferences, priv->process_bar);
+  side_pane = codeslayer_side_pane_new (priv->preferences, priv->registry, priv->process_bar);
   priv->side_pane = side_pane;
   
-  bottom_pane = codeslayer_bottom_pane_new (priv->preferences);
+  bottom_pane = codeslayer_bottom_pane_new (priv->preferences, priv->registry);
   priv->bottom_pane = bottom_pane;
 }
 

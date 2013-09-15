@@ -67,14 +67,15 @@ codeslayer_side_pane_finalize (CodeSlayerSidePane *side_pane)
  * Returns: a new #CodeSlayerSidePane. 
  */
 GtkWidget*
-codeslayer_side_pane_new (CodeSlayerPreferences *preferences, 
+codeslayer_side_pane_new (CodeSlayerPreferences *preferences,
+                          CodeSlayerRegistry    *registry,
                           GtkWidget             *process_bar)
 {
   GtkWidget *side_pane;  
   side_pane = g_object_new (codeslayer_side_pane_get_type (), NULL);
   
-  codeslayer_abstract_pane_set_preferences (CODESLAYER_ABSTRACT_PANE (side_pane), 
-                                            preferences);
+  codeslayer_abstract_pane_set_preferences (CODESLAYER_ABSTRACT_PANE (side_pane), preferences);
+  codeslayer_abstract_pane_set_registry (CODESLAYER_ABSTRACT_PANE (side_pane), registry);
   
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (side_pane));
   

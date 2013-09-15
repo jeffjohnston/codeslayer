@@ -19,6 +19,7 @@
 #include <glib/gprintf.h>
 #include <string.h>
 #include <codeslayer/codeslayer-projects-search.h>
+#include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-utils.h>
@@ -108,7 +109,7 @@ struct _CodeSlayerProjectsSearchPrivate
 {
   GtkWindow              *parent;
   CodeSlayerConfig       *config;
-  CodeSlayerPreferences  *preferences;
+  CodeSlayerRegistry     *registry;
   GtkWidget              *vbox;
   GtkWidget              *grid;
   GtkWidget              *find_entry;
@@ -251,8 +252,8 @@ codeslayer_projects_search_finalize (CodeSlayerProjectsSearch *search)
  * Returns: a new #CodeSlayerProjectsSearch. 
  */
 GtkWidget*
-codeslayer_projects_search_new (GtkWindow             *window, 
-                                CodeSlayerPreferences *preferences)
+codeslayer_projects_search_new (GtkWindow          *window, 
+                                CodeSlayerRegistry *registry)
 {
   CodeSlayerProjectsSearchPrivate *priv;
   GtkWidget *search;
@@ -260,7 +261,7 @@ codeslayer_projects_search_new (GtkWindow             *window,
   search = g_object_new (codeslayer_projects_search_get_type (), NULL);
   priv = CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE (search);
   priv->parent = window;
-  priv->preferences = preferences;
+  priv->registry = registry;
   priv->file_paths = NULL;
   
   gtk_window_set_transient_for (GTK_WINDOW (search), window);
@@ -695,9 +696,9 @@ execute (CodeSlayerProjectsSearch *search)
       GList *exclude_types = NULL;
       GList *exclude_dirs = NULL;
       
-      exclude_types_str = codeslayer_preferences_get_string (priv->preferences,
+      exclude_types_str = codeslayer_registry_get_string (priv->registry,
                                                              CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES);
-      exclude_dirs_str = codeslayer_preferences_get_string (priv->preferences,
+      exclude_dirs_str = codeslayer_registry_get_string (priv->registry,
                                                             CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS);
       exclude_types = codeslayer_utils_string_to_list (exclude_types_str);
       exclude_dirs = codeslayer_utils_string_to_list (exclude_dirs_str);

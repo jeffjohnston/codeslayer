@@ -80,7 +80,8 @@ codeslayer_preferences_projects_finalize (CodeSlayerPreferencesProjects *prefere
  * Returns: a new #CodeSlayerPreferencesProjects. 
  */
 GtkWidget*
-codeslayer_preferences_projects_new (CodeSlayerPreferences *preferences)
+codeslayer_preferences_projects_new (CodeSlayerPreferences *preferences, 
+                                     CodeSlayerRegistry    *registry)
 {
   CodeSlayerPreferencesProjectsPrivate *priv;
   GtkWidget *preferences_projects;
@@ -88,11 +89,11 @@ codeslayer_preferences_projects_new (CodeSlayerPreferences *preferences)
   preferences_projects = g_object_new (codeslayer_preferences_projects_get_type (), NULL);
   priv = CODESLAYER_PREFERENCES_PROJECTS_GET_PRIVATE (preferences_projects);
   
-  priv->exclude_file_types = codeslayer_preferences_list_view_new (preferences, 
+  priv->exclude_file_types = codeslayer_preferences_list_view_new (preferences, registry, 
                                        CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES,
                                        preferences_projects, _("Exclude File Types"));
   
-  priv->exclude_directories = codeslayer_preferences_list_view_new (preferences, 
+  priv->exclude_directories = codeslayer_preferences_list_view_new (preferences, registry, 
                                        CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS,
                                        preferences_projects, _("Exclude Directories"));
                                        

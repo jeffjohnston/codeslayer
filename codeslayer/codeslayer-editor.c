@@ -787,27 +787,27 @@ codeslayer_editor_sync_registry (CodeSlayerEditor *editor)
   
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
 
-  display_line_number = codeslayer_preferences_get_boolean (priv->preferences,
+  display_line_number = codeslayer_registry_get_boolean (priv->registry,
                                                             CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS);
   gtk_source_view_set_show_line_numbers (GTK_SOURCE_VIEW (editor), 
                                          display_line_number);
 
-  display_right_margin = codeslayer_preferences_get_boolean (priv->preferences,
+  display_right_margin = codeslayer_registry_get_boolean (priv->registry,
                                                              CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN);
   gtk_source_view_set_show_right_margin (GTK_SOURCE_VIEW (editor), 
                                          display_right_margin);
 
-  right_margin_position = codeslayer_preferences_get_double (priv->preferences,
+  right_margin_position = codeslayer_registry_get_double (priv->registry,
                                                              CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION);
   gtk_source_view_set_right_margin_position (GTK_SOURCE_VIEW (editor), 
                                              right_margin_position);
 
-  editor_tab_width = codeslayer_preferences_get_double (priv->preferences,
+  editor_tab_width = codeslayer_registry_get_double (priv->registry,
                                                         CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH);
   gtk_source_view_set_tab_width (GTK_SOURCE_VIEW (editor), editor_tab_width);
   gtk_source_view_set_indent_width (GTK_SOURCE_VIEW (editor), -1);
 
-  enable_automatic_indentation = codeslayer_preferences_get_boolean (priv->preferences,
+  enable_automatic_indentation = codeslayer_registry_get_boolean (priv->registry,
                                                                      CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION);
   gtk_source_view_set_auto_indent (GTK_SOURCE_VIEW (editor), 
                                    enable_automatic_indentation);
@@ -821,24 +821,24 @@ codeslayer_editor_sync_registry (CodeSlayerEditor *editor)
   else
     gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW (editor), 0);
 
-  insert_spaces_instead_of_tabs = codeslayer_preferences_get_boolean (priv->preferences,
+  insert_spaces_instead_of_tabs = codeslayer_registry_get_boolean (priv->registry,
                                                                       CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS);
   gtk_source_view_set_insert_spaces_instead_of_tabs (GTK_SOURCE_VIEW (editor),
                                                      insert_spaces_instead_of_tabs);
 
-  highlight_current_line = codeslayer_preferences_get_boolean (priv->preferences,
+  highlight_current_line = codeslayer_registry_get_boolean (priv->registry,
                                                                CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE);
   gtk_source_view_set_highlight_current_line (GTK_SOURCE_VIEW (editor),
                                               highlight_current_line);
 
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
 
-  highlight_matching_bracket = codeslayer_preferences_get_boolean (priv->preferences,
+  highlight_matching_bracket = codeslayer_registry_get_boolean (priv->registry,
                                                                    CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET);
   gtk_source_buffer_set_highlight_matching_brackets (GTK_SOURCE_BUFFER (buffer),
                                                      highlight_matching_bracket);
 
-  theme = codeslayer_preferences_get_string (priv->preferences,
+  theme = codeslayer_registry_get_string (priv->registry,
                                              CODESLAYER_PREFERENCES_EDITOR_THEME);
   
   style_scheme_manager = gtk_source_style_scheme_manager_get_default ();
@@ -850,7 +850,7 @@ codeslayer_editor_sync_registry (CodeSlayerEditor *editor)
   if (style_scheme)
     gtk_source_buffer_set_style_scheme (GTK_SOURCE_BUFFER (buffer), style_scheme);
 
-  fontname = codeslayer_preferences_get_string (priv->preferences,
+  fontname = codeslayer_registry_get_string (priv->registry,
                                                 CODESLAYER_PREFERENCES_EDITOR_FONT);
   font_description = pango_font_description_from_string (fontname);
   
@@ -872,7 +872,7 @@ codeslayer_editor_sync_registry (CodeSlayerEditor *editor)
     {
       document_file_path = codeslayer_document_get_file_path (priv->document);
       
-      word_wrap_types_str = codeslayer_preferences_get_string (priv->preferences,
+      word_wrap_types_str = codeslayer_registry_get_string (priv->registry,
                                                                CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES);
 
       word_wrap_types = codeslayer_utils_string_to_list (word_wrap_types_str);

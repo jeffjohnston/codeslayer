@@ -77,7 +77,8 @@ codeslayer_preferences_misc_finalize (CodeSlayerPreferencesMisc *preferences_mis
  * Returns: a new #CodeSlayerPreferencesMisc. 
  */
 GtkWidget*
-codeslayer_preferences_misc_new (CodeSlayerPreferences *preferences)
+codeslayer_preferences_misc_new (CodeSlayerPreferences *preferences, 
+                                 CodeSlayerRegistry    *registry)
 {
   CodeSlayerPreferencesMiscPrivate *priv;
   GtkWidget *preferences_misc;
@@ -85,7 +86,7 @@ codeslayer_preferences_misc_new (CodeSlayerPreferences *preferences)
   preferences_misc = g_object_new (codeslayer_preferences_misc_get_type (), NULL);
   priv = CODESLAYER_PREFERENCES_MISC_GET_PRIVATE (preferences_misc);
   
-  priv->word_wrap_types = codeslayer_preferences_list_view_new (preferences, 
+  priv->word_wrap_types = codeslayer_preferences_list_view_new (preferences, registry,
                                        CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES,
                                        preferences_misc, _("Word Wrap File Types"));
   

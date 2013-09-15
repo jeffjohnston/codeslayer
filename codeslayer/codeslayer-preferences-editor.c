@@ -54,6 +54,7 @@ typedef struct _CodeSlayerPreferencesEditorPrivate CodeSlayerPreferencesEditorPr
 struct _CodeSlayerPreferencesEditorPrivate
 {
   CodeSlayerPreferences *preferences;
+  CodeSlayerRegistry    *registry;
   GtkCheckButton        *display_line_number;
   GtkCheckButton        *highlight_current_line;
   GtkCheckButton        *display_right_margin;
@@ -97,7 +98,8 @@ codeslayer_preferences_editor_finalize (CodeSlayerPreferencesEditor *preferences
  * Returns: a new #CodeSlayerPreferencesEditor. 
  */
 GtkWidget*
-codeslayer_preferences_editor_new (CodeSlayerPreferences *preferences)
+codeslayer_preferences_editor_new (CodeSlayerPreferences *preferences, 
+                                   CodeSlayerRegistry    *registry)
 {
   CodeSlayerPreferencesEditorPrivate *priv;
   GtkWidget *preferences_editor;
@@ -106,6 +108,7 @@ codeslayer_preferences_editor_new (CodeSlayerPreferences *preferences)
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
   priv->preferences = preferences;
+  priv->registry = registry;
   
   add_line_number (CODESLAYER_PREFERENCES_EDITOR (preferences_editor));
   add_current_line (CODESLAYER_PREFERENCES_EDITOR (preferences_editor));
@@ -132,7 +135,7 @@ add_line_number (CodeSlayerPreferencesEditor *preferences_editor)
 
   display_line_number = gtk_check_button_new_with_label (_("Display line numbers"));
   priv->display_line_number = GTK_CHECK_BUTTON (display_line_number);
-  active = codeslayer_preferences_get_boolean (priv->preferences, 
+  active = codeslayer_registry_get_boolean (priv->registry, 
                                                CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->display_line_number), active);
 
@@ -157,7 +160,7 @@ add_current_line (CodeSlayerPreferencesEditor *preferences_editor)
 
   highlight_current_line = gtk_check_button_new_with_label (_("Highlight current line"));
   priv->highlight_current_line = GTK_CHECK_BUTTON (highlight_current_line);
-  active = codeslayer_preferences_get_boolean (priv->preferences,
+  active = codeslayer_registry_get_boolean (priv->registry,
                                                CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(priv->highlight_current_line), active);
   
@@ -190,7 +193,7 @@ add_right_margin (CodeSlayerPreferencesEditor *preferences_editor)
                                                             
   display_right_margin = gtk_check_button_new_with_label (_("Display right margin"));
   priv->display_right_margin = GTK_CHECK_BUTTON (display_right_margin);
-  active = codeslayer_preferences_get_boolean (priv->preferences,
+  active = codeslayer_registry_get_boolean (priv->registry,
                                                CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(priv->display_right_margin), active);
 
@@ -203,7 +206,7 @@ add_right_margin (CodeSlayerPreferencesEditor *preferences_editor)
   label = gtk_label_new (_("Right margin position: "));
   right_margin_position = gtk_spin_button_new_with_range (0, 160, 1);
   priv->right_margin_position = GTK_SPIN_BUTTON (right_margin_position);
-  value = codeslayer_preferences_get_double (priv->preferences,
+  value = codeslayer_registry_get_double (priv->registry,
                                              CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION);
   gtk_spin_button_set_value (GTK_SPIN_BUTTON (right_margin_position), value);
 
@@ -234,7 +237,7 @@ add_bracket_matching (CodeSlayerPreferencesEditor *preferences_editor)
 
   highlight_matching_bracket = gtk_check_button_new_with_label (_("Highlight matching bracket"));
   priv->highlight_matching_bracket = GTK_CHECK_BUTTON (highlight_matching_bracket);
-  active = codeslayer_preferences_get_boolean (priv->preferences,
+  active = codeslayer_registry_get_boolean (priv->registry,
                                                CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->highlight_matching_bracket), active);
   
@@ -271,7 +274,7 @@ add_tab_stops (CodeSlayerPreferencesEditor *preferences_editor)
   label = gtk_label_new (_("Tab width: "));
   tab_width = gtk_spin_button_new_with_range (0, 24, 1);
   priv->tab_width = GTK_SPIN_BUTTON (tab_width);
-  value = codeslayer_preferences_get_double (priv->preferences,
+  value = codeslayer_registry_get_double (priv->registry,
                                              CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH);
   gtk_spin_button_set_value (GTK_SPIN_BUTTON (tab_width), value);
   
@@ -283,7 +286,7 @@ add_tab_stops (CodeSlayerPreferencesEditor *preferences_editor)
 
   insert_spaces_instead_of_tabs = gtk_check_button_new_with_label (_("Insert spaces instead of tabs"));
   priv->insert_spaces_instead_of_tabs = GTK_CHECK_BUTTON (insert_spaces_instead_of_tabs);
-  active = codeslayer_preferences_get_boolean (priv->preferences,
+  active = codeslayer_registry_get_boolean (priv->registry,
                                                CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->insert_spaces_instead_of_tabs), active);
   
@@ -311,7 +314,7 @@ add_automatic_indentation (CodeSlayerPreferencesEditor *preferences_editor)
 
   enable_automatic_indentation = gtk_check_button_new_with_label (_("Enable automatic indentation"));
   priv->enable_automatic_indentation = GTK_CHECK_BUTTON (enable_automatic_indentation);
-  active = codeslayer_preferences_get_boolean (priv->preferences,
+  active = codeslayer_registry_get_boolean (priv->registry,
                                                CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->enable_automatic_indentation), active);
   
@@ -330,7 +333,7 @@ display_line_number_action (CodeSlayerPreferencesEditor *preferences_editor)
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->display_line_number));
-  codeslayer_preferences_set_boolean (priv->preferences,
+  codeslayer_registry_set_boolean (priv->registry,
                                       CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS,
                                       active);
 
@@ -346,7 +349,7 @@ highlight_current_line_action (CodeSlayerPreferencesEditor *preferences_editor)
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_current_line));
-  codeslayer_preferences_set_boolean (priv->preferences,
+  codeslayer_registry_set_boolean (priv->registry,
                                       CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE,
                                       active);
 
@@ -362,7 +365,7 @@ display_right_margin_action (CodeSlayerPreferencesEditor *preferences_editor)
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->display_right_margin));
-  codeslayer_preferences_set_boolean (priv->preferences,
+  codeslayer_registry_set_boolean (priv->registry,
                                       CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN,
                                       active);
 
@@ -378,7 +381,7 @@ highlight_matching_bracket_action (CodeSlayerPreferencesEditor *preferences_edit
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_matching_bracket));
-  codeslayer_preferences_set_boolean (priv->preferences,
+  codeslayer_registry_set_boolean (priv->registry,
                                       CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET,
                                       active);
 
@@ -394,7 +397,7 @@ insert_spaces_instead_of_tabs_action (CodeSlayerPreferencesEditor *preferences_e
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->insert_spaces_instead_of_tabs));
-  codeslayer_preferences_set_boolean (priv->preferences,
+  codeslayer_registry_set_boolean (priv->registry,
                                       CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS,
                                       active);
 
@@ -410,7 +413,7 @@ enable_automatic_indentation_action (CodeSlayerPreferencesEditor *preferences_ed
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->enable_automatic_indentation));
-  codeslayer_preferences_set_boolean (priv->preferences,
+  codeslayer_registry_set_boolean (priv->registry,
                                       CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION,
                                       active);
 
@@ -426,7 +429,7 @@ right_margin_position_action (CodeSlayerPreferencesEditor *preferences_editor)
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
 
   value = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->right_margin_position));
-  codeslayer_preferences_set_double (priv->preferences,
+  codeslayer_registry_set_double (priv->registry,
                                      CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION,
                                      value);
 
@@ -442,7 +445,7 @@ tab_width_action (CodeSlayerPreferencesEditor *preferences_editor)
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
 
   value = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->tab_width));
-  codeslayer_preferences_set_double (priv->preferences,
+  codeslayer_registry_set_double (priv->registry,
                                      CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH,
                                      value);
 

@@ -20,7 +20,7 @@
 #define	__CODESLAYER_PROJECTS_SEARCH_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-config.h>
 
 G_BEGIN_DECLS
@@ -49,8 +49,8 @@ struct _CodeSlayerProjectsSearchClass
 
 GType codeslayer_projects_search_get_type (void) G_GNUC_CONST;
      
-GtkWidget*  codeslayer_projects_search_new             (GtkWindow                *window, 
-                                                        CodeSlayerPreferences    *preferences);
+GtkWidget*  codeslayer_projects_search_new             (GtkWindow          *window, 
+                                                        CodeSlayerRegistry *registry);
 
 void        codeslayer_projects_search_find_projects   (CodeSlayerProjectsSearch *search);
 void        codeslayer_projects_search_find_selection  (CodeSlayerProjectsSearch *search, 

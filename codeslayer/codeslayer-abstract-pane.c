@@ -48,6 +48,7 @@ typedef struct _CodeSlayerAbstractPanePrivate CodeSlayerAbstractPanePrivate;
 struct _CodeSlayerAbstractPanePrivate
 {
   CodeSlayerPreferences *preferences;
+  CodeSlayerRegistry    *registry;
   GtkWidget             *notebook;
   GList                 *plugins;
 };
@@ -149,6 +150,15 @@ codeslayer_abstract_pane_set_preferences (CodeSlayerAbstractPane *abstract_pane,
   CodeSlayerAbstractPanePrivate *priv;
   priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
   priv->preferences = preferences;
+}
+
+void
+codeslayer_abstract_pane_set_registry (CodeSlayerAbstractPane *abstract_pane, 
+                                       CodeSlayerRegistry     *registry)
+{
+  CodeSlayerAbstractPanePrivate *priv;
+  priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
+  priv->registry = registry;
 }
 
 /**
@@ -293,7 +303,7 @@ codeslayer_abstract_pane_sync_preferences (CodeSlayerAbstractPane *abstract_pane
   
   priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
 
-  editor_value = codeslayer_preferences_get_string (priv->preferences, 
+  editor_value = codeslayer_registry_get_string (priv->registry, 
                                                     tab_position_key (abstract_pane));
                                                     
   if (!codeslayer_utils_has_text (editor_value))

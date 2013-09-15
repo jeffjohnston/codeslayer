@@ -72,6 +72,11 @@ gint                 codeslayer_registry_get_integer  (CodeSlayerRegistry *regis
 void                 codeslayer_registry_set_integer  (CodeSlayerRegistry *registry, 
                                                        gchar              *key,
                                                        gint                value);
+gdouble              codeslayer_registry_get_double   (CodeSlayerRegistry *registry, 
+                                                       gchar              *key);
+void                 codeslayer_registry_set_double   (CodeSlayerRegistry *registry, 
+                                                       gchar              *key,
+                                                       gdouble             value);
 gboolean             codeslayer_registry_get_boolean  (CodeSlayerRegistry *registry, 
                                                        gchar              *key);
 void                 codeslayer_registry_set_boolean  (CodeSlayerRegistry *registry, 

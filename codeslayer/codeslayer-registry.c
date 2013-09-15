@@ -134,6 +134,55 @@ codeslayer_registry_set_integer (CodeSlayerRegistry *registry,
 }
 
 /**
+ * codeslayer_registry_get_double:
+ * @registry: a #CodeSlayerRegistry.
+ * @key: a property key.
+ *
+ * Returns: the value as a double for the given key.
+ */
+gdouble
+codeslayer_registry_get_double (CodeSlayerRegistry *registry,
+                                gchar                 *key)
+{
+  CodeSlayerRegistryPrivate *priv;
+  CodeSlayerConfig *config;
+  const gchar *value;
+
+  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
+  
+  config = codeslayer_config_handler_get_config (priv->config_handler);
+
+  value = codeslayer_config_get_setting (config, key);
+  if (value != NULL)
+    return atof (value);
+
+  return -1;
+}
+
+/**
+ * codeslayer_registry_set_double:
+ * @registry: a #CodeSlayerRegistry.
+ * @key: a property key.
+ * @value: a property value as a gdouble.
+ */
+void
+codeslayer_registry_set_double (CodeSlayerRegistry *registry,
+                                gchar              *key, 
+                                gdouble             value)
+{
+  CodeSlayerRegistryPrivate *priv;
+  CodeSlayerConfig *config;
+  gchar *val;
+  
+  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
+  config = codeslayer_config_handler_get_config (priv->config_handler);
+  
+  val = g_strdup_printf ("%f", value);
+  codeslayer_config_set_setting (config, key, val);
+  g_free (val);
+}
+
+/**
  * codeslayer_registry_get_boolean:
  * @registry: a #CodeSlayerRegistry.
  * @key: a property key.

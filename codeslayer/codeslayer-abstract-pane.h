@@ -55,6 +55,8 @@ void        codeslayer_abstract_pane_create_notebook   (CodeSlayerAbstractPane *
 void        codeslayer_abstract_pane_sync_preferences  (CodeSlayerAbstractPane *abstract_pane);
 void        codeslayer_abstract_pane_set_preferences   (CodeSlayerAbstractPane *abstract_pane, 
                                                         CodeSlayerPreferences  *preferences);
+void        codeslayer_abstract_pane_set_registry      (CodeSlayerAbstractPane *abstract_pane, 
+                                                        CodeSlayerRegistry  *registry);
 void        codeslayer_abstract_pane_add               (CodeSlayerAbstractPane *abstract_pane, 
                                                         GtkWidget              *widget,
                                                         const gchar            *title);

@@ -73,12 +73,14 @@ codeslayer_bottom_pane_finalize (CodeSlayerBottomPane *bottom_pane)
  * Returns: a new #CodeSlayerBottomPane. 
  */
 GtkWidget*
-codeslayer_bottom_pane_new (CodeSlayerPreferences *preferences)
+codeslayer_bottom_pane_new (CodeSlayerPreferences *preferences, 
+                            CodeSlayerRegistry    *registry)
 {
   GtkWidget *bottom_pane;
   bottom_pane = g_object_new (codeslayer_bottom_pane_get_type (), NULL);
 
   codeslayer_abstract_pane_set_preferences (CODESLAYER_ABSTRACT_PANE (bottom_pane), preferences);
+  codeslayer_abstract_pane_set_registry (CODESLAYER_ABSTRACT_PANE (bottom_pane), registry);
   
   create_close_button (CODESLAYER_BOTTOM_PANE (bottom_pane));
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (bottom_pane));

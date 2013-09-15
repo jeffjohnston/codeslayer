@@ -20,6 +20,7 @@
 #define	__CODESLAYER_PREFERENCES_LIST_VIEW_H__
 
 #include <gtk/gtk.h>
+#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-preferences.h>
 
 G_BEGIN_DECLS
@@ -48,6 +49,7 @@ struct _CodeSlayerPreferencesListViewClass
 GType codeslayer_preferences_list_view_get_type (void) G_GNUC_CONST;
 
 GObject*  codeslayer_preferences_list_view_new (CodeSlayerPreferences *preferences, 
+                                                CodeSlayerRegistry    *registry,
                                                 gchar                 *key,
                                                 GtkWidget             *tab, 
                                                 const gchar           *title);

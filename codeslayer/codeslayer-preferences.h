@@ -21,6 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-config.h>
+#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-config-handler.h>
 
 G_BEGIN_DECLS
@@ -70,24 +71,10 @@ struct _CodeSlayerPreferencesClass
 
 GType codeslayer_preferences_get_type (void) G_GNUC_CONST;
 
-CodeSlayerPreferences*  codeslayer_preferences_new          (GtkWidget             *window, 
-                                                             CodeSlayerConfigHandler *config_handler);
+CodeSlayerPreferences*  codeslayer_preferences_new          (GtkWidget               *window, 
+                                                             CodeSlayerConfigHandler *config_handler, 
+                                                             CodeSlayerRegistry      *registry);
 
-gdouble                 codeslayer_preferences_get_double   (CodeSlayerPreferences *preferences, 
-                                                             gchar                 *key);
-void                    codeslayer_preferences_set_double   (CodeSlayerPreferences *preferences, 
-                                                             gchar                 *key,
-                                                             gdouble                value);
-gboolean                codeslayer_preferences_get_boolean  (CodeSlayerPreferences *preferences, 
-                                                             gchar                 *key);
-void                    codeslayer_preferences_set_boolean  (CodeSlayerPreferences *preferences, 
-                                                             gchar                 *key,
-                                                             gboolean               value);
-gchar*                  codeslayer_preferences_get_string   (CodeSlayerPreferences *preferences,
-                                                             gchar                 *key);
-void                    codeslayer_preferences_set_string   (CodeSlayerPreferences *preferences, 
-                                                             gchar                 *key,
-                                                             gchar                 *value);
 void                    codeslayer_preferences_run_dialog   (CodeSlayerPreferences *preferences);
 
 G_END_DECLS
