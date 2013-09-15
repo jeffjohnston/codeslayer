@@ -33,7 +33,7 @@ static void remove_all_projects     (CodeSlayerConfig      *config);
 static void remove_all_documents    (CodeSlayerConfig      *config);
 static void remove_all_plugins      (CodeSlayerConfig      *config);
 static void remove_all_preferences  (CodeSlayerConfig      *config);
-static void remove_all_settings     (CodeSlayerConfig      *config);
+static void remove_all_registry     (CodeSlayerConfig      *config);
 
 #define CODESLAYER_CONFIG_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_CONFIG_TYPE, CodeSlayerConfigPrivate))
@@ -48,7 +48,7 @@ struct _CodeSlayerConfigPrivate
   GList      *documents;
   GList      *plugins;
   GHashTable *preferences;
-  GHashTable *settings;
+  GHashTable *registry;
 };
 
 G_DEFINE_TYPE (CodeSlayerConfig, codeslayer_config, G_TYPE_OBJECT)
@@ -74,7 +74,7 @@ codeslayer_config_init (CodeSlayerConfig *config)
   priv->documents = NULL;
   priv->plugins = NULL;
   priv->preferences = NULL;
-  priv->settings = NULL;
+  priv->registry = NULL;
 }
 
 static void
@@ -90,7 +90,7 @@ codeslayer_config_finalize (CodeSlayerConfig *config)
   remove_all_documents (config);
   remove_all_plugins (config);
   remove_all_preferences (config);
-  remove_all_settings (config);
+  remove_all_registry (config);
 
   G_OBJECT_CLASS (codeslayer_config_parent_class)->finalize (G_OBJECT (config));
   
@@ -116,7 +116,7 @@ codeslayer_config_new (void)
   priv->preferences = g_hash_table_new_full ((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal, 
                                              (GDestroyNotify)g_free, (GDestroyNotify)g_free);
 
-  priv->settings = g_hash_table_new_full ((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal, 
+  priv->registry = g_hash_table_new_full ((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal, 
                                           (GDestroyNotify)g_free, (GDestroyNotify)g_free);
 
   return config;
@@ -536,21 +536,21 @@ remove_all_preferences (CodeSlayerConfig *config)
 }
 
 /**
- * codeslayer_config_get_settings:
+ * codeslayer_config_get_registry:
  * @config: a #CodeSlayerConfig.
  *
- * Returns: The hashtable of settings.
+ * Returns: The hashtable of registry.
  */
 GHashTable*
-codeslayer_config_get_settings (CodeSlayerConfig *config)
+codeslayer_config_get_registry (CodeSlayerConfig *config)
 {
-  return CODESLAYER_CONFIG_GET_PRIVATE (config)->settings;
+  return CODESLAYER_CONFIG_GET_PRIVATE (config)->registry;
 }
 
 /**
- * codeslayer_config_get_settings:
+ * codeslayer_config_get_registry:
  * @config: a #CodeSlayerConfig.
- * @key: use the key to find the value from the settings.
+ * @key: use the key to find the value from the registry.
  *
  * Returns: The value for the setting.
  */
@@ -560,7 +560,7 @@ codeslayer_config_get_setting (CodeSlayerConfig *config,
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  return g_hash_table_lookup (priv->settings, key);
+  return g_hash_table_lookup (priv->registry, key);
 }
 
 
@@ -577,14 +577,14 @@ codeslayer_config_set_setting (CodeSlayerConfig *config,
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  g_hash_table_replace (priv->settings, g_strdup (key), g_strdup (value));
+  g_hash_table_replace (priv->registry, g_strdup (key), g_strdup (value));
 }
 
 static void
-remove_all_settings (CodeSlayerConfig *config)
+remove_all_registry (CodeSlayerConfig *config)
 {
   CodeSlayerConfigPrivate *priv;
   priv = CODESLAYER_CONFIG_GET_PRIVATE (config);
-  g_hash_table_destroy (priv->settings);
-  priv->settings = NULL;
+  g_hash_table_destroy (priv->registry);
+  priv->registry = NULL;
 }

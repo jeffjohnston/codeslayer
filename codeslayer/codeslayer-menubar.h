@@ -21,7 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-preferences.h>
-#include <codeslayer/codeslayer-settings.h>
+#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-config.h>
 
 G_BEGIN_DECLS
@@ -85,7 +85,7 @@ GType codeslayer_menu_bar_get_type (void) G_GNUC_CONST;
   
 GtkWidget*      codeslayer_menu_bar_new                        (GtkWidget             *window, 
                                                                 CodeSlayerPreferences *preferences, 
-                                                                CodeSlayerSettings    *settings);
+                                                                CodeSlayerRegistry    *registry);
                                                              
 void            codeslayer_menu_bar_new_editor                 (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_open_editor                (CodeSlayerMenuBar     *menu_bar);

@@ -22,7 +22,7 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-#include <codeslayer/codeslayer-settings.h>
+#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-config-handler.h>
 
@@ -42,7 +42,7 @@ static void codeslayer_config_handler_finalize    (CodeSlayerConfigHandler      
 static void load_config                           (CodeSlayerConfig             *config, 
                                                    xmlNode                      *a_node);
 static void set_config_preferences_defaults       (CodeSlayerConfig             *config);
-static void set_config_settings_defaults          (CodeSlayerConfig             *config);
+static void set_config_registry_defaults          (CodeSlayerConfig             *config);
 
 static void build_projects_xml                    (CodeSlayerProject            *project,
                                                    GString                      **xml);
@@ -50,7 +50,7 @@ static void build_documents_xml                   (CodeSlayerDocument           
                                                    GString                      **xml);
 static void build_plugins_xml                     (gchar                        *name, 
                                                    GString                      **xml);
-static void build_settings_xml                    (gchar                        *name,
+static void build_registry_xml                    (gchar                        *name,
                                                    gchar                        *value, 
                                                    GString                      **xml);
 static void build_preferences_xml                 (gchar                        *name,
@@ -134,7 +134,7 @@ codeslayer_config_handler_load_new_config (CodeSlayerConfigHandler *config_handl
 
   codeslayer_config_set_file_path (priv->config, file_path);
   set_config_preferences_defaults (priv->config);
-  set_config_settings_defaults (priv->config);
+  set_config_registry_defaults (priv->config);
   
   g_free (file_path);
   
@@ -158,7 +158,7 @@ codeslayer_config_handler_load_default_config (CodeSlayerConfigHandler *config_h
       priv->config = codeslayer_config_new ();      
       codeslayer_config_set_file_path (priv->config, file_path);
       set_config_preferences_defaults (priv->config);
-      set_config_settings_defaults (priv->config);
+      set_config_registry_defaults (priv->config);
     }
   else
     {
@@ -222,7 +222,7 @@ codeslayer_config_handler_save_config (CodeSlayerConfigHandler *config_handler)
   GList *documents;
   GList *plugins;
   GHashTable *preferences;
-  GHashTable *settings;
+  GHashTable *registry;
   
   priv = CODESLAYER_CONFIG_HANDLER_GET_PRIVATE (config_handler);  
 
@@ -230,7 +230,7 @@ codeslayer_config_handler_save_config (CodeSlayerConfigHandler *config_handler)
   documents = codeslayer_config_get_documents (priv->config);         
   plugins = codeslayer_config_get_plugins (priv->config);         
   preferences = codeslayer_config_get_preferences (priv->config);
-  settings = codeslayer_config_get_settings (priv->config);
+  registry = codeslayer_config_get_registry (priv->config);
   
   xml = g_string_new ("<config>");
   
@@ -259,9 +259,9 @@ codeslayer_config_handler_save_config (CodeSlayerConfigHandler *config_handler)
   g_hash_table_foreach (preferences, (GHFunc)build_preferences_xml, &xml);
   xml = g_string_append (xml, "\n\t</preferences>");
 
-  xml = g_string_append (xml, "\n\t<settings>");
-  g_hash_table_foreach (settings, (GHFunc)build_settings_xml, &xml);
-  xml = g_string_append (xml, "\n\t</settings>");
+  xml = g_string_append (xml, "\n\t<registry>");
+  g_hash_table_foreach (registry, (GHFunc)build_registry_xml, &xml);
+  xml = g_string_append (xml, "\n\t</registry>");
 
   xml = g_string_append (xml, "\n</config>");
   
@@ -430,7 +430,7 @@ build_preferences_xml (gchar   *name,
 }
 
 static void 
-build_settings_xml (gchar   *name,
+build_registry_xml (gchar   *name,
                     gchar   *value, 
                     GString **xml)
 {
@@ -464,10 +464,10 @@ set_config_preferences_defaults (CodeSlayerConfig *config)
 }
 
 static void
-set_config_settings_defaults (CodeSlayerConfig *config)
+set_config_registry_defaults (CodeSlayerConfig *config)
 {
-  codeslayer_config_set_setting (config, CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE, "false");
-  codeslayer_config_set_setting (config, CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE, "false");
-  codeslayer_config_set_setting (config, CODESLAYER_SETTINGS_DRAW_SPACES, "false");
-  codeslayer_config_set_setting (config, CODESLAYER_SETTINGS_SYNC_WITH_EDITOR, "true");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE, "false");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE, "false");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_DRAW_SPACES, "false");
+  codeslayer_config_set_setting (config, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR, "true");
 }

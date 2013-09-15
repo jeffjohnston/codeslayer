@@ -92,7 +92,7 @@ struct _CodeSlayerNotebookSearchPrivate
 {
   GtkWidget          *grid;
   GtkWidget          *notebook;
-  CodeSlayerSettings *settings;
+  CodeSlayerRegistry *registry;
   GtkWidget          *close_button;
   GtkWidget          *find_label;
   GtkWidget          *find_entry;
@@ -165,7 +165,7 @@ codeslayer_notebook_search_finalize (CodeSlayerNotebookSearch *notebook_search)
 /**
  * codeslayer_notebook_search_new:
  * @notebook: a #CodeSlayerNotebook.
- * @settings: a #CodeSlayerSettings.
+ * @registry: a #CodeSlayerRegistry.
  *
  * Creates a new #CodeSlayerNotebookSearch.
  *
@@ -173,7 +173,7 @@ codeslayer_notebook_search_finalize (CodeSlayerNotebookSearch *notebook_search)
  */
 GtkWidget*
 codeslayer_notebook_search_new (GtkWidget          *notebook, 
-                                CodeSlayerSettings *settings)
+                                CodeSlayerRegistry *registry)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *notebook_search;
@@ -181,7 +181,7 @@ codeslayer_notebook_search_new (GtkWidget          *notebook,
   notebook_search = g_object_new (codeslayer_notebook_search_get_type (), NULL);
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   priv->notebook = notebook;
-  priv->settings = settings;
+  priv->registry = registry;
   
   priv->grid = gtk_grid_new ();
   gtk_grid_set_row_spacing (GTK_GRID (priv->grid), 2);
@@ -591,10 +591,10 @@ codeslayer_notebook_search_sync_with_notebook (CodeSlayerNotebookSearch *noteboo
   gtk_widget_set_sensitive (priv->match_case_button, sensitive);
   gtk_widget_set_sensitive (priv->match_word_button, sensitive);
     
-  match_case_selected = codeslayer_settings_get_boolean (priv->settings,
-                                                         CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE);
-  match_word_selected = codeslayer_settings_get_boolean (priv->settings,
-                                                         CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD);
+  match_case_selected = codeslayer_registry_get_boolean (priv->registry,
+                                                         CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE);
+  match_word_selected = codeslayer_registry_get_boolean (priv->registry,
+                                                         CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD);
 
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->match_case_button), match_case_selected);
 
@@ -665,7 +665,7 @@ create_search_marks (CodeSlayerNotebookSearch *notebook_search)
  * @notebook_search: a #CodeSlayerNotebookSearch.
  * @scrollable: is TRUE if should scroll after finding marks.
  * 
- * Create the search marks based on the current settings.
+ * Create the search marks based on the current registry.
  */
 void
 codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebook_search, 
@@ -774,12 +774,12 @@ save_search_options (CodeSlayerNotebookSearch *notebook_search)
   match_case_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_button));
   match_word_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_button));
   
-  codeslayer_settings_set_boolean (priv->settings, 
-                                   CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE,
+  codeslayer_registry_set_boolean (priv->registry, 
+                                   CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE,
                                    match_case_selected);
 
-  codeslayer_settings_set_boolean (priv->settings, 
-                                   CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD,
+  codeslayer_registry_set_boolean (priv->registry, 
+                                   CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD,
                                    match_word_selected);
 }
 

@@ -73,7 +73,7 @@ struct _CodeSlayerEditorPrivate
   CodeSlayerDocument    *document;
   GTimeVal              *modification_time;
   CodeSlayerPreferences *preferences;
-  CodeSlayerSettings    *settings;
+  CodeSlayerRegistry    *registry;
   CodeSlayerCompletion  *completion;
   gulong                 cursor_position_id;
 };
@@ -216,7 +216,7 @@ codeslayer_editor_finalize (CodeSlayerEditor *editor)
  * @window: a #GtkWindow.
  * @document: the #CodeSlayerDocument for this editor.
  * @preferences: a #CodeSlayerPreferences.
- * @settings: a #CodeSlayerSettings.
+ * @registry: a #CodeSlayerRegistry.
  *
  * Creates a new #CodeSlayerEditor.
  *
@@ -226,7 +226,7 @@ GtkWidget*
 codeslayer_editor_new (GtkWindow             *window, 
                        CodeSlayerDocument    *document,
                        CodeSlayerPreferences *preferences,
-                       CodeSlayerSettings    *settings)
+                       CodeSlayerRegistry    *registry)
 {
   CodeSlayerEditorPrivate *priv;
   GtkWidget *editor;
@@ -237,7 +237,7 @@ codeslayer_editor_new (GtkWindow             *window,
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   priv->document = document;
   priv->preferences = preferences;
-  priv->settings = settings;
+  priv->registry = registry;
   priv->window = window;
   
   g_object_ref_sink (G_OBJECT (document));
@@ -262,7 +262,7 @@ codeslayer_editor_new (GtkWindow             *window,
   gtk_text_view_set_buffer (GTK_TEXT_VIEW (editor), GTK_TEXT_BUFFER (buffer));
   g_object_unref (buffer);
   
-  codeslayer_editor_sync_settings_preferences (CODESLAYER_EDITOR (editor));
+  codeslayer_editor_sync_registry (CODESLAYER_EDITOR (editor));
 
   g_signal_connect_swapped (G_OBJECT (editor), "key-press-event",
                             G_CALLBACK (key_press_action), editor);  
@@ -762,7 +762,7 @@ codeslayer_editor_scroll_to_line (CodeSlayerEditor *editor,
  * Apply the #CodeSlayerPreferences settings to the current editor.
  */
 void
-codeslayer_editor_sync_settings_preferences (CodeSlayerEditor *editor)
+codeslayer_editor_sync_registry (CodeSlayerEditor *editor)
 {
   CodeSlayerEditorPrivate *priv;
   gboolean display_line_number;
@@ -814,8 +814,8 @@ codeslayer_editor_sync_settings_preferences (CodeSlayerEditor *editor)
   gtk_source_view_set_indent_on_tab (GTK_SOURCE_VIEW (editor),
                                      enable_automatic_indentation);
 
-  draw_spaces = codeslayer_settings_get_boolean (priv->settings,
-                                                 CODESLAYER_SETTINGS_DRAW_SPACES);
+  draw_spaces = codeslayer_registry_get_boolean (priv->registry,
+                                                 CODESLAYER_REGISTRY_DRAW_SPACES);
   if (draw_spaces)
     gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW (editor), GTK_SOURCE_DRAW_SPACES_ALL);
   else
@@ -862,8 +862,8 @@ codeslayer_editor_sync_settings_preferences (CodeSlayerEditor *editor)
   
   /* word wrap */
   
-  word_wrap = codeslayer_settings_get_boolean (priv->settings,
-                                               CODESLAYER_SETTINGS_WORD_WRAP);
+  word_wrap = codeslayer_registry_get_boolean (priv->registry,
+                                               CODESLAYER_REGISTRY_WORD_WRAP);
   if (word_wrap)
     {
       gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (GTK_WIDGET (editor)), GTK_WRAP_WORD);

@@ -20,7 +20,7 @@
 #define	__CODESLAYER_NOTEBOOK_SEARCH_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-settings.h>
+#include <codeslayer/codeslayer-registry.h>
 
 G_BEGIN_DECLS
 
@@ -48,7 +48,7 @@ struct _CodeSlayerNotebookSearchClass
 GType codeslayer_notebook_search_get_type (void) G_GNUC_CONST;
 
 GtkWidget*  codeslayer_notebook_search_new                  (GtkWidget                *notebook, 
-                                                             CodeSlayerSettings       *settings);
+                                                             CodeSlayerRegistry       *registry);
 
 void        codeslayer_notebook_search_find                 (CodeSlayerNotebookSearch *notebook_search);
 void        codeslayer_notebook_search_replace              (CodeSlayerNotebookSearch *notebook_search);

@@ -20,7 +20,7 @@
 #define	__CODESLAYER_MENU_BAR_VIEW_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-settings.h>
+#include <codeslayer/codeslayer-registry.h>
 
 G_BEGIN_DECLS
 
@@ -47,7 +47,7 @@ GType codeslayer_menu_bar_view_get_type (void) G_GNUC_CONST;
   
 GtkWidget*  codeslayer_menu_bar_view_new   (GtkWidget             *menu_bar, 
                                             GtkAccelGroup         *accel_group,
-                                            CodeSlayerSettings    *settings);
+                                            CodeSlayerRegistry    *registry);
 
 G_END_DECLS
 

@@ -21,7 +21,7 @@
 
 #include <gtk/gtk.h>
 
-#include <codeslayer/codeslayer-settings.h>
+#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-config-handler.h>
 #include <codeslayer/codeslayer-plugins.h>

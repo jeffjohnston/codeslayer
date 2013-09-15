@@ -121,7 +121,7 @@ struct _CodeSlayerProjectsPrivate
   CodeSlayerConfig        *config;
   CodeSlayerPreferences   *preferences;
   CodeSlayerConfigHandler *config_handler;
-  CodeSlayerSettings      *settings;
+  CodeSlayerRegistry      *registry;
   GtkWidget               *project_properties;
   GtkWidget               *properties_dialog;
   GtkWidget               *name_entry;
@@ -426,7 +426,7 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
  * codeslayer_projects_new:
  * @window: a #GtkWindow.
  * @preferences: a #CodeSlayerPreferences.
- * @settings: a #CodeSlayerSettings.
+ * @registry: a #CodeSlayerRegistry.
  * @project_properties: a #CodeSlayerProjectProperties.
  *
  * Creates a new #CodeSlayerProjects.
@@ -437,7 +437,7 @@ GtkWidget*
 codeslayer_projects_new (GtkWidget               *window, 
                          CodeSlayerPreferences   *preferences,
                          CodeSlayerConfigHandler *config_handler,
-                         CodeSlayerSettings      *settings,
+                         CodeSlayerRegistry      *registry,
                          GtkWidget               *project_properties)
 {
   CodeSlayerProjectsPrivate *priv;
@@ -450,7 +450,7 @@ codeslayer_projects_new (GtkWidget               *window,
   priv->window = window;
   priv->preferences = preferences;
   priv->config_handler = config_handler;
-  priv->settings = settings;
+  priv->registry = registry;
   priv->project_properties = project_properties;
   
   create_tree (CODESLAYER_PROJECTS (projects));
@@ -898,8 +898,8 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
           codeslayer_document_set_tree_row_reference (document, tree_row_reference);
           g_signal_emit_by_name ((gpointer) projects, "select-document", document);
           
-          sync_with_editor = codeslayer_settings_get_boolean (priv->settings, 
-                                                              CODESLAYER_SETTINGS_SYNC_WITH_EDITOR);          
+          sync_with_editor = codeslayer_registry_get_boolean (priv->registry, 
+                                                              CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);          
           if (sync_with_editor)
             select_document (document, projects);
         }

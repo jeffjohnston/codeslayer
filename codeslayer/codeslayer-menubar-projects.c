@@ -48,7 +48,7 @@ typedef struct _CodeSlayerMenuBarProjectsPrivate CodeSlayerMenuBarProjectsPrivat
 struct _CodeSlayerMenuBarProjectsPrivate
 {
   GtkWidget          *window;
-  CodeSlayerSettings *settings;
+  CodeSlayerRegistry *registry;
   GtkAccelGroup      *accel_group;
   GtkWidget          *menu_bar;
   GtkWidget          *menu;
@@ -95,7 +95,7 @@ codeslayer_menu_bar_projects_finalize (CodeSlayerMenuBarProjects *menu_bar_proje
  * @window: a #GtkWindow.
  * @menu_bar: a #CodeSlayerMenuBar.
  * @accel_group: a #GtkAccelGroup.
- * @settings: a #CodeSlayerSettings.
+ * @registry: a #CodeSlayerRegistry.
  *
  * Creates a new #CodeSlayerMenuBarProjects.
  *
@@ -105,7 +105,7 @@ GtkWidget*
 codeslayer_menu_bar_projects_new (GtkWidget          *window, 
                                   GtkWidget          *menu_bar, 
                                   GtkAccelGroup      *accel_group, 
-                                  CodeSlayerSettings *settings)
+                                  CodeSlayerRegistry *registry)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   GtkWidget *menu_bar_projects;
@@ -116,7 +116,7 @@ codeslayer_menu_bar_projects_new (GtkWidget          *window,
   priv->window = window;
   priv->menu_bar = menu_bar;
   priv->accel_group = accel_group;
-  priv->settings = settings;
+  priv->registry = registry;
 
   add_menu_items (CODESLAYER_MENU_BAR_PROJECTS (menu_bar_projects));
 
@@ -210,8 +210,8 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
       gtk_widget_show (priv->scan_external_changes_item);
       gtk_widget_show (priv->scan_external_changes_separator_item);
 
-      sync_with_editor = codeslayer_settings_get_boolean (priv->settings, 
-                                                          CODESLAYER_SETTINGS_SYNC_WITH_EDITOR);
+      sync_with_editor = codeslayer_registry_get_boolean (priv->registry, 
+                                                          CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item), sync_with_editor);    
     }
   else
@@ -336,7 +336,7 @@ sync_with_editor_action (CodeSlayerMenuBarProjects *menu_bar_projects)
   codeslayer_menu_bar_sync_with_editor (CODESLAYER_MENU_BAR (priv->menu_bar),
                                         sync_with_editor);
                                                 
-  codeslayer_settings_set_boolean (priv->settings, CODESLAYER_SETTINGS_SYNC_WITH_EDITOR,
+  codeslayer_registry_set_boolean (priv->registry, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR,
                                    sync_with_editor);
 }
 

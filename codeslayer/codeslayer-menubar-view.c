@@ -32,7 +32,7 @@ static void codeslayer_menu_bar_view_init        (CodeSlayerMenuBarView      *me
 static void codeslayer_menu_bar_view_finalize    (CodeSlayerMenuBarView      *menu_bar_view);
 
 static void add_menu_items                       (CodeSlayerMenuBarView      *menu_bar_view, 
-                                                  CodeSlayerSettings         *settings);
+                                                  CodeSlayerRegistry         *registry);
 
 static void fullscreen_window_action             (CodeSlayerMenuBarView      *menu_bar_view);
 static void show_side_pane_action                (CodeSlayerMenuBarView      *menu_bar_view);
@@ -50,7 +50,7 @@ typedef struct _CodeSlayerMenuBarViewPrivate CodeSlayerMenuBarViewPrivate;
 
 struct _CodeSlayerMenuBarViewPrivate
 {
-  CodeSlayerSettings *settings;
+  CodeSlayerRegistry *registry;
   GtkAccelGroup      *accel_group;
   GtkWidget          *menu_bar;
   GtkWidget          *menu;
@@ -99,7 +99,7 @@ codeslayer_menu_bar_view_finalize (CodeSlayerMenuBarView *menu_bar_view)
  * codeslayer_menu_bar_view_new:
  * @menu_bar: a #CodeSlayerMenuBar.
  * @accel_group: a #GtkAccelGroup.
- * @settings: a #CodeSlayerSettings.
+ * @registry: a #CodeSlayerRegistry.
  *
  * Creates a new #CodeSlayerMenuBarView.
  *
@@ -108,7 +108,7 @@ codeslayer_menu_bar_view_finalize (CodeSlayerMenuBarView *menu_bar_view)
 GtkWidget*
 codeslayer_menu_bar_view_new (GtkWidget          *menu_bar, 
                               GtkAccelGroup      *accel_group, 
-                              CodeSlayerSettings *settings)
+                              CodeSlayerRegistry *registry)
 {
   CodeSlayerMenuBarViewPrivate *priv;
   GtkWidget *menu_bar_view;
@@ -118,9 +118,9 @@ codeslayer_menu_bar_view_new (GtkWidget          *menu_bar,
 
   priv->menu_bar = menu_bar;
   priv->accel_group = accel_group;
-  priv->settings = settings;
+  priv->registry = registry;
 
-  add_menu_items (CODESLAYER_MENU_BAR_VIEW (menu_bar_view), settings);
+  add_menu_items (CODESLAYER_MENU_BAR_VIEW (menu_bar_view), registry);
   
   g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-engine",
                             G_CALLBACK (sync_engine_action), menu_bar_view);
@@ -130,7 +130,7 @@ codeslayer_menu_bar_view_new (GtkWidget          *menu_bar,
 
 static void
 add_menu_items (CodeSlayerMenuBarView *menu_bar_view, 
-                CodeSlayerSettings    *settings)
+                CodeSlayerRegistry    *registry)
 {
   CodeSlayerMenuBarViewPrivate *priv;
   GtkWidget *fullscreen_window_item;
@@ -202,20 +202,20 @@ sync_engine_action (CodeSlayerMenuBarView *menu_bar_view,
   g_signal_handler_block (priv->draw_spaces_item, priv->draw_spaces_id);
   
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->show_side_pane_item),
-                                  codeslayer_settings_get_boolean (priv->settings, 
-                                                                   CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE));
+                                  codeslayer_registry_get_boolean (priv->registry, 
+                                                                   CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE));
 
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->show_bottom_pane_item),
-                                  codeslayer_settings_get_boolean (priv->settings, 
-                                                                   CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE));
+                                  codeslayer_registry_get_boolean (priv->registry, 
+                                                                   CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE));
 
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->word_wrap_item),
-                                  codeslayer_settings_get_boolean (priv->settings, 
-                                                                   CODESLAYER_SETTINGS_WORD_WRAP));
+                                  codeslayer_registry_get_boolean (priv->registry, 
+                                                                   CODESLAYER_REGISTRY_WORD_WRAP));
 
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->draw_spaces_item),
-                                  codeslayer_settings_get_boolean (priv->settings, 
-                                                                   CODESLAYER_SETTINGS_DRAW_SPACES));
+                                  codeslayer_registry_get_boolean (priv->registry, 
+                                                                   CODESLAYER_REGISTRY_DRAW_SPACES));
 
   g_signal_handler_unblock (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_unblock (priv->show_bottom_pane_item, priv->show_bottom_pane_id);

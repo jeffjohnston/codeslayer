@@ -80,7 +80,7 @@ typedef struct _CodeSlayerProjectsEnginePrivate CodeSlayerProjectsEnginePrivate;
 struct _CodeSlayerProjectsEnginePrivate
 {
   GtkWindow               *window;
-  CodeSlayerSettings      *settings;
+  CodeSlayerRegistry      *registry;
   CodeSlayerPreferences   *preferences;
   CodeSlayerConfigHandler *config_handler;
   CodeSlayerPlugins       *plugins;
@@ -126,7 +126,7 @@ codeslayer_projects_engine_finalize (CodeSlayerProjectsEngine *engine)
 /**
  * codeslayer_projects_engine_new:
  * @window: a #GtkWindow.
- * @settings: a #CodeSlayerSettings.
+ * @registry: a #CodeSlayerRegistry.
  * @preferences: a #CodeSlayerPreferences.
  * @plugins: a #CodeSlayerPlugins.
  * @projects: a #CodeSlayerProjects.
@@ -142,7 +142,7 @@ codeslayer_projects_engine_finalize (CodeSlayerProjectsEngine *engine)
  */
 CodeSlayerProjectsEngine*
 codeslayer_projects_engine_new (GtkWindow               *window,
-                                CodeSlayerSettings      *settings,
+                                CodeSlayerRegistry      *registry,
                                 CodeSlayerPreferences   *preferences,
                                 CodeSlayerConfigHandler *config_handler,
                                 CodeSlayerPlugins       *plugins,
@@ -162,7 +162,7 @@ codeslayer_projects_engine_new (GtkWindow               *window,
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
 
   priv->window = window;
-  priv->settings = settings;
+  priv->registry = registry;
   priv->preferences = preferences;
   priv->config_handler = config_handler;
   priv->plugins = plugins;
@@ -177,7 +177,7 @@ codeslayer_projects_engine_new (GtkWindow               *window,
     
   g_object_set (CODESLAYER_ABSTRACT_ENGINE (engine), 
                 "window", window, 
-                "settings", settings, 
+                "registry", registry, 
                 "preferences", preferences, 
                 "config_handler", config_handler, 
                 "menubar", menubar, 
@@ -461,8 +461,8 @@ select_editor_action (CodeSlayerProjectsEngine *engine,
   
   document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
 
-  sync_with_editor = codeslayer_settings_get_boolean (priv->settings, 
-                                                      CODESLAYER_SETTINGS_SYNC_WITH_EDITOR);
+  sync_with_editor = codeslayer_registry_get_boolean (priv->registry, 
+                                                      CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);
   
   if (sync_with_editor)
     {
@@ -499,25 +499,25 @@ search_find_projects_action (CodeSlayerProjectsEngine *engine,
     
   if (!gtk_widget_get_visible (priv->search))
     {
-      search_width = codeslayer_settings_get_integer (priv->settings,
-                                                      CODESLAYER_SETTINGS_SEARCH_WIDTH);
+      search_width = codeslayer_registry_get_integer (priv->registry,
+                                                      CODESLAYER_REGISTRY_SEARCH_WIDTH);
       if (search_width < 0)
         search_width = 600;
         
-      search_height = codeslayer_settings_get_integer (priv->settings,
-                                                       CODESLAYER_SETTINGS_SEARCH_HEIGHT);
+      search_height = codeslayer_registry_get_integer (priv->registry,
+                                                       CODESLAYER_REGISTRY_SEARCH_HEIGHT);
       if (search_height < 0)
         search_height = 350;
         
       gtk_window_set_default_size (GTK_WINDOW (priv->search), search_width, search_height);
 
-      search_x = codeslayer_settings_get_integer (priv->settings,
-                                                  CODESLAYER_SETTINGS_SEARCH_X);
+      search_x = codeslayer_registry_get_integer (priv->registry,
+                                                  CODESLAYER_REGISTRY_SEARCH_X);
       if (search_x < 0)
         search_x = 10;
         
-      search_y = codeslayer_settings_get_integer (priv->settings,
-                                                  CODESLAYER_SETTINGS_SEARCH_Y);
+      search_y = codeslayer_registry_get_integer (priv->registry,
+                                                  CODESLAYER_REGISTRY_SEARCH_Y);
       if (search_y < 0)
         search_y = 10;
 
@@ -548,18 +548,18 @@ close_search_action (CodeSlayerProjectsEngine *engine,
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
 
   gtk_window_get_size (GTK_WINDOW (priv->search), &width, &height);
-  codeslayer_settings_set_integer (priv->settings,
-                                   CODESLAYER_SETTINGS_SEARCH_WIDTH,
+  codeslayer_registry_set_integer (priv->registry,
+                                   CODESLAYER_REGISTRY_SEARCH_WIDTH,
                                    width);
-  codeslayer_settings_set_integer (priv->settings,
-                                   CODESLAYER_SETTINGS_SEARCH_HEIGHT,
+  codeslayer_registry_set_integer (priv->registry,
+                                   CODESLAYER_REGISTRY_SEARCH_HEIGHT,
                                    height);
 
   gtk_window_get_position (GTK_WINDOW (priv->search), &x, &y);
-  codeslayer_settings_set_integer (priv->settings,
-                                   CODESLAYER_SETTINGS_SEARCH_X, x);
-  codeslayer_settings_set_integer (priv->settings,
-                                   CODESLAYER_SETTINGS_SEARCH_Y, y);
+  codeslayer_registry_set_integer (priv->registry,
+                                   CODESLAYER_REGISTRY_SEARCH_X, x);
+  codeslayer_registry_set_integer (priv->registry,
+                                   CODESLAYER_REGISTRY_SEARCH_Y, y);
 
   gtk_widget_hide (priv->search);
 

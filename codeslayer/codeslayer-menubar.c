@@ -674,7 +674,7 @@ codeslayer_menu_bar_finalize (CodeSlayerMenuBar *menu)
  * codeslayer_menu_bar_new:
  * @window: the main application window.
  * @preferences: a #CodeSlayerPreferences.
- * @settings: a #CodeSlayerSettings.
+ * @registry: a #CodeSlayerRegistry.
  *
  * Creates a new #CodeSlayerMenuBar.
  *
@@ -683,7 +683,7 @@ codeslayer_menu_bar_finalize (CodeSlayerMenuBar *menu)
 GtkWidget*
 codeslayer_menu_bar_new (GtkWidget             *window, 
                         CodeSlayerPreferences *preferences, 
-                        CodeSlayerSettings    *settings)
+                        CodeSlayerRegistry    *registry)
 {
   CodeSlayerMenuBarPrivate *priv;
   GtkWidget *menu;
@@ -711,10 +711,10 @@ codeslayer_menu_bar_new (GtkWidget             *window,
   menu_bar_search = codeslayer_menu_bar_search_new (menu, accel_group);
   priv->menu_bar_search = menu_bar_search;
 
-  menu_bar_view = codeslayer_menu_bar_view_new (menu, accel_group, settings);
+  menu_bar_view = codeslayer_menu_bar_view_new (menu, accel_group, registry);
   priv->menu_bar_view = menu_bar_view;
 
-  menu_bar_projects = codeslayer_menu_bar_projects_new (window, menu, accel_group, settings);
+  menu_bar_projects = codeslayer_menu_bar_projects_new (window, menu, accel_group, registry);
   priv->menu_bar_projects = menu_bar_projects;
 
   menu_bar_tools = codeslayer_menu_bar_tools_new (menu, accel_group);

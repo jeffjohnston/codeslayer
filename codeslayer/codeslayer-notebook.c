@@ -69,7 +69,7 @@ struct _CodeSlayerNotebookPrivate
 {
   GtkWindow             *window;
   CodeSlayerPreferences *preferences;
-  CodeSlayerSettings    *settings;
+  CodeSlayerRegistry    *registry;
 };
 
 enum
@@ -150,7 +150,7 @@ codeslayer_notebook_finalize (CodeSlayerNotebook *notebook)
  * codeslayer_notebook_new:
  * @window: a #GtkWindow.
  * @preferences: a #CodeSlayerPreferences.
- * @settings: a #CodeSlayerSettings.
+ * @registry: a #CodeSlayerRegistry.
  *
  * Creates a new #CodeSlayerNotebook.
  *
@@ -159,14 +159,14 @@ codeslayer_notebook_finalize (CodeSlayerNotebook *notebook)
 GtkWidget*
 codeslayer_notebook_new (GtkWindow             *window, 
                          CodeSlayerPreferences *preferences,
-                         CodeSlayerSettings    *settings)
+                         CodeSlayerRegistry    *registry)
 {
   CodeSlayerNotebookPrivate *priv;
   GtkWidget *notebook;
   notebook = g_object_new (codeslayer_notebook_get_type (), NULL);
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
   priv->preferences = preferences;
-  priv->settings = settings;
+  priv->registry = registry;
   priv->window = window;
   
   g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
@@ -206,7 +206,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
 
   /* create page, editor and buffer */
 
-  editor = codeslayer_editor_new (priv->window, document, priv->preferences, priv->settings);
+  editor = codeslayer_editor_new (priv->window, document, priv->preferences, priv->registry);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
 
   file_path = codeslayer_document_get_file_path (document);

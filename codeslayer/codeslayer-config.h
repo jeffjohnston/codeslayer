@@ -82,7 +82,7 @@ const gchar*        codeslayer_config_get_preference            (CodeSlayerConfi
 void                codeslayer_config_set_preference            (CodeSlayerConfig     *config,
                                                                  gchar                *key, 
                                                                  gchar                *value);
-GHashTable*         codeslayer_config_get_settings              (CodeSlayerConfig     *config);
+GHashTable*         codeslayer_config_get_registry              (CodeSlayerConfig     *config);
 const gchar*        codeslayer_config_get_setting               (CodeSlayerConfig     *config,
                                                                  gchar                *key);
 void                codeslayer_config_set_setting               (CodeSlayerConfig     *config,

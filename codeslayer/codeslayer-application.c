@@ -34,7 +34,7 @@
 #include <codeslayer/codeslayer-menubar.h>
 #include <codeslayer/codeslayer-processbar.h>
 #include <codeslayer/codeslayer-plugins.h>
-#include <codeslayer/codeslayer-settings.h>
+#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-config-handler.h>
 #include <codeslayer/codeslayer-plugins.h>
@@ -59,7 +59,7 @@ static void codeslayer_application_open        (GApplication               *appl
                                                 gint                       n_files,
                                                 const gchar                *hint);
 static void create_config_handler              (CodeSlayerApplication      *application);
-static void create_settings                    (CodeSlayerApplication      *application);
+static void create_registry                    (CodeSlayerApplication      *application);
 static void create_preferences                 (CodeSlayerApplication      *application);
 static void create_plugins                     (CodeSlayerApplication      *application);
 static void create_window                      (CodeSlayerApplication      *application);
@@ -92,7 +92,7 @@ typedef struct _CodeSlayerApplicationPrivate CodeSlayerApplicationPrivate;
 struct _CodeSlayerApplicationPrivate
 {
   GtkWidget                *window;
-  CodeSlayerSettings       *settings;
+  CodeSlayerRegistry       *registry;
   CodeSlayerPreferences    *preferences;
   CodeSlayerConfigHandler  *config_handler;
   GtkWidget                *projects;
@@ -140,7 +140,7 @@ codeslayer_application_finalize (CodeSlayerApplication *application)
 
   g_object_unref (priv->preferences);
   g_object_unref (priv->config_handler);
-  g_object_unref (priv->settings);
+  g_object_unref (priv->registry);
   g_object_unref (priv->engine);
   g_object_unref (priv->projects_engine);
   g_object_unref (priv->plugins);
@@ -170,7 +170,7 @@ codeslayer_application_startup (GApplication *application)
 
   create_window (CODESLAYER_APPLICATION (application));
 
-  create_settings (CODESLAYER_APPLICATION (application));
+  create_registry (CODESLAYER_APPLICATION (application));
 
   create_preferences (CODESLAYER_APPLICATION (application));
   
@@ -265,15 +265,15 @@ create_config_handler (CodeSlayerApplication *application)
 }
 
 static void
-create_settings (CodeSlayerApplication *application)
+create_registry (CodeSlayerApplication *application)
 {
   CodeSlayerApplicationPrivate *priv;
-  CodeSlayerSettings *settings;
+  CodeSlayerRegistry *registry;
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  settings = codeslayer_settings_new (priv->config_handler);
-  priv->settings = settings;
+  registry = codeslayer_registry_new (priv->config_handler);
+  priv->registry = registry;
 }
 
 static void
@@ -314,7 +314,7 @@ create_window (CodeSlayerApplication *application)
   gtk_window_set_default_icon_name ("codeslayer");
 
   gtk_window_set_title (GTK_WINDOW (window),
-                        CODESLAYER_SETTINGS_MAIN_TITLE);
+                        CODESLAYER_REGISTRY_MAIN_TITLE);
   gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 
   g_signal_connect (G_OBJECT (window), "destroy", 
@@ -353,7 +353,7 @@ create_projects (CodeSlayerApplication *application)
   projects = codeslayer_projects_new (priv->window,
                                       priv->preferences, 
                                       priv->config_handler, 
-                                      priv->settings, 
+                                      priv->registry, 
                                       priv->project_properties);
   priv->projects = projects;
 }
@@ -368,10 +368,10 @@ create_notebook (CodeSlayerApplication *application)
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  notebook = codeslayer_notebook_new (GTK_WINDOW (priv->window), priv->preferences, priv->settings);
+  notebook = codeslayer_notebook_new (GTK_WINDOW (priv->window), priv->preferences, priv->registry);
   priv->notebook = notebook;
   
-  notebook_search = codeslayer_notebook_search_new (notebook, priv->settings);
+  notebook_search = codeslayer_notebook_search_new (notebook, priv->registry);
   notebook_pane = codeslayer_notebook_pane_new ();
   priv->notebook_pane = notebook_pane;
   
@@ -429,7 +429,7 @@ create_engine (CodeSlayerApplication *application)
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
   engine = codeslayer_engine_new (GTK_WINDOW (priv->window), 
-                                  priv->settings, 
+                                  priv->registry, 
                                   priv->preferences, 
                                   priv->config_handler,
                                   priv->plugins,
@@ -443,7 +443,7 @@ create_engine (CodeSlayerApplication *application)
   priv->engine = engine;
 
   projects_engine = codeslayer_projects_engine_new (GTK_WINDOW (priv->window), 
-                                                    priv->settings, 
+                                                    priv->registry, 
                                                     priv->preferences, 
                                                     priv->config_handler,
                                                     priv->plugins,
@@ -466,7 +466,7 @@ create_menu (CodeSlayerApplication *application)
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  menubar = codeslayer_menu_bar_new (priv->window, priv->preferences, priv->settings);
+  menubar = codeslayer_menu_bar_new (priv->window, priv->preferences, priv->registry);
   priv->menubar = menubar;
   
   g_signal_connect_swapped (G_OBJECT (menubar), "quit-application",
