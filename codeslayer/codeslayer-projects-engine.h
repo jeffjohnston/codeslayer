@@ -23,7 +23,6 @@
 
 #include <codeslayer/codeslayer-abstract-engine.h>
 #include <codeslayer/codeslayer-registry.h>
-#include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-config-handler.h>
 #include <codeslayer/codeslayer-plugins.h>
 
@@ -52,7 +51,6 @@ GType codeslayer_projects_engine_get_type (void) G_GNUC_CONST;
 
 CodeSlayerProjectsEngine*  codeslayer_projects_engine_new  (GtkWindow               *window,
                                                             CodeSlayerRegistry      *registry,
-                                                            CodeSlayerPreferences   *preferences,
                                                             CodeSlayerConfigHandler *config_handler,
                                                             CodeSlayerPlugins       *plugins,
                                                             GtkWidget               *projects, 

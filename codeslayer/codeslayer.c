@@ -252,7 +252,6 @@ codeslayer_finalize (CodeSlayer *codeslayer)
 CodeSlayer*
 codeslayer_new (GtkWindow                   *window,
                 CodeSlayerConfigHandler     *config_handler,
-                CodeSlayerPreferences       *preferences, 
                 CodeSlayerRegistry          *registry, 
                 CodeSlayerProcesses         *processes, 
                 CodeSlayerMenuBar           *menu_bar,
@@ -299,9 +298,6 @@ codeslayer_new (GtkWindow                   *window,
                             G_CALLBACK (project_properties_closed_action), codeslayer);
   
   g_signal_connect_swapped (G_OBJECT (projects), "projects-changed",
-                            G_CALLBACK (projects_changed_action), codeslayer);
-  
-  g_signal_connect_swapped (G_OBJECT (preferences), "projects-preferences-changed",
                             G_CALLBACK (projects_changed_action), codeslayer);
   
   return codeslayer;

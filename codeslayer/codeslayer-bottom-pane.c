@@ -66,15 +66,14 @@ codeslayer_bottom_pane_finalize (CodeSlayerBottomPane *bottom_pane)
 
 /**
  * codeslayer_bottom_pane_new:
- * @preferences: a #CodeSlayerPreferences.
+ * @registry: a #CodeSlayerRegistry.
  *
  * Creates a new #CodeSlayerBottomPane.
  *
  * Returns: a new #CodeSlayerBottomPane. 
  */
 GtkWidget*
-codeslayer_bottom_pane_new (CodeSlayerPreferences *preferences, 
-                            CodeSlayerRegistry    *registry)
+codeslayer_bottom_pane_new (CodeSlayerRegistry *registry)
 {
   GtkWidget *bottom_pane;
   bottom_pane = g_object_new (codeslayer_bottom_pane_get_type (), NULL);
@@ -84,10 +83,10 @@ codeslayer_bottom_pane_new (CodeSlayerPreferences *preferences,
   create_close_button (CODESLAYER_BOTTOM_PANE (bottom_pane));
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (bottom_pane));
 
-  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
+  g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
                             G_CALLBACK ( codeslayer_abstract_pane_sync_registry), CODESLAYER_ABSTRACT_PANE (bottom_pane));
 
-  g_signal_connect_swapped (G_OBJECT (preferences), "bottom-pane-preferences-changed",
+  g_signal_connect_swapped (G_OBJECT (registry), "registry-changed",
                             G_CALLBACK (codeslayer_abstract_pane_sync_registry), bottom_pane);
 
   return bottom_pane;

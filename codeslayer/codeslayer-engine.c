@@ -74,7 +74,7 @@ static void page_removed_action                         (CodeSlayerEngine       
                                                          GtkWidget              *page, 
                                                          guint                   page_num);
 static void show_preferences_action                     (CodeSlayerEngine       *engine);
-static void editor_registry_changed_action  (CodeSlayerEngine       *engine);
+static void registry_changed_action                     (CodeSlayerEngine       *engine);
 
 static void show_plugins_action                         (CodeSlayerEngine      *engine);
                                                    
@@ -253,8 +253,8 @@ codeslayer_engine_new (GtkWindow               *window,
   g_signal_connect_swapped (G_OBJECT (priv->notebook), "page-removed",
                             G_CALLBACK (page_removed_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (preferences), "editor-preferences-changed",
-                            G_CALLBACK (editor_registry_changed_action), engine);
+  g_signal_connect_swapped (G_OBJECT (registry), "registry-changed",
+                            G_CALLBACK (registry_changed_action), engine);
 
   g_signal_connect_swapped (G_OBJECT (menubar), "show-plugins",
                             G_CALLBACK (show_plugins_action), engine);
@@ -276,7 +276,7 @@ codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
   
   config = codeslayer_config_handler_load_default_config (priv->config_handler);
   
-  g_signal_emit_by_name ((gpointer) priv->preferences, "initialize-preferences");
+  g_signal_emit_by_name ((gpointer) priv->registry, "registry-initialized");
 
   codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
   
@@ -592,14 +592,14 @@ draw_spaces_action (CodeSlayerEngine *engine)
       codeslayer_registry_set_boolean (priv->registry, 
                                        CODESLAYER_REGISTRY_DRAW_SPACES,
                                        FALSE);
-      editor_registry_changed_action (engine);
+      registry_changed_action (engine);
     }
   else
     {
       codeslayer_registry_set_boolean (priv->registry, 
                                        CODESLAYER_REGISTRY_DRAW_SPACES,
                                        TRUE);
-      editor_registry_changed_action (engine);
+      registry_changed_action (engine);
     }
 }
 
@@ -619,14 +619,14 @@ word_wrap_action (CodeSlayerEngine *engine)
       codeslayer_registry_set_boolean (priv->registry, 
                                        CODESLAYER_REGISTRY_WORD_WRAP,
                                        FALSE);
-      editor_registry_changed_action (engine);
+      registry_changed_action (engine);
     }
   else
     {
       codeslayer_registry_set_boolean (priv->registry, 
                                        CODESLAYER_REGISTRY_WORD_WRAP,
                                        TRUE);
-      editor_registry_changed_action (engine);
+      registry_changed_action (engine);
     }
 }
 
@@ -639,7 +639,7 @@ show_preferences_action (CodeSlayerEngine *engine)
 }
 
 static void
-editor_registry_changed_action (CodeSlayerEngine *engine)
+registry_changed_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv; 
   gint pages;

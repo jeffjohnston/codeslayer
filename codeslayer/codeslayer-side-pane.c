@@ -59,7 +59,7 @@ codeslayer_side_pane_finalize (CodeSlayerSidePane *side_pane)
 
 /**
  * codeslayer_side_pane_new:
- * @preferences: a #CodeSlayerPreferences.
+ * @registry: a #CodeSlayerRegistry.
  * @process_bar: a #GtkWidget.
  *
  * Creates a new #CodeSlayerSidePane.
@@ -67,8 +67,7 @@ codeslayer_side_pane_finalize (CodeSlayerSidePane *side_pane)
  * Returns: a new #CodeSlayerSidePane. 
  */
 GtkWidget*
-codeslayer_side_pane_new (CodeSlayerPreferences *preferences,
-                          CodeSlayerRegistry    *registry,
+codeslayer_side_pane_new (CodeSlayerRegistry    *registry,
                           GtkWidget             *process_bar)
 {
   GtkWidget *side_pane;  
@@ -80,10 +79,10 @@ codeslayer_side_pane_new (CodeSlayerPreferences *preferences,
   
   gtk_box_pack_start (GTK_BOX (side_pane), process_bar, FALSE, FALSE, 1);
 
-  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
+  g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
                             G_CALLBACK ( codeslayer_abstract_pane_sync_registry), CODESLAYER_ABSTRACT_PANE (side_pane));
   
-  g_signal_connect_swapped (G_OBJECT (preferences), "side-pane-preferences-changed",
+  g_signal_connect_swapped (G_OBJECT (registry), "registry-changed",
                             G_CALLBACK (codeslayer_abstract_pane_sync_registry), side_pane);
 
   return side_pane;

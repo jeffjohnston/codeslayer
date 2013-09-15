@@ -37,7 +37,6 @@
 #include <codeslayer/codeslayer-completion-provider.h>
 #include <codeslayer/codeslayer-completion-proposal.h>
 #include <codeslayer/codeslayer-processes.h>
-#include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-xml.h>
@@ -81,7 +80,6 @@ GType codeslayer_get_type (void) G_GNUC_CONST;
   
 CodeSlayer*               codeslayer_new                             (GtkWindow                   *window,
                                                                       CodeSlayerConfigHandler     *config_handler,
-                                                                      CodeSlayerPreferences       *preferences, 
                                                                       CodeSlayerRegistry          *registry, 
                                                                       CodeSlayerProcesses         *processes, 
                                                                       CodeSlayerMenuBar           *menu_bar,

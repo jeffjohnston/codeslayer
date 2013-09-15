@@ -433,7 +433,7 @@ font_action (CodeSlayerPreferencesTheme *preferences_theme)
                                      
   g_free (font_name);                                     
 
-  codeslayer_preferences_utils_notify_editors (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 }
 
 static void                
@@ -454,7 +454,7 @@ editor_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
   codeslayer_registry_set_string (priv->registry,
                                      CODESLAYER_REGISTRY_EDITOR_TAB_POSITION,
                                      value);
-  codeslayer_preferences_utils_notify_notebook (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 
   g_free (value);
 }                            
@@ -477,7 +477,7 @@ side_pane_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
   codeslayer_registry_set_string (priv->registry,
                                      CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION,
                                      value);
-  codeslayer_preferences_utils_notify_side_pane (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 
   g_free (value);
 }                            
@@ -500,7 +500,7 @@ bottom_pane_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
   codeslayer_registry_set_string (priv->registry,
                                      CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION,
                                      value);
-  codeslayer_preferences_utils_notify_bottom_pane (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 
   g_free (value);
 }                            
@@ -531,7 +531,7 @@ theme_action (GtkTreeView                *treeview,
           g_free (value);
         }
 
-      codeslayer_preferences_utils_notify_editors (priv->preferences);
+      codeslayer_preferences_utils_notify (priv->registry);
     }
   
   return FALSE;

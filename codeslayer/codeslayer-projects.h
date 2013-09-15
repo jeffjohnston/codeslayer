@@ -22,7 +22,6 @@
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-config.h>
 #include <codeslayer/codeslayer-config-handler.h>
-#include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
@@ -68,7 +67,6 @@ struct _CodeSlayerProjectsClass
 GType codeslayer_projects_get_type (void) G_GNUC_CONST;
 
 GtkWidget*  codeslayer_projects_new                (GtkWidget               *window, 
-                                                    CodeSlayerPreferences   *preferences, 
                                                     CodeSlayerConfigHandler *config_handler,
                                                     CodeSlayerRegistry      *registry, 
                                                     GtkWidget               *project_properties);

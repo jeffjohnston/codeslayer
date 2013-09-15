@@ -351,7 +351,6 @@ create_projects (CodeSlayerApplication *application)
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
   projects = codeslayer_projects_new (priv->window,
-                                      priv->preferences, 
                                       priv->config_handler, 
                                       priv->registry, 
                                       priv->project_properties);
@@ -368,7 +367,7 @@ create_notebook (CodeSlayerApplication *application)
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  notebook = codeslayer_notebook_new (GTK_WINDOW (priv->window), priv->preferences, priv->registry);
+  notebook = codeslayer_notebook_new (GTK_WINDOW (priv->window), priv->registry);
   priv->notebook = notebook;
   
   notebook_search = codeslayer_notebook_search_new (notebook, priv->registry);
@@ -388,10 +387,10 @@ create_side_and_bottom_pane (CodeSlayerApplication *application)
 
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  side_pane = codeslayer_side_pane_new (priv->preferences, priv->registry, priv->process_bar);
+  side_pane = codeslayer_side_pane_new (priv->registry, priv->process_bar);
   priv->side_pane = side_pane;
   
-  bottom_pane = codeslayer_bottom_pane_new (priv->preferences, priv->registry);
+  bottom_pane = codeslayer_bottom_pane_new (priv->registry);
   priv->bottom_pane = bottom_pane;
 }
 
@@ -444,7 +443,6 @@ create_engine (CodeSlayerApplication *application)
 
   projects_engine = codeslayer_projects_engine_new (GTK_WINDOW (priv->window), 
                                                     priv->registry, 
-                                                    priv->preferences, 
                                                     priv->config_handler,
                                                     priv->plugins,
                                                     priv->projects,
@@ -483,7 +481,6 @@ load_plugins (CodeSlayerApplication *application)
 
   codeslayer = codeslayer_new (GTK_WINDOW (priv->window), 
                                priv->config_handler,
-                               CODESLAYER_PREFERENCES (priv->preferences), 
                                priv->registry,
                                priv->processes,
                                CODESLAYER_MENU_BAR (priv->menubar), 

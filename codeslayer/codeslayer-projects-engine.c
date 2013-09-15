@@ -81,7 +81,6 @@ struct _CodeSlayerProjectsEnginePrivate
 {
   GtkWindow               *window;
   CodeSlayerRegistry      *registry;
-  CodeSlayerPreferences   *preferences;
   CodeSlayerConfigHandler *config_handler;
   CodeSlayerPlugins       *plugins;
   GtkWidget               *search;
@@ -127,7 +126,6 @@ codeslayer_projects_engine_finalize (CodeSlayerProjectsEngine *engine)
  * codeslayer_projects_engine_new:
  * @window: a #GtkWindow.
  * @registry: a #CodeSlayerRegistry.
- * @preferences: a #CodeSlayerPreferences.
  * @plugins: a #CodeSlayerPlugins.
  * @projects: a #CodeSlayerProjects.
  * @menubar: a #CodeSlayerMenuBar.
@@ -143,7 +141,6 @@ codeslayer_projects_engine_finalize (CodeSlayerProjectsEngine *engine)
 CodeSlayerProjectsEngine*
 codeslayer_projects_engine_new (GtkWindow               *window,
                                 CodeSlayerRegistry      *registry,
-                                CodeSlayerPreferences   *preferences,
                                 CodeSlayerConfigHandler *config_handler,
                                 CodeSlayerPlugins       *plugins,
                                 GtkWidget               *projects, 
@@ -163,7 +160,6 @@ codeslayer_projects_engine_new (GtkWindow               *window,
 
   priv->window = window;
   priv->registry = registry;
-  priv->preferences = preferences;
   priv->config_handler = config_handler;
   priv->plugins = plugins;
   priv->projects = projects;
@@ -249,7 +245,7 @@ new_projects_action (CodeSlayerProjectsEngine *engine,
   codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
                                    priv->projects, "Projects", 0);
   
-  g_signal_emit_by_name ((gpointer) priv->preferences, "initialize-preferences");
+  g_signal_emit_by_name ((gpointer) priv->registry, "registry-initialized");
   
   codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
 
@@ -287,7 +283,7 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
   codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
                                    priv->projects, "Projects", 0);
   
-  g_signal_emit_by_name ((gpointer) priv->preferences, "initialize-preferences");
+  g_signal_emit_by_name ((gpointer) priv->registry, "registry-initialized");
   
   codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
  

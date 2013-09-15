@@ -337,7 +337,7 @@ display_line_number_action (CodeSlayerPreferencesEditor *preferences_editor)
                                       CODESLAYER_REGISTRY_EDITOR_DISPLAY_LINE_NUMBERS,
                                       active);
 
-  codeslayer_preferences_utils_notify_editors (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 }
 
 static void
@@ -353,7 +353,7 @@ highlight_current_line_action (CodeSlayerPreferencesEditor *preferences_editor)
                                       CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_CURRENT_LINE,
                                       active);
 
-  codeslayer_preferences_utils_notify_editors (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 }
 
 static void
@@ -369,7 +369,7 @@ display_right_margin_action (CodeSlayerPreferencesEditor *preferences_editor)
                                       CODESLAYER_REGISTRY_EDITOR_DISPLAY_RIGHT_MARGIN,
                                       active);
 
-  codeslayer_preferences_utils_notify_editors (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 }
 
 static void
@@ -385,7 +385,7 @@ highlight_matching_bracket_action (CodeSlayerPreferencesEditor *preferences_edit
                                       CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_MATCHING_BRACKET,
                                       active);
 
-  codeslayer_preferences_utils_notify_editors (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 }
 
 static void
@@ -401,7 +401,7 @@ insert_spaces_instead_of_tabs_action (CodeSlayerPreferencesEditor *preferences_e
                                       CODESLAYER_REGISTRY_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS,
                                       active);
 
-  codeslayer_preferences_utils_notify_editors (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 }
 
 static void
@@ -417,7 +417,7 @@ enable_automatic_indentation_action (CodeSlayerPreferencesEditor *preferences_ed
                                       CODESLAYER_REGISTRY_EDITOR_ENABLE_AUTOMATIC_INDENTATION,
                                       active);
 
-  codeslayer_preferences_utils_notify_editors (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 }
 
 static void
@@ -433,7 +433,7 @@ right_margin_position_action (CodeSlayerPreferencesEditor *preferences_editor)
                                      CODESLAYER_REGISTRY_EDITOR_RIGHT_MARGIN_POSITION,
                                      value);
 
-  codeslayer_preferences_utils_notify_editors (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 }
 
 static void
@@ -449,5 +449,5 @@ tab_width_action (CodeSlayerPreferencesEditor *preferences_editor)
                                      CODESLAYER_REGISTRY_EDITOR_TAB_WIDTH,
                                      value);
 
-  codeslayer_preferences_utils_notify_editors (priv->preferences);
+  codeslayer_preferences_utils_notify (priv->registry);
 }

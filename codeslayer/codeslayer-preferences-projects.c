@@ -98,10 +98,10 @@ codeslayer_preferences_projects_new (CodeSlayerPreferences *preferences,
                                        preferences_projects, _("Exclude Directories"));
                                        
   g_signal_connect_swapped (G_OBJECT (priv->exclude_file_types), "list-changed",
-                            G_CALLBACK (codeslayer_preferences_utils_notify_projects), preferences);
+                            G_CALLBACK (codeslayer_preferences_utils_notify), registry);
   
   g_signal_connect_swapped (G_OBJECT (priv->exclude_directories), "list-changed",
-                            G_CALLBACK (codeslayer_preferences_utils_notify_projects), preferences);
+                            G_CALLBACK (codeslayer_preferences_utils_notify), registry);
   
   return preferences_projects;
 }

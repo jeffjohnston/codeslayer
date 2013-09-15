@@ -56,7 +56,7 @@ static gboolean has_clean_buffer            (CodeSlayerNotebook      *notebook,
 static void save_as_dialog                  (CodeSlayerNotebook      *notebook, 
                                              GtkWidget               *notebook_page, 
                                              CodeSlayerDocument      *document);
-static void preferences_changed_action      (CodeSlayerNotebook      *notebook);
+static void registry_changed_action         (CodeSlayerNotebook      *notebook);
 static GtkWidget* save_editor               (CodeSlayerNotebook      *notebook, 
                                              gint                     page_num);
 
@@ -67,9 +67,8 @@ typedef struct _CodeSlayerNotebookPrivate CodeSlayerNotebookPrivate;
 
 struct _CodeSlayerNotebookPrivate
 {
-  GtkWindow             *window;
-  CodeSlayerPreferences *preferences;
-  CodeSlayerRegistry    *registry;
+  GtkWindow          *window;
+  CodeSlayerRegistry *registry;
 };
 
 enum
@@ -149,7 +148,6 @@ codeslayer_notebook_finalize (CodeSlayerNotebook *notebook)
 /**
  * codeslayer_notebook_new:
  * @window: a #GtkWindow.
- * @preferences: a #CodeSlayerPreferences.
  * @registry: a #CodeSlayerRegistry.
  *
  * Creates a new #CodeSlayerNotebook.
@@ -158,22 +156,20 @@ codeslayer_notebook_finalize (CodeSlayerNotebook *notebook)
  */
 GtkWidget*
 codeslayer_notebook_new (GtkWindow             *window, 
-                         CodeSlayerPreferences *preferences,
                          CodeSlayerRegistry    *registry)
 {
   CodeSlayerNotebookPrivate *priv;
   GtkWidget *notebook;
   notebook = g_object_new (codeslayer_notebook_get_type (), NULL);
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
-  priv->preferences = preferences;
   priv->registry = registry;
   priv->window = window;
   
-  g_signal_connect_swapped (G_OBJECT (preferences), "initialize-preferences",
-                            G_CALLBACK (preferences_changed_action), CODESLAYER_NOTEBOOK (notebook));
+  g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
+                            G_CALLBACK (registry_changed_action), CODESLAYER_NOTEBOOK (notebook));
   
-  g_signal_connect_swapped (G_OBJECT (preferences), "notebook-preferences-changed",
-                            G_CALLBACK (preferences_changed_action), CODESLAYER_NOTEBOOK (notebook));
+  g_signal_connect_swapped (G_OBJECT (registry), "registry-changed",
+                            G_CALLBACK (registry_changed_action), CODESLAYER_NOTEBOOK (notebook));
   
   return notebook;
 }
@@ -730,7 +726,7 @@ buffer_modified_action (GtkTextBuffer      *buffer,
 }
 
 static void
-preferences_changed_action (CodeSlayerNotebook *notebook)
+registry_changed_action (CodeSlayerNotebook *notebook)
 {
   CodeSlayerNotebookPrivate *priv;
   gchar *editor_value;

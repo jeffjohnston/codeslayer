@@ -45,11 +45,48 @@ struct _CodeSlayerRegistryPrivate
   CodeSlayerConfigHandler *config_handler;
 };
 
+enum
+{
+  REGISTRY_CHANGED,
+  REGISTRY_INITIALIZED,
+  LAST_SIGNAL
+};
+
+static guint codeslayer_registry_signals[LAST_SIGNAL] = { 0 };
+
 G_DEFINE_TYPE (CodeSlayerRegistry, codeslayer_registry, G_TYPE_OBJECT)
 
 static void 
 codeslayer_registry_class_init (CodeSlayerRegistryClass *klass)
 {
+  /**
+   * CodeSlayerRegistry::registry-changed
+   *
+   * The ::registry-changed signal lets all observers know that 
+   * something in the registry changed.
+   */
+  codeslayer_registry_signals[REGISTRY_CHANGED] =
+    g_signal_new ("registry-changed", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerRegistryClass, registry_changed), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  /**
+   * CodeSlayerRegistry::registry-initialized
+   *
+   * The ::registry-initialized signal lets all observers know that 
+   * the registry is initialized.
+   */
+  codeslayer_registry_signals[REGISTRY_INITIALIZED] =
+    g_signal_new ("registry-initialized", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerRegistryClass, registry_initialized), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_registry_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerRegistryPrivate));
 }

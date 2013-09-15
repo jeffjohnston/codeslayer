@@ -78,6 +78,9 @@ struct _CodeSlayerRegistry
 struct _CodeSlayerRegistryClass
 {
   GObjectClass parent_class;
+  
+  void (*registry_changed) (CodeSlayerRegistry *registry);
+  void (*registry_initialized) (CodeSlayerRegistry *registry);
 };
 
 GType codeslayer_registry_get_type (void) G_GNUC_CONST;

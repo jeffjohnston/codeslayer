@@ -119,7 +119,6 @@ struct _CodeSlayerProjectsPrivate
 {
   GtkWidget               *window;
   CodeSlayerConfig        *config;
-  CodeSlayerPreferences   *preferences;
   CodeSlayerConfigHandler *config_handler;
   CodeSlayerRegistry      *registry;
   GtkWidget               *project_properties;
@@ -425,7 +424,6 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
 /**
  * codeslayer_projects_new:
  * @window: a #GtkWindow.
- * @preferences: a #CodeSlayerPreferences.
  * @registry: a #CodeSlayerRegistry.
  * @project_properties: a #CodeSlayerProjectProperties.
  *
@@ -435,7 +433,6 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
  */
 GtkWidget*
 codeslayer_projects_new (GtkWidget               *window, 
-                         CodeSlayerPreferences   *preferences,
                          CodeSlayerConfigHandler *config_handler,
                          CodeSlayerRegistry      *registry,
                          GtkWidget               *project_properties)
@@ -448,7 +445,6 @@ codeslayer_projects_new (GtkWidget               *window,
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   
   priv->window = window;
-  priv->preferences = preferences;
   priv->config_handler = config_handler;
   priv->registry = registry;
   priv->project_properties = project_properties;
@@ -535,7 +531,7 @@ create_tree (CodeSlayerProjects *projects)
   g_signal_connect_swapped (G_OBJECT (priv->cell_text), "editing-canceled",
                             G_CALLBACK (editing_canceled_action), projects);
 
-  g_signal_connect_swapped (G_OBJECT (priv->preferences), "projects-preferences-changed",
+  g_signal_connect_swapped (G_OBJECT (priv->registry), "registry-changed",
                             G_CALLBACK (codeslayer_projects_refresh), projects);
 
   gtk_tree_view_append_column (GTK_TREE_VIEW (priv->treeview), column);
