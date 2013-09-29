@@ -21,7 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-profile.h>
-#include <codeslayer/codeslayer-profile-handler.h>
+#include <codeslayer/codeslayer-profiles.h>
 #include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
@@ -67,7 +67,7 @@ struct _CodeSlayerProjectsClass
 GType codeslayer_projects_get_type (void) G_GNUC_CONST;
 
 GtkWidget*  codeslayer_projects_new                (GtkWidget               *window, 
-                                                    CodeSlayerProfileHandler *profile_handler,
+                                                    CodeSlayerProfiles *profiles,
                                                     CodeSlayerRegistry      *registry, 
                                                     GtkWidget               *project_properties);
 

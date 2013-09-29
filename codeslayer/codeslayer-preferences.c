@@ -47,9 +47,9 @@ typedef struct _CodeSlayerPreferencesPrivate CodeSlayerPreferencesPrivate;
 
 struct _CodeSlayerPreferencesPrivate
 {
-  GtkWidget               *window;
-  CodeSlayerRegistry      *registry;
-  CodeSlayerProfileHandler *profile_handler;
+  GtkWidget                *window;
+  CodeSlayerRegistry       *registry;
+  CodeSlayerProfiles *profiles;
 };
 
 G_DEFINE_TYPE (CodeSlayerPreferences, codeslayer_preferences, G_TYPE_OBJECT)
@@ -82,7 +82,7 @@ codeslayer_preferences_finalize (CodeSlayerPreferences *preferences)
  */
 CodeSlayerPreferences*
 codeslayer_preferences_new (GtkWidget               *window, 
-                            CodeSlayerProfileHandler *profile_handler, 
+                            CodeSlayerProfiles *profiles, 
                             CodeSlayerRegistry      *registry)
 {
   CodeSlayerPreferencesPrivate *priv;
@@ -91,7 +91,7 @@ codeslayer_preferences_new (GtkWidget               *window,
   preferences = g_object_new (codeslayer_preferences_get_type (), NULL);
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   priv->window = window;
-  priv->profile_handler = profile_handler;
+  priv->profiles = profiles;
   priv->registry = registry;
   
   return preferences;
@@ -117,7 +117,7 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   GtkWidget *notebook;
   
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   dialog = gtk_dialog_new_with_buttons (_("Preferences"), 
                                         GTK_WINDOW (priv->window),

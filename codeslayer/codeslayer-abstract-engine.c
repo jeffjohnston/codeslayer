@@ -68,7 +68,7 @@ struct _CodeSlayerAbstractEnginePrivate
 {
   GtkWindow               *window;
   CodeSlayerRegistry      *registry;
-  CodeSlayerProfileHandler *profile_handler;
+  CodeSlayerProfiles *profiles;
   GtkWidget               *menubar;
   GtkWidget               *notebook;
   GtkWidget               *notebook_pane;
@@ -122,9 +122,9 @@ codeslayer_abstract_engine_class_init (CodeSlayerAbstractEngineClass *klass)
   
   g_object_class_install_property (gobject_class, 
                                    PROP_CONFIG_HANDLER,
-                                   g_param_spec_pointer ("profile_handler",
-                                                         "CodeSlayerProfileHandler",
-                                                         "CodeSlayerProfileHandler",
+                                   g_param_spec_pointer ("profiles",
+                                                         "CodeSlayerProfiles",
+                                                         "CodeSlayerProfiles",
                                                          G_PARAM_READWRITE));  
   
   g_object_class_install_property (gobject_class, 
@@ -209,7 +209,7 @@ codeslayer_abstract_engine_get_property (GObject    *object,
       g_value_set_pointer (value, priv->registry);
       break;
     case PROP_CONFIG_HANDLER:
-      g_value_set_pointer (value, priv->profile_handler);
+      g_value_set_pointer (value, priv->profiles);
       break;
     case PROP_MENUBAR:
       g_value_set_pointer (value, priv->menubar);
@@ -256,7 +256,7 @@ codeslayer_abstract_engine_set_property (GObject      *object,
       priv->registry = g_value_get_pointer (value);
       break;
     case PROP_CONFIG_HANDLER:
-      priv->profile_handler = g_value_get_pointer (value);
+      priv->profiles = g_value_get_pointer (value);
       break;
     case PROP_MENUBAR:
       priv->menubar = g_value_get_pointer (value);
@@ -292,7 +292,7 @@ codeslayer_abstract_engine_save_profile (CodeSlayerAbstractEngine *engine)
   CodeSlayerProfile *profile;
   
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (engine);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   if (profile == NULL)
     return TRUE;
@@ -302,7 +302,7 @@ codeslayer_abstract_engine_save_profile (CodeSlayerAbstractEngine *engine)
 
   save_window_settings (engine);
   save_document_settings (engine);
-  codeslayer_profile_handler_save_profile (priv->profile_handler);
+  codeslayer_profiles_save_profile (priv->profiles);
   
   return TRUE;
 }
@@ -317,7 +317,7 @@ save_document_settings (CodeSlayerAbstractEngine *abstract_engine)
   gint page;
 
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   if (codeslayer_profile_get_projects_mode (profile) == FALSE)
     return;
@@ -464,7 +464,7 @@ codeslayer_abstract_engine_sync_menu_bar (CodeSlayerAbstractEngine *abstract_eng
   gint pages;
 
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   projects_mode = codeslayer_profile_get_projects_mode (profile);
 

@@ -122,7 +122,8 @@ am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-menubar-help.lo \
 	libcodeslayer_la-codeslayer-project.lo \
 	libcodeslayer_la-codeslayer-profile.lo \
-	libcodeslayer_la-codeslayer-profile-handler.lo \
+	libcodeslayer_la-codeslayer-profiles.lo \
+	libcodeslayer_la-codeslayer-profiles-manager.lo \
 	libcodeslayer_la-codeslayer-document.lo \
 	libcodeslayer_la-codeslayer-registry.lo \
 	libcodeslayer_la-codeslayer-preferences.lo \
@@ -378,7 +379,8 @@ pkginclude_HEADERS = \
     codeslayer-menubar-help.h \
     codeslayer-project.h \
     codeslayer-profile.h \
-    codeslayer-profile-handler.h \
+    codeslayer-profiles.h \
+    codeslayer-profiles-manager.h \
     codeslayer-document.h \
     codeslayer-registry.h \
     codeslayer-preferences.h \
@@ -433,7 +435,8 @@ libcodeslayer_la_SOURCES = \
     codeslayer-menubar-help.c \
     codeslayer-project.c \
     codeslayer-profile.c \
-    codeslayer-profile-handler.c \
+    codeslayer-profiles.c \
+    codeslayer-profiles-manager.c \
     codeslayer-document.c \
     codeslayer-registry.c \
     codeslayer-preferences.c \
@@ -635,8 +638,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-process.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-processbar.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-processes.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-profile-handler.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-profile.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-profiles-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-profiles.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-project.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-projects-engine.Plo@am__quote@
@@ -826,12 +830,19 @@ libcodeslayer_la-codeslayer-profile.lo: codeslayer-profile.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-profile.lo `test -f 'codeslayer-profile.c' || echo '$(srcdir)/'`codeslayer-profile.c
 
-libcodeslayer_la-codeslayer-profile-handler.lo: codeslayer-profile-handler.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-profile-handler.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-profile-handler.Tpo -c -o libcodeslayer_la-codeslayer-profile-handler.lo `test -f 'codeslayer-profile-handler.c' || echo '$(srcdir)/'`codeslayer-profile-handler.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-profile-handler.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-profile-handler.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-profile-handler.c' object='libcodeslayer_la-codeslayer-profile-handler.lo' libtool=yes @AMDEPBACKSLASH@
+libcodeslayer_la-codeslayer-profiles.lo: codeslayer-profiles.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-profiles.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-profiles.Tpo -c -o libcodeslayer_la-codeslayer-profiles.lo `test -f 'codeslayer-profiles.c' || echo '$(srcdir)/'`codeslayer-profiles.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-profiles.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-profiles.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-profiles.c' object='libcodeslayer_la-codeslayer-profiles.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-profile-handler.lo `test -f 'codeslayer-profile-handler.c' || echo '$(srcdir)/'`codeslayer-profile-handler.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-profiles.lo `test -f 'codeslayer-profiles.c' || echo '$(srcdir)/'`codeslayer-profiles.c
+
+libcodeslayer_la-codeslayer-profiles-manager.lo: codeslayer-profiles-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-profiles-manager.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-profiles-manager.Tpo -c -o libcodeslayer_la-codeslayer-profiles-manager.lo `test -f 'codeslayer-profiles-manager.c' || echo '$(srcdir)/'`codeslayer-profiles-manager.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-profiles-manager.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-profiles-manager.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-profiles-manager.c' object='libcodeslayer_la-codeslayer-profiles-manager.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-profiles-manager.lo `test -f 'codeslayer-profiles-manager.c' || echo '$(srcdir)/'`codeslayer-profiles-manager.c
 
 libcodeslayer_la-codeslayer-document.lo: codeslayer-document.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-document.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-document.Tpo -c -o libcodeslayer_la-codeslayer-document.lo `test -f 'codeslayer-document.c' || echo '$(srcdir)/'`codeslayer-document.c

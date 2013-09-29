@@ -42,7 +42,7 @@ typedef struct _CodeSlayerRegistryPrivate CodeSlayerRegistryPrivate;
 
 struct _CodeSlayerRegistryPrivate
 {
-  CodeSlayerProfileHandler *profile_handler;
+  CodeSlayerProfiles *profiles;
 };
 
 enum
@@ -110,14 +110,14 @@ codeslayer_registry_finalize (CodeSlayerRegistry *registry)
  * Returns: a new #CodeSlayerRegistry. 
  */
 CodeSlayerRegistry*
-codeslayer_registry_new (CodeSlayerProfileHandler *profile_handler)
+codeslayer_registry_new (CodeSlayerProfiles *profiles)
 {
   CodeSlayerRegistry *registry;
   CodeSlayerRegistryPrivate *priv;
 
   registry = g_object_new (codeslayer_registry_get_type (), NULL);
   priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  priv->profile_handler = profile_handler;
+  priv->profiles = profiles;
 
   return registry;
 }
@@ -138,7 +138,7 @@ codeslayer_registry_get_integer (CodeSlayerRegistry *registry,
   const gchar *value;
 
   priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   value = codeslayer_profile_get_setting (profile, key);
   if (value != NULL)
@@ -163,7 +163,7 @@ codeslayer_registry_set_integer (CodeSlayerRegistry *registry,
   gchar *val;
 
   priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   val = g_strdup_printf ("%d", value);
   codeslayer_profile_set_setting (profile, key, val);
@@ -187,7 +187,7 @@ codeslayer_registry_get_double (CodeSlayerRegistry *registry,
 
   priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
   
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   value = codeslayer_profile_get_setting (profile, key);
   if (value != NULL)
@@ -212,7 +212,7 @@ codeslayer_registry_set_double (CodeSlayerRegistry *registry,
   gchar *val;
   
   priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   val = g_strdup_printf ("%f", value);
   codeslayer_profile_set_setting (profile, key, val);
@@ -235,7 +235,7 @@ codeslayer_registry_get_boolean (CodeSlayerRegistry *registry,
   const gchar *value;
 
   priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   value = codeslayer_profile_get_setting (profile, key);
   if (value != NULL)
@@ -264,7 +264,7 @@ codeslayer_registry_set_boolean (CodeSlayerRegistry *registry,
   CodeSlayerProfile *profile;
   
   priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   if (value == TRUE)  
     codeslayer_profile_set_setting (profile, key, "true");
@@ -288,7 +288,7 @@ codeslayer_registry_get_string (CodeSlayerRegistry *registry,
   const gchar *value;
 
   priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   value = codeslayer_profile_get_setting (profile, key);
   if (value != NULL)
@@ -312,7 +312,7 @@ codeslayer_registry_set_string (CodeSlayerRegistry *registry,
   CodeSlayerProfile *profile;
   
   priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   codeslayer_profile_set_setting (profile, key, value);
 }

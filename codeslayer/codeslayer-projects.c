@@ -119,7 +119,7 @@ struct _CodeSlayerProjectsPrivate
 {
   GtkWidget               *window;
   CodeSlayerProfile        *profile;
-  CodeSlayerProfileHandler *profile_handler;
+  CodeSlayerProfiles *profiles;
   CodeSlayerRegistry      *registry;
   GtkWidget               *project_properties;
   GtkWidget               *properties_dialog;
@@ -433,7 +433,7 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
  */
 GtkWidget*
 codeslayer_projects_new (GtkWidget               *window, 
-                         CodeSlayerProfileHandler *profile_handler,
+                         CodeSlayerProfiles *profiles,
                          CodeSlayerRegistry      *registry,
                          GtkWidget               *project_properties)
 {
@@ -445,7 +445,7 @@ codeslayer_projects_new (GtkWidget               *window,
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   
   priv->window = window;
-  priv->profile_handler = profile_handler;
+  priv->profiles = profiles;
   priv->registry = registry;
   priv->project_properties = project_properties;
   
@@ -800,7 +800,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
   gchar *destination_path;
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   if (select_document (document, projects))
     return TRUE;

@@ -66,7 +66,7 @@ typedef struct _CodeSlayerPrivate CodeSlayerPrivate;
 struct _CodeSlayerPrivate
 {
   GtkWindow                   *window;
-  CodeSlayerProfileHandler     *profile_handler;
+  CodeSlayerProfiles     *profiles;
   CodeSlayerRegistry          *registry;
   CodeSlayerProcesses         *processes;
   CodeSlayerMenuBar           *menu_bar;
@@ -251,7 +251,7 @@ codeslayer_finalize (CodeSlayer *codeslayer)
 
 CodeSlayer*
 codeslayer_new (GtkWindow                   *window,
-                CodeSlayerProfileHandler     *profile_handler,
+                CodeSlayerProfiles     *profiles,
                 CodeSlayerRegistry          *registry, 
                 CodeSlayerProcesses         *processes, 
                 CodeSlayerMenuBar           *menu_bar,
@@ -266,7 +266,7 @@ codeslayer_new (GtkWindow                   *window,
   codeslayer = CODESLAYER (g_object_new (codeslayer_get_type (), NULL));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   priv->window = window;
-  priv->profile_handler = profile_handler;
+  priv->profiles = profiles;
   priv->registry = registry;
   priv->processes = processes;
   priv->menu_bar = menu_bar;
@@ -795,7 +795,7 @@ codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer,
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   if (!codeslayer_profile_get_projects_mode (profile))
     return NULL;

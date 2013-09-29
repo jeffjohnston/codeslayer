@@ -79,24 +79,24 @@ typedef struct _CodeSlayerProjectsEnginePrivate CodeSlayerProjectsEnginePrivate;
 
 struct _CodeSlayerProjectsEnginePrivate
 {
-  GtkWindow               *window;
-  CodeSlayerRegistry      *registry;
-  CodeSlayerProfileHandler *profile_handler;
-  CodeSlayerPlugins       *plugins;
-  GtkWidget               *search;
-  GtkWidget               *menubar;
-  GtkWidget               *notebook;
-  GtkWidget               *notebook_pane;
-  GtkWidget               *side_pane;
-  GtkWidget               *bottom_pane;
-  GtkWidget               *hpaned;
-  GtkWidget               *vpaned;
-  GdkWindowState           window_state;
-  GtkWidget               *projects;
+  GtkWindow          *window;
+  CodeSlayerRegistry *registry;
+  CodeSlayerProfiles *profiles;
+  CodeSlayerPlugins  *plugins;
+  GtkWidget          *search;
+  GtkWidget          *menubar;
+  GtkWidget          *notebook;
+  GtkWidget          *notebook_pane;
+  GtkWidget          *side_pane;
+  GtkWidget          *bottom_pane;
+  GtkWidget          *hpaned;
+  GtkWidget          *vpaned;
+  GdkWindowState      window_state;
+  GtkWidget          *projects;
 
-  GtkWidget               *go_to_line_dialog;
-  GdkRGBA                  go_to_line_error_color;
-  GdkRGBA                  go_to_line_default_color;  
+  GtkWidget          *go_to_line_dialog;
+  GdkRGBA             go_to_line_error_color;
+  GdkRGBA             go_to_line_default_color;  
 };
 
 G_DEFINE_TYPE (CodeSlayerProjectsEngine, codeslayer_projects_engine, CODESLAYER_ABSTRACT_ENGINE_TYPE)
@@ -139,18 +139,18 @@ codeslayer_projects_engine_finalize (CodeSlayerProjectsEngine *engine)
  * Returns: a new #CodeSlayerProjectsEngine. 
  */
 CodeSlayerProjectsEngine*
-codeslayer_projects_engine_new (GtkWindow               *window,
-                                CodeSlayerRegistry      *registry,
-                                CodeSlayerProfileHandler *profile_handler,
-                                CodeSlayerPlugins       *plugins,
-                                GtkWidget               *projects, 
-                                GtkWidget               *menubar,
-                                GtkWidget               *notebook,
-                                GtkWidget               *notebook_pane, 
-                                GtkWidget               *side_pane,
-                                GtkWidget               *bottom_pane, 
-                                GtkWidget               *hpaned,
-                                GtkWidget               *vpaned)
+codeslayer_projects_engine_new (GtkWindow          *window,
+                                CodeSlayerRegistry *registry,
+                                CodeSlayerProfiles *profiles,
+                                CodeSlayerPlugins  *plugins,
+                                GtkWidget          *projects, 
+                                GtkWidget          *menubar,
+                                GtkWidget          *notebook,
+                                GtkWidget          *notebook_pane, 
+                                GtkWidget          *side_pane,
+                                GtkWidget          *bottom_pane, 
+                                GtkWidget          *hpaned,
+                                GtkWidget          *vpaned)
 {
   CodeSlayerProjectsEnginePrivate *priv;
   CodeSlayerProjectsEngine *engine;
@@ -160,7 +160,7 @@ codeslayer_projects_engine_new (GtkWindow               *window,
 
   priv->window = window;
   priv->registry = registry;
-  priv->profile_handler = profile_handler;
+  priv->profiles = profiles;
   priv->plugins = plugins;
   priv->projects = projects;
   priv->menubar = menubar;
@@ -174,7 +174,7 @@ codeslayer_projects_engine_new (GtkWindow               *window,
   g_object_set (CODESLAYER_ABSTRACT_ENGINE (engine), 
                 "window", window, 
                 "registry", registry, 
-                "profile_handler", profile_handler, 
+                "profiles", profiles, 
                 "menubar", menubar, 
                 "notebook", notebook, 
                 "notebook_pane", notebook_pane, 
@@ -236,7 +236,7 @@ new_projects_action (CodeSlayerProjectsEngine *engine,
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
 
-  profile = codeslayer_profile_handler_load_new_profile (priv->profile_handler, file);
+  profile = codeslayer_profiles_load_new_profile (priv->profiles, file);
   if (profile == NULL)
     return;
     
@@ -258,7 +258,7 @@ new_projects_action (CodeSlayerProjectsEngine *engine,
 
 static void
 open_projects_action (CodeSlayerProjectsEngine *engine,
-                      GFile            *file)
+                      GFile                    *file)
 {
   CodeSlayerProjectsEnginePrivate *priv;
   CodeSlayerProfile *profile;
@@ -274,7 +274,7 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
 
-  profile = codeslayer_profile_handler_load_file_profile (priv->profile_handler, file);
+  profile = codeslayer_profiles_load_file_profile (priv->profiles, file);
   if (profile == NULL)
     return;
     
@@ -318,7 +318,7 @@ add_projects_action (CodeSlayerProjectsEngine *engine,
   CodeSlayerProfile *profile;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   while (files != NULL)
     {
@@ -342,7 +342,7 @@ add_projects_action (CodeSlayerProjectsEngine *engine,
 
       codeslayer_profile_add_project (profile, project);
 
-      codeslayer_profile_handler_save_profile (priv->profile_handler);
+      codeslayer_profiles_save_profile (priv->profiles);
 
       codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
       
@@ -360,11 +360,11 @@ remove_project_action (CodeSlayerProjectsEngine *engine,
   CodeSlayerProfile *profile;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   codeslayer_profile_remove_project (profile, project);
   
-  codeslayer_profile_handler_save_profile (priv->profile_handler);
+  codeslayer_profiles_save_profile (priv->profiles);
   
   g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
 }
@@ -445,7 +445,7 @@ select_editor_action (CodeSlayerProjectsEngine *engine,
   gboolean sync_with_editor;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   if (codeslayer_profile_get_projects (profile) == NULL)
     return;
@@ -478,7 +478,7 @@ search_find_projects_action (CodeSlayerProjectsEngine *engine,
   gint search_y;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   if (priv->search == NULL)
     {

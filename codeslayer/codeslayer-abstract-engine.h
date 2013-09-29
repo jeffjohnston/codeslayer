@@ -22,7 +22,7 @@
 #include <gtk/gtk.h>
 
 #include <codeslayer/codeslayer-registry.h>
-#include <codeslayer/codeslayer-profile-handler.h>
+#include <codeslayer/codeslayer-profiles.h>
 #include <codeslayer/codeslayer-plugins.h>
 
 G_BEGIN_DECLS

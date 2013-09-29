@@ -23,7 +23,7 @@
 
 #include <codeslayer/codeslayer-abstract-engine.h>
 #include <codeslayer/codeslayer-registry.h>
-#include <codeslayer/codeslayer-profile-handler.h>
+#include <codeslayer/codeslayer-profiles.h>
 #include <codeslayer/codeslayer-plugins.h>
 
 G_BEGIN_DECLS
@@ -51,7 +51,7 @@ GType codeslayer_projects_engine_get_type (void) G_GNUC_CONST;
 
 CodeSlayerProjectsEngine*  codeslayer_projects_engine_new  (GtkWindow               *window,
                                                             CodeSlayerRegistry      *registry,
-                                                            CodeSlayerProfileHandler *profile_handler,
+                                                            CodeSlayerProfiles *profiles,
                                                             CodeSlayerPlugins       *plugins,
                                                             GtkWidget               *projects, 
                                                             GtkWidget               *menubar,

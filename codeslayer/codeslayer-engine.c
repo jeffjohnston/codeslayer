@@ -31,7 +31,6 @@
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-notebook-pane.h>
 #include <codeslayer/codeslayer-editor.h>
-#include <codeslayer/codeslayer-plugins.h>
 
 /**
  * SECTION:codeslayer-engine
@@ -44,40 +43,39 @@
  * parts of the application very decoupled.
  */
 
-static void codeslayer_engine_class_init                (CodeSlayerEngineClass  *klass);
-static void codeslayer_engine_init                      (CodeSlayerEngine       *engine);
-static void codeslayer_engine_finalize                  (CodeSlayerEngine       *engine);
+static void codeslayer_engine_class_init    (CodeSlayerEngineClass  *klass);
+static void codeslayer_engine_init          (CodeSlayerEngine       *engine);
+static void codeslayer_engine_finalize      (CodeSlayerEngine       *engine);
 
-static void new_editor_action                           (CodeSlayerEngine       *engine);
-static void open_editor_action                          (CodeSlayerEngine       *engine);
-static void save_editor_action                          (CodeSlayerEngine       *engine);
-static void save_all_editors_action                     (CodeSlayerEngine       *engine);
-static void close_editor_action                         (CodeSlayerEngine       *engine);
-static void search_find_action                          (CodeSlayerEngine       *engine);
-static void search_find_next_action                     (CodeSlayerEngine       *engine);
-static void search_find_previous_action                 (CodeSlayerEngine       *engine);
-static void search_replace_action                       (CodeSlayerEngine       *engine);
-static void go_to_line_action                           (CodeSlayerEngine       *engine);
-static gboolean go_to_line_keypress_action              (GtkWidget              *entry,
-                                                         GdkEventKey            *event, 
-                                                         CodeSlayerEngine       *engine);
-static void fullscreen_window_action                    (CodeSlayerEngine       *engine);
-static void toggle_side_pane_action                     (CodeSlayerEngine       *engine);
-static void open_side_pane_action                       (CodeSlayerEngine       *engine);
-static void close_side_pane_action                      (CodeSlayerEngine       *engine);
-static void toggle_bottom_pane_action                   (CodeSlayerEngine       *engine);
-static void open_bottom_pane_action                     (CodeSlayerEngine       *engine);
-static void close_bottom_pane_action                    (CodeSlayerEngine       *engine);
-static void draw_spaces_action                          (CodeSlayerEngine       *engine);
-static void word_wrap_action                            (CodeSlayerEngine       *engine);
-static void page_removed_action                         (CodeSlayerEngine       *engine,
-                                                         GtkWidget              *page, 
-                                                         guint                   page_num);
-static void show_preferences_action                     (CodeSlayerEngine       *engine);
-static void show_profiles_action                        (CodeSlayerEngine       *engine);
-static void registry_changed_action                     (CodeSlayerEngine       *engine);
-
-static void show_plugins_action                         (CodeSlayerEngine      *engine);
+static void new_editor_action               (CodeSlayerEngine       *engine);
+static void open_editor_action              (CodeSlayerEngine       *engine);
+static void save_editor_action              (CodeSlayerEngine       *engine);
+static void save_all_editors_action         (CodeSlayerEngine       *engine);
+static void close_editor_action             (CodeSlayerEngine       *engine);
+static void search_find_action              (CodeSlayerEngine       *engine);
+static void search_find_next_action         (CodeSlayerEngine       *engine);
+static void search_find_previous_action     (CodeSlayerEngine       *engine);
+static void search_replace_action           (CodeSlayerEngine       *engine);
+static void go_to_line_action               (CodeSlayerEngine       *engine);
+static gboolean go_to_line_keypress_action  (GtkWidget              *entry,
+                                             GdkEventKey            *event, 
+                                             CodeSlayerEngine       *engine);
+static void fullscreen_window_action        (CodeSlayerEngine       *engine);
+static void toggle_side_pane_action         (CodeSlayerEngine       *engine);
+static void open_side_pane_action           (CodeSlayerEngine       *engine);
+static void close_side_pane_action          (CodeSlayerEngine       *engine);
+static void toggle_bottom_pane_action       (CodeSlayerEngine       *engine);
+static void open_bottom_pane_action         (CodeSlayerEngine       *engine);
+static void close_bottom_pane_action        (CodeSlayerEngine       *engine);
+static void draw_spaces_action              (CodeSlayerEngine       *engine);
+static void word_wrap_action                (CodeSlayerEngine       *engine);
+static void page_removed_action             (CodeSlayerEngine       *engine,
+                                             GtkWidget              *page, 
+                                             guint                   page_num);
+static void show_preferences_action         (CodeSlayerEngine       *engine);
+static void show_profiles_action            (CodeSlayerEngine       *engine);
+static void registry_changed_action         (CodeSlayerEngine       *engine);
+static void show_plugins_action             (CodeSlayerEngine      *engine);
                                                    
 #define CODESLAYER_ENGINE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_ENGINE_TYPE, CodeSlayerEnginePrivate))
@@ -86,24 +84,25 @@ typedef struct _CodeSlayerEnginePrivate CodeSlayerEnginePrivate;
 
 struct _CodeSlayerEnginePrivate
 {
-  GtkWindow               *window;
-  CodeSlayerRegistry      *registry;
-  CodeSlayerPreferences   *preferences;
-  CodeSlayerProfileHandler *profile_handler;
-  CodeSlayerPlugins       *plugins;
-  GtkWidget               *search;
-  GtkWidget               *menubar;
-  GtkWidget               *notebook;
-  GtkWidget               *notebook_pane;
-  GtkWidget               *side_pane;
-  GtkWidget               *bottom_pane;
-  GtkWidget               *hpaned;
-  GtkWidget               *vpaned;
-  GdkWindowState           window_state;
+  GtkWindow                 *window;
+  CodeSlayerRegistry        *registry;
+  CodeSlayerPreferences     *preferences;
+  CodeSlayerProfiles        *profiles;
+  CodeSlayerProfilesManager *profiles_manager;
+  CodeSlayerPlugins         *plugins;
+  GtkWidget                 *search;
+  GtkWidget                 *menubar;
+  GtkWidget                 *notebook;
+  GtkWidget                 *notebook_pane;
+  GtkWidget                 *side_pane;
+  GtkWidget                 *bottom_pane;
+  GtkWidget                 *hpaned;
+  GtkWidget                 *vpaned;
+  GdkWindowState             window_state;
 
-  GtkWidget               *go_to_line_dialog;
-  GdkRGBA                  go_to_line_error_color;
-  GdkRGBA                  go_to_line_default_color;  
+  GtkWidget                 *go_to_line_dialog;
+  GdkRGBA                    go_to_line_error_color;
+  GdkRGBA                    go_to_line_default_color;  
 };
 
 G_DEFINE_TYPE (CodeSlayerEngine, codeslayer_engine, CODESLAYER_ABSTRACT_ENGINE_TYPE)
@@ -146,18 +145,19 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
  * Returns: a new #CodeSlayerEngine. 
  */
 CodeSlayerEngine*
-codeslayer_engine_new (GtkWindow               *window,
-                       CodeSlayerRegistry      *registry,
-                       CodeSlayerPreferences   *preferences,
-                       CodeSlayerProfileHandler *profile_handler,
-                       CodeSlayerPlugins       *plugins,
-                       GtkWidget               *menubar,
-                       GtkWidget               *notebook,
-                       GtkWidget               *notebook_pane, 
-                       GtkWidget               *side_pane,
-                       GtkWidget               *bottom_pane, 
-                       GtkWidget               *hpaned,
-                       GtkWidget               *vpaned)
+codeslayer_engine_new (GtkWindow                 *window,
+                       CodeSlayerRegistry        *registry,
+                       CodeSlayerPreferences     *preferences,
+                       CodeSlayerProfiles        *profiles,
+                       CodeSlayerProfilesManager *profiles_manager,
+                       CodeSlayerPlugins         *plugins,
+                       GtkWidget                 *menubar,
+                       GtkWidget                 *notebook,
+                       GtkWidget                 *notebook_pane, 
+                       GtkWidget                 *side_pane,
+                       GtkWidget                 *bottom_pane, 
+                       GtkWidget                 *hpaned,
+                       GtkWidget                 *vpaned)
 {
   CodeSlayerEnginePrivate *priv;
   CodeSlayerEngine *engine;
@@ -168,7 +168,8 @@ codeslayer_engine_new (GtkWindow               *window,
   priv->window = window;
   priv->registry = registry;
   priv->preferences = preferences;
-  priv->profile_handler = profile_handler;
+  priv->profiles = profiles;
+  priv->profiles_manager = profiles_manager;
   priv->plugins = plugins;
   priv->menubar = menubar;
   priv->notebook = notebook;
@@ -181,7 +182,7 @@ codeslayer_engine_new (GtkWindow               *window,
   g_object_set (CODESLAYER_ABSTRACT_ENGINE (engine), 
                 "window", window, 
                 "registry", registry, 
-                "profile_handler", profile_handler, 
+                "profiles", profiles, 
                 "menubar", menubar, 
                 "notebook", notebook, 
                 "notebook_pane", notebook_pane, 
@@ -278,7 +279,7 @@ codeslayer_engine_load_default_profile (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profile_handler_load_default_profile (priv->profile_handler);
+  profile = codeslayer_profiles_load_default_profile (priv->profiles);
   
   g_signal_emit_by_name ((gpointer) priv->registry, "registry-initialized");
 
@@ -645,7 +646,9 @@ show_preferences_action (CodeSlayerEngine *engine)
 static void
 show_profiles_action (CodeSlayerEngine *engine)
 {
-  g_print ("show_profiles_action\n");
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  codeslayer_profiles_manager_run_dialog (priv->profiles_manager);
 }
 
 static void
@@ -764,7 +767,7 @@ show_plugins_action (CodeSlayerEngine *engine)
   CodeSlayerProfile *profile;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   codeslayer_plugins_run_dialog (priv->plugins, profile);
 }
