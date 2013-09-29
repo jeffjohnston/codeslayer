@@ -66,7 +66,7 @@ typedef struct _CodeSlayerPrivate CodeSlayerPrivate;
 struct _CodeSlayerPrivate
 {
   GtkWindow                   *window;
-  CodeSlayerConfigHandler     *config_handler;
+  CodeSlayerProfileHandler     *profile_handler;
   CodeSlayerRegistry          *registry;
   CodeSlayerProcesses         *processes;
   CodeSlayerMenuBar           *menu_bar;
@@ -251,7 +251,7 @@ codeslayer_finalize (CodeSlayer *codeslayer)
 
 CodeSlayer*
 codeslayer_new (GtkWindow                   *window,
-                CodeSlayerConfigHandler     *config_handler,
+                CodeSlayerProfileHandler     *profile_handler,
                 CodeSlayerRegistry          *registry, 
                 CodeSlayerProcesses         *processes, 
                 CodeSlayerMenuBar           *menu_bar,
@@ -266,7 +266,7 @@ codeslayer_new (GtkWindow                   *window,
   codeslayer = CODESLAYER (g_object_new (codeslayer_get_type (), NULL));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   priv->window = window;
-  priv->config_handler = config_handler;
+  priv->profile_handler = profile_handler;
   priv->registry = registry;
   priv->processes = processes;
   priv->menu_bar = menu_bar;
@@ -613,20 +613,6 @@ codeslayer_show_bottom_pane (CodeSlayer *codeslayer,
 }
 
 /**
- * codeslayer_add_to_menubar:
- * @codeslayer: a #CodeSlayer.
- * @menuitem: a #GtkMenuItem.
- *
- * Add the given menu item to the menubar tools menu. 
- */
-void
-codeslayer_add_to_menubar (CodeSlayer  *codeslayer, 
-                           GtkMenuItem *menuitem)
-{
-  codeslayer_add_to_menu_bar (codeslayer, menuitem);
-}                              
-
-/**
  * codeslayer_add_to_menu_bar:
  * @codeslayer: a #CodeSlayer.
  * @menuitem: a #GtkMenuItem.
@@ -643,20 +629,6 @@ codeslayer_add_to_menu_bar (CodeSlayer  *codeslayer,
   g_object_ref_sink (menuitem);  
   codeslayer_menu_bar_add_tools_item (priv->menu_bar, GTK_WIDGET (menuitem));
 }                              
-
-/**
- * codeslayer_remove_from_menubar:
- * @codeslayer: a #CodeSlayer.
- * @menuitem: a #GtkMenuItem.
- *
- * Remove the given menu item from the menubar tools menu. 
- */
-void
-codeslayer_remove_from_menubar (CodeSlayer  *codeslayer, 
-                                GtkMenuItem *menuitem)
-{
-  codeslayer_remove_from_menu_bar (codeslayer, menuitem);
-}
 
 /**
  * codeslayer_remove_from_menu_bar:
@@ -757,18 +729,6 @@ codeslayer_remove_from_project_properties (CodeSlayer *codeslayer,
 }                                           
 
 /**
- * codeslayer_get_menubar_accel_group:
- * @codeslayer: a #CodeSlayer.
- *
- * Returns: The #GtkAccelGroup associated with the menu.
- */
-GtkAccelGroup*
-codeslayer_get_menubar_accel_group (CodeSlayer *codeslayer)
-{
-  return codeslayer_get_menu_bar_accel_group (codeslayer);
-}
-
-/**
  * codeslayer_get_menu_bar_accel_group:
  * @codeslayer: a #CodeSlayer.
  *
@@ -781,24 +741,6 @@ codeslayer_get_menu_bar_accel_group (CodeSlayer *codeslayer)
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   return codeslayer_menu_bar_get_accel_group (priv->menu_bar);
-}
-
-/**
- * codeslayer_get_configuration_folder_path:
- * @codeslayer: a #CodeSlayer.
- *
- * The folder path to where you should place plugin configuration files.
- *
- * Returns: a newly-allocated string that must be freed with g_free().
- *
- * Deprecated: 3.0: use codeslayer_get_plugins_config_folder_path now.
- */
-gchar*
-codeslayer_get_configuration_folder_path (CodeSlayer *codeslayer)
-{
-  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, 
-                           PLUGINS, CONFIG, NULL);
 }
 
 /**
@@ -848,17 +790,17 @@ codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer,
                                      const gchar *file_path)
 {
   CodeSlayerPrivate *priv;
-  CodeSlayerConfig *config;
+  CodeSlayerProfile *profile;
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  config = codeslayer_config_handler_get_config (priv->config_handler);
+  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
   
-  if (!codeslayer_config_get_projects_mode (config))
+  if (!codeslayer_profile_get_projects_mode (profile))
     return NULL;
 
-  return codeslayer_config_get_project_by_file_path (config, file_path);
+  return codeslayer_profile_get_project_by_file_path (profile, file_path);
 }
 
 /**
@@ -937,23 +879,6 @@ codeslayer_remove_from_process_bar (CodeSlayer *codeslayer,
   CodeSlayerPrivate *priv;
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   codeslayer_processes_remove (priv->processes, id);
-}
-
-/**
- * codeslayer_get_editor_linker:
- * @codeslayer: a #CodeSlayer.
- * @text_view: the text_view to create the links in.
- *
- * Returns: Creates a new @CodeSlayerEditorLinker. You must free this with 
- *          g_object_unref () when done with it.
- *
- * Deprecated: 3.0: use codeslayer_create_editor_linker now.
- */
-CodeSlayerEditorLinker*   
-codeslayer_get_editor_linker (CodeSlayer  *codeslayer,
-                              GtkTextView *text_view)
-{
-  return codeslayer_editor_linker_new (G_OBJECT (codeslayer), text_view);
 }
 
 /**

@@ -21,7 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-registry.h>
-#include <codeslayer/codeslayer-config.h>
+#include <codeslayer/codeslayer-profile.h>
 
 G_BEGIN_DECLS
 

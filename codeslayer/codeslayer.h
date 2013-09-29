@@ -20,7 +20,7 @@
 #define	__CODESLAYER_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-config-handler.h>
+#include <codeslayer/codeslayer-profile-handler.h>
 #include <codeslayer/codeslayer-menubar.h>
 #include <codeslayer/codeslayer-notebook.h>
 #include <codeslayer/codeslayer-projects-selection.h>
@@ -79,7 +79,7 @@ struct _CodeSlayerClass
 GType codeslayer_get_type (void) G_GNUC_CONST;
   
 CodeSlayer*               codeslayer_new                             (GtkWindow                   *window,
-                                                                      CodeSlayerConfigHandler     *config_handler,
+                                                                      CodeSlayerProfileHandler     *profile_handler,
                                                                       CodeSlayerRegistry          *registry, 
                                                                       CodeSlayerProcesses         *processes, 
                                                                       CodeSlayerMenuBar           *menu_bar,
@@ -127,15 +127,9 @@ void                      codeslayer_remove_from_bottom_pane         (CodeSlayer
 void                      codeslayer_show_bottom_pane                (CodeSlayer                  *codeslayer, 
                                                                       GtkWidget                   *widget);
 
-void                      codeslayer_add_to_menubar                  (CodeSlayer                  *codeslayer, 
-                                                                      GtkMenuItem                 *menuitem) __attribute__ ((deprecated));
-
 void                      codeslayer_add_to_menu_bar                 (CodeSlayer                  *codeslayer, 
                                                                       GtkMenuItem                 *menuitem);
 
-void                      codeslayer_remove_from_menubar             (CodeSlayer                  *codeslayer, 
-                                                                      GtkMenuItem                 *menuitem) __attribute__ ((deprecated));
-                                                        
 void                      codeslayer_remove_from_menu_bar            (CodeSlayer                  *codeslayer, 
                                                                       GtkMenuItem                 *menuitem);
                                                         
@@ -152,11 +146,7 @@ void                      codeslayer_add_to_project_properties       (CodeSlayer
 void                      codeslayer_remove_from_project_properties  (CodeSlayer                  *codeslayer, 
                                                                       GtkWidget                   *widget);
                                                         
-GtkAccelGroup*            codeslayer_get_menubar_accel_group         (CodeSlayer                  *codeslayer) __attribute__ ((deprecated));
-
 GtkAccelGroup*            codeslayer_get_menu_bar_accel_group        (CodeSlayer                  *codeslayer);
-
-gchar*                    codeslayer_get_configuration_folder_path   (CodeSlayer                  *codeslayer) __attribute__ ((deprecated));
 
 gchar*                    codeslayer_get_project_config_folder_path  (CodeSlayer                  *codeslayer, 
                                                                       CodeSlayerProject           *project);
@@ -177,9 +167,6 @@ gint                      codeslayer_add_to_process_bar              (CodeSlayer
 
 void                      codeslayer_remove_from_process_bar         (CodeSlayer                  *codeslayer,
                                                                       gint                         id);
-
-CodeSlayerEditorLinker*   codeslayer_get_editor_linker               (CodeSlayer                  *codeslayer,
-                                                                      GtkTextView                 *text_view) __attribute__ ((deprecated));
 
 CodeSlayerEditorLinker*   codeslayer_create_editor_linker            (CodeSlayer                  *codeslayer,
                                                                       GtkTextView                 *text_view);

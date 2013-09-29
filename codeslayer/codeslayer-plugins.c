@@ -221,11 +221,11 @@ load_plugin_from_file (gchar *file_path)
 /**
  * codeslayer_plugins_activate:
  * @plugins: a #CodeSlayerPlugins.
- * @group: a #CodeSlayerConfig.
+ * @group: a #CodeSlayerProfile.
  */
 void 
 codeslayer_plugins_activate (CodeSlayerPlugins *plugins, 
-                             CodeSlayerConfig  *config)
+                             CodeSlayerProfile  *profile)
 {
   CodeSlayerPluginsPrivate *priv;
   GList *list;
@@ -239,7 +239,7 @@ codeslayer_plugins_activate (CodeSlayerPlugins *plugins,
       CodeSlayerPlugin *plugin = list->data;
       const gchar *lib;
       lib = codeslayer_plugin_get_lib (plugin);
-      if (codeslayer_config_contains_plugin (config, lib) && 
+      if (codeslayer_profile_contains_plugin (profile, lib) && 
           !codeslayer_plugin_get_enabled (plugin))
         {
           codeslayer_plugin_set_enabled (plugin, TRUE);
@@ -290,13 +290,13 @@ codeslayer_plugins_get_list (CodeSlayerPlugins *plugins)
 /**
  * codeslayer_plugins_run_dialog:
  * @plugins: a #CodeSlayerPlugins.
- * @config: a #CodeSlayerConfig.
+ * @profile: a #CodeSlayerProfile.
  *
  * Show the plugins dialog.
  */
 void
 codeslayer_plugins_run_dialog (CodeSlayerPlugins *plugins, 
-                               CodeSlayerConfig  *config)
+                               CodeSlayerProfile  *profile)
 {
   CodeSlayerPluginsPrivate *priv;
   GtkWidget *dialog;
@@ -317,7 +317,7 @@ codeslayer_plugins_run_dialog (CodeSlayerPlugins *plugins,
 
   gtk_widget_set_size_request (content_area, 350, 400);
 
-  plugins_selector = codeslayer_plugins_selector_new (plugins, config);
+  plugins_selector = codeslayer_plugins_selector_new (plugins, profile);
   gtk_box_pack_start (GTK_BOX (content_area), plugins_selector, TRUE, TRUE, 0);  
 
   gtk_widget_show_all (content_area);

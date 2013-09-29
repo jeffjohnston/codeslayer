@@ -118,8 +118,8 @@ typedef struct
 struct _CodeSlayerProjectsPrivate
 {
   GtkWidget               *window;
-  CodeSlayerConfig        *config;
-  CodeSlayerConfigHandler *config_handler;
+  CodeSlayerProfile        *profile;
+  CodeSlayerProfileHandler *profile_handler;
   CodeSlayerRegistry      *registry;
   GtkWidget               *project_properties;
   GtkWidget               *properties_dialog;
@@ -223,7 +223,7 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
    *
    * Note: for internal use only.
    *
-   * The ::remove-project signal is a request to remove the project from the config.
+   * The ::remove-project signal is a request to remove the project from the profile.
    */
   codeslayer_projects_signals[REMOVE_PROJECT] =
     g_signal_new ("remove-project", 
@@ -433,7 +433,7 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
  */
 GtkWidget*
 codeslayer_projects_new (GtkWidget               *window, 
-                         CodeSlayerConfigHandler *config_handler,
+                         CodeSlayerProfileHandler *profile_handler,
                          CodeSlayerRegistry      *registry,
                          GtkWidget               *project_properties)
 {
@@ -445,7 +445,7 @@ codeslayer_projects_new (GtkWidget               *window,
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   
   priv->window = window;
-  priv->config_handler = config_handler;
+  priv->profile_handler = profile_handler;
   priv->registry = registry;
   priv->project_properties = project_properties;
   
@@ -786,7 +786,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
                                      CodeSlayerDocument *document)
 {
   CodeSlayerProjectsPrivate *priv;
-  CodeSlayerConfig *config;
+  CodeSlayerProfile *profile;
   CodeSlayerProject *project;
   const gchar *project_folder_path;
   const gchar *document_file_path;
@@ -800,14 +800,14 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
   gchar *destination_path;
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
+  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
 
   if (select_document (document, projects))
     return TRUE;
     
   project = codeslayer_document_get_project (document);
   
-  if (project == NULL || !codeslayer_config_contains_project (config, project))
+  if (project == NULL || !codeslayer_profile_contains_project (profile, project))
     {
       g_warning ("Cannot select document from the tree because the project is invalid.");  
       return FALSE;

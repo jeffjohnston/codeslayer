@@ -22,7 +22,7 @@
 #include <gtk/gtk.h>
 
 #include <codeslayer/codeslayer-registry.h>
-#include <codeslayer/codeslayer-config-handler.h>
+#include <codeslayer/codeslayer-profile-handler.h>
 #include <codeslayer/codeslayer-plugins.h>
 
 G_BEGIN_DECLS
@@ -50,7 +50,7 @@ GType codeslayer_abstract_engine_get_type (void) G_GNUC_CONST;
 
 CodeSlayerAbstractEngine*  codeslayer_abstract_engine_new  ();
 
-gboolean                   codeslayer_abstract_engine_save_config           (CodeSlayerAbstractEngine *abstract_engine);
+gboolean                   codeslayer_abstract_engine_save_profile           (CodeSlayerAbstractEngine *abstract_engine);
 void                       codeslayer_abstract_engine_load_window_settings  (CodeSlayerAbstractEngine *abstract_engine);
 void                       codeslayer_abstract_engine_sync_menu_bar         (CodeSlayerAbstractEngine *abstract_engine);
 

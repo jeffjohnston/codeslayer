@@ -22,8 +22,8 @@ pkginclude_HEADERS = \
     codeslayer-menubar-tools.h \
     codeslayer-menubar-help.h \
     codeslayer-project.h \
-    codeslayer-config.h \
-    codeslayer-config-handler.h \
+    codeslayer-profile.h \
+    codeslayer-profile-handler.h \
     codeslayer-document.h \
     codeslayer-registry.h \
     codeslayer-preferences.h \
@@ -77,8 +77,8 @@ libcodeslayer_la_SOURCES = \
     codeslayer-menubar-tools.c \
     codeslayer-menubar-help.c \
     codeslayer-project.c \
-    codeslayer-config.c \
-    codeslayer-config-handler.c \
+    codeslayer-profile.c \
+    codeslayer-profile-handler.c \
     codeslayer-document.c \
     codeslayer-registry.c \
     codeslayer-preferences.c \

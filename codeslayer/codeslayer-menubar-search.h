@@ -20,7 +20,7 @@
 #define	__CODESLAYER_MENU_BAR_SEARCH_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-config.h>
+#include <codeslayer/codeslayer-profile.h>
 
 G_BEGIN_DECLS
 

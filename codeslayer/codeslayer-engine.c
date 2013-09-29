@@ -23,7 +23,7 @@
 #include <codeslayer/codeslayer-projects.h>
 #include <codeslayer/codeslayer-projects-search.h>
 #include <codeslayer/codeslayer-menubar.h>
-#include <codeslayer/codeslayer-config.h>
+#include <codeslayer/codeslayer-profile.h>
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
 #include <codeslayer/codeslayer-notebook.h>
@@ -88,7 +88,7 @@ struct _CodeSlayerEnginePrivate
   GtkWindow               *window;
   CodeSlayerRegistry      *registry;
   CodeSlayerPreferences   *preferences;
-  CodeSlayerConfigHandler *config_handler;
+  CodeSlayerProfileHandler *profile_handler;
   CodeSlayerPlugins       *plugins;
   GtkWidget               *search;
   GtkWidget               *menubar;
@@ -148,7 +148,7 @@ CodeSlayerEngine*
 codeslayer_engine_new (GtkWindow               *window,
                        CodeSlayerRegistry      *registry,
                        CodeSlayerPreferences   *preferences,
-                       CodeSlayerConfigHandler *config_handler,
+                       CodeSlayerProfileHandler *profile_handler,
                        CodeSlayerPlugins       *plugins,
                        GtkWidget               *menubar,
                        GtkWidget               *notebook,
@@ -167,7 +167,7 @@ codeslayer_engine_new (GtkWindow               *window,
   priv->window = window;
   priv->registry = registry;
   priv->preferences = preferences;
-  priv->config_handler = config_handler;
+  priv->profile_handler = profile_handler;
   priv->plugins = plugins;
   priv->menubar = menubar;
   priv->notebook = notebook;
@@ -180,7 +180,7 @@ codeslayer_engine_new (GtkWindow               *window,
   g_object_set (CODESLAYER_ABSTRACT_ENGINE (engine), 
                 "window", window, 
                 "registry", registry, 
-                "config_handler", config_handler, 
+                "profile_handler", profile_handler, 
                 "menubar", menubar, 
                 "notebook", notebook, 
                 "notebook_pane", notebook_pane, 
@@ -263,18 +263,18 @@ codeslayer_engine_new (GtkWindow               *window,
 }
 
 /**
- * codeslayer_engine_load_default_config:
+ * codeslayer_engine_load_default_profile:
  * @engine: a #CodeSlayerEngine.
  */
 void
-codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
+codeslayer_engine_load_default_profile (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerConfig *config;
+  CodeSlayerProfile *profile;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  config = codeslayer_config_handler_load_default_config (priv->config_handler);
+  profile = codeslayer_profile_handler_load_default_profile (priv->profile_handler);
   
   g_signal_emit_by_name ((gpointer) priv->registry, "registry-initialized");
 
@@ -282,7 +282,7 @@ codeslayer_engine_load_default_config (CodeSlayerEngine *engine)
   
   new_editor_action (engine);
 
-  codeslayer_plugins_activate (priv->plugins, config);  
+  codeslayer_plugins_activate (priv->plugins, profile);  
 }
 
 void
@@ -751,10 +751,10 @@ static void
 show_plugins_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerConfig *config;
+  CodeSlayerProfile *profile;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
+  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
   
-  codeslayer_plugins_run_dialog (priv->plugins, config);
+  codeslayer_plugins_run_dialog (priv->plugins, profile);
 }

@@ -20,8 +20,8 @@
 #define __CODESLAYER_REGISTRY_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-config.h>
-#include <codeslayer/codeslayer-config-handler.h>
+#include <codeslayer/codeslayer-profile.h>
+#include <codeslayer/codeslayer-profile-handler.h>
 
 G_BEGIN_DECLS
 
@@ -85,7 +85,7 @@ struct _CodeSlayerRegistryClass
 
 GType codeslayer_registry_get_type (void) G_GNUC_CONST;
 
-CodeSlayerRegistry*  codeslayer_registry_new          (CodeSlayerConfigHandler *config_handler);
+CodeSlayerRegistry*  codeslayer_registry_new          (CodeSlayerProfileHandler *profile_handler);
 
 gint                 codeslayer_registry_get_integer  (CodeSlayerRegistry *registry, 
                                                        gchar              *key);

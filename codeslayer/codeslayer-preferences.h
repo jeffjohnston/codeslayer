@@ -20,9 +20,9 @@
 #define __CODESLAYER_PREFERENCES_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-config.h>
+#include <codeslayer/codeslayer-profile.h>
 #include <codeslayer/codeslayer-registry.h>
-#include <codeslayer/codeslayer-config-handler.h>
+#include <codeslayer/codeslayer-profile-handler.h>
 
 G_BEGIN_DECLS
 
@@ -48,7 +48,7 @@ struct _CodeSlayerPreferencesClass
 GType codeslayer_preferences_get_type (void) G_GNUC_CONST;
 
 CodeSlayerPreferences*  codeslayer_preferences_new          (GtkWidget               *window, 
-                                                             CodeSlayerConfigHandler *config_handler, 
+                                                             CodeSlayerProfileHandler *profile_handler, 
                                                              CodeSlayerRegistry      *registry);
 
 void                    codeslayer_preferences_run_dialog   (CodeSlayerPreferences *preferences);

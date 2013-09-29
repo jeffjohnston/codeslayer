@@ -24,7 +24,7 @@
 #include <codeslayer/codeslayer-abstract-engine.h>
 #include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-preferences.h>
-#include <codeslayer/codeslayer-config-handler.h>
+#include <codeslayer/codeslayer-profile-handler.h>
 #include <codeslayer/codeslayer-plugins.h>
 
 G_BEGIN_DECLS
@@ -53,7 +53,7 @@ GType codeslayer_engine_get_type (void) G_GNUC_CONST;
 CodeSlayerEngine*  codeslayer_engine_new                  (GtkWindow             *window,
                                                            CodeSlayerRegistry    *registry,
                                                            CodeSlayerPreferences *preferences,
-                                                           CodeSlayerConfigHandler *config_handler,
+                                                           CodeSlayerProfileHandler *profile_handler,
                                                            CodeSlayerPlugins     *plugins,
                                                            GtkWidget             *menubar,
                                                            GtkWidget             *notebook,
@@ -63,7 +63,7 @@ CodeSlayerEngine*  codeslayer_engine_new                  (GtkWindow            
                                                            GtkWidget             *hpaned,
                                                            GtkWidget             *vpaned);
 
-void               codeslayer_engine_load_default_config  (CodeSlayerEngine      *engine);
+void               codeslayer_engine_load_default_profile  (CodeSlayerEngine      *engine);
 void               codeslayer_engine_open_editor          (CodeSlayerEngine      *engine, 
                                                            gchar                 *file_path);
 

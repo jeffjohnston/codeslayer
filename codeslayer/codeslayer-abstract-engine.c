@@ -23,7 +23,7 @@
 #include <codeslayer/codeslayer-projects.h>
 #include <codeslayer/codeslayer-projects-search.h>
 #include <codeslayer/codeslayer-menubar.h>
-#include <codeslayer/codeslayer-config.h>
+#include <codeslayer/codeslayer-profile.h>
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
 #include <codeslayer/codeslayer-notebook.h>
@@ -68,7 +68,7 @@ struct _CodeSlayerAbstractEnginePrivate
 {
   GtkWindow               *window;
   CodeSlayerRegistry      *registry;
-  CodeSlayerConfigHandler *config_handler;
+  CodeSlayerProfileHandler *profile_handler;
   GtkWidget               *menubar;
   GtkWidget               *notebook;
   GtkWidget               *notebook_pane;
@@ -122,9 +122,9 @@ codeslayer_abstract_engine_class_init (CodeSlayerAbstractEngineClass *klass)
   
   g_object_class_install_property (gobject_class, 
                                    PROP_CONFIG_HANDLER,
-                                   g_param_spec_pointer ("config_handler",
-                                                         "CodeSlayerConfigHandler",
-                                                         "CodeSlayerConfigHandler",
+                                   g_param_spec_pointer ("profile_handler",
+                                                         "CodeSlayerProfileHandler",
+                                                         "CodeSlayerProfileHandler",
                                                          G_PARAM_READWRITE));  
   
   g_object_class_install_property (gobject_class, 
@@ -209,7 +209,7 @@ codeslayer_abstract_engine_get_property (GObject    *object,
       g_value_set_pointer (value, priv->registry);
       break;
     case PROP_CONFIG_HANDLER:
-      g_value_set_pointer (value, priv->config_handler);
+      g_value_set_pointer (value, priv->profile_handler);
       break;
     case PROP_MENUBAR:
       g_value_set_pointer (value, priv->menubar);
@@ -256,7 +256,7 @@ codeslayer_abstract_engine_set_property (GObject      *object,
       priv->registry = g_value_get_pointer (value);
       break;
     case PROP_CONFIG_HANDLER:
-      priv->config_handler = g_value_get_pointer (value);
+      priv->profile_handler = g_value_get_pointer (value);
       break;
     case PROP_MENUBAR:
       priv->menubar = g_value_get_pointer (value);
@@ -286,15 +286,15 @@ codeslayer_abstract_engine_set_property (GObject      *object,
 }
 
 gboolean
-codeslayer_abstract_engine_save_config (CodeSlayerAbstractEngine *engine)
+codeslayer_abstract_engine_save_profile (CodeSlayerAbstractEngine *engine)
 {
   CodeSlayerAbstractEnginePrivate *priv;
-  CodeSlayerConfig *config;
+  CodeSlayerProfile *profile;
   
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (engine);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
+  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
 
-  if (config == NULL)
+  if (profile == NULL)
     return TRUE;
   
   if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
@@ -302,7 +302,7 @@ codeslayer_abstract_engine_save_config (CodeSlayerAbstractEngine *engine)
 
   save_window_settings (engine);
   save_document_settings (engine);
-  codeslayer_config_handler_save_config (priv->config_handler);
+  codeslayer_profile_handler_save_profile (priv->profile_handler);
   
   return TRUE;
 }
@@ -311,15 +311,15 @@ static void
 save_document_settings (CodeSlayerAbstractEngine *abstract_engine)
 {
   CodeSlayerAbstractEnginePrivate *priv;
-  CodeSlayerConfig *config;
+  CodeSlayerProfile *profile;
   GList *documents = NULL;
   gint pages;
   gint page;
 
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
+  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
   
-  if (codeslayer_config_get_projects_mode (config) == FALSE)
+  if (codeslayer_profile_get_projects_mode (profile) == FALSE)
     return;
   
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
@@ -332,7 +332,7 @@ save_document_settings (CodeSlayerAbstractEngine *abstract_engine)
       documents = g_list_append (documents, document);
     }
     
-  codeslayer_config_set_documents (config, documents);
+  codeslayer_profile_set_documents (profile, documents);
 }
 
 static void
@@ -458,15 +458,15 @@ void
 codeslayer_abstract_engine_sync_menu_bar (CodeSlayerAbstractEngine *abstract_engine)
 {
   CodeSlayerAbstractEnginePrivate *priv;
-  CodeSlayerConfig *config;
+  CodeSlayerProfile *profile;
   gboolean projects_mode;
   gboolean has_open_editors;
   gint pages;
 
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
+  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
 
-  projects_mode = codeslayer_config_get_projects_mode (config);
+  projects_mode = codeslayer_profile_get_projects_mode (profile);
 
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
   has_open_editors = pages > 0;

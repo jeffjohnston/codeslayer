@@ -28,11 +28,11 @@
 
 /**
  * SECTION:codeslayer-preferences
- * @short_description: The config preferences.
+ * @short_description: The profile preferences.
  * @title: CodeSlayerPreferences
  * @include: codeslayer/codeslayer-preferences.h
  *
- * Saves the config preferences using the GKeyFile. The file is saved in the 
+ * Saves the profile preferences using the GKeyFile. The file is saved in the 
  * users home directory under the .codeslayer" folder.
  */
 
@@ -49,7 +49,7 @@ struct _CodeSlayerPreferencesPrivate
 {
   GtkWidget               *window;
   CodeSlayerRegistry      *registry;
-  CodeSlayerConfigHandler *config_handler;
+  CodeSlayerProfileHandler *profile_handler;
 };
 
 G_DEFINE_TYPE (CodeSlayerPreferences, codeslayer_preferences, G_TYPE_OBJECT)
@@ -82,7 +82,7 @@ codeslayer_preferences_finalize (CodeSlayerPreferences *preferences)
  */
 CodeSlayerPreferences*
 codeslayer_preferences_new (GtkWidget               *window, 
-                            CodeSlayerConfigHandler *config_handler, 
+                            CodeSlayerProfileHandler *profile_handler, 
                             CodeSlayerRegistry      *registry)
 {
   CodeSlayerPreferencesPrivate *priv;
@@ -91,7 +91,7 @@ codeslayer_preferences_new (GtkWidget               *window,
   preferences = g_object_new (codeslayer_preferences_get_type (), NULL);
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   priv->window = window;
-  priv->config_handler = config_handler;
+  priv->profile_handler = profile_handler;
   priv->registry = registry;
   
   return preferences;
@@ -107,7 +107,7 @@ void
 codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
 {
   CodeSlayerPreferencesPrivate *priv;
-  CodeSlayerConfig *config; 
+  CodeSlayerProfile *profile; 
   GtkWidget *dialog;
   GtkWidget *content_area;
   GtkWidget *preferences_editor;
@@ -117,7 +117,7 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   GtkWidget *notebook;
   
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-  config = codeslayer_config_handler_get_config (priv->config_handler);
+  profile = codeslayer_profile_handler_get_profile (priv->profile_handler);
 
   dialog = gtk_dialog_new_with_buttons (_("Preferences"), 
                                         GTK_WINDOW (priv->window),
@@ -142,7 +142,7 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_theme, 
                             gtk_label_new (_("Theme")));
 
-  if (codeslayer_config_get_projects_mode (config))
+  if (codeslayer_profile_get_projects_mode (profile))
     {
       preferences_projects = codeslayer_preferences_projects_new (preferences, priv->registry);
       gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_projects, 

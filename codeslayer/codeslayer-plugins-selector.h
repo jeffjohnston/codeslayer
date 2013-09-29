@@ -46,7 +46,7 @@ struct _CodeSlayerPluginsSelectorClass
 GType codeslayer_plugins_selector_get_type (void) G_GNUC_CONST;
 
 GtkWidget*  codeslayer_plugins_selector_new  (CodeSlayerPlugins *plugins, 
-                                              CodeSlayerConfig  *config);
+                                              CodeSlayerProfile  *profile);
 
 G_END_DECLS
 
