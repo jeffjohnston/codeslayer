@@ -80,6 +80,7 @@ enum
   GO_TO_LINE,
   FIND_INCREMENTAL,
   SHOW_PREFERENCES,
+  SHOW_PROFILES,
   SCAN_EXTERNAL_CHANGES,
   SHOW_PLUGINS,
   UNDO,
@@ -439,6 +440,22 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerMenuBarClass, show_preferences),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  /**
+   * CodeSlayerMenuBar::show-profiles
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::show-profiles signal is a request to open up the profiles dialog.
+   */
+  codeslayer_menu_bar_signals[SHOW_PROFILES] =
+    g_signal_new ("show-profiles", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, show_profiles),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -906,6 +923,16 @@ void
 codeslayer_menu_bar_show_preferences (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "show-preferences");
+}
+
+/**
+ * codeslayer_menu_bar_show_profiles:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ */
+void            
+codeslayer_menu_bar_show_profiles (CodeSlayerMenuBar *menu_bar)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "show-profiles");
 }
 
 /**

@@ -74,6 +74,7 @@ static void page_removed_action                         (CodeSlayerEngine       
                                                          GtkWidget              *page, 
                                                          guint                   page_num);
 static void show_preferences_action                     (CodeSlayerEngine       *engine);
+static void show_profiles_action                        (CodeSlayerEngine       *engine);
 static void registry_changed_action                     (CodeSlayerEngine       *engine);
 
 static void show_plugins_action                         (CodeSlayerEngine      *engine);
@@ -249,6 +250,9 @@ codeslayer_engine_new (GtkWindow               *window,
   
   g_signal_connect_swapped (G_OBJECT (menubar), "show-preferences",
                             G_CALLBACK (show_preferences_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (menubar), "show-profiles",
+                            G_CALLBACK (show_profiles_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (priv->notebook), "page-removed",
                             G_CALLBACK (page_removed_action), engine);
@@ -636,6 +640,12 @@ show_preferences_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   codeslayer_preferences_run_dialog (priv->preferences);
+}
+
+static void
+show_profiles_action (CodeSlayerEngine *engine)
+{
+  g_print ("show_profiles_action\n");
 }
 
 static void

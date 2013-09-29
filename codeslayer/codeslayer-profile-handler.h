@@ -53,9 +53,9 @@ CodeSlayerProfileHandler*  codeslayer_profile_handler_new                   (voi
 CodeSlayerProfile*         codeslayer_profile_handler_get_profile           (CodeSlayerProfileHandler *profile_handler);
 CodeSlayerProfile*         codeslayer_profile_handler_load_default_profile  (CodeSlayerProfileHandler *profile_handler);
 CodeSlayerProfile*         codeslayer_profile_handler_load_new_profile      (CodeSlayerProfileHandler *profile_handler, 
-                                                                             GFile                   *file);
+                                                                             GFile                    *file);
 CodeSlayerProfile*         codeslayer_profile_handler_load_file_profile     (CodeSlayerProfileHandler *profile_handler, 
-                                                                             GFile                   *file);
+                                                                             GFile                    *file);
 void                       codeslayer_profile_handler_save_profile          (CodeSlayerProfileHandler *profile_handler);
 
 G_END_DECLS

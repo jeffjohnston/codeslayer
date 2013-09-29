@@ -64,6 +64,7 @@ struct _CodeSlayerMenuBarClass
   void (*find_previous) (CodeSlayerMenuBar *menu_bar);
   void (*go_to_line) (CodeSlayerMenuBar *menu_bar);
   void (*show_preferences) (CodeSlayerMenuBar *menu_bar);
+  void (*show_profiles) (CodeSlayerMenuBar *menu_bar);
   void (*show_plugins) (CodeSlayerMenuBar *menu_bar);  
   void (*undo) (CodeSlayerMenuBar *menu_bar);
   void (*redo) (CodeSlayerMenuBar *menu_bar);
@@ -103,6 +104,7 @@ void            codeslayer_menu_bar_to_uppercase               (CodeSlayerMenuBa
 void            codeslayer_menu_bar_to_lowercase               (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_copy_lines                 (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_show_preferences           (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_show_profiles              (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_sync_with_editor           (CodeSlayerMenuBar     *menu_bar, 
                                                                 gboolean               sync_with_editor);
 void            codeslayer_menu_bar_scan_external_changes      (CodeSlayerMenuBar     *menu_bar);
