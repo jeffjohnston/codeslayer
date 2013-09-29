@@ -52,6 +52,12 @@ static void build_plugins_xml                      (gchar                       
 static void build_registry_xml                     (gchar                         *name,
                                                     gchar                         *value, 
                                                     GString                       **xml);
+static void verify_profiles_default_dir_exists     (void);
+                                                    
+#define CODESLAYER_PROFILES_DIR "profiles"
+#define CODESLAYER_PROFILES_DEFAULT_DIR "Default"
+#define CODESLAYER_PROFILE_FILE "codeslayer.profile"
+                                                    
 #define CODESLAYER_PROFILE_HANDLER_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROFILE_HANDLER_TYPE, CodeSlayerProfileHandlerPrivate))
 
@@ -144,7 +150,14 @@ codeslayer_profile_handler_load_default_profile (CodeSlayerProfileHandler *profi
   
   priv = CODESLAYER_PROFILE_HANDLER_GET_PRIVATE (profile_handler);  
   
-  file_path = g_build_filename (g_get_home_dir (), CODESLAYER_HOME, CONFIG, NULL);
+  verify_profiles_default_dir_exists ();
+  
+  file_path = g_build_filename (g_get_home_dir (),
+                                CODESLAYER_HOME,
+                                CODESLAYER_PROFILES_DIR,
+                                CODESLAYER_PROFILES_DEFAULT_DIR,
+                                CODESLAYER_PROFILE_FILE,
+                                NULL);
 
   file = g_file_new_for_path (file_path);
   if (!g_file_query_exists (file, NULL))
@@ -223,7 +236,7 @@ codeslayer_profile_handler_save_profile (CodeSlayerProfileHandler *profile_handl
   plugins = codeslayer_profile_get_plugins (priv->profile);         
   registry = codeslayer_profile_get_registry (priv->profile);
   
-  xml = g_string_new ("<config>");
+  xml = g_string_new ("<profile>");
   
   if (projects != NULL)
     {
@@ -250,7 +263,7 @@ codeslayer_profile_handler_save_profile (CodeSlayerProfileHandler *profile_handl
   g_hash_table_foreach (registry, (GHFunc)build_registry_xml, &xml);
   xml = g_string_append (xml, "\n\t</registry>");
 
-  xml = g_string_append (xml, "\n</config>");
+  xml = g_string_append (xml, "\n</profile>");
   
   contents = g_string_free (xml, FALSE);
   
@@ -426,4 +439,24 @@ set_profile_registry_defaults (CodeSlayerProfile *profile)
   codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION, "left");
   codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS, ".csv,.git,.svn");
   codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_WORD_WRAP_TYPES, ".txt");
+}
+
+static void
+verify_profiles_default_dir_exists ()
+{
+  gchar *default_dir;
+  GFile *file;
+  
+  default_dir = g_build_filename (g_get_home_dir (),
+                                  CODESLAYER_HOME,
+                                  CODESLAYER_PROFILES_DIR,
+                                  CODESLAYER_PROFILES_DEFAULT_DIR,
+                                  NULL);
+  file = g_file_new_for_path (default_dir);
+
+  if (!g_file_query_exists (file, NULL)) 
+    g_file_make_directory (file, NULL, NULL);
+
+  g_free (default_dir);
+  g_object_unref (file);
 }

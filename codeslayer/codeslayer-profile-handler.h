@@ -30,6 +30,8 @@ G_BEGIN_DECLS
 #define IS_CODESLAYER_PROFILE_HANDLER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_PROFILE_HANDLER_TYPE))
 #define IS_CODESLAYER_PROFILE_HANDLER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_PROFILE_HANDLER_TYPE))
 
+#define CODESLAYER_PROFILES_DIR "profiles"
+
 typedef struct _CodeSlayerProfileHandler CodeSlayerProfileHandler;
 typedef struct _CodeSlayerProfileHandlerClass CodeSlayerProfileHandlerClass;
 

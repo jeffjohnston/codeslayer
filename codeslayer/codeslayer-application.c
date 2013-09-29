@@ -82,7 +82,8 @@ static gboolean delete_event                   (GtkWidget                  *wind
 static void quit_application_action            (CodeSlayerApplication      *application);
 static void verify_home_dir_exists             (void);
 static void verify_plugins_dir_exists          (void);
-static void verify_plugins_profile_dir_exists   (void);
+static void verify_plugins_config_dir_exists   (void);
+static void verify_profiles_dir_exists         (void);
 
 #define CODESLAYER_APPLICATION_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_APPLICATION_TYPE, CodeSlayerApplicationPrivate))
@@ -164,7 +165,8 @@ codeslayer_application_startup (GApplication *application)
   
   verify_home_dir_exists ();
   verify_plugins_dir_exists ();
-  verify_plugins_profile_dir_exists ();
+  verify_plugins_config_dir_exists ();
+  verify_profiles_dir_exists ();
   
   create_profile_handler (CODESLAYER_APPLICATION (application));
 
@@ -611,7 +613,26 @@ verify_plugins_dir_exists (void)
 }
 
 static void
-verify_plugins_profile_dir_exists (void)
+verify_profiles_dir_exists (void)
+{
+  gchar *profiles_dir;
+  GFile *file;
+  
+  profiles_dir = g_build_filename (g_get_home_dir (),
+                                  CODESLAYER_HOME,
+                                  CODESLAYER_PROFILES_DIR,
+                                  NULL);
+  file = g_file_new_for_path (profiles_dir);
+
+  if (!g_file_query_exists (file, NULL)) 
+    g_file_make_directory (file, NULL, NULL);
+
+  g_free (profiles_dir);
+  g_object_unref (file);
+}
+
+static void
+verify_plugins_config_dir_exists (void)
 {
   gchar *configuration_dir;
   GFile *file;
