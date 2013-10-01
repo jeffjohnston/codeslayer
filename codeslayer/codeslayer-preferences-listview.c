@@ -19,6 +19,7 @@
 #include <codeslayer/codeslayer-preferences-listview.h>
 #include <codeslayer/codeslayer-preferences-utils.h>
 #include <codeslayer/codeslayer-preferences.h>
+#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-listview.h>
 #include <codeslayer/codeslayer-utils.h>
 
@@ -47,7 +48,7 @@ typedef struct _CodeSlayerPreferencesListViewPrivate CodeSlayerPreferencesListVi
 struct _CodeSlayerPreferencesListViewPrivate
 {
   CodeSlayerPreferences *preferences;
-  CodeSlayerRegistry    *registry;
+  CodeSlayerProfiles    *profiles;
   gchar                 *key;
   GtkWidget             *tab;
   const gchar           *title;
@@ -114,7 +115,7 @@ codeslayer_preferences_list_view_finalize (CodeSlayerPreferencesListView *projec
  */
 GObject*
 codeslayer_preferences_list_view_new (CodeSlayerPreferences *preferences, 
-                                      CodeSlayerRegistry    *registry,
+                                      CodeSlayerProfiles    *profiles,
                                       gchar                 *key,
                                       GtkWidget             *tab, 
                                       const gchar           *title)
@@ -125,7 +126,7 @@ codeslayer_preferences_list_view_new (CodeSlayerPreferences *preferences,
   preferences_listview = g_object_new (codeslayer_preferences_list_view_get_type (), NULL);
   priv = CODESLAYER_PREFERENCES_LIST_VIEW_GET_PRIVATE (preferences_listview);
   priv->preferences = preferences;
-  priv->registry = registry;
+  priv->profiles = profiles;
   priv->title = title;
   priv->key = key;
   priv->tab = tab;
@@ -162,12 +163,15 @@ load_list (CodeSlayerPreferencesListView *preferences_listview,
            GtkWidget                     *list_view)
 {
   CodeSlayerPreferencesListViewPrivate *priv;
+  CodeSlayerRegistry *registry;
   gchar *include_types;
   gchar **split, **tmp;
 
   priv = CODESLAYER_PREFERENCES_LIST_VIEW_GET_PRIVATE (preferences_listview);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
-  include_types = codeslayer_registry_get_string (priv->registry, priv->key);
+  include_types = codeslayer_registry_get_string (registry, priv->key);
   split = g_strsplit (include_types, ",", 0);
   g_free (include_types);
   
@@ -188,10 +192,13 @@ list_changed_action (CodeSlayerPreferencesListView *preferences_listview,
                      GList                         *list)
 {
   CodeSlayerPreferencesListViewPrivate *priv;
+  CodeSlayerRegistry *registry;
   gchar *value;
   GString *gs;
     
   priv = CODESLAYER_PREFERENCES_LIST_VIEW_GET_PRIVATE (preferences_listview);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   gs = g_string_new ("");
 
@@ -212,8 +219,8 @@ list_changed_action (CodeSlayerPreferencesListView *preferences_listview,
 
   value = g_string_free (gs, FALSE);
 
-  codeslayer_registry_set_string (priv->registry, priv->key, value);
-  codeslayer_preferences_utils_notify (priv->registry);
+  codeslayer_registry_set_string (registry, priv->key, value);
+  codeslayer_preferences_utils_notify (registry);
   
   g_signal_emit_by_name ((gpointer) preferences_listview, "list-changed");
   g_free (value);

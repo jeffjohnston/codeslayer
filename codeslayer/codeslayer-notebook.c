@@ -203,15 +203,12 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   gchar *contents;
   gint line_number;
   GTimeVal *modification_time;
-  CodeSlayerRegistry *registry; 
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
-
   /* create page, editor and buffer */
 
-  editor = codeslayer_editor_new (priv->window, document, registry);
+  editor = codeslayer_editor_new (priv->window, document, priv->profiles);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
 
   file_path = codeslayer_document_get_file_path (document);

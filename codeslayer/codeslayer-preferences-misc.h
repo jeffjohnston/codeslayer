@@ -46,7 +46,7 @@ struct _CodeSlayerPreferencesMiscClass
 GType codeslayer_preferences_misc_get_type (void) G_GNUC_CONST;
 
 GtkWidget*  codeslayer_preferences_misc_new  (CodeSlayerPreferences *preferences, 
-                                              CodeSlayerRegistry    *registry);
+                                              CodeSlayerProfiles    *profiles);
 
 G_END_DECLS
 

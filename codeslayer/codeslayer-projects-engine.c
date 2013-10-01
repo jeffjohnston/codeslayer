@@ -491,7 +491,7 @@ search_find_projects_action (CodeSlayerProjectsEngine *engine,
   if (priv->search == NULL)
     {
       priv->search = codeslayer_projects_search_new (priv->window, 
-                                                     registry);
+                                                     priv->profiles);
 
       g_signal_connect_swapped (G_OBJECT (priv->search), "close",
                                 G_CALLBACK (close_search_action), engine);

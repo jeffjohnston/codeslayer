@@ -55,11 +55,11 @@ GType codeslayer_editor_get_type (void) G_GNUC_CONST;
 
 GtkWidget*           codeslayer_editor_new                       (GtkWindow                    *window,
                                                                   CodeSlayerDocument           *document,
-                                                                  CodeSlayerRegistry           *registry);
+                                                                  CodeSlayerProfiles           *profiles);
 
 gboolean             codeslayer_editor_scroll_to_line            (CodeSlayerEditor             *editor,
                                                                   gint                          line_number);
-void                 codeslayer_editor_sync_registry (CodeSlayerEditor             *editor);
+void                 codeslayer_editor_sync_registry             (CodeSlayerEditor             *editor);
 CodeSlayerDocument*  codeslayer_editor_get_document              (CodeSlayerEditor             *editor);
 void                 codeslayer_editor_add_completion_provider   (CodeSlayerEditor             *editor, 
                                                                   CodeSlayerCompletionProvider *provider);

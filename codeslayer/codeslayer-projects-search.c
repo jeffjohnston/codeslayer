@@ -107,25 +107,25 @@ typedef struct _CodeSlayerProjectsSearchPrivate CodeSlayerProjectsSearchPrivate;
 
 struct _CodeSlayerProjectsSearchPrivate
 {
-  GtkWindow              *parent;
-  CodeSlayerProfile      *profile;
-  CodeSlayerRegistry     *registry;
-  GtkWidget              *vbox;
-  GtkWidget              *grid;
-  GtkWidget              *find_entry;
-  GtkWidget              *file_entry;
-  GtkWidget              *stop_button;
-  GtkWidget              *find_button;
-  GtkWidget              *match_case_button;
-  GtkWidget              *treeview;
-  GtkTreeStore           *treestore;
-  GtkCellRenderer        *renderer;
-  GtkWidget              *options_grid;
-  GtkWidget              *scope_combo_box;
-  gchar                  *file_paths;
-  gboolean                stop_request;
-  const gchar            *find_text;
-  const gchar            *file_text;
+  GtkWindow          *parent;
+  CodeSlayerProfile  *profile;
+  CodeSlayerProfiles *profiles;
+  GtkWidget          *vbox;
+  GtkWidget          *grid;
+  GtkWidget          *find_entry;
+  GtkWidget          *file_entry;
+  GtkWidget          *stop_button;
+  GtkWidget          *find_button;
+  GtkWidget          *match_case_button;
+  GtkWidget          *treeview;
+  GtkTreeStore       *treestore;
+  GtkCellRenderer    *renderer;
+  GtkWidget          *options_grid;
+  GtkWidget          *scope_combo_box;
+  gchar              *file_paths;
+  gboolean            stop_request;
+  const gchar        *find_text;
+  const gchar        *file_text;
 };
 
 enum
@@ -252,7 +252,7 @@ codeslayer_projects_search_finalize (CodeSlayerProjectsSearch *search)
  */
 GtkWidget*
 codeslayer_projects_search_new (GtkWindow          *window, 
-                                CodeSlayerRegistry *registry)
+                                CodeSlayerProfiles *profiles)
 {
   CodeSlayerProjectsSearchPrivate *priv;
   GtkWidget *search;
@@ -260,7 +260,7 @@ codeslayer_projects_search_new (GtkWindow          *window,
   search = g_object_new (codeslayer_projects_search_get_type (), NULL);
   priv = CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE (search);
   priv->parent = window;
-  priv->registry = registry;
+  priv->profiles = profiles;
   priv->file_paths = NULL;
   
   gtk_window_set_transient_for (GTK_WINDOW (search), window);
@@ -667,6 +667,7 @@ static void
 execute (CodeSlayerProjectsSearch *search)
 {
   CodeSlayerProjectsSearchPrivate *priv;
+  CodeSlayerRegistry *registry;
   
   gchar *find_globbing = NULL;
   GPatternSpec *find_pattern = NULL;  
@@ -675,6 +676,8 @@ execute (CodeSlayerProjectsSearch *search)
   GPatternSpec *file_pattern = NULL;
   
   priv = CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE (search);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   if (codeslayer_utils_has_text (priv->find_text))
     {
@@ -695,10 +698,10 @@ execute (CodeSlayerProjectsSearch *search)
       GList *exclude_types = NULL;
       GList *exclude_dirs = NULL;
       
-      exclude_types_str = codeslayer_registry_get_string (priv->registry,
-                                                             CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES);
-      exclude_dirs_str = codeslayer_registry_get_string (priv->registry,
-                                                            CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS);
+      exclude_types_str = codeslayer_registry_get_string (registry,
+                                                          CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES);
+      exclude_dirs_str = codeslayer_registry_get_string (registry,
+                                                         CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS);
       exclude_types = codeslayer_utils_string_to_list (exclude_types_str);
       exclude_dirs = codeslayer_utils_string_to_list (exclude_dirs_str);
                                                            

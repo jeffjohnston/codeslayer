@@ -81,7 +81,7 @@ codeslayer_preferences_projects_finalize (CodeSlayerPreferencesProjects *prefere
  */
 GtkWidget*
 codeslayer_preferences_projects_new (CodeSlayerPreferences *preferences, 
-                                     CodeSlayerRegistry    *registry)
+                                     CodeSlayerProfiles    *profiles)
 {
   CodeSlayerPreferencesProjectsPrivate *priv;
   GtkWidget *preferences_projects;
@@ -89,19 +89,19 @@ codeslayer_preferences_projects_new (CodeSlayerPreferences *preferences,
   preferences_projects = g_object_new (codeslayer_preferences_projects_get_type (), NULL);
   priv = CODESLAYER_PREFERENCES_PROJECTS_GET_PRIVATE (preferences_projects);
   
-  priv->exclude_file_types = codeslayer_preferences_list_view_new (preferences, registry, 
+  priv->exclude_file_types = codeslayer_preferences_list_view_new (preferences, profiles, 
                                        CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES,
                                        preferences_projects, _("Exclude File Types"));
   
-  priv->exclude_directories = codeslayer_preferences_list_view_new (preferences, registry, 
+  priv->exclude_directories = codeslayer_preferences_list_view_new (preferences, profiles, 
                                        CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS,
                                        preferences_projects, _("Exclude Directories"));
                                        
   g_signal_connect_swapped (G_OBJECT (priv->exclude_file_types), "list-changed",
-                            G_CALLBACK (codeslayer_preferences_utils_notify), registry);
+                            G_CALLBACK (codeslayer_preferences_utils_notify), profiles);
   
   g_signal_connect_swapped (G_OBJECT (priv->exclude_directories), "list-changed",
-                            G_CALLBACK (codeslayer_preferences_utils_notify), registry);
+                            G_CALLBACK (codeslayer_preferences_utils_notify), profiles);
   
   return preferences_projects;
 }

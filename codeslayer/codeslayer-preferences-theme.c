@@ -65,7 +65,7 @@ typedef struct _CodeSlayerPreferencesThemePrivate CodeSlayerPreferencesThemePriv
 struct _CodeSlayerPreferencesThemePrivate
 {
   CodeSlayerPreferences *preferences;
-  CodeSlayerRegistry    *registry;
+  CodeSlayerProfiles    *profiles;
   GtkFontButton         *font;
   GtkListStore          *themes_store;
   GtkWidget             *editor_tab_position;
@@ -113,7 +113,7 @@ codeslayer_preferences_theme_finalize (CodeSlayerPreferencesTheme *preferences_t
  */
 GtkWidget*
 codeslayer_preferences_theme_new (CodeSlayerPreferences *preferences, 
-                                  CodeSlayerRegistry    *registry)
+                                  CodeSlayerProfiles    *profiles)
 {
   CodeSlayerPreferencesThemePrivate *priv;
   GtkWidget *preferences_theme;
@@ -122,7 +122,7 @@ codeslayer_preferences_theme_new (CodeSlayerPreferences *preferences,
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
   
   priv->preferences = preferences;
-  priv->registry = registry;
+  priv->profiles = profiles;
   
   add_font (CODESLAYER_PREFERENCES_THEME (preferences_theme));
   add_theme (CODESLAYER_PREFERENCES_THEME (preferences_theme));
@@ -135,12 +135,15 @@ static void
 add_font (CodeSlayerPreferencesTheme *preferences_theme)
 {
   CodeSlayerPreferencesThemePrivate *priv;
+  CodeSlayerRegistry *registry;
   GtkBox *content_area;
   GtkWidget *label;
   GtkWidget *font;
   gchar *fontname;
   
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
   
   content_area = codeslayer_preferences_utils_content_area (GTK_BOX (preferences_theme), 
                                                             _("Font"));
@@ -150,7 +153,7 @@ add_font (CodeSlayerPreferencesTheme *preferences_theme)
 
   font = gtk_font_button_new ();
   priv->font = GTK_FONT_BUTTON (font);
-  fontname = codeslayer_registry_get_string (priv->registry,
+  fontname = codeslayer_registry_get_string (registry,
                                                 CODESLAYER_REGISTRY_EDITOR_FONT);
   gtk_font_button_set_font_name (GTK_FONT_BUTTON (font), fontname);
   g_free (fontname);
@@ -268,11 +271,14 @@ populate_combo_box (CodeSlayerPreferencesTheme *preferences_theme,
                     GtkPositionType             default_position_type)
 {
   CodeSlayerPreferencesThemePrivate *priv;
+  CodeSlayerRegistry *registry;
   gchar *editor_value;
 
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
   
-  editor_value = codeslayer_registry_get_string (priv->registry, preferences_key);
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  
+  editor_value = codeslayer_registry_get_string (registry, preferences_key);
 
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo_box), _("Left"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo_box), _("Right"));
@@ -298,6 +304,7 @@ static void
 add_theme (CodeSlayerPreferencesTheme *preferences_theme)
 {
   CodeSlayerPreferencesThemePrivate *priv;
+  CodeSlayerRegistry *registry;
   GtkBox *content_area;
   GtkWidget *themes_tree;
   GtkListStore *themes_store;
@@ -312,6 +319,8 @@ add_theme (CodeSlayerPreferencesTheme *preferences_theme)
   GtkTreeIter iter;
   
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
   
   content_area = codeslayer_preferences_utils_content_area (GTK_BOX (preferences_theme), 
                                                             _("Theme"));
@@ -344,7 +353,7 @@ add_theme (CodeSlayerPreferencesTheme *preferences_theme)
   gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (themes_tree));
   gtk_widget_set_size_request (scrolled_window, -1, 120);
 
-  theme = codeslayer_registry_get_string (priv->registry,
+  theme = codeslayer_registry_get_string (registry,
                                              CODESLAYER_REGISTRY_EDITOR_THEME);
                                              
   style_scheme_manager = gtk_source_style_scheme_manager_get_default ();
@@ -419,31 +428,37 @@ static void
 font_action (CodeSlayerPreferencesTheme *preferences_theme)
 {
   CodeSlayerPreferencesThemePrivate *priv;
+  CodeSlayerRegistry *registry;
   const gchar *value;
   gchar *font_name;
   
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   value = gtk_font_button_get_font_name (priv->font);
   font_name = g_strdup (value);
   
-  codeslayer_registry_set_string (priv->registry,
+  codeslayer_registry_set_string (registry,
                                      CODESLAYER_REGISTRY_EDITOR_FONT,
                                      font_name);
                                      
   g_free (font_name);                                     
 
-  codeslayer_preferences_utils_notify (priv->registry);
+  codeslayer_preferences_utils_notify (registry);
 }
 
 static void                
 editor_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
 {
   CodeSlayerPreferencesThemePrivate *priv;
+  CodeSlayerRegistry *registry;
   GString *string;
   gchar *value;
   
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   value = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->editor_tab_position));
   string = g_string_new (value);
@@ -451,10 +466,10 @@ editor_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
   string = g_string_ascii_down (string);
   value = g_string_free (string, FALSE);
   
-  codeslayer_registry_set_string (priv->registry,
+  codeslayer_registry_set_string (registry,
                                      CODESLAYER_REGISTRY_EDITOR_TAB_POSITION,
                                      value);
-  codeslayer_preferences_utils_notify (priv->registry);
+  codeslayer_preferences_utils_notify (registry);
 
   g_free (value);
 }                            
@@ -463,10 +478,13 @@ static void
 side_pane_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
 {
   CodeSlayerPreferencesThemePrivate *priv;
+  CodeSlayerRegistry *registry;
   GString *string;
   gchar *value;
   
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   value = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->side_pane_tab_position));
   string = g_string_new (value);
@@ -474,10 +492,10 @@ side_pane_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
   string = g_string_ascii_down (string);
   value = g_string_free (string, FALSE);
   
-  codeslayer_registry_set_string (priv->registry,
+  codeslayer_registry_set_string (registry,
                                      CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION,
                                      value);
-  codeslayer_preferences_utils_notify (priv->registry);
+  codeslayer_preferences_utils_notify (registry);
 
   g_free (value);
 }                            
@@ -486,10 +504,13 @@ static void
 bottom_pane_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
 {
   CodeSlayerPreferencesThemePrivate *priv;
+  CodeSlayerRegistry *registry;
   GString *string;
   gchar *value;
   
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   value = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->bottom_pane_tab_position));
   string = g_string_new (value);
@@ -497,10 +518,10 @@ bottom_pane_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
   string = g_string_ascii_down (string);
   value = g_string_free (string, FALSE);
   
-  codeslayer_registry_set_string (priv->registry,
+  codeslayer_registry_set_string (registry,
                                      CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION,
                                      value);
-  codeslayer_preferences_utils_notify (priv->registry);
+  codeslayer_preferences_utils_notify (registry);
 
   g_free (value);
 }                            
@@ -510,11 +531,14 @@ theme_action (GtkTreeView                *treeview,
               CodeSlayerPreferencesTheme *preferences_theme)
 {
   CodeSlayerPreferencesThemePrivate *priv;
+  CodeSlayerRegistry *registry;
   GtkTreeModel *model;
   GtkTreeSelection *treeselection;
   GtkTreeIter iter;
   
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   treeselection = gtk_tree_view_get_selection (treeview);
   
@@ -525,13 +549,13 @@ theme_action (GtkTreeView                *treeview,
           gchar *value = NULL;
           gtk_tree_model_get (GTK_TREE_MODEL (priv->themes_store), &iter, 
                               TEXT, &value, -1);
-          codeslayer_registry_set_string (priv->registry,
+          codeslayer_registry_set_string (registry,
                                           CODESLAYER_REGISTRY_EDITOR_THEME,
                                           value);
           g_free (value);
         }
 
-      codeslayer_preferences_utils_notify (priv->registry);
+      codeslayer_preferences_utils_notify (registry);
     }
   
   return FALSE;
