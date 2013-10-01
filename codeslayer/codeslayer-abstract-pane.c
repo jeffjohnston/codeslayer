@@ -47,9 +47,9 @@ typedef struct _CodeSlayerAbstractPanePrivate CodeSlayerAbstractPanePrivate;
 
 struct _CodeSlayerAbstractPanePrivate
 {
-  CodeSlayerRegistry    *registry;
-  GtkWidget             *notebook;
-  GList                 *plugins;
+  CodeSlayerProfiles *profiles;
+  GtkWidget          *notebook;
+  GList              *plugins;
 };
 
 enum
@@ -143,12 +143,12 @@ codeslayer_abstract_pane_create_notebook (CodeSlayerAbstractPane *abstract_pane)
 }
 
 void
-codeslayer_abstract_pane_set_registry (CodeSlayerAbstractPane *abstract_pane, 
-                                       CodeSlayerRegistry     *registry)
+codeslayer_abstract_pane_set_profiles (CodeSlayerAbstractPane *abstract_pane, 
+                                       CodeSlayerProfiles     *profiles)
 {
   CodeSlayerAbstractPanePrivate *priv;
   priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
-  priv->registry = registry;
+  priv->profiles = profiles;
 }
 
 /**
@@ -289,12 +289,14 @@ void
 codeslayer_abstract_pane_sync_registry (CodeSlayerAbstractPane *abstract_pane)
 {
   CodeSlayerAbstractPanePrivate *priv;
+  CodeSlayerRegistry *registry; 
   gchar *editor_value;
   
   priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
-  editor_value = codeslayer_registry_get_string (priv->registry, 
-                                                    tab_position_key (abstract_pane));
+  editor_value = codeslayer_registry_get_string (registry, tab_position_key (abstract_pane));
                                                     
   if (!codeslayer_utils_has_text (editor_value))
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (priv->notebook), GTK_POS_TOP);                                                    

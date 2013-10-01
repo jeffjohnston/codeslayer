@@ -41,7 +41,6 @@ typedef struct _CodeSlayerProfilesManagerPrivate CodeSlayerProfilesManagerPrivat
 struct _CodeSlayerProfilesManagerPrivate
 {
   GtkWidget          *window;
-  CodeSlayerRegistry *registry;
   CodeSlayerProfiles *profiles;
 };
 
@@ -75,8 +74,7 @@ codeslayer_profiles_manager_finalize (CodeSlayerProfilesManager *profiles_manage
  */
 CodeSlayerProfilesManager*
 codeslayer_profiles_manager_new (GtkWidget          *window, 
-                                 CodeSlayerProfiles *profiles, 
-                                 CodeSlayerRegistry *registry)
+                                 CodeSlayerProfiles *profiles)
 {
   CodeSlayerProfilesManagerPrivate *priv;
   CodeSlayerProfilesManager *profiles_manager;
@@ -85,7 +83,6 @@ codeslayer_profiles_manager_new (GtkWidget          *window,
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
   priv->window = window;
   priv->profiles = profiles;
-  priv->registry = registry;
   
   return profiles_manager;
 }

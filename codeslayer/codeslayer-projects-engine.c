@@ -80,7 +80,6 @@ typedef struct _CodeSlayerProjectsEnginePrivate CodeSlayerProjectsEnginePrivate;
 struct _CodeSlayerProjectsEnginePrivate
 {
   GtkWindow          *window;
-  CodeSlayerRegistry *registry;
   CodeSlayerProfiles *profiles;
   CodeSlayerPlugins  *plugins;
   GtkWidget          *search;
@@ -140,7 +139,6 @@ codeslayer_projects_engine_finalize (CodeSlayerProjectsEngine *engine)
  */
 CodeSlayerProjectsEngine*
 codeslayer_projects_engine_new (GtkWindow          *window,
-                                CodeSlayerRegistry *registry,
                                 CodeSlayerProfiles *profiles,
                                 CodeSlayerPlugins  *plugins,
                                 GtkWidget          *projects, 
@@ -159,7 +157,6 @@ codeslayer_projects_engine_new (GtkWindow          *window,
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
 
   priv->window = window;
-  priv->registry = registry;
   priv->profiles = profiles;
   priv->plugins = plugins;
   priv->projects = projects;
@@ -173,7 +170,6 @@ codeslayer_projects_engine_new (GtkWindow          *window,
     
   g_object_set (CODESLAYER_ABSTRACT_ENGINE (engine), 
                 "window", window, 
-                "registry", registry, 
                 "profiles", profiles, 
                 "menubar", menubar, 
                 "notebook", notebook, 
@@ -222,12 +218,15 @@ new_projects_action (CodeSlayerProjectsEngine *engine,
                      gchar                    *file_name)
 {
   CodeSlayerProjectsEnginePrivate *priv;
+  CodeSlayerRegistry *registry; 
   CodeSlayerProfile *profile;
   GFile *file;
 
   file = g_file_new_for_path (file_name);
 
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
   
   if (!codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (engine)))
     return;
@@ -245,7 +244,7 @@ new_projects_action (CodeSlayerProjectsEngine *engine,
   codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
                                    priv->projects, "Projects", 0);
   
-  g_signal_emit_by_name ((gpointer) priv->registry, "registry-initialized");
+  g_signal_emit_by_name ((gpointer) registry, "registry-initialized");
   
   codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
 
@@ -261,11 +260,14 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
                       GFile                    *file)
 {
   CodeSlayerProjectsEnginePrivate *priv;
+  CodeSlayerRegistry *registry; 
   CodeSlayerProfile *profile;
   GList *projects;
   GList *documents;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
   
   if (!codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (engine)))
     return;
@@ -283,7 +285,7 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
   codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
                                    priv->projects, "Projects", 0);
   
-  g_signal_emit_by_name ((gpointer) priv->registry, "registry-initialized");
+  g_signal_emit_by_name ((gpointer) registry, "registry-initialized");
   
   codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
  
@@ -439,12 +441,15 @@ select_editor_action (CodeSlayerProjectsEngine *engine,
                       guint                     page_num)
 {
   CodeSlayerProjectsEnginePrivate *priv;
+  CodeSlayerRegistry *registry; 
   CodeSlayerProfile *profile;
   GtkWidget *notebook_page;
   CodeSlayerDocument *document;
   gboolean sync_with_editor;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
   profile = codeslayer_profiles_get_profile (priv->profiles);
   
   if (codeslayer_profile_get_projects (profile) == NULL)
@@ -456,7 +461,7 @@ select_editor_action (CodeSlayerProjectsEngine *engine,
   
   document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
 
-  sync_with_editor = codeslayer_registry_get_boolean (priv->registry, 
+  sync_with_editor = codeslayer_registry_get_boolean (registry, 
                                                       CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);
   
   if (sync_with_editor)
@@ -471,6 +476,7 @@ search_find_projects_action (CodeSlayerProjectsEngine *engine,
                              gchar                    *file_paths)
 {
   CodeSlayerProjectsEnginePrivate *priv;
+  CodeSlayerRegistry *registry; 
   CodeSlayerProfile *profile;
   gint search_width;
   gint search_height;
@@ -478,12 +484,14 @@ search_find_projects_action (CodeSlayerProjectsEngine *engine,
   gint search_y;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
+  
   profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
   
   if (priv->search == NULL)
     {
       priv->search = codeslayer_projects_search_new (priv->window, 
-                                                     priv->registry);
+                                                     registry);
 
       g_signal_connect_swapped (G_OBJECT (priv->search), "close",
                                 G_CALLBACK (close_search_action), engine);
@@ -494,24 +502,24 @@ search_find_projects_action (CodeSlayerProjectsEngine *engine,
     
   if (!gtk_widget_get_visible (priv->search))
     {
-      search_width = codeslayer_registry_get_integer (priv->registry,
+      search_width = codeslayer_registry_get_integer (registry,
                                                       CODESLAYER_REGISTRY_SEARCH_WIDTH);
       if (search_width < 0)
         search_width = 600;
         
-      search_height = codeslayer_registry_get_integer (priv->registry,
+      search_height = codeslayer_registry_get_integer (registry,
                                                        CODESLAYER_REGISTRY_SEARCH_HEIGHT);
       if (search_height < 0)
         search_height = 350;
         
       gtk_window_set_default_size (GTK_WINDOW (priv->search), search_width, search_height);
 
-      search_x = codeslayer_registry_get_integer (priv->registry,
+      search_x = codeslayer_registry_get_integer (registry,
                                                   CODESLAYER_REGISTRY_SEARCH_X);
       if (search_x < 0)
         search_x = 10;
         
-      search_y = codeslayer_registry_get_integer (priv->registry,
+      search_y = codeslayer_registry_get_integer (registry,
                                                   CODESLAYER_REGISTRY_SEARCH_Y);
       if (search_y < 0)
         search_y = 10;
@@ -535,25 +543,28 @@ close_search_action (CodeSlayerProjectsEngine *engine,
                      GdkEvent                 *event)
 {
   CodeSlayerProjectsEnginePrivate *priv; 
+  CodeSlayerRegistry *registry; 
   gint width;
   gint height;
   gint x;
   gint y;
 
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   gtk_window_get_size (GTK_WINDOW (priv->search), &width, &height);
-  codeslayer_registry_set_integer (priv->registry,
+  codeslayer_registry_set_integer (registry,
                                    CODESLAYER_REGISTRY_SEARCH_WIDTH,
                                    width);
-  codeslayer_registry_set_integer (priv->registry,
+  codeslayer_registry_set_integer (registry,
                                    CODESLAYER_REGISTRY_SEARCH_HEIGHT,
                                    height);
 
   gtk_window_get_position (GTK_WINDOW (priv->search), &x, &y);
-  codeslayer_registry_set_integer (priv->registry,
+  codeslayer_registry_set_integer (registry,
                                    CODESLAYER_REGISTRY_SEARCH_X, x);
-  codeslayer_registry_set_integer (priv->registry,
+  codeslayer_registry_set_integer (registry,
                                    CODESLAYER_REGISTRY_SEARCH_Y, y);
 
   gtk_widget_hide (priv->search);

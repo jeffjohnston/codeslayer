@@ -24,6 +24,7 @@
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-editor.h>
 #include <codeslayer/codeslayer-utils.h>
+#include <codeslayer/codeslayer-registry.h>
 
 /**
  * SECTION:codeslayer-notebook
@@ -68,7 +69,7 @@ typedef struct _CodeSlayerNotebookPrivate CodeSlayerNotebookPrivate;
 struct _CodeSlayerNotebookPrivate
 {
   GtkWindow          *window;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfiles *profiles;
 };
 
 enum
@@ -155,15 +156,20 @@ codeslayer_notebook_finalize (CodeSlayerNotebook *notebook)
  * Returns: a new #CodeSlayerNotebook. 
  */
 GtkWidget*
-codeslayer_notebook_new (GtkWindow             *window, 
-                         CodeSlayerRegistry    *registry)
+codeslayer_notebook_new (GtkWindow          *window, 
+                         CodeSlayerProfiles *profiles)
 {
   CodeSlayerNotebookPrivate *priv;
   GtkWidget *notebook;
+  CodeSlayerRegistry *registry; 
+  
   notebook = g_object_new (codeslayer_notebook_get_type (), NULL);
+  
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
-  priv->registry = registry;
+  priv->profiles = profiles;
   priv->window = window;
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
   
   g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
                             G_CALLBACK (registry_changed_action), CODESLAYER_NOTEBOOK (notebook));
@@ -197,12 +203,15 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   gchar *contents;
   gint line_number;
   GTimeVal *modification_time;
+  CodeSlayerRegistry *registry; 
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   /* create page, editor and buffer */
 
-  editor = codeslayer_editor_new (priv->window, document, priv->registry);
+  editor = codeslayer_editor_new (priv->window, document, registry);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
 
   file_path = codeslayer_document_get_file_path (document);
@@ -729,12 +738,14 @@ static void
 registry_changed_action (CodeSlayerNotebook *notebook)
 {
   CodeSlayerNotebookPrivate *priv;
+  CodeSlayerRegistry *registry; 
   gchar *editor_value;
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
-  editor_value = codeslayer_registry_get_string (priv->registry,
-                                                 CODESLAYER_REGISTRY_EDITOR_TAB_POSITION);
+  editor_value = codeslayer_registry_get_string (registry, CODESLAYER_REGISTRY_EDITOR_TAB_POSITION);
 
   if (g_strcmp0 (editor_value, "left") == 0)
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_LEFT);

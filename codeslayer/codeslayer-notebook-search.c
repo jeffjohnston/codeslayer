@@ -23,6 +23,7 @@
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-editor.h>
 #include <codeslayer/codeslayer-utils.h>
+#include <codeslayer/codeslayer-registry.h>
 
 /**
  * SECTION:codeslayer-notebook-search
@@ -92,7 +93,7 @@ struct _CodeSlayerNotebookSearchPrivate
 {
   GtkWidget          *grid;
   GtkWidget          *notebook;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfiles *profiles;
   GtkWidget          *close_button;
   GtkWidget          *find_label;
   GtkWidget          *find_entry;
@@ -173,7 +174,7 @@ codeslayer_notebook_search_finalize (CodeSlayerNotebookSearch *notebook_search)
  */
 GtkWidget*
 codeslayer_notebook_search_new (GtkWidget          *notebook, 
-                                CodeSlayerRegistry *registry)
+                                CodeSlayerProfiles *profiles)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *notebook_search;
@@ -181,7 +182,7 @@ codeslayer_notebook_search_new (GtkWidget          *notebook,
   notebook_search = g_object_new (codeslayer_notebook_search_get_type (), NULL);
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   priv->notebook = notebook;
-  priv->registry = registry;
+  priv->profiles = profiles;
   
   priv->grid = gtk_grid_new ();
   gtk_grid_set_row_spacing (GTK_GRID (priv->grid), 2);
@@ -573,12 +574,15 @@ void
 codeslayer_notebook_search_sync_with_notebook (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
+  CodeSlayerRegistry *registry;
   gboolean match_case_selected;
   gboolean match_word_selected;
   gboolean sensitive;
   gint pages;
 
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
   sensitive = pages > 0;
@@ -591,9 +595,9 @@ codeslayer_notebook_search_sync_with_notebook (CodeSlayerNotebookSearch *noteboo
   gtk_widget_set_sensitive (priv->match_case_button, sensitive);
   gtk_widget_set_sensitive (priv->match_word_button, sensitive);
     
-  match_case_selected = codeslayer_registry_get_boolean (priv->registry,
+  match_case_selected = codeslayer_registry_get_boolean (registry,
                                                          CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE);
-  match_word_selected = codeslayer_registry_get_boolean (priv->registry,
+  match_word_selected = codeslayer_registry_get_boolean (registry,
                                                          CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD);
 
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->match_case_button), match_case_selected);
@@ -766,19 +770,22 @@ static void
 save_search_options (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
+  CodeSlayerRegistry *registry; 
   gboolean match_case_selected;
   gboolean match_word_selected;
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  
   match_case_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_button));
   match_word_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_button));
   
-  codeslayer_registry_set_boolean (priv->registry, 
+  codeslayer_registry_set_boolean (registry, 
                                    CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE,
                                    match_case_selected);
 
-  codeslayer_registry_set_boolean (priv->registry, 
+  codeslayer_registry_set_boolean (registry, 
                                    CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD,
                                    match_word_selected);
 }

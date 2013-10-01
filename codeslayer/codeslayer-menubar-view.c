@@ -50,7 +50,7 @@ typedef struct _CodeSlayerMenuBarViewPrivate CodeSlayerMenuBarViewPrivate;
 
 struct _CodeSlayerMenuBarViewPrivate
 {
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfiles *profiles;
   GtkAccelGroup      *accel_group;
   GtkWidget          *menu_bar;
   GtkWidget          *menu;
@@ -108,9 +108,10 @@ codeslayer_menu_bar_view_finalize (CodeSlayerMenuBarView *menu_bar_view)
 GtkWidget*
 codeslayer_menu_bar_view_new (GtkWidget          *menu_bar, 
                               GtkAccelGroup      *accel_group, 
-                              CodeSlayerRegistry *registry)
+                              CodeSlayerProfiles *profiles)
 {
   CodeSlayerMenuBarViewPrivate *priv;
+  CodeSlayerRegistry *registry;
   GtkWidget *menu_bar_view;
   
   menu_bar_view = g_object_new (codeslayer_menu_bar_view_get_type (), NULL);
@@ -118,7 +119,9 @@ codeslayer_menu_bar_view_new (GtkWidget          *menu_bar,
 
   priv->menu_bar = menu_bar;
   priv->accel_group = accel_group;
-  priv->registry = registry;
+  priv->profiles = profiles;
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (profiles);
 
   add_menu_items (CODESLAYER_MENU_BAR_VIEW (menu_bar_view), registry);
   
@@ -191,7 +194,11 @@ sync_engine_action (CodeSlayerMenuBarView *menu_bar_view,
                     gboolean               has_open_editors)
 {
   CodeSlayerMenuBarViewPrivate *priv;
+  CodeSlayerRegistry *registry; 
+  
   priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
   
   gtk_widget_set_sensitive (priv->draw_spaces_item, has_open_editors);
   gtk_widget_set_sensitive (priv->word_wrap_item, has_open_editors);
@@ -202,19 +209,19 @@ sync_engine_action (CodeSlayerMenuBarView *menu_bar_view,
   g_signal_handler_block (priv->draw_spaces_item, priv->draw_spaces_id);
   
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->show_side_pane_item),
-                                  codeslayer_registry_get_boolean (priv->registry, 
+                                  codeslayer_registry_get_boolean (registry, 
                                                                    CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE));
 
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->show_bottom_pane_item),
-                                  codeslayer_registry_get_boolean (priv->registry, 
+                                  codeslayer_registry_get_boolean (registry, 
                                                                    CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE));
 
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->word_wrap_item),
-                                  codeslayer_registry_get_boolean (priv->registry, 
+                                  codeslayer_registry_get_boolean (registry, 
                                                                    CODESLAYER_REGISTRY_WORD_WRAP));
 
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->draw_spaces_item),
-                                  codeslayer_registry_get_boolean (priv->registry, 
+                                  codeslayer_registry_get_boolean (registry, 
                                                                    CODESLAYER_REGISTRY_DRAW_SPACES));
 
   g_signal_handler_unblock (priv->show_side_pane_item, priv->show_side_pane_id);

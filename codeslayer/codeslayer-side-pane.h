@@ -45,8 +45,8 @@ struct _CodeSlayerSidePaneClass
 
 GType codeslayer_side_pane_get_type (void) G_GNUC_CONST;
 
-GtkWidget*  codeslayer_side_pane_new   (CodeSlayerRegistry *registry,
-                                        GtkWidget          *process_bar);
+GtkWidget*  codeslayer_side_pane_new  (CodeSlayerProfiles *profiles,
+                                       GtkWidget          *process_bar);
 
 G_END_DECLS
 

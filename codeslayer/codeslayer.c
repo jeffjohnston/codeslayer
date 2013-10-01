@@ -251,8 +251,7 @@ codeslayer_finalize (CodeSlayer *codeslayer)
 
 CodeSlayer*
 codeslayer_new (GtkWindow                   *window,
-                CodeSlayerProfiles     *profiles,
-                CodeSlayerRegistry          *registry, 
+                CodeSlayerProfiles          *profiles,
                 CodeSlayerProcesses         *processes, 
                 CodeSlayerMenuBar           *menu_bar,
                 CodeSlayerNotebook          *notebook,
@@ -267,7 +266,6 @@ codeslayer_new (GtkWindow                   *window,
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   priv->window = window;
   priv->profiles = profiles;
-  priv->registry = registry;
   priv->processes = processes;
   priv->menu_bar = menu_bar;
   priv->notebook = notebook;
@@ -812,10 +810,10 @@ codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer,
 CodeSlayerRegistry*
 codeslayer_get_registry (CodeSlayer *codeslayer)
 {
-  CodeSlayerPrivate *priv;
+  /*CodeSlayerPrivate *priv;
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  priv = CODESLAYER_GET_PRIVATE (codeslayer);
-  return priv->registry;
+  priv = CODESLAYER_GET_PRIVATE (codeslayer);*/
+  return NULL;
 }
 
 /**

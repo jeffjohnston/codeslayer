@@ -65,7 +65,8 @@ typedef struct _CodeSlayerProfilesPrivate CodeSlayerProfilesPrivate;
 
 struct _CodeSlayerProfilesPrivate
 {
-  CodeSlayerProfile *profile;  
+  CodeSlayerProfile *profile;
+  GObject *registry;
 };
 
 G_DEFINE_TYPE (CodeSlayerProfiles, codeslayer_profiles, G_TYPE_OBJECT)
@@ -102,7 +103,7 @@ codeslayer_profiles_finalize (CodeSlayerProfiles *profiles)
  * Returns: a new #CodeSlayerProfiles. 
  */
 CodeSlayerProfiles*
-codeslayer_profiles_new (void)
+codeslayer_profiles_new ()
 {
   CodeSlayerProfiles *profiles;
   profiles = CODESLAYER_PROFILES (g_object_new (codeslayer_profiles_get_type (), NULL));
@@ -459,4 +460,21 @@ verify_profiles_default_dir_exists ()
 
   g_free (default_dir);
   g_object_unref (file);
+}
+
+GObject*  
+codeslayer_profiles_get_registry (CodeSlayerProfiles *profiles)
+{
+  CodeSlayerProfilesPrivate *priv;
+  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);
+  return priv->registry;
+}
+
+void
+codeslayer_profiles_set_registry (CodeSlayerProfiles *profiles, 
+                                  GObject            *registry)
+{
+  CodeSlayerProfilesPrivate *priv;
+  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);
+  priv->registry = registry;
 }

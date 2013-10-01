@@ -37,9 +37,9 @@
 #include <codeslayer/codeslayer-completion-provider.h>
 #include <codeslayer/codeslayer-completion-proposal.h>
 #include <codeslayer/codeslayer-processes.h>
-#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-xml.h>
+#include <codeslayer/codeslayer-registry.h>
 
 G_BEGIN_DECLS
 
@@ -79,8 +79,7 @@ struct _CodeSlayerClass
 GType codeslayer_get_type (void) G_GNUC_CONST;
   
 CodeSlayer*               codeslayer_new                             (GtkWindow                   *window,
-                                                                      CodeSlayerProfiles     *profiles,
-                                                                      CodeSlayerRegistry          *registry, 
+                                                                      CodeSlayerProfiles          *profiles,
                                                                       CodeSlayerProcesses         *processes, 
                                                                       CodeSlayerMenuBar           *menu_bar,
                                                                       CodeSlayerNotebook          *notebook,

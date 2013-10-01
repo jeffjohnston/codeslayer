@@ -52,7 +52,6 @@ struct _CodeSlayerEngineClass
 GType codeslayer_engine_get_type (void) G_GNUC_CONST;
 
 CodeSlayerEngine*  codeslayer_engine_new                   (GtkWindow                 *window,
-                                                            CodeSlayerRegistry        *registry,
                                                             CodeSlayerPreferences     *preferences,
                                                             CodeSlayerProfiles        *profiles,
                                                             CodeSlayerProfilesManager *profiles_manager,

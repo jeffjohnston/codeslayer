@@ -117,44 +117,42 @@ typedef struct
 
 struct _CodeSlayerProjectsPrivate
 {
-  GtkWidget               *window;
-  CodeSlayerProfile        *profile;
+  GtkWidget          *window;
   CodeSlayerProfiles *profiles;
-  CodeSlayerRegistry      *registry;
-  GtkWidget               *project_properties;
-  GtkWidget               *properties_dialog;
-  GtkWidget               *name_entry;
-  GtkWidget               *folder_entry;
-  GtkBindingSet           *binding_set;
-  GtkWidget               *scrolled_window;
-  GtkWidget               *treeview;
-  GtkTreeStore            *treestore;
-  GtkTreeSortable         *sortable;
-  GdkPixbuf               *project_pixbuf;
-  GdkPixbuf               *folder_pixbuf;
-  GdkPixbuf               *text_pixbuf;
-  GtkCellRenderer         *cell_text;
-  CutCopyPaste            *ccp;
+  GtkWidget          *project_properties;
+  GtkWidget          *properties_dialog;
+  GtkWidget          *name_entry;
+  GtkWidget          *folder_entry;
+  GtkBindingSet      *binding_set;
+  GtkWidget          *scrolled_window;
+  GtkWidget          *treeview;
+  GtkTreeStore       *treestore;
+  GtkTreeSortable    *sortable;
+  GdkPixbuf          *project_pixbuf;
+  GdkPixbuf          *folder_pixbuf;
+  GdkPixbuf          *text_pixbuf;
+  GtkCellRenderer    *cell_text;
+  CutCopyPaste       *ccp;
   
-  GList                   *plugins;
+  GList              *plugins;
 
   /* popup menu items */
-  GtkWidget               *menu;
-  GtkWidget               *remove_project_item;
-  GtkWidget               *project_separator;
-  GtkWidget               *new_folder_item;
-  GtkWidget               *new_file_item;
-  GtkWidget               *new_separator;
-  GtkWidget               *cut_item;
-  GtkWidget               *copy_item;
-  GtkWidget               *paste_item;
-  GtkWidget               *ccp_separator;
-  GtkWidget               *rename_item;
-  GtkWidget               *move_to_trash_item;
-  GtkWidget               *properties_separator;
-  GtkWidget               *properties_item;
-  GtkWidget               *find_item;
-  GtkWidget               *plugins_separator;
+  GtkWidget          *menu;
+  GtkWidget          *remove_project_item;
+  GtkWidget          *project_separator;
+  GtkWidget          *new_folder_item;
+  GtkWidget          *new_file_item;
+  GtkWidget          *new_separator;
+  GtkWidget          *cut_item;
+  GtkWidget          *copy_item;
+  GtkWidget          *paste_item;
+  GtkWidget          *ccp_separator;
+  GtkWidget          *rename_item;
+  GtkWidget          *move_to_trash_item;
+  GtkWidget          *properties_separator;
+  GtkWidget          *properties_item;
+  GtkWidget          *find_item;
+  GtkWidget          *plugins_separator;
 };
 
 enum
@@ -432,10 +430,9 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
  * Returns: a new #CodeSlayerProjects. 
  */
 GtkWidget*
-codeslayer_projects_new (GtkWidget               *window, 
+codeslayer_projects_new (GtkWidget          *window, 
                          CodeSlayerProfiles *profiles,
-                         CodeSlayerRegistry      *registry,
-                         GtkWidget               *project_properties)
+                         GtkWidget          *project_properties)
 {
   CodeSlayerProjectsPrivate *priv;
   GtkWidget *projects;  
@@ -446,7 +443,6 @@ codeslayer_projects_new (GtkWidget               *window,
   
   priv->window = window;
   priv->profiles = profiles;
-  priv->registry = registry;
   priv->project_properties = project_properties;
   
   create_tree (CODESLAYER_PROJECTS (projects));
@@ -464,12 +460,15 @@ create_tree (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
   
+  CodeSlayerRegistry *registry;
   GtkTreeSelection *tree_selection;
   GtkTreeSortable *sortable;
   GtkTreeViewColumn *column;
   GtkCellRenderer *cell_pixbuf;
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
+  
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   priv->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
@@ -531,7 +530,7 @@ create_tree (CodeSlayerProjects *projects)
   g_signal_connect_swapped (G_OBJECT (priv->cell_text), "editing-canceled",
                             G_CALLBACK (editing_canceled_action), projects);
 
-  g_signal_connect_swapped (G_OBJECT (priv->registry), "registry-changed",
+  g_signal_connect_swapped (G_OBJECT (registry), "registry-changed",
                             G_CALLBACK (codeslayer_projects_refresh), projects);
 
   gtk_tree_view_append_column (GTK_TREE_VIEW (priv->treeview), column);
@@ -787,6 +786,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
 {
   CodeSlayerProjectsPrivate *priv;
   CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   CodeSlayerProject *project;
   const gchar *project_folder_path;
   const gchar *document_file_path;
@@ -801,6 +801,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   if (select_document (document, projects))
     return TRUE;
@@ -894,7 +895,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
           codeslayer_document_set_tree_row_reference (document, tree_row_reference);
           g_signal_emit_by_name ((gpointer) projects, "select-document", document);
           
-          sync_with_editor = codeslayer_registry_get_boolean (priv->registry, 
+          sync_with_editor = codeslayer_registry_get_boolean (registry, 
                                                               CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);          
           if (sync_with_editor)
             select_document (document, projects);
@@ -2051,11 +2052,13 @@ append_treestore_children (CodeSlayerProjects *projects,
   GFile *file;
   char *file_path;
   GFileEnumerator *enumerator;
+  CodeSlayerRegistry *registry; 
   
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
 
   file = g_file_new_for_path (parentdir);
   file_path = g_file_get_path (file);
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
 
   enumerator = g_file_enumerate_children (file, "standard::*",
                                           G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, 
@@ -2072,7 +2075,7 @@ append_treestore_children (CodeSlayerProjects *projects,
           file_name = g_file_info_get_name (file_info);
           file_type = g_file_info_get_file_type (file_info);
 
-          if (!is_file_shown (priv->registry, file_name, file_type))
+          if (!is_file_shown (registry, file_name, file_type))
             {
               g_object_unref (file_info);
               continue;

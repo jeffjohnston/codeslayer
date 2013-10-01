@@ -66,22 +66,21 @@ struct _CodeSlayerProjectsClass
 
 GType codeslayer_projects_get_type (void) G_GNUC_CONST;
 
-GtkWidget*  codeslayer_projects_new                (GtkWidget               *window, 
-                                                    CodeSlayerProfiles *profiles,
-                                                    CodeSlayerRegistry      *registry, 
-                                                    GtkWidget               *project_properties);
+GtkWidget*  codeslayer_projects_new                (GtkWidget          *window, 
+                                                    CodeSlayerProfiles *profiles, 
+                                                    GtkWidget          *project_properties);
 
-void        codeslayer_projects_clear              (CodeSlayerProjects    *projects);
-void        codeslayer_projects_add_project        (CodeSlayerProjects    *projects, 
-                                                    CodeSlayerProject     *project);
-gboolean    codeslayer_projects_select_document    (CodeSlayerProjects    *projects, 
-                                                    CodeSlayerDocument    *document);
-void        codeslayer_projects_refresh            (CodeSlayerProjects    *projects);
-void        codeslayer_projects_search_find        (CodeSlayerProjects    *projects);
-void        codeslayer_projects_add_popup_item     (CodeSlayerProjects    *projects,
-                                                    GtkWidget             *item);
-void        codeslayer_projects_remove_popup_item  (CodeSlayerProjects    *projects,
-                                                    GtkWidget             *item);
+void        codeslayer_projects_clear              (CodeSlayerProjects *projects);
+void        codeslayer_projects_add_project        (CodeSlayerProjects *projects, 
+                                                    CodeSlayerProject  *project);
+gboolean    codeslayer_projects_select_document    (CodeSlayerProjects *projects, 
+                                                    CodeSlayerDocument *document);
+void        codeslayer_projects_refresh            (CodeSlayerProjects *projects);
+void        codeslayer_projects_search_find        (CodeSlayerProjects *projects);
+void        codeslayer_projects_add_popup_item     (CodeSlayerProjects *projects,
+                                                    GtkWidget          *item);
+void        codeslayer_projects_remove_popup_item  (CodeSlayerProjects *projects,
+                                                    GtkWidget          *item);
 
 G_END_DECLS
 

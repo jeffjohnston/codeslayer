@@ -108,7 +108,7 @@ typedef struct _CodeSlayerProjectsSearchPrivate CodeSlayerProjectsSearchPrivate;
 struct _CodeSlayerProjectsSearchPrivate
 {
   GtkWindow              *parent;
-  CodeSlayerProfile       *profile;
+  CodeSlayerProfile      *profile;
   CodeSlayerRegistry     *registry;
   GtkWidget              *vbox;
   GtkWidget              *grid;

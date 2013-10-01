@@ -17,6 +17,7 @@
  */
 
 #include <codeslayer/codeslayer-bottom-pane.h>
+#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-utils.h>
 
 /**
@@ -73,15 +74,19 @@ codeslayer_bottom_pane_finalize (CodeSlayerBottomPane *bottom_pane)
  * Returns: a new #CodeSlayerBottomPane. 
  */
 GtkWidget*
-codeslayer_bottom_pane_new (CodeSlayerRegistry *registry)
+codeslayer_bottom_pane_new (CodeSlayerProfiles *profiles)
 {
   GtkWidget *bottom_pane;
+  CodeSlayerRegistry *registry;
+  
   bottom_pane = g_object_new (codeslayer_bottom_pane_get_type (), NULL);
-
-  codeslayer_abstract_pane_set_registry (CODESLAYER_ABSTRACT_PANE (bottom_pane), registry);
+  
+  codeslayer_abstract_pane_set_profiles (CODESLAYER_ABSTRACT_PANE (bottom_pane), profiles);
   
   create_close_button (CODESLAYER_BOTTOM_PANE (bottom_pane));
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (bottom_pane));
+
+  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (profiles);
 
   g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
                             G_CALLBACK ( codeslayer_abstract_pane_sync_registry), CODESLAYER_ABSTRACT_PANE (bottom_pane));

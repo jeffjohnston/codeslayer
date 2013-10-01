@@ -21,7 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-document.h>
-#include <codeslayer/codeslayer-registry.h>
+#include <codeslayer/codeslayer-profiles.h>
 
 G_BEGIN_DECLS
 
@@ -52,7 +52,7 @@ GType
 codeslayer_notebook_get_type (void) G_GNUC_CONST;
   
 GtkWidget*  codeslayer_notebook_new                  (GtkWindow             *window,
-                                                      CodeSlayerRegistry    *registry);
+                                                      CodeSlayerProfiles    *profiles);
 
 void        codeslayer_notebook_add_editor           (CodeSlayerNotebook    *notebook, 
                                                       CodeSlayerDocument    *document);
