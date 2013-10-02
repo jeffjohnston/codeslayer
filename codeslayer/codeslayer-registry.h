@@ -20,8 +20,6 @@
 #define __CODESLAYER_REGISTRY_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-profile.h>
-#include <codeslayer/codeslayer-profiles.h>
 
 G_BEGIN_DECLS
 
@@ -85,28 +83,33 @@ struct _CodeSlayerRegistryClass
 
 GType codeslayer_registry_get_type (void) G_GNUC_CONST;
 
-CodeSlayerRegistry*  codeslayer_registry_new          (CodeSlayerProfiles *profiles);
-
-gint                 codeslayer_registry_get_integer  (CodeSlayerRegistry *registry, 
-                                                       gchar              *key);
-void                 codeslayer_registry_set_integer  (CodeSlayerRegistry *registry, 
-                                                       gchar              *key,
-                                                       gint                value);
-gdouble              codeslayer_registry_get_double   (CodeSlayerRegistry *registry, 
-                                                       gchar              *key);
-void                 codeslayer_registry_set_double   (CodeSlayerRegistry *registry, 
-                                                       gchar              *key,
-                                                       gdouble             value);
-gboolean             codeslayer_registry_get_boolean  (CodeSlayerRegistry *registry, 
-                                                       gchar              *key);
-void                 codeslayer_registry_set_boolean  (CodeSlayerRegistry *registry, 
-                                                       gchar              *key,
-                                                       gboolean            value);
-gchar*               codeslayer_registry_get_string   (CodeSlayerRegistry *registry,
-                                                       gchar              *key);
-void                 codeslayer_registry_set_string   (CodeSlayerRegistry *registry, 
-                                                       gchar              *key,
-                                                       gchar              *value);
+CodeSlayerRegistry*  codeslayer_registry_new            (void);
+GHashTable*          codeslayer_registry_get_hashtable  (CodeSlayerRegistry *registry);
+const gchar*         codeslayer_registry_get_setting    (CodeSlayerRegistry  *registry,
+                                                         gchar              *key);
+void                 codeslayer_registry_set_setting    (CodeSlayerRegistry  *registry,
+                                                         gchar              *key, 
+                                                         gchar              *value);
+gint                 codeslayer_registry_get_integer    (CodeSlayerRegistry *registry, 
+                                                         gchar              *key);
+void                 codeslayer_registry_set_integer    (CodeSlayerRegistry *registry, 
+                                                         gchar              *key,
+                                                         gint                value);
+gdouble              codeslayer_registry_get_double     (CodeSlayerRegistry *registry, 
+                                                         gchar              *key);
+void                 codeslayer_registry_set_double     (CodeSlayerRegistry *registry, 
+                                                         gchar              *key,
+                                                         gdouble             value);
+gboolean             codeslayer_registry_get_boolean    (CodeSlayerRegistry *registry, 
+                                                         gchar              *key);
+void                 codeslayer_registry_set_boolean    (CodeSlayerRegistry *registry, 
+                                                         gchar              *key,
+                                                         gboolean            value);
+gchar*               codeslayer_registry_get_string     (CodeSlayerRegistry *registry,
+                                                         gchar              *key);
+void                 codeslayer_registry_set_string     (CodeSlayerRegistry *registry, 
+                                                         gchar              *key,
+                                                         gchar              *value);
 
 G_END_DECLS
 

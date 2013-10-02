@@ -31,8 +31,7 @@ static void codeslayer_menu_bar_view_class_init  (CodeSlayerMenuBarViewClass *kl
 static void codeslayer_menu_bar_view_init        (CodeSlayerMenuBarView      *menu_bar_view);
 static void codeslayer_menu_bar_view_finalize    (CodeSlayerMenuBarView      *menu_bar_view);
 
-static void add_menu_items                       (CodeSlayerMenuBarView      *menu_bar_view, 
-                                                  CodeSlayerRegistry         *registry);
+static void add_menu_items                       (CodeSlayerMenuBarView      *menu_bar_view);
 
 static void fullscreen_window_action             (CodeSlayerMenuBarView      *menu_bar_view);
 static void show_side_pane_action                (CodeSlayerMenuBarView      *menu_bar_view);
@@ -111,7 +110,6 @@ codeslayer_menu_bar_view_new (GtkWidget          *menu_bar,
                               CodeSlayerProfiles *profiles)
 {
   CodeSlayerMenuBarViewPrivate *priv;
-  CodeSlayerRegistry *registry;
   GtkWidget *menu_bar_view;
   
   menu_bar_view = g_object_new (codeslayer_menu_bar_view_get_type (), NULL);
@@ -121,9 +119,7 @@ codeslayer_menu_bar_view_new (GtkWidget          *menu_bar,
   priv->accel_group = accel_group;
   priv->profiles = profiles;
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (profiles);
-
-  add_menu_items (CODESLAYER_MENU_BAR_VIEW (menu_bar_view), registry);
+  add_menu_items (CODESLAYER_MENU_BAR_VIEW (menu_bar_view));
   
   g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-engine",
                             G_CALLBACK (sync_engine_action), menu_bar_view);
@@ -132,8 +128,7 @@ codeslayer_menu_bar_view_new (GtkWidget          *menu_bar,
 }
 
 static void
-add_menu_items (CodeSlayerMenuBarView *menu_bar_view, 
-                CodeSlayerRegistry    *registry)
+add_menu_items (CodeSlayerMenuBarView *menu_bar_view)
 {
   CodeSlayerMenuBarViewPrivate *priv;
   GtkWidget *fullscreen_window_item;

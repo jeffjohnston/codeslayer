@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 #include <gtksourceview/gtksourceview.h>
 #include <codeslayer/codeslayer-document.h>
+#include <codeslayer/codeslayer-profiles.h>
 #include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-completion-provider.h>
 

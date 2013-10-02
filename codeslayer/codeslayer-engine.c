@@ -272,7 +272,7 @@ codeslayer_engine_new (GtkWindow                 *window,
  * @engine: a #CodeSlayerEngine.
  */
 void
-codeslayer_engine_load_default_profile (CodeSlayerEngine *engine)
+codeslayer_engine_initialize (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   CodeSlayerRegistry *registry; 
@@ -282,7 +282,7 @@ codeslayer_engine_load_default_profile (CodeSlayerEngine *engine)
   
   registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
   
-  profile = codeslayer_profiles_load_default_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   g_signal_emit_by_name ((gpointer) registry, "registry-initialized");
 

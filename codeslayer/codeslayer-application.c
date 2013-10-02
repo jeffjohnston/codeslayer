@@ -34,7 +34,6 @@
 #include <codeslayer/codeslayer-menubar.h>
 #include <codeslayer/codeslayer-processbar.h>
 #include <codeslayer/codeslayer-plugins.h>
-#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-profiles.h>
 #include <codeslayer/codeslayer-profiles-manager.h>
@@ -60,7 +59,6 @@ static void codeslayer_application_open        (GApplication               *appl
                                                 gint                       n_files,
                                                 const gchar                *hint);
 static void create_profiles                    (CodeSlayerApplication      *application);
-static void create_registry                    (CodeSlayerApplication      *application);
 static void create_preferences                 (CodeSlayerApplication      *application);
 static void create_profiles_manager            (CodeSlayerApplication      *application);
 static void create_profiles                    (CodeSlayerApplication      *application);
@@ -96,7 +94,6 @@ typedef struct _CodeSlayerApplicationPrivate CodeSlayerApplicationPrivate;
 struct _CodeSlayerApplicationPrivate
 {
   GtkWidget                 *window;
-  CodeSlayerRegistry        *registry;
   CodeSlayerPreferences     *preferences;
   CodeSlayerProfiles        *profiles;
   CodeSlayerProfilesManager *profiles_manager;
@@ -146,7 +143,6 @@ codeslayer_application_finalize (CodeSlayerApplication *application)
   g_object_unref (priv->preferences);
   g_object_unref (priv->profiles);
   g_object_unref (priv->profiles_manager);
-  g_object_unref (priv->registry);
   g_object_unref (priv->engine);
   g_object_unref (priv->projects_engine);
   g_object_unref (priv->plugins);
@@ -177,8 +173,6 @@ codeslayer_application_startup (GApplication *application)
 
   create_window (CODESLAYER_APPLICATION (application));
 
-  create_registry (CODESLAYER_APPLICATION (application));
-
   create_preferences (CODESLAYER_APPLICATION (application));
   
   create_profiles_manager (CODESLAYER_APPLICATION (application));
@@ -207,7 +201,7 @@ codeslayer_application_startup (GApplication *application)
 
   load_plugins (CODESLAYER_APPLICATION (application));
   
-  codeslayer_engine_load_default_profile (priv->engine);
+  codeslayer_engine_initialize (priv->engine);
 }
 
 static void
@@ -271,19 +265,8 @@ create_profiles (CodeSlayerApplication *application)
 
   profiles = codeslayer_profiles_new ();
   priv->profiles = profiles;
-}
-
-static void
-create_registry (CodeSlayerApplication *application)
-{
-  CodeSlayerApplicationPrivate *priv;
-  CodeSlayerRegistry *registry;
   
-  priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
-
-  registry = codeslayer_registry_new (priv->profiles);
-  priv->registry = registry;
-  codeslayer_profiles_set_registry (priv->profiles, G_OBJECT (priv->registry));
+  codeslayer_profiles_load_default_profile (priv->profiles);
 }
 
 static void

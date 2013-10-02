@@ -32,7 +32,6 @@ static void codeslayer_profile_finalize    (CodeSlayerProfile      *profile);
 static void remove_all_projects            (CodeSlayerProfile      *profile);
 static void remove_all_documents           (CodeSlayerProfile      *profile);
 static void remove_all_plugins             (CodeSlayerProfile      *profile);
-static void remove_all_registry            (CodeSlayerProfile      *profile);
 
 #define CODESLAYER_PROFILE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROFILE_TYPE, CodeSlayerProfilePrivate))
@@ -41,12 +40,12 @@ typedef struct _CodeSlayerProfilePrivate CodeSlayerProfilePrivate;
 
 struct _CodeSlayerProfilePrivate
 {
-  gchar      *file_path;
-  gboolean    projects_mode;
-  GList      *projects;
-  GList      *documents;
-  GList      *plugins;
-  GHashTable *registry;
+  gchar              *file_path;
+  gboolean            projects_mode;
+  GList              *projects;
+  GList              *documents;
+  GList              *plugins;
+  CodeSlayerRegistry *registry;
 };
 
 G_DEFINE_TYPE (CodeSlayerProfile, codeslayer_profile, G_TYPE_OBJECT)
@@ -86,7 +85,7 @@ codeslayer_profile_finalize (CodeSlayerProfile *profile)
   remove_all_projects (profile);
   remove_all_documents (profile);
   remove_all_plugins (profile);
-  remove_all_registry (profile);
+  g_object_unref (priv->registry);
 
   G_OBJECT_CLASS (codeslayer_profile_parent_class)->finalize (G_OBJECT (profile));
   
@@ -109,8 +108,7 @@ codeslayer_profile_new (void)
   profile = CODESLAYER_PROFILE (g_object_new (codeslayer_profile_get_type (), NULL));
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   
-  priv->registry = g_hash_table_new_full ((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal, 
-                                          (GDestroyNotify)g_free, (GDestroyNotify)g_free);
+  priv->registry = codeslayer_registry_new ();
 
   return profile;
 }
@@ -478,52 +476,10 @@ codeslayer_profile_remove_plugin (CodeSlayerProfile *profile,
  * codeslayer_profile_get_registry:
  * @profile: a #CodeSlayerProfile.
  *
- * Returns: The hashtable of registry.
+ * Returns: The #CodeSlayerRegistry* for the profile.
  */
-GHashTable*
+CodeSlayerRegistry*
 codeslayer_profile_get_registry (CodeSlayerProfile *profile)
 {
   return CODESLAYER_PROFILE_GET_PRIVATE (profile)->registry;
-}
-
-/**
- * codeslayer_profile_get_registry:
- * @profile: a #CodeSlayerProfile.
- * @key: use the key to find the value from the registry.
- *
- * Returns: The value for the setting.
- */
-const gchar*
-codeslayer_profile_get_setting (CodeSlayerProfile *profile,
-                                gchar             *key)
-{
-  CodeSlayerProfilePrivate *priv;
-  priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  return g_hash_table_lookup (priv->registry, key);
-}
-
-
-/**
- * codeslayer_profile_set_setting:
- * @profile: a #CodeSlayerProfile.
- * @key: the key for the setting.
- * @value: the value for the setting.
- */
-void
-codeslayer_profile_set_setting (CodeSlayerProfile *profile,
-                                gchar             *key, 
-                                gchar             *value)
-{
-  CodeSlayerProfilePrivate *priv;
-  priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  g_hash_table_replace (priv->registry, g_strdup (key), g_strdup (value));
-}
-
-static void
-remove_all_registry (CodeSlayerProfile *profile)
-{
-  CodeSlayerProfilePrivate *priv;
-  priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  g_hash_table_destroy (priv->registry);
-  priv->registry = NULL;
 }

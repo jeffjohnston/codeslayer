@@ -34,6 +34,7 @@ static void codeslayer_registry_class_init  (CodeSlayerRegistryClass *klass);
 static void codeslayer_registry_class_init  (CodeSlayerRegistryClass *klass);
 static void codeslayer_registry_init        (CodeSlayerRegistry      *registry);
 static void codeslayer_registry_finalize    (CodeSlayerRegistry      *registry);
+static void remove_all_registry             (CodeSlayerRegistry      *registry);
 
 #define CODESLAYER_REGISTRY_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_REGISTRY_TYPE, CodeSlayerRegistryPrivate))
@@ -42,7 +43,7 @@ typedef struct _CodeSlayerRegistryPrivate CodeSlayerRegistryPrivate;
 
 struct _CodeSlayerRegistryPrivate
 {
-  CodeSlayerProfiles *profiles;
+  GHashTable *hashtable;
 };
 
 enum
@@ -94,11 +95,15 @@ codeslayer_registry_class_init (CodeSlayerRegistryClass *klass)
 static void
 codeslayer_registry_init (CodeSlayerRegistry *registry)
 {
+  CodeSlayerRegistryPrivate *priv;
+  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
+  priv->hashtable = NULL;
 }
 
 static void
 codeslayer_registry_finalize (CodeSlayerRegistry *registry)
 {
+  remove_all_registry (registry);
   G_OBJECT_CLASS (codeslayer_registry_parent_class)->finalize (G_OBJECT (registry));
 }
 
@@ -110,16 +115,56 @@ codeslayer_registry_finalize (CodeSlayerRegistry *registry)
  * Returns: a new #CodeSlayerRegistry. 
  */
 CodeSlayerRegistry*
-codeslayer_registry_new (CodeSlayerProfiles *profiles)
+codeslayer_registry_new ()
 {
   CodeSlayerRegistry *registry;
   CodeSlayerRegistryPrivate *priv;
 
   registry = g_object_new (codeslayer_registry_get_type (), NULL);
   priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  priv->profiles = profiles;
+  
+  priv->hashtable = g_hash_table_new_full ((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal, 
+                                          (GDestroyNotify)g_free, (GDestroyNotify)g_free);
 
   return registry;
+}
+
+GHashTable*
+codeslayer_registry_get_hashtable (CodeSlayerRegistry *registry)
+{
+  return CODESLAYER_REGISTRY_GET_PRIVATE (registry)->hashtable;
+}
+
+/**
+ * codeslayer_registry_get_registry:
+ * @registry: a #CodeSlayerRegistry.
+ * @key: use the key to find the value from the registry.
+ *
+ * Returns: The value for the setting.
+ */
+const gchar*
+codeslayer_registry_get_setting (CodeSlayerRegistry *registry,
+                                 gchar              *key)
+{
+  CodeSlayerRegistryPrivate *priv;
+  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
+  return g_hash_table_lookup (priv->hashtable, key);
+}
+
+/**
+ * codeslayer_registry_set_setting:
+ * @registry: a #CodeSlayerRegistry.
+ * @key: the key for the setting.
+ * @value: the value for the setting.
+ */
+void
+codeslayer_registry_set_setting (CodeSlayerRegistry *registry,
+                                 gchar              *key, 
+                                 gchar              *value)
+{
+  CodeSlayerRegistryPrivate *priv;
+  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
+  g_hash_table_replace (priv->hashtable, g_strdup (key), g_strdup (value));
 }
 
 /**
@@ -133,14 +178,8 @@ gint
 codeslayer_registry_get_integer (CodeSlayerRegistry *registry,
                                  gchar              *key)
 {
-  CodeSlayerRegistryPrivate *priv;
-  CodeSlayerProfile *profile;
   const gchar *value;
-
-  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-
-  value = codeslayer_profile_get_setting (profile, key);
+  value = codeslayer_registry_get_setting (registry, key);
   if (value != NULL)
     return atoi (value);
 
@@ -158,15 +197,9 @@ codeslayer_registry_set_integer (CodeSlayerRegistry *registry,
                                  gchar              *key, 
                                  gint                value)
 {
-  CodeSlayerRegistryPrivate *priv;
-  CodeSlayerProfile *profile;
   gchar *val;
-
-  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-
   val = g_strdup_printf ("%d", value);
-  codeslayer_profile_set_setting (profile, key, val);
+  codeslayer_registry_set_setting (registry, key, val);
   g_free (val);
 }
 
@@ -181,15 +214,8 @@ gdouble
 codeslayer_registry_get_double (CodeSlayerRegistry *registry,
                                 gchar                 *key)
 {
-  CodeSlayerRegistryPrivate *priv;
-  CodeSlayerProfile *profile;
   const gchar *value;
-
-  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-
-  value = codeslayer_profile_get_setting (profile, key);
+  value = codeslayer_registry_get_setting (registry, key);
   if (value != NULL)
     return atof (value);
 
@@ -207,15 +233,9 @@ codeslayer_registry_set_double (CodeSlayerRegistry *registry,
                                 gchar              *key, 
                                 gdouble             value)
 {
-  CodeSlayerRegistryPrivate *priv;
-  CodeSlayerProfile *profile;
   gchar *val;
-  
-  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  
   val = g_strdup_printf ("%f", value);
-  codeslayer_profile_set_setting (profile, key, val);
+  codeslayer_registry_set_setting (registry, key, val);
   g_free (val);
 }
 
@@ -230,14 +250,8 @@ gboolean
 codeslayer_registry_get_boolean (CodeSlayerRegistry *registry,
                                  gchar              *key)
 {
-  CodeSlayerRegistryPrivate *priv;
-  CodeSlayerProfile *profile;
   const gchar *value;
-
-  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-
-  value = codeslayer_profile_get_setting (profile, key);
+  value = codeslayer_registry_get_setting (registry, key);
   if (value != NULL)
     {
       if (g_strcmp0 (value, "true") == 0)
@@ -260,16 +274,10 @@ codeslayer_registry_set_boolean (CodeSlayerRegistry *registry,
                                  gchar                 *key, 
                                  gboolean               value)
 {
-  CodeSlayerRegistryPrivate *priv;
-  CodeSlayerProfile *profile;
-  
-  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  
   if (value == TRUE)  
-    codeslayer_profile_set_setting (profile, key, "true");
+    codeslayer_registry_set_setting (registry, key, "true");
   else
-    codeslayer_profile_set_setting (profile, key, "false");
+    codeslayer_registry_set_setting (registry, key, "false");
 }
 
 /**
@@ -283,14 +291,8 @@ gchar*
 codeslayer_registry_get_string (CodeSlayerRegistry *registry,
                                 gchar              *key)
 {
-  CodeSlayerRegistryPrivate *priv;
-  CodeSlayerProfile *profile;
   const gchar *value;
-
-  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-
-  value = codeslayer_profile_get_setting (profile, key);
+  value = codeslayer_registry_get_setting (registry, key);
   if (value != NULL)
     return g_strdup (value);
 
@@ -308,11 +310,14 @@ codeslayer_registry_set_string (CodeSlayerRegistry *registry,
                                 gchar              *key, 
                                 gchar              *value)
 {
-  CodeSlayerRegistryPrivate *priv;
-  CodeSlayerProfile *profile;
-  
-  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  codeslayer_registry_set_setting (registry, key, value);
+}
 
-  codeslayer_profile_set_setting (profile, key, value);
+static void
+remove_all_registry (CodeSlayerRegistry *registry)
+{
+  CodeSlayerRegistryPrivate *priv;
+  priv = CODESLAYER_REGISTRY_GET_PRIVATE (registry);
+  g_hash_table_destroy (priv->hashtable);
+  priv->hashtable = NULL;
 }

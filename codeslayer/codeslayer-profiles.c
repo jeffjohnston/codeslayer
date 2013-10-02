@@ -228,14 +228,16 @@ codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles)
   GList *projects;
   GList *documents;
   GList *plugins;
-  GHashTable *registry;
+  CodeSlayerRegistry *registry;
+  GHashTable *hashtable;
   
   priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);  
 
-  projects = codeslayer_profile_get_projects (priv->profile);         
-  documents = codeslayer_profile_get_documents (priv->profile);         
-  plugins = codeslayer_profile_get_plugins (priv->profile);         
+  projects = codeslayer_profile_get_projects (priv->profile);
+  documents = codeslayer_profile_get_documents (priv->profile);
+  plugins = codeslayer_profile_get_plugins (priv->profile);
   registry = codeslayer_profile_get_registry (priv->profile);
+  hashtable = codeslayer_registry_get_hashtable (registry);
   
   xml = g_string_new ("<profile>");
   
@@ -261,7 +263,7 @@ codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles)
     }
 
   xml = g_string_append (xml, "\n\t<registry>");
-  g_hash_table_foreach (registry, (GHFunc)build_registry_xml, &xml);
+  g_hash_table_foreach (hashtable, (GHFunc)build_registry_xml, &xml);
   xml = g_string_append (xml, "\n\t</registry>");
 
   xml = g_string_append (xml, "\n</profile>");
@@ -280,6 +282,9 @@ load_profile (CodeSlayerProfile *profile,
              xmlNode          *a_node)
 {
   xmlNode *cur_node = NULL;
+  CodeSlayerRegistry *registry;
+  
+  registry = codeslayer_profile_get_registry (profile);
 
   for (cur_node = a_node; cur_node; cur_node = cur_node->next) 
     {
@@ -333,7 +338,7 @@ load_profile (CodeSlayerProfile *profile,
               name = xmlGetProp (cur_node, (const xmlChar*)"key");
               value = xmlGetProp (cur_node, (const xmlChar*)"value");
               
-              codeslayer_profile_set_setting (profile, (gchar*) name, (gchar*) value);
+              codeslayer_registry_set_setting (registry, (gchar*) name, (gchar*) value);
               
               xmlFree (name);
               xmlFree (value);
@@ -420,26 +425,29 @@ build_registry_xml (gchar   *name,
 static void
 set_profile_registry_defaults (CodeSlayerProfile *profile)
 {
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE, "false");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE, "false");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_DRAW_SPACES, "false");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR, "true");
+  CodeSlayerRegistry *registry;
+  registry = codeslayer_profile_get_registry (profile);
+
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE, "false");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE, "false");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_DRAW_SPACES, "false");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR, "true");
   
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_DISPLAY_LINE_NUMBERS, "true");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_CURRENT_LINE, "true");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_DISPLAY_RIGHT_MARGIN, "false");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_MATCHING_BRACKET, "false");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS, "true");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_ENABLE_AUTOMATIC_INDENTATION, "true");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_RIGHT_MARGIN_POSITION, "80");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_TAB_WIDTH, "2");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_FONT, "Monospace 9");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_THEME, "classic");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_TAB_POSITION, "top");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION, "top");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION, "left");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS, ".csv,.git,.svn");
-  codeslayer_profile_set_setting (profile, CODESLAYER_REGISTRY_EDITOR_WORD_WRAP_TYPES, ".txt");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_DISPLAY_LINE_NUMBERS, "true");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_CURRENT_LINE, "true");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_DISPLAY_RIGHT_MARGIN, "false");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_MATCHING_BRACKET, "false");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS, "true");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_ENABLE_AUTOMATIC_INDENTATION, "true");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_RIGHT_MARGIN_POSITION, "80");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_TAB_WIDTH, "2");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_FONT, "Monospace 9");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_THEME, "classic");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_TAB_POSITION, "top");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION, "top");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION, "left");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS, ".csv,.git,.svn");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_WORD_WRAP_TYPES, ".txt");
 }
 
 static void
@@ -465,16 +473,7 @@ verify_profiles_default_dir_exists ()
 GObject*  
 codeslayer_profiles_get_registry (CodeSlayerProfiles *profiles)
 {
-  CodeSlayerProfilesPrivate *priv;
-  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);
-  return priv->registry;
-}
-
-void
-codeslayer_profiles_set_registry (CodeSlayerProfiles *profiles, 
-                                  GObject            *registry)
-{
-  CodeSlayerProfilesPrivate *priv;
-  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);
-  priv->registry = registry;
+  CodeSlayerProfile *profile;
+  profile = codeslayer_profiles_get_profile (profiles);
+  return G_OBJECT (codeslayer_profile_get_registry (profile));
 }

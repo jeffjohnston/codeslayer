@@ -22,6 +22,7 @@
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-editor.h>
 #include <codeslayer/codeslayer-utils.h>
+#include <codeslayer/codeslayer-profiles.h>
 
 /**
  * SECTION:codeslayer-notebook-tab
