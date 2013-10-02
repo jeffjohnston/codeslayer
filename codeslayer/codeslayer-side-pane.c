@@ -71,11 +71,13 @@ codeslayer_side_pane_new (CodeSlayerProfiles *profiles,
                           GtkWidget          *process_bar)
 {
   GtkWidget *side_pane;
+  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   
   side_pane = g_object_new (codeslayer_side_pane_get_type (), NULL);
 
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (profiles);
+  profile = codeslayer_profiles_get_profile (profiles);
+  registry = codeslayer_profile_get_registry (profile);
   
   codeslayer_abstract_pane_set_profiles (CODESLAYER_ABSTRACT_PANE (side_pane), profiles);
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (side_pane));

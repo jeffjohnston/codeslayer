@@ -163,13 +163,15 @@ load_list (CodeSlayerPreferencesListView *preferences_listview,
            GtkWidget                     *list_view)
 {
   CodeSlayerPreferencesListViewPrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   gchar *include_types;
   gchar **split, **tmp;
 
   priv = CODESLAYER_PREFERENCES_LIST_VIEW_GET_PRIVATE (preferences_listview);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   include_types = codeslayer_registry_get_string (registry, priv->key);
   split = g_strsplit (include_types, ",", 0);
@@ -192,13 +194,15 @@ list_changed_action (CodeSlayerPreferencesListView *preferences_listview,
                      GList                         *list)
 {
   CodeSlayerPreferencesListViewPrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   gchar *value;
   GString *gs;
     
   priv = CODESLAYER_PREFERENCES_LIST_VIEW_GET_PRIVATE (preferences_listview);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   gs = g_string_new ("");
 

@@ -667,7 +667,8 @@ static void
 execute (CodeSlayerProjectsSearch *search)
 {
   CodeSlayerProjectsSearchPrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   
   gchar *find_globbing = NULL;
   GPatternSpec *find_pattern = NULL;  
@@ -677,7 +678,8 @@ execute (CodeSlayerProjectsSearch *search)
   
   priv = CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE (search);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   if (codeslayer_utils_has_text (priv->find_text))
     {

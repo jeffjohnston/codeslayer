@@ -470,10 +470,3 @@ verify_profiles_default_dir_exists ()
   g_object_unref (file);
 }
 
-GObject*  
-codeslayer_profiles_get_registry (CodeSlayerProfiles *profiles)
-{
-  CodeSlayerProfile *profile;
-  profile = codeslayer_profiles_get_profile (profiles);
-  return G_OBJECT (codeslayer_profile_get_registry (profile));
-}

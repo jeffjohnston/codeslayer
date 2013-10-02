@@ -324,6 +324,7 @@ static void
 save_window_settings (CodeSlayerAbstractEngine *abstract_engine)
 {
   CodeSlayerAbstractEnginePrivate *priv;
+  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   gint width;
   gint height;
@@ -333,7 +334,8 @@ save_window_settings (CodeSlayerAbstractEngine *abstract_engine)
   
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   gtk_window_get_size (GTK_WINDOW (priv->window), &width, &height);
   codeslayer_registry_set_integer (registry,
@@ -364,7 +366,8 @@ void
 codeslayer_abstract_engine_load_window_settings (CodeSlayerAbstractEngine *abstract_engine)
 {
   CodeSlayerAbstractEnginePrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   gint window_width;
   gint window_height;
   gint window_x;
@@ -376,7 +379,8 @@ codeslayer_abstract_engine_load_window_settings (CodeSlayerAbstractEngine *abstr
   
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
     
   /* window specific settings */                                              
 

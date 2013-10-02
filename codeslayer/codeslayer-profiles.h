@@ -57,7 +57,6 @@ CodeSlayerProfile*   codeslayer_profiles_load_new_profile      (CodeSlayerProfil
 CodeSlayerProfile*   codeslayer_profiles_load_file_profile     (CodeSlayerProfiles *profiles, 
                                                                 GFile              *file);
 void                 codeslayer_profiles_save_profile          (CodeSlayerProfiles *profiles);
-GObject*             codeslayer_profiles_get_registry          (CodeSlayerProfiles *profiles);
 
 G_END_DECLS
 

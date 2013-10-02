@@ -196,11 +196,13 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
                     gboolean                   has_open_editors)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
-  CodeSlayerRegistry *registry; 
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry;
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   if (projects_mode)
     {    
@@ -331,12 +333,14 @@ static void
 sync_with_editor_action (CodeSlayerMenuBarProjects *menu_bar_projects)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
-  CodeSlayerRegistry *registry;   
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   gboolean sync_with_editor;
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
   
   sync_with_editor = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item));
   codeslayer_menu_bar_sync_with_editor (CODESLAYER_MENU_BAR (priv->menu_bar),

@@ -761,6 +761,7 @@ void
 codeslayer_editor_sync_registry (CodeSlayerEditor *editor)
 {
   CodeSlayerEditorPrivate *priv;
+  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   gboolean display_line_number;
   gboolean display_right_margin;
@@ -784,7 +785,8 @@ codeslayer_editor_sync_registry (CodeSlayerEditor *editor)
   
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   display_line_number = codeslayer_registry_get_boolean (registry,
                                                             CODESLAYER_REGISTRY_EDITOR_DISPLAY_LINE_NUMBERS);

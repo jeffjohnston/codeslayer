@@ -460,7 +460,8 @@ create_tree (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
   
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   GtkTreeSelection *tree_selection;
   GtkTreeSortable *sortable;
   GtkTreeViewColumn *column;
@@ -468,7 +469,8 @@ create_tree (CodeSlayerProjects *projects)
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   priv->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
@@ -801,7 +803,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   if (select_document (document, projects))
     return TRUE;
@@ -2052,13 +2054,15 @@ append_treestore_children (CodeSlayerProjects *projects,
   GFile *file;
   char *file_path;
   GFileEnumerator *enumerator;
+  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
 
   file = g_file_new_for_path (parentdir);
   file_path = g_file_get_path (file);
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   enumerator = g_file_enumerate_children (file, "standard::*",
                                           G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, 

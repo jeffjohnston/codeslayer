@@ -77,7 +77,8 @@ GtkWidget*
 codeslayer_bottom_pane_new (CodeSlayerProfiles *profiles)
 {
   GtkWidget *bottom_pane;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   
   bottom_pane = g_object_new (codeslayer_bottom_pane_get_type (), NULL);
   
@@ -86,7 +87,8 @@ codeslayer_bottom_pane_new (CodeSlayerProfiles *profiles)
   create_close_button (CODESLAYER_BOTTOM_PANE (bottom_pane));
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (bottom_pane));
 
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (profiles);
+  profile = codeslayer_profiles_get_profile (profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
                             G_CALLBACK ( codeslayer_abstract_pane_sync_registry), CODESLAYER_ABSTRACT_PANE (bottom_pane));

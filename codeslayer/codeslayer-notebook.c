@@ -161,7 +161,8 @@ codeslayer_notebook_new (GtkWindow          *window,
 {
   CodeSlayerNotebookPrivate *priv;
   GtkWidget *notebook;
-  CodeSlayerRegistry *registry; 
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry;
   
   notebook = g_object_new (codeslayer_notebook_get_type (), NULL);
   
@@ -169,7 +170,8 @@ codeslayer_notebook_new (GtkWindow          *window,
   priv->profiles = profiles;
   priv->window = window;
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
   
   g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
                             G_CALLBACK (registry_changed_action), CODESLAYER_NOTEBOOK (notebook));
@@ -735,12 +737,14 @@ static void
 registry_changed_action (CodeSlayerNotebook *notebook)
 {
   CodeSlayerNotebookPrivate *priv;
-  CodeSlayerRegistry *registry; 
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry;
   gchar *editor_value;
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   editor_value = codeslayer_registry_get_string (registry, CODESLAYER_REGISTRY_EDITOR_TAB_POSITION);
 

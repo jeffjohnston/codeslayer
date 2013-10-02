@@ -119,12 +119,18 @@ codeslayer_engine_init (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  priv->profiles_manager = NULL;
+  priv->preferences = NULL;
   priv->search = NULL;
 }
 
 static void
 codeslayer_engine_finalize (CodeSlayerEngine *engine)
 {
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  g_object_unref (priv->profiles_manager);
+  g_object_unref (priv->preferences);  
   G_OBJECT_CLASS (codeslayer_engine_parent_class)->finalize (G_OBJECT (engine));
 }
 
@@ -145,30 +151,27 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
  * Returns: a new #CodeSlayerEngine. 
  */
 CodeSlayerEngine*
-codeslayer_engine_new (GtkWindow                 *window,
-                       CodeSlayerPreferences     *preferences,
-                       CodeSlayerProfiles        *profiles,
-                       CodeSlayerProfilesManager *profiles_manager,
-                       CodeSlayerPlugins         *plugins,
-                       GtkWidget                 *menubar,
-                       GtkWidget                 *notebook,
-                       GtkWidget                 *notebook_pane, 
-                       GtkWidget                 *side_pane,
-                       GtkWidget                 *bottom_pane, 
-                       GtkWidget                 *hpaned,
-                       GtkWidget                 *vpaned)
+codeslayer_engine_new (GtkWindow             *window,
+                       CodeSlayerProfiles    *profiles,
+                       CodeSlayerPlugins     *plugins,
+                       GtkWidget             *menubar,
+                       GtkWidget             *notebook,
+                       GtkWidget             *notebook_pane, 
+                       GtkWidget             *side_pane,
+                       GtkWidget             *bottom_pane, 
+                       GtkWidget             *hpaned,
+                       GtkWidget             *vpaned)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   CodeSlayerEngine *engine;
 
   engine = CODESLAYER_ENGINE (g_object_new (codeslayer_engine_get_type (), NULL));
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
   priv->window = window;
-  priv->preferences = preferences;
   priv->profiles = profiles;
-  priv->profiles_manager = profiles_manager;
   priv->plugins = plugins;
   priv->menubar = menubar;
   priv->notebook = notebook;
@@ -178,6 +181,9 @@ codeslayer_engine_new (GtkWindow                 *window,
   priv->hpaned = hpaned;
   priv->vpaned = vpaned;
   
+  priv->preferences = codeslayer_preferences_new (GTK_WIDGET (window), profiles);
+  priv->profiles_manager = codeslayer_profiles_manager_new (GTK_WIDGET (window), profiles);
+
   g_object_set (CODESLAYER_ABSTRACT_ENGINE (engine), 
                 "window", window, 
                 "profiles", profiles, 
@@ -190,7 +196,8 @@ codeslayer_engine_new (GtkWindow                 *window,
                 "vpaned", vpaned, 
                 NULL);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
   
   g_signal_connect_swapped (G_OBJECT (menubar), "new-editor",
                             G_CALLBACK (new_editor_action), engine);
@@ -275,14 +282,13 @@ void
 codeslayer_engine_initialize (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerRegistry *registry; 
   CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
-  
   profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
   
   g_signal_emit_by_name ((gpointer) registry, "registry-initialized");
 
@@ -497,11 +503,13 @@ static void
 toggle_side_pane_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
   
   if (gtk_widget_get_visible (GTK_WIDGET(priv->side_pane)))
     {
@@ -523,11 +531,13 @@ static void
 open_side_pane_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);  
 
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   gtk_widget_show (GTK_WIDGET(priv->side_pane));
   codeslayer_registry_set_boolean (registry, 
@@ -539,11 +549,13 @@ static void
 close_side_pane_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   gtk_widget_hide (GTK_WIDGET(priv->side_pane));
   codeslayer_registry_set_boolean (registry, 
@@ -555,11 +567,13 @@ static void
 toggle_bottom_pane_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
   
   if (gtk_widget_get_visible (GTK_WIDGET(priv->bottom_pane)))
     {
@@ -583,11 +597,13 @@ static void
 open_bottom_pane_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   gtk_widget_show (GTK_WIDGET(priv->bottom_pane));
   codeslayer_registry_set_boolean (registry, 
@@ -600,11 +616,13 @@ static void
 close_bottom_pane_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   gtk_widget_hide (GTK_WIDGET(priv->bottom_pane));
   codeslayer_registry_set_boolean (registry, 
@@ -617,12 +635,15 @@ static void
 draw_spaces_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerRegistry *registry;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   gboolean draw_spaces;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
+
   draw_spaces = codeslayer_registry_get_boolean (registry, 
                                                  CODESLAYER_REGISTRY_DRAW_SPACES);
   if (draw_spaces)
@@ -645,12 +666,14 @@ static void
 word_wrap_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerRegistry *registry; 
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry;
   gboolean word_wrap;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
   
   word_wrap = codeslayer_registry_get_boolean (registry, 
                                                CODESLAYER_REGISTRY_WORD_WRAP);

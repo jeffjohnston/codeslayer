@@ -218,15 +218,16 @@ new_projects_action (CodeSlayerProjectsEngine *engine,
                      gchar                    *file_name)
 {
   CodeSlayerProjectsEnginePrivate *priv;
-  CodeSlayerRegistry *registry; 
   CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   GFile *file;
 
   file = g_file_new_for_path (file_name);
 
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
   
   if (!codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (engine)))
     return;
@@ -260,14 +261,14 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
                       GFile                    *file)
 {
   CodeSlayerProjectsEnginePrivate *priv;
-  CodeSlayerRegistry *registry; 
   CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   GList *projects;
   GList *documents;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   if (!codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (engine)))
     return;
@@ -280,6 +281,8 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
   if (profile == NULL)
     return;
     
+  registry = codeslayer_profile_get_registry (profile);
+
   codeslayer_profile_set_projects_mode (profile, TRUE);
     
   codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
@@ -441,15 +444,16 @@ select_editor_action (CodeSlayerProjectsEngine *engine,
                       guint                     page_num)
 {
   CodeSlayerProjectsEnginePrivate *priv;
-  CodeSlayerRegistry *registry; 
   CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   GtkWidget *notebook_page;
   CodeSlayerDocument *document;
   gboolean sync_with_editor;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
   profile = codeslayer_profiles_get_profile (priv->profiles);
   
   if (codeslayer_profile_get_projects (profile) == NULL)
@@ -476,8 +480,8 @@ search_find_projects_action (CodeSlayerProjectsEngine *engine,
                              gchar                    *file_paths)
 {
   CodeSlayerProjectsEnginePrivate *priv;
-  CodeSlayerRegistry *registry; 
   CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   gint search_width;
   gint search_height;
   gint search_x;
@@ -486,7 +490,8 @@ search_find_projects_action (CodeSlayerProjectsEngine *engine,
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
   profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
   
   if (priv->search == NULL)
     {
@@ -543,6 +548,7 @@ close_search_action (CodeSlayerProjectsEngine *engine,
                      GdkEvent                 *event)
 {
   CodeSlayerProjectsEnginePrivate *priv; 
+  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   gint width;
   gint height;
@@ -551,7 +557,8 @@ close_search_action (CodeSlayerProjectsEngine *engine,
 
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   gtk_window_get_size (GTK_WINDOW (priv->search), &width, &height);
   codeslayer_registry_set_integer (registry,

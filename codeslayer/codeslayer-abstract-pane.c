@@ -289,12 +289,14 @@ void
 codeslayer_abstract_pane_sync_registry (CodeSlayerAbstractPane *abstract_pane)
 {
   CodeSlayerAbstractPanePrivate *priv;
+  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   gchar *editor_value;
   
   priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
 
   editor_value = codeslayer_registry_get_string (registry, tab_position_key (abstract_pane));
                                                     

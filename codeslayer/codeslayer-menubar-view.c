@@ -189,11 +189,13 @@ sync_engine_action (CodeSlayerMenuBarView *menu_bar_view,
                     gboolean               has_open_editors)
 {
   CodeSlayerMenuBarViewPrivate *priv;
-  CodeSlayerRegistry *registry; 
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry;
   
   priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
   
-  registry = (CodeSlayerRegistry*) codeslayer_profiles_get_registry (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
   
   gtk_widget_set_sensitive (priv->draw_spaces_item, has_open_editors);
   gtk_widget_set_sensitive (priv->word_wrap_item, has_open_editors);
