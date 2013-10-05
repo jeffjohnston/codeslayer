@@ -73,7 +73,6 @@ static void page_removed_action             (CodeSlayerEngine       *engine,
                                              GtkWidget              *page, 
                                              guint                   page_num);
 static void show_preferences_action         (CodeSlayerEngine       *engine);
-static void show_profiles_action            (CodeSlayerEngine       *engine);
 static void registry_changed_action         (CodeSlayerEngine       *engine);
 static void show_plugins_action             (CodeSlayerEngine      *engine);
                                                    
@@ -88,7 +87,6 @@ struct _CodeSlayerEnginePrivate
   CodeSlayerRegistry        *registry;
   CodeSlayerPreferences     *preferences;
   CodeSlayerProfiles        *profiles;
-  CodeSlayerProfilesManager *profiles_manager;
   CodeSlayerPlugins         *plugins;
   GtkWidget                 *search;
   GtkWidget                 *menubar;
@@ -119,7 +117,6 @@ codeslayer_engine_init (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  priv->profiles_manager = NULL;
   priv->preferences = NULL;
   priv->search = NULL;
 }
@@ -129,7 +126,6 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  g_object_unref (priv->profiles_manager);
   g_object_unref (priv->preferences);  
   G_OBJECT_CLASS (codeslayer_engine_parent_class)->finalize (G_OBJECT (engine));
 }
@@ -151,16 +147,16 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
  * Returns: a new #CodeSlayerEngine. 
  */
 CodeSlayerEngine*
-codeslayer_engine_new (GtkWindow             *window,
-                       CodeSlayerProfiles    *profiles,
-                       CodeSlayerPlugins     *plugins,
-                       GtkWidget             *menubar,
-                       GtkWidget             *notebook,
-                       GtkWidget             *notebook_pane, 
-                       GtkWidget             *side_pane,
-                       GtkWidget             *bottom_pane, 
-                       GtkWidget             *hpaned,
-                       GtkWidget             *vpaned)
+codeslayer_engine_new (GtkWindow          *window,
+                       CodeSlayerProfiles *profiles,
+                       CodeSlayerPlugins  *plugins,
+                       GtkWidget          *menubar,
+                       GtkWidget          *notebook,
+                       GtkWidget          *notebook_pane, 
+                       GtkWidget          *side_pane,
+                       GtkWidget          *bottom_pane, 
+                       GtkWidget          *hpaned,
+                       GtkWidget          *vpaned)
 {
   CodeSlayerEnginePrivate *priv;
   CodeSlayerProfile *profile;
@@ -182,7 +178,6 @@ codeslayer_engine_new (GtkWindow             *window,
   priv->vpaned = vpaned;
   
   priv->preferences = codeslayer_preferences_new (GTK_WIDGET (window), profiles);
-  priv->profiles_manager = codeslayer_profiles_manager_new (GTK_WIDGET (window), profiles);
 
   g_object_set (CODESLAYER_ABSTRACT_ENGINE (engine), 
                 "window", window, 
@@ -258,9 +253,6 @@ codeslayer_engine_new (GtkWindow             *window,
   
   g_signal_connect_swapped (G_OBJECT (menubar), "show-preferences",
                             G_CALLBACK (show_preferences_action), engine);
-  
-  g_signal_connect_swapped (G_OBJECT (menubar), "show-profiles",
-                            G_CALLBACK (show_profiles_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (priv->notebook), "page-removed",
                             G_CALLBACK (page_removed_action), engine);
@@ -700,14 +692,6 @@ show_preferences_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   codeslayer_preferences_run_dialog (priv->preferences);
-}
-
-static void
-show_profiles_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_profiles_manager_run_dialog (priv->profiles_manager);
 }
 
 static void

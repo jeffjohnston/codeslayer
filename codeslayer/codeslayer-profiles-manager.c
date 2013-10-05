@@ -23,10 +23,10 @@
 #include <codeslayer/codeslayer-utils.h>
 
 /**
- * SECTION:codeslayer-profiles
+ * SECTION:codeslayer-profiles-manager
  * @short_description: The profiles.
  * @title: CodeSlayerProfilesManager
- * @include: codeslayer/codeslayer-profiles.h
+ * @include: codeslayer/codeslayer-profiles-manager.h
  */
 
 static void codeslayer_profiles_manager_class_init  (CodeSlayerProfilesManagerClass *klass);
@@ -40,8 +40,10 @@ typedef struct _CodeSlayerProfilesManagerPrivate CodeSlayerProfilesManagerPrivat
 
 struct _CodeSlayerProfilesManagerPrivate
 {
-  GtkWidget          *window;
-  CodeSlayerProfiles *profiles;
+  GtkWidget                *window;
+  CodeSlayerProfiles       *profiles;
+  CodeSlayerEngine         *engine;
+  CodeSlayerProjectsEngine *projects_engine;
 };
 
 G_DEFINE_TYPE (CodeSlayerProfilesManager, codeslayer_profiles_manager, G_TYPE_OBJECT)
@@ -73,8 +75,10 @@ codeslayer_profiles_manager_finalize (CodeSlayerProfilesManager *profiles_manage
  * Returns: a new #CodeSlayerProfilesManager. 
  */
 CodeSlayerProfilesManager*
-codeslayer_profiles_manager_new (GtkWidget          *window, 
-                                 CodeSlayerProfiles *profiles)
+codeslayer_profiles_manager_new (GtkWidget                *window, 
+                                 CodeSlayerProfiles       *profiles, 
+                                 CodeSlayerEngine         *engine, 
+                                 CodeSlayerProjectsEngine *projects_engine)
 {
   CodeSlayerProfilesManagerPrivate *priv;
   CodeSlayerProfilesManager *profiles_manager;
@@ -83,6 +87,8 @@ codeslayer_profiles_manager_new (GtkWidget          *window,
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
   priv->window = window;
   priv->profiles = profiles;
+  priv->engine = engine;
+  priv->projects_engine = projects_engine;
   
   return profiles_manager;
 }

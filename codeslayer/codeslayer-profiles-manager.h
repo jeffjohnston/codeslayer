@@ -23,6 +23,8 @@
 #include <codeslayer/codeslayer-profile.h>
 #include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-profiles.h>
+#include <codeslayer/codeslayer-engine.h>
+#include <codeslayer/codeslayer-projects-engine.h>
 
 G_BEGIN_DECLS
 
@@ -47,8 +49,10 @@ struct _CodeSlayerProfilesManagerClass
 
 GType codeslayer_profiles_manager_get_type (void) G_GNUC_CONST;
 
-CodeSlayerProfilesManager*  codeslayer_profiles_manager_new         (GtkWidget                 *window, 
-                                                                     CodeSlayerProfiles        *profiles);
+CodeSlayerProfilesManager*  codeslayer_profiles_manager_new         (GtkWidget                *window, 
+                                                                     CodeSlayerProfiles       *profiles, 
+                                                                     CodeSlayerEngine         *engine, 
+                                                                     CodeSlayerProjectsEngine *projects_engine);
 
 void                        codeslayer_profiles_manager_run_dialog  (CodeSlayerProfilesManager *profiles_manager);
 

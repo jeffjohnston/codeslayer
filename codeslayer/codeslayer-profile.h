@@ -78,11 +78,6 @@ void                 codeslayer_profile_add_document              (CodeSlayerPro
 void                 codeslayer_profile_remove_document           (CodeSlayerProfile  *profile,
                                                                    CodeSlayerDocument *document);
 CodeSlayerRegistry*  codeslayer_profile_get_registry              (CodeSlayerProfile  *profile);
-/*const gchar*         codeslayer_profile_get_setting               (CodeSlayerProfile  *profile,
-                                                                  gchar              *key);
-void                 codeslayer_profile_set_setting               (CodeSlayerProfile  *profile,
-                                                                  gchar              *key, 
-                                                                  gchar              *value);*/
 GList*               codeslayer_profile_get_plugins               (CodeSlayerProfile  *profile);
 void                 codeslayer_profile_set_plugins               (CodeSlayerProfile  *profile, 
                                                                    GList              *plugins);
