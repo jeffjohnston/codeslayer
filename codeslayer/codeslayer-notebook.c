@@ -170,7 +170,7 @@ codeslayer_notebook_new (GtkWindow          *window,
   priv->profiles = profiles;
   priv->window = window;
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
@@ -743,7 +743,7 @@ registry_changed_action (CodeSlayerNotebook *notebook)
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   editor_value = codeslayer_registry_get_string (registry, CODESLAYER_REGISTRY_EDITOR_TAB_POSITION);

@@ -295,7 +295,7 @@ codeslayer_abstract_pane_sync_registry (CodeSlayerAbstractPane *abstract_pane)
   
   priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   editor_value = codeslayer_registry_get_string (registry, tab_position_key (abstract_pane));

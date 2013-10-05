@@ -51,8 +51,6 @@ static void codeslayer_projects_engine_finalize    (CodeSlayerProjectsEngine    
 
 static void search_find_projects_action            (CodeSlayerProjectsEngine      *engine,
                                                     gchar                         *search_paths);
-static void new_projects_action                    (CodeSlayerProjectsEngine      *engine,
-                                                    gchar                         *file_name);
 static void open_projects_action                   (CodeSlayerProjectsEngine      *engine,
                                                     GFile                         *file);
 static void add_projects_action                    (CodeSlayerProjectsEngine      *engine,
@@ -186,9 +184,6 @@ codeslayer_projects_engine_new (GtkWindow          *window,
   g_signal_connect_swapped (G_OBJECT (projects), "find-projects",
                             G_CALLBACK (search_find_projects_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (menubar), "new-projects",
-                            G_CALLBACK (new_projects_action), engine);
-  
   g_signal_connect_swapped (G_OBJECT (menubar), "open-projects",
                             G_CALLBACK (open_projects_action), engine);
   
@@ -213,7 +208,7 @@ codeslayer_projects_engine_new (GtkWindow          *window,
   return engine;
 }
 
-static void
+/*static void
 new_projects_action (CodeSlayerProjectsEngine *engine,
                      gchar                    *file_name)
 {
@@ -226,7 +221,7 @@ new_projects_action (CodeSlayerProjectsEngine *engine,
 
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   if (!codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (engine)))
@@ -254,7 +249,7 @@ new_projects_action (CodeSlayerProjectsEngine *engine,
   codeslayer_plugins_activate (priv->plugins, profile);
 
   g_object_unref (file);
-}
+}*/
 
 static void
 open_projects_action (CodeSlayerProjectsEngine *engine,
@@ -268,7 +263,7 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   
   if (!codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (engine)))
     return;
@@ -277,7 +272,7 @@ open_projects_action (CodeSlayerProjectsEngine *engine,
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
 
-  profile = codeslayer_profiles_load_file_profile (priv->profiles, file);
+  profile = NULL; //codeslayer_profiles_load_file_profile (priv->profiles, file);
   if (profile == NULL)
     return;
     
@@ -323,7 +318,7 @@ add_projects_action (CodeSlayerProjectsEngine *engine,
   CodeSlayerProfile *profile;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
 
   while (files != NULL)
     {
@@ -347,7 +342,7 @@ add_projects_action (CodeSlayerProjectsEngine *engine,
 
       codeslayer_profile_add_project (profile, project);
 
-      codeslayer_profiles_save_profile (priv->profiles);
+      codeslayer_profiles_save_profile (priv->profiles, profile);
 
       codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
       
@@ -365,11 +360,11 @@ remove_project_action (CodeSlayerProjectsEngine *engine,
   CodeSlayerProfile *profile;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
 
   codeslayer_profile_remove_project (profile, project);
   
-  codeslayer_profiles_save_profile (priv->profiles);
+  codeslayer_profiles_save_profile (priv->profiles, profile);
   
   g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
 }
@@ -452,9 +447,9 @@ select_editor_action (CodeSlayerProjectsEngine *engine,
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   
   if (codeslayer_profile_get_projects (profile) == NULL)
     return;
@@ -489,8 +484,8 @@ search_find_projects_action (CodeSlayerProjectsEngine *engine,
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   if (priv->search == NULL)
@@ -557,7 +552,7 @@ close_search_action (CodeSlayerProjectsEngine *engine,
 
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   gtk_window_get_size (GTK_WINDOW (priv->search), &width, &height);

@@ -678,7 +678,7 @@ execute (CodeSlayerProjectsSearch *search)
   
   priv = CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE (search);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   if (codeslayer_utils_has_text (priv->find_text))

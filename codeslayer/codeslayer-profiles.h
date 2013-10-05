@@ -30,6 +30,7 @@ G_BEGIN_DECLS
 #define IS_CODESLAYER_PROFILES(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_PROFILES_TYPE))
 #define IS_CODESLAYER_PROFILES_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_PROFILES_TYPE))
 
+#define CODESLAYER_PROFILES_DEFAULT "Default"
 #define CODESLAYER_PROFILES_DIR "profiles"
 
 typedef struct _CodeSlayerProfiles CodeSlayerProfiles;
@@ -50,13 +51,19 @@ codeslayer_profiles_get_type (void) G_GNUC_CONST;
 
 CodeSlayerProfiles*  codeslayer_profiles_new                   (void);
                                                
-CodeSlayerProfile*   codeslayer_profiles_get_profile           (CodeSlayerProfiles *profiles);
-CodeSlayerProfile*   codeslayer_profiles_load_default_profile  (CodeSlayerProfiles *profiles);
-CodeSlayerProfile*   codeslayer_profiles_load_new_profile      (CodeSlayerProfiles *profiles, 
-                                                                GFile              *file);
-CodeSlayerProfile*   codeslayer_profiles_load_file_profile     (CodeSlayerProfiles *profiles, 
-                                                                GFile              *file);
-void                 codeslayer_profiles_save_profile          (CodeSlayerProfiles *profiles);
+CodeSlayerProfile*   codeslayer_profiles_get_current_profile  (CodeSlayerProfiles *profiles);
+void                 codeslayer_profiles_set_current_profile  (CodeSlayerProfiles *profiles, 
+                                                               CodeSlayerProfile  *profile);
+
+void                 codeslayer_profiles_save_profile         (CodeSlayerProfiles *profiles, 
+                                                               CodeSlayerProfile  *profile);
+
+CodeSlayerProfile*   codeslayer_profiles_create_profile       (CodeSlayerProfiles *profiles, 
+                                                               gchar              *name);
+                                                                
+CodeSlayerProfile*   codeslayer_profiles_retrieve_profile     (CodeSlayerProfiles *profiles, 
+                                                               gchar              *name);
+GList*               codeslayer_profiles_get_profile_names    (CodeSlayerProfiles *profiles);
 
 G_END_DECLS
 

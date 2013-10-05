@@ -785,7 +785,7 @@ codeslayer_editor_sync_registry (CodeSlayerEditor *editor)
   
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   display_line_number = codeslayer_registry_get_boolean (registry,

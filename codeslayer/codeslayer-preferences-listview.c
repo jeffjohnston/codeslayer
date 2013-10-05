@@ -170,7 +170,7 @@ load_list (CodeSlayerPreferencesListView *preferences_listview,
 
   priv = CODESLAYER_PREFERENCES_LIST_VIEW_GET_PRIVATE (preferences_listview);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   include_types = codeslayer_registry_get_string (registry, priv->key);
@@ -201,7 +201,7 @@ list_changed_action (CodeSlayerPreferencesListView *preferences_listview,
     
   priv = CODESLAYER_PREFERENCES_LIST_VIEW_GET_PRIVATE (preferences_listview);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   gs = g_string_new ("");

@@ -76,7 +76,7 @@ codeslayer_side_pane_new (CodeSlayerProfiles *profiles,
   
   side_pane = g_object_new (codeslayer_side_pane_get_type (), NULL);
 
-  profile = codeslayer_profiles_get_profile (profiles);
+  profile = codeslayer_profiles_get_current_profile (profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   codeslayer_abstract_pane_set_profiles (CODESLAYER_ABSTRACT_PANE (side_pane), profiles);

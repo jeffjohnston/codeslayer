@@ -52,10 +52,9 @@ static void build_plugins_xml                   (gchar                   *name,
 static void build_registry_xml                  (gchar                   *name,
                                                  gchar                   *value, 
                                                  GString                 **xml);
-static void verify_profiles_default_dir_exists  (void);
+static CodeSlayerProfile* retrieve_profile      (GFile                   *file);
                                                     
 #define CODESLAYER_PROFILES_DIR "profiles"
-#define CODESLAYER_PROFILES_DEFAULT_DIR "Default"
 #define CODESLAYER_PROFILE_FILE "codeslayer.profile"
                                                     
 #define CODESLAYER_PROFILES_GET_PRIVATE(obj) \
@@ -111,175 +110,165 @@ codeslayer_profiles_new ()
 }
 
 CodeSlayerProfile*
-codeslayer_profiles_get_profile (CodeSlayerProfiles *profiles)
+codeslayer_profiles_get_current_profile (CodeSlayerProfiles *profiles)
 {
   CodeSlayerProfilesPrivate *priv; 
   priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);  
   return priv->profile;
 }
 
-CodeSlayerProfile*       
-codeslayer_profiles_load_new_profile (CodeSlayerProfiles *profiles, 
-                                      GFile              *file)
+void
+codeslayer_profiles_set_current_profile (CodeSlayerProfiles *profiles, 
+                                         CodeSlayerProfile  *profile)
 {
   CodeSlayerProfilesPrivate *priv;
-  gchar *file_path;
-
   priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);
-  
+
   if (priv->profile)
     g_object_unref (priv->profile);
 
-  file_path = g_file_get_path (file);
-  
-  priv->profile = codeslayer_profile_new ();      
-
-  codeslayer_profile_set_file_path (priv->profile, file_path);
-  set_profile_registry_defaults (priv->profile);
-  
-  g_free (file_path);
-  
-  return priv->profile;
+  priv->profile = profile;
 }
 
 CodeSlayerProfile*       
-codeslayer_profiles_load_default_profile (CodeSlayerProfiles *profiles)
+codeslayer_profiles_create_profile (CodeSlayerProfiles *profiles, 
+                                    gchar              *name)
 {
-  CodeSlayerProfilesPrivate *priv; 
+  CodeSlayerProfile *profile;
   gchar *file_path;
   GFile *file;
+
+  file_path = g_build_filename (g_get_home_dir (),
+                                CODESLAYER_HOME,
+                                CODESLAYER_PROFILES_DIR,
+                                name,
+                                CODESLAYER_PROFILE_FILE,
+                                NULL);
   
-  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);  
+  file = g_file_new_for_path (file_path);
   
-  verify_profiles_default_dir_exists ();
+  if (!g_file_query_exists (file, NULL)) 
+    g_file_make_directory (file, NULL, NULL);
+  
+  profile = codeslayer_profile_new ();
+  codeslayer_profile_set_file_path (profile, file_path);
+  set_profile_registry_defaults (profile);
+  
+  g_free (file_path);
+  g_object_unref (file);
+  
+  return profile;
+}
+
+GList*
+codeslayer_profiles_get_profile_names (CodeSlayerProfiles *profiles)
+{
+  GList *results = NULL;
+  gchar *file_path;
+  GFile *file;
+  GFileEnumerator *enumerator;
   
   file_path = g_build_filename (g_get_home_dir (),
                                 CODESLAYER_HOME,
                                 CODESLAYER_PROFILES_DIR,
-                                CODESLAYER_PROFILES_DEFAULT_DIR,
+                                NULL);
+  
+  file = g_file_new_for_path (file_path);
+ 
+  enumerator = g_file_enumerate_children (file, "standard::*",
+                                          G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, 
+                                          NULL, NULL);
+  if (enumerator != NULL)
+    {
+      GFileInfo *file_info;
+      while ((file_info = g_file_enumerator_next_file (enumerator, NULL, NULL)) != NULL)
+        {
+          const char *file_name;
+          file_name = g_file_info_get_name (file_info);
+          results = g_list_append (results, g_strdup (file_name));
+          g_object_unref (file_info);
+        }
+      g_object_unref (enumerator);
+    }
+
+  g_free (file_path);
+  g_object_unref (file);
+  
+  return results;
+}
+
+CodeSlayerProfile*       
+codeslayer_profiles_retrieve_profile (CodeSlayerProfiles *profiles, 
+                                      gchar              *name)
+{
+  CodeSlayerProfile *profile;
+  gchar *file_path;
+  GFile *file;
+  
+  file_path = g_build_filename (g_get_home_dir (),
+                                CODESLAYER_HOME,
+                                CODESLAYER_PROFILES_DIR,
+                                name,
                                 CODESLAYER_PROFILE_FILE,
                                 NULL);
 
   file = g_file_new_for_path (file_path);
+
   if (!g_file_query_exists (file, NULL))
     {
-      priv->profile = codeslayer_profile_new ();      
-      codeslayer_profile_set_file_path (priv->profile, file_path);
-      set_profile_registry_defaults (priv->profile);
+      g_file_make_directory (file, NULL, NULL);
+      profile = codeslayer_profile_new ();
+      codeslayer_profile_set_file_path (profile, file_path);
+      set_profile_registry_defaults (profile);
     }
   else
     {
-      priv->profile = codeslayer_profiles_load_file_profile (profiles, file);
+      profile = retrieve_profile (file);
     }    
     
   g_free (file_path);
   g_object_unref (file);    
                                 
-  return priv->profile;
+  return profile;
 }
 
-CodeSlayerProfile*
-codeslayer_profiles_load_file_profile (CodeSlayerProfiles *profiles, 
-                                       GFile              *file)
+static CodeSlayerProfile*
+retrieve_profile (GFile *file)
 {
-  CodeSlayerProfilesPrivate *priv;
+  CodeSlayerProfile *profile;
   xmlDoc *doc = NULL;
   xmlNode *root_element = NULL;
   gchar *file_path = NULL;
-  
-  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);
-  
-  if (priv->profile)
-    g_object_unref (priv->profile);
   
   file_path = g_file_get_path (file);
   
   doc = xmlReadFile (file_path, NULL, 0);
   if (doc == NULL)
     {
-      g_warning ("could not parse projects file %s\n", file_path);
+      g_warning ("could not parse profile %s\n", file_path);
       xmlCleanupParser();
       if (file_path)
         g_free (file_path);
       return NULL;
     }
 
-  priv->profile = codeslayer_profile_new ();
+  profile = codeslayer_profile_new ();
   
   root_element = xmlDocGetRootElement (doc);
 
-  load_profile (priv->profile, root_element);
-  codeslayer_profile_set_file_path (priv->profile, file_path);
+  load_profile (profile, root_element);
+  codeslayer_profile_set_file_path (profile, file_path);
 
   xmlFreeDoc (doc);
   xmlCleanupParser ();
   g_free (file_path);
   
-  return priv->profile;
-}
-
-void
-codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles)
-{
-  CodeSlayerProfilesPrivate *priv; 
-  GString *xml;
-  gchar *contents;
-  const gchar *file_path;
-  GList *projects;
-  GList *documents;
-  GList *plugins;
-  CodeSlayerRegistry *registry;
-  GHashTable *hashtable;
-  
-  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);  
-
-  projects = codeslayer_profile_get_projects (priv->profile);
-  documents = codeslayer_profile_get_documents (priv->profile);
-  plugins = codeslayer_profile_get_plugins (priv->profile);
-  registry = codeslayer_profile_get_registry (priv->profile);
-  hashtable = codeslayer_registry_get_hashtable (registry);
-  
-  xml = g_string_new ("<profile>");
-  
-  if (projects != NULL)
-    {
-      xml = g_string_append (xml, "\n\t<projects>");
-      g_list_foreach (projects, (GFunc)build_projects_xml, &xml);
-      xml = g_string_append (xml, "\n\t</projects>");    
-    }
-
-  if (documents != NULL)
-    {
-      xml = g_string_append (xml, "\n\t<documents>");
-      g_list_foreach (documents, (GFunc)build_documents_xml, &xml);
-      xml = g_string_append (xml, "\n\t</documents>");    
-    }
-
-  if (plugins != NULL)
-    {
-      xml = g_string_append (xml, "\n\t<plugins>");
-      g_list_foreach (plugins, (GFunc)build_plugins_xml, &xml);
-      xml = g_string_append (xml, "\n\t</plugins>");    
-    }
-
-  xml = g_string_append (xml, "\n\t<registry>");
-  g_hash_table_foreach (hashtable, (GHFunc)build_registry_xml, &xml);
-  xml = g_string_append (xml, "\n\t</registry>");
-
-  xml = g_string_append (xml, "\n</profile>");
-  
-  contents = g_string_free (xml, FALSE);
-  
-  file_path = codeslayer_profile_get_file_path (priv->profile);
-
-  g_file_set_contents (file_path, contents, -1, NULL);
-  
-  g_free (contents);
+  return profile;
 }
 
 static void
 load_profile (CodeSlayerProfile *profile, 
-             xmlNode          *a_node)
+              xmlNode          *a_node)
 {
   xmlNode *cur_node = NULL;
   CodeSlayerRegistry *registry;
@@ -450,23 +439,59 @@ set_profile_registry_defaults (CodeSlayerProfile *profile)
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_WORD_WRAP_TYPES, ".txt");
 }
 
-static void
-verify_profiles_default_dir_exists ()
+void
+codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles, 
+                                  CodeSlayerProfile  *profile)
 {
-  gchar *default_dir;
-  GFile *file;
+  GString *xml;
+  gchar *contents;
+  const gchar *file_path;
+  GList *projects;
+  GList *documents;
+  GList *plugins;
+  CodeSlayerRegistry *registry;
+  GHashTable *hashtable;
   
-  default_dir = g_build_filename (g_get_home_dir (),
-                                  CODESLAYER_HOME,
-                                  CODESLAYER_PROFILES_DIR,
-                                  CODESLAYER_PROFILES_DEFAULT_DIR,
-                                  NULL);
-  file = g_file_new_for_path (default_dir);
+  projects = codeslayer_profile_get_projects (profile);
+  documents = codeslayer_profile_get_documents (profile);
+  plugins = codeslayer_profile_get_plugins (profile);
+  registry = codeslayer_profile_get_registry (profile);
+  hashtable = codeslayer_registry_get_hashtable (registry);
+  
+  xml = g_string_new ("<profile>");
+  
+  if (projects != NULL)
+    {
+      xml = g_string_append (xml, "\n\t<projects>");
+      g_list_foreach (projects, (GFunc)build_projects_xml, &xml);
+      xml = g_string_append (xml, "\n\t</projects>");    
+    }
 
-  if (!g_file_query_exists (file, NULL)) 
-    g_file_make_directory (file, NULL, NULL);
+  if (documents != NULL)
+    {
+      xml = g_string_append (xml, "\n\t<documents>");
+      g_list_foreach (documents, (GFunc)build_documents_xml, &xml);
+      xml = g_string_append (xml, "\n\t</documents>");    
+    }
 
-  g_free (default_dir);
-  g_object_unref (file);
+  if (plugins != NULL)
+    {
+      xml = g_string_append (xml, "\n\t<plugins>");
+      g_list_foreach (plugins, (GFunc)build_plugins_xml, &xml);
+      xml = g_string_append (xml, "\n\t</plugins>");    
+    }
+
+  xml = g_string_append (xml, "\n\t<registry>");
+  g_hash_table_foreach (hashtable, (GHFunc)build_registry_xml, &xml);
+  xml = g_string_append (xml, "\n\t</registry>");
+
+  xml = g_string_append (xml, "\n</profile>");
+  
+  contents = g_string_free (xml, FALSE);
+  
+  file_path = codeslayer_profile_get_file_path (profile);
+
+  g_file_set_contents (file_path, contents, -1, NULL);
+  
+  g_free (contents);
 }
-

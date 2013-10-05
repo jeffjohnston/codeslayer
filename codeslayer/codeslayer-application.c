@@ -256,13 +256,15 @@ create_profiles (CodeSlayerApplication *application)
 {
   CodeSlayerApplicationPrivate *priv;
   CodeSlayerProfiles *profiles;
+  CodeSlayerProfile *profile;
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
   profiles = codeslayer_profiles_new ();
   priv->profiles = profiles;
   
-  codeslayer_profiles_load_default_profile (priv->profiles);
+  profile = codeslayer_profiles_retrieve_profile (priv->profiles, CODESLAYER_PROFILES_DEFAULT);
+  codeslayer_profiles_set_current_profile (profiles, profile);
 }
 
 static void
