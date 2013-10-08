@@ -264,6 +264,9 @@ create_profiles (CodeSlayerApplication *application)
   priv->profiles = profiles;
   
   profile = codeslayer_profiles_retrieve_profile (priv->profiles, CODESLAYER_PROFILES_DEFAULT);
+  if (profile == NULL)
+    profile = codeslayer_profiles_create_profile (priv->profiles, CODESLAYER_PROFILES_DEFAULT);
+  
   codeslayer_profiles_set_current_profile (profiles, profile);
 }
 

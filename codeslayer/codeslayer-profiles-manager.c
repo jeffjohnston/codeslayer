@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <codeslayer/codeslayer-profiles-manager.h>
+#include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-utils.h>
 
 /**
@@ -37,13 +38,14 @@ static void add_profiles_pane                       (CodeSlayerProfilesManager  
                                                      GtkWidget                      *hpaned);
 static void add_buttons_pane                        (CodeSlayerProfilesManager      *profiles_manager, 
                                                      GtkWidget                      *hpaned);
-static void select_row_action                       (GtkTreeSelection               *selection, 
-                                                     CodeSlayerProfilesManager      *profiles_manager);
 static void load_profiles                           (CodeSlayerProfilesManager      *profiles_manager);
 static gint sort_compare                            (GtkTreeModel                   *model, 
                                                      GtkTreeIter                    *a,
                                                      GtkTreeIter                    *b, 
                                                      gpointer                        userdata);
+static void add_profile_action                      (CodeSlayerProfilesManager      *profiles_manager);
+static void edit_profile_action                     (CodeSlayerProfilesManager      *profiles_manager);
+static void delete_profile_action                   (CodeSlayerProfilesManager      *profiles_manager);
 
 #define CODESLAYER_PROFILES_MANAGER_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROFILES_MANAGER_TYPE, CodeSlayerProfilesManagerPrivate))
@@ -63,7 +65,6 @@ struct _CodeSlayerProfilesManagerPrivate
 enum
 {
   TEXT = 0,
-  PROFILE,
   COLUMNS
 };
 
@@ -124,13 +125,11 @@ void
 codeslayer_profiles_manager_run_dialog (CodeSlayerProfilesManager *profiles_manager)
 {
   CodeSlayerProfilesManagerPrivate *priv;
-  /*CodeSlayerProfile *profile;*/
   GtkWidget *dialog;
   GtkWidget *content_area;
   GtkWidget *hbox;
   
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
-  /*profile = codeslayer_profiles_get_profile (priv->profiles);*/
   
   dialog = gtk_dialog_new_with_buttons (_("Profiles"), 
                                         GTK_WINDOW (priv->window),
@@ -207,9 +206,6 @@ add_profiles_pane (CodeSlayerProfilesManager *profiles_manager,
                                   GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
   gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (tree));
   gtk_widget_set_size_request (scrolled_window, -1, 275);
-  
-  g_signal_connect (G_OBJECT (selection), "changed",
-                    G_CALLBACK (select_row_action), profiles_manager);
 
   /* pack everything in */  
 
@@ -222,28 +218,236 @@ add_buttons_pane (CodeSlayerProfilesManager *profiles_manager,
                   GtkWidget                 *hbox)
 {
   GtkWidget *vbox;
-  GtkWidget *add;
-  GtkWidget *edit;
-  GtkWidget *delete;
+  GtkWidget *add_button;
+  GtkWidget *edit_button;
+  GtkWidget *delete_button;
 
   vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 4);
   
-  add = gtk_button_new_from_stock (GTK_STOCK_ADD);
-  edit = gtk_button_new_from_stock (GTK_STOCK_EDIT);
-  delete = gtk_button_new_from_stock (GTK_STOCK_DELETE);
+  add_button = gtk_button_new_from_stock (GTK_STOCK_ADD);
+  edit_button = gtk_button_new_from_stock (GTK_STOCK_EDIT);
+  delete_button = gtk_button_new_from_stock (GTK_STOCK_DELETE);
   
-  gtk_box_pack_start (GTK_BOX (vbox), add, FALSE, FALSE, 2);
-  gtk_box_pack_start (GTK_BOX (vbox), edit, FALSE, FALSE, 2);
-  gtk_box_pack_start (GTK_BOX (vbox), delete, FALSE, FALSE, 2);
+  gtk_box_pack_start (GTK_BOX (vbox), add_button, FALSE, FALSE, 2);
+  gtk_box_pack_start (GTK_BOX (vbox), edit_button, FALSE, FALSE, 2);
+  gtk_box_pack_start (GTK_BOX (vbox), delete_button, FALSE, FALSE, 2);
+  
+  g_signal_connect_swapped (G_OBJECT (add_button), "clicked", 
+                            G_CALLBACK (add_profile_action), profiles_manager);
+
+  g_signal_connect_swapped (G_OBJECT (edit_button), "clicked", 
+                            G_CALLBACK (edit_profile_action), profiles_manager);
+
+  g_signal_connect_swapped (G_OBJECT (delete_button), "clicked", 
+                            G_CALLBACK (delete_profile_action), profiles_manager);
 
   gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 10);
 }
 
 static void
-select_row_action (GtkTreeSelection          *selection, 
-                   CodeSlayerProfilesManager *profiles_manager)
+add_profile_action (CodeSlayerProfilesManager *profiles_manager)
 {
- 
+  CodeSlayerProfilesManagerPrivate *priv;
+  GtkWidget *dialog;
+  GtkWidget *content_area;
+  gint response;
+  GtkWidget *grid;
+  GtkWidget *label;
+  GtkWidget *entry;
+  GtkWidget *toggle_button;
+
+  priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
+  
+  dialog = gtk_dialog_new_with_buttons (_("Add Profile"), 
+                                        GTK_WINDOW (priv->window),
+                                        GTK_DIALOG_MODAL,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        NULL);
+
+  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
+  gtk_window_set_skip_pager_hint (GTK_WINDOW (dialog), TRUE);
+  
+  content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+  
+  grid = gtk_grid_new ();
+
+  label = gtk_label_new (_("Name:"));
+  gtk_misc_set_alignment (GTK_MISC (label), 1, .5);
+  gtk_misc_set_padding (GTK_MISC (label), 4, 0);
+  entry = gtk_entry_new ();
+  toggle_button = gtk_check_button_new_with_label (_("Enable Projects?"));
+  
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
+  gtk_grid_attach_next_to (GTK_GRID (grid), entry, label, GTK_POS_RIGHT, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), toggle_button, 1, 1, 1, 1);
+  
+  gtk_container_add (GTK_CONTAINER (content_area), grid);
+  
+  gtk_widget_show_all (content_area);
+
+  response = gtk_dialog_run (GTK_DIALOG (dialog));
+  if (response == GTK_RESPONSE_OK)
+    {
+      const gchar *name;
+      name = gtk_entry_get_text (GTK_ENTRY (entry));
+      if (codeslayer_utils_has_text (name))
+        {
+          CodeSlayerProfile *profile;
+          CodeSlayerRegistry *registry;
+          gboolean active;
+          GtkTreeIter iter;
+
+          profile = codeslayer_profiles_create_profile (priv->profiles, name);
+          registry = codeslayer_profile_get_registry (profile);
+          
+          active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (toggle_button));      
+          codeslayer_registry_set_boolean (registry, 
+                                           CODESLAYER_REGISTRY_ENABLE_PROJECTS, 
+                                           active);
+                                           
+          codeslayer_profiles_save_profile (priv->profiles, profile);
+          
+          gtk_list_store_append (priv->store, &iter);
+          gtk_list_store_set (priv->store, &iter, TEXT, name, -1);
+                                        
+          g_object_unref (profile);
+        }
+    }
+  
+  gtk_widget_destroy (dialog);
+}
+
+static void
+edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
+{
+  CodeSlayerProfilesManagerPrivate *priv;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry;
+  GtkWidget *dialog;
+  GtkWidget *content_area;
+  gint response;
+  GtkWidget *grid;
+  GtkWidget *label;
+  GtkWidget *entry;
+  GtkWidget *toggle_button;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+
+  priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
+  
+  dialog = gtk_dialog_new_with_buttons (_("Edit Profile"), 
+                                        GTK_WINDOW (priv->window),
+                                        GTK_DIALOG_MODAL,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        NULL);
+
+  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
+  gtk_window_set_skip_pager_hint (GTK_WINDOW (dialog), TRUE);
+  
+  content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+  
+  grid = gtk_grid_new ();
+
+  label = gtk_label_new (_("Name:"));
+  gtk_misc_set_alignment (GTK_MISC (label), 1, .5);
+  gtk_misc_set_padding (GTK_MISC (label), 4, 0);
+  entry = gtk_entry_new ();
+  toggle_button = gtk_check_button_new_with_label (_("Enable Projects?"));
+  
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
+  gtk_grid_attach_next_to (GTK_GRID (grid), entry, label, GTK_POS_RIGHT, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), toggle_button, 1, 1, 1, 1);
+  
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
+  if (gtk_tree_selection_get_selected (selection, NULL, &iter))
+    {
+      gchar *name;
+      gboolean active;
+            
+      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, 
+                          TEXT, &name, -1);
+      
+      profile = codeslayer_profiles_retrieve_profile (priv->profiles, name);
+      registry = codeslayer_profile_get_registry (profile);
+      
+      gtk_entry_set_text (GTK_ENTRY (entry), name);
+      
+      active = codeslayer_registry_get_boolean (registry, 
+                                                CODESLAYER_REGISTRY_ENABLE_PROJECTS);
+
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toggle_button), active);
+      
+      g_free (name);
+    }
+  
+  gtk_container_add (GTK_CONTAINER (content_area), grid);
+  
+  gtk_widget_show_all (content_area);
+
+  response = gtk_dialog_run (GTK_DIALOG (dialog));
+  if (response == GTK_RESPONSE_OK)
+    {
+      const gchar *name;
+      name = gtk_entry_get_text (GTK_ENTRY (entry));
+      if (codeslayer_utils_has_text (name))
+        {
+          gboolean active;
+
+          active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (toggle_button));      
+          codeslayer_registry_set_boolean (registry, 
+                                           CODESLAYER_REGISTRY_ENABLE_PROJECTS, 
+                                           active);
+                                           
+          codeslayer_profiles_save_profile (priv->profiles, profile);
+        }
+    }
+    
+  g_object_unref (profile);
+  gtk_widget_destroy (dialog);
+}
+
+static void
+delete_profile_action (CodeSlayerProfilesManager *profiles_manager)
+{
+  CodeSlayerProfilesManagerPrivate *priv;
+  GtkWidget *dialog;
+  gint response;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+  
+  priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
+
+  dialog = gtk_message_dialog_new (GTK_WINDOW (priv->window), 
+                                   GTK_DIALOG_MODAL,
+                                   GTK_MESSAGE_WARNING,
+                                   GTK_BUTTONS_OK_CANCEL,
+                                   _("Are you sure you want to remove the profile?"));
+  gtk_window_set_title (GTK_WINDOW (dialog), _("Remove Profile"));
+  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+  response = gtk_dialog_run (GTK_DIALOG (dialog));
+  if (response == GTK_RESPONSE_CANCEL)
+    {
+      gtk_widget_destroy (dialog);
+      return;
+    }
+  gtk_widget_destroy (dialog);
+
+  /* confirmed that will remove the project */
+
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
+  if (gtk_tree_selection_get_selected (selection, NULL, &iter))
+    {
+      gchar *name;
+            
+      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, 
+                          TEXT, &name, -1);
+      gtk_list_store_remove (GTK_LIST_STORE (priv->store), &iter);
+
+      g_free (name);
+    }
 }
 
 static void
@@ -264,13 +468,14 @@ load_profiles (CodeSlayerProfilesManager *profiles_manager)
       gchar *name = list->data;
       CodeSlayerProfile *profile;
 
-      profile = codeslayer_profiles_retrieve_profile (priv->profiles, name);
-
-      gtk_list_store_append (priv->store, &iter);
-      gtk_list_store_set (priv->store, &iter, 
-                          TEXT, name, 
-                          PROFILE, profile,
-                          -1);
+      profile = codeslayer_profiles_retrieve_profile (priv->profiles, name);      
+      if (profile != NULL)
+        {
+          gtk_list_store_append (priv->store, &iter);
+          gtk_list_store_set (priv->store, &iter, 
+                              TEXT, name,
+                              -1);
+        }
 
       list = g_list_next (list);
     }

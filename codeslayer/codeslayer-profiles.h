@@ -54,16 +54,14 @@ CodeSlayerProfiles*  codeslayer_profiles_new                   (void);
 CodeSlayerProfile*   codeslayer_profiles_get_current_profile  (CodeSlayerProfiles *profiles);
 void                 codeslayer_profiles_set_current_profile  (CodeSlayerProfiles *profiles, 
                                                                CodeSlayerProfile  *profile);
-
+CodeSlayerProfile*   codeslayer_profiles_create_profile       (CodeSlayerProfiles *profiles, 
+                                                               const gchar        *name);
+CodeSlayerProfile*   codeslayer_profiles_retrieve_profile     (CodeSlayerProfiles *profiles, 
+                                                               const gchar        *name);
 void                 codeslayer_profiles_save_profile         (CodeSlayerProfiles *profiles, 
                                                                CodeSlayerProfile  *profile);
-
-CodeSlayerProfile*   codeslayer_profiles_create_profile       (CodeSlayerProfiles *profiles, 
-                                                               gchar              *name);
-                                                                
-CodeSlayerProfile*   codeslayer_profiles_retrieve_profile     (CodeSlayerProfiles *profiles, 
-                                                               gchar              *name);
 GList*               codeslayer_profiles_get_profile_names    (CodeSlayerProfiles *profiles);
+
 
 G_END_DECLS
 

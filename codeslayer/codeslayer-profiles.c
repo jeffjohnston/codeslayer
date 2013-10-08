@@ -52,6 +52,8 @@ static void build_plugins_xml                   (gchar                   *name,
 static void build_registry_xml                  (gchar                   *name,
                                                  gchar                   *value, 
                                                  GString                 **xml);
+
+static void verify_directory_exists             (const gchar             *name);
 static CodeSlayerProfile* retrieve_profile      (GFile                   *file);
                                                     
 #define CODESLAYER_PROFILES_DIR "profiles"
@@ -132,9 +134,10 @@ codeslayer_profiles_set_current_profile (CodeSlayerProfiles *profiles,
 
 CodeSlayerProfile*       
 codeslayer_profiles_create_profile (CodeSlayerProfiles *profiles, 
-                                    gchar              *name)
+                                    const gchar        *name)
 {
   CodeSlayerProfile *profile;
+
   gchar *file_path;
   GFile *file;
 
@@ -145,10 +148,9 @@ codeslayer_profiles_create_profile (CodeSlayerProfiles *profiles,
                                 CODESLAYER_PROFILE_FILE,
                                 NULL);
   
-  file = g_file_new_for_path (file_path);
+  verify_directory_exists (name);
   
-  if (!g_file_query_exists (file, NULL)) 
-    g_file_make_directory (file, NULL, NULL);
+  file = g_file_new_for_path (file_path);
   
   profile = codeslayer_profile_new ();
   codeslayer_profile_set_file_path (profile, file_path);
@@ -160,46 +162,9 @@ codeslayer_profiles_create_profile (CodeSlayerProfiles *profiles,
   return profile;
 }
 
-GList*
-codeslayer_profiles_get_profile_names (CodeSlayerProfiles *profiles)
-{
-  GList *results = NULL;
-  gchar *file_path;
-  GFile *file;
-  GFileEnumerator *enumerator;
-  
-  file_path = g_build_filename (g_get_home_dir (),
-                                CODESLAYER_HOME,
-                                CODESLAYER_PROFILES_DIR,
-                                NULL);
-  
-  file = g_file_new_for_path (file_path);
- 
-  enumerator = g_file_enumerate_children (file, "standard::*",
-                                          G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, 
-                                          NULL, NULL);
-  if (enumerator != NULL)
-    {
-      GFileInfo *file_info;
-      while ((file_info = g_file_enumerator_next_file (enumerator, NULL, NULL)) != NULL)
-        {
-          const char *file_name;
-          file_name = g_file_info_get_name (file_info);
-          results = g_list_append (results, g_strdup (file_name));
-          g_object_unref (file_info);
-        }
-      g_object_unref (enumerator);
-    }
-
-  g_free (file_path);
-  g_object_unref (file);
-  
-  return results;
-}
-
 CodeSlayerProfile*       
 codeslayer_profiles_retrieve_profile (CodeSlayerProfiles *profiles, 
-                                      gchar              *name)
+                                      const gchar        *name)
 {
   CodeSlayerProfile *profile;
   gchar *file_path;
@@ -212,19 +177,18 @@ codeslayer_profiles_retrieve_profile (CodeSlayerProfiles *profiles,
                                 CODESLAYER_PROFILE_FILE,
                                 NULL);
 
+  verify_directory_exists (name);
+
   file = g_file_new_for_path (file_path);
 
   if (!g_file_query_exists (file, NULL))
     {
-      g_file_make_directory (file, NULL, NULL);
-      profile = codeslayer_profile_new ();
-      codeslayer_profile_set_file_path (profile, file_path);
-      set_profile_registry_defaults (profile);
+      g_free (file_path);
+      g_object_unref (file);    
+      return NULL;
     }
-  else
-    {
-      profile = retrieve_profile (file);
-    }    
+    
+  profile = retrieve_profile (file);       
     
   g_free (file_path);
   g_object_unref (file);    
@@ -421,9 +385,10 @@ set_profile_registry_defaults (CodeSlayerProfile *profile)
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE, "false");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_DRAW_SPACES, "false");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR, "true");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_ENABLE_PROJECTS, "false");
   
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_DISPLAY_LINE_NUMBERS, "true");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_CURRENT_LINE, "true");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_DISPLAY_LINE_NUMBERS, "false");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_CURRENT_LINE, "false");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_DISPLAY_RIGHT_MARGIN, "false");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_MATCHING_BRACKET, "false");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS, "true");
@@ -494,4 +459,62 @@ codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles,
   g_file_set_contents (file_path, contents, -1, NULL);
   
   g_free (contents);
+}
+
+GList*
+codeslayer_profiles_get_profile_names (CodeSlayerProfiles *profiles)
+{
+  GList *results = NULL;
+  gchar *file_path;
+  GFile *file;
+  GFileEnumerator *enumerator;
+  
+  file_path = g_build_filename (g_get_home_dir (),
+                                CODESLAYER_HOME,
+                                CODESLAYER_PROFILES_DIR,
+                                NULL);
+  
+  file = g_file_new_for_path (file_path);
+ 
+  enumerator = g_file_enumerate_children (file, "standard::*",
+                                          G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, 
+                                          NULL, NULL);
+  if (enumerator != NULL)
+    {
+      GFileInfo *file_info;
+      while ((file_info = g_file_enumerator_next_file (enumerator, NULL, NULL)) != NULL)
+        {
+          const char *file_name;
+          file_name = g_file_info_get_name (file_info);
+          results = g_list_append (results, g_strdup (file_name));
+          g_object_unref (file_info);
+        }
+      g_object_unref (enumerator);
+    }
+
+  g_free (file_path);
+  g_object_unref (file);
+  
+  return results;
+}
+
+static void
+verify_directory_exists (const gchar* name)
+{
+  gchar *file_path;
+  GFile *file;
+  
+  file_path = g_build_filename (g_get_home_dir (),
+                                CODESLAYER_HOME,
+                                CODESLAYER_PROFILES_DIR,
+                                name,
+                                NULL);
+
+  file = g_file_new_for_path (file_path);
+
+  if (!g_file_query_exists (file, NULL))
+    g_file_make_directory (file, NULL, NULL);
+    
+  g_free (file_path);
+  g_object_unref (file);
 }

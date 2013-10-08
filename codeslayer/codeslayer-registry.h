@@ -47,6 +47,7 @@ G_BEGIN_DECLS
 #define CODESLAYER_REGISTRY_DRAW_SPACES "draw_spaces"
 #define CODESLAYER_REGISTRY_WORD_WRAP "word_wrap"
 #define CODESLAYER_REGISTRY_SYNC_WITH_EDITOR "sync_with_editor"
+#define CODESLAYER_REGISTRY_ENABLE_PROJECTS "enable_projects"
 
 #define CODESLAYER_REGISTRY_EDITOR_DISPLAY_LINE_NUMBERS "editor_display_line_numbers"
 #define CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_CURRENT_LINE "editor_highlight_current_line"
