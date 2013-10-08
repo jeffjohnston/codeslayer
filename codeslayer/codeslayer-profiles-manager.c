@@ -441,12 +441,32 @@ delete_profile_action (CodeSlayerProfilesManager *profiles_manager)
   if (gtk_tree_selection_get_selected (selection, NULL, &iter))
     {
       gchar *name;
+      gchar *file_path;
+      GFile *file;
+      GError *error = NULL;
             
       gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, 
                           TEXT, &name, -1);
       gtk_list_store_remove (GTK_LIST_STORE (priv->store), &iter);
+      
+      file_path = g_build_filename (g_get_home_dir (),
+                                    CODESLAYER_HOME,
+                                    CODESLAYER_PROFILES_DIR,
+                                    name,
+                                    NULL);
+
+      file = g_file_new_for_path (file_path);
+      codeslayer_utils_file_delete (file, &error);
+      
+      if (error != NULL)
+        {
+          g_printerr ("not able to delete profile error: %s\n", error->message);
+          g_error_free (error);
+        }
 
       g_free (name);
+      g_free (file_path);
+      g_object_unref (file);
     }
 }
 

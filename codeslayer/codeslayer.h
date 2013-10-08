@@ -152,6 +152,8 @@ gchar*                    codeslayer_get_project_config_folder_path  (CodeSlayer
 
 gchar*                    codeslayer_get_plugins_config_folder_path  (CodeSlayer                  *codeslayer);
 
+gchar*                    codeslayer_get_profile_config_folder_path  (CodeSlayer                  *codeslayer);
+
 CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer                  *codeslayer, 
                                                                       const gchar                 *file_path);
 

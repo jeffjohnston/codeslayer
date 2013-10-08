@@ -271,7 +271,7 @@ codeslayer_engine_new (GtkWindow          *window,
  * @engine: a #CodeSlayerEngine.
  */
 void
-codeslayer_engine_initialize (CodeSlayerEngine *engine)
+codeslayer_engine_load_profile (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   CodeSlayerProfile *profile;

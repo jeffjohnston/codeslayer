@@ -50,20 +50,20 @@ struct _CodeSlayerEngineClass
 
 GType codeslayer_engine_get_type (void) G_GNUC_CONST;
 
-CodeSlayerEngine*  codeslayer_engine_new          (GtkWindow          *window,
-                                                   CodeSlayerProfiles *profiles,
-                                                   CodeSlayerPlugins  *plugins,
-                                                   GtkWidget          *menubar,
-                                                   GtkWidget          *notebook,
-                                                   GtkWidget          *notebook_pane,
-                                                   GtkWidget          *side_pane,
-                                                   GtkWidget          *bottom_pane, 
-                                                   GtkWidget          *hpaned,
-                                                   GtkWidget          *vpaned);
+CodeSlayerEngine*  codeslayer_engine_new           (GtkWindow          *window,
+                                                    CodeSlayerProfiles *profiles,
+                                                    CodeSlayerPlugins  *plugins,
+                                                    GtkWidget          *menubar,
+                                                    GtkWidget          *notebook,
+                                                    GtkWidget          *notebook_pane,
+                                                    GtkWidget          *side_pane,
+                                                    GtkWidget          *bottom_pane, 
+                                                    GtkWidget          *hpaned,
+                                                    GtkWidget          *vpaned);
 
-void               codeslayer_engine_initialize   (CodeSlayerEngine   *engine);
-void               codeslayer_engine_open_editor  (CodeSlayerEngine   *engine, 
-                                                   gchar              *file_path);
+void               codeslayer_engine_load_profile  (CodeSlayerEngine   *engine);
+void               codeslayer_engine_open_editor   (CodeSlayerEngine   *engine, 
+                                                    gchar              *file_path);
 
 G_END_DECLS
 

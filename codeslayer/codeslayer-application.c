@@ -197,7 +197,7 @@ codeslayer_application_startup (GApplication *application)
 
   load_plugins (CODESLAYER_APPLICATION (application));
   
-  codeslayer_engine_initialize (priv->engine);
+  codeslayer_engine_load_profile (priv->engine);
 }
 
 static void

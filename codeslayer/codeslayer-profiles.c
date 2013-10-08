@@ -35,29 +35,26 @@
  * @include: codeslayer/codeslayer-profiles.h
  */
 
-static void codeslayer_profiles_class_init      (CodeSlayerProfilesClass *klass);
-static void codeslayer_profiles_init            (CodeSlayerProfiles      *profiles);
-static void codeslayer_profiles_finalize        (CodeSlayerProfiles      *profiles);
+static void codeslayer_profiles_class_init  (CodeSlayerProfilesClass *klass);
+static void codeslayer_profiles_init        (CodeSlayerProfiles      *profiles);
+static void codeslayer_profiles_finalize    (CodeSlayerProfiles      *profiles);
 
-static void load_profile                        (CodeSlayerProfile       *profile, 
-                                                 xmlNode                 *a_node);
-static void set_profile_registry_defaults       (CodeSlayerProfile       *profile);
+static void load_profile                    (CodeSlayerProfile       *profile, 
+                                             xmlNode                 *a_node);
+static void set_profile_registry_defaults   (CodeSlayerProfile       *profile);
 
-static void build_projects_xml                  (CodeSlayerProject       *project,
-                                                 GString                 **xml);
-static void build_documents_xml                 (CodeSlayerDocument      *document,
-                                                 GString                 **xml);
-static void build_plugins_xml                   (gchar                   *name, 
-                                                 GString                 **xml);
-static void build_registry_xml                  (gchar                   *name,
-                                                 gchar                   *value, 
-                                                 GString                 **xml);
+static void build_projects_xml              (CodeSlayerProject       *project,
+                                             GString                 **xml);
+static void build_documents_xml             (CodeSlayerDocument      *document,
+                                             GString                 **xml);
+static void build_plugins_xml               (gchar                   *name, 
+                                             GString                 **xml);
+static void build_registry_xml              (gchar                   *name,
+                                             gchar                   *value, 
+                                             GString                 **xml);
 
-static void verify_directory_exists             (const gchar             *name);
-static CodeSlayerProfile* retrieve_profile      (GFile                   *file);
-                                                    
-#define CODESLAYER_PROFILES_DIR "profiles"
-#define CODESLAYER_PROFILE_FILE "codeslayer.profile"
+static void verify_directory_exists         (const gchar             *name);
+static CodeSlayerProfile* retrieve_profile  (GFile                   *file);
                                                     
 #define CODESLAYER_PROFILES_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROFILES_TYPE, CodeSlayerProfilesPrivate))

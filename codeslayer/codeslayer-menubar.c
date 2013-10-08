@@ -42,14 +42,14 @@ typedef struct _CodeSlayerMenuBarPrivate CodeSlayerMenuBarPrivate;
 
 struct _CodeSlayerMenuBarPrivate
 {
-  GtkAccelGroup    *accel_group;
-  GSList           *radio_group;
-  GtkWidget        *window;
-  GtkWidget        *menu_bar_editor;
-  GtkWidget        *menu_bar_search;
-  GtkWidget        *menu_bar_view;
-  GtkWidget        *menu_bar_projects;
-  GtkWidget        *menu_bar_tools;
+  GtkAccelGroup *accel_group;
+  GSList        *radio_group;
+  GtkWidget     *window;
+  GtkWidget     *menu_bar_editor;
+  GtkWidget     *menu_bar_search;
+  GtkWidget     *menu_bar_view;
+  GtkWidget     *menu_bar_projects;
+  GtkWidget     *menu_bar_tools;
 };
 
 enum
@@ -58,8 +58,6 @@ enum
   RENAME_GROUP,
   REMOVE_GROUP,
   GROUP_CHANGED,
-  OPEN_PROJECTS,
-  NEW_PROJECTS,
   ADD_PROJECTS,
   NEW_EDITOR,
   OPEN_EDITOR,
@@ -105,38 +103,6 @@ G_DEFINE_TYPE (CodeSlayerMenuBar, codeslayer_menu_bar, GTK_TYPE_MENU_BAR)
 static void
 codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
 {
-  /**
-   * CodeSlayerMenuBar::new-projects
-   * @menu: the menu that received the signal
-   *
-   * Note: for internal use only.
-   *
-   * The ::new-projects signal is a request to add a new project. 
-   */
-  codeslayer_menu_bar_signals[NEW_PROJECTS] =
-    g_signal_new ("new-projects", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, new_projects),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
-
-  /**
-   * CodeSlayerMenuBar::open-projects
-   * @menu: the menu that received the signal
-   *
-   * Note: for internal use only.
-   *
-   * The ::open-projects signal is a request to add a new project. 
-   */
-  codeslayer_menu_bar_signals[OPEN_PROJECTS] =
-    g_signal_new ("open-projects", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, open_projects),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
-
   /**
    * CodeSlayerMenuBar::add-project
    * @menu: the menu that received the signal

@@ -32,6 +32,7 @@ G_BEGIN_DECLS
 
 #define CODESLAYER_PROFILES_DEFAULT "Default"
 #define CODESLAYER_PROFILES_DIR "profiles"
+#define CODESLAYER_PROFILE_FILE "codeslayer.profile"
 
 typedef struct _CodeSlayerProfiles CodeSlayerProfiles;
 typedef struct _CodeSlayerProfilesClass CodeSlayerProfilesClass;

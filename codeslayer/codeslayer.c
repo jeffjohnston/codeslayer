@@ -31,6 +31,7 @@
  */
 
 #define PLUGINS "plugins"
+#define PROFILES "profiles"
 #define PROJECT_CONFIG ".codeslayer"
 #define CONFIG "config"
 
@@ -774,6 +775,41 @@ codeslayer_get_plugins_config_folder_path (CodeSlayer *codeslayer)
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   return g_build_filename (g_get_home_dir (), CODESLAYER_HOME, 
                            PLUGINS, CONFIG, NULL);
+}
+
+/**
+ * codeslayer_get_profile_config_folder_path:
+ * @codeslayer: a #CodeSlayer.
+ *
+ * The folder path to where you should place profile configuration files.
+ *
+ * Returns: a newly-allocated string that must be freed with g_free().
+ */
+gchar*                    
+codeslayer_get_profile_config_folder_path (CodeSlayer *codeslayer)
+{
+  CodeSlayerPrivate *priv;
+  CodeSlayerProfile *profile;
+  const gchar *file_path;
+  GFile *file;
+  GFile *parent;
+  gchar *result;
+  
+  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
+  
+  priv = CODESLAYER_GET_PRIVATE (codeslayer);
+
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);  
+  file_path = codeslayer_profile_get_file_path (profile);
+  file = g_file_new_for_path (file_path);
+  parent = g_file_get_parent (file);
+  
+  result = g_file_get_path (parent);
+  
+  g_object_unref (file);
+  g_object_unref (parent);
+  
+  return result;                           
 }
 
 /**
