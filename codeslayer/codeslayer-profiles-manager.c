@@ -43,6 +43,8 @@ static gint sort_compare                            (GtkTreeModel               
                                                      GtkTreeIter                    *a,
                                                      GtkTreeIter                    *b, 
                                                      gpointer                        userdata);
+static void select_row_action                       (GtkTreeSelection               *selection, 
+                                                     CodeSlayerProfilesManager      *profiles_manager);
 static void add_profile_action                      (CodeSlayerProfilesManager      *profiles_manager);
 static void edit_profile_action                     (CodeSlayerProfilesManager      *profiles_manager);
 static void delete_profile_action                   (CodeSlayerProfilesManager      *profiles_manager);
@@ -55,6 +57,9 @@ typedef struct _CodeSlayerProfilesManagerPrivate CodeSlayerProfilesManagerPrivat
 struct _CodeSlayerProfilesManagerPrivate
 {
   GtkWidget                *window;
+  GtkWidget                *dialog;
+  GtkWidget                *edit_button;
+  GtkWidget                *delete_button;
   CodeSlayerProfiles       *profiles;
   CodeSlayerEngine         *engine;
   CodeSlayerProjectsEngine *projects_engine;
@@ -125,22 +130,21 @@ void
 codeslayer_profiles_manager_run_dialog (CodeSlayerProfilesManager *profiles_manager)
 {
   CodeSlayerProfilesManagerPrivate *priv;
-  GtkWidget *dialog;
   GtkWidget *content_area;
   GtkWidget *hbox;
   
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
   
-  dialog = gtk_dialog_new_with_buttons (_("Profiles"), 
-                                        GTK_WINDOW (priv->window),
-                                        GTK_DIALOG_MODAL,
-                                        GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-                                        GTK_STOCK_OPEN, GTK_RESPONSE_OK,
-                                        NULL);
-  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
-  gtk_window_set_skip_pager_hint (GTK_WINDOW (dialog), TRUE);
+  priv->dialog = gtk_dialog_new_with_buttons (_("Profiles"), 
+                                              GTK_WINDOW (priv->window),
+                                              GTK_DIALOG_MODAL,
+                                              GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+                                              GTK_STOCK_OPEN, GTK_RESPONSE_OK,
+                                              NULL);
+  gtk_window_set_skip_taskbar_hint (GTK_WINDOW (priv->dialog), TRUE);
+  gtk_window_set_skip_pager_hint (GTK_WINDOW (priv->dialog), TRUE);
 
-  content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+  content_area = gtk_dialog_get_content_area (GTK_DIALOG (priv->dialog));
   gtk_widget_set_size_request (content_area, 350, -1);
   
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 4);
@@ -152,8 +156,8 @@ codeslayer_profiles_manager_run_dialog (CodeSlayerProfilesManager *profiles_mana
   load_profiles (profiles_manager);
   
   gtk_widget_show_all (content_area);
-  gtk_dialog_run (GTK_DIALOG (dialog));
-  gtk_widget_destroy (dialog);
+  gtk_dialog_run (GTK_DIALOG (priv->dialog));
+  gtk_widget_destroy (priv->dialog);
 }
 
 static void
@@ -206,6 +210,9 @@ add_profiles_pane (CodeSlayerProfilesManager *profiles_manager,
                                   GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
   gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (tree));
   gtk_widget_set_size_request (scrolled_window, -1, 275);
+  
+  g_signal_connect (G_OBJECT (selection), "changed",
+                    G_CALLBACK (select_row_action), profiles_manager);
 
   /* pack everything in */  
 
@@ -217,31 +224,63 @@ static void
 add_buttons_pane (CodeSlayerProfilesManager *profiles_manager, 
                   GtkWidget                 *hbox)
 {
+  CodeSlayerProfilesManagerPrivate *priv;
   GtkWidget *vbox;
   GtkWidget *add_button;
-  GtkWidget *edit_button;
-  GtkWidget *delete_button;
+
+  priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
 
   vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 4);
   
   add_button = gtk_button_new_from_stock (GTK_STOCK_ADD);
-  edit_button = gtk_button_new_from_stock (GTK_STOCK_EDIT);
-  delete_button = gtk_button_new_from_stock (GTK_STOCK_DELETE);
+  priv->edit_button = gtk_button_new_from_stock (GTK_STOCK_EDIT);
+  priv->delete_button = gtk_button_new_from_stock (GTK_STOCK_DELETE);
   
   gtk_box_pack_start (GTK_BOX (vbox), add_button, FALSE, FALSE, 2);
-  gtk_box_pack_start (GTK_BOX (vbox), edit_button, FALSE, FALSE, 2);
-  gtk_box_pack_start (GTK_BOX (vbox), delete_button, FALSE, FALSE, 2);
+  gtk_box_pack_start (GTK_BOX (vbox), priv->edit_button, FALSE, FALSE, 2);
+  gtk_box_pack_start (GTK_BOX (vbox), priv->delete_button, FALSE, FALSE, 2);
   
   g_signal_connect_swapped (G_OBJECT (add_button), "clicked", 
                             G_CALLBACK (add_profile_action), profiles_manager);
 
-  g_signal_connect_swapped (G_OBJECT (edit_button), "clicked", 
+  g_signal_connect_swapped (G_OBJECT (priv->edit_button), "clicked", 
                             G_CALLBACK (edit_profile_action), profiles_manager);
 
-  g_signal_connect_swapped (G_OBJECT (delete_button), "clicked", 
+  g_signal_connect_swapped (G_OBJECT (priv->delete_button), "clicked", 
                             G_CALLBACK (delete_profile_action), profiles_manager);
 
   gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 10);
+}
+
+static void
+select_row_action (GtkTreeSelection          *selection, 
+                   CodeSlayerProfilesManager *profiles_manager)
+{
+  CodeSlayerProfilesManagerPrivate *priv;
+  GtkTreeIter iter;  
+
+  priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
+
+  if (gtk_tree_selection_get_selected (selection, NULL, &iter))
+    {
+      gchar *name;
+            
+      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, 
+                          TEXT, &name, -1);
+
+      if (g_strcmp0 (name, CODESLAYER_PROFILES_DEFAULT) == 0)
+        {
+          gtk_widget_set_sensitive (priv->edit_button, FALSE);
+          gtk_widget_set_sensitive (priv->delete_button, FALSE);
+        }
+      else
+        {
+          gtk_widget_set_sensitive (priv->edit_button, TRUE);
+          gtk_widget_set_sensitive (priv->delete_button, TRUE);
+        }        
+      
+      g_free (name);
+    }
 }
 
 static void
@@ -259,7 +298,7 @@ add_profile_action (CodeSlayerProfilesManager *profiles_manager)
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
   
   dialog = gtk_dialog_new_with_buttons (_("Add Profile"), 
-                                        GTK_WINDOW (priv->window),
+                                        GTK_WINDOW (priv->dialog),
                                         GTK_DIALOG_MODAL,
                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                         GTK_STOCK_OK, GTK_RESPONSE_OK,
@@ -337,7 +376,7 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
   
   dialog = gtk_dialog_new_with_buttons (_("Edit Profile"), 
-                                        GTK_WINDOW (priv->window),
+                                        GTK_WINDOW (priv->dialog),
                                         GTK_DIALOG_MODAL,
                                         GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                         GTK_STOCK_OK, GTK_RESPONSE_OK,
@@ -419,7 +458,7 @@ delete_profile_action (CodeSlayerProfilesManager *profiles_manager)
   
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (priv->window), 
+  dialog = gtk_message_dialog_new (GTK_WINDOW (priv->dialog), 
                                    GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_WARNING,
                                    GTK_BUTTONS_OK_CANCEL,
