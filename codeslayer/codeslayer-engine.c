@@ -83,24 +83,25 @@ typedef struct _CodeSlayerEnginePrivate CodeSlayerEnginePrivate;
 
 struct _CodeSlayerEnginePrivate
 {
-  GtkWindow                 *window;
-  CodeSlayerRegistry        *registry;
-  CodeSlayerPreferences     *preferences;
-  CodeSlayerProfiles        *profiles;
-  CodeSlayerPlugins         *plugins;
-  GtkWidget                 *search;
-  GtkWidget                 *menubar;
-  GtkWidget                 *notebook;
-  GtkWidget                 *notebook_pane;
-  GtkWidget                 *side_pane;
-  GtkWidget                 *bottom_pane;
-  GtkWidget                 *hpaned;
-  GtkWidget                 *vpaned;
-  GdkWindowState             window_state;
+  GtkWindow                *window;
+  CodeSlayerProjectsEngine *projects_engine;
+  CodeSlayerRegistry       *registry;
+  CodeSlayerPreferences    *preferences;
+  CodeSlayerProfiles       *profiles;
+  CodeSlayerPlugins        *plugins;
+  GtkWidget                *search;
+  GtkWidget                *menubar;
+  GtkWidget                *notebook;
+  GtkWidget                *notebook_pane;
+  GtkWidget                *side_pane;
+  GtkWidget                *bottom_pane;
+  GtkWidget                *hpaned;
+  GtkWidget                *vpaned;
+  GdkWindowState            window_state;
 
-  GtkWidget                 *go_to_line_dialog;
-  GdkRGBA                    go_to_line_error_color;
-  GdkRGBA                    go_to_line_default_color;  
+  GtkWidget                *go_to_line_dialog;
+  GdkRGBA                   go_to_line_error_color;
+  GdkRGBA                   go_to_line_default_color;  
 };
 
 G_DEFINE_TYPE (CodeSlayerEngine, codeslayer_engine, CODESLAYER_ABSTRACT_ENGINE_TYPE)
@@ -147,16 +148,17 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
  * Returns: a new #CodeSlayerEngine. 
  */
 CodeSlayerEngine*
-codeslayer_engine_new (GtkWindow          *window,
-                       CodeSlayerProfiles *profiles,
-                       CodeSlayerPlugins  *plugins,
-                       GtkWidget          *menubar,
-                       GtkWidget          *notebook,
-                       GtkWidget          *notebook_pane, 
-                       GtkWidget          *side_pane,
-                       GtkWidget          *bottom_pane, 
-                       GtkWidget          *hpaned,
-                       GtkWidget          *vpaned)
+codeslayer_engine_new (GtkWindow                *window,
+                       CodeSlayerProjectsEngine *projects_engine,
+                       CodeSlayerProfiles       *profiles,
+                       CodeSlayerPlugins        *plugins,
+                       GtkWidget                *menubar,
+                       GtkWidget                *notebook,
+                       GtkWidget                *notebook_pane, 
+                       GtkWidget                *side_pane,
+                       GtkWidget                *bottom_pane, 
+                       GtkWidget                *hpaned,
+                       GtkWidget                *vpaned)
 {
   CodeSlayerEnginePrivate *priv;
   CodeSlayerProfile *profile;
@@ -167,6 +169,7 @@ codeslayer_engine_new (GtkWindow          *window,
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
   priv->window = window;
+  priv->projects_engine = projects_engine;
   priv->profiles = profiles;
   priv->plugins = plugins;
   priv->menubar = menubar;
@@ -282,13 +285,20 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
   profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
-  g_signal_emit_by_name ((gpointer) registry, "registry-initialized");
+  codeslayer_plugins_deactivate (priv->plugins);
+  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
 
   codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
-  
-  new_editor_action (engine);
 
-  codeslayer_plugins_activate (priv->plugins, profile);  
+  if (!codeslayer_profile_get_enable_projects (profile))
+    new_editor_action (engine);
+      
+  codeslayer_projects_engine_load_profile (priv->projects_engine);
+  
+  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
+  codeslayer_plugins_activate (priv->plugins, profile);
+
+  g_signal_emit_by_name ((gpointer) registry, "registry-initialized");
 }
 
 void

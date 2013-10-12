@@ -40,7 +40,7 @@ static void replace_action                         (CodeSlayerMenuBarSearch     
 static void find_projects_action                   (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void go_to_line_action                      (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void sync_engine_action                     (CodeSlayerMenuBarSearch      *menu_bar_search,
-                                                    gboolean                      projects_mode,
+                                                    gboolean                      enable_projects,
                                                     gboolean                      has_open_editors);
 
 #define CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE(obj) \
@@ -201,7 +201,7 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
 
 static void
 sync_engine_action (CodeSlayerMenuBarSearch *menu_bar_search,
-                    gboolean                 projects_mode,
+                    gboolean                 enable_projects,
                     gboolean                 has_open_editors)
 {
   CodeSlayerMenuBarSearchPrivate *priv;
@@ -213,7 +213,7 @@ sync_engine_action (CodeSlayerMenuBarSearch *menu_bar_search,
   gtk_widget_set_sensitive (priv->replace_item, has_open_editors);
   gtk_widget_set_sensitive (priv->go_to_line_item, has_open_editors);
 
-  if (projects_mode)
+  if (enable_projects)
     {
       gtk_widget_show (priv->find_projects_item);
       gtk_widget_show (priv->find_projects_separator_item);

@@ -227,6 +227,23 @@ codeslayer_abstract_pane_remove (CodeSlayerAbstractPane *abstract_pane,
   reorder_plugins (abstract_pane);
 }
 
+gboolean
+codeslayer_abstract_pane_exists (CodeSlayerAbstractPane *abstract_pane,
+                                 GtkWidget              *widget)
+{
+  CodeSlayerAbstractPanePrivate *priv;
+  gint page_num;
+    
+  priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
+
+  page_num = gtk_notebook_page_num (GTK_NOTEBOOK (priv->notebook), widget);
+
+  if (page_num != -1)
+    return TRUE;
+    
+  return FALSE;    
+}                                 
+
 static void 
 page_added_action (CodeSlayerAbstractPane *abstract_pane,
                    GtkWidget              *widget,

@@ -49,19 +49,19 @@ struct _CodeSlayerProjectsEngineClass
 
 GType codeslayer_projects_engine_get_type (void) G_GNUC_CONST;
 
-CodeSlayerProjectsEngine*  codeslayer_projects_engine_new          (GtkWindow                *window,
-                                                                    CodeSlayerProfiles       *profiles,
-                                                                    CodeSlayerPlugins        *plugins,
-                                                                    GtkWidget                *projects, 
-                                                                    GtkWidget                *menubar,
-                                                                    GtkWidget                *notebook,
-                                                                    GtkWidget                *notebook_pane,
-                                                                    GtkWidget                *side_pane,
-                                                                    GtkWidget                *bottom_pane, 
-                                                                    GtkWidget                *hpaned,
-                                                                    GtkWidget                *vpaned);
+CodeSlayerProjectsEngine*  codeslayer_projects_engine_new           (GtkWindow                *window,
+                                                                     CodeSlayerProfiles       *profiles,
+                                                                     CodeSlayerPlugins        *plugins,
+                                                                     GtkWidget                *projects, 
+                                                                     GtkWidget                *menubar,
+                                                                     GtkWidget                *notebook,
+                                                                     GtkWidget                *notebook_pane,
+                                                                     GtkWidget                *side_pane,
+                                                                     GtkWidget                *bottom_pane, 
+                                                                     GtkWidget                *hpaned,
+                                                                     GtkWidget                *vpaned);
 
-void                       codeslayerprojects_engine_load_profile  (CodeSlayerProjectsEngine *engine);
+void                       codeslayer_projects_engine_load_profile  (CodeSlayerProjectsEngine *engine);
                                                             
 
 G_END_DECLS

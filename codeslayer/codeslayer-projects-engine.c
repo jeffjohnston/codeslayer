@@ -204,53 +204,54 @@ codeslayer_projects_engine_new (GtkWindow          *window,
 }
 
 void
-codeslayerprojects_engine_load_profile (CodeSlayerProjectsEngine *engine)
+codeslayer_projects_engine_load_profile (CodeSlayerProjectsEngine *engine)
 {
   CodeSlayerProjectsEnginePrivate *priv;
   CodeSlayerProfile *profile;
-  CodeSlayerRegistry *registry; 
-  GList *projects;
-  GList *documents;
   
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
-  codeslayer_plugins_deactivate (priv->plugins);
-  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
-  codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
-
   profile = codeslayer_profiles_get_current_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
-
-  codeslayer_profile_set_projects_mode (profile, TRUE);
-    
-  codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
-                                   priv->projects, "Projects", 0);
   
-  g_signal_emit_by_name ((gpointer) registry, "registry-initialized");
-  
-  codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
- 
-  projects = codeslayer_profile_get_projects (profile);
-  while (projects != NULL)
+  if (!codeslayer_abstract_pane_exists (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
+                                        priv->projects))
     {
-      CodeSlayerProject *project = projects->data;
-      codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
-      projects = g_list_next (projects);
+      codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
+                                       priv->projects, "Projects", 0);
     }
 
-  documents = codeslayer_profile_get_documents (profile);
-  while (documents != NULL)
+  codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
+  
+  if (codeslayer_profile_get_enable_projects (profile))
     {
-      CodeSlayerDocument *document = documents->data;
-      codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), 
-                                           document);
-      g_object_unref (document);
-      documents = g_list_next (documents);
+      GList *projects;
+      GList *documents;
+      
+      projects = codeslayer_profile_get_projects (profile);
+      while (projects != NULL)
+        {
+          CodeSlayerProject *project = projects->data;
+          codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), 
+                                           project);
+          projects = g_list_next (projects);
+        }
+
+      documents = codeslayer_profile_get_documents (profile);
+      while (documents != NULL)
+        {
+          CodeSlayerDocument *document = documents->data;
+          codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), 
+                                               document);
+          g_object_unref (document);
+          documents = g_list_next (documents);
+        }
+        
+      gtk_widget_show (priv->projects);
     }
-
-  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
-
-  codeslayer_plugins_activate (priv->plugins, profile);
+  else
+    {
+      gtk_widget_hide (priv->projects);
+    }
 }
 
 static void

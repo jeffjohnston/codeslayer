@@ -408,18 +408,6 @@ create_engine (CodeSlayerApplication *application)
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  engine = codeslayer_engine_new (GTK_WINDOW (priv->window), 
-                                  priv->profiles,
-                                  priv->plugins,
-                                  priv->menubar, 
-                                  priv->notebook, 
-                                  priv->notebook_pane, 
-                                  priv->side_pane, 
-                                  priv->bottom_pane, 
-                                  priv->hpaned, 
-                                  priv->vpaned);
-  priv->engine = engine;
-
   projects_engine = codeslayer_projects_engine_new (GTK_WINDOW (priv->window), 
                                                     priv->profiles,
                                                     priv->plugins,
@@ -432,6 +420,19 @@ create_engine (CodeSlayerApplication *application)
                                                     priv->hpaned, 
                                                     priv->vpaned);
   priv->projects_engine = projects_engine;
+
+  engine = codeslayer_engine_new (GTK_WINDOW (priv->window), 
+                                  priv->projects_engine,
+                                  priv->profiles,
+                                  priv->plugins,
+                                  priv->menubar, 
+                                  priv->notebook, 
+                                  priv->notebook_pane, 
+                                  priv->side_pane, 
+                                  priv->bottom_pane, 
+                                  priv->hpaned, 
+                                  priv->vpaned);
+  priv->engine = engine;
 }
 
 static void 
@@ -442,8 +443,7 @@ create_profiles_manager (CodeSlayerApplication *application)
 
   priv->profiles_manager = codeslayer_profiles_manager_new (GTK_WIDGET (priv->window), 
                                                             priv->profiles, 
-                                                            priv->engine, 
-                                                            priv->projects_engine);
+                                                            priv->engine);
   
   g_signal_connect_swapped (G_OBJECT (priv->menubar), "show-profiles",
                             G_CALLBACK (codeslayer_profiles_manager_run_dialog), 

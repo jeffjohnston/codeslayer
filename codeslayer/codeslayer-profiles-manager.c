@@ -56,15 +56,14 @@ typedef struct _CodeSlayerProfilesManagerPrivate CodeSlayerProfilesManagerPrivat
 
 struct _CodeSlayerProfilesManagerPrivate
 {
-  GtkWidget                *window;
-  GtkWidget                *dialog;
-  GtkWidget                *edit_button;
-  GtkWidget                *delete_button;
-  CodeSlayerProfiles       *profiles;
-  CodeSlayerEngine         *engine;
-  CodeSlayerProjectsEngine *projects_engine;
-  GtkWidget                *tree;
-  GtkListStore             *store;
+  GtkWidget          *window;
+  GtkWidget          *dialog;
+  GtkWidget          *edit_button;
+  GtkWidget          *delete_button;
+  CodeSlayerProfiles *profiles;
+  CodeSlayerEngine   *engine;
+  GtkWidget          *tree;
+  GtkListStore       *store;
 };
 
 enum
@@ -104,8 +103,7 @@ codeslayer_profiles_manager_finalize (CodeSlayerProfilesManager *profiles_manage
 CodeSlayerProfilesManager*
 codeslayer_profiles_manager_new (GtkWidget                *window, 
                                  CodeSlayerProfiles       *profiles, 
-                                 CodeSlayerEngine         *engine, 
-                                 CodeSlayerProjectsEngine *projects_engine)
+                                 CodeSlayerEngine         *engine)
 {
   CodeSlayerProfilesManagerPrivate *priv;
   CodeSlayerProfilesManager *profiles_manager;
@@ -115,7 +113,6 @@ codeslayer_profiles_manager_new (GtkWidget                *window,
   priv->window = window;
   priv->profiles = profiles;
   priv->engine = engine;
-  priv->projects_engine = projects_engine;
   
   return profiles_manager;
 }
@@ -130,6 +127,7 @@ void
 codeslayer_profiles_manager_run_dialog (CodeSlayerProfilesManager *profiles_manager)
 {
   CodeSlayerProfilesManagerPrivate *priv;
+  gint response;
   GtkWidget *content_area;
   GtkWidget *hbox;
   
@@ -156,7 +154,34 @@ codeslayer_profiles_manager_run_dialog (CodeSlayerProfilesManager *profiles_mana
   load_profiles (profiles_manager);
   
   gtk_widget_show_all (content_area);
-  gtk_dialog_run (GTK_DIALOG (priv->dialog));
+  
+  response = gtk_dialog_run (GTK_DIALOG (priv->dialog));
+  if (response == GTK_RESPONSE_OK)
+    {
+      if (codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (priv->engine)))
+        {
+          GtkTreeSelection *selection;
+          GtkTreeIter iter;          
+          selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
+          if (gtk_tree_selection_get_selected (selection, NULL, &iter))
+            {
+              CodeSlayerProfile *profile;
+              gchar *name;
+                    
+              gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, 
+                                  TEXT, &name, -1);
+              
+              profile = codeslayer_profiles_retrieve_profile (priv->profiles, name);
+              
+              codeslayer_profiles_set_current_profile (priv->profiles, profile);
+
+              codeslayer_engine_load_profile (CODESLAYER_ENGINE (priv->engine));
+              
+              g_free (name);
+            }
+        }
+    }
+
   gtk_widget_destroy (priv->dialog);
 }
 

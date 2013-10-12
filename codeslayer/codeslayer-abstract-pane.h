@@ -51,23 +51,24 @@ struct _CodeSlayerAbstractPaneClass
 
 GType codeslayer_abstract_pane_get_type (void) G_GNUC_CONST;
 
-void  codeslayer_abstract_pane_create_notebook  (CodeSlayerAbstractPane *abstract_pane);
-void  codeslayer_abstract_pane_sync_registry    (CodeSlayerAbstractPane *abstract_pane);
-void  codeslayer_abstract_pane_set_profiles     (CodeSlayerAbstractPane *abstract_pane, 
-                                                 CodeSlayerProfiles     *profiles);
-void  codeslayer_abstract_pane_add              (CodeSlayerAbstractPane *abstract_pane, 
-                                                 GtkWidget              *widget,
-                                                 const gchar            *title);
-void  codeslayer_abstract_pane_insert           (CodeSlayerAbstractPane *abstract_pane, 
-                                                 GtkWidget              *widget,
-                                                 const gchar            *title, 
-                                                 gint                    position);
-void  codeslayer_abstract_pane_remove           (CodeSlayerAbstractPane *abstract_pane, 
-                                                 GtkWidget              *widget);                                         
-
-void  codeslayer_abstract_pane_open             (CodeSlayerAbstractPane *abstract_pane,
-                                                 GtkWidget              *widget);
-void  codeslayer_abstract_pane_close            (CodeSlayerAbstractPane *abstract_pane);
+void      codeslayer_abstract_pane_create_notebook  (CodeSlayerAbstractPane *abstract_pane);
+void      codeslayer_abstract_pane_sync_registry    (CodeSlayerAbstractPane *abstract_pane);
+void      codeslayer_abstract_pane_set_profiles     (CodeSlayerAbstractPane *abstract_pane, 
+                                                     CodeSlayerProfiles     *profiles);
+void      codeslayer_abstract_pane_add              (CodeSlayerAbstractPane *abstract_pane, 
+                                                     GtkWidget              *widget,
+                                                     const gchar            *title);
+void      codeslayer_abstract_pane_insert           (CodeSlayerAbstractPane *abstract_pane, 
+                                                     GtkWidget              *widget,
+                                                     const gchar            *title, 
+                                                     gint                    position);
+void      codeslayer_abstract_pane_remove           (CodeSlayerAbstractPane *abstract_pane, 
+                                                     GtkWidget              *widget);                                         
+gboolean  codeslayer_abstract_pane_exists           (CodeSlayerAbstractPane *abstract_pane,
+                                                     GtkWidget              *widget);
+void      codeslayer_abstract_pane_open             (CodeSlayerAbstractPane *abstract_pane,
+                                                     GtkWidget              *widget);
+void      codeslayer_abstract_pane_close            (CodeSlayerAbstractPane *abstract_pane);
 
 G_END_DECLS
 

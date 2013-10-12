@@ -35,7 +35,7 @@ static void add_projects_action                      (CodeSlayerMenuBarProjects 
 static void sync_with_editor_action                  (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void scan_external_changes_action             (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void sync_engine_action                       (CodeSlayerMenuBarProjects      *menu_bar_projects,
-                                                      gboolean                        projects_mode,
+                                                      gboolean                        enable_projects,
                                                       gboolean                        has_open_editors);
 
 #define CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE(obj) \
@@ -174,7 +174,7 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
 
 static void
 sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
-                    gboolean                   projects_mode,
+                    gboolean                   enable_projects,
                     gboolean                   has_open_editors)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
@@ -186,7 +186,7 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
   profile = codeslayer_profiles_get_current_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
-  if (projects_mode)
+  if (enable_projects)
     {    
       gboolean sync_with_editor;
      

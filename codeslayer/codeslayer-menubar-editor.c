@@ -42,7 +42,7 @@ static void quit_application_action                (CodeSlayerMenuBarEditor     
 static void show_preferences_action                (CodeSlayerMenuBarEditor      *menu_bar_editor);
 static void show_profiles_action                   (CodeSlayerMenuBarEditor      *menu_bar_editor);
 static void sync_engine_action                     (CodeSlayerMenuBarEditor      *menu_bar_editor,
-                                                    gboolean                      projects_mode,
+                                                    gboolean                      enable_projects,
                                                     gboolean                      has_open_editors);
 
 #define CODESLAYER_MENU_BAR_EDITOR_GET_PRIVATE(obj) \
@@ -209,7 +209,7 @@ add_menu_items (CodeSlayerMenuBarEditor *menu_bar_editor)
 
 static void
 sync_engine_action (CodeSlayerMenuBarEditor *menu_bar_editor,
-                    gboolean                 projects_mode,
+                    gboolean                 enable_projects,
                     gboolean                 has_open_editors)
 {
   CodeSlayerMenuBarEditorPrivate *priv;
@@ -219,7 +219,7 @@ sync_engine_action (CodeSlayerMenuBarEditor *menu_bar_editor,
   gtk_widget_set_sensitive (priv->save_all_item, has_open_editors);
   gtk_widget_set_sensitive (priv->close_tab_item, has_open_editors);
 
-  if (projects_mode)
+  if (enable_projects)
     {
       gtk_widget_hide (priv->new_item);
       gtk_widget_hide (priv->open_item);

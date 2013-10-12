@@ -140,7 +140,7 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_theme, 
                             gtk_label_new (_("Theme")));
 
-  if (codeslayer_profile_get_projects_mode (profile))
+  if (codeslayer_profile_get_enable_projects (profile))
     {
       preferences_projects = codeslayer_preferences_projects_new (preferences, priv->profiles);
       gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_projects, 

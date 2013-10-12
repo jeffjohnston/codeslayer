@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 
 #include <codeslayer/codeslayer-abstract-engine.h>
+#include <codeslayer/codeslayer-projects-engine.h>
 #include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-plugins.h>
@@ -50,16 +51,17 @@ struct _CodeSlayerEngineClass
 
 GType codeslayer_engine_get_type (void) G_GNUC_CONST;
 
-CodeSlayerEngine*  codeslayer_engine_new           (GtkWindow          *window,
-                                                    CodeSlayerProfiles *profiles,
-                                                    CodeSlayerPlugins  *plugins,
-                                                    GtkWidget          *menubar,
-                                                    GtkWidget          *notebook,
-                                                    GtkWidget          *notebook_pane,
-                                                    GtkWidget          *side_pane,
-                                                    GtkWidget          *bottom_pane, 
-                                                    GtkWidget          *hpaned,
-                                                    GtkWidget          *vpaned);
+CodeSlayerEngine*  codeslayer_engine_new           (GtkWindow                *window,
+                                                    CodeSlayerProjectsEngine *projects_engine,
+                                                    CodeSlayerProfiles       *profiles,
+                                                    CodeSlayerPlugins        *plugins,
+                                                    GtkWidget                *menubar,
+                                                    GtkWidget                *notebook,
+                                                    GtkWidget                *notebook_pane,
+                                                    GtkWidget                *side_pane,
+                                                    GtkWidget                *bottom_pane, 
+                                                    GtkWidget                *hpaned,
+                                                    GtkWidget                *vpaned);
 
 void               codeslayer_engine_load_profile  (CodeSlayerEngine   *engine);
 void               codeslayer_engine_open_editor   (CodeSlayerEngine   *engine, 

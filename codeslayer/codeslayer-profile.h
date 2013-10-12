@@ -54,9 +54,9 @@ CodeSlayerProfile*   codeslayer_profile_new (void);
 const gchar*         codeslayer_profile_get_file_path             (CodeSlayerProfile  *profile);
 void                 codeslayer_profile_set_file_path             (CodeSlayerProfile  *profile, 
                                                                    const gchar        *file_path);
-gboolean             codeslayer_profile_get_projects_mode         (CodeSlayerProfile  *profile);
-void                 codeslayer_profile_set_projects_mode         (CodeSlayerProfile  *profile, 
-                                                                   gboolean            projects_mode);
+gboolean             codeslayer_profile_get_enable_projects       (CodeSlayerProfile  *profile);
+void                 codeslayer_profile_set_enable_projects       (CodeSlayerProfile  *profile, 
+                                                                   gboolean            enable_projects);
 GList*               codeslayer_profile_get_projects              (CodeSlayerProfile  *profile);
 void                 codeslayer_profile_set_projects              (CodeSlayerProfile  *profile,
                                                                    GList              *projects);

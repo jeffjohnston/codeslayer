@@ -39,7 +39,7 @@ static void show_bottom_pane_action              (CodeSlayerMenuBarView      *me
 static void draw_spaces_action                   (CodeSlayerMenuBarView      *menu_bar_view);
 static void word_wrap_action                     (CodeSlayerMenuBarView      *menu_bar_view);
 static void sync_engine_action                   (CodeSlayerMenuBarView      *menu_bar_view,
-                                                  gboolean                    projects_mode,
+                                                  gboolean                    enable_projects,
                                                   gboolean                    has_open_editors);
 
 #define CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE(obj) \
@@ -185,7 +185,7 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view)
 
 static void
 sync_engine_action (CodeSlayerMenuBarView *menu_bar_view,
-                    gboolean               projects_mode,
+                    gboolean               enable_projects,
                     gboolean               has_open_editors)
 {
   CodeSlayerMenuBarViewPrivate *priv;

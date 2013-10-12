@@ -171,9 +171,6 @@ codeslayer_abstract_engine_class_init (CodeSlayerAbstractEngineClass *klass)
 static void
 codeslayer_abstract_engine_init (CodeSlayerAbstractEngine *engine) 
 {
-  /*CodeSlayerAbstractEnginePrivate *priv;
-  priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (engine);
-  priv->search = NULL;*/
 }
 
 static void
@@ -304,7 +301,7 @@ save_document_settings (CodeSlayerAbstractEngine *abstract_engine)
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
   profile = codeslayer_profiles_get_current_profile (priv->profiles);
   
-  if (codeslayer_profile_get_projects_mode (profile) == FALSE)
+  if (codeslayer_profile_get_enable_projects (profile) == FALSE)
     return;
   
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
@@ -454,19 +451,19 @@ codeslayer_abstract_engine_sync_menu_bar (CodeSlayerAbstractEngine *abstract_eng
 {
   CodeSlayerAbstractEnginePrivate *priv;
   CodeSlayerProfile *profile;
-  gboolean projects_mode;
+  gboolean enable_projects;
   gboolean has_open_editors;
   gint pages;
 
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
   profile = codeslayer_profiles_get_current_profile (priv->profiles);
 
-  projects_mode = codeslayer_profile_get_projects_mode (profile);
+  enable_projects = codeslayer_profile_get_enable_projects (profile);
 
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
   has_open_editors = pages > 0;
   
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
   
-  g_signal_emit_by_name ((gpointer) priv->menubar, "sync-engine", projects_mode, has_open_editors);
+  g_signal_emit_by_name ((gpointer) priv->menubar, "sync-engine", enable_projects, has_open_editors);
 }

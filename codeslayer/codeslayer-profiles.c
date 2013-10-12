@@ -82,6 +82,9 @@ codeslayer_profiles_class_init (CodeSlayerProfilesClass *klass)
 static void
 codeslayer_profiles_init (CodeSlayerProfiles *profiles)
 {
+  CodeSlayerProfilesPrivate *priv; 
+  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);  
+  priv->profile = NULL;
 }
 
 static void
@@ -164,8 +167,10 @@ codeslayer_profiles_retrieve_profile (CodeSlayerProfiles *profiles,
                                       const gchar        *name)
 {
   CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
   gchar *file_path;
   GFile *file;
+  gboolean enable_projects;
   
   file_path = g_build_filename (g_get_home_dir (),
                                 CODESLAYER_HOME,
@@ -185,7 +190,13 @@ codeslayer_profiles_retrieve_profile (CodeSlayerProfiles *profiles,
       return NULL;
     }
     
-  profile = retrieve_profile (file);       
+  profile = retrieve_profile (file);
+  registry = codeslayer_profile_get_registry (profile);
+  
+  enable_projects = codeslayer_registry_get_boolean (registry,
+                                                     CODESLAYER_REGISTRY_ENABLE_PROJECTS);
+  
+  codeslayer_profile_set_enable_projects (profile, enable_projects);
     
   g_free (file_path);
   g_object_unref (file);    

@@ -831,7 +831,7 @@ codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer,
 
   profile = codeslayer_profiles_get_current_profile (priv->profiles);
   
-  if (!codeslayer_profile_get_projects_mode (profile))
+  if (!codeslayer_profile_get_enable_projects (profile))
     return NULL;
 
   return codeslayer_profile_get_project_by_file_path (profile, file_path);

@@ -41,7 +41,7 @@ typedef struct _CodeSlayerProfilePrivate CodeSlayerProfilePrivate;
 struct _CodeSlayerProfilePrivate
 {
   gchar              *file_path;
-  gboolean            projects_mode;
+  gboolean            enable_projects;
   GList              *projects;
   GList              *documents;
   GList              *plugins;
@@ -66,7 +66,7 @@ codeslayer_profile_init (CodeSlayerProfile *profile)
   CodeSlayerProfilePrivate *priv; 
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   priv->file_path = NULL;
-  priv->projects_mode = FALSE;
+  priv->enable_projects = FALSE;
   priv->projects = NULL;
   priv->documents = NULL;
   priv->plugins = NULL;
@@ -145,20 +145,20 @@ codeslayer_profile_set_file_path (CodeSlayerProfile *profile,
 }
 
 gboolean
-codeslayer_profile_get_projects_mode (CodeSlayerProfile *profile)
+codeslayer_profile_get_enable_projects (CodeSlayerProfile *profile)
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  return priv->projects_mode;
+  return priv->enable_projects;
 }
 
 void 
-codeslayer_profile_set_projects_mode (CodeSlayerProfile *profile, 
-                                      gboolean           projects_mode)
+codeslayer_profile_set_enable_projects (CodeSlayerProfile *profile, 
+                                        gboolean           enable_projects)
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  priv->projects_mode = projects_mode;
+  priv->enable_projects = enable_projects;
 }
 
 /**
