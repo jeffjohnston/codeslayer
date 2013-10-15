@@ -16,7 +16,7 @@
  */
 
 #include <codeslayer/codeslayer-menubar.h>
-#include <codeslayer/codeslayer-menubar-editor.h>
+#include <codeslayer/codeslayer-menubar-file.h>
 #include <codeslayer/codeslayer-menubar-search.h>
 #include <codeslayer/codeslayer-menubar-view.h>
 #include <codeslayer/codeslayer-menubar-projects.h>
@@ -45,7 +45,7 @@ struct _CodeSlayerMenuBarPrivate
   GtkAccelGroup *accel_group;
   GSList        *radio_group;
   GtkWidget     *window;
-  GtkWidget     *menu_bar_editor;
+  GtkWidget     *menu_bar_file;
   GtkWidget     *menu_bar_search;
   GtkWidget     *menu_bar_view;
   GtkWidget     *menu_bar_projects;
@@ -669,7 +669,7 @@ codeslayer_menu_bar_new (GtkWidget          *window,
   CodeSlayerMenuBarPrivate *priv;
   GtkWidget *menu;
   
-  GtkWidget *menu_bar_editor;
+  GtkWidget *menu_bar_file;
   GtkWidget *menu_bar_search;
   GtkWidget *menu_bar_view;
   GtkWidget *menu_bar_projects;
@@ -686,8 +686,8 @@ codeslayer_menu_bar_new (GtkWidget          *window,
   priv->accel_group = accel_group;
   gtk_window_add_accel_group (GTK_WINDOW (window), priv->accel_group);
 
-  menu_bar_editor = codeslayer_menu_bar_editor_new (menu, accel_group);
-  priv->menu_bar_editor = menu_bar_editor;
+  menu_bar_file = codeslayer_menu_bar_file_new (menu, accel_group);
+  priv->menu_bar_file = menu_bar_file;
 
   menu_bar_search = codeslayer_menu_bar_search_new (menu, accel_group);
   priv->menu_bar_search = menu_bar_search;
@@ -703,7 +703,7 @@ codeslayer_menu_bar_new (GtkWidget          *window,
 
   menu_help = codeslayer_menu_bar_help_new (window, menu, accel_group);
 
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_editor);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_file);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_search);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_view);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_projects);

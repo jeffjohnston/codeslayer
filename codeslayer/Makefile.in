@@ -114,7 +114,7 @@ am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-bottom-pane.lo \
 	libcodeslayer_la-codeslayer-listview.lo \
 	libcodeslayer_la-codeslayer-menubar.lo \
-	libcodeslayer_la-codeslayer-menubar-editor.lo \
+	libcodeslayer_la-codeslayer-menubar-file.lo \
 	libcodeslayer_la-codeslayer-menubar-search.lo \
 	libcodeslayer_la-codeslayer-menubar-view.lo \
 	libcodeslayer_la-codeslayer-menubar-projects.lo \
@@ -371,7 +371,7 @@ pkginclude_HEADERS = \
     codeslayer-bottom-pane.h \
     codeslayer-listview.h \
     codeslayer-menubar.h \
-    codeslayer-menubar-editor.h \
+    codeslayer-menubar-file.h \
     codeslayer-menubar-search.h \
     codeslayer-menubar-view.h \
     codeslayer-menubar-projects.h \
@@ -427,7 +427,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-bottom-pane.c \
     codeslayer-listview.c \
     codeslayer-menubar.c \
-    codeslayer-menubar-editor.c \
+    codeslayer-menubar-file.c \
     codeslayer-menubar-search.c \
     codeslayer-menubar-view.c \
     codeslayer-menubar-projects.c \
@@ -612,7 +612,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-engine.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-listview.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-marshaller.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-menubar-file.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-menubar-help.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-menubar-projects.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-menubar-search.Plo@am__quote@
@@ -774,12 +774,12 @@ libcodeslayer_la-codeslayer-menubar.lo: codeslayer-menubar.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar.lo `test -f 'codeslayer-menubar.c' || echo '$(srcdir)/'`codeslayer-menubar.c
 
-libcodeslayer_la-codeslayer-menubar-editor.lo: codeslayer-menubar-editor.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-editor.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Tpo -c -o libcodeslayer_la-codeslayer-menubar-editor.lo `test -f 'codeslayer-menubar-editor.c' || echo '$(srcdir)/'`codeslayer-menubar-editor.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-editor.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menubar-editor.c' object='libcodeslayer_la-codeslayer-menubar-editor.lo' libtool=yes @AMDEPBACKSLASH@
+libcodeslayer_la-codeslayer-menubar-file.lo: codeslayer-menubar-file.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-file.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-file.Tpo -c -o libcodeslayer_la-codeslayer-menubar-file.lo `test -f 'codeslayer-menubar-file.c' || echo '$(srcdir)/'`codeslayer-menubar-file.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-file.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-file.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-menubar-file.c' object='libcodeslayer_la-codeslayer-menubar-file.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-editor.lo `test -f 'codeslayer-menubar-editor.c' || echo '$(srcdir)/'`codeslayer-menubar-editor.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-menubar-file.lo `test -f 'codeslayer-menubar-file.c' || echo '$(srcdir)/'`codeslayer-menubar-file.c
 
 libcodeslayer_la-codeslayer-menubar-search.lo: codeslayer-menubar-search.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-menubar-search.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-menubar-search.Tpo -c -o libcodeslayer_la-codeslayer-menubar-search.lo `test -f 'codeslayer-menubar-search.c' || echo '$(srcdir)/'`codeslayer-menubar-search.c
