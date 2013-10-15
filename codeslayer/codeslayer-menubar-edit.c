@@ -191,17 +191,17 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
   
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
 
-  upper_case_item = gtk_menu_item_new_with_label (_("Uppercase"));
-  priv->upper_case_item = upper_case_item;
-  gtk_widget_add_accelerator (upper_case_item, "activate", priv->accel_group,
-                              GDK_KEY_U, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), upper_case_item);
-
   lower_case_item = gtk_menu_item_new_with_label (_("Lowercase"));
   priv->lower_case_item = lower_case_item;
   gtk_widget_add_accelerator (lower_case_item, "activate", priv->accel_group,
                               GDK_KEY_L, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), lower_case_item);
+
+  upper_case_item = gtk_menu_item_new_with_label (_("Uppercase"));
+  priv->upper_case_item = upper_case_item;
+  gtk_widget_add_accelerator (upper_case_item, "activate", priv->accel_group,
+                              GDK_KEY_U, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), upper_case_item);
 
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
   
@@ -248,6 +248,19 @@ sync_engine_action (CodeSlayerMenuBarEdit *menu_bar_edit,
                     gboolean               enable_projects,
                     gboolean               has_open_editors)
 {
+  CodeSlayerMenuBarEditPrivate *priv;
+  priv = CODESLAYER_MENU_BAR_EDIT_GET_PRIVATE (menu_bar_edit);
+
+  gtk_widget_set_sensitive (priv->undo_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->redo_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->cut_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->copy_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->paste_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->delete_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->select_all_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->copy_lines_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->lower_case_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->upper_case_item, has_open_editors);
 }
 
 static void

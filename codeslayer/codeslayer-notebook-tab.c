@@ -333,10 +333,10 @@ decorate_popup_menu (CodeSlayerNotebookTab *notebook_tab,
   priv = CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE (notebook_tab);
   priv->menu = menu;
 
-  close_all_editors_menu_item = gtk_menu_item_new_with_label (_("Close All Editors"));
-  close_other_editors_menu_item = gtk_menu_item_new_with_label (_("Close Other Editors"));
-  close_right_editors_menu_item = gtk_menu_item_new_with_label (_("Close Right Editors"));
-  close_left_editors_menu_item = gtk_menu_item_new_with_label (_("Close Left Editors"));
+  close_all_editors_menu_item = gtk_menu_item_new_with_label (_("Close All Tabs"));
+  close_other_editors_menu_item = gtk_menu_item_new_with_label (_("Close Other Tabs"));
+  close_right_editors_menu_item = gtk_menu_item_new_with_label (_("Close Right Tabs"));
+  close_left_editors_menu_item = gtk_menu_item_new_with_label (_("Close Left Tabs"));
 
   priv->close_other_editors_menu_item = close_other_editors_menu_item;
   priv->close_all_editors_menu_item = close_all_editors_menu_item;

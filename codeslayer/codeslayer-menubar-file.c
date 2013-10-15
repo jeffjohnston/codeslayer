@@ -199,8 +199,8 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
 
 static void
 sync_engine_action (CodeSlayerMenuBarFile *menu_bar_file,
-                    gboolean                 enable_projects,
-                    gboolean                 has_open_editors)
+                    gboolean               enable_projects,
+                    gboolean               has_open_editors)
 {
   CodeSlayerMenuBarFilePrivate *priv;
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
