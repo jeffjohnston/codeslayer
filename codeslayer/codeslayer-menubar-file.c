@@ -39,7 +39,6 @@ static void save_editor_action                   (CodeSlayerMenuBarFile      *me
 static void save_all_editors_action              (CodeSlayerMenuBarFile      *menu_bar_file);
 static void close_editor_action                  (CodeSlayerMenuBarFile      *menu_bar_file);
 static void quit_application_action              (CodeSlayerMenuBarFile      *menu_bar_file);
-static void show_preferences_action              (CodeSlayerMenuBarFile      *menu_bar_file);
 static void show_profiles_action                 (CodeSlayerMenuBarFile      *menu_bar_file);
 static void sync_engine_action                   (CodeSlayerMenuBarFile      *menu_bar_file,
                                                   gboolean                    enable_projects,
@@ -133,7 +132,6 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
   GtkWidget *save_all_item;
   GtkWidget *save_separator_item;
   GtkWidget *close_tab_item;
-  GtkWidget *preferences_item;
   GtkWidget *profiles_item;
   GtkWidget *quit_application_item;
   
@@ -164,11 +162,6 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
 
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
   
-  preferences_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_PREFERENCES, 
-                                                              priv->accel_group);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), preferences_item);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
-  
   profiles_item = gtk_menu_item_new_with_label (_("Profiles"));
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), profiles_item);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
@@ -182,9 +175,6 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
                                                                    priv->accel_group);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), quit_application_item);
   
-  g_signal_connect_swapped (G_OBJECT (preferences_item), "activate",
-                            G_CALLBACK (show_preferences_action), menu_bar_file);  
-
   g_signal_connect_swapped (G_OBJECT (profiles_item), "activate",
                             G_CALLBACK (show_profiles_action), menu_bar_file);  
 
@@ -272,15 +262,6 @@ close_editor_action (CodeSlayerMenuBarFile *menu_bar_file)
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
   codeslayer_menu_bar_close_editor (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
-
-static void
-show_preferences_action (CodeSlayerMenuBarFile *menu_bar_file)
-{
-  CodeSlayerMenuBarFilePrivate *priv;
-  priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
-  codeslayer_menu_bar_show_preferences (CODESLAYER_MENU_BAR (priv->menu_bar));
-}
-
 
 static void
 show_profiles_action (CodeSlayerMenuBarFile *menu_bar_file)

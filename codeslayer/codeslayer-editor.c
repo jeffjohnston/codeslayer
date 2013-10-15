@@ -55,9 +55,6 @@ static void screen_action                     (CodeSlayerEditor             *edi
 static void cursor_position_action            (CodeSlayerEditor             *editor,
                                                GParamSpec                   *spec);
 static GtkSourceBuffer* create_source_buffer  (const gchar                  *file_name);
-static void copy_lines_action                 (CodeSlayerEditor             *editor);
-static void to_uppercase_action               (CodeSlayerEditor             *editor);
-static void to_lowercase_action               (CodeSlayerEditor             *editor);
 static void completion_action                 (CodeSlayerEditor             *editor);
 static void change_case                       (CodeSlayerEditor             *editor,
                                                GString* (*convert) (GString*));
@@ -81,9 +78,6 @@ G_DEFINE_TYPE (CodeSlayerEditor, codeslayer_editor, GTK_SOURCE_TYPE_VIEW)
       
 enum
 {
-  COPY_LINES,
-  TO_UPPERCASE,
-  TO_LOWERCASE,
   COMPLETION,
   LAST_SIGNAL
 };
@@ -95,55 +89,7 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
 {
   GtkBindingSet *binding_set;
 
-  klass->copy_lines = copy_lines_action;
-  klass->to_uppercase = to_uppercase_action;
-  klass->to_lowercase = to_lowercase_action;
   klass->completion = completion_action;
-
-  /**
-   * CodeSlayerEditor::copy-lines
-   * @editor: the editor that received the signal
-   *
-   * The ::copy-lines signal enables the (Ctrl + Shift + Down) keystroke to copy 
-   * the currently selected lines.
-   */
-  codeslayer_editor_signals[COPY_LINES] =
-    g_signal_new ("copy-lines", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
-                  G_STRUCT_OFFSET (CodeSlayerEditorClass, copy_lines),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
-  /**
-   * CodeSlayerEditor::to-uppercase
-   * @editor: the editor that received the signal
-   *
-   * The ::to-uppercase signal enables the (Ctrl + U) keystroke to uppercase 
-   * the selected text.
-   */
-  codeslayer_editor_signals[TO_UPPERCASE] =
-    g_signal_new ("to-uppercase", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
-                  G_STRUCT_OFFSET (CodeSlayerEditorClass, to_uppercase),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
-  /**
-   * CodeSlayerEditor::to-lowercase
-   * @editor: the editor that received the signal
-   *
-   * The ::to-lowercase signal enables the (Ctrl + L) keystroke to lowercase the 
-   * selected text.
-   */
-  codeslayer_editor_signals[TO_LOWERCASE] =
-    g_signal_new ("to-lowercase", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
-                  G_STRUCT_OFFSET (CodeSlayerEditorClass, to_lowercase),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
    * CodeSlayerEditor::completion
@@ -164,15 +110,6 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
 
   binding_set = gtk_binding_set_by_class (klass);
 
-  gtk_binding_entry_add_signal (binding_set, GDK_KEY_Down,
-                                GDK_CONTROL_MASK | GDK_SHIFT_MASK,
-                                "copy-lines", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KEY_U, 
-                                GDK_CONTROL_MASK,
-                                "to-uppercase", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KEY_L, 
-                                GDK_CONTROL_MASK,
-                                "to-lowercase", 0);
   gtk_binding_entry_add_signal (binding_set, GDK_KEY_space, 
                                 GDK_CONTROL_MASK,
                                 "completion", 0);
@@ -567,8 +504,8 @@ create_source_buffer (const gchar *file_name)
   return buffer;
 }
 
-static void
-copy_lines_action (CodeSlayerEditor *editor)
+void
+codeslayer_editor_copy_lines_action (CodeSlayerEditor *editor)
 {
   GtkTextBuffer *buffer;
   GtkTextIter start, end;
@@ -608,14 +545,14 @@ copy_lines_action (CodeSlayerEditor *editor)
 }
 
 
-static void
-to_uppercase_action (CodeSlayerEditor *editor)
+void
+codeslayer_editor_to_uppercase_action (CodeSlayerEditor *editor)
 {
   change_case (editor, g_string_ascii_up);
 }
 
-static void
-to_lowercase_action (CodeSlayerEditor *editor)
+void
+codeslayer_editor_to_lowercase_action (CodeSlayerEditor *editor)
 {
   change_case (editor, g_string_ascii_down);
 }

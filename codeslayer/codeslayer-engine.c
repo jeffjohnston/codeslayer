@@ -74,7 +74,10 @@ static void page_removed_action             (CodeSlayerEngine       *engine,
                                              guint                   page_num);
 static void show_preferences_action         (CodeSlayerEngine       *engine);
 static void registry_changed_action         (CodeSlayerEngine       *engine);
-static void show_plugins_action             (CodeSlayerEngine      *engine);
+static void show_plugins_action             (CodeSlayerEngine       *engine);
+static void copy_lines_action               (CodeSlayerEngine       *engine);
+static void to_uppercase_action             (CodeSlayerEngine       *engine);
+static void to_lowercase_action             (CodeSlayerEngine       *engine);
                                                    
 #define CODESLAYER_ENGINE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_ENGINE_TYPE, CodeSlayerEnginePrivate))
@@ -265,6 +268,15 @@ codeslayer_engine_new (GtkWindow                *window,
 
   g_signal_connect_swapped (G_OBJECT (menubar), "show-plugins",
                             G_CALLBACK (show_plugins_action), engine);
+
+  g_signal_connect_swapped (G_OBJECT (menubar), "copy-lines",
+                            G_CALLBACK (copy_lines_action), engine);
+
+  g_signal_connect_swapped (G_OBJECT (menubar), "to-uppercase",
+                            G_CALLBACK (to_uppercase_action), engine);
+
+  g_signal_connect_swapped (G_OBJECT (menubar), "to-lowercase",
+                            G_CALLBACK (to_lowercase_action), engine);
 
   return engine;
 }
@@ -823,4 +835,34 @@ show_plugins_action (CodeSlayerEngine *engine)
   profile = codeslayer_profiles_get_current_profile (priv->profiles);
   
   codeslayer_plugins_run_dialog (priv->plugins, profile);
+}
+
+static void
+copy_lines_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  GtkWidget *editor;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+  codeslayer_editor_copy_lines_action (CODESLAYER_EDITOR (editor));
+}
+
+static void
+to_lowercase_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  GtkWidget *editor;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+  codeslayer_editor_to_lowercase_action (CODESLAYER_EDITOR (editor));
+}
+
+static void
+to_uppercase_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  GtkWidget *editor;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+  codeslayer_editor_to_uppercase_action (CODESLAYER_EDITOR (editor));
 }
