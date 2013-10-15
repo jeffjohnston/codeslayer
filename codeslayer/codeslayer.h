@@ -159,6 +159,8 @@ CodeSlayerProject*        codeslayer_get_project_by_file_path        (CodeSlayer
 
 CodeSlayerRegistry*       codeslayer_get_registry                    (CodeSlayer                  *codeslayer);
 
+GList*                    codeslayer_get_projects                    (CodeSlayer                  *codeslayer);
+
 GtkWindow*                codeslayer_get_toplevel_window             (CodeSlayer                  *codeslayer);
 
 gint                      codeslayer_add_to_process_bar              (CodeSlayer                  *codeslayer,

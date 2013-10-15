@@ -860,6 +860,22 @@ codeslayer_get_registry (CodeSlayer *codeslayer)
   return registry;
 }
 
+GList*
+codeslayer_get_projects (CodeSlayer *codeslayer)
+{
+
+  CodeSlayerPrivate *priv;
+  CodeSlayerProfile *profile;
+  
+  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
+  
+  priv = CODESLAYER_GET_PRIVATE (codeslayer);
+
+  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+
+  return codeslayer_profile_get_projects (profile);
+}
+
 /**
  * codeslayer_get_toplevel_window:
  * @codeslayer: a #CodeSlayer.

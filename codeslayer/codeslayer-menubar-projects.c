@@ -51,7 +51,6 @@ struct _CodeSlayerMenuBarProjectsPrivate
   GtkWidget          *menu_bar;
   GtkWidget          *menu;
   GtkWidget          *add_projects_item;
-  GtkWidget          *add_projects_separator_item;
   GtkWidget          *sync_with_editor_item;
   GtkWidget          *sync_with_editor_separator_item;
   GtkWidget          *scan_external_changes_item;
@@ -129,7 +128,6 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   GtkWidget *add_projects_item;
-  GtkWidget *add_projects_separator_item;
   GtkWidget *sync_with_editor_item;
   GtkWidget *sync_with_editor_separator_item;
   GtkWidget *scan_external_changes_item;
@@ -137,10 +135,6 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
-  add_projects_separator_item = gtk_separator_menu_item_new ();
-  priv->add_projects_separator_item = add_projects_separator_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), add_projects_separator_item);
-
   add_projects_item = gtk_menu_item_new_with_label (_("Add Project"));
   priv->add_projects_item = add_projects_item;
   gtk_menu_set_accel_group (GTK_MENU (priv->menu), priv->accel_group);
@@ -191,7 +185,6 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
       gboolean sync_with_editor;
      
       gtk_widget_show (priv->add_projects_item);
-      gtk_widget_show (priv->add_projects_separator_item);
       gtk_widget_show (priv->sync_with_editor_item);
       gtk_widget_show (priv->sync_with_editor_separator_item);
       gtk_widget_show (priv->scan_external_changes_item);
@@ -204,7 +197,6 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
   else
     {
       gtk_widget_hide (priv->add_projects_item);
-      gtk_widget_hide (priv->add_projects_separator_item);
       gtk_widget_hide (priv->sync_with_editor_item);
       gtk_widget_hide (priv->sync_with_editor_separator_item);
       gtk_widget_hide (priv->scan_external_changes_item);
