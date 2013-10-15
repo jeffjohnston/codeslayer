@@ -151,13 +151,13 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
   
   undo_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_UNDO, priv->accel_group);
   priv->undo_item = undo_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), undo_item);
+  /*gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), undo_item);*/
   
   redo_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_REDO, priv->accel_group);
   priv->redo_item = redo_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), redo_item);
+  /*gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), redo_item);*/
   
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
+  /*gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());*/
 
   cut_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_CUT, priv->accel_group);
   priv->cut_item = cut_item;
@@ -179,9 +179,9 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
 
   select_all_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_SELECT_ALL, priv->accel_group);
   priv->select_all_item = select_all_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), select_all_item);
+  /*gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), select_all_item);
   
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());*/
 
   copy_lines_item = gtk_menu_item_new_with_label (_("Copy Lines"));
   priv->copy_lines_item = copy_lines_item;
