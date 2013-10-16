@@ -83,15 +83,11 @@ enum
   SHOW_PROFILES,
   SCAN_EXTERNAL_CHANGES,
   SHOW_PLUGINS,
-  UNDO,
-  REDO,
   CUT,
   COPY,
   PASTE,
-  DELETE,
-  SELECT_ALL,
-  TO_UPPERCASE,
-  TO_LOWERCASE,
+  UPPERCASE,
+  LOWERCASE,
   COPY_LINES,  
   SYNC_WITH_EDITOR,  
   SYNC_ENGINE,  
@@ -460,38 +456,6 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerMenuBar::undo
-   * @menu: the menu that received the signal
-   *
-   * Note: for internal use only.
-   *
-   * The ::undo signal is a request to undo the last change.
-   */
-  codeslayer_menu_bar_signals[UNDO] =
-    g_signal_new ("undo", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, undo),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
-  /**
-   * CodeSlayerMenuBar::redo
-   * @menu: the menu that received the signal
-   *
-   * Note: for internal use only.
-   *
-   * The ::redo signal is a request to redo the last change.
-   */
-  codeslayer_menu_bar_signals[REDO] =
-    g_signal_new ("redo", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, redo),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
-  /**
    * CodeSlayerMenuBar::cut
    * @menu: the menu that received the signal
    *
@@ -540,49 +504,17 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerMenuBar::del
-   * @menu: the menu that received the signal
-   *
-   * Note: for internal use only.
-   *
-   * The ::del signal is a request to delete the selected text.
-   */
-  codeslayer_menu_bar_signals[DELETE] =
-    g_signal_new ("del", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, del),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
-  /**
-   * CodeSlayerMenuBar::select-all
-   * @menu: the menu that received the signal
-   *
-   * Note: for internal use only.
-   *
-   * The ::select-all signal is a request to select all the text.
-   */
-  codeslayer_menu_bar_signals[SELECT_ALL] =
-    g_signal_new ("select-all", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, select_all),
-                  NULL, NULL, 
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-                  
-  /**
-   * CodeSlayerMenuBar::to-uppercase
+   * CodeSlayerMenuBar::uppercase
    * @menu: the menu that received the signal
    *
    * The ::to-uppercase signal enables the (Ctrl + U) keystroke to uppercase 
    * the selected text.
    */
-  codeslayer_menu_bar_signals[TO_UPPERCASE] =
-    g_signal_new ("to-uppercase", 
+  codeslayer_menu_bar_signals[UPPERCASE] =
+    g_signal_new ("uppercase", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, to_uppercase),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, uppercase),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -593,11 +525,11 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
    * The ::to-lowercase signal enables the (Ctrl + L) keystroke to lowercase the 
    * selected text.
    */
-  codeslayer_menu_bar_signals[TO_LOWERCASE] =
-    g_signal_new ("to-lowercase", 
+  codeslayer_menu_bar_signals[LOWERCASE] =
+    g_signal_new ("lowercase", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, to_lowercase),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, lowercase),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -789,26 +721,6 @@ codeslayer_menu_bar_quit_application (CodeSlayerMenuBar *menu_bar)
 }
 
 /**
- * codeslayer_menu_bar_undo:
- * @menu_bar: a #CodeSlayerMenuBar.
- */
-void            
-codeslayer_menu_bar_undo (CodeSlayerMenuBar *menu_bar)
-{
-  g_signal_emit_by_name ((gpointer) menu_bar, "undo");
-}
-
-/**
- * codeslayer_menu_bar_redo:
- * @menu_bar: a #CodeSlayerMenuBar.
- */
-void            
-codeslayer_menu_bar_redo (CodeSlayerMenuBar *menu_bar)
-{
-  g_signal_emit_by_name ((gpointer) menu_bar, "redo");
-}
-
-/**
  * codeslayer_menu_bar_cut:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
@@ -839,43 +751,23 @@ codeslayer_menu_bar_paste (CodeSlayerMenuBar *menu_bar)
 }
 
 /**
- * codeslayer_menu_bar_delete:
+ * codeslayer_menu_bar_uppercas:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menu_bar_delete (CodeSlayerMenuBar *menu_bar)
+codeslayer_menu_bar_uppercase (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "del");
+  g_signal_emit_by_name ((gpointer) menu_bar, "uppercase");
 }
 
 /**
- * codeslayer_menu_bar_select_all:
+ * codeslayer_menu_bar_lowercase:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menu_bar_select_all (CodeSlayerMenuBar *menu_bar)
+codeslayer_menu_bar_lowercase (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "select-all");
-}
-
-/**
- * codeslayer_menu_bar_to_uppercas:
- * @menu_bar: a #CodeSlayerMenuBar.
- */
-void            
-codeslayer_menu_bar_to_uppercase (CodeSlayerMenuBar *menu_bar)
-{
-  g_signal_emit_by_name ((gpointer) menu_bar, "to-uppercase");
-}
-
-/**
- * codeslayer_menu_bar_to_lowercase:
- * @menu_bar: a #CodeSlayerMenuBar.
- */
-void            
-codeslayer_menu_bar_to_lowercase (CodeSlayerMenuBar *menu_bar)
-{
-  g_signal_emit_by_name ((gpointer) menu_bar, "to-lowercase");
+  g_signal_emit_by_name ((gpointer) menu_bar, "lowercase");
 }
 
 /**

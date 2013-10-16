@@ -65,15 +65,11 @@ struct _CodeSlayerMenuBarClass
   void (*show_preferences) (CodeSlayerMenuBar *menu_bar);
   void (*show_profiles) (CodeSlayerMenuBar *menu_bar);
   void (*show_plugins) (CodeSlayerMenuBar *menu_bar);  
-  void (*undo) (CodeSlayerMenuBar *menu_bar);
-  void (*redo) (CodeSlayerMenuBar *menu_bar);
   void (*cut) (CodeSlayerMenuBar *menu_bar);
   void (*copy) (CodeSlayerMenuBar *menu_bar);
   void (*paste) (CodeSlayerMenuBar *menu_bar);
-  void (*del) (CodeSlayerMenuBar *menu_bar);
-  void (*select_all) (CodeSlayerMenuBar *menu_bar);
-  void (*to_uppercase) (CodeSlayerMenuBar *menu_bar);
-  void (*to_lowercase) (CodeSlayerMenuBar *menu_bar);
+  void (*uppercase) (CodeSlayerMenuBar *menu_bar);
+  void (*lowercase) (CodeSlayerMenuBar *menu_bar);
   void (*copy_lines) (CodeSlayerMenuBar *menu_bar);
   void (*sync_with_editor) (CodeSlayerMenuBar *menu_bar);
   void (*scan_external_changes) (CodeSlayerMenuBar *menu_bar);
@@ -92,15 +88,11 @@ void            codeslayer_menu_bar_save_all_editors           (CodeSlayerMenuBa
 void            codeslayer_menu_bar_close_editor               (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_quit_application           (CodeSlayerMenuBar     *menu_bar);
 
-void            codeslayer_menu_bar_undo                       (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_redo                       (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_cut                        (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_copy                       (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_paste                      (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_delete                     (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_select_all                 (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_to_uppercase               (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_to_lowercase               (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_uppercase                  (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_lowercase                  (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_copy_lines                 (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_show_preferences           (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_show_profiles              (CodeSlayerMenuBar     *menu_bar);

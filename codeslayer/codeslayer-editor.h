@@ -68,8 +68,8 @@ void                 codeslayer_editor_set_modification_time     (CodeSlayerEdit
 void                 codeslayer_editor_set_text                  (CodeSlayerEditor             *editor, 
                                                                   gchar                        *text);
 void                 codeslayer_editor_copy_lines_action         (CodeSlayerEditor             *editor);
-void                 codeslayer_editor_to_uppercase_action       (CodeSlayerEditor             *editor);
-void                 codeslayer_editor_to_lowercase_action       (CodeSlayerEditor             *editor);
+void                 codeslayer_editor_uppercase_action          (CodeSlayerEditor             *editor);
+void                 codeslayer_editor_lowercase_action          (CodeSlayerEditor             *editor);
 
 G_END_DECLS
 

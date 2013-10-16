@@ -546,13 +546,13 @@ codeslayer_editor_copy_lines_action (CodeSlayerEditor *editor)
 
 
 void
-codeslayer_editor_to_uppercase_action (CodeSlayerEditor *editor)
+codeslayer_editor_uppercase_action (CodeSlayerEditor *editor)
 {
   change_case (editor, g_string_ascii_up);
 }
 
 void
-codeslayer_editor_to_lowercase_action (CodeSlayerEditor *editor)
+codeslayer_editor_lowercase_action (CodeSlayerEditor *editor)
 {
   change_case (editor, g_string_ascii_down);
 }

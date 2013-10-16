@@ -75,13 +75,9 @@ static void page_removed_action             (CodeSlayerEngine       *engine,
 static void show_preferences_action         (CodeSlayerEngine       *engine);
 static void registry_changed_action         (CodeSlayerEngine       *engine);
 static void show_plugins_action             (CodeSlayerEngine       *engine);
-static void undo_action                     (CodeSlayerEngine       *engine);
-static void redo_action                     (CodeSlayerEngine       *engine);
 static void cut_action                      (CodeSlayerEngine       *engine);
 static void copy_action                     (CodeSlayerEngine       *engine);
 static void paste_action                    (CodeSlayerEngine       *engine);
-static void delete_action                   (CodeSlayerEngine       *engine);
-static void select_all_action               (CodeSlayerEngine       *engine);
 static void copy_lines_action               (CodeSlayerEngine       *engine);
 static void to_uppercase_action             (CodeSlayerEngine       *engine);
 static void to_lowercase_action             (CodeSlayerEngine       *engine);
@@ -276,12 +272,6 @@ codeslayer_engine_new (GtkWindow                *window,
   g_signal_connect_swapped (G_OBJECT (menubar), "show-plugins",
                             G_CALLBACK (show_plugins_action), engine);
 
-  g_signal_connect_swapped (G_OBJECT (menubar), "undo",
-                            G_CALLBACK (undo_action), engine);
-
-  g_signal_connect_swapped (G_OBJECT (menubar), "redo",
-                            G_CALLBACK (redo_action), engine);
-
   g_signal_connect_swapped (G_OBJECT (menubar), "cut",
                             G_CALLBACK (cut_action), engine);
 
@@ -291,19 +281,13 @@ codeslayer_engine_new (GtkWindow                *window,
   g_signal_connect_swapped (G_OBJECT (menubar), "paste",
                             G_CALLBACK (paste_action), engine);
 
-  g_signal_connect_swapped (G_OBJECT (menubar), "del",
-                            G_CALLBACK (delete_action), engine);
-
-  g_signal_connect_swapped (G_OBJECT (menubar), "select-all",
-                            G_CALLBACK (select_all_action), engine);
-
   g_signal_connect_swapped (G_OBJECT (menubar), "copy-lines",
                             G_CALLBACK (copy_lines_action), engine);
 
-  g_signal_connect_swapped (G_OBJECT (menubar), "to-uppercase",
+  g_signal_connect_swapped (G_OBJECT (menubar), "uppercase",
                             G_CALLBACK (to_uppercase_action), engine);
 
-  g_signal_connect_swapped (G_OBJECT (menubar), "to-lowercase",
+  g_signal_connect_swapped (G_OBJECT (menubar), "lowercase",
                             G_CALLBACK (to_lowercase_action), engine);
 
   return engine;
@@ -866,26 +850,6 @@ show_plugins_action (CodeSlayerEngine *engine)
 }
 
 static void
-undo_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  GtkWidget *editor;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  g_signal_emit_by_name ((gpointer) editor, "undo");
-}
-
-static void
-redo_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  GtkWidget *editor;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  g_signal_emit_by_name ((gpointer) editor, "redo");
-}
-
-static void
 cut_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
@@ -916,26 +880,6 @@ paste_action (CodeSlayerEngine *engine)
 }
 
 static void
-delete_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  GtkWidget *editor;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  g_signal_emit_by_name ((gpointer) editor, "delete-from-cursor", GTK_DELETE_CHARS);
-}
-
-static void
-select_all_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  GtkWidget *editor;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  g_signal_emit_by_name ((gpointer) editor, "select-all");
-}
-
-static void
 copy_lines_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
@@ -952,7 +896,7 @@ to_lowercase_action (CodeSlayerEngine *engine)
   GtkWidget *editor;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  codeslayer_editor_to_lowercase_action (CODESLAYER_EDITOR (editor));
+  codeslayer_editor_lowercase_action (CODESLAYER_EDITOR (editor));
 }
 
 static void
@@ -962,5 +906,5 @@ to_uppercase_action (CodeSlayerEngine *engine)
   GtkWidget *editor;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  codeslayer_editor_to_uppercase_action (CODESLAYER_EDITOR (editor));
+  codeslayer_editor_uppercase_action (CODESLAYER_EDITOR (editor));
 }
