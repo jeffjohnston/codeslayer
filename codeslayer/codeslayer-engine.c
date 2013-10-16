@@ -79,8 +79,8 @@ static void cut_action                      (CodeSlayerEngine       *engine);
 static void copy_action                     (CodeSlayerEngine       *engine);
 static void paste_action                    (CodeSlayerEngine       *engine);
 static void copy_lines_action               (CodeSlayerEngine       *engine);
-static void to_uppercase_action             (CodeSlayerEngine       *engine);
-static void to_lowercase_action             (CodeSlayerEngine       *engine);
+static void uppercase_action                (CodeSlayerEngine       *engine);
+static void lowercase_action                (CodeSlayerEngine       *engine);
                                                    
 #define CODESLAYER_ENGINE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_ENGINE_TYPE, CodeSlayerEnginePrivate))
@@ -285,10 +285,10 @@ codeslayer_engine_new (GtkWindow                *window,
                             G_CALLBACK (copy_lines_action), engine);
 
   g_signal_connect_swapped (G_OBJECT (menubar), "uppercase",
-                            G_CALLBACK (to_uppercase_action), engine);
+                            G_CALLBACK (uppercase_action), engine);
 
   g_signal_connect_swapped (G_OBJECT (menubar), "lowercase",
-                            G_CALLBACK (to_lowercase_action), engine);
+                            G_CALLBACK (lowercase_action), engine);
 
   return engine;
 }
@@ -890,7 +890,7 @@ copy_lines_action (CodeSlayerEngine *engine)
 }
 
 static void
-to_lowercase_action (CodeSlayerEngine *engine)
+lowercase_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   GtkWidget *editor;
@@ -900,7 +900,7 @@ to_lowercase_action (CodeSlayerEngine *engine)
 }
 
 static void
-to_uppercase_action (CodeSlayerEngine *engine)
+uppercase_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   GtkWidget *editor;
