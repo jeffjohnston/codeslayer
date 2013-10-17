@@ -86,6 +86,7 @@ enum
   CUT,
   COPY,
   PASTE,
+  DELETE,
   UPPERCASE,
   LOWERCASE,
   COPY_LINES,  
@@ -504,6 +505,22 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
+   * CodeSlayerMenuBar::delete
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::delete signal is a request to delete the selected text.
+   */
+  codeslayer_menu_bar_signals[DELETE] =
+    g_signal_new ("del", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, del),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  /**
    * CodeSlayerMenuBar::uppercase
    * @menu: the menu that received the signal
    *
@@ -748,6 +765,16 @@ void
 codeslayer_menu_bar_paste (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "paste");
+}
+
+/**
+ * codeslayer_menu_bar_delete:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ */
+void            
+codeslayer_menu_bar_delete (CodeSlayerMenuBar *menu_bar)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "del");
 }
 
 /**

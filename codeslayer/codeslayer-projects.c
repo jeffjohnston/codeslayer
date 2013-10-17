@@ -77,7 +77,7 @@ static void cut_action                        (CodeSlayerProjects      *projects
 static void copy_action                       (CodeSlayerProjects      *projects);
 static void paste_action                      (CodeSlayerProjects      *projects);
 static void rename_action                     (CodeSlayerProjects      *projects);
-static void move_to_trash_action              (CodeSlayerProjects      *projects);
+static void delete_action              (CodeSlayerProjects      *projects);
 static void refresh_folders                   (CodeSlayerProjects      *projects, 
                                                GtkTreeModel            *tree_model,
                                                GtkTreeIter              iter, 
@@ -148,7 +148,7 @@ struct _CodeSlayerProjectsPrivate
   GtkWidget          *paste_item;
   GtkWidget          *ccp_separator;
   GtkWidget          *rename_item;
-  GtkWidget          *move_to_trash_item;
+  GtkWidget          *delete_item;
   GtkWidget          *properties_separator;
   GtkWidget          *properties_item;
   GtkWidget          *find_item;
@@ -196,7 +196,7 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
   klass->copy_file_folder = copy_action;
   klass->paste_file_folder = paste_action;
   klass->rename_file_folder = rename_action;
-  klass->delete_file_folder = move_to_trash_action;
+  klass->delete_file_folder = delete_action;
   klass->search_find = codeslayer_projects_search_find;
 
   /**
@@ -613,11 +613,6 @@ create_popup_menu (CodeSlayerProjects *projects)
   priv->new_separator = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->new_separator);
   
-  priv->find_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_FIND, NULL);
-  g_signal_connect_swapped (G_OBJECT (priv->find_item), "activate",
-                            G_CALLBACK (codeslayer_projects_search_find), projects);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->find_item);
-
   priv->cut_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_CUT, NULL);
   g_signal_connect_swapped (G_OBJECT (priv->cut_item), "activate",
                             G_CALLBACK (cut_action), projects);
@@ -633,19 +628,24 @@ create_popup_menu (CodeSlayerProjects *projects)
                             G_CALLBACK (paste_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->paste_item);
 
+  priv->delete_item = gtk_menu_item_new_with_label (_("Delete"));
+  g_signal_connect_swapped (G_OBJECT (priv->delete_item), "activate",
+                            G_CALLBACK (delete_action),
+                            projects);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->delete_item);
+
   priv->ccp_separator = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->ccp_separator);
+
+  priv->find_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_FIND, NULL);
+  g_signal_connect_swapped (G_OBJECT (priv->find_item), "activate",
+                            G_CALLBACK (codeslayer_projects_search_find), projects);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->find_item);
 
   priv->rename_item = gtk_menu_item_new_with_label (_("Rename"));
   g_signal_connect_swapped (G_OBJECT (priv->rename_item), "activate",
                             G_CALLBACK (rename_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->rename_item);
-
-  priv->move_to_trash_item = gtk_menu_item_new_with_label (_("Move To Trash"));
-  g_signal_connect_swapped (G_OBJECT (priv->move_to_trash_item), "activate",
-                            G_CALLBACK (move_to_trash_action),
-                            projects);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->move_to_trash_item);
 
   priv->plugins_separator = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->plugins_separator);
@@ -1863,7 +1863,7 @@ create_destination (GFile       *source,
 }
 
 static void
-move_to_trash_action (CodeSlayerProjects *projects)
+delete_action (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
   GtkWidget *dialog;
@@ -1876,15 +1876,15 @@ move_to_trash_action (CodeSlayerProjects *projects)
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   
-  if (!is_popup_item_showable (projects, priv->move_to_trash_item))
+  if (!is_popup_item_showable (projects, priv->delete_item))
     return;
 
   dialog = gtk_message_dialog_new (NULL, 
                                    GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_WARNING,
                                    GTK_BUTTONS_OK_CANCEL,
-                                   _("Are you sure you want to move to the trash?"));
-  gtk_window_set_title (GTK_WINDOW (dialog), _("Move To Trash"));
+                                   _("Are you sure you want to move to delete?"));
+  gtk_window_set_title (GTK_WINDOW (dialog), _("Delete"));
   gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
   response = gtk_dialog_run (GTK_DIALOG (dialog));
@@ -2462,7 +2462,7 @@ get_showable_popup_items (CodeSlayerProjects *projects)
       if (depth == 1 && selected_rows_count == 1)
         {
           results = g_list_remove (results, priv->rename_item);
-          results = g_list_remove (results, priv->move_to_trash_item);
+          results = g_list_remove (results, priv->delete_item);
           results = g_list_remove (results, priv->cut_item);
           results = g_list_remove (results, priv->copy_item);
           results = g_list_remove (results, priv->ccp_separator);

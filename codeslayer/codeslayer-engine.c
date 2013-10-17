@@ -78,6 +78,7 @@ static void show_plugins_action             (CodeSlayerEngine       *engine);
 static void cut_action                      (CodeSlayerEngine       *engine);
 static void copy_action                     (CodeSlayerEngine       *engine);
 static void paste_action                    (CodeSlayerEngine       *engine);
+static void delete_action                   (CodeSlayerEngine       *engine);
 static void copy_lines_action               (CodeSlayerEngine       *engine);
 static void uppercase_action                (CodeSlayerEngine       *engine);
 static void lowercase_action                (CodeSlayerEngine       *engine);
@@ -280,6 +281,9 @@ codeslayer_engine_new (GtkWindow                *window,
 
   g_signal_connect_swapped (G_OBJECT (menubar), "paste",
                             G_CALLBACK (paste_action), engine);
+
+  g_signal_connect_swapped (G_OBJECT (menubar), "del",
+                            G_CALLBACK (delete_action), engine);
 
   g_signal_connect_swapped (G_OBJECT (menubar), "copy-lines",
                             G_CALLBACK (copy_lines_action), engine);
@@ -877,6 +881,16 @@ paste_action (CodeSlayerEngine *engine)
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
   g_signal_emit_by_name ((gpointer) editor, "paste-clipboard");
+}
+
+static void
+delete_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  GtkWidget *editor;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+  g_signal_emit_by_name ((gpointer) editor, "delete-from-cursor", GTK_DELETE_CHARS);
 }
 
 static void
