@@ -46,6 +46,9 @@ struct _CodeSlayerEditorClass
 {
   GtkSourceViewClass parent_class;
   void (*completion) (CodeSlayerEditor *editor);
+  void (*lowercase) (CodeSlayerEditor *editor);
+  void (*uppercase) (CodeSlayerEditor *editor);
+  void (*copy_lines) (CodeSlayerEditor *editor);
 };
 
 GType codeslayer_editor_get_type (void) G_GNUC_CONST;
@@ -67,9 +70,6 @@ void                 codeslayer_editor_set_modification_time     (CodeSlayerEdit
                                                                   GTimeVal                     *modification_time);
 void                 codeslayer_editor_set_text                  (CodeSlayerEditor             *editor, 
                                                                   gchar                        *text);
-void                 codeslayer_editor_copy_lines_action         (CodeSlayerEditor             *editor);
-void                 codeslayer_editor_uppercase_action          (CodeSlayerEditor             *editor);
-void                 codeslayer_editor_lowercase_action          (CodeSlayerEditor             *editor);
 
 G_END_DECLS
 

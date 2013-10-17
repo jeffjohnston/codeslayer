@@ -900,7 +900,7 @@ copy_lines_action (CodeSlayerEngine *engine)
   GtkWidget *editor;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  codeslayer_editor_copy_lines_action (CODESLAYER_EDITOR (editor));
+  g_signal_emit_by_name ((gpointer) editor, "copy-lines");
 }
 
 static void
@@ -910,7 +910,7 @@ lowercase_action (CodeSlayerEngine *engine)
   GtkWidget *editor;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  codeslayer_editor_lowercase_action (CODESLAYER_EDITOR (editor));
+  g_signal_emit_by_name ((gpointer) editor, "lowercase");
 }
 
 static void
@@ -920,5 +920,5 @@ uppercase_action (CodeSlayerEngine *engine)
   GtkWidget *editor;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  codeslayer_editor_uppercase_action (CODESLAYER_EDITOR (editor));
+  g_signal_emit_by_name ((gpointer) editor, "uppercase");
 }
