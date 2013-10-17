@@ -87,8 +87,8 @@ enum
   COPY,
   PASTE,
   DELETE,
-  UPPERCASE,
-  LOWERCASE,
+  TO_UPPERCASE,
+  TO_LOWERCASE,
   COPY_LINES,  
   SYNC_WITH_EDITOR,  
   SYNC_ENGINE,  
@@ -521,17 +521,17 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerMenuBar::uppercase
+   * CodeSlayerMenuBar::to_uppercase
    * @menu: the menu that received the signal
    *
    * The ::to-uppercase signal enables the (Ctrl + U) keystroke to uppercase 
    * the selected text.
    */
-  codeslayer_menu_bar_signals[UPPERCASE] =
-    g_signal_new ("uppercase", 
+  codeslayer_menu_bar_signals[TO_UPPERCASE] =
+    g_signal_new ("to-uppercase", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, uppercase),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, to_uppercase),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -542,11 +542,11 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
    * The ::to-lowercase signal enables the (Ctrl + L) keystroke to lowercase the 
    * selected text.
    */
-  codeslayer_menu_bar_signals[LOWERCASE] =
-    g_signal_new ("lowercase", 
+  codeslayer_menu_bar_signals[TO_LOWERCASE] =
+    g_signal_new ("to-lowercase", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, lowercase),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, to_lowercase),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -778,23 +778,23 @@ codeslayer_menu_bar_delete (CodeSlayerMenuBar *menu_bar)
 }
 
 /**
- * codeslayer_menu_bar_uppercas:
+ * codeslayer_menu_bar_to_uppercase:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menu_bar_uppercase (CodeSlayerMenuBar *menu_bar)
+codeslayer_menu_bar_to_uppercase (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "uppercase");
+  g_signal_emit_by_name ((gpointer) menu_bar, "to-uppercase");
 }
 
 /**
- * codeslayer_menu_bar_lowercase:
+ * codeslayer_menu_bar_to_lowercase:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
 void            
-codeslayer_menu_bar_lowercase (CodeSlayerMenuBar *menu_bar)
+codeslayer_menu_bar_to_lowercase (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "lowercase");
+  g_signal_emit_by_name ((gpointer) menu_bar, "to-lowercase");
 }
 
 /**

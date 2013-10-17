@@ -69,8 +69,8 @@ struct _CodeSlayerMenuBarClass
   void (*copy) (CodeSlayerMenuBar *menu_bar);
   void (*paste) (CodeSlayerMenuBar *menu_bar);
   void (*del) (CodeSlayerMenuBar *menu_bar);
-  void (*uppercase) (CodeSlayerMenuBar *menu_bar);
-  void (*lowercase) (CodeSlayerMenuBar *menu_bar);
+  void (*to_uppercase) (CodeSlayerMenuBar *menu_bar);
+  void (*to_lowercase) (CodeSlayerMenuBar *menu_bar);
   void (*copy_lines) (CodeSlayerMenuBar *menu_bar);
   void (*sync_with_editor) (CodeSlayerMenuBar *menu_bar);
   void (*scan_external_changes) (CodeSlayerMenuBar *menu_bar);
@@ -93,8 +93,8 @@ void            codeslayer_menu_bar_cut                        (CodeSlayerMenuBa
 void            codeslayer_menu_bar_copy                       (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_paste                      (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_delete                     (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_uppercase                  (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_lowercase                  (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_to_uppercase               (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_to_lowercase               (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_copy_lines                 (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_show_preferences           (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_show_profiles              (CodeSlayerMenuBar     *menu_bar);

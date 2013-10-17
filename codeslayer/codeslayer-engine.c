@@ -288,10 +288,10 @@ codeslayer_engine_new (GtkWindow                *window,
   g_signal_connect_swapped (G_OBJECT (menubar), "copy-lines",
                             G_CALLBACK (copy_lines_action), engine);
 
-  g_signal_connect_swapped (G_OBJECT (menubar), "uppercase",
+  g_signal_connect_swapped (G_OBJECT (menubar), "to-uppercase",
                             G_CALLBACK (uppercase_action), engine);
 
-  g_signal_connect_swapped (G_OBJECT (menubar), "lowercase",
+  g_signal_connect_swapped (G_OBJECT (menubar), "to-lowercase",
                             G_CALLBACK (lowercase_action), engine);
 
   return engine;
@@ -910,7 +910,7 @@ lowercase_action (CodeSlayerEngine *engine)
   GtkWidget *editor;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  g_signal_emit_by_name ((gpointer) editor, "lowercase");
+  g_signal_emit_by_name ((gpointer) editor, "to-lowercase");
 }
 
 static void
@@ -920,5 +920,5 @@ uppercase_action (CodeSlayerEngine *engine)
   GtkWidget *editor;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  g_signal_emit_by_name ((gpointer) editor, "uppercase");
+  g_signal_emit_by_name ((gpointer) editor, "to-uppercase");
 }

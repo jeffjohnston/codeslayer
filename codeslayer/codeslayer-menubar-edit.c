@@ -38,8 +38,8 @@ static void copy_action                          (CodeSlayerMenuBarEdit      *me
 static void paste_action                         (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void delete_action                        (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void copy_lines_action                    (CodeSlayerMenuBarEdit      *menu_bar_edit);
-static void uppercase_action                     (CodeSlayerMenuBarEdit      *menu_bar_edit);
-static void lowercase_action                     (CodeSlayerMenuBarEdit      *menu_bar_edit);
+static void to_uppercase_action                  (CodeSlayerMenuBarEdit      *menu_bar_edit);
+static void to_lowercase_action                  (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void show_preferences_action              (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void sync_engine_action                   (CodeSlayerMenuBarEdit      *menu_bar_edit,
                                                   gboolean                    enable_projects,
@@ -60,8 +60,8 @@ struct _CodeSlayerMenuBarEditPrivate
   GtkWidget     *paste_item;
   GtkWidget     *delete_item;
   GtkWidget     *copy_lines_item;
-  GtkWidget     *uppercase_item;
-  GtkWidget     *lowercase_item;
+  GtkWidget     *to_uppercase_item;
+  GtkWidget     *to_lowercase_item;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarEdit, codeslayer_menu_bar_edit, GTK_TYPE_MENU_ITEM)
@@ -133,8 +133,8 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
   GtkWidget *paste_item;
   GtkWidget *delete_item;
   GtkWidget *copy_lines_item;
-  GtkWidget *uppercase_item;
-  GtkWidget *lowercase_item;
+  GtkWidget *to_uppercase_item;
+  GtkWidget *to_lowercase_item;
   GtkWidget *preferences_item;
   
   priv = CODESLAYER_MENU_BAR_EDIT_GET_PRIVATE (menu_bar_edit);
@@ -167,17 +167,17 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
   
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
 
-  lowercase_item = gtk_menu_item_new_with_label (_("Lowercase"));
-  priv->lowercase_item = lowercase_item;
-  gtk_widget_add_accelerator (lowercase_item, "activate", priv->accel_group,
+  to_lowercase_item = gtk_menu_item_new_with_label (_("Lowercase"));
+  priv->to_lowercase_item = to_lowercase_item;
+  gtk_widget_add_accelerator (to_lowercase_item, "activate", priv->accel_group,
                               GDK_KEY_L, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), lowercase_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), to_lowercase_item);
 
-  uppercase_item = gtk_menu_item_new_with_label (_("Uppercase"));
-  priv->uppercase_item = uppercase_item;
-  gtk_widget_add_accelerator (uppercase_item, "activate", priv->accel_group,
+  to_uppercase_item = gtk_menu_item_new_with_label (_("Uppercase"));
+  priv->to_uppercase_item = to_uppercase_item;
+  gtk_widget_add_accelerator (to_uppercase_item, "activate", priv->accel_group,
                               GDK_KEY_U, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), uppercase_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), to_uppercase_item);
 
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
   
@@ -200,11 +200,11 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
   g_signal_connect_swapped (G_OBJECT (copy_lines_item), "activate",
                             G_CALLBACK (copy_lines_action), menu_bar_edit);
   
-  g_signal_connect_swapped (G_OBJECT (uppercase_item), "activate",
-                            G_CALLBACK (uppercase_action), menu_bar_edit);
+  g_signal_connect_swapped (G_OBJECT (to_uppercase_item), "activate",
+                            G_CALLBACK (to_uppercase_action), menu_bar_edit);
   
-  g_signal_connect_swapped (G_OBJECT (lowercase_item), "activate",
-                            G_CALLBACK (lowercase_action), menu_bar_edit);
+  g_signal_connect_swapped (G_OBJECT (to_lowercase_item), "activate",
+                            G_CALLBACK (to_lowercase_action), menu_bar_edit);
   
   g_signal_connect_swapped (G_OBJECT (preferences_item), "activate",
                             G_CALLBACK (show_preferences_action), menu_bar_edit);  
@@ -223,8 +223,8 @@ sync_engine_action (CodeSlayerMenuBarEdit *menu_bar_edit,
   gtk_widget_set_sensitive (priv->paste_item, has_open_editors);
   gtk_widget_set_sensitive (priv->delete_item, has_open_editors);
   gtk_widget_set_sensitive (priv->copy_lines_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->lowercase_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->uppercase_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->to_lowercase_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->to_uppercase_item, has_open_editors);
 }
 
 static void
@@ -268,19 +268,19 @@ copy_lines_action (CodeSlayerMenuBarEdit *menu_bar_edit)
 }
 
 static void
-uppercase_action (CodeSlayerMenuBarEdit *menu_bar_edit)
+to_uppercase_action (CodeSlayerMenuBarEdit *menu_bar_edit)
 {
   CodeSlayerMenuBarEditPrivate *priv;
   priv = CODESLAYER_MENU_BAR_EDIT_GET_PRIVATE (menu_bar_edit);
-  codeslayer_menu_bar_uppercase (CODESLAYER_MENU_BAR (priv->menu_bar));
+  codeslayer_menu_bar_to_uppercase (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void
-lowercase_action (CodeSlayerMenuBarEdit *menu_bar_edit)
+to_lowercase_action (CodeSlayerMenuBarEdit *menu_bar_edit)
 {
   CodeSlayerMenuBarEditPrivate *priv;
   priv = CODESLAYER_MENU_BAR_EDIT_GET_PRIVATE (menu_bar_edit);
-  codeslayer_menu_bar_lowercase (CODESLAYER_MENU_BAR (priv->menu_bar));
+  codeslayer_menu_bar_to_lowercase (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void

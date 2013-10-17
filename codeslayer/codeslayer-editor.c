@@ -59,8 +59,8 @@ static void completion_action                 (CodeSlayerEditor             *edi
 static void change_case                       (CodeSlayerEditor             *editor,
                                                GString* (*convert) (GString*));
 static void copy_lines_action                 (CodeSlayerEditor             *editor);
-static void uppercase_action                  (CodeSlayerEditor             *editor);
-static void lowercase_action                  (CodeSlayerEditor             *editor);
+static void to_uppercase_action               (CodeSlayerEditor             *editor);
+static void to_lowercase_action               (CodeSlayerEditor             *editor);
                                                
                                                
 #define CODESLAYER_EDITOR_GET_PRIVATE(obj) \
@@ -83,8 +83,8 @@ G_DEFINE_TYPE (CodeSlayerEditor, codeslayer_editor, GTK_SOURCE_TYPE_VIEW)
 enum
 {
   COMPLETION,
-  LOWERCASE,
-  UPPERCASE,
+  TO_LOWERCASE,
+  TO_UPPERCASE,
   COPY_LINES,
   LAST_SIGNAL
 };
@@ -114,30 +114,30 @@ codeslayer_editor_class_init (CodeSlayerEditorClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
                   
   /**
-   * CodeSlayerEditor::lowercase
+   * CodeSlayerEditor::to_lowercase
    * @editor: the editor that received the signal
    *
-   * The ::lowercase signal is a request to lowercase the selected text.
+   * The ::to_lowercase signal is a request to lowercase the selected text.
    */
-  codeslayer_editor_signals[LOWERCASE] =
-    g_signal_new ("lowercase", 
+  codeslayer_editor_signals[TO_LOWERCASE] =
+    g_signal_new ("to-lowercase", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerEditorClass, lowercase),
+                  G_STRUCT_OFFSET (CodeSlayerEditorClass, to_lowercase),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerEditor::uppercase
+   * CodeSlayerEditor::to-uppercase
    * @editor: the editor that received the signal
    *
    * The ::uppercase signal is a request to lowercase the selected text.
    */
-  codeslayer_editor_signals[UPPERCASE] =
-    g_signal_new ("uppercase", 
+  codeslayer_editor_signals[TO_UPPERCASE] =
+    g_signal_new ("to-uppercase", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerEditorClass, uppercase),
+                  G_STRUCT_OFFSET (CodeSlayerEditorClass, to_uppercase),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -261,11 +261,11 @@ codeslayer_editor_new (GtkWindow          *window,
   g_signal_connect_swapped (G_OBJECT (editor), "state-flags-changed",
                             G_CALLBACK (screen_action), editor);
                             
-  g_signal_connect_swapped (G_OBJECT (editor), "lowercase",
-                            G_CALLBACK (lowercase_action), editor);
+  g_signal_connect_swapped (G_OBJECT (editor), "to-lowercase",
+                            G_CALLBACK (to_lowercase_action), editor);
                             
-  g_signal_connect_swapped (G_OBJECT (editor), "uppercase",
-                            G_CALLBACK (uppercase_action), editor);
+  g_signal_connect_swapped (G_OBJECT (editor), "to-uppercase",
+                            G_CALLBACK (to_uppercase_action), editor);
                             
   g_signal_connect_swapped (G_OBJECT (editor), "copy-lines",
                             G_CALLBACK (copy_lines_action), editor);
@@ -604,13 +604,13 @@ copy_lines_action (CodeSlayerEditor *editor)
 
 
 void
-uppercase_action (CodeSlayerEditor *editor)
+to_uppercase_action (CodeSlayerEditor *editor)
 {
   change_case (editor, g_string_ascii_up);
 }
 
 void
-lowercase_action (CodeSlayerEditor *editor)
+to_lowercase_action (CodeSlayerEditor *editor)
 {
   change_case (editor, g_string_ascii_down);
 }
