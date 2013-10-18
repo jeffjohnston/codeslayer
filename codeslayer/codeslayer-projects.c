@@ -73,11 +73,12 @@ static void create_project_properties_dialog  (CodeSlayerProjects      *projects
 static void remove_project_action             (CodeSlayerProjects      *projects);
 static void new_folder_action                 (CodeSlayerProjects      *projects);
 static void new_file_action                   (CodeSlayerProjects      *projects);
-static void cut_action                        (CodeSlayerProjects      *projects);
-static void copy_action                       (CodeSlayerProjects      *projects);
-static void paste_action                      (CodeSlayerProjects      *projects);
+static void search_find_action                (CodeSlayerProjects      *projects);
+static void cut_file_folder_action            (CodeSlayerProjects      *projects);
+static void copy_file_folder_action           (CodeSlayerProjects      *projects);
+static void paste_file_folder_action          (CodeSlayerProjects      *projects);
 static void rename_action                     (CodeSlayerProjects      *projects);
-static void delete_action              (CodeSlayerProjects      *projects);
+static void delete_file_folder_action         (CodeSlayerProjects      *projects);
 static void refresh_folders                   (CodeSlayerProjects      *projects, 
                                                GtkTreeModel            *tree_model,
                                                GtkTreeIter              iter, 
@@ -192,12 +193,7 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
 {
   GtkBindingSet *binding_set;
 
-  klass->cut_file_folder = cut_action;
-  klass->copy_file_folder = copy_action;
-  klass->paste_file_folder = paste_action;
   klass->rename_file_folder = rename_action;
-  klass->delete_file_folder = delete_action;
-  klass->search_find = codeslayer_projects_search_find;
 
   /**
    * CodeSlayerProjects::select-document
@@ -295,8 +291,6 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_PROJECT_TYPE);
 
-  /* private signals */
-
   codeslayer_projects_signals[FILE_PATH_RENAMED] =
     g_signal_new ("file-path-renamed", 
                   G_TYPE_FROM_CLASS (klass),
@@ -306,14 +300,6 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   _codeslayer_marshal_VOID__STRING_STRING, G_TYPE_NONE, 
                   2, G_TYPE_STRING, G_TYPE_STRING);
 
-  codeslayer_projects_signals[RENAME_FILE_FOLDER] =
-    g_signal_new ("rename-file-folder", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
-                  G_STRUCT_OFFSET (CodeSlayerProjectsClass, rename_file_folder), 
-                  NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-                  
   codeslayer_projects_signals[DELETE_FILE_FOLDER] =
     g_signal_new ("delete-file-folder", 
                   G_TYPE_FROM_CLASS (klass),
@@ -362,22 +348,32 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
+  /* private signals */
+
+  codeslayer_projects_signals[RENAME_FILE_FOLDER] =
+    g_signal_new ("rename-file-folder", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
+                  G_STRUCT_OFFSET (CodeSlayerProjectsClass, rename_file_folder), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+                  
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_projects_finalize;
 
   binding_set = gtk_binding_set_by_class (klass);
 
-  gtk_binding_entry_add_signal (binding_set, GDK_KEY_X, GDK_CONTROL_MASK,
+  /*gtk_binding_entry_add_signal (binding_set, GDK_KEY_X, GDK_CONTROL_MASK,
                                 "cut-file-folder", 0);
   gtk_binding_entry_add_signal (binding_set, GDK_KEY_C, GDK_CONTROL_MASK,
                                 "copy-file-folder", 0);
   gtk_binding_entry_add_signal (binding_set, GDK_KEY_V, GDK_CONTROL_MASK,
                                 "paste-file-folder", 0);
   gtk_binding_entry_add_signal (binding_set, GDK_KEY_Delete, 0,
-                                "delete-file-folder", 0);
+                                "delete-file-folder", 0);*/
   gtk_binding_entry_add_signal (binding_set, GDK_KEY_R, GDK_CONTROL_MASK,
                                 "rename-file-folder", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KEY_F, GDK_CONTROL_MASK,
-                                "search-find", 0);
+  /*gtk_binding_entry_add_signal (binding_set, GDK_KEY_F, GDK_CONTROL_MASK,
+                                "search-find", 0);*/
 
   g_type_class_add_private (klass, sizeof (CodeSlayerProjectsPrivate));
 }
@@ -452,6 +448,21 @@ codeslayer_projects_new (GtkWidget          *window,
   gtk_container_add (GTK_CONTAINER (priv->scrolled_window), priv->treeview); 
   gtk_container_add (GTK_CONTAINER (projects), priv->scrolled_window);
   
+  g_signal_connect_swapped (G_OBJECT (projects), "search-find",
+                            G_CALLBACK (search_find_action), projects);
+                            
+  g_signal_connect_swapped (G_OBJECT (projects), "cut-file-folder",
+                            G_CALLBACK (cut_file_folder_action), projects);
+                            
+  g_signal_connect_swapped (G_OBJECT (projects), "copy-file-folder",
+                            G_CALLBACK (copy_file_folder_action), projects);
+                            
+  g_signal_connect_swapped (G_OBJECT (projects), "paste-file-folder",
+                            G_CALLBACK (paste_file_folder_action), projects);
+                            
+  g_signal_connect_swapped (G_OBJECT (projects), "delete-file-folder",
+                            G_CALLBACK (delete_file_folder_action), projects);
+                            
   return projects;
 }
 
@@ -615,22 +626,22 @@ create_popup_menu (CodeSlayerProjects *projects)
   
   priv->cut_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_CUT, NULL);
   g_signal_connect_swapped (G_OBJECT (priv->cut_item), "activate",
-                            G_CALLBACK (cut_action), projects);
+                            G_CALLBACK (cut_file_folder_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->cut_item);
 
   priv->copy_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_COPY, NULL);
   g_signal_connect_swapped (G_OBJECT (priv->copy_item), "activate",
-                            G_CALLBACK (copy_action), projects);
+                            G_CALLBACK (copy_file_folder_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->copy_item);
 
   priv->paste_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_PASTE, NULL);
   g_signal_connect_swapped (G_OBJECT (priv->paste_item), "activate",
-                            G_CALLBACK (paste_action), projects);
+                            G_CALLBACK (paste_file_folder_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->paste_item);
 
   priv->delete_item = gtk_menu_item_new_with_label (_("Delete"));
   g_signal_connect_swapped (G_OBJECT (priv->delete_item), "activate",
-                            G_CALLBACK (delete_action),
+                            G_CALLBACK (delete_file_folder_action),
                             projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->delete_item);
 
@@ -639,7 +650,7 @@ create_popup_menu (CodeSlayerProjects *projects)
 
   priv->find_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_FIND, NULL);
   g_signal_connect_swapped (G_OBJECT (priv->find_item), "activate",
-                            G_CALLBACK (codeslayer_projects_search_find), projects);
+                            G_CALLBACK (search_find_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->find_item);
 
   priv->rename_item = gtk_menu_item_new_with_label (_("Rename"));
@@ -1027,12 +1038,8 @@ refresh_folders (CodeSlayerProjects *projects,
   while (gtk_tree_model_iter_next (tree_model, &iter));
 }
 
-/**
- * codeslayer_projects_search_find:
- * @projects: a #CodeSlayerProjects.
- */
 void
-codeslayer_projects_search_find (CodeSlayerProjects *projects)
+search_find_action (CodeSlayerProjects *projects)
 {
 
   CodeSlayerProjectsPrivate *priv;
@@ -1557,7 +1564,7 @@ new_file_action (CodeSlayerProjects *projects)
 }
 
 static void
-cut_action (CodeSlayerProjects *projects)
+cut_file_folder_action (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
@@ -1566,7 +1573,7 @@ cut_action (CodeSlayerProjects *projects)
 }
 
 static void
-copy_action (CodeSlayerProjects *projects)
+copy_file_folder_action (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
@@ -1645,7 +1652,7 @@ cut_or_copy_file_folder (CodeSlayerProjects *projects,
 }
 
 static void
-paste_action (CodeSlayerProjects *projects)
+paste_file_folder_action (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
   GtkTreeModel *tree_model;
@@ -1863,7 +1870,7 @@ create_destination (GFile       *source,
 }
 
 static void
-delete_action (CodeSlayerProjects *projects)
+delete_file_folder_action (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
   GtkWidget *dialog;

@@ -194,7 +194,7 @@ codeslayer_projects_engine_new (GtkWindow          *window,
   g_signal_connect_swapped (G_OBJECT (projects), "select-document",
                             G_CALLBACK (select_projects_document_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (priv->notebook), "select-editor",
+  g_signal_connect_swapped (G_OBJECT (notebook), "select-editor",
                             G_CALLBACK (select_editor_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (projects), "file-path-renamed",
@@ -519,8 +519,8 @@ close_search_action (CodeSlayerProjectsEngine *engine,
 }
 
 static void
-select_search_document_action (CodeSlayerProjectsEngine   *engine,
-                               CodeSlayerDocument         *document)
+select_search_document_action (CodeSlayerProjectsEngine *engine,
+                               CodeSlayerDocument       *document)
 {
   CodeSlayerProjectsEnginePrivate *priv;
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
@@ -615,4 +615,44 @@ rename_file_path_action (CodeSlayerProjectsEngine *engine,
           g_free (replacement_basename);
         }
     }
+}
+
+void
+codeslayer_projects_engine_search_find (CodeSlayerProjectsEngine *engine)
+{
+  CodeSlayerProjectsEnginePrivate *priv;
+  priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);  
+  g_signal_emit_by_name ((gpointer) priv->projects, "search-find");
+}
+
+void
+codeslayer_projects_engine_cut_file_folder (CodeSlayerProjectsEngine *engine)
+{
+  CodeSlayerProjectsEnginePrivate *priv;
+  priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);  
+  g_signal_emit_by_name ((gpointer) priv->projects, "cut-file-folder");
+}
+
+void
+codeslayer_projects_engine_copy_file_folder (CodeSlayerProjectsEngine *engine)
+{
+  CodeSlayerProjectsEnginePrivate *priv;
+  priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);  
+  g_signal_emit_by_name ((gpointer) priv->projects, "copy-file-folder");
+}
+
+void
+codeslayer_projects_engine_paste_file_folder (CodeSlayerProjectsEngine *engine)
+{
+  CodeSlayerProjectsEnginePrivate *priv;
+  priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);  
+  g_signal_emit_by_name ((gpointer) priv->projects, "paste-file-folder");
+}
+
+void
+codeslayer_projects_engine_delete_file_folder (CodeSlayerProjectsEngine *engine)
+{
+  CodeSlayerProjectsEnginePrivate *priv;
+  priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);  
+  g_signal_emit_by_name ((gpointer) priv->projects, "delete-file-folder");
 }

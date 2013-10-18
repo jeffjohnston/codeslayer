@@ -43,45 +43,45 @@
  * parts of the application very decoupled.
  */
 
-static void codeslayer_engine_class_init    (CodeSlayerEngineClass  *klass);
-static void codeslayer_engine_init          (CodeSlayerEngine       *engine);
-static void codeslayer_engine_finalize      (CodeSlayerEngine       *engine);
+static void codeslayer_engine_class_init    (CodeSlayerEngineClass *klass);
+static void codeslayer_engine_init          (CodeSlayerEngine      *engine);
+static void codeslayer_engine_finalize      (CodeSlayerEngine      *engine);
 
-static void new_editor_action               (CodeSlayerEngine       *engine);
-static void open_editor_action              (CodeSlayerEngine       *engine);
-static void save_editor_action              (CodeSlayerEngine       *engine);
-static void save_all_editors_action         (CodeSlayerEngine       *engine);
-static void close_editor_action             (CodeSlayerEngine       *engine);
-static void search_find_action              (CodeSlayerEngine       *engine);
-static void search_find_next_action         (CodeSlayerEngine       *engine);
-static void search_find_previous_action     (CodeSlayerEngine       *engine);
-static void search_replace_action           (CodeSlayerEngine       *engine);
-static void go_to_line_action               (CodeSlayerEngine       *engine);
-static gboolean go_to_line_keypress_action  (GtkWidget              *entry,
-                                             GdkEventKey            *event, 
-                                             CodeSlayerEngine       *engine);
-static void fullscreen_window_action        (CodeSlayerEngine       *engine);
-static void toggle_side_pane_action         (CodeSlayerEngine       *engine);
-static void open_side_pane_action           (CodeSlayerEngine       *engine);
-static void close_side_pane_action          (CodeSlayerEngine       *engine);
-static void toggle_bottom_pane_action       (CodeSlayerEngine       *engine);
-static void open_bottom_pane_action         (CodeSlayerEngine       *engine);
-static void close_bottom_pane_action        (CodeSlayerEngine       *engine);
-static void draw_spaces_action              (CodeSlayerEngine       *engine);
-static void word_wrap_action                (CodeSlayerEngine       *engine);
-static void page_removed_action             (CodeSlayerEngine       *engine,
-                                             GtkWidget              *page, 
-                                             guint                   page_num);
-static void show_preferences_action         (CodeSlayerEngine       *engine);
-static void registry_changed_action         (CodeSlayerEngine       *engine);
-static void show_plugins_action             (CodeSlayerEngine       *engine);
-static void cut_action                      (CodeSlayerEngine       *engine);
-static void copy_action                     (CodeSlayerEngine       *engine);
-static void paste_action                    (CodeSlayerEngine       *engine);
-static void delete_action                   (CodeSlayerEngine       *engine);
-static void copy_lines_action               (CodeSlayerEngine       *engine);
-static void uppercase_action                (CodeSlayerEngine       *engine);
-static void lowercase_action                (CodeSlayerEngine       *engine);
+static void new_editor_action               (CodeSlayerEngine      *engine);
+static void open_editor_action              (CodeSlayerEngine      *engine);
+static void save_editor_action              (CodeSlayerEngine      *engine);
+static void save_all_editors_action         (CodeSlayerEngine      *engine);
+static void close_editor_action             (CodeSlayerEngine      *engine);
+static void go_to_line_action               (CodeSlayerEngine      *engine);
+static gboolean go_to_line_keypress_action  (GtkWidget             *entry,
+                                             GdkEventKey           *event, 
+                                             CodeSlayerEngine      *engine);
+static void fullscreen_window_action        (CodeSlayerEngine      *engine);
+static void toggle_side_pane_action         (CodeSlayerEngine      *engine);
+static void open_side_pane_action           (CodeSlayerEngine      *engine);
+static void close_side_pane_action          (CodeSlayerEngine      *engine);
+static void toggle_bottom_pane_action       (CodeSlayerEngine      *engine);
+static void open_bottom_pane_action         (CodeSlayerEngine      *engine);
+static void close_bottom_pane_action        (CodeSlayerEngine      *engine);
+static void draw_spaces_action              (CodeSlayerEngine      *engine);
+static void word_wrap_action                (CodeSlayerEngine      *engine);
+static void page_removed_action             (CodeSlayerEngine      *engine,
+                                             GtkWidget             *page, 
+                                             guint                  page_num);
+static void show_preferences_action         (CodeSlayerEngine      *engine);
+static void registry_changed_action         (CodeSlayerEngine      *engine);
+static void show_plugins_action             (CodeSlayerEngine      *engine);
+static void search_find_action              (CodeSlayerEngine      *engine);
+static void search_find_next_action         (CodeSlayerEngine      *engine);
+static void search_find_previous_action     (CodeSlayerEngine      *engine);
+static void search_replace_action           (CodeSlayerEngine      *engine);
+static void cut_action                      (CodeSlayerEngine      *engine);
+static void copy_action                     (CodeSlayerEngine      *engine);
+static void paste_action                    (CodeSlayerEngine      *engine);
+static void delete_action                   (CodeSlayerEngine      *engine);
+static void copy_lines_action               (CodeSlayerEngine      *engine);
+static void uppercase_action                (CodeSlayerEngine      *engine);
+static void lowercase_action                (CodeSlayerEngine      *engine);
                                                    
 #define CODESLAYER_ENGINE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_ENGINE_TYPE, CodeSlayerEnginePrivate))
@@ -472,45 +472,7 @@ page_removed_action (CodeSlayerEngine *engine,
                      guint             removed_page_num)
 {
   codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
-}
-
-static void
-search_find_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  GtkWidget *focused_window;
-
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  
-  focused_window = gtk_window_get_focus (priv->window);
-  
-  if (focused_window == NULL || !gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
-    codeslayer_notebook_pane_search_find (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
-}
-
-static void
-search_replace_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_notebook_pane_search_replace (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
-}
-
-static void
-search_find_next_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_notebook_pane_search_find_next (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
-}
-
-static void
-search_find_previous_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_notebook_pane_search_find_previous (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
-}                  
+}        
 
 static void
 fullscreen_window_action (CodeSlayerEngine *engine)
@@ -854,43 +816,126 @@ show_plugins_action (CodeSlayerEngine *engine)
 }
 
 static void
-cut_action (CodeSlayerEngine *engine)
+search_find_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  GtkWidget *editor;
+  GtkWidget *focused_window;
+
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  g_signal_emit_by_name ((gpointer) editor, "cut-clipboard");
+  
+  focused_window = gtk_window_get_focus (priv->window);
+  if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
+    codeslayer_projects_engine_search_find (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));
+  else
+    codeslayer_notebook_pane_search_find (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+}
+
+static void
+search_replace_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  codeslayer_notebook_pane_search_replace (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+}
+
+static void
+search_find_next_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  codeslayer_notebook_pane_search_find_next (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+}
+
+static void
+search_find_previous_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  codeslayer_notebook_pane_search_find_previous (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+}          
+
+static void
+cut_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;  
+  GtkWidget *focused_window;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+
+  focused_window = gtk_window_get_focus (priv->window);
+  if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
+    {
+      codeslayer_projects_engine_cut_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
+    }
+  else
+    {
+      GtkWidget *editor;
+      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+      g_signal_emit_by_name ((gpointer) editor, "cut-clipboard");
+    }
 }
 
 static void
 copy_action (CodeSlayerEngine *engine)
 {
-  CodeSlayerEnginePrivate *priv;
-  GtkWidget *editor;
+  CodeSlayerEnginePrivate *priv;  
+  GtkWidget *focused_window;
+  
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  g_signal_emit_by_name ((gpointer) editor, "copy-clipboard");
+
+  focused_window = gtk_window_get_focus (priv->window);
+  if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
+    {
+      codeslayer_projects_engine_copy_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
+    }
+  else
+    {
+      GtkWidget *editor;
+      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+      g_signal_emit_by_name ((gpointer) editor, "copy-clipboard");
+    }
 }
 
 static void
 paste_action (CodeSlayerEngine *engine)
 {
-  CodeSlayerEnginePrivate *priv;
-  GtkWidget *editor;
+  CodeSlayerEnginePrivate *priv;  
+  GtkWidget *focused_window;
+  
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  g_signal_emit_by_name ((gpointer) editor, "paste-clipboard");
+
+  focused_window = gtk_window_get_focus (priv->window);
+  if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
+    {
+      codeslayer_projects_engine_paste_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
+    }
+  else
+    {
+      GtkWidget *editor;
+      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+      g_signal_emit_by_name ((gpointer) editor, "paste-clipboard");
+    }
 }
 
 static void
 delete_action (CodeSlayerEngine *engine)
 {
-  CodeSlayerEnginePrivate *priv;
-  GtkWidget *editor;
+  CodeSlayerEnginePrivate *priv;  
+  GtkWidget *focused_window;
+  
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  g_signal_emit_by_name ((gpointer) editor, "delete-from-cursor", GTK_DELETE_CHARS);
+
+  focused_window = gtk_window_get_focus (priv->window);
+  if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
+    {
+      codeslayer_projects_engine_delete_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
+    }
+  else
+    {
+      GtkWidget *editor;
+      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+      g_signal_emit_by_name ((gpointer) editor, "delete-from-cursor", GTK_DELETE_CHARS);
+    }
 }
 
 static void
