@@ -217,7 +217,7 @@ retrieve_profile (GFile *file)
   doc = xmlReadFile (file_path, NULL, 0);
   if (doc == NULL)
     {
-      g_warning ("could not parse profile %s\n", file_path);
+      g_warning ("Could not parse profile %s\n", file_path);
       xmlCleanupParser();
       if (file_path)
         g_free (file_path);

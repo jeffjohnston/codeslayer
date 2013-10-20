@@ -18,6 +18,7 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-application.h>
+#include <codeslayer/codeslayer-utils.h>
 
 int
 main (int   argc, 
@@ -25,7 +26,15 @@ main (int   argc,
 {
   CodeSlayerApplication *application;
   int status;
-  application = codeslayer_application_new ();
+  gchar *profile_name = NULL;
+  
+  if (argc > 2 && codeslayer_utils_has_text (argv[1]) && g_strcmp0 (argv[1], "--profile") == 0)
+    {
+      if (codeslayer_utils_has_text (argv[2]))
+        profile_name = g_strdup (argv[2]);
+    }
+  
+  application = codeslayer_application_new (profile_name);
   status = g_application_run (G_APPLICATION (application), argc, argv);
   g_object_unref (application);
   return status;

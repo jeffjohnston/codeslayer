@@ -93,6 +93,7 @@ typedef struct _CodeSlayerApplicationPrivate CodeSlayerApplicationPrivate;
 struct _CodeSlayerApplicationPrivate
 {
   GtkWidget                 *window;
+  gchar                     *profile_name;
   CodeSlayerPreferences     *preferences;
   CodeSlayerProfiles        *profiles;
   CodeSlayerProfilesManager *profiles_manager;
@@ -131,6 +132,15 @@ codeslayer_application_class_init (CodeSlayerApplicationClass *klass)
 static void
 codeslayer_application_init (CodeSlayerApplication *application)
 {
+  CodeSlayerApplicationPrivate *priv;  
+  priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
+  priv->profiles = NULL;
+  priv->profiles_manager = NULL;
+  priv->engine = NULL;
+  priv->projects_engine = NULL;
+  priv->plugins = NULL;
+  priv->codeslayer = NULL;
+  priv->profile_name = NULL;
 }
 
 static void
@@ -138,13 +148,27 @@ codeslayer_application_finalize (CodeSlayerApplication *application)
 {
   CodeSlayerApplicationPrivate *priv;  
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
+  
+  if (priv->profile_name)
+    g_free (priv->profile_name);
 
-  g_object_unref (priv->profiles);
-  g_object_unref (priv->profiles_manager);
-  g_object_unref (priv->engine);
-  g_object_unref (priv->projects_engine);
-  g_object_unref (priv->plugins);
-  g_object_unref (priv->codeslayer);
+  if (priv->profiles)
+    g_object_unref (priv->profiles);
+  
+  if (priv->profiles_manager)
+    g_object_unref (priv->profiles_manager);
+  
+  if (priv->engine)
+    g_object_unref (priv->engine);
+  
+  if (priv->projects_engine)
+    g_object_unref (priv->projects_engine);
+  
+  if (priv->plugins)
+    g_object_unref (priv->plugins);
+  
+  if (priv->codeslayer)
+    g_object_unref (priv->codeslayer);
 
   G_OBJECT_CLASS (codeslayer_application_parent_class)->finalize (G_OBJECT (application));
 }
@@ -221,7 +245,7 @@ codeslayer_application_open (GApplication *application,
   gint i;
 
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
-  
+
   for (i = 0; i < n_files; i++)
     {
       GFile *file = files[i];
@@ -242,12 +266,18 @@ codeslayer_application_open (GApplication *application,
  * Returns: a new #CodeSlayerApplication. 
  */
 CodeSlayerApplication*
-codeslayer_application_new (void)
+codeslayer_application_new (gchar *profile_name)
 {
   CodeSlayerApplication *application;
+  CodeSlayerApplicationPrivate *priv;
+
   application = CODESLAYER_APPLICATION (g_object_new (codeslayer_application_get_type (), NULL));
+  priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
+  priv->profile_name = profile_name;
+
   g_application_set_application_id (G_APPLICATION (application), NULL);
   g_application_set_flags (G_APPLICATION (application), G_APPLICATION_HANDLES_OPEN);
+
   return application;
 }
 
@@ -256,14 +286,23 @@ create_profiles (CodeSlayerApplication *application)
 {
   CodeSlayerApplicationPrivate *priv;
   CodeSlayerProfiles *profiles;
-  CodeSlayerProfile *profile;
+  CodeSlayerProfile *profile = NULL;
   
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
   profiles = codeslayer_profiles_new ();
   priv->profiles = profiles;
   
-  profile = codeslayer_profiles_retrieve_profile (priv->profiles, CODESLAYER_PROFILES_DEFAULT);
+  if (priv->profile_name != NULL)
+    {
+      profile = codeslayer_profiles_retrieve_profile (priv->profiles, priv->profile_name);
+      if (profile == NULL)
+        g_warning ("The profile name '%s' is invalid", priv->profile_name);
+    }
+
+  if (profile == NULL)
+    profile = codeslayer_profiles_retrieve_profile (priv->profiles, CODESLAYER_PROFILES_DEFAULT);
+  
   if (profile == NULL)
     profile = codeslayer_profiles_create_profile (priv->profiles, CODESLAYER_PROFILES_DEFAULT);
   

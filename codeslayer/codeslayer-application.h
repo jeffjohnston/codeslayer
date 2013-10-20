@@ -44,7 +44,7 @@ struct _CodeSlayerApplicationClass
 
 GType codeslayer_application_get_type (void) G_GNUC_CONST;
 
-CodeSlayerApplication*  codeslayer_application_new  (void);
+CodeSlayerApplication*  codeslayer_application_new  (gchar *profile_name);
 
 G_END_DECLS
 
