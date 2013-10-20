@@ -37,30 +37,30 @@
  * Extends the #GtkSourceView to further enhance how a document can be edited.
  */
 
-static void codeslayer_editor_class_init      (CodeSlayerEditorClass        *klass);
-static void codeslayer_editor_init            (CodeSlayerEditor             *editor);
-static void codeslayer_editor_finalize        (CodeSlayerEditor             *editor);
+static void codeslayer_editor_class_init      (CodeSlayerEditorClass *klass);
+static void codeslayer_editor_init            (CodeSlayerEditor      *editor);
+static void codeslayer_editor_finalize        (CodeSlayerEditor      *editor);
 
-static void row_selected_action               (CodeSlayerEditor             *editor);
-static gboolean key_press_action              (CodeSlayerEditor             *editor,
-                                               GdkEventKey                  *event);
-static gboolean key_release_action            (CodeSlayerEditor             *editor,
-                                               GdkEventKey                  *event);
-static gboolean scroll_action                 (CodeSlayerEditor             *editor,
-                                               GdkEvent                     *event);                                               
-static gboolean button_press_action           (CodeSlayerEditor             *editor,
-                                               GdkEvent                     *event);                                               
-static void screen_action                     (CodeSlayerEditor             *editor,
-                                               GtkStateFlags                 flags);
-static void cursor_position_action            (CodeSlayerEditor             *editor,
-                                               GParamSpec                   *spec);
-static GtkSourceBuffer* create_source_buffer  (const gchar                  *file_name);
-static void completion_action                 (CodeSlayerEditor             *editor);
-static void change_case                       (CodeSlayerEditor             *editor,
+static void row_selected_action               (CodeSlayerEditor      *editor);
+static gboolean key_press_action              (CodeSlayerEditor      *editor,
+                                               GdkEventKey           *event);
+static gboolean key_release_action            (CodeSlayerEditor      *editor,
+                                               GdkEventKey           *event);
+static gboolean scroll_action                 (CodeSlayerEditor      *editor,
+                                               GdkEvent              *event);                                               
+static gboolean button_press_action           (CodeSlayerEditor      *editor,
+                                               GdkEvent              *event);                                               
+static void screen_action                     (CodeSlayerEditor      *editor,
+                                               GtkStateFlags          flags);
+static void cursor_position_action            (CodeSlayerEditor      *editor,
+                                               GParamSpec            *spec);
+static GtkSourceBuffer* create_source_buffer  (const gchar           *file_name);
+static void completion_action                 (CodeSlayerEditor      *editor);
+static void change_case                       (CodeSlayerEditor      *editor,
                                                GString* (*convert) (GString*));
-static void copy_lines_action                 (CodeSlayerEditor             *editor);
-static void to_uppercase_action               (CodeSlayerEditor             *editor);
-static void to_lowercase_action               (CodeSlayerEditor             *editor);
+static void copy_lines_action                 (CodeSlayerEditor      *editor);
+static void to_uppercase_action               (CodeSlayerEditor      *editor);
+static void to_lowercase_action               (CodeSlayerEditor      *editor);
                                                
                                                
 #define CODESLAYER_EDITOR_GET_PRIVATE(obj) \

@@ -51,6 +51,7 @@ codeslayer_profile_get_type (void) G_GNUC_CONST;
 
 CodeSlayerProfile*   codeslayer_profile_new (void);
 
+gchar*               codeslayer_profile_get_name                  (CodeSlayerProfile  *profile);
 const gchar*         codeslayer_profile_get_file_path             (CodeSlayerProfile  *profile);
 void                 codeslayer_profile_set_file_path             (CodeSlayerProfile  *profile, 
                                                                    const gchar        *file_path);

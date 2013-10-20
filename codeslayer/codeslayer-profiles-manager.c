@@ -39,6 +39,7 @@ static void add_profiles_pane                       (CodeSlayerProfilesManager  
 static void add_buttons_pane                        (CodeSlayerProfilesManager      *profiles_manager, 
                                                      GtkWidget                      *hpaned);
 static void load_profiles                           (CodeSlayerProfilesManager      *profiles_manager);
+static void select_current_profile                  (CodeSlayerProfilesManager      *profiles_manager);
 static gint sort_compare                            (GtkTreeModel                   *model, 
                                                      GtkTreeIter                    *a,
                                                      GtkTreeIter                    *b, 
@@ -152,6 +153,7 @@ codeslayer_profiles_manager_run_dialog (CodeSlayerProfilesManager *profiles_mana
   add_buttons_pane (profiles_manager, hbox);
   
   load_profiles (profiles_manager);
+  select_current_profile (profiles_manager);
   
   gtk_widget_show_all (content_area);
   
@@ -168,8 +170,7 @@ codeslayer_profiles_manager_run_dialog (CodeSlayerProfilesManager *profiles_mana
               CodeSlayerProfile *profile;
               gchar *name;
                     
-              gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, 
-                                  TEXT, &name, -1);
+              gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, TEXT, &name, -1);
               
               profile = codeslayer_profiles_retrieve_profile (priv->profiles, name);
               
@@ -290,8 +291,7 @@ select_row_action (GtkTreeSelection          *selection,
     {
       gchar *name;
             
-      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, 
-                          TEXT, &name, -1);
+      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, TEXT, &name, -1);
 
       if (g_strcmp0 (name, CODESLAYER_PROFILES_DEFAULT) == 0)
         {
@@ -430,8 +430,7 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
       gchar *name;
       gboolean active;
             
-      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, 
-                          TEXT, &name, -1);
+      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, TEXT, &name, -1);
       
       profile = codeslayer_profiles_retrieve_profile (priv->profiles, name);
       registry = codeslayer_profile_get_registry (profile);
@@ -509,8 +508,7 @@ delete_profile_action (CodeSlayerProfilesManager *profiles_manager)
       GFile *file;
       GError *error = NULL;
             
-      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, 
-                          TEXT, &name, -1);
+      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, TEXT, &name, -1);
       gtk_list_store_remove (GTK_LIST_STORE (priv->store), &iter);
       
       file_path = g_build_filename (g_get_home_dir (),
@@ -556,15 +554,48 @@ load_profiles (CodeSlayerProfilesManager *profiles_manager)
       if (profile != NULL)
         {
           gtk_list_store_append (priv->store, &iter);
-          gtk_list_store_set (priv->store, &iter, 
-                              TEXT, name,
-                              -1);
+          gtk_list_store_set (priv->store, &iter, TEXT, name, -1);
         }
 
       list = g_list_next (list);
     }
     
   g_list_free_full (names, g_free);
+}
+
+static void
+select_current_profile (CodeSlayerProfilesManager *profiles_manager)
+{
+  CodeSlayerProfilesManagerPrivate *priv;
+  CodeSlayerProfile *profile;
+  gchar *profile_name;
+  GtkTreeIter iter;
+
+  priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
+  
+  profile = codeslayer_profiles_get_current_profile  (priv->profiles);
+  profile_name = codeslayer_profile_get_name (profile);
+  
+  gtk_tree_model_iter_children (GTK_TREE_MODEL (priv->store), &iter, NULL);
+  
+  do
+    {
+      gchar *name;
+      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, TEXT, &name, -1);
+
+      if (g_strcmp0 (profile_name, name) == 0)
+        {
+          GtkTreePath *path;
+          path = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->store), &iter);
+          gtk_tree_view_set_cursor (GTK_TREE_VIEW (priv->tree), path, NULL, FALSE);
+          gtk_tree_path_free (path);
+        }
+
+      g_free (name);
+    }
+  while (gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->store), &iter));
+
+  g_free (profile_name);
 }
 
 static gint

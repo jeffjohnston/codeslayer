@@ -113,6 +113,27 @@ codeslayer_profile_new (void)
   return profile;
 }
 
+gchar*
+codeslayer_profile_get_name (CodeSlayerProfile  *profile)
+{
+  CodeSlayerProfilePrivate *priv;  
+  gchar *basename;
+  GFile *file;
+  GFile *parent;
+
+  priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
+  
+  file = g_file_new_for_path (priv->file_path);
+  parent =  g_file_get_parent (file);
+  
+  basename = g_file_get_basename (parent);
+
+  g_object_unref (file);
+  g_object_unref (parent);
+  
+  return basename;
+}
+
 /**
  * codeslayer_profile_get_file_path:
  * @profile: a #CodeSlayerProfile.
