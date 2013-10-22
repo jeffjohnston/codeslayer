@@ -35,6 +35,10 @@
 static void codeslayer_menu_bar_class_init  (CodeSlayerMenuBarClass *klass);
 static void codeslayer_menu_bar_init        (CodeSlayerMenuBar      *menu_bar);
 static void codeslayer_menu_bar_finalize    (CodeSlayerMenuBar      *menu_bar);
+                         
+static void sync_engine_action              (CodeSlayerMenuBar      *menu_bar,
+                                             gboolean                enable_projects,
+                                             gboolean                has_open_editors);
                             
 #define CODESLAYER_MENU_BAR_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_TYPE, CodeSlayerMenuBarPrivate))
@@ -665,8 +669,25 @@ codeslayer_menu_bar_new (GtkWidget          *window,
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_tools);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_help);
+  
+  g_signal_connect_swapped (G_OBJECT (menu), "sync-engine",
+                            G_CALLBACK (sync_engine_action), menu);
 
   return menu;
+}
+
+static void
+sync_engine_action (CodeSlayerMenuBar *menu_bar,
+                    gboolean           enable_projects,
+                    gboolean           has_open_editors)
+{
+  CodeSlayerMenuBarPrivate *priv;
+  priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
+  
+  if (enable_projects)
+    gtk_widget_show (priv->menu_bar_projects);
+  else
+    gtk_widget_hide (priv->menu_bar_projects);
 }
 
 GtkAccelGroup *
