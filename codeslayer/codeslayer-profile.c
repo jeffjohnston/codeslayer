@@ -41,6 +41,7 @@ typedef struct _CodeSlayerProfilePrivate CodeSlayerProfilePrivate;
 struct _CodeSlayerProfilePrivate
 {
   gchar              *file_path;
+  gchar              *name;
   gboolean            enable_projects;
   GList              *projects;
   GList              *documents;
@@ -66,6 +67,7 @@ codeslayer_profile_init (CodeSlayerProfile *profile)
   CodeSlayerProfilePrivate *priv; 
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   priv->file_path = NULL;
+  priv->name = NULL;
   priv->enable_projects = FALSE;
   priv->projects = NULL;
   priv->documents = NULL;
@@ -80,7 +82,10 @@ codeslayer_profile_finalize (CodeSlayerProfile *profile)
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   
   if (priv->file_path)
-    g_free (priv->file_path);
+    {
+      g_free (priv->file_path);
+      g_free (priv->name);    
+    }
   
   remove_all_projects (profile);
   remove_all_documents (profile);
@@ -113,32 +118,44 @@ codeslayer_profile_new (void)
   return profile;
 }
 
-gchar*
+/**
+ * codeslayer_profile_get_name:
+ * @profile: a #CodeSlayerProfile.
+ *
+ * Returns: the text to display for the profile.
+ */
+const gchar*
 codeslayer_profile_get_name (CodeSlayerProfile  *profile)
 {
-  CodeSlayerProfilePrivate *priv;  
-  gchar *basename;
-  GFile *file;
-  GFile *parent;
+  return CODESLAYER_PROFILE_GET_PRIVATE (profile)->name;
+}
 
+/**
+ * codeslayer_profile_set_name:
+ * @profile: a #CodeSlayerProfile.
+ * @name: the name of the profile.
+ *
+ * Returns: the text to display for the profile.
+ */
+void
+codeslayer_profile_set_name (CodeSlayerProfile *profile,
+                             gchar             *name)
+{
+  CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  
-  file = g_file_new_for_path (priv->file_path);
-  parent =  g_file_get_parent (file);
-  
-  basename = g_file_get_basename (parent);
-
-  g_object_unref (file);
-  g_object_unref (parent);
-  
-  return basename;
+  if (priv->name)
+    {
+      g_free (priv->name);
+      priv->name = NULL;
+    }
+  priv->name = g_strdup (name);
 }
 
 /**
  * codeslayer_profile_get_file_path:
  * @profile: a #CodeSlayerProfile.
  *
- * Returns: the text to display for the profile.
+ * Returns: the path to the profiles file.
  */
 const gchar*
 codeslayer_profile_get_file_path (CodeSlayerProfile *profile)
@@ -149,11 +166,11 @@ codeslayer_profile_get_file_path (CodeSlayerProfile *profile)
 /**
  * codeslayer_profile_set_file_path:
  * @profile: a #CodeSlayerProfile.
- * @name: the text to display for the profile.
+ * @file_path: the path to the profiles file.
  */
 void
 codeslayer_profile_set_file_path (CodeSlayerProfile *profile, 
-                                 const gchar      *file_path)
+                                  const gchar      *file_path)
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);

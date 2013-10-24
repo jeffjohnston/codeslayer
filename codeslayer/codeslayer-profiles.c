@@ -139,6 +139,7 @@ codeslayer_profiles_create_profile (CodeSlayerProfiles *profiles,
   CodeSlayerProfile *profile;
 
   gchar *file_path;
+  gchar *profile_name;
   GFile *file;
 
   file_path = g_build_filename (g_get_home_dir (),
@@ -152,11 +153,15 @@ codeslayer_profiles_create_profile (CodeSlayerProfiles *profiles,
   
   file = g_file_new_for_path (file_path);
   
+  profile_name = g_strdup (name);
+  
   profile = codeslayer_profile_new ();
   codeslayer_profile_set_file_path (profile, file_path);
+  codeslayer_profile_set_name (profile, profile_name);
   set_profile_registry_defaults (profile);
   
   g_free (file_path);
+  g_free (profile_name);
   g_object_unref (file);
   
   return profile;
@@ -169,6 +174,7 @@ codeslayer_profiles_retrieve_profile (CodeSlayerProfiles *profiles,
   CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   gchar *file_path;
+  gchar *profile_name;
   GFile *file;
   gboolean enable_projects;
   
@@ -179,10 +185,8 @@ codeslayer_profiles_retrieve_profile (CodeSlayerProfiles *profiles,
                                 CODESLAYER_PROFILE_FILE,
                                 NULL);
 
-  verify_directory_exists (name);
-
   file = g_file_new_for_path (file_path);
-
+  
   if (!g_file_query_exists (file, NULL))
     {
       g_free (file_path);
@@ -190,7 +194,10 @@ codeslayer_profiles_retrieve_profile (CodeSlayerProfiles *profiles,
       return NULL;
     }
     
+  profile_name = g_strdup (name);
+
   profile = retrieve_profile (file);
+  codeslayer_profile_set_name (profile, profile_name);
   registry = codeslayer_profile_get_registry (profile);
   
   enable_projects = codeslayer_registry_get_boolean (registry,
@@ -199,6 +206,7 @@ codeslayer_profiles_retrieve_profile (CodeSlayerProfiles *profiles,
   codeslayer_profile_set_enable_projects (profile, enable_projects);
     
   g_free (file_path);
+  g_free (profile_name);
   g_object_unref (file);    
                                 
   return profile;
