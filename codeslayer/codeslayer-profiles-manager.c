@@ -104,9 +104,9 @@ codeslayer_profiles_manager_finalize (CodeSlayerProfilesManager *profiles_manage
  * Returns: a new #CodeSlayerProfilesManager. 
  */
 CodeSlayerProfilesManager*
-codeslayer_profiles_manager_new (GtkWidget                *window, 
-                                 CodeSlayerProfiles       *profiles, 
-                                 CodeSlayerEngine         *engine)
+codeslayer_profiles_manager_new (GtkWidget          *window, 
+                                 CodeSlayerProfiles *profiles, 
+                                 CodeSlayerEngine   *engine)
 {
   CodeSlayerProfilesManagerPrivate *priv;
   CodeSlayerProfilesManager *profiles_manager;
@@ -543,7 +543,10 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
                   g_free (file_path);
                 }
               
-              codeslayer_profiles_save_profile (priv->profiles, profile);
+              if (g_strcmp0 (codeslayer_profile_get_name (profile), codeslayer_profile_get_name (current_profile)) == 0)
+                codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (priv->engine));
+              else
+                codeslayer_profiles_save_profile (priv->profiles, profile);
             }
         }
     }
@@ -605,7 +608,7 @@ delete_profile_action (CodeSlayerProfilesManager *profiles_manager)
       
       if (error != NULL)
         {
-          g_printerr ("not able to delete profile error: %s\n", error->message);
+          g_printerr ("Not able to delete profile: %s\n", error->message);
           g_error_free (error);
         }
 

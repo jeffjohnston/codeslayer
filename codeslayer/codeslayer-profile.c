@@ -81,12 +81,12 @@ codeslayer_profile_finalize (CodeSlayerProfile *profile)
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   
-  if (priv->file_path)
-    {
-      g_free (priv->file_path);
-      g_free (priv->name);    
-    }
+  if (priv->name)
+    g_free (priv->name);    
   
+  if (priv->file_path)
+    g_free (priv->file_path);
+
   remove_all_projects (profile);
   remove_all_documents (profile);
   remove_all_plugins (profile);
