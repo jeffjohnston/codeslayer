@@ -51,8 +51,8 @@ static void select_row_action                       (GtkTreeSelection           
 static void add_profile_action                      (CodeSlayerProfilesManager      *profiles_manager);
 static void edit_profile_action                     (CodeSlayerProfilesManager      *profiles_manager);
 static void delete_profile_action                   (CodeSlayerProfilesManager      *profiles_manager);
-static gboolean is_current_profile_being_edited     (CodeSlayerProfile              *current_profile, 
-                                                     CodeSlayerProfile              *profile);
+static gboolean is_profile_equal                    (CodeSlayerProfile              *profile1, 
+                                                     CodeSlayerProfile              *profile2);
 
 #define CODESLAYER_PROFILES_MANAGER_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROFILES_MANAGER_TYPE, CodeSlayerProfilesManagerPrivate))
@@ -548,7 +548,7 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
                   g_free (file_path);
                 }
               
-              if (is_current_profile_being_edited (profile, current_profile))
+              if (is_profile_equal (profile, current_profile))
                 {
                   codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (priv->engine));
                   if (active)
@@ -564,17 +564,10 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
         }
     }
     
-  if (!is_current_profile_being_edited (profile, current_profile))
+  if (!is_profile_equal (profile, current_profile))
     g_object_unref (profile);
   
   gtk_widget_destroy (dialog);
-}
-
-static gboolean 
-is_current_profile_being_edited (CodeSlayerProfile *profile, 
-                                 CodeSlayerProfile *current_profile)
-{
-  return g_strcmp0 (codeslayer_profile_get_name (profile), codeslayer_profile_get_name (current_profile)) == 0;
 }
 
 static void
@@ -725,6 +718,13 @@ select_current_profile (CodeSlayerProfilesManager *profiles_manager)
       g_free (name);
     }
   while (gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->store), &iter));
+}
+
+static gboolean 
+is_profile_equal (CodeSlayerProfile *profile1, 
+                  CodeSlayerProfile *profile2)
+{
+  return g_strcmp0 (codeslayer_profile_get_name (profile1), codeslayer_profile_get_name (profile2)) == 0;
 }
 
 static gint

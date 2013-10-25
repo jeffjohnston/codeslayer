@@ -867,11 +867,11 @@ cut_action (CodeSlayerEngine *engine)
     {
       codeslayer_projects_engine_cut_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
     }
-  else
+  else if (focused_window != NULL && 
+           (gtk_widget_get_ancestor (focused_window, GTK_TYPE_ENTRY) || 
+            gtk_widget_get_ancestor (focused_window, GTK_TYPE_TEXT_VIEW)))
     {
-      GtkWidget *editor;
-      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-      g_signal_emit_by_name ((gpointer) editor, "cut-clipboard");
+      g_signal_emit_by_name ((gpointer) focused_window, "cut-clipboard");
     }
 }
 
@@ -888,11 +888,11 @@ copy_action (CodeSlayerEngine *engine)
     {
       codeslayer_projects_engine_copy_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
     }
-  else
+  else if (focused_window != NULL && 
+           (gtk_widget_get_ancestor (focused_window, GTK_TYPE_ENTRY) || 
+            gtk_widget_get_ancestor (focused_window, GTK_TYPE_TEXT_VIEW)))
     {
-      GtkWidget *editor;
-      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-      g_signal_emit_by_name ((gpointer) editor, "copy-clipboard");
+      g_signal_emit_by_name ((gpointer) focused_window, "copy-clipboard");
     }
 }
 
@@ -909,11 +909,11 @@ paste_action (CodeSlayerEngine *engine)
     {
       codeslayer_projects_engine_paste_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
     }
-  else
+  else if (focused_window != NULL && 
+           (gtk_widget_get_ancestor (focused_window, GTK_TYPE_ENTRY) || 
+            gtk_widget_get_ancestor (focused_window, GTK_TYPE_TEXT_VIEW)))
     {
-      GtkWidget *editor;
-      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-      g_signal_emit_by_name ((gpointer) editor, "paste-clipboard");
+      g_signal_emit_by_name ((gpointer) focused_window, "paste-clipboard");
     }
 }
 
@@ -930,11 +930,11 @@ delete_action (CodeSlayerEngine *engine)
     {
       codeslayer_projects_engine_delete_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
     }
-  else
+  else if (focused_window != NULL && 
+           (gtk_widget_get_ancestor (focused_window, GTK_TYPE_ENTRY) || 
+            gtk_widget_get_ancestor (focused_window, GTK_TYPE_TEXT_VIEW)))
     {
-      GtkWidget *editor;
-      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-      g_signal_emit_by_name ((gpointer) editor, "delete-from-cursor", GTK_DELETE_CHARS);
+      g_signal_emit_by_name ((gpointer) focused_window, "delete-from-cursor", GTK_DELETE_CHARS);
     }
 }
 
