@@ -480,7 +480,7 @@ create_tree (CodeSlayerProjects *projects)
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   priv->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
@@ -813,7 +813,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
   gchar *destination_path;
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   if (select_document (document, projects))
@@ -2068,7 +2068,7 @@ append_treestore_children (CodeSlayerProjects *projects,
 
   file = g_file_new_for_path (parentdir);
   file_path = g_file_get_path (file);
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   enumerator = g_file_enumerate_children (file, "standard::*",

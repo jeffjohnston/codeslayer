@@ -51,6 +51,8 @@ static void select_row_action                       (GtkTreeSelection           
 static void add_profile_action                      (CodeSlayerProfilesManager      *profiles_manager);
 static void edit_profile_action                     (CodeSlayerProfilesManager      *profiles_manager);
 static void delete_profile_action                   (CodeSlayerProfilesManager      *profiles_manager);
+static gboolean is_current_profile_being_edited     (CodeSlayerProfile              *current_profile, 
+                                                     CodeSlayerProfile              *profile);
 
 #define CODESLAYER_PROFILES_MANAGER_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROFILES_MANAGER_TYPE, CodeSlayerProfilesManagerPrivate))
@@ -59,14 +61,15 @@ typedef struct _CodeSlayerProfilesManagerPrivate CodeSlayerProfilesManagerPrivat
 
 struct _CodeSlayerProfilesManagerPrivate
 {
-  GtkWidget          *window;
-  GtkWidget          *dialog;
-  GtkWidget          *edit_button;
-  GtkWidget          *delete_button;
-  CodeSlayerProfiles *profiles;
-  CodeSlayerEngine   *engine;
-  GtkWidget          *tree;
-  GtkListStore       *store;
+  GtkWidget                *window;
+  GtkWidget                *dialog;
+  GtkWidget                *edit_button;
+  GtkWidget                *delete_button;
+  CodeSlayerProfiles       *profiles;
+  CodeSlayerEngine         *engine;
+  CodeSlayerProjectsEngine *projects_engine;
+  GtkWidget                *tree;
+  GtkListStore             *store;
 };
 
 enum
@@ -104,9 +107,10 @@ codeslayer_profiles_manager_finalize (CodeSlayerProfilesManager *profiles_manage
  * Returns: a new #CodeSlayerProfilesManager. 
  */
 CodeSlayerProfilesManager*
-codeslayer_profiles_manager_new (GtkWidget          *window, 
-                                 CodeSlayerProfiles *profiles, 
-                                 CodeSlayerEngine   *engine)
+codeslayer_profiles_manager_new (GtkWidget                *window, 
+                                 CodeSlayerProfiles       *profiles, 
+                                 CodeSlayerEngine         *engine, 
+                                 CodeSlayerProjectsEngine *projects_engine)
 {
   CodeSlayerProfilesManagerPrivate *priv;
   CodeSlayerProfilesManager *profiles_manager;
@@ -116,6 +120,7 @@ codeslayer_profiles_manager_new (GtkWidget          *window,
   priv->window = window;
   priv->profiles = profiles;
   priv->engine = engine;
+  priv->projects_engine = projects_engine;
   
   return profiles_manager;
 }
@@ -176,7 +181,7 @@ codeslayer_profiles_manager_run_dialog (CodeSlayerProfilesManager *profiles_mana
               
               profile = codeslayer_profiles_retrieve_profile (priv->profiles, name);
               
-              codeslayer_profiles_set_current_profile (priv->profiles, profile);
+              codeslayer_profiles_load_profile (priv->profiles, profile);
 
               codeslayer_engine_load_profile (CODESLAYER_ENGINE (priv->engine));
               
@@ -418,7 +423,7 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
 
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
   
-  current_profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  current_profile = codeslayer_profiles_get_profile (priv->profiles);
   
   dialog = gtk_dialog_new_with_buttons (_("Edit Profile"), 
                                         GTK_WINDOW (priv->dialog),
@@ -543,18 +548,33 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
                   g_free (file_path);
                 }
               
-              if (g_strcmp0 (codeslayer_profile_get_name (profile), codeslayer_profile_get_name (current_profile)) == 0)
-                codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (priv->engine));
+              if (is_current_profile_being_edited (profile, current_profile))
+                {
+                  codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (priv->engine));
+                  if (active)
+                    codeslayer_projects_engine_show_projects (priv->projects_engine);
+                  else
+                    codeslayer_projects_engine_hide_projects (priv->projects_engine);
+                }
               else
-                codeslayer_profiles_save_profile (priv->profiles, profile);
+                {
+                  codeslayer_profiles_save_profile (priv->profiles, profile);                
+                }
             }
         }
     }
     
-  if (g_strcmp0 (codeslayer_profile_get_name (profile), codeslayer_profile_get_name (current_profile)) != 0)
+  if (!is_current_profile_being_edited (profile, current_profile))
     g_object_unref (profile);
   
   gtk_widget_destroy (dialog);
+}
+
+static gboolean 
+is_current_profile_being_edited (CodeSlayerProfile *profile, 
+                                 CodeSlayerProfile *current_profile)
+{
+  return g_strcmp0 (codeslayer_profile_get_name (profile), codeslayer_profile_get_name (current_profile)) == 0;
 }
 
 static void
@@ -684,7 +704,7 @@ select_current_profile (CodeSlayerProfilesManager *profiles_manager)
 
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
   
-  profile = codeslayer_profiles_get_current_profile  (priv->profiles);
+  profile = codeslayer_profiles_get_profile  (priv->profiles);
   profile_name = codeslayer_profile_get_name (profile);
   
   gtk_tree_model_iter_children (GTK_TREE_MODEL (priv->store), &iter, NULL);

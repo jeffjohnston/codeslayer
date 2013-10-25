@@ -194,7 +194,7 @@ sync_engine_action (CodeSlayerMenuBarView *menu_bar_view,
   
   priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   gtk_widget_set_sensitive (priv->draw_spaces_item, has_open_editors);

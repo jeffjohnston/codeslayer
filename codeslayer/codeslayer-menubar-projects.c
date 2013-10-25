@@ -177,7 +177,7 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   if (enable_projects)
@@ -247,7 +247,7 @@ sync_with_editor_action (CodeSlayerMenuBarProjects *menu_bar_projects)
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   sync_with_editor = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item));

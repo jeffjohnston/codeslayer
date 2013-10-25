@@ -583,7 +583,7 @@ codeslayer_notebook_search_sync_with_notebook (CodeSlayerNotebookSearch *noteboo
 
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
@@ -779,7 +779,7 @@ save_search_options (CodeSlayerNotebookSearch *notebook_search)
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   match_case_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_button));

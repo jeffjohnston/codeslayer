@@ -115,7 +115,7 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
 
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   dialog = gtk_dialog_new_with_buttons (_("Preferences"), 
                                         GTK_WINDOW (priv->window),

@@ -62,6 +62,8 @@ CodeSlayerProjectsEngine*  codeslayer_projects_engine_new                 (GtkWi
                                                                            GtkWidget                *vpaned);
 
 void                       codeslayer_projects_engine_load_profile        (CodeSlayerProjectsEngine *engine);
+void                       codeslayer_projects_engine_show_projects       (CodeSlayerProjectsEngine *engine);
+void                       codeslayer_projects_engine_hide_projects       (CodeSlayerProjectsEngine *engine);
 void                       codeslayer_projects_engine_search_find         (CodeSlayerProjectsEngine *engine);                                                            
 void                       codeslayer_projects_engine_cut_file_folder     (CodeSlayerProjectsEngine *engine);                                                            
 void                       codeslayer_projects_engine_copy_file_folder    (CodeSlayerProjectsEngine *engine);                                                            

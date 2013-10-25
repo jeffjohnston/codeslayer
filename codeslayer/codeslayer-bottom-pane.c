@@ -87,7 +87,7 @@ codeslayer_bottom_pane_new (CodeSlayerProfiles *profiles)
   create_close_button (CODESLAYER_BOTTOM_PANE (bottom_pane));
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (bottom_pane));
 
-  profile = codeslayer_profiles_get_current_profile (profiles);
+  profile = codeslayer_profiles_get_profile (profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",

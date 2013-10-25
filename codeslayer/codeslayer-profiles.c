@@ -112,7 +112,7 @@ codeslayer_profiles_new ()
 }
 
 CodeSlayerProfile*
-codeslayer_profiles_get_current_profile (CodeSlayerProfiles *profiles)
+codeslayer_profiles_get_profile (CodeSlayerProfiles *profiles)
 {
   CodeSlayerProfilesPrivate *priv; 
   priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);  
@@ -120,8 +120,8 @@ codeslayer_profiles_get_current_profile (CodeSlayerProfiles *profiles)
 }
 
 void
-codeslayer_profiles_set_current_profile (CodeSlayerProfiles *profiles, 
-                                         CodeSlayerProfile  *profile)
+codeslayer_profiles_load_profile (CodeSlayerProfiles *profiles, 
+                                  CodeSlayerProfile  *profile)
 {
   CodeSlayerProfilesPrivate *priv;
   priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);

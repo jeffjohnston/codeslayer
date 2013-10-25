@@ -306,7 +306,7 @@ create_profiles (CodeSlayerApplication *application)
   if (profile == NULL)
     profile = codeslayer_profiles_create_profile (priv->profiles, CODESLAYER_PROFILES_DEFAULT);
   
-  codeslayer_profiles_set_current_profile (profiles, profile);
+  codeslayer_profiles_load_profile (profiles, profile);
 }
 
 static void
@@ -482,7 +482,8 @@ create_profiles_manager (CodeSlayerApplication *application)
 
   priv->profiles_manager = codeslayer_profiles_manager_new (GTK_WIDGET (priv->window), 
                                                             priv->profiles, 
-                                                            priv->engine);
+                                                            priv->engine, 
+                                                            priv->projects_engine);
   
   g_signal_connect_swapped (G_OBJECT (priv->menubar), "show-profiles",
                             G_CALLBACK (codeslayer_profiles_manager_run_dialog), 

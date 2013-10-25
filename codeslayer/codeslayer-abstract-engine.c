@@ -274,7 +274,7 @@ codeslayer_abstract_engine_save_profile (CodeSlayerAbstractEngine *engine)
   CodeSlayerProfile *profile;
   
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (engine);
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   if (profile == NULL)
     return TRUE;
@@ -299,7 +299,7 @@ save_document_settings (CodeSlayerAbstractEngine *abstract_engine)
   gint page;
 
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   if (codeslayer_profile_get_enable_projects (profile) == FALSE)
     return;
@@ -331,7 +331,7 @@ save_window_settings (CodeSlayerAbstractEngine *abstract_engine)
   
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   gtk_window_get_size (GTK_WINDOW (priv->window), &width, &height);
@@ -376,7 +376,7 @@ codeslayer_abstract_engine_load_window_settings (CodeSlayerAbstractEngine *abstr
   
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
     
   /* window specific settings */                                              
@@ -456,7 +456,7 @@ codeslayer_abstract_engine_sync_menu_bar (CodeSlayerAbstractEngine *abstract_eng
   gint pages;
 
   priv = CODESLAYER_ABSTRACT_ENGINE_GET_PRIVATE (abstract_engine);
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   enable_projects = codeslayer_profile_get_enable_projects (profile);
 

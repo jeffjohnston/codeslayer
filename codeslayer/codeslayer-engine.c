@@ -201,7 +201,7 @@ codeslayer_engine_new (GtkWindow                *window,
                 "vpaned", vpaned, 
                 NULL);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   g_signal_connect_swapped (G_OBJECT (menubar), "new-editor",
@@ -310,7 +310,7 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   codeslayer_plugins_deactivate (priv->plugins);
@@ -500,7 +500,7 @@ toggle_side_pane_action (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   if (gtk_widget_get_visible (GTK_WIDGET(priv->side_pane)))
@@ -528,7 +528,7 @@ open_side_pane_action (CodeSlayerEngine *engine)
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);  
 
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   gtk_widget_show (GTK_WIDGET(priv->side_pane));
@@ -546,7 +546,7 @@ close_side_pane_action (CodeSlayerEngine *engine)
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   gtk_widget_hide (GTK_WIDGET(priv->side_pane));
@@ -564,7 +564,7 @@ toggle_bottom_pane_action (CodeSlayerEngine *engine)
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   if (gtk_widget_get_visible (GTK_WIDGET(priv->bottom_pane)))
@@ -594,7 +594,7 @@ open_bottom_pane_action (CodeSlayerEngine *engine)
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   gtk_widget_show (GTK_WIDGET(priv->bottom_pane));
@@ -613,7 +613,7 @@ close_bottom_pane_action (CodeSlayerEngine *engine)
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   gtk_widget_hide (GTK_WIDGET(priv->bottom_pane));
@@ -633,7 +633,7 @@ draw_spaces_action (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   draw_spaces = codeslayer_registry_get_boolean (registry, 
@@ -664,7 +664,7 @@ word_wrap_action (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   word_wrap = codeslayer_registry_get_boolean (registry, 
@@ -810,7 +810,7 @@ show_plugins_action (CodeSlayerEngine *engine)
   CodeSlayerProfile *profile;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   codeslayer_plugins_run_dialog (priv->plugins, profile);
 }

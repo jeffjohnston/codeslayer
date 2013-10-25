@@ -799,7 +799,7 @@ codeslayer_get_profile_config_folder_path (CodeSlayer *codeslayer)
   
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);  
+  profile = codeslayer_profiles_get_profile (priv->profiles);  
   file_path = codeslayer_profile_get_file_path (profile);
   file = g_file_new_for_path (file_path);
   parent = g_file_get_parent (file);
@@ -829,7 +829,7 @@ codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer,
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   if (!codeslayer_profile_get_enable_projects (profile))
     return NULL;
@@ -854,7 +854,7 @@ codeslayer_get_registry (CodeSlayer *codeslayer)
   
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   return registry;
@@ -871,7 +871,7 @@ codeslayer_get_projects (CodeSlayer *codeslayer)
   
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   return codeslayer_profile_get_projects (profile);
 }

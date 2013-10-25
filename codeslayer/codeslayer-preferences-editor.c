@@ -132,7 +132,7 @@ add_line_number (CodeSlayerPreferencesEditor *preferences_editor)
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   content_area = codeslayer_preferences_utils_content_area (GTK_BOX (preferences_editor), 
@@ -162,7 +162,7 @@ add_current_line (CodeSlayerPreferencesEditor *preferences_editor)
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   content_area = codeslayer_preferences_utils_content_area (GTK_BOX (preferences_editor), 
@@ -197,7 +197,7 @@ add_right_margin (CodeSlayerPreferencesEditor *preferences_editor)
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   content_area = codeslayer_preferences_utils_content_area (GTK_BOX (preferences_editor), 
@@ -249,7 +249,7 @@ add_bracket_matching (CodeSlayerPreferencesEditor *preferences_editor)
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   content_area = codeslayer_preferences_utils_content_area (GTK_BOX (preferences_editor), 
@@ -284,7 +284,7 @@ add_tab_stops (CodeSlayerPreferencesEditor *preferences_editor)
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   content_area = codeslayer_preferences_utils_content_area (GTK_BOX (preferences_editor), 
@@ -336,7 +336,7 @@ add_automatic_indentation (CodeSlayerPreferencesEditor *preferences_editor)
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   content_area = codeslayer_preferences_utils_content_area (GTK_BOX (preferences_editor), 
@@ -364,7 +364,7 @@ display_line_number_action (CodeSlayerPreferencesEditor *preferences_editor)
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->display_line_number));
@@ -385,7 +385,7 @@ highlight_current_line_action (CodeSlayerPreferencesEditor *preferences_editor)
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_current_line));
@@ -406,7 +406,7 @@ display_right_margin_action (CodeSlayerPreferencesEditor *preferences_editor)
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->display_right_margin));
@@ -427,7 +427,7 @@ highlight_matching_bracket_action (CodeSlayerPreferencesEditor *preferences_edit
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_matching_bracket));
@@ -448,7 +448,7 @@ insert_spaces_instead_of_tabs_action (CodeSlayerPreferencesEditor *preferences_e
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->insert_spaces_instead_of_tabs));
@@ -469,7 +469,7 @@ enable_automatic_indentation_action (CodeSlayerPreferencesEditor *preferences_ed
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->enable_automatic_indentation));
@@ -490,7 +490,7 @@ right_margin_position_action (CodeSlayerPreferencesEditor *preferences_editor)
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   value = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->right_margin_position));
@@ -511,7 +511,7 @@ tab_width_action (CodeSlayerPreferencesEditor *preferences_editor)
   
   priv = CODESLAYER_PREFERENCES_EDITOR_GET_PRIVATE (preferences_editor);
   
-  profile = codeslayer_profiles_get_current_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
 
   value = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->tab_width));
