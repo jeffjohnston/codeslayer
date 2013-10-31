@@ -313,9 +313,6 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
   profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
-  codeslayer_plugins_deactivate (priv->plugins);
-  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
-
   codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
 
   if (!codeslayer_profile_get_enable_projects (profile))

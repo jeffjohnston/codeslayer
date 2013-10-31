@@ -522,3 +522,12 @@ quit_application_action (CodeSlayerWindow *window)
   codeslayer_plugins_deactivate (priv->plugins);
   gtk_widget_destroy (GTK_WIDGET (window));
 }
+
+void
+codeslayer_window_open_editor (CodeSlayerWindow *window, 
+                               gchar            *file_path)
+{
+  CodeSlayerWindowPrivate *priv;
+  priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
+  codeslayer_engine_open_editor (priv->engine, file_path);
+}

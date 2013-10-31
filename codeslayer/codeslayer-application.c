@@ -129,7 +129,10 @@ codeslayer_application_open (GApplication *application,
                              gint         n_files,
                              const gchar  *hint)
 {
+  GtkWindow *window;
   gint i;
+  
+  window = gtk_application_get_active_window (GTK_APPLICATION (application));
 
   for (i = 0; i < n_files; i++)
     {
@@ -137,7 +140,7 @@ codeslayer_application_open (GApplication *application,
       if (g_file_query_exists (file, NULL))
         {
           gchar *file_path = g_file_get_path (file);
-          /*codeslayer_engine_open_editor (priv->engine, file_path);*/
+          codeslayer_window_open_editor (CODESLAYER_WINDOW (window), file_path);
           g_free (file_path);
         }
     }
@@ -159,7 +162,7 @@ codeslayer_application_new (gchar *profile_name)
   application = CODESLAYER_APPLICATION (g_object_new (codeslayer_application_get_type (), NULL));
   priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
 
-  g_application_set_application_id (G_APPLICATION (application), NULL);
+  g_application_set_application_id (G_APPLICATION (application), "org.codeslayer");
   g_application_set_flags (G_APPLICATION (application), G_APPLICATION_HANDLES_OPEN);
   
   priv->profile_name = profile_name;

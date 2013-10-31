@@ -220,8 +220,6 @@ codeslayer_projects_engine_load_profile (CodeSlayerProjectsEngine *engine)
                                        priv->projects, "Projects", 0);
     }
 
-  codeslayer_projects_clear (CODESLAYER_PROJECTS (priv->projects));
-  
   if (codeslayer_profile_get_enable_projects (profile))
     {
       GList *projects;
