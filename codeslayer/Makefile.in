@@ -154,6 +154,7 @@ am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-plugins-selector.lo \
 	libcodeslayer_la-codeslayer-plugins.lo \
 	libcodeslayer_la-codeslayer-tearoff.lo \
+	libcodeslayer_la-codeslayer-window.lo \
 	libcodeslayer_la-encoding.lo libcodeslayer_la-codeslayer.lo
 libcodeslayer_la_OBJECTS = $(am_libcodeslayer_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -412,6 +413,7 @@ pkginclude_HEADERS = \
     codeslayer-plugins-selector.h \
     codeslayer-plugins.h \
     codeslayer-tearoff.h \
+    codeslayer-window.h \
     codeslayer.h
 
 libcodeslayer_la_SOURCES = \
@@ -469,6 +471,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-plugins-selector.c \
     codeslayer-plugins.c \
     codeslayer-tearoff.c \
+    codeslayer-window.c \
     encoding.c \
     encoding.h \
     codeslayer.c
@@ -655,6 +658,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-side-pane.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-tearoff.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-utils.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-window.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-xml.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-encoding.Plo@am__quote@
@@ -1057,6 +1061,13 @@ libcodeslayer_la-codeslayer-tearoff.lo: codeslayer-tearoff.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-tearoff.c' object='libcodeslayer_la-codeslayer-tearoff.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-tearoff.lo `test -f 'codeslayer-tearoff.c' || echo '$(srcdir)/'`codeslayer-tearoff.c
+
+libcodeslayer_la-codeslayer-window.lo: codeslayer-window.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-window.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-window.Tpo -c -o libcodeslayer_la-codeslayer-window.lo `test -f 'codeslayer-window.c' || echo '$(srcdir)/'`codeslayer-window.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-window.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-window.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-window.c' object='libcodeslayer_la-codeslayer-window.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-window.lo `test -f 'codeslayer-window.c' || echo '$(srcdir)/'`codeslayer-window.c
 
 libcodeslayer_la-encoding.lo: encoding.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-encoding.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-encoding.Tpo -c -o libcodeslayer_la-encoding.lo `test -f 'encoding.c' || echo '$(srcdir)/'`encoding.c

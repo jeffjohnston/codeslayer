@@ -55,6 +55,7 @@ pkginclude_HEADERS = \
     codeslayer-plugins-selector.h \
     codeslayer-plugins.h \
     codeslayer-tearoff.h \
+    codeslayer-window.h \
     codeslayer.h
     
 libcodeslayer_la_SOURCES = \
@@ -112,6 +113,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-plugins-selector.c \
     codeslayer-plugins.c \
     codeslayer-tearoff.c \
+    codeslayer-window.c \
     encoding.c \
     encoding.h \
     codeslayer.c
