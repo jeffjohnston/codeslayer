@@ -144,6 +144,8 @@ codeslayer_application_open (GApplication *application,
           g_free (file_path);
         }
     }
+    
+  gtk_window_present (window);
 }
 
 /**
