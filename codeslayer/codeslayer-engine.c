@@ -326,29 +326,41 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
   g_signal_emit_by_name ((gpointer) registry, "registry-initialized");
 }
 
+static void
+close_default_editor (CodeSlayerEngine *engine)
+
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+
+  if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook)) == 1)
+    {
+      GtkWidget *editor;
+      GtkTextBuffer *buffer;
+      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+
+      if (gtk_text_buffer_get_char_count (buffer) <= 0)
+        codeslayer_notebook_close_editor (CODESLAYER_NOTEBOOK (priv->notebook), 0);
+    }
+}
+
 void
 codeslayer_engine_open_editor (CodeSlayerEngine *engine, 
                                gchar            *file_path)
 {
   CodeSlayerEnginePrivate *priv;
-  GtkWidget *editor;
-  GtkTextBuffer *buffer;
   CodeSlayerDocument *document;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-  if (editor == NULL)
-    return;
-  
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
-  if (gtk_text_buffer_get_char_count (buffer) <= 0 && 
-      gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook)) == 1)
-    codeslayer_notebook_close_editor (CODESLAYER_NOTEBOOK (priv->notebook), 0);
+  close_default_editor (engine);
   
   document = codeslayer_document_new ();
   codeslayer_document_set_file_path (document, file_path);
-  codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
+  
+  if (!codeslayer_notebook_select_editor (CODESLAYER_NOTEBOOK (priv->notebook), document))
+    codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
   
   g_object_unref (document);
 

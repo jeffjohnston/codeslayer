@@ -335,8 +335,6 @@ select_projects_document_action (CodeSlayerProjectsEngine *engine,
   GtkWidget *notebook;
   const gchar *file_path;
   GFile *file;
-  gint pages;
-  gint page;
 
   priv = CODESLAYER_PROJECTS_ENGINE_GET_PRIVATE (engine);
   
@@ -352,42 +350,9 @@ select_projects_document_action (CodeSlayerProjectsEngine *engine,
       return;
     }
   g_object_unref (file);
-
-  /* make sure the page is not already part of the notebook */
   
-  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
-
-  for (page = 0; page < pages; page++)
-    {
-      GtkWidget *notebook_page;
-      CodeSlayerDocument *current_document;
-      const gchar *current_file_path;
-      
-      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), page);
-      current_document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-      current_file_path = codeslayer_document_get_file_path (current_document);
-
-      if (g_strcmp0 (current_file_path, file_path) == 0)
-        {
-          gint line_number;
-        
-          gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), page);
-
-          line_number = codeslayer_document_get_line_number (document);
-          if (line_number > 0)
-            {
-              GtkWidget *editor;
-              editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-              codeslayer_editor_scroll_to_line (CODESLAYER_EDITOR (editor), line_number);
-            }
-
-          return;
-        }
-    }
-
-  /* all passed so add to the notebook */
-
-  codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (notebook), document);
+  if (!codeslayer_notebook_select_editor (CODESLAYER_NOTEBOOK (notebook), document))
+    codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (notebook), document);
 
   codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
 }

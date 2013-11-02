@@ -482,25 +482,11 @@ GList*
 codeslayer_get_all_editors (CodeSlayer *codeslayer)
 {
   CodeSlayerPrivate *priv;
-  GList *results = NULL;
-  gint pages;
-  gint i;
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   
-  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
-  
-  for (i = 0; i < pages; i++)
-    {
-      GtkWidget *notebook_page;
-      GtkWidget *editor; 
-      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), i);
-      editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-      results = g_list_prepend (results, editor);
-    }
-    
-  return g_list_reverse (results);
+  return codeslayer_notebook_get_all_editors (priv->notebook);
 }
 
 /**

@@ -20,6 +20,7 @@
 #define	__CODESLAYER_NOTEBOOK_H__
 
 #include <gtk/gtk.h>
+#include <codeslayer/codeslayer-editor.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-profiles.h>
 
@@ -51,19 +52,22 @@ struct _CodeSlayerNotebookClass
 GType
 codeslayer_notebook_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_notebook_new                  (GtkWindow             *window,
-                                                      CodeSlayerProfiles    *profiles);
+GtkWidget*  codeslayer_notebook_new                  (GtkWindow          *window,
+                                                      CodeSlayerProfiles *profiles);
 
-void        codeslayer_notebook_add_editor           (CodeSlayerNotebook    *notebook, 
-                                                      CodeSlayerDocument    *document);
-void        codeslayer_notebook_save_editor          (CodeSlayerNotebook    *notebook, 
-                                                      gint                   page_num);
-void        codeslayer_notebook_save_all_editors     (CodeSlayerNotebook    *notebook);
-gboolean    codeslayer_notebook_has_unsaved_editors  (CodeSlayerNotebook    *notebook);
-gboolean    codeslayer_notebook_close_editor         (CodeSlayerNotebook    *notebook, 
-                                                      gint                   page_num);
-void        codeslayer_notebook_close_all_editors    (CodeSlayerNotebook    *notebook);
-GtkWidget*  codeslayer_notebook_get_active_editor    (CodeSlayerNotebook    *notebook);
+void        codeslayer_notebook_add_editor           (CodeSlayerNotebook *notebook, 
+                                                      CodeSlayerDocument *document);
+gboolean    codeslayer_notebook_select_editor        (CodeSlayerNotebook *notebook, 
+                                                      CodeSlayerDocument *document);
+void        codeslayer_notebook_save_editor          (CodeSlayerNotebook *notebook, 
+                                                      gint                page_num);
+void        codeslayer_notebook_save_all_editors     (CodeSlayerNotebook *notebook);
+gboolean    codeslayer_notebook_has_unsaved_editors  (CodeSlayerNotebook *notebook);
+gboolean    codeslayer_notebook_close_editor         (CodeSlayerNotebook *notebook, 
+                                                      gint                page_num);
+void        codeslayer_notebook_close_all_editors    (CodeSlayerNotebook *notebook);
+GtkWidget*  codeslayer_notebook_get_active_editor    (CodeSlayerNotebook *notebook);
+GList*      codeslayer_notebook_get_all_editors      (CodeSlayerNotebook *notebook);
 
 G_END_DECLS
 

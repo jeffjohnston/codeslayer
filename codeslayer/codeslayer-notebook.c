@@ -280,6 +280,56 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
 }
 
 /**
+ * codeslayer_notebook_select_editor:
+ * @notebook: a #CodeSlayerNotebook.
+ * @document: a #CodeSlayerDocument.
+ *
+ * Returns: is TRUE if the editor is able to be found. 
+ */
+gboolean
+codeslayer_notebook_select_editor (CodeSlayerNotebook *notebook, 
+                                   CodeSlayerDocument *document)
+{
+  gint pages;
+  gint page;
+  const gchar *file_path;
+  
+  file_path = codeslayer_document_get_file_path (document);
+
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
+
+  for (page = 0; page < pages; page++)
+    {
+      GtkWidget *notebook_page;
+      CodeSlayerDocument *current_document;
+      const gchar *current_file_path;
+      
+      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), page);
+      current_document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      current_file_path = codeslayer_document_get_file_path (current_document);
+
+      if (g_strcmp0 (current_file_path, file_path) == 0)
+        {
+          gint line_number;
+        
+          gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), page);
+
+          line_number = codeslayer_document_get_line_number (document);
+          if (line_number > 0)
+            {
+              GtkWidget *editor;
+              editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+              codeslayer_editor_scroll_to_line (CODESLAYER_EDITOR (editor), line_number);
+            }
+
+          return TRUE;
+        }
+    }
+    
+  return FALSE;    
+}
+
+/**
  * codeslayer_notebook_save_editor:
  * @notebook: a #CodeSlayerNotebook.
  * @page_num: the notebook page to save. Pages begin with 0 starting 
@@ -534,7 +584,39 @@ codeslayer_notebook_get_active_editor (CodeSlayerNotebook *notebook)
   page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
   notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 
                                              page_num);
+  
+  if (notebook_page == NULL)
+    return NULL;
+
   return codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+}
+
+/**
+ * codeslayer_notebook_get_all_editors:
+ * @notebook: a #CodeSlayerNotebook.
+ *
+ * Returns: a #GList of #CodeSlayerEditor. Note: you need to call g_list_free
+ * when you are done with the list.
+ */
+GList*
+codeslayer_notebook_get_all_editors (CodeSlayerNotebook *notebook)
+{
+  GList *results = NULL;
+  gint pages;
+  gint i;
+  
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
+  
+  for (i = 0; i < pages; i++)
+    {
+      GtkWidget *notebook_page;
+      GtkWidget *editor; 
+      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), i);
+      editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      results = g_list_prepend (results, editor);
+    }
+    
+  return g_list_reverse (results);
 }
 
 static void
