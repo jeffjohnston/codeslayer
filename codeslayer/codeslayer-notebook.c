@@ -237,7 +237,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   /* create tab */
   
   if (file_name == NULL)
-    file_name = g_strdup ("Untitled");
+    file_name = g_strdup (CODESLAYER_EDITOR_UNTITLED);
     
   notebook_tab = codeslayer_notebook_tab_new (GTK_WIDGET (notebook), file_name);
   codeslayer_notebook_tab_set_notebook_page (CODESLAYER_NOTEBOOK_TAB (notebook_tab), 
@@ -332,8 +332,7 @@ codeslayer_notebook_select_editor (CodeSlayerNotebook *notebook,
 /**
  * codeslayer_notebook_save_editor:
  * @notebook: a #CodeSlayerNotebook.
- * @page_num: the notebook page to save. Pages begin with 0 starting 
- *                        from the left.
+ * @page_num: the notebook page to save.
  */
 void
 codeslayer_notebook_save_editor (CodeSlayerNotebook *notebook, 
@@ -520,7 +519,7 @@ codeslayer_notebook_close_editor (CodeSlayerNotebook *notebook,
 }
 
 /**
- * codeslayer_notebook_has_clean_buffers:
+ * codeslayer_notebook_has_unsaved_editors:
  * @notebook: a #CodeSlayerNotebook.
  *
  * Returns: is FALSE unless there are editors that need to saved.
@@ -765,7 +764,7 @@ has_clean_buffer (CodeSlayerNotebook *notebook,
   if (file_path != NULL)
     base_name = g_path_get_basename (file_path);
   else
-    base_name = g_strdup ("Untitled");
+    base_name = g_strdup (CODESLAYER_EDITOR_UNTITLED);
   
   text = g_strdup_printf (_("Save changes to %s?"), base_name);
 

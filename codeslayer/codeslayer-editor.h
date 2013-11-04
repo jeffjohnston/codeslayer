@@ -34,6 +34,8 @@ G_BEGIN_DECLS
 #define IS_CODESLAYER_EDITOR(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_EDITOR_TYPE))
 #define IS_CODESLAYER_EDITOR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_EDITOR_TYPE))
 
+#define CODESLAYER_EDITOR_UNTITLED "Untitled"
+
 typedef struct _CodeSlayerEditor CodeSlayerEditor;
 typedef struct _CodeSlayerEditorClass CodeSlayerEditorClass;
 
