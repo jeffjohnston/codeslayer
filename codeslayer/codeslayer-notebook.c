@@ -62,7 +62,7 @@ static GtkWidget* save_editor               (CodeSlayerNotebook      *notebook,
 static void get_dirty_buffer_pages          (CodeSlayerNotebook      *notebook, 
                                              gint                     page,
                                              GList                   **dirty_pages);
-static gboolean resolve_clean_buffers       (CodeSlayerNotebook      *notebook, 
+static gboolean resolve_dirty_buffers       (CodeSlayerNotebook      *notebook, 
                                              GList                   *dirty_pages);
 
 #define CODESLAYER_NOTEBOOK_GET_PRIVATE(obj) \
@@ -507,29 +507,28 @@ gboolean
 codeslayer_notebook_close_editor (CodeSlayerNotebook *notebook, 
                                   gint                page_num)
 {
-  gint current_page_num;
+  gboolean result = FALSE;
   GList *dirty_pages = NULL;
   
   get_dirty_buffer_pages (notebook, page_num, &dirty_pages);
 
-  if (!resolve_clean_buffers (notebook, dirty_pages))
+  if (resolve_dirty_buffers (notebook, dirty_pages))
     {
-      g_list_foreach (dirty_pages, (GFunc)g_free, NULL);
-      g_list_free (dirty_pages);
-      return FALSE;
+      gint current_page_num;
+      current_page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
+
+      gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), page_num);
+      
+      if (current_page_num == page_num)
+        g_signal_emit_by_name((gpointer)notebook, "select-editor", --page_num);
+
+      result = TRUE;
     }
-
-  current_page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
-
-  gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), page_num);
-  
-  if (current_page_num == page_num)
-    g_signal_emit_by_name((gpointer)notebook, "select-editor", --page_num);
 
   g_list_foreach (dirty_pages, (GFunc)g_free, NULL);
   g_list_free (dirty_pages);
 
-  return TRUE;
+  return result;
 }
 
 /**
@@ -541,6 +540,7 @@ codeslayer_notebook_close_editor (CodeSlayerNotebook *notebook,
 gboolean
 codeslayer_notebook_has_unsaved_editors (CodeSlayerNotebook *notebook)
 {
+  gboolean result = TRUE;
   GList *dirty_pages = NULL;
   gint pages;
   gint i;
@@ -550,17 +550,13 @@ codeslayer_notebook_has_unsaved_editors (CodeSlayerNotebook *notebook)
   for (i = 0; i < pages; i++)
     get_dirty_buffer_pages (notebook, i, &dirty_pages);
   
-  if (!resolve_clean_buffers (notebook, dirty_pages))
-    {
-      g_list_foreach (dirty_pages, (GFunc)g_free, NULL);
-      g_list_free (dirty_pages);
-      return TRUE;
-    }
+  if (resolve_dirty_buffers (notebook, dirty_pages))
+    result = FALSE;
 
   g_list_foreach (dirty_pages, (GFunc)g_free, NULL);
   g_list_free (dirty_pages);
 
-  return FALSE;
+  return result;
 }
 
 /**
@@ -689,34 +685,27 @@ close_other_editors_action (CodeSlayerNotebookTab *notebook_tab,
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
 
   notebook_page = codeslayer_notebook_tab_get_notebook_page (notebook_tab);
-  page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook),
-                                GTK_WIDGET (notebook_page));
+  page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook), GTK_WIDGET (notebook_page));
 
   for (i = 0; i < pages; i++)
     {
-      if (i == page)
-        continue;
-
-      get_dirty_buffer_pages (notebook, i, &dirty_pages);
+      if (i != page)
+        get_dirty_buffer_pages (notebook, i, &dirty_pages);
     }
     
-  if (!resolve_clean_buffers (notebook, dirty_pages))
+  if (resolve_dirty_buffers (notebook, dirty_pages))
     {
-      g_list_foreach (dirty_pages, (GFunc)g_free, NULL);
-      g_list_free (dirty_pages);
-      return;
-    }
-
-  while (pages > 1)
-    {
-      page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook),
-                                    GTK_WIDGET (notebook_page));
-      if (page != 0) 
-        gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), 0);
-      else 
-        gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), -1);
-      
-      pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
+      while (pages > 1)
+        {
+          page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook),
+                                        GTK_WIDGET (notebook_page));
+          if (page != 0) 
+            gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), 0);
+          else 
+            gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), -1);
+          
+          pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
+        }
     }
     
   g_list_foreach (dirty_pages, (GFunc)g_free, NULL);
@@ -736,25 +725,20 @@ close_right_editors_action (CodeSlayerNotebookTab *notebook_tab,
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
 
   notebook_page = codeslayer_notebook_tab_get_notebook_page (notebook_tab);
-  page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook),
-                                GTK_WIDGET (notebook_page));
+  page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook), GTK_WIDGET (notebook_page));
 
   for (i = page; i < pages; i++)
     get_dirty_buffer_pages (notebook, i, &dirty_pages);
   
-  if (!resolve_clean_buffers (notebook, dirty_pages))
+  if (resolve_dirty_buffers (notebook, dirty_pages))
     {
-      g_list_foreach (dirty_pages, (GFunc)g_free, NULL);
-      g_list_free (dirty_pages);
-      return;    
+      while (pages > page + 1)
+        {
+          gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), -1);
+          pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
+        }
     }
 
-  while (pages > page + 1)
-    {
-      gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), -1);
-      pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
-    }
-    
   g_list_foreach (dirty_pages, (GFunc)g_free, NULL);
   g_list_free (dirty_pages);
 }
@@ -769,24 +753,19 @@ close_left_editors_action (CodeSlayerNotebookTab *notebook_tab,
   gint i;
   
   notebook_page = codeslayer_notebook_tab_get_notebook_page (notebook_tab);
-  page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook),
-                                GTK_WIDGET (notebook_page));
+  page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook), GTK_WIDGET (notebook_page));
 
   for (i = 0; i < page; i++)
     get_dirty_buffer_pages (notebook, i, &dirty_pages);
 
-  if (!resolve_clean_buffers (notebook, dirty_pages)) 
+  if (resolve_dirty_buffers (notebook, dirty_pages)) 
     {
-      g_list_foreach (dirty_pages, (GFunc)g_free, NULL);
-      g_list_free (dirty_pages);
-      return;    
-    }
-
-  while (page != 0)
-    {
-      gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), 0);
-      page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook),
-                                    GTK_WIDGET (notebook_page));
+      while (page != 0)
+        {
+          gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), 0);
+          page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook),
+                                        GTK_WIDGET (notebook_page));
+        }
     }
     
   g_list_foreach (dirty_pages, (GFunc)g_free, NULL);
@@ -814,9 +793,12 @@ get_dirty_buffer_pages (CodeSlayerNotebook *notebook,
 }
 
 static gboolean
-resolve_clean_buffers (CodeSlayerNotebook *notebook, 
+resolve_dirty_buffers (CodeSlayerNotebook *notebook, 
                        GList              *dirty_pages)
 {
+  CodeSlayerNotebookPrivate *priv;
+  priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
+
   while (dirty_pages != NULL)
     {
       gint *page = dirty_pages->data;
@@ -840,7 +822,7 @@ resolve_clean_buffers (CodeSlayerNotebook *notebook,
       
       text = g_strdup_printf (_("Save changes to %s?"), base_name);
 
-      dialog = gtk_message_dialog_new_with_markup (NULL, GTK_DIALOG_MODAL,
+      dialog = gtk_message_dialog_new_with_markup (priv->window, GTK_DIALOG_MODAL,
                                                    GTK_MESSAGE_WARNING,
                                                    GTK_BUTTONS_NONE, text, NULL);
       gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_NO, GTK_RESPONSE_NO);
