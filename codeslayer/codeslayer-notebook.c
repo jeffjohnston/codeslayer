@@ -797,6 +797,10 @@ resolve_dirty_buffers (CodeSlayerNotebook *notebook,
                        GList              *dirty_pages)
 {
   CodeSlayerNotebookPrivate *priv;
+  guint dirty_pages_length;
+  
+  dirty_pages_length = g_list_length (dirty_pages);
+  
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
 
   while (dirty_pages != NULL)
@@ -826,6 +830,10 @@ resolve_dirty_buffers (CodeSlayerNotebook *notebook,
                                                    GTK_MESSAGE_WARNING,
                                                    GTK_BUTTONS_NONE, text, NULL);
       gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_NO, GTK_RESPONSE_NO);
+
+      if (dirty_pages_length > 1)
+        gtk_dialog_add_button (GTK_DIALOG (dialog), _("No To All"), 100);
+
       gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
       gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_YES, GTK_RESPONSE_YES);
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
@@ -842,6 +850,11 @@ resolve_dirty_buffers (CodeSlayerNotebook *notebook,
         {
           gtk_widget_destroy (dialog);
           return FALSE;
+        }
+      else if (response == 100)
+        {
+          gtk_widget_destroy (dialog);
+          return TRUE;
         }
       gtk_widget_destroy (dialog);
 
