@@ -66,7 +66,6 @@ void               codeslayer_engine_load_profile   (CodeSlayerEngine   *engine)
 void               codeslayer_engine_open_editor    (CodeSlayerEngine   *engine, 
                                                      gchar              *file_path);
 gboolean           codeslayer_engine_save_profile   (CodeSlayerEngine   *engine);
-
 void               codeslayer_engine_show_projects  (CodeSlayerEngine   *engine);
 void               codeslayer_engine_hide_projects  (CodeSlayerEngine   *engine);
                                                     
