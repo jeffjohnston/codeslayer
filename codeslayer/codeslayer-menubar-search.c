@@ -207,7 +207,7 @@ sync_engine_action (CodeSlayerMenuBarSearch *menu_bar_search,
   CodeSlayerMenuBarSearchPrivate *priv;
   priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
   
-  gtk_widget_set_sensitive (priv->find_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->find_item, enable_projects || has_open_editors);  
   gtk_widget_set_sensitive (priv->find_next_item, has_open_editors);
   gtk_widget_set_sensitive (priv->find_previous_item, has_open_editors);
   gtk_widget_set_sensitive (priv->replace_item, has_open_editors);
