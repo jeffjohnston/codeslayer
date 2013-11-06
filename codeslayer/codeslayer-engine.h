@@ -53,6 +53,7 @@ GType codeslayer_engine_get_type (void) G_GNUC_CONST;
 CodeSlayerEngine*  codeslayer_engine_new            (GtkWindow          *window,
                                                      CodeSlayerProfiles *profiles,
                                                      CodeSlayerPlugins  *plugins,
+                                                     GtkWidget          *profiles_manager,
                                                      GtkWidget          *projects,
                                                      GtkWidget          *menubar,
                                                      GtkWidget          *notebook,
@@ -65,10 +66,7 @@ CodeSlayerEngine*  codeslayer_engine_new            (GtkWindow          *window,
 void               codeslayer_engine_load_profile   (CodeSlayerEngine   *engine);
 void               codeslayer_engine_open_editor    (CodeSlayerEngine   *engine, 
                                                      gchar              *file_path);
-gboolean           codeslayer_engine_save_profile   (CodeSlayerEngine   *engine);
-void               codeslayer_engine_show_projects  (CodeSlayerEngine   *engine);
-void               codeslayer_engine_hide_projects  (CodeSlayerEngine   *engine);
-                                                    
+gboolean           codeslayer_engine_save_profile   (CodeSlayerEngine   *engine);                                                    
 
 G_END_DECLS
 

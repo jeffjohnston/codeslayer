@@ -23,6 +23,7 @@
 #include <codeslayer/codeslayer-projects.h>
 #include <codeslayer/codeslayer-projects-search.h>
 #include <codeslayer/codeslayer-menubar.h>
+#include <codeslayer/codeslayer-profiles-manager.h>
 #include <codeslayer/codeslayer-profile.h>
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
@@ -104,6 +105,10 @@ static void select_search_document_action   (CodeSlayerEngine      *engine,
 static void rename_file_path_action         (CodeSlayerEngine      *engine,
                                              gchar                 *file_path,
                                              gchar                 *renamed_file_path);
+                                             
+static void show_projects_action            (CodeSlayerEngine      *engine);
+static void hide_projects_action            (CodeSlayerEngine      *engine);
+                                             
                                              
 /* engine common code */                                             
 
@@ -188,6 +193,7 @@ CodeSlayerEngine*
 codeslayer_engine_new (GtkWindow          *window,
                        CodeSlayerProfiles *profiles,
                        CodeSlayerPlugins  *plugins,
+                       GtkWidget          *profiles_manager,
                        GtkWidget          *projects,
                        GtkWidget          *menubar,
                        GtkWidget          *notebook,
@@ -312,6 +318,14 @@ codeslayer_engine_new (GtkWindow          *window,
   g_signal_connect_swapped (G_OBJECT (menubar), "to-lowercase",
                             G_CALLBACK (lowercase_action), engine);
                             
+  g_signal_connect_swapped (G_OBJECT (priv->menubar), "show-profiles",
+                            G_CALLBACK (codeslayer_profiles_manager_run_dialog), 
+                            profiles_manager);                            
+                            
+  g_signal_connect_swapped (G_OBJECT (profiles_manager), "save-profile",
+                            G_CALLBACK (codeslayer_engine_save_profile), 
+                            engine);                            
+                            
   /* projects specific code */     
   
   g_signal_connect_swapped (G_OBJECT (menubar), "find-projects",
@@ -337,6 +351,12 @@ codeslayer_engine_new (GtkWindow          *window,
   
   g_signal_connect_swapped (G_OBJECT (projects), "file-path-renamed",
                             G_CALLBACK (rename_file_path_action), engine);
+
+  g_signal_connect_swapped (G_OBJECT (profiles_manager), "show-projects",
+                            G_CALLBACK (show_projects_action), engine);
+
+  g_signal_connect_swapped (G_OBJECT (profiles_manager), "hide-projects",
+                            G_CALLBACK (hide_projects_action), engine);
 
   return engine;
 }
@@ -461,24 +481,16 @@ codeslayer_engine_save_profile (CodeSlayerEngine *engine)
   return TRUE;
 }
 
-/**
- * codeslayer_engine_show_projects:
- * @engine: a #CodeSlayerEngine.
- */
 void
-codeslayer_engine_show_projects (CodeSlayerEngine *engine)
+show_projects_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   gtk_widget_show (priv->projects);
 }
 
-/**
- * codeslayer_engine_hide_projects:
- * @engine: a #CodeSlayerEngine.
- */
 void
-codeslayer_engine_hide_projects (CodeSlayerEngine *engine)
+hide_projects_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
@@ -1220,7 +1232,6 @@ select_editor_action (CodeSlayerEngine *engine,
   
   profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
   
   if (codeslayer_profile_get_projects (profile) == NULL)
     return;
@@ -1255,7 +1266,6 @@ search_find_projects_action (CodeSlayerEngine *engine,
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
   profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   

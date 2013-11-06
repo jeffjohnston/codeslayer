@@ -62,15 +62,14 @@ typedef struct _CodeSlayerProfilesManagerPrivate CodeSlayerProfilesManagerPrivat
 
 struct _CodeSlayerProfilesManagerPrivate
 {
-  GtkWidget                *window;
-  GtkApplication           *application;
-  GtkWidget                *dialog;
-  GtkWidget                *edit_button;
-  GtkWidget                *delete_button;
-  CodeSlayerProfiles       *profiles;
-  CodeSlayerEngine         *engine;
-  GtkWidget                *tree;
-  GtkListStore             *store;
+  GtkWidget          *window;
+  GtkApplication     *application;
+  GtkWidget          *dialog;
+  GtkWidget          *edit_button;
+  GtkWidget          *delete_button;
+  CodeSlayerProfiles *profiles;
+  GtkWidget          *tree;
+  GtkListStore       *store;
 };
 
 enum
@@ -79,11 +78,69 @@ enum
   COLUMNS
 };
 
+enum
+{
+  SHOW_PROJECTS,  
+  HIDE_PROJECTS,
+  SAVE_PROFILE,  
+  LAST_SIGNAL
+};
+
+static guint codeslayer_profiles_manager_signals[LAST_SIGNAL] = { 0 };
+
 G_DEFINE_TYPE (CodeSlayerProfilesManager, codeslayer_profiles_manager, G_TYPE_OBJECT)
 
 static void 
 codeslayer_profiles_manager_class_init (CodeSlayerProfilesManagerClass *klass)
 {
+  /**
+   * CodeSlayerProfilesManager::show-projects
+   * @profiles_manager: the manager that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::show-projects signal is a request to show the projects in the side pane. 
+   */
+  codeslayer_profiles_manager_signals[SHOW_PROJECTS] =
+    g_signal_new ("show-projects", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerProfilesManagerClass, show_projects),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  /**
+   * CodeSlayerProfilesManager::hide-projects
+   * @profiles_manager: the manager that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::hide-projects signal is a request to hide the projects in the side pane. 
+   */
+  codeslayer_profiles_manager_signals[HIDE_PROJECTS] =
+    g_signal_new ("hide-projects", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerProfilesManagerClass, hide_projects),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  /**
+   * CodeSlayerProfilesManager::save-profile
+   * @profiles_manager: the manager that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::save-profile signal is a request to save the profile. 
+   */
+  codeslayer_profiles_manager_signals[SAVE_PROFILE] =
+    g_signal_new ("save-profile", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerProfilesManagerClass, save_profile),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_profiles_manager_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerProfilesManagerPrivate));
 }
@@ -107,21 +164,19 @@ codeslayer_profiles_manager_finalize (CodeSlayerProfilesManager *profiles_manage
  *
  * Returns: a new #CodeSlayerProfilesManager. 
  */
-CodeSlayerProfilesManager*
-codeslayer_profiles_manager_new (GtkWidget                *window, 
-                                 GtkApplication           *application,
-                                 CodeSlayerProfiles       *profiles, 
-                                 CodeSlayerEngine         *engine)
+GtkWidget*
+codeslayer_profiles_manager_new (GtkWidget          *window, 
+                                 GtkApplication     *application,
+                                 CodeSlayerProfiles *profiles)
 {
   CodeSlayerProfilesManagerPrivate *priv;
-  CodeSlayerProfilesManager *profiles_manager;
+  GtkWidget *profiles_manager;
 
   profiles_manager = g_object_new (codeslayer_profiles_manager_get_type (), NULL);
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
   priv->window = window;
   priv->application = application;
   priv->profiles = profiles;
-  priv->engine = engine;
   
   return profiles_manager;
 }
@@ -545,11 +600,11 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
               
               if (is_profile_equal (profile, current_profile))
                 {
-                  codeslayer_engine_save_profile (priv->engine);
+                  g_signal_emit_by_name ((gpointer) profiles_manager, "save-profile");
                   if (active)
-                    codeslayer_engine_show_projects (priv->engine);
+                    g_signal_emit_by_name ((gpointer) profiles_manager, "show-projects");
                   else
-                    codeslayer_engine_hide_projects (priv->engine);
+                    g_signal_emit_by_name ((gpointer) profiles_manager, "hide-projects");
                 }
               else
                 {

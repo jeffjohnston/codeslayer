@@ -44,16 +44,19 @@ struct _CodeSlayerProfilesManager
 struct _CodeSlayerProfilesManagerClass
 {
   GObjectClass parent_class;
+  
+  void (*show_projects) (CodeSlayerProfilesManager *profiles_manager);
+  void (*hide_projects) (CodeSlayerProfilesManager *profiles_manager);
+  void (*save_profile) (CodeSlayerProfilesManager *profiles_manager);
 };
 
 GType codeslayer_profiles_manager_get_type (void) G_GNUC_CONST;
 
-CodeSlayerProfilesManager*  codeslayer_profiles_manager_new         (GtkWidget          *window, 
-                                                                     GtkApplication     *application, 
-                                                                     CodeSlayerProfiles *profiles, 
-                                                                     CodeSlayerEngine   *engine);
+GtkWidget*  codeslayer_profiles_manager_new         (GtkWidget                 *window, 
+                                                     GtkApplication            *application, 
+                                                     CodeSlayerProfiles        *profiles);
 
-void                        codeslayer_profiles_manager_run_dialog  (CodeSlayerProfilesManager *profiles_manager);
+void        codeslayer_profiles_manager_run_dialog  (CodeSlayerProfilesManager *profiles_manager);
 
 G_END_DECLS
 

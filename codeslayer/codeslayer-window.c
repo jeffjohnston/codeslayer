@@ -78,25 +78,25 @@ typedef struct _CodeSlayerWindowPrivate CodeSlayerWindowPrivate;
 
 struct _CodeSlayerWindowPrivate
 {
-  GtkApplication            *application;
-  gchar                     *profile_name;
-  CodeSlayerPreferences     *preferences;
-  CodeSlayerProfiles        *profiles;
-  CodeSlayerProfilesManager *profiles_manager;
-  GtkWidget                 *projects;
-  GtkWidget                 *project_properties;
-  GtkWidget                 *menubar;
-  CodeSlayerEngine          *engine;
-  CodeSlayerProcesses       *processes;
-  CodeSlayer                *codeslayer;
-  GtkWidget                 *process_bar;
-  GtkWidget                 *notebook;
-  CodeSlayerPlugins         *plugins;
-  GtkWidget                 *notebook_pane;
-  GtkWidget                 *side_pane;
-  GtkWidget                 *bottom_pane;
-  GtkWidget                 *hpaned;
-  GtkWidget                 *vpaned;
+  GtkApplication        *application;
+  gchar                 *profile_name;
+  CodeSlayerPreferences *preferences;
+  CodeSlayerProfiles    *profiles;
+  GtkWidget             *profiles_manager;
+  GtkWidget             *projects;
+  GtkWidget             *project_properties;
+  GtkWidget             *menubar;
+  CodeSlayerEngine      *engine;
+  CodeSlayerProcesses   *processes;
+  CodeSlayer            *codeslayer;
+  GtkWidget             *process_bar;
+  GtkWidget             *notebook;
+  CodeSlayerPlugins     *plugins;
+  GtkWidget             *notebook_pane;
+  GtkWidget             *side_pane;
+  GtkWidget             *bottom_pane;
+  GtkWidget             *hpaned;
+  GtkWidget             *vpaned;
 };
 
 G_DEFINE_TYPE (CodeSlayerWindow, codeslayer_window, GTK_TYPE_WINDOW)
@@ -187,6 +187,8 @@ codeslayer_window_new (GtkApplication *application,
                             
   create_profiles (CODESLAYER_WINDOW (window));
 
+  create_profiles_manager (CODESLAYER_WINDOW (window));
+
   create_plugins (CODESLAYER_WINDOW (window));
 
   create_menu (CODESLAYER_WINDOW (window));
@@ -206,8 +208,6 @@ codeslayer_window_new (GtkApplication *application,
   create_paned_containers (CODESLAYER_WINDOW (window));
 
   create_engines (CODESLAYER_WINDOW (window));
-
-  create_profiles_manager (CODESLAYER_WINDOW (window));
 
   pack_window (CODESLAYER_WINDOW (window));
 
@@ -244,6 +244,21 @@ create_profiles (CodeSlayerWindow *window)
     profile = codeslayer_profiles_create_profile (priv->profiles, CODESLAYER_PROFILES_DEFAULT);
   
   codeslayer_profiles_load_profile (profiles, profile);
+}
+
+static void 
+create_profiles_manager (CodeSlayerWindow *window)
+{
+  CodeSlayerWindowPrivate *priv;
+  GtkWidget *profiles_manager;
+    
+  priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
+  
+  profiles_manager = codeslayer_profiles_manager_new (GTK_WIDGET (window),
+                                                      priv->application, 
+                                                      priv->profiles);
+
+  priv->profiles_manager = profiles_manager;
 }
 
 static void
@@ -359,6 +374,7 @@ create_engines (CodeSlayerWindow *window)
   engine = codeslayer_engine_new (GTK_WINDOW (window), 
                                   priv->profiles,
                                   priv->plugins,
+                                  priv->profiles_manager,
                                   priv->projects,
                                   priv->menubar, 
                                   priv->notebook, 
@@ -368,22 +384,6 @@ create_engines (CodeSlayerWindow *window)
                                   priv->hpaned, 
                                   priv->vpaned);
   priv->engine = engine;
-}
-
-static void 
-create_profiles_manager (CodeSlayerWindow *window)
-{
-  CodeSlayerWindowPrivate *priv;  
-  priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
-
-  priv->profiles_manager = codeslayer_profiles_manager_new (GTK_WIDGET (window),
-                                                            priv->application, 
-                                                            priv->profiles, 
-                                                            priv->engine);
-  
-  g_signal_connect_swapped (G_OBJECT (priv->menubar), "show-profiles",
-                            G_CALLBACK (codeslayer_profiles_manager_run_dialog), 
-                            priv->profiles_manager);
 }
 
 static void 
