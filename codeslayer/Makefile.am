@@ -2,7 +2,6 @@ lib_LTLIBRARIES = libcodeslayer.la
 
 pkginclude_HEADERS = \
     codeslayer-application.h \
-    codeslayer-abstract-engine.h \
     codeslayer-engine.h \
     codeslayer-process.h \
     codeslayer-processbar.h \
@@ -38,7 +37,6 @@ pkginclude_HEADERS = \
     codeslayer-projects.h \
     codeslayer-projects-search.h \
     codeslayer-projects-selection.h \
-    codeslayer-projects-engine.h \
     codeslayer-project-properties.h \
     codeslayer-menuitem.h \
     codeslayer-notebook-pane.h \
@@ -60,7 +58,6 @@ pkginclude_HEADERS = \
     
 libcodeslayer_la_SOURCES = \
     codeslayer-application.c \
-    codeslayer-abstract-engine.c \
     codeslayer-engine.c \
     codeslayer-process.c \
     codeslayer-processbar.c \
@@ -96,7 +93,6 @@ libcodeslayer_la_SOURCES = \
     codeslayer-projects.c \
     codeslayer-projects-search.c \
     codeslayer-projects-selection.c \
-    codeslayer-projects-engine.c \
     codeslayer-project-properties.c \
     codeslayer-menuitem.c \
     codeslayer-notebook-pane.c \

@@ -69,7 +69,6 @@ struct _CodeSlayerProfilesManagerPrivate
   GtkWidget                *delete_button;
   CodeSlayerProfiles       *profiles;
   CodeSlayerEngine         *engine;
-  CodeSlayerProjectsEngine *projects_engine;
   GtkWidget                *tree;
   GtkListStore             *store;
 };
@@ -112,8 +111,7 @@ CodeSlayerProfilesManager*
 codeslayer_profiles_manager_new (GtkWidget                *window, 
                                  GtkApplication           *application,
                                  CodeSlayerProfiles       *profiles, 
-                                 CodeSlayerEngine         *engine, 
-                                 CodeSlayerProjectsEngine *projects_engine)
+                                 CodeSlayerEngine         *engine)
 {
   CodeSlayerProfilesManagerPrivate *priv;
   CodeSlayerProfilesManager *profiles_manager;
@@ -124,7 +122,6 @@ codeslayer_profiles_manager_new (GtkWidget                *window,
   priv->application = application;
   priv->profiles = profiles;
   priv->engine = engine;
-  priv->projects_engine = projects_engine;
   
   return profiles_manager;
 }
@@ -548,11 +545,11 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
               
               if (is_profile_equal (profile, current_profile))
                 {
-                  codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (priv->engine));
+                  codeslayer_engine_save_profile (priv->engine);
                   if (active)
-                    codeslayer_projects_engine_show_projects (priv->projects_engine);
+                    codeslayer_engine_show_projects (priv->engine);
                   else
-                    codeslayer_projects_engine_hide_projects (priv->projects_engine);
+                    codeslayer_engine_hide_projects (priv->engine);
                 }
               else
                 {

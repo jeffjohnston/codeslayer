@@ -17,14 +17,12 @@
  */
 
 #include <codeslayer/codeslayer-window.h>
-#include <codeslayer/codeslayer-abstract-engine.h>
 #include <codeslayer/codeslayer-engine.h>
 #include <codeslayer/codeslayer-processes.h>
 #include <codeslayer/codeslayer-abstract-pane.h>
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
 #include <codeslayer/codeslayer-projects.h>
-#include <codeslayer/codeslayer-projects-engine.h>
 #include <codeslayer/codeslayer-project-properties.h>
 #include <codeslayer/codeslayer-notebook.h>
 #include <codeslayer/codeslayer-editor.h>
@@ -89,7 +87,6 @@ struct _CodeSlayerWindowPrivate
   GtkWidget                 *project_properties;
   GtkWidget                 *menubar;
   CodeSlayerEngine          *engine;
-  CodeSlayerProjectsEngine  *projects_engine;
   CodeSlayerProcesses       *processes;
   CodeSlayer                *codeslayer;
   GtkWidget                 *process_bar;
@@ -120,7 +117,6 @@ codeslayer_window_init (CodeSlayerWindow *window)
   priv->profiles = NULL;
   priv->profiles_manager = NULL;
   priv->engine = NULL;
-  priv->projects_engine = NULL;
   priv->plugins = NULL;
   priv->codeslayer = NULL;
   priv->profile_name = NULL;
@@ -150,9 +146,6 @@ codeslayer_window_finalize (CodeSlayerWindow *window)
   
   if (priv->engine)
     g_object_unref (priv->engine);
-  
-  if (priv->projects_engine)
-    g_object_unref (priv->projects_engine);
   
   if (priv->plugins)
     g_object_unref (priv->plugins);
@@ -360,27 +353,13 @@ create_engines (CodeSlayerWindow *window)
 {
   CodeSlayerWindowPrivate *priv;
   CodeSlayerEngine *engine;
-  CodeSlayerProjectsEngine *projects_engine;
   
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
-  projects_engine = codeslayer_projects_engine_new (GTK_WINDOW (window), 
-                                                    priv->profiles,
-                                                    priv->plugins,
-                                                    priv->projects,
-                                                    priv->menubar, 
-                                                    priv->notebook, 
-                                                    priv->notebook_pane, 
-                                                    priv->side_pane, 
-                                                    priv->bottom_pane, 
-                                                    priv->hpaned, 
-                                                    priv->vpaned);
-  priv->projects_engine = projects_engine;
-
   engine = codeslayer_engine_new (GTK_WINDOW (window), 
-                                  priv->projects_engine,
                                   priv->profiles,
                                   priv->plugins,
+                                  priv->projects,
                                   priv->menubar, 
                                   priv->notebook, 
                                   priv->notebook_pane, 
@@ -400,8 +379,7 @@ create_profiles_manager (CodeSlayerWindow *window)
   priv->profiles_manager = codeslayer_profiles_manager_new (GTK_WIDGET (window),
                                                             priv->application, 
                                                             priv->profiles, 
-                                                            priv->engine, 
-                                                            priv->projects_engine);
+                                                            priv->engine);
   
   g_signal_connect_swapped (G_OBJECT (priv->menubar), "show-profiles",
                             G_CALLBACK (codeslayer_profiles_manager_run_dialog), 
@@ -501,7 +479,7 @@ delete_event (CodeSlayerWindow *window)
   CodeSlayerWindowPrivate *priv;
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
-  if (!codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (priv->engine)))
+  if (!codeslayer_engine_save_profile (priv->engine))
     return TRUE;
 
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
@@ -515,7 +493,7 @@ quit_application_action (CodeSlayerWindow *window)
   CodeSlayerWindowPrivate *priv;
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
-  if (!codeslayer_abstract_engine_save_profile (CODESLAYER_ABSTRACT_ENGINE (priv->engine)))
+  if (!codeslayer_engine_save_profile (priv->engine))
     return;
   
   codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));

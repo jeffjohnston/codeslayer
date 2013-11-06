@@ -101,7 +101,6 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 libcodeslayer_la_LIBADD =
 am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-application.lo \
-	libcodeslayer_la-codeslayer-abstract-engine.lo \
 	libcodeslayer_la-codeslayer-engine.lo \
 	libcodeslayer_la-codeslayer-process.lo \
 	libcodeslayer_la-codeslayer-processbar.lo \
@@ -137,7 +136,6 @@ am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-projects.lo \
 	libcodeslayer_la-codeslayer-projects-search.lo \
 	libcodeslayer_la-codeslayer-projects-selection.lo \
-	libcodeslayer_la-codeslayer-projects-engine.lo \
 	libcodeslayer_la-codeslayer-project-properties.lo \
 	libcodeslayer_la-codeslayer-menuitem.lo \
 	libcodeslayer_la-codeslayer-notebook-pane.lo \
@@ -360,7 +358,6 @@ top_srcdir = @top_srcdir@
 lib_LTLIBRARIES = libcodeslayer.la
 pkginclude_HEADERS = \
     codeslayer-application.h \
-    codeslayer-abstract-engine.h \
     codeslayer-engine.h \
     codeslayer-process.h \
     codeslayer-processbar.h \
@@ -396,7 +393,6 @@ pkginclude_HEADERS = \
     codeslayer-projects.h \
     codeslayer-projects-search.h \
     codeslayer-projects-selection.h \
-    codeslayer-projects-engine.h \
     codeslayer-project-properties.h \
     codeslayer-menuitem.h \
     codeslayer-notebook-pane.h \
@@ -418,7 +414,6 @@ pkginclude_HEADERS = \
 
 libcodeslayer_la_SOURCES = \
     codeslayer-application.c \
-    codeslayer-abstract-engine.c \
     codeslayer-engine.c \
     codeslayer-process.c \
     codeslayer-processbar.c \
@@ -454,7 +449,6 @@ libcodeslayer_la_SOURCES = \
     codeslayer-projects.c \
     codeslayer-projects-search.c \
     codeslayer-projects-selection.c \
-    codeslayer-projects-engine.c \
     codeslayer-project-properties.c \
     codeslayer-menuitem.c \
     codeslayer-notebook-pane.c \
@@ -605,7 +599,6 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/codeslayer-codeslayer-main.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-abstract-engine.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-abstract-pane.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-application.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-bottom-pane.Plo@am__quote@
@@ -650,7 +643,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-profiles.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-project.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-projects-engine.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-projects-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-projects-selection.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-projects.Plo@am__quote@
@@ -690,13 +682,6 @@ libcodeslayer_la-codeslayer-application.lo: codeslayer-application.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-application.c' object='libcodeslayer_la-codeslayer-application.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-application.lo `test -f 'codeslayer-application.c' || echo '$(srcdir)/'`codeslayer-application.c
-
-libcodeslayer_la-codeslayer-abstract-engine.lo: codeslayer-abstract-engine.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-abstract-engine.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-abstract-engine.Tpo -c -o libcodeslayer_la-codeslayer-abstract-engine.lo `test -f 'codeslayer-abstract-engine.c' || echo '$(srcdir)/'`codeslayer-abstract-engine.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-abstract-engine.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-abstract-engine.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-abstract-engine.c' object='libcodeslayer_la-codeslayer-abstract-engine.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-abstract-engine.lo `test -f 'codeslayer-abstract-engine.c' || echo '$(srcdir)/'`codeslayer-abstract-engine.c
 
 libcodeslayer_la-codeslayer-engine.lo: codeslayer-engine.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-engine.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-engine.Tpo -c -o libcodeslayer_la-codeslayer-engine.lo `test -f 'codeslayer-engine.c' || echo '$(srcdir)/'`codeslayer-engine.c
@@ -942,13 +927,6 @@ libcodeslayer_la-codeslayer-projects-selection.lo: codeslayer-projects-selection
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-projects-selection.c' object='libcodeslayer_la-codeslayer-projects-selection.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-projects-selection.lo `test -f 'codeslayer-projects-selection.c' || echo '$(srcdir)/'`codeslayer-projects-selection.c
-
-libcodeslayer_la-codeslayer-projects-engine.lo: codeslayer-projects-engine.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-projects-engine.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-projects-engine.Tpo -c -o libcodeslayer_la-codeslayer-projects-engine.lo `test -f 'codeslayer-projects-engine.c' || echo '$(srcdir)/'`codeslayer-projects-engine.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-projects-engine.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-projects-engine.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-projects-engine.c' object='libcodeslayer_la-codeslayer-projects-engine.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-projects-engine.lo `test -f 'codeslayer-projects-engine.c' || echo '$(srcdir)/'`codeslayer-projects-engine.c
 
 libcodeslayer_la-codeslayer-project-properties.lo: codeslayer-project-properties.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-project-properties.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-project-properties.Tpo -c -o libcodeslayer_la-codeslayer-project-properties.lo `test -f 'codeslayer-project-properties.c' || echo '$(srcdir)/'`codeslayer-project-properties.c

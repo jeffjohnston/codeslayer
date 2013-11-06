@@ -82,6 +82,35 @@ static void delete_action                   (CodeSlayerEngine      *engine);
 static void copy_lines_action               (CodeSlayerEngine      *engine);
 static void uppercase_action                (CodeSlayerEngine      *engine);
 static void lowercase_action                (CodeSlayerEngine      *engine);
+
+/* projects specific code */
+
+static void search_find_projects_action     (CodeSlayerEngine      *engine,
+                                             gchar                 *search_paths);
+static void add_projects_action             (CodeSlayerEngine      *engine,
+                                             GSList                *files);
+static void remove_project_action           (CodeSlayerEngine      *engine,
+                                             CodeSlayerProject     *project);
+static void select_projects_document_action (CodeSlayerEngine      *engine,
+                                             CodeSlayerDocument    *document);
+static void select_editor_action            (CodeSlayerEngine      *engine, 
+                                             guint                  page_num);
+static void scan_external_changes_action    (CodeSlayerEngine      *engine);
+static gboolean close_search_action         (CodeSlayerEngine      *engine,
+                                             GdkEvent              *event);
+static void select_search_document_action   (CodeSlayerEngine      *engine,
+                                             CodeSlayerDocument    *document);
+static void rename_file_path_action         (CodeSlayerEngine      *engine,
+                                             gchar                 *file_path,
+                                             gchar                 *renamed_file_path);
+                                             
+/* engine common code */                                             
+
+static void load_window_settings            (CodeSlayerEngine      *engine);
+static void sync_menu_bar                   (CodeSlayerEngine      *engine);
+static void save_document_settings          (CodeSlayerEngine      *engine);
+static void save_window_settings            (CodeSlayerEngine      *engine);
+
                                                    
 #define CODESLAYER_ENGINE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_ENGINE_TYPE, CodeSlayerEnginePrivate))
@@ -90,28 +119,28 @@ typedef struct _CodeSlayerEnginePrivate CodeSlayerEnginePrivate;
 
 struct _CodeSlayerEnginePrivate
 {
-  GtkWindow                *window;
-  CodeSlayerProjectsEngine *projects_engine;
-  CodeSlayerRegistry       *registry;
-  CodeSlayerPreferences    *preferences;
-  CodeSlayerProfiles       *profiles;
-  CodeSlayerPlugins        *plugins;
-  GtkWidget                *search;
-  GtkWidget                *menubar;
-  GtkWidget                *notebook;
-  GtkWidget                *notebook_pane;
-  GtkWidget                *side_pane;
-  GtkWidget                *bottom_pane;
-  GtkWidget                *hpaned;
-  GtkWidget                *vpaned;
-  GdkWindowState            window_state;
+  GtkWindow             *window;
+  CodeSlayerRegistry    *registry;
+  CodeSlayerPreferences *preferences;
+  CodeSlayerProfiles    *profiles;
+  CodeSlayerPlugins     *plugins;
+  GtkWidget             *projects;
+  GtkWidget             *search;
+  GtkWidget             *menubar;
+  GtkWidget             *notebook;
+  GtkWidget             *notebook_pane;
+  GtkWidget             *side_pane;
+  GtkWidget             *bottom_pane;
+  GtkWidget             *hpaned;
+  GtkWidget             *vpaned;
+  GdkWindowState         window_state;
 
-  GtkWidget                *go_to_line_dialog;
-  GdkRGBA                   go_to_line_error_color;
-  GdkRGBA                   go_to_line_default_color;  
+  GtkWidget             *go_to_line_dialog;
+  GdkRGBA                go_to_line_error_color;
+  GdkRGBA                go_to_line_default_color;  
 };
 
-G_DEFINE_TYPE (CodeSlayerEngine, codeslayer_engine, CODESLAYER_ABSTRACT_ENGINE_TYPE)
+G_DEFINE_TYPE (CodeSlayerEngine, codeslayer_engine, G_TYPE_OBJECT)
 
 static void
 codeslayer_engine_class_init (CodeSlayerEngineClass *klass)
@@ -155,17 +184,17 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
  * Returns: a new #CodeSlayerEngine. 
  */
 CodeSlayerEngine*
-codeslayer_engine_new (GtkWindow                *window,
-                       CodeSlayerProjectsEngine *projects_engine,
-                       CodeSlayerProfiles       *profiles,
-                       CodeSlayerPlugins        *plugins,
-                       GtkWidget                *menubar,
-                       GtkWidget                *notebook,
-                       GtkWidget                *notebook_pane, 
-                       GtkWidget                *side_pane,
-                       GtkWidget                *bottom_pane, 
-                       GtkWidget                *hpaned,
-                       GtkWidget                *vpaned)
+codeslayer_engine_new (GtkWindow          *window,
+                       CodeSlayerProfiles *profiles,
+                       CodeSlayerPlugins  *plugins,
+                       GtkWidget          *projects,
+                       GtkWidget          *menubar,
+                       GtkWidget          *notebook,
+                       GtkWidget          *notebook_pane, 
+                       GtkWidget          *side_pane,
+                       GtkWidget          *bottom_pane, 
+                       GtkWidget          *hpaned,
+                       GtkWidget          *vpaned)
 {
   CodeSlayerEnginePrivate *priv;
   CodeSlayerProfile *profile;
@@ -176,7 +205,7 @@ codeslayer_engine_new (GtkWindow                *window,
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
   priv->window = window;
-  priv->projects_engine = projects_engine;
+  priv->projects = projects;
   priv->profiles = profiles;
   priv->plugins = plugins;
   priv->menubar = menubar;
@@ -189,18 +218,6 @@ codeslayer_engine_new (GtkWindow                *window,
   
   priv->preferences = codeslayer_preferences_new (GTK_WIDGET (window), profiles);
 
-  g_object_set (CODESLAYER_ABSTRACT_ENGINE (engine), 
-                "window", window, 
-                "profiles", profiles, 
-                "menubar", menubar, 
-                "notebook", notebook, 
-                "notebook_pane", notebook_pane, 
-                "side_pane", side_pane, 
-                "bottom_pane", bottom_pane, 
-                "hpaned", hpaned, 
-                "vpaned", vpaned, 
-                NULL);
-  
   profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
@@ -293,6 +310,32 @@ codeslayer_engine_new (GtkWindow                *window,
 
   g_signal_connect_swapped (G_OBJECT (menubar), "to-lowercase",
                             G_CALLBACK (lowercase_action), engine);
+                            
+  /* projects specific code */     
+  
+  g_signal_connect_swapped (G_OBJECT (menubar), "find-projects",
+                            G_CALLBACK (search_find_projects_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (projects), "find-projects",
+                            G_CALLBACK (search_find_projects_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (menubar), "add-projects",
+                            G_CALLBACK (add_projects_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (menubar), "scan-external-changes",
+                            G_CALLBACK (scan_external_changes_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (projects), "remove-project",
+                            G_CALLBACK (remove_project_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (projects), "select-document",
+                            G_CALLBACK (select_projects_document_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (notebook), "select-editor",
+                            G_CALLBACK (select_editor_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (projects), "file-path-renamed",
+                            G_CALLBACK (rename_file_path_action), engine);
 
   return engine;
 }
@@ -313,14 +356,50 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
   profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
-  codeslayer_abstract_engine_load_window_settings (CODESLAYER_ABSTRACT_ENGINE (engine));
+  load_window_settings (CODESLAYER_ENGINE (engine));
 
   if (!codeslayer_profile_get_enable_projects (profile))
     new_editor_action (engine);
       
-  codeslayer_projects_engine_load_profile (priv->projects_engine);
+  if (!codeslayer_abstract_pane_exists (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
+                                        priv->projects))
+    {
+      codeslayer_abstract_pane_insert (CODESLAYER_ABSTRACT_PANE (priv->side_pane), 
+                                       priv->projects, "Projects", 0);
+    }
+
+  if (codeslayer_profile_get_enable_projects (profile))
+    {
+      GList *projects;
+      GList *documents;
+      
+      projects = codeslayer_profile_get_projects (profile);
+      while (projects != NULL)
+        {
+          CodeSlayerProject *project = projects->data;
+          codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), 
+                                           project);
+          projects = g_list_next (projects);
+        }
+
+      documents = codeslayer_profile_get_documents (profile);
+      while (documents != NULL)
+        {
+          CodeSlayerDocument *document = documents->data;
+          codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), 
+                                               document);
+          g_object_unref (document);
+          documents = g_list_next (documents);
+        }
+        
+      gtk_widget_show (priv->projects);
+    }
+  else
+    {
+      gtk_widget_hide (priv->projects);
+    }  
   
-  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
+  sync_menu_bar (CODESLAYER_ENGINE (engine));
   codeslayer_plugins_activate (priv->plugins, profile);
 
   g_signal_emit_by_name ((gpointer) registry, "registry-initialized");
@@ -364,7 +443,29 @@ codeslayer_engine_open_editor (CodeSlayerEngine *engine,
   
   g_object_unref (document);
 
-  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
+  sync_menu_bar (CODESLAYER_ENGINE (engine));
+}
+
+gboolean
+codeslayer_engine_save_profile (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerProfile *profile;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+
+  if (profile == NULL)
+    return TRUE;
+  
+  if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
+    return FALSE;
+
+  save_window_settings (engine);
+  save_document_settings (engine);
+  codeslayer_profiles_save_profile (priv->profiles, profile);
+  
+  return TRUE;
 }
 
 static void
@@ -380,7 +481,7 @@ new_editor_action (CodeSlayerEngine *engine)
   
   g_object_unref (document);
   
-  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
+  sync_menu_bar (CODESLAYER_ENGINE (engine));
 }
 
 static void
@@ -435,7 +536,7 @@ open_editor_action (CodeSlayerEngine *engine)
     }
   gtk_widget_destroy (GTK_WIDGET (dialog));
 
-  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
+  sync_menu_bar (CODESLAYER_ENGINE (engine));
 }
 
 static void
@@ -480,7 +581,7 @@ page_removed_action (CodeSlayerEngine *engine,
                      GtkWidget        *page,
                      guint             removed_page_num)
 {
-  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
+  sync_menu_bar (CODESLAYER_ENGINE (engine));
 }        
 
 static void
@@ -591,7 +692,7 @@ toggle_bottom_pane_action (CodeSlayerEngine *engine)
                                        TRUE);
     }
     
-  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
+  sync_menu_bar (CODESLAYER_ENGINE (engine));
 }
 
 static void
@@ -610,7 +711,7 @@ open_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_registry_set_boolean (registry, 
                                    CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE,
                                    TRUE);
-  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
+  sync_menu_bar (CODESLAYER_ENGINE (engine));
 }
 
 static void
@@ -629,7 +730,7 @@ close_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_registry_set_boolean (registry, 
                                    CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE,
                                    FALSE);
-  codeslayer_abstract_engine_sync_menu_bar (CODESLAYER_ABSTRACT_ENGINE (engine));
+  sync_menu_bar (CODESLAYER_ENGINE (engine));
 }
 
 static void
@@ -834,7 +935,7 @@ search_find_action (CodeSlayerEngine *engine)
   
   focused_window = gtk_window_get_focus (priv->window);
   if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
-    codeslayer_projects_engine_search_find (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));
+      g_signal_emit_by_name ((gpointer) priv->projects, "search-find");
   else
     codeslayer_notebook_pane_search_find (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
 }
@@ -874,7 +975,7 @@ cut_action (CodeSlayerEngine *engine)
   focused_window = gtk_window_get_focus (priv->window);
   if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
     {
-      codeslayer_projects_engine_cut_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
+      g_signal_emit_by_name ((gpointer) priv->projects, "cut-file-folder");
     }
   else if (focused_window != NULL && 
            (gtk_widget_get_ancestor (focused_window, GTK_TYPE_ENTRY) || 
@@ -895,7 +996,7 @@ copy_action (CodeSlayerEngine *engine)
   focused_window = gtk_window_get_focus (priv->window);
   if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
     {
-      codeslayer_projects_engine_copy_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
+      g_signal_emit_by_name ((gpointer) priv->projects, "copy-file-folder");
     }
   else if (focused_window != NULL && 
            (gtk_widget_get_ancestor (focused_window, GTK_TYPE_ENTRY) || 
@@ -916,7 +1017,7 @@ paste_action (CodeSlayerEngine *engine)
   focused_window = gtk_window_get_focus (priv->window);
   if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
     {
-      codeslayer_projects_engine_paste_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
+      g_signal_emit_by_name ((gpointer) priv->projects, "paste-file-folder");
     }
   else if (focused_window != NULL && 
            (gtk_widget_get_ancestor (focused_window, GTK_TYPE_ENTRY) || 
@@ -937,7 +1038,7 @@ delete_action (CodeSlayerEngine *engine)
   focused_window = gtk_window_get_focus (priv->window);
   if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
     {
-      codeslayer_projects_engine_delete_file_folder (CODESLAYER_PROJECTS_ENGINE (priv->projects_engine));    
+      g_signal_emit_by_name ((gpointer) priv->projects, "delete-file-folder");
     }
   else if (focused_window != NULL && 
            (gtk_widget_get_ancestor (focused_window, GTK_TYPE_ENTRY) || 
@@ -975,4 +1076,531 @@ uppercase_action (CodeSlayerEngine *engine)
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
   g_signal_emit_by_name ((gpointer) editor, "to-uppercase");
+}
+
+/* projects specific code */
+
+void
+codeslayer_engine_show_projects (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  gtk_widget_show (priv->projects);
+}
+
+void
+codeslayer_engine_hide_projects (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  gtk_widget_hide (priv->projects);
+}
+
+static void
+add_projects_action (CodeSlayerEngine *engine,
+                     GSList           *files)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerProfile *profile;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+
+  while (files != NULL)
+    {
+      GFile *file = files->data;
+
+      CodeSlayerProject *project;
+      gchar *project_name;
+      gchar *folder_path;
+
+      project = codeslayer_project_new ();
+      
+      project_name = g_file_get_basename (file);
+      codeslayer_project_set_name (project, project_name);
+      g_free (project_name);
+
+      folder_path = g_file_get_path (file);
+      codeslayer_project_set_folder_path (project, folder_path);
+      g_free (folder_path);
+      
+      g_object_force_floating (G_OBJECT (project));
+
+      codeslayer_profile_add_project (profile, project);
+
+      codeslayer_profiles_save_profile (priv->profiles, profile);
+
+      codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), project);
+      
+      files = g_slist_next (files);
+    }
+    
+  g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
+}
+
+static void
+remove_project_action (CodeSlayerEngine  *engine,
+                       CodeSlayerProject *project)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerProfile *profile;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+
+  codeslayer_profile_remove_project (profile, project);
+  
+  codeslayer_profiles_save_profile (priv->profiles, profile);
+  
+  g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
+}
+
+static void
+select_projects_document_action (CodeSlayerEngine   *engine,
+                                 CodeSlayerDocument *document)
+{
+  CodeSlayerEnginePrivate *priv;
+  GtkWidget *notebook;
+  const gchar *file_path;
+  GFile *file;
+
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  notebook = priv->notebook;
+  file_path = codeslayer_document_get_file_path (document);
+
+  /* make sure the file still exists */
+  
+  file = g_file_new_for_path (file_path);
+  if (!g_file_query_exists (file, NULL))
+    {
+      g_object_unref (file);
+      return;
+    }
+  g_object_unref (file);
+  
+  if (!codeslayer_notebook_select_editor (CODESLAYER_NOTEBOOK (notebook), document))
+    codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (notebook), document);
+
+  sync_menu_bar (CODESLAYER_ENGINE (engine));
+}
+
+static void
+select_editor_action (CodeSlayerEngine *engine, 
+                      guint             page_num)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
+  GtkWidget *notebook_page;
+  CodeSlayerDocument *document;
+  gboolean sync_with_editor;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  
+  if (codeslayer_profile_get_projects (profile) == NULL)
+    return;
+
+  notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);
+  if (notebook_page == NULL)
+    return;
+  
+  document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+
+  sync_with_editor = codeslayer_registry_get_boolean (registry, 
+                                                      CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);
+  
+  if (sync_with_editor)
+    {
+      if (!codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), document))
+        codeslayer_notebook_page_show_document_not_found_info_bar (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+    }
+}
+
+static void
+search_find_projects_action (CodeSlayerEngine *engine,
+                             gchar            *file_paths)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
+  gint search_width;
+  gint search_height;
+  gint search_x;
+  gint search_y;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
+  
+  if (priv->search == NULL)
+    {
+      priv->search = codeslayer_projects_search_new (priv->window, 
+                                                     priv->profiles);
+
+      g_signal_connect_swapped (G_OBJECT (priv->search), "close",
+                                G_CALLBACK (close_search_action), engine);
+                        
+      g_signal_connect_swapped (G_OBJECT (priv->search), "select-document",
+                                G_CALLBACK (select_search_document_action), engine);
+    }
+    
+  if (!gtk_widget_get_visible (priv->search))
+    {
+      search_width = codeslayer_registry_get_integer (registry,
+                                                      CODESLAYER_REGISTRY_SEARCH_WIDTH);
+      if (search_width < 0)
+        search_width = 600;
+        
+      search_height = codeslayer_registry_get_integer (registry,
+                                                       CODESLAYER_REGISTRY_SEARCH_HEIGHT);
+      if (search_height < 0)
+        search_height = 350;
+        
+      gtk_window_set_default_size (GTK_WINDOW (priv->search), search_width, search_height);
+
+      search_x = codeslayer_registry_get_integer (registry,
+                                                  CODESLAYER_REGISTRY_SEARCH_X);
+      if (search_x < 0)
+        search_x = 10;
+        
+      search_y = codeslayer_registry_get_integer (registry,
+                                                  CODESLAYER_REGISTRY_SEARCH_Y);
+      if (search_y < 0)
+        search_y = 10;
+
+      gtk_window_move (GTK_WINDOW (priv->search), search_x, search_y);
+    }
+    
+  gtk_window_present (GTK_WINDOW (priv->search));
+  gtk_widget_show_all (GTK_WIDGET (priv->search));
+  
+  codeslayer_projects_search_set_profile (CODESLAYER_PROJECTS_SEARCH (priv->search), profile);
+  
+  if (codeslayer_utils_has_text (file_paths))
+    codeslayer_projects_search_find_selection (CODESLAYER_PROJECTS_SEARCH (priv->search), file_paths);
+  else
+    codeslayer_projects_search_find_projects (CODESLAYER_PROJECTS_SEARCH (priv->search));
+}
+
+static gboolean
+close_search_action (CodeSlayerEngine *engine, 
+                     GdkEvent         *event)
+{
+  CodeSlayerEnginePrivate *priv; 
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
+  gint width;
+  gint height;
+  gint x;
+  gint y;
+
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
+
+  gtk_window_get_size (GTK_WINDOW (priv->search), &width, &height);
+  codeslayer_registry_set_integer (registry,
+                                   CODESLAYER_REGISTRY_SEARCH_WIDTH,
+                                   width);
+  codeslayer_registry_set_integer (registry,
+                                   CODESLAYER_REGISTRY_SEARCH_HEIGHT,
+                                   height);
+
+  gtk_window_get_position (GTK_WINDOW (priv->search), &x, &y);
+  codeslayer_registry_set_integer (registry,
+                                   CODESLAYER_REGISTRY_SEARCH_X, x);
+  codeslayer_registry_set_integer (registry,
+                                   CODESLAYER_REGISTRY_SEARCH_Y, y);
+
+  gtk_widget_hide (priv->search);
+
+  return TRUE;
+}
+
+static void
+select_search_document_action (CodeSlayerEngine   *engine,
+                               CodeSlayerDocument *document)
+{
+  CodeSlayerEnginePrivate *priv;
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), 
+                                       document);
+}
+
+static void
+scan_external_changes_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  gint pages;
+  gint page;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+
+  codeslayer_projects_refresh (CODESLAYER_PROJECTS (priv->projects));
+  
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
+
+  for (page = 0; page < pages; page++)
+    {
+      GtkWidget *notebook_page; 
+      GtkWidget *editor;
+      const gchar *file_path;
+      GTimeVal *original_modification_time;
+      GTimeVal *latest_modification_time;
+      
+      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
+      editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      
+      original_modification_time = codeslayer_editor_get_modification_time (CODESLAYER_EDITOR (editor));
+
+      file_path = codeslayer_editor_get_file_path (CODESLAYER_EDITOR (editor));
+      latest_modification_time = codeslayer_utils_get_modification_time (file_path);
+      
+      if (latest_modification_time->tv_sec > original_modification_time->tv_sec)
+        codeslayer_notebook_page_show_external_changes_info_bar (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+        
+      g_free (latest_modification_time);
+    }
+
+  g_signal_emit_by_name ((gpointer) priv->projects, "projects-changed");
+}
+
+static void
+rename_file_path_action (CodeSlayerEngine *engine, 
+                         gchar            *file_path,
+                         gchar            *renamed_file_path)
+{
+  CodeSlayerEnginePrivate *priv;
+  gint pages;
+  gint page;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
+
+  for (page = 0; page < pages; page++)
+    {
+      GtkWidget *notebook_page;
+      CodeSlayerDocument *current_document;
+      const gchar *current_file_path;
+      guint length;
+      
+      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
+      current_document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      current_file_path = codeslayer_document_get_file_path (current_document);
+
+      length = g_strv_length (&file_path);
+
+      if (g_ascii_strncasecmp (current_file_path, file_path, length) == 0)
+        {
+          gchar *replacement_file_path;
+          gchar *replacement_basename;
+          GtkWidget *notebook_label;
+          
+          replacement_file_path = codeslayer_utils_strreplace (current_file_path, 
+                                                               file_path,
+                                                               renamed_file_path);
+          codeslayer_document_set_file_path (current_document,
+                                             replacement_file_path);
+
+          replacement_basename = g_path_get_basename (replacement_file_path);
+
+          notebook_label = gtk_notebook_get_tab_label (GTK_NOTEBOOK (priv->notebook),
+                                                       notebook_page);
+          codeslayer_notebook_tab_set_label_name (CODESLAYER_NOTEBOOK_TAB (notebook_label),
+                                                  replacement_basename);
+
+          g_free (replacement_file_path);
+          g_free (replacement_basename);
+        }
+    }
+}
+
+/* engine common code */
+
+static void
+save_document_settings (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerProfile *profile;
+  GList *documents = NULL;
+  gint pages;
+  gint page;
+
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  
+  if (codeslayer_profile_get_enable_projects (profile) == FALSE)
+    return;
+  
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
+  for (page = 0; page < pages; page++)
+    {
+      GtkWidget *notebook_page;
+      CodeSlayerDocument *document;
+      notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
+      document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      documents = g_list_append (documents, document);
+    }
+    
+  codeslayer_profile_set_documents (profile, documents);
+}
+
+static void
+save_window_settings (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
+  gint width;
+  gint height;
+  gint x;
+  gint y;
+  gint position;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
+
+  gtk_window_get_size (GTK_WINDOW (priv->window), &width, &height);
+  codeslayer_registry_set_integer (registry,
+                                   CODESLAYER_REGISTRY_WINDOW_WIDTH,
+                                   width);
+  codeslayer_registry_set_integer (registry,
+                                   CODESLAYER_REGISTRY_WINDOW_HEIGHT,
+                                   height);
+
+  gtk_window_get_position (GTK_WINDOW (priv->window), &x, &y);
+  codeslayer_registry_set_integer (registry,
+                                   CODESLAYER_REGISTRY_WINDOW_X, x);
+  codeslayer_registry_set_integer (registry,
+                                   CODESLAYER_REGISTRY_WINDOW_Y, y);
+
+  position = gtk_paned_get_position (GTK_PANED (priv->hpaned));
+  codeslayer_registry_set_integer (registry,
+                                   CODESLAYER_REGISTRY_HPANED_POSITION,
+                                   position);
+
+  position = gtk_paned_get_position (GTK_PANED (priv->vpaned));
+  codeslayer_registry_set_integer (registry,
+                                   CODESLAYER_REGISTRY_VPANED_POSITION,
+                                   position);
+}
+
+static void
+load_window_settings (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry; 
+  gint window_width;
+  gint window_height;
+  gint window_x;
+  gint window_y;
+  gint hpaned_position;
+  gint vpaned_position;
+  gboolean show_side_pane;
+  gboolean show_bottom_pane;
+  
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
+    
+  /* window specific settings */                                              
+
+  window_width = codeslayer_registry_get_integer (registry,
+                                                  CODESLAYER_REGISTRY_WINDOW_WIDTH);
+  if (window_width < 0)
+    {
+      window_width = 800;
+    }
+  
+  window_height = codeslayer_registry_get_integer (registry,
+                                                   CODESLAYER_REGISTRY_WINDOW_HEIGHT);
+  if (window_height < 0)
+    {
+      window_height = 600;
+    }
+    
+  /*gtk_window_set_default_size (GTK_WINDOW (priv->window), window_width, window_height);*/
+  gtk_window_resize (GTK_WINDOW (priv->window), window_width, window_height);
+
+  window_x = codeslayer_registry_get_integer (registry,
+                                              CODESLAYER_REGISTRY_WINDOW_X);
+  if (window_x < 0)
+    {
+      window_x = 10;
+    }
+    
+  window_y = codeslayer_registry_get_integer (registry,
+                                              CODESLAYER_REGISTRY_WINDOW_Y);
+  if (window_y < 0)
+    {
+      window_y = 10;
+    }
+    
+  gtk_window_move (GTK_WINDOW (priv->window), window_x, window_y);
+    
+  /* side and bottom pane settings */
+  
+  hpaned_position = codeslayer_registry_get_integer (registry,
+                                                     CODESLAYER_REGISTRY_HPANED_POSITION);
+  if (hpaned_position == -1)
+    hpaned_position = 250;
+
+  gtk_paned_set_position (GTK_PANED (priv->hpaned), hpaned_position);
+                                                
+  vpaned_position = codeslayer_registry_get_integer (registry,
+                                                     CODESLAYER_REGISTRY_VPANED_POSITION);
+  if (vpaned_position == -1)
+    vpaned_position = 250;
+
+  gtk_paned_set_position (GTK_PANED (priv->vpaned), vpaned_position);
+    
+  /* we have to this before we show or hide the panes */
+  gtk_widget_show_all (GTK_WIDGET (priv->window));
+    
+  /* show or hide panes */
+  
+  show_side_pane = codeslayer_registry_get_boolean (registry,
+                                                    CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE);
+  gtk_widget_set_visible (gtk_paned_get_child1 (GTK_PANED(priv->hpaned)), 
+                                                show_side_pane);
+                                                
+  show_bottom_pane = codeslayer_registry_get_boolean (registry,
+                                                      CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE);
+  gtk_widget_set_visible (gtk_paned_get_child2 (GTK_PANED(priv->vpaned)), 
+                                                show_bottom_pane);
+}
+
+static void 
+sync_menu_bar (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerProfile *profile;
+  gboolean enable_projects;
+  gboolean has_open_editors;
+  gint pages;
+
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+
+  enable_projects = codeslayer_profile_get_enable_projects (profile);
+
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
+  has_open_editors = pages > 0;
+  
+  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
+  
+  g_signal_emit_by_name ((gpointer) priv->menubar, "sync-engine", enable_projects, has_open_editors);
 }
