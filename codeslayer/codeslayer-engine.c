@@ -1389,13 +1389,36 @@ scan_external_changes_action (CodeSlayerEngine *engine)
       notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
       editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
       
+      if (codeslayer_editor_get_file_path (CODESLAYER_EDITOR (editor)) == NULL)
+        continue;
+        
       original_modification_time = codeslayer_editor_get_modification_time (CODESLAYER_EDITOR (editor));
 
       file_path = codeslayer_editor_get_file_path (CODESLAYER_EDITOR (editor));
       latest_modification_time = codeslayer_utils_get_modification_time (file_path);
       
       if (latest_modification_time->tv_sec > original_modification_time->tv_sec)
-        codeslayer_notebook_page_show_external_changes_info_bar (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+        {
+          GtkTextBuffer *buffer;
+          gchar *contents;
+        
+          buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
+          
+          contents = codeslayer_utils_get_utf8_text (file_path);
+          if (contents != NULL)
+            {
+              GTimeVal *modification_time;
+
+              gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
+              gtk_text_buffer_set_text (GTK_TEXT_BUFFER (buffer), contents, -1);
+              gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
+              gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
+              g_free (contents);
+              
+              modification_time = codeslayer_utils_get_modification_time (file_path);
+              codeslayer_editor_set_modification_time (CODESLAYER_EDITOR (editor), modification_time);
+            }
+        }
         
       g_free (latest_modification_time);
     }

@@ -33,7 +33,6 @@ static void codeslayer_menu_bar_projects_finalize    (CodeSlayerMenuBarProjects 
 static void add_menu_items                           (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void add_projects_action                      (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void sync_with_editor_action                  (CodeSlayerMenuBarProjects      *menu_bar_projects);
-static void scan_external_changes_action             (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void sync_engine_action                       (CodeSlayerMenuBarProjects      *menu_bar_projects,
                                                       gboolean                        enable_projects,
                                                       gboolean                        has_open_editors);
@@ -53,8 +52,6 @@ struct _CodeSlayerMenuBarProjectsPrivate
   GtkWidget          *add_projects_item;
   GtkWidget          *sync_with_editor_item;
   GtkWidget          *sync_with_editor_separator_item;
-  GtkWidget          *scan_external_changes_item;
-  GtkWidget          *scan_external_changes_separator_item;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarProjects, codeslayer_menu_bar_projects, GTK_TYPE_MENU_ITEM)
@@ -130,8 +127,6 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
   GtkWidget *add_projects_item;
   GtkWidget *sync_with_editor_item;
   GtkWidget *sync_with_editor_separator_item;
-  GtkWidget *scan_external_changes_item;
-  GtkWidget *scan_external_changes_separator_item;
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
@@ -148,22 +143,11 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
   priv->sync_with_editor_item = sync_with_editor_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), sync_with_editor_item);
   
-  scan_external_changes_separator_item = gtk_separator_menu_item_new ();
-  priv->scan_external_changes_separator_item = scan_external_changes_separator_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), scan_external_changes_separator_item);
-
-  scan_external_changes_item = gtk_menu_item_new_with_label (_("Scan External Changes"));
-  priv->scan_external_changes_item = scan_external_changes_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), scan_external_changes_item);
-
   g_signal_connect_swapped (G_OBJECT (add_projects_item), "activate",
                             G_CALLBACK (add_projects_action), menu_bar_projects);
 
   g_signal_connect_swapped (G_OBJECT (sync_with_editor_item), "activate",
                             G_CALLBACK (sync_with_editor_action), menu_bar_projects);
-
-  g_signal_connect_swapped (G_OBJECT (scan_external_changes_item), "activate",
-                            G_CALLBACK (scan_external_changes_action), menu_bar_projects);  
 }
 
 static void
@@ -187,8 +171,6 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
       gtk_widget_show (priv->add_projects_item);
       gtk_widget_show (priv->sync_with_editor_item);
       gtk_widget_show (priv->sync_with_editor_separator_item);
-      gtk_widget_show (priv->scan_external_changes_item);
-      gtk_widget_show (priv->scan_external_changes_separator_item);
 
       sync_with_editor = codeslayer_registry_get_boolean (registry, 
                                                           CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);
@@ -199,8 +181,6 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
       gtk_widget_hide (priv->add_projects_item);
       gtk_widget_hide (priv->sync_with_editor_item);
       gtk_widget_hide (priv->sync_with_editor_separator_item);
-      gtk_widget_hide (priv->scan_external_changes_item);
-      gtk_widget_hide (priv->scan_external_changes_separator_item);
     }
 }
 
@@ -256,12 +236,4 @@ sync_with_editor_action (CodeSlayerMenuBarProjects *menu_bar_projects)
                                                 
   codeslayer_registry_set_boolean (registry, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR,
                                    sync_with_editor);
-}
-
-static void
-scan_external_changes_action (CodeSlayerMenuBarProjects *menu_bar_projects)
-{
-  CodeSlayerMenuBarProjectsPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
-  codeslayer_menu_bar_scan_external_changes (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
