@@ -56,6 +56,7 @@ struct _CodeSlayerDocumentPrivate
 {
   gint                 line_number;
   GtkTreeRowReference *tree_row_reference;
+  gchar               *name;
   gchar               *file_path;
   gboolean             active;
   CodeSlayerProject   *project;
@@ -67,6 +68,7 @@ enum
 {
   PROP_0,
   PROP_LINE_NUMBER,
+  PROP_NAME,
   PROP_FILE_PATH,
   PROP_ACTIVE,
   PROP_PROJECT,
@@ -98,6 +100,18 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
                                                      "Line Number", 
                                                      0, 100000, 0,
                                                      G_PARAM_READWRITE));
+
+  /**
+   * CodeSlayerDocument:name:
+   *
+   * The name of the document.
+   */
+  g_object_class_install_property (gobject_class, 
+                                   PROP_NAME,
+                                   g_param_spec_string ("name",
+                                                        "Name",
+                                                        "Name", "",
+                                                        G_PARAM_READWRITE));
 
   /**
    * CodeSlayerDocument:file-path:
@@ -194,6 +208,9 @@ codeslayer_document_get_property (GObject    *object,
     case PROP_LINE_NUMBER:
       g_value_set_int (value, priv->line_number);
       break;
+    case PROP_NAME:
+      g_value_set_string (value, priv->name);
+      break;
     case PROP_FILE_PATH:
       g_value_set_string (value, priv->file_path);
       break;
@@ -225,6 +242,9 @@ codeslayer_document_set_property (GObject      *object,
     {
     case PROP_LINE_NUMBER:
       codeslayer_document_set_line_number (document, g_value_get_int (value));
+      break;
+    case PROP_NAME:
+      codeslayer_document_set_name (document, g_value_get_string (value));
       break;
     case PROP_FILE_PATH:
       codeslayer_document_set_file_path (document, g_value_get_string (value));
@@ -315,6 +335,42 @@ codeslayer_document_set_tree_row_reference (CodeSlayerDocument  *document,
 }
 
 /**
+ * codeslayer_document_get_name:
+ * @document: a #CodeSlayerDocument.
+ *
+ * Returns: the name of the document.
+ */
+const gchar *
+codeslayer_document_get_name (CodeSlayerDocument *document)
+{
+  return CODESLAYER_DOCUMENT_GET_PRIVATE (document)->name;
+}
+
+/**
+ * codeslayer_document_set_name:
+ * @document: a #CodeSlayerDocument.
+ * @name: the name of the document.
+ *
+ * This call is used internally to give a name to a document that does not 
+ * have a file path specified (Untitled 1, Untitled 1, etc...). If there is 
+ * a file path specified then the name is overridden to be the base name of 
+ * the file path.
+ */
+void
+codeslayer_document_set_name (CodeSlayerDocument *document,
+                              const gchar        *name)
+{
+  CodeSlayerDocumentPrivate *priv;
+  priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
+  if (priv->name)
+    {
+      g_free (priv->name);
+      priv->name = NULL;
+    }
+  priv->name = g_strdup (name);
+}
+
+/**
  * codeslayer_document_get_file_path:
  * @document: a #CodeSlayerDocument.
  *
@@ -338,13 +394,20 @@ codeslayer_document_set_file_path (CodeSlayerDocument *document,
                                    const gchar        *file_path)
 {
   CodeSlayerDocumentPrivate *priv;
+  gchar *name;
+  
   priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
+  
   if (priv->file_path)
     {
       g_free (priv->file_path);
       priv->file_path = NULL;
     }
   priv->file_path = g_strdup (file_path);
+  
+  name = g_path_get_basename (file_path);
+  codeslayer_document_set_name (document, name);
+  g_free (name);
 }
 
 /**

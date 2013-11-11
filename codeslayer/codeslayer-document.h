@@ -47,21 +47,24 @@ GType codeslayer_document_get_type (void) G_GNUC_CONST;
 
 CodeSlayerDocument*  codeslayer_document_new (void);
 
-const gint           codeslayer_document_get_line_number         (CodeSlayerDocument *document);
-void                 codeslayer_document_set_line_number         (CodeSlayerDocument *document, 
+const gint           codeslayer_document_get_line_number         (CodeSlayerDocument  *document);
+void                 codeslayer_document_set_line_number         (CodeSlayerDocument  *document, 
                                                                   const gint          line_number);
-GtkTreeRowReference* codeslayer_document_get_tree_row_reference  (CodeSlayerDocument *document);
-void                 codeslayer_document_set_tree_row_reference  (CodeSlayerDocument *document, 
+GtkTreeRowReference* codeslayer_document_get_tree_row_reference  (CodeSlayerDocument  *document);
+void                 codeslayer_document_set_tree_row_reference  (CodeSlayerDocument  *document, 
                                                                   GtkTreeRowReference *tree_row_reference);
-const gchar*         codeslayer_document_get_file_path           (CodeSlayerDocument *document);
-void                 codeslayer_document_set_file_path           (CodeSlayerDocument *document, 
-                                                                  const gchar        *file_path);
-const gboolean       codeslayer_document_get_active              (CodeSlayerDocument *document);
-void                 codeslayer_document_set_active              (CodeSlayerDocument *document, 
-                                                                  const gboolean      active);
-CodeSlayerProject*   codeslayer_document_get_project             (CodeSlayerDocument *document);
-void                 codeslayer_document_set_project             (CodeSlayerDocument *document, 
-                                                                  CodeSlayerProject  *project);
+const gchar*         codeslayer_document_get_name                (CodeSlayerDocument  *document);
+void                 codeslayer_document_set_name                (CodeSlayerDocument  *document, 
+                                                                  const gchar         *name);
+const gchar*         codeslayer_document_get_file_path           (CodeSlayerDocument  *document);
+void                 codeslayer_document_set_file_path           (CodeSlayerDocument  *document, 
+                                                                  const gchar         *file_path);
+const gboolean       codeslayer_document_get_active              (CodeSlayerDocument  *document);
+void                 codeslayer_document_set_active              (CodeSlayerDocument  *document, 
+                                                                  const gboolean       active);
+CodeSlayerProject*   codeslayer_document_get_project             (CodeSlayerDocument  *document);
+void                 codeslayer_document_set_project             (CodeSlayerDocument  *document, 
+                                                                  CodeSlayerProject   *project);
 
 G_END_DECLS
 

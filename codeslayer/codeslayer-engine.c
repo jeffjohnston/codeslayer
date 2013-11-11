@@ -516,18 +516,41 @@ close_default_editor (CodeSlayerEngine *engine)
     }
 }
 
+static gchar* 
+get_document_name (CodeSlayerEngine *engine)
+{
+  gchar *result = NULL;
+  gchar *num = NULL;
+  static gint count = 0;
+
+  count++;
+
+  num = g_strdup_printf ("%d", count);
+
+  result = g_strconcat (CODESLAYER_EDITOR_UNTITLED, " ", num, NULL);
+
+  g_free (num);
+
+  return result;
+}
+
 static void
 new_editor_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   CodeSlayerDocument *document;
+  gchar *name;
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
 
+  name = get_document_name (engine);
+  
   document = codeslayer_document_new ();
+  codeslayer_document_set_name (document, name);
   codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
   
   g_object_unref (document);
+  g_free (name);
   
   sync_menu_bar (CODESLAYER_ENGINE (engine));
 }

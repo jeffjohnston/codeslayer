@@ -1890,7 +1890,7 @@ delete_file_folder_action (CodeSlayerProjects *projects)
                                    GTK_DIALOG_MODAL,
                                    GTK_MESSAGE_WARNING,
                                    GTK_BUTTONS_OK_CANCEL,
-                                   _("Are you sure you want to move to delete?"));
+                                   _("Are you sure you want to delete?"));
   gtk_window_set_title (GTK_WINDOW (dialog), _("Delete"));
   gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 

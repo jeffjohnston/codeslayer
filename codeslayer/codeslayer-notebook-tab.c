@@ -73,7 +73,7 @@ struct _CodeSlayerNotebookTabPrivate
   GtkWidget *notebook;
   GtkWidget *label;
   GtkWidget *button;
-  gchar     *file_name;
+  gchar     *name;
 };
 
 enum
@@ -221,7 +221,7 @@ codeslayer_notebook_tab_finalize (CodeSlayerNotebookTab *notebook_tab)
 {
   CodeSlayerNotebookTabPrivate *priv;
   priv = CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE (notebook_tab);
-  g_free (priv->file_name);
+  g_free (priv->name);
   G_OBJECT_CLASS (codeslayer_notebook_tab_parent_class)->finalize ( G_OBJECT (notebook_tab));
 }
 
@@ -273,15 +273,15 @@ codeslayer_notebook_tab_set_property (GObject      *object,
 /**
  * codeslayer_notebook_tab_new:
  * @notebook: a #GtkWidget.
- * @file_name: the display name for the tab is the file name.
+ * @name: the display name for the tab is the file name.
  *
  * Creates a new #CodeSlayerNotebookTab.
  *
  * Returns: a new #CodeSlayerNotebookTab. 
  */
 GtkWidget*
-codeslayer_notebook_tab_new (GtkWidget *notebook, 
-                             gchar     *file_name)
+codeslayer_notebook_tab_new (GtkWidget   *notebook, 
+                             const gchar *name)
 {
   CodeSlayerNotebookTabPrivate *priv;
   GtkWidget *notebook_tab;
@@ -291,10 +291,10 @@ codeslayer_notebook_tab_new (GtkWidget *notebook,
   
   notebook_tab = g_object_new (codeslayer_notebook_tab_get_type (), NULL);
   priv = CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE (notebook_tab);
-  priv->file_name = g_strdup (file_name);
+  priv->name = g_strdup (name);
   priv->notebook = notebook;
 
-  label = gtk_label_new (file_name);
+  label = gtk_label_new (name);
   priv->label = label;
 
   button = gtk_button_new ();
@@ -439,7 +439,7 @@ codeslayer_notebook_tab_show_buffer_dirty (CodeSlayerNotebookTab *notebook_tab)
   CodeSlayerNotebookTabPrivate *priv;
   gchar *text;
   priv = CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE (notebook_tab);
-  text = g_strconcat ("*", priv->file_name, NULL);
+  text = g_strconcat ("*", priv->name, NULL);
   gtk_label_set_text (GTK_LABEL (priv->label), text);
   g_free (text);
 }
@@ -455,7 +455,7 @@ codeslayer_notebook_tab_show_buffer_clean (CodeSlayerNotebookTab *notebook_tab)
 {
   CodeSlayerNotebookTabPrivate *priv;
   priv = CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE (notebook_tab);
-  gtk_label_set_text (GTK_LABEL (priv->label), priv->file_name);
+  gtk_label_set_text (GTK_LABEL (priv->label), priv->name);
 }
 
 /**
@@ -488,13 +488,13 @@ codeslayer_notebook_tab_set_notebook_page (CodeSlayerNotebookTab  *notebook_tab,
 /**
  * codeslayer_notebook_tab_set_label_name:
  * @notebook_tab: a #CodeSlayerNotebookTab.
- * @file_name: the display name for the tab is the file name.
+ * @name: the display name for the tab is the file name.
  *
  * Change the label name of the tab.
  */
 void
 codeslayer_notebook_tab_set_label_name (CodeSlayerNotebookTab *notebook_tab,
-                                        gchar                 *file_name)
+                                        gchar                 *name)
 {
   CodeSlayerNotebookTabPrivate *priv;
   const gchar *label_text;
@@ -505,19 +505,19 @@ codeslayer_notebook_tab_set_label_name (CodeSlayerNotebookTab *notebook_tab,
 
   if (g_ascii_strncasecmp (label_text, "*", 1) == 0)
     {
-      gchar *text = g_strconcat ("*", file_name, NULL);
+      gchar *text = g_strconcat ("*", name, NULL);
       gtk_label_set_text (GTK_LABEL (priv->label), text);
       g_free (text);
     }
   else
     {
-      gtk_label_set_text (GTK_LABEL (priv->label), file_name);
+      gtk_label_set_text (GTK_LABEL (priv->label), name);
     }
 
   set_tooltip (notebook_tab);
 
-  g_free (priv->file_name);
-  priv->file_name = g_strdup (file_name);
+  g_free (priv->name);
+  priv->name = g_strdup (name);
 }
 
 static void

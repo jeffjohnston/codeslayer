@@ -65,6 +65,7 @@ void                 codeslayer_editor_sync_registry             (CodeSlayerEdit
 CodeSlayerDocument*  codeslayer_editor_get_document              (CodeSlayerEditor             *editor);
 void                 codeslayer_editor_add_completion_provider   (CodeSlayerEditor             *editor, 
                                                                   CodeSlayerCompletionProvider *provider);
+const gchar*         codeslayer_editor_get_name                  (CodeSlayerEditor             *editor);
 const gchar*         codeslayer_editor_get_file_path             (CodeSlayerEditor             *editor);
 gint                 codeslayer_editor_get_line_number           (CodeSlayerEditor             *editor);
 GTimeVal*            codeslayer_editor_get_modification_time     (CodeSlayerEditor             *editor);

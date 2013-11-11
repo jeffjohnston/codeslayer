@@ -51,18 +51,18 @@ struct _CodeSlayerNotebookTabClass
 
 GType codeslayer_notebook_tab_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_notebook_tab_new                (GtkWidget              *notebook, 
-                                                        gchar                  *file_name);
+GtkWidget*  codeslayer_notebook_tab_new                (GtkWidget             *notebook, 
+                                                        const gchar           *name);
 
-void        codeslayer_notebook_tab_show_buffer_dirty  (CodeSlayerNotebookTab  *notebook_tab);
-void        codeslayer_notebook_tab_show_buffer_clean  (CodeSlayerNotebookTab  *notebook_tab);
+void        codeslayer_notebook_tab_show_buffer_dirty  (CodeSlayerNotebookTab *notebook_tab);
+void        codeslayer_notebook_tab_show_buffer_clean  (CodeSlayerNotebookTab *notebook_tab);
 
-GtkWidget*  codeslayer_notebook_tab_get_notebook_page  (CodeSlayerNotebookTab  *notebook_tab);
-void        codeslayer_notebook_tab_set_notebook_page  (CodeSlayerNotebookTab  *notebook_tab, 
-                                                        GtkWidget              *notebook_page);
+GtkWidget*  codeslayer_notebook_tab_get_notebook_page  (CodeSlayerNotebookTab *notebook_tab);
+void        codeslayer_notebook_tab_set_notebook_page  (CodeSlayerNotebookTab *notebook_tab, 
+                                                        GtkWidget             *notebook_page);
 
-void        codeslayer_notebook_tab_set_label_name     (CodeSlayerNotebookTab  *notebook_tab, 
-                                                        gchar                  *file_name);
+void        codeslayer_notebook_tab_set_label_name     (CodeSlayerNotebookTab *notebook_tab, 
+                                                        gchar                 *name);
 
 G_END_DECLS
 

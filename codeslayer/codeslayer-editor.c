@@ -291,6 +291,22 @@ codeslayer_editor_get_document (CodeSlayerEditor *editor)
 }
 
 /**
+ * codeslayer_editor_get_name:
+ * @editor: a #CodeSlayerEditor  
+ *
+ * The name for the editors document.
+ *
+ * Returns: a string that is owned by the editor and should not be freed.
+ */
+const gchar*
+codeslayer_editor_get_name (CodeSlayerEditor *editor)
+{
+  CodeSlayerEditorPrivate *priv;
+  priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
+  return codeslayer_document_get_name (priv->document);
+}
+
+/**
  * codeslayer_editor_get_file_path:
  * @editor: a #CodeSlayerEditor  
  *
