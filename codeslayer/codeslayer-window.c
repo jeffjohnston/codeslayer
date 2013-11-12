@@ -509,3 +509,18 @@ codeslayer_window_open_editor (CodeSlayerWindow *window,
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
   codeslayer_engine_open_editor (priv->engine, file_path);
 }
+
+gboolean
+codeslayer_window_get_enable_projects (CodeSlayerWindow *window)
+{
+  CodeSlayerWindowPrivate *priv;
+  CodeSlayerProfile *profile;
+  CodeSlayerRegistry *registry;
+  
+  priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
+
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  registry = codeslayer_profile_get_registry (profile);
+
+  return codeslayer_registry_get_boolean (registry, CODESLAYER_REGISTRY_ENABLE_PROJECTS);
+}

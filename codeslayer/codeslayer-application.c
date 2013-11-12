@@ -37,8 +37,9 @@ static void codeslayer_application_shutdown    (GApplication               *appl
 static void codeslayer_application_activate    (GApplication               *application);
 static void codeslayer_application_open        (GApplication               *application,
                                                 GFile                      **files,
-                                                gint                       n_files,
+                                                gint                        n_files,
                                                 const gchar                *hint);
+static GtkWindow* get_window                   (GApplication               *application);
 static void verify_home_dir_exists             (void);
 static void verify_plugins_dir_exists          (void);
 static void verify_plugins_config_dir_exists   (void);
@@ -129,23 +130,26 @@ codeslayer_application_open (GApplication *application,
                              gint         n_files,
                              const gchar  *hint)
 {
-  GtkWindow *window;
+  GtkWindow *window = NULL;
   gint i;
   
-  window = gtk_application_get_active_window (GTK_APPLICATION (application));
-
   for (i = 0; i < n_files; i++)
     {
       GFile *file = files[i];
       if (g_file_query_exists (file, NULL))
         {
           gchar *file_path = g_file_get_path (file);
+
+          if (window == NULL)
+            window = get_window (application);
+        
           codeslayer_window_open_editor (CODESLAYER_WINDOW (window), file_path);
           g_free (file_path);
         }
     }
-    
-  gtk_window_present (window);
+  
+  if (window != NULL)  
+    gtk_window_present (window);
 }
 
 /**
@@ -171,6 +175,34 @@ codeslayer_application_new (gchar *profile_name)
 
   return application;
 }
+
+/*
+ * When opening files find the window that does not have projects enabled.
+ * If no windows without projects exist then create a new window.
+ */
+static GtkWindow*
+get_window (GApplication *application)
+{
+  GtkWidget *window;
+  GList *windows;      
+
+  windows = gtk_application_get_windows (GTK_APPLICATION (application));
+
+  while (windows != NULL)
+    {
+      GtkWindow *current = windows->data;      
+      if (!codeslayer_window_get_enable_projects (CODESLAYER_WINDOW (current)))
+        return GTK_WINDOW (current);
+      windows = g_list_next (windows);
+    }
+
+  /* do not have window without projects so create one */
+  
+  window = codeslayer_window_new (GTK_APPLICATION (application), NULL);
+  gtk_application_add_window (GTK_APPLICATION (application), GTK_WINDOW (window));  
+  return GTK_WINDOW (window);
+}
+
 static void
 verify_home_dir_exists (void)
 {
