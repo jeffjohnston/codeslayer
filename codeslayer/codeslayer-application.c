@@ -190,8 +190,9 @@ get_window (GApplication *application)
 
   while (windows != NULL)
     {
-      GtkWindow *current = windows->data;      
-      if (!codeslayer_window_get_enable_projects (CODESLAYER_WINDOW (current)))
+      GtkWindow *current = windows->data;
+      CodeSlayerProfile *profile = codeslayer_window_get_profile (CODESLAYER_WINDOW (current));
+      if (!codeslayer_profile_get_enable_projects (profile))
         return GTK_WINDOW (current);
       windows = g_list_next (windows);
     }

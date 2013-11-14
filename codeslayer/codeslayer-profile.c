@@ -42,7 +42,6 @@ struct _CodeSlayerProfilePrivate
 {
   gchar              *file_path;
   gchar              *name;
-  gboolean            enable_projects;
   GList              *projects;
   GList              *documents;
   GList              *plugins;
@@ -68,7 +67,6 @@ codeslayer_profile_init (CodeSlayerProfile *profile)
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   priv->file_path = NULL;
   priv->name = NULL;
-  priv->enable_projects = FALSE;
   priv->projects = NULL;
   priv->documents = NULL;
   priv->plugins = NULL;
@@ -187,7 +185,7 @@ codeslayer_profile_get_enable_projects (CodeSlayerProfile *profile)
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  return priv->enable_projects;
+  return codeslayer_registry_get_boolean (priv->registry, CODESLAYER_REGISTRY_ENABLE_PROJECTS);
 }
 
 void 
@@ -196,7 +194,8 @@ codeslayer_profile_set_enable_projects (CodeSlayerProfile *profile,
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  priv->enable_projects = enable_projects;
+  codeslayer_registry_set_boolean (priv->registry, 
+                                   CODESLAYER_REGISTRY_ENABLE_PROJECTS, enable_projects);
 }
 
 /**

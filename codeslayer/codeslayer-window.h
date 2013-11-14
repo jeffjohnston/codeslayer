@@ -20,6 +20,7 @@
 #define	__CODESLAYER_WINDOW_H__
 
 #include <gtk/gtk.h>
+#include <codeslayer/codeslayer-profile.h>
 
 G_BEGIN_DECLS
 
@@ -45,13 +46,11 @@ struct _CodeSlayerWindowClass
 GType
 codeslayer_window_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_window_new                  (GtkApplication   *application, 
-                                                    gchar            *profile_name);
-                                    
-void        codeslayer_window_open_editor          (CodeSlayerWindow *window, 
+GtkWidget*          codeslayer_window_new          (GtkApplication   *application, 
+                                                    gchar            *profile_name);                                    
+void                codeslayer_window_open_editor  (CodeSlayerWindow *window, 
                                                     gchar            *file_path);
-                                            
-gboolean    codeslayer_window_get_enable_projects  (CodeSlayerWindow  *window);
+CodeSlayerProfile*  codeslayer_window_get_profile  (CodeSlayerWindow *window);
                                     
 
 G_END_DECLS

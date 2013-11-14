@@ -172,11 +172,9 @@ codeslayer_profiles_retrieve_profile (CodeSlayerProfiles *profiles,
                                       const gchar        *name)
 {
   CodeSlayerProfile *profile;
-  CodeSlayerRegistry *registry; 
   gchar *file_path;
   gchar *profile_name;
   GFile *file;
-  gboolean enable_projects;
   
   file_path = g_build_filename (g_get_home_dir (),
                                 CODESLAYER_HOME,
@@ -198,13 +196,7 @@ codeslayer_profiles_retrieve_profile (CodeSlayerProfiles *profiles,
 
   profile = retrieve_profile (file);
   codeslayer_profile_set_name (profile, profile_name);
-  registry = codeslayer_profile_get_registry (profile);
   
-  enable_projects = codeslayer_registry_get_boolean (registry,
-                                                     CODESLAYER_REGISTRY_ENABLE_PROJECTS);
-  
-  codeslayer_profile_set_enable_projects (profile, enable_projects);
-    
   g_free (file_path);
   g_free (profile_name);
   g_object_unref (file);    

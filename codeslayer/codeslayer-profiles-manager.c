@@ -49,6 +49,8 @@ static gint sort_compare                            (GtkTreeModel               
                                                      gpointer                        userdata);
 static void select_row_action                       (GtkTreeSelection               *selection, 
                                                      CodeSlayerProfilesManager      *profiles_manager);
+static gboolean is_profile_active                   (CodeSlayerProfilesManager      *profiles_manager, 
+                                                     gchar                          *profile_name);
 static void add_profile_action                      (CodeSlayerProfilesManager      *profiles_manager);
 static void edit_profile_action                     (CodeSlayerProfilesManager      *profiles_manager);
 static void delete_profile_action                   (CodeSlayerProfilesManager      *profiles_manager);
@@ -355,6 +357,11 @@ select_row_action (GtkTreeSelection          *selection,
           gtk_widget_set_sensitive (priv->edit_button, FALSE);
           gtk_widget_set_sensitive (priv->delete_button, FALSE);
         }
+      else if (is_profile_active (profiles_manager, profile_name))
+        {
+          gtk_widget_set_sensitive (priv->delete_button, FALSE);        
+          gtk_widget_set_sensitive (priv->edit_button, TRUE);
+        }
       else
         {
           gtk_widget_set_sensitive (priv->edit_button, TRUE);
@@ -363,6 +370,29 @@ select_row_action (GtkTreeSelection          *selection,
       
       g_free (profile_name);
     }
+}
+
+static gboolean
+is_profile_active (CodeSlayerProfilesManager *profiles_manager, 
+                   gchar                     *profile_name)
+{
+  CodeSlayerProfilesManagerPrivate *priv;
+  GList *windows;      
+
+  priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
+  
+  windows = gtk_application_get_windows (priv->application);
+
+  while (windows != NULL)
+    {
+      GtkWindow *current = windows->data;
+      CodeSlayerProfile *profile = codeslayer_window_get_profile (CODESLAYER_WINDOW (current));
+      if (g_strcmp0 (profile_name, codeslayer_profile_get_name (profile)) == 0)
+        return TRUE;
+      windows = g_list_next (windows);
+    }
+  
+  return FALSE;
 }
 
 static void
@@ -429,17 +459,13 @@ add_profile_action (CodeSlayerProfilesManager *profiles_manager)
           else
             {
               CodeSlayerProfile *profile;
-              CodeSlayerRegistry *registry;
               gboolean active;
               GtkTreeIter iter;
 
               profile = codeslayer_profiles_create_profile (priv->profiles, profile_name);
-              registry = codeslayer_profile_get_registry (profile);
               
-              active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (toggle_button));      
-              codeslayer_registry_set_boolean (registry, 
-                                               CODESLAYER_REGISTRY_ENABLE_PROJECTS, 
-                                               active);
+              active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (toggle_button));
+              codeslayer_profile_set_enable_projects (profile, active);
                                                
               codeslayer_profiles_save_profile (priv->profiles, profile);
               
@@ -460,7 +486,6 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
   CodeSlayerProfilesManagerPrivate *priv;
   CodeSlayerProfile *current_profile;
   CodeSlayerProfile *profile;
-  CodeSlayerRegistry *registry;
   GtkWidget *dialog;
   GtkWidget *content_area;
   gint response;
@@ -512,12 +537,9 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
       else
         profile = codeslayer_profiles_retrieve_profile (priv->profiles, profile_name);
       
-      registry = codeslayer_profile_get_registry (profile);
-      
       gtk_entry_set_text (GTK_ENTRY (entry), profile_name);
       
-      active = codeslayer_registry_get_boolean (registry, 
-                                                CODESLAYER_REGISTRY_ENABLE_PROJECTS);
+      active = codeslayer_profile_get_enable_projects (profile);
 
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (toggle_button), active);
       
@@ -552,9 +574,7 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
               gboolean active;              
 
               active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (toggle_button));      
-              codeslayer_registry_set_boolean (registry, 
-                                               CODESLAYER_REGISTRY_ENABLE_PROJECTS, 
-                                               active);
+              codeslayer_profile_set_enable_projects (profile, active);
 
               if (g_strcmp0 (profile_name, codeslayer_profile_get_name (profile)) != 0)
                 {
