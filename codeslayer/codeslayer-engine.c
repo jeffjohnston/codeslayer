@@ -487,6 +487,7 @@ show_projects_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   gtk_widget_show (priv->projects);
+  sync_menu_bar (engine);
 }
 
 void
@@ -495,6 +496,7 @@ hide_projects_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   gtk_widget_hide (priv->projects);
+  sync_menu_bar (engine);
 }
 
 static void
