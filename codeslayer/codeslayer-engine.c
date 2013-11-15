@@ -106,10 +106,6 @@ static void rename_file_path_action         (CodeSlayerEngine      *engine,
                                              gchar                 *file_path,
                                              gchar                 *renamed_file_path);
                                              
-static void show_projects_action            (CodeSlayerEngine      *engine);
-static void hide_projects_action            (CodeSlayerEngine      *engine);
-                                             
-                                             
 /* engine common code */                                             
 
 static void load_window_settings            (CodeSlayerEngine      *engine);
@@ -322,10 +318,6 @@ codeslayer_engine_new (GtkWindow          *window,
                             G_CALLBACK (codeslayer_profiles_manager_run_dialog), 
                             profiles_manager);                            
                             
-  g_signal_connect_swapped (G_OBJECT (profiles_manager), "save-profile",
-                            G_CALLBACK (codeslayer_engine_save_profile), 
-                            engine);                            
-                            
   /* projects specific code */     
   
   g_signal_connect_swapped (G_OBJECT (menubar), "find-projects",
@@ -351,12 +343,6 @@ codeslayer_engine_new (GtkWindow          *window,
   
   g_signal_connect_swapped (G_OBJECT (projects), "file-path-renamed",
                             G_CALLBACK (rename_file_path_action), engine);
-
-  g_signal_connect_swapped (G_OBJECT (profiles_manager), "show-projects",
-                            G_CALLBACK (show_projects_action), engine);
-
-  g_signal_connect_swapped (G_OBJECT (profiles_manager), "hide-projects",
-                            G_CALLBACK (hide_projects_action), engine);
 
   return engine;
 }
@@ -479,24 +465,6 @@ codeslayer_engine_save_profile (CodeSlayerEngine *engine)
   codeslayer_profiles_save_profile (priv->profiles, profile);
   
   return TRUE;
-}
-
-void
-show_projects_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  gtk_widget_show (priv->projects);
-  sync_menu_bar (engine);
-}
-
-void
-hide_projects_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  gtk_widget_hide (priv->projects);
-  sync_menu_bar (engine);
 }
 
 static void
@@ -881,6 +849,7 @@ static void
 registry_changed_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv; 
+  CodeSlayerProfile *profile;
   gint pages;
   gint page;
   
@@ -897,6 +866,14 @@ registry_changed_action (CodeSlayerEngine *engine)
       editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
       codeslayer_editor_sync_registry (CODESLAYER_EDITOR (editor));
     }
+    
+  profile = codeslayer_profiles_get_profile (priv->profiles);
+  if (codeslayer_profile_get_enable_projects (profile))
+    gtk_widget_show (priv->projects);
+  else
+    gtk_widget_hide (priv->projects);
+
+  sync_menu_bar (engine);
 }
 
 static void

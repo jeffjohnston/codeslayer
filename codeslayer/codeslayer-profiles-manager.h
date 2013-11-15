@@ -44,10 +44,6 @@ struct _CodeSlayerProfilesManager
 struct _CodeSlayerProfilesManagerClass
 {
   GObjectClass parent_class;
-  
-  void (*show_projects) (CodeSlayerProfilesManager *profiles_manager);
-  void (*hide_projects) (CodeSlayerProfilesManager *profiles_manager);
-  void (*save_profile) (CodeSlayerProfilesManager *profiles_manager);
 };
 
 GType codeslayer_profiles_manager_get_type (void) G_GNUC_CONST;
