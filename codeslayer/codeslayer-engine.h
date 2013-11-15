@@ -52,8 +52,8 @@ GType codeslayer_engine_get_type (void) G_GNUC_CONST;
 
 CodeSlayerEngine*  codeslayer_engine_new            (GtkWindow          *window,
                                                      CodeSlayerProfiles *profiles,
-                                                     CodeSlayerPlugins  *plugins,
                                                      GtkWidget          *profiles_manager,
+                                                     CodeSlayerPlugins  *plugins,
                                                      GtkWidget          *projects,
                                                      GtkWidget          *menubar,
                                                      GtkWidget          *notebook,

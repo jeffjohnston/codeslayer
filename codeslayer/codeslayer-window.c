@@ -373,8 +373,8 @@ create_engines (CodeSlayerWindow *window)
 
   engine = codeslayer_engine_new (GTK_WINDOW (window), 
                                   priv->profiles,
-                                  priv->plugins,
                                   priv->profiles_manager,
+                                  priv->plugins,
                                   priv->projects,
                                   priv->menubar, 
                                   priv->notebook, 

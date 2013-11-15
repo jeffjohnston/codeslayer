@@ -188,8 +188,8 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
 CodeSlayerEngine*
 codeslayer_engine_new (GtkWindow          *window,
                        CodeSlayerProfiles *profiles,
-                       CodeSlayerPlugins  *plugins,
                        GtkWidget          *profiles_manager,
+                       CodeSlayerPlugins  *plugins,
                        GtkWidget          *projects,
                        GtkWidget          *menubar,
                        GtkWidget          *notebook,
