@@ -35,29 +35,29 @@
 #define PROJECT_CONFIG ".codeslayer"
 #define CONFIG "config"
 
-static void codeslayer_class_init            (CodeSlayerClass   *klass);
-static void codeslayer_init                  (CodeSlayer        *codeslayer);
-static void codeslayer_finalize              (CodeSlayer        *codeslayer);
+static void codeslayer_class_init             (CodeSlayerClass   *klass);
+static void codeslayer_init                   (CodeSlayer        *codeslayer);
+static void codeslayer_finalize               (CodeSlayer        *codeslayer);
 
-static void editor_saved_action              (CodeSlayer        *codeslayer,
-                                              CodeSlayerEditor  *editor);
-static void editors_all_saved_action         (CodeSlayer        *codeslayer,
-                                              GList             *editors);
-static void project_properties_opened_action (CodeSlayer        *codeslayer,
-                                              CodeSlayerProject *project);
-static void project_properties_closed_action (CodeSlayer        *codeslayer,
-                                              CodeSlayerProject *project);
-static void editor_added_action              (CodeSlayer        *codeslayer,
-                                              GtkWidget         *child,
-                                              guint              page_num);
-static void editor_removed_action            (CodeSlayer        *codeslayer, 
-                                              GtkWidget         *child,
-                                              guint              page_num);
-static void editor_switched_action           (CodeSlayer        *codeslayer,
-                                              GtkWidget         *child,
-                                              guint              page_num);
-static void projects_changed_action          (CodeSlayer        *codeslayer);
-static void verify_project_config_dir_exists (CodeSlayerProject *project);
+static void editor_saved_action               (CodeSlayer        *codeslayer,
+                                               CodeSlayerEditor  *editor);
+static void editors_all_saved_action          (CodeSlayer        *codeslayer,
+                                               GList             *editors);
+static void project_properties_opened_action  (CodeSlayer        *codeslayer,
+                                               CodeSlayerProject *project);
+static void project_properties_closed_action  (CodeSlayer        *codeslayer,
+                                               CodeSlayerProject *project);
+static void editor_added_action               (CodeSlayer        *codeslayer,
+                                               GtkWidget         *child,
+                                               guint              page_num);
+static void editor_removed_action             (CodeSlayer        *codeslayer, 
+                                               GtkWidget         *child,
+                                               guint              page_num);
+static void editor_switched_action            (CodeSlayer        *codeslayer,
+                                               GtkWidget         *child,
+                                               guint              page_num);
+static void projects_changed_action           (CodeSlayer        *codeslayer);
+static void verify_project_config_dir_exists  (CodeSlayerProject *project);
 
 #define CODESLAYER_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_TYPE, CodeSlayerPrivate))

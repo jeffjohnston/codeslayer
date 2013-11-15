@@ -51,7 +51,7 @@ static void delete_profile_action                   (CodeSlayerProfilesManager  
 static gboolean is_profile_loaded                   (CodeSlayerProfilesManager      *profiles_manager, 
                                                      const gchar                    *profile_name);
 static CodeSlayerProfile* get_profile               (CodeSlayerProfilesManager      *profiles_manager, 
-                                                     gchar                          *profile_name);
+                                                     const gchar                    *profile_name);
 static gint sort_compare                            (GtkTreeModel                   *model, 
                                                      GtkTreeIter                    *a,
                                                      GtkTreeIter                    *b, 
@@ -177,8 +177,11 @@ codeslayer_profiles_manager_run_dialog (CodeSlayerProfilesManager *profiles_mana
                 
           gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, PROFILE_NAME, &profile_name, -1);
           
+          gtk_widget_hide (priv->dialog);
+          
           window = codeslayer_window_new (GTK_APPLICATION (priv->application), profile_name);
           gtk_application_add_window (GTK_APPLICATION (priv->application), GTK_WINDOW (window));
+          gtk_window_present (GTK_WINDOW (window));
           
           g_free (profile_name);
         }
@@ -356,8 +359,7 @@ add_profile_action (CodeSlayerProfilesManager *profiles_manager)
   
   gtk_widget_show_all (content_area);
 
-  response = gtk_dialog_run (GTK_DIALOG (dialog));
-  
+  response = gtk_dialog_run (GTK_DIALOG (dialog));  
   if (response == GTK_RESPONSE_OK)
     {
       const gchar *profile_name;
@@ -718,7 +720,7 @@ is_profile_loaded (CodeSlayerProfilesManager *profiles_manager,
 
 static CodeSlayerProfile*
 get_profile (CodeSlayerProfilesManager *profiles_manager, 
-             gchar                     *profile_name)
+             const gchar               *profile_name)
 {
   CodeSlayerProfilesManagerPrivate *priv;
   GList *windows;      

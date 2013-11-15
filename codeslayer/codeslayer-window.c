@@ -52,23 +52,23 @@ static void codeslayer_window_class_init  (CodeSlayerWindowClass *klass);
 static void codeslayer_window_init        (CodeSlayerWindow      *window);
 static void codeslayer_window_finalize    (CodeSlayerWindow      *window);
 
-static void create_profiles                    (CodeSlayerWindow      *window);
-static void create_plugins                     (CodeSlayerWindow      *window);
-static void create_menu                        (CodeSlayerWindow      *window);
-static void create_projects                    (CodeSlayerWindow      *window);
-static void create_project_properties          (CodeSlayerWindow      *window);
-static void create_side_and_bottom_pane        (CodeSlayerWindow      *window);
-static void create_notebook                    (CodeSlayerWindow      *window);
-static void create_processes                   (CodeSlayerWindow      *window);
-static void create_process_bar                 (CodeSlayerWindow      *window);
-static void create_engines                     (CodeSlayerWindow      *window);
-static void create_profiles_manager            (CodeSlayerWindow      *window);
-static void load_plugins                       (CodeSlayerWindow      *window);
-static void create_paned_containers            (CodeSlayerWindow      *window);
-static void pack_window                        (CodeSlayerWindow      *window);
-static void destroy                            (CodeSlayerWindow      *window);
-static gboolean delete_event                   (CodeSlayerWindow      *window);
-static void quit_application_action            (CodeSlayerWindow      *window);
+static void create_profiles               (CodeSlayerWindow      *window);
+static void create_plugins                (CodeSlayerWindow      *window);
+static void create_menu                   (CodeSlayerWindow      *window);
+static void create_projects               (CodeSlayerWindow      *window);
+static void create_project_properties     (CodeSlayerWindow      *window);
+static void create_side_and_bottom_pane   (CodeSlayerWindow      *window);
+static void create_notebook               (CodeSlayerWindow      *window);
+static void create_processes              (CodeSlayerWindow      *window);
+static void create_process_bar            (CodeSlayerWindow      *window);
+static void create_engines                (CodeSlayerWindow      *window);
+static void create_profiles_manager       (CodeSlayerWindow      *window);
+static void load_plugins                  (CodeSlayerWindow      *window);
+static void create_paned_containers       (CodeSlayerWindow      *window);
+static void pack_window                   (CodeSlayerWindow      *window);
+static void destroy                       (CodeSlayerWindow      *window);
+static gboolean delete_event              (CodeSlayerWindow      *window);
+static void quit_application_action       (CodeSlayerWindow      *window);
 
 
 #define CODESLAYER_WINDOW_GET_PRIVATE(obj) \
