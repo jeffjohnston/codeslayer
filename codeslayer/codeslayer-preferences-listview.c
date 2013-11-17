@@ -48,7 +48,7 @@ typedef struct _CodeSlayerPreferencesListViewPrivate CodeSlayerPreferencesListVi
 struct _CodeSlayerPreferencesListViewPrivate
 {
   CodeSlayerPreferences *preferences;
-  CodeSlayerProfiles    *profiles;
+  CodeSlayerProfile     *profile;
   gchar                 *key;
   GtkWidget             *tab;
   const gchar           *title;
@@ -115,7 +115,7 @@ codeslayer_preferences_list_view_finalize (CodeSlayerPreferencesListView *projec
  */
 GObject*
 codeslayer_preferences_list_view_new (CodeSlayerPreferences *preferences, 
-                                      CodeSlayerProfiles    *profiles,
+                                      CodeSlayerProfile     *profile,
                                       gchar                 *key,
                                       GtkWidget             *tab, 
                                       const gchar           *title)
@@ -126,7 +126,7 @@ codeslayer_preferences_list_view_new (CodeSlayerPreferences *preferences,
   preferences_listview = g_object_new (codeslayer_preferences_list_view_get_type (), NULL);
   priv = CODESLAYER_PREFERENCES_LIST_VIEW_GET_PRIVATE (preferences_listview);
   priv->preferences = preferences;
-  priv->profiles = profiles;
+  priv->profile = profile;
   priv->title = title;
   priv->key = key;
   priv->tab = tab;
@@ -163,15 +163,13 @@ load_list (CodeSlayerPreferencesListView *preferences_listview,
            GtkWidget                     *list_view)
 {
   CodeSlayerPreferencesListViewPrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   gchar *include_types;
   gchar **split, **tmp;
 
   priv = CODESLAYER_PREFERENCES_LIST_VIEW_GET_PRIVATE (preferences_listview);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
 
   include_types = codeslayer_registry_get_string (registry, priv->key);
   split = g_strsplit (include_types, ",", 0);
@@ -194,15 +192,13 @@ list_changed_action (CodeSlayerPreferencesListView *preferences_listview,
                      GList                         *list)
 {
   CodeSlayerPreferencesListViewPrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   gchar *value;
   GString *gs;
     
   priv = CODESLAYER_PREFERENCES_LIST_VIEW_GET_PRIVATE (preferences_listview);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
 
   gs = g_string_new ("");
 

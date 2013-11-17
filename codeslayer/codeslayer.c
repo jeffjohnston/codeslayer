@@ -67,7 +67,7 @@ typedef struct _CodeSlayerPrivate CodeSlayerPrivate;
 struct _CodeSlayerPrivate
 {
   GtkWindow                   *window;
-  CodeSlayerProfiles          *profiles;
+  CodeSlayerProfile           *profile;
   CodeSlayerRegistry          *registry;
   CodeSlayerProcesses         *processes;
   CodeSlayerMenuBar           *menu_bar;
@@ -252,7 +252,7 @@ codeslayer_finalize (CodeSlayer *codeslayer)
 
 CodeSlayer*
 codeslayer_new (GtkWindow                   *window,
-                CodeSlayerProfiles          *profiles,
+                CodeSlayerProfile           *profile,
                 CodeSlayerProcesses         *processes, 
                 CodeSlayerMenuBar           *menu_bar,
                 CodeSlayerNotebook          *notebook,
@@ -266,7 +266,7 @@ codeslayer_new (GtkWindow                   *window,
   codeslayer = CODESLAYER (g_object_new (codeslayer_get_type (), NULL));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   priv->window = window;
-  priv->profiles = profiles;
+  priv->profile = profile;
   priv->processes = processes;
   priv->menu_bar = menu_bar;
   priv->notebook = notebook;
@@ -775,7 +775,6 @@ gchar*
 codeslayer_get_profile_config_folder_path (CodeSlayer *codeslayer)
 {
   CodeSlayerPrivate *priv;
-  CodeSlayerProfile *profile;
   const gchar *file_path;
   GFile *file;
   GFile *parent;
@@ -785,8 +784,7 @@ codeslayer_get_profile_config_folder_path (CodeSlayer *codeslayer)
   
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  profile = codeslayer_profiles_get_profile (priv->profiles);  
-  file_path = codeslayer_profile_get_file_path (profile);
+  file_path = codeslayer_profile_get_file_path (priv->profile);
   file = g_file_new_for_path (file_path);
   parent = g_file_get_parent (file);
   
@@ -810,17 +808,14 @@ codeslayer_get_project_by_file_path (CodeSlayer  *codeslayer,
                                      const gchar *file_path)
 {
   CodeSlayerPrivate *priv;
-  CodeSlayerProfile *profile;
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  
-  if (!codeslayer_profile_get_enable_projects (profile))
+  if (!codeslayer_profile_get_enable_projects (priv->profile))
     return NULL;
 
-  return codeslayer_profile_get_project_by_file_path (profile, file_path);
+  return codeslayer_profile_get_project_by_file_path (priv->profile, file_path);
 }
 
 /**
@@ -833,15 +828,13 @@ CodeSlayerRegistry*
 codeslayer_get_registry (CodeSlayer *codeslayer)
 {
   CodeSlayerPrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
 
   return registry;
 }
@@ -851,15 +844,12 @@ codeslayer_get_projects (CodeSlayer *codeslayer)
 {
 
   CodeSlayerPrivate *priv;
-  CodeSlayerProfile *profile;
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-
-  return codeslayer_profile_get_projects (profile);
+  return codeslayer_profile_get_projects (priv->profile);
 }
 
 /**

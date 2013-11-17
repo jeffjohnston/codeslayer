@@ -51,10 +51,6 @@ GType
 codeslayer_profiles_get_type (void) G_GNUC_CONST;
 
 CodeSlayerProfiles*  codeslayer_profiles_new                (void);
-                                               
-CodeSlayerProfile*   codeslayer_profiles_get_profile        (CodeSlayerProfiles *profiles);
-void                 codeslayer_profiles_load_profile       (CodeSlayerProfiles *profiles, 
-                                                             CodeSlayerProfile  *profile);
 CodeSlayerProfile*   codeslayer_profiles_create_profile     (CodeSlayerProfiles *profiles, 
                                                              const gchar        *name);
 CodeSlayerProfile*   codeslayer_profiles_retrieve_profile   (CodeSlayerProfiles *profiles, 

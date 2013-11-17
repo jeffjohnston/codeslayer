@@ -50,21 +50,21 @@ typedef struct _CodeSlayerMenuBarViewPrivate CodeSlayerMenuBarViewPrivate;
 
 struct _CodeSlayerMenuBarViewPrivate
 {
-  CodeSlayerProfiles *profiles;
-  GtkAccelGroup      *accel_group;
-  GtkWidget          *menu_bar;
-  GtkWidget          *menu;
-  GtkWidget          *fullscreen_window_item;
-  GtkWidget          *show_side_pane_item;
-  GtkWidget          *show_bottom_pane_item;
-  GtkWidget          *draw_spaces_item;
-  GtkWidget          *word_wrap_item;
-  GtkWidget          *scan_external_changes_item;
-  GtkWidget          *scan_external_changes_separator_item;
-  gulong              show_side_pane_id;
-  gulong              show_bottom_pane_id;
-  gulong              word_wrap_id;
-  gulong              draw_spaces_id;
+  CodeSlayerProfile *profile;
+  GtkAccelGroup     *accel_group;
+  GtkWidget         *menu_bar;
+  GtkWidget         *menu;
+  GtkWidget         *fullscreen_window_item;
+  GtkWidget         *show_side_pane_item;
+  GtkWidget         *show_bottom_pane_item;
+  GtkWidget         *draw_spaces_item;
+  GtkWidget         *word_wrap_item;
+  GtkWidget         *scan_external_changes_item;
+  GtkWidget         *scan_external_changes_separator_item;
+  gulong             show_side_pane_id;
+  gulong             show_bottom_pane_id;
+  gulong             word_wrap_id;
+  gulong             draw_spaces_id;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarView, codeslayer_menu_bar_view, GTK_TYPE_MENU_ITEM)
@@ -108,9 +108,9 @@ codeslayer_menu_bar_view_finalize (CodeSlayerMenuBarView *menu_bar_view)
  * Returns: a new #CodeSlayerMenuBarView. 
  */
 GtkWidget*
-codeslayer_menu_bar_view_new (GtkWidget          *menu_bar, 
-                              GtkAccelGroup      *accel_group, 
-                              CodeSlayerProfiles *profiles)
+codeslayer_menu_bar_view_new (GtkWidget         *menu_bar, 
+                              GtkAccelGroup     *accel_group, 
+                              CodeSlayerProfile *profile)
 {
   CodeSlayerMenuBarViewPrivate *priv;
   GtkWidget *menu_bar_view;
@@ -120,7 +120,7 @@ codeslayer_menu_bar_view_new (GtkWidget          *menu_bar,
 
   priv->menu_bar = menu_bar;
   priv->accel_group = accel_group;
-  priv->profiles = profiles;
+  priv->profile = profile;
   
   add_menu_items (CODESLAYER_MENU_BAR_VIEW (menu_bar_view));
   
@@ -207,13 +207,11 @@ sync_engine_action (CodeSlayerMenuBarView *menu_bar_view,
                     gboolean               has_open_editors)
 {
   CodeSlayerMenuBarViewPrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry;
   
   priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
   
   gtk_widget_set_sensitive (priv->draw_spaces_item, has_open_editors);
   gtk_widget_set_sensitive (priv->word_wrap_item, has_open_editors);

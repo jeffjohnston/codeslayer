@@ -73,7 +73,7 @@ struct _CodeSlayerEditorPrivate
   GtkWindow             *window;
   CodeSlayerDocument    *document;
   GTimeVal              *modification_time;
-  CodeSlayerProfiles    *profiles;
+  CodeSlayerProfile     *profile;
   CodeSlayerCompletion  *completion;
   gulong                 cursor_position_id;
 };
@@ -209,7 +209,7 @@ codeslayer_editor_finalize (CodeSlayerEditor *editor)
 GtkWidget*
 codeslayer_editor_new (GtkWindow          *window, 
                        CodeSlayerDocument *document,
-                       CodeSlayerProfiles *profiles)
+                       CodeSlayerProfile  *profile)
 {
   CodeSlayerEditorPrivate *priv;
   GtkWidget *editor;
@@ -219,7 +219,7 @@ codeslayer_editor_new (GtkWindow          *window,
   editor = g_object_new (codeslayer_editor_get_type (), NULL);
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   priv->document = document;
-  priv->profiles = profiles;
+  priv->profile = profile;
   priv->window = window;
   
   g_object_ref_sink (G_OBJECT (document));
@@ -772,7 +772,6 @@ void
 codeslayer_editor_sync_registry (CodeSlayerEditor *editor)
 {
   CodeSlayerEditorPrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   gboolean display_line_number;
   gboolean display_right_margin;
@@ -796,8 +795,7 @@ codeslayer_editor_sync_registry (CodeSlayerEditor *editor)
   
   priv = CODESLAYER_EDITOR_GET_PRIVATE (editor);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
 
   display_line_number = codeslayer_registry_get_boolean (registry,
                                                             CODESLAYER_REGISTRY_EDITOR_DISPLAY_LINE_NUMBERS);

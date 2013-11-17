@@ -119,7 +119,7 @@ typedef struct
 struct _CodeSlayerProjectsPrivate
 {
   GtkWidget          *window;
-  CodeSlayerProfiles *profiles;
+  CodeSlayerProfile  *profile;
   GtkWidget          *project_properties;
   GtkWidget          *properties_dialog;
   GtkWidget          *name_entry;
@@ -426,9 +426,9 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
  * Returns: a new #CodeSlayerProjects. 
  */
 GtkWidget*
-codeslayer_projects_new (GtkWidget          *window, 
-                         CodeSlayerProfiles *profiles,
-                         GtkWidget          *project_properties)
+codeslayer_projects_new (GtkWidget         *window, 
+                         CodeSlayerProfile *profile,
+                         GtkWidget         *project_properties)
 {
   CodeSlayerProjectsPrivate *priv;
   GtkWidget *projects;  
@@ -438,7 +438,7 @@ codeslayer_projects_new (GtkWidget          *window,
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   
   priv->window = window;
-  priv->profiles = profiles;
+  priv->profile = profile;
   priv->project_properties = project_properties;
   
   create_tree (CODESLAYER_PROJECTS (projects));
@@ -471,7 +471,6 @@ create_tree (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
   
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   GtkTreeSelection *tree_selection;
   GtkTreeSortable *sortable;
@@ -480,8 +479,7 @@ create_tree (CodeSlayerProjects *projects)
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
 
   priv->scrolled_window = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->scrolled_window),
@@ -738,20 +736,6 @@ create_project_properties_dialog (CodeSlayerProjects *projects)
 }
 
 /**
- * codeslayer_projects_clear:
- * @projects: a #CodeSlayerProjects.
- *
- * Clear the projects in the tree.
- */
-void
-codeslayer_projects_clear (CodeSlayerProjects *projects)
-{
-  CodeSlayerProjectsPrivate *priv;
-  priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-  gtk_tree_store_clear (priv->treestore);
-}
-
-/**
  * codeslayer_projects_add_project:
  * @projects: a #CodeSlayerProjects.
  * @project: a #CodeSlayerProject to add to the tree.
@@ -798,7 +782,6 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
                                      CodeSlayerDocument *document)
 {
   CodeSlayerProjectsPrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   CodeSlayerProject *project;
   const gchar *project_folder_path;
@@ -813,15 +796,14 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
   gchar *destination_path;
 
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
 
   if (select_document (document, projects))
     return TRUE;
     
   project = codeslayer_document_get_project (document);
   
-  if (project == NULL || !codeslayer_profile_contains_project (profile, project))
+  if (project == NULL || !codeslayer_profile_contains_project (priv->profile, project))
     {
       g_warning ("Cannot select document from the tree because the project is invalid.");  
       return FALSE;
@@ -2061,15 +2043,13 @@ append_treestore_children (CodeSlayerProjects *projects,
   GFile *file;
   char *file_path;
   GFileEnumerator *enumerator;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
 
   file = g_file_new_for_path (parentdir);
   file_path = g_file_get_path (file);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
 
   enumerator = g_file_enumerate_children (file, "standard::*",
                                           G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, 

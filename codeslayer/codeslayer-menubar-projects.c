@@ -45,7 +45,7 @@ typedef struct _CodeSlayerMenuBarProjectsPrivate CodeSlayerMenuBarProjectsPrivat
 struct _CodeSlayerMenuBarProjectsPrivate
 {
   GtkWidget          *window;
-  CodeSlayerProfiles *profiles;
+  CodeSlayerProfile *profile;
   GtkAccelGroup      *accel_group;
   GtkWidget          *menu_bar;
   GtkWidget          *menu;
@@ -96,10 +96,10 @@ codeslayer_menu_bar_projects_finalize (CodeSlayerMenuBarProjects *menu_bar_proje
  * Returns: a new #CodeSlayerMenuBarProjects. 
  */
 GtkWidget*
-codeslayer_menu_bar_projects_new (GtkWidget          *window, 
-                                  GtkWidget          *menu_bar, 
-                                  GtkAccelGroup      *accel_group, 
-                                  CodeSlayerProfiles *profiles)
+codeslayer_menu_bar_projects_new (GtkWidget         *window, 
+                                  GtkWidget         *menu_bar, 
+                                  GtkAccelGroup     *accel_group, 
+                                  CodeSlayerProfile *profile)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   GtkWidget *menu_bar_projects;
@@ -110,7 +110,7 @@ codeslayer_menu_bar_projects_new (GtkWidget          *window,
   priv->window = window;
   priv->menu_bar = menu_bar;
   priv->accel_group = accel_group;
-  priv->profiles = profiles;
+  priv->profile = profile;
 
   add_menu_items (CODESLAYER_MENU_BAR_PROJECTS (menu_bar_projects));
 
@@ -156,13 +156,11 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
                     gboolean                   has_open_editors)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry;
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
 
   if (enable_projects)
     {    
@@ -221,14 +219,12 @@ static void
 sync_with_editor_action (CodeSlayerMenuBarProjects *menu_bar_projects)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   gboolean sync_with_editor;
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
   
   sync_with_editor = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item));
   codeslayer_menu_bar_sync_with_editor (CODESLAYER_MENU_BAR (priv->menu_bar),

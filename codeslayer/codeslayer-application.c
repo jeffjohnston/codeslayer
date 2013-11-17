@@ -197,7 +197,7 @@ get_window (GApplication *application)
       windows = g_list_next (windows);
     }
 
-  /* do not have window without projects so create one */
+  /* do not have window without projects enabled so create default window */
   
   window = codeslayer_window_new (GTK_APPLICATION (application), NULL);
   gtk_application_add_window (GTK_APPLICATION (application), GTK_WINDOW (window));  

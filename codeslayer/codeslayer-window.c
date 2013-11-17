@@ -82,6 +82,7 @@ struct _CodeSlayerWindowPrivate
   gchar                 *profile_name;
   CodeSlayerPreferences *preferences;
   CodeSlayerProfiles    *profiles;
+  CodeSlayerProfile     *profile;
   GtkWidget             *profiles_manager;
   GtkWidget             *projects;
   GtkWidget             *project_properties;
@@ -115,11 +116,12 @@ codeslayer_window_init (CodeSlayerWindow *window)
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
   priv->profiles = NULL;
+  priv->profile = NULL;
   priv->profiles_manager = NULL;
+  priv->profile_name = NULL;
   priv->engine = NULL;
   priv->plugins = NULL;
   priv->codeslayer = NULL;
-  priv->profile_name = NULL;
   
   gtk_window_set_default_icon_name ("codeslayer");
   
@@ -153,6 +155,9 @@ codeslayer_window_finalize (CodeSlayerWindow *window)
   if (priv->codeslayer)
     g_object_unref (priv->codeslayer);
 
+  if (priv->profile)
+    g_object_unref (priv->profile);
+
   G_OBJECT_CLASS (codeslayer_window_parent_class)->finalize (G_OBJECT (window));
 }
 
@@ -177,7 +182,7 @@ codeslayer_window_new (GtkApplication *application,
   priv->application = application;
   
   if (profile_name != NULL)
-  priv->profile_name = g_strdup (profile_name);
+    priv->profile_name = g_strdup (profile_name);
 
   g_signal_connect_swapped (G_OBJECT (window), "destroy", 
                             G_CALLBACK (destroy), window);
@@ -242,8 +247,8 @@ create_profiles (CodeSlayerWindow *window)
   
   if (profile == NULL)
     profile = codeslayer_profiles_create_profile (priv->profiles, CODESLAYER_PROFILES_DEFAULT);
-  
-  codeslayer_profiles_load_profile (profiles, profile);
+    
+  priv->profile = profile;
 }
 
 static void 
@@ -256,7 +261,8 @@ create_profiles_manager (CodeSlayerWindow *window)
   
   profiles_manager = codeslayer_profiles_manager_new (GTK_WIDGET (window),
                                                       priv->application, 
-                                                      priv->profiles);
+                                                      priv->profiles, 
+                                                      priv->profile);
 
   priv->profiles_manager = profiles_manager;
 }
@@ -297,7 +303,7 @@ create_projects (CodeSlayerWindow *window)
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
   projects = codeslayer_projects_new (GTK_WIDGET (window),
-                                      priv->profiles, 
+                                      priv->profile, 
                                       priv->project_properties);
   priv->projects = projects;
 }
@@ -312,10 +318,10 @@ create_notebook (CodeSlayerWindow *window)
   
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
-  notebook = codeslayer_notebook_new (GTK_WINDOW (window), priv->profiles);
+  notebook = codeslayer_notebook_new (GTK_WINDOW (window), priv->profile);
   priv->notebook = notebook;
   
-  notebook_search = codeslayer_notebook_search_new (notebook, priv->profiles);
+  notebook_search = codeslayer_notebook_search_new (notebook, priv->profile);
   notebook_pane = codeslayer_notebook_pane_new ();
   priv->notebook_pane = notebook_pane;
   
@@ -332,10 +338,10 @@ create_side_and_bottom_pane (CodeSlayerWindow *window)
 
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
-  side_pane = codeslayer_side_pane_new (priv->profiles, priv->process_bar);
+  side_pane = codeslayer_side_pane_new (priv->profile, priv->process_bar);
   priv->side_pane = side_pane;
   
-  bottom_pane = codeslayer_bottom_pane_new (priv->profiles);
+  bottom_pane = codeslayer_bottom_pane_new (priv->profile);
   priv->bottom_pane = bottom_pane;
 }
 
@@ -372,6 +378,7 @@ create_engines (CodeSlayerWindow *window)
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
   engine = codeslayer_engine_new (GTK_WINDOW (window), 
+                                  priv->profile,
                                   priv->profiles,
                                   priv->profiles_manager,
                                   priv->plugins,
@@ -394,7 +401,7 @@ create_menu (CodeSlayerWindow *window)
   
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
-  menubar = codeslayer_menu_bar_new (GTK_WIDGET (window), priv->profiles);
+  menubar = codeslayer_menu_bar_new (GTK_WIDGET (window), priv->profile);
   priv->menubar = menubar;
   
   g_signal_connect_swapped (G_OBJECT (menubar), "quit-application",
@@ -410,7 +417,7 @@ load_plugins (CodeSlayerWindow *window)
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
   codeslayer = codeslayer_new (GTK_WINDOW (window), 
-                               priv->profiles,
+                               priv->profile,
                                priv->processes,
                                CODESLAYER_MENU_BAR (priv->menubar), 
                                CODESLAYER_NOTEBOOK (priv->notebook), 
@@ -514,10 +521,6 @@ CodeSlayerProfile*
 codeslayer_window_get_profile (CodeSlayerWindow  *window)
 {
   CodeSlayerWindowPrivate *priv;
-  CodeSlayerProfile *profile;
-  
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-
-  return profile;
+  return priv->profile;
 }

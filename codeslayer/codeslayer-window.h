@@ -47,7 +47,7 @@ GType
 codeslayer_window_get_type (void) G_GNUC_CONST;
   
 GtkWidget*          codeslayer_window_new          (GtkApplication   *application, 
-                                                    gchar            *profile_name);                                    
+                                                    gchar            *profile_name);
 void                codeslayer_window_open_editor  (CodeSlayerWindow *window, 
                                                     gchar            *file_path);
 CodeSlayerProfile*  codeslayer_window_get_profile  (CodeSlayerWindow *window);

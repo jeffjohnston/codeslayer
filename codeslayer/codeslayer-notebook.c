@@ -72,8 +72,8 @@ typedef struct _CodeSlayerNotebookPrivate CodeSlayerNotebookPrivate;
 
 struct _CodeSlayerNotebookPrivate
 {
-  GtkWindow          *window;
-  CodeSlayerProfiles *profiles;
+  GtkWindow         *window;
+  CodeSlayerProfile *profile;
 };
 
 enum
@@ -160,21 +160,19 @@ codeslayer_notebook_finalize (CodeSlayerNotebook *notebook)
  * Returns: a new #CodeSlayerNotebook. 
  */
 GtkWidget*
-codeslayer_notebook_new (GtkWindow          *window, 
-                         CodeSlayerProfiles *profiles)
+codeslayer_notebook_new (GtkWindow         *window, 
+                         CodeSlayerProfile *profile)
 {
   CodeSlayerNotebookPrivate *priv;
   GtkWidget *notebook;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry;
   
   notebook = g_object_new (codeslayer_notebook_get_type (), NULL);
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
-  priv->profiles = profiles;
+  priv->profile = profile;
   priv->window = window;
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
   registry = codeslayer_profile_get_registry (profile);
   
   g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
@@ -214,7 +212,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   
   /* create page, editor and buffer */
 
-  editor = codeslayer_editor_new (priv->window, document, priv->profiles);
+  editor = codeslayer_editor_new (priv->window, document, priv->profile);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
 
   file_path = codeslayer_document_get_file_path (document);
@@ -876,14 +874,12 @@ static void
 registry_changed_action (CodeSlayerNotebook *notebook)
 {
   CodeSlayerNotebookPrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry;
   gchar *editor_value;
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
 
   editor_value = codeslayer_registry_get_string (registry, CODESLAYER_REGISTRY_EDITOR_TAB_POSITION);
 

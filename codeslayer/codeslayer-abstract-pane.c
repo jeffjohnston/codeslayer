@@ -47,9 +47,9 @@ typedef struct _CodeSlayerAbstractPanePrivate CodeSlayerAbstractPanePrivate;
 
 struct _CodeSlayerAbstractPanePrivate
 {
-  CodeSlayerProfiles *profiles;
-  GtkWidget          *notebook;
-  GList              *plugins;
+  CodeSlayerProfile *profile;
+  GtkWidget         *notebook;
+  GList             *plugins;
 };
 
 enum
@@ -143,12 +143,12 @@ codeslayer_abstract_pane_create_notebook (CodeSlayerAbstractPane *abstract_pane)
 }
 
 void
-codeslayer_abstract_pane_set_profiles (CodeSlayerAbstractPane *abstract_pane, 
-                                       CodeSlayerProfiles     *profiles)
+codeslayer_abstract_pane_set_profile (CodeSlayerAbstractPane *abstract_pane, 
+                                      CodeSlayerProfile      *profile)
 {
   CodeSlayerAbstractPanePrivate *priv;
   priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
-  priv->profiles = profiles;
+  priv->profile = profile;
 }
 
 /**
@@ -306,14 +306,12 @@ void
 codeslayer_abstract_pane_sync_registry (CodeSlayerAbstractPane *abstract_pane)
 {
   CodeSlayerAbstractPanePrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry; 
   gchar *editor_value;
   
   priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
 
   editor_value = codeslayer_registry_get_string (registry, tab_position_key (abstract_pane));
                                                     

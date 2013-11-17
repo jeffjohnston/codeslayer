@@ -63,7 +63,6 @@ typedef struct _CodeSlayerProfilesPrivate CodeSlayerProfilesPrivate;
 
 struct _CodeSlayerProfilesPrivate
 {
-  CodeSlayerProfile *profile;
   GObject *registry;
 };
 
@@ -82,17 +81,11 @@ codeslayer_profiles_class_init (CodeSlayerProfilesClass *klass)
 static void
 codeslayer_profiles_init (CodeSlayerProfiles *profiles)
 {
-  CodeSlayerProfilesPrivate *priv; 
-  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);  
-  priv->profile = NULL;
 }
 
 static void
 codeslayer_profiles_finalize (CodeSlayerProfiles *profiles)
 {
-  CodeSlayerProfilesPrivate *priv; 
-  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);  
-  g_object_unref (priv->profile);
   G_OBJECT_CLASS (codeslayer_profiles_parent_class)->finalize (G_OBJECT (profiles));
 }
 
@@ -109,27 +102,6 @@ codeslayer_profiles_new ()
   CodeSlayerProfiles *profiles;
   profiles = CODESLAYER_PROFILES (g_object_new (codeslayer_profiles_get_type (), NULL));
   return profiles;
-}
-
-CodeSlayerProfile*
-codeslayer_profiles_get_profile (CodeSlayerProfiles *profiles)
-{
-  CodeSlayerProfilesPrivate *priv; 
-  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);  
-  return priv->profile;
-}
-
-void
-codeslayer_profiles_load_profile (CodeSlayerProfiles *profiles, 
-                                  CodeSlayerProfile  *profile)
-{
-  CodeSlayerProfilesPrivate *priv;
-  priv = CODESLAYER_PROFILES_GET_PRIVATE (profiles);
-
-  if (priv->profile)
-    g_object_unref (priv->profile);
-
-  priv->profile = profile;
 }
 
 CodeSlayerProfile*       

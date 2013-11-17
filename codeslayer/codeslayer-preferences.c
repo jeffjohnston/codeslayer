@@ -47,8 +47,8 @@ typedef struct _CodeSlayerPreferencesPrivate CodeSlayerPreferencesPrivate;
 
 struct _CodeSlayerPreferencesPrivate
 {
-  GtkWidget          *window;
-  CodeSlayerProfiles *profiles;
+  GtkWidget         *window;
+  CodeSlayerProfile *profile;
 };
 
 G_DEFINE_TYPE (CodeSlayerPreferences, codeslayer_preferences, G_TYPE_OBJECT)
@@ -80,8 +80,8 @@ codeslayer_preferences_finalize (CodeSlayerPreferences *preferences)
  * Returns: a new #CodeSlayerPreferences. 
  */
 CodeSlayerPreferences*
-codeslayer_preferences_new (GtkWidget          *window, 
-                            CodeSlayerProfiles *profiles)
+codeslayer_preferences_new (GtkWidget         *window, 
+                            CodeSlayerProfile *profile)
 {
   CodeSlayerPreferencesPrivate *priv;
   CodeSlayerPreferences *preferences;
@@ -89,7 +89,7 @@ codeslayer_preferences_new (GtkWidget          *window,
   preferences = g_object_new (codeslayer_preferences_get_type (), NULL);
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
   priv->window = window;
-  priv->profiles = profiles;
+  priv->profile = profile;
   
   return preferences;
 }
@@ -104,7 +104,6 @@ void
 codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
 {
   CodeSlayerPreferencesPrivate *priv;
-  CodeSlayerProfile *profile; 
   GtkWidget *dialog;
   GtkWidget *content_area;
   GtkWidget *preferences_editor;
@@ -114,8 +113,6 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   GtkWidget *notebook;
   
   priv = CODESLAYER_PREFERENCES_GET_PRIVATE (preferences);
-
-  profile = codeslayer_profiles_get_profile (priv->profiles);
 
   dialog = gtk_dialog_new_with_buttons (_("Preferences"), 
                                         GTK_WINDOW (priv->window),
@@ -132,22 +129,22 @@ codeslayer_preferences_run_dialog (CodeSlayerPreferences *preferences)
   gtk_container_set_border_width (GTK_CONTAINER (notebook), 2);
   gtk_box_pack_start (GTK_BOX (content_area), notebook, TRUE, TRUE, 0);  
   
-  preferences_editor = codeslayer_preferences_editor_new (preferences, priv->profiles);
+  preferences_editor = codeslayer_preferences_editor_new (preferences, priv->profile);
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_editor, 
                             gtk_label_new (_("Editor")));
 
-  preferences_theme = codeslayer_preferences_theme_new (preferences, priv->profiles);
+  preferences_theme = codeslayer_preferences_theme_new (preferences, priv->profile);
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_theme, 
                             gtk_label_new (_("Theme")));
 
-  if (codeslayer_profile_get_enable_projects (profile))
+  if (codeslayer_profile_get_enable_projects (priv->profile))
     {
-      preferences_projects = codeslayer_preferences_projects_new (preferences, priv->profiles);
+      preferences_projects = codeslayer_preferences_projects_new (preferences, priv->profile);
       gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_projects, 
                                 gtk_label_new (_("Projects")));    
     }
 
-  preferences_misc = codeslayer_preferences_misc_new (preferences, priv->profiles);
+  preferences_misc = codeslayer_preferences_misc_new (preferences, priv->profile);
   gtk_notebook_append_page (GTK_NOTEBOOK (notebook), preferences_misc, 
                             gtk_label_new (_("Misc")));
 

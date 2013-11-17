@@ -70,6 +70,7 @@ struct _CodeSlayerProfilesManagerPrivate
   GtkWidget          *edit_button;
   GtkWidget          *delete_button;
   CodeSlayerProfiles *profiles;
+  CodeSlayerProfile  *profile;
   GtkWidget          *tree;
   GtkListStore       *store;
 };
@@ -111,7 +112,8 @@ codeslayer_profiles_manager_finalize (CodeSlayerProfilesManager *profiles_manage
 GtkWidget*
 codeslayer_profiles_manager_new (GtkWidget          *window, 
                                  GtkApplication     *application,
-                                 CodeSlayerProfiles *profiles)
+                                 CodeSlayerProfiles *profiles, 
+                                 CodeSlayerProfile  *profile)
 {
   CodeSlayerProfilesManagerPrivate *priv;
   GtkWidget *profiles_manager;
@@ -121,6 +123,7 @@ codeslayer_profiles_manager_new (GtkWidget          *window,
   priv->window = window;
   priv->application = application;
   priv->profiles = profiles;
+  priv->profile = profile;
   
   return profiles_manager;
 }
@@ -668,12 +671,9 @@ static void
 select_profile_name (CodeSlayerProfilesManager *profiles_manager)
 {
   CodeSlayerProfilesManagerPrivate *priv;
-  CodeSlayerProfile *profile;
   GtkTreeIter iter;
 
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
-  
-  profile = codeslayer_profiles_get_profile  (priv->profiles);
   
   gtk_tree_model_iter_children (GTK_TREE_MODEL (priv->store), &iter, NULL);
   
@@ -682,7 +682,7 @@ select_profile_name (CodeSlayerProfilesManager *profiles_manager)
       gchar *profile_name;
       gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, PROFILE_NAME, &profile_name, -1);
 
-      if (g_strcmp0 (codeslayer_profile_get_name (profile), profile_name) == 0)
+      if (g_strcmp0 (codeslayer_profile_get_name (priv->profile), profile_name) == 0)
         {
           GtkTreePath *path;
           path = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->store), &iter);

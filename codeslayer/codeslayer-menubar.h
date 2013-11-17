@@ -21,7 +21,6 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-registry.h>
-#include <codeslayer/codeslayer-profiles.h>
 #include <codeslayer/codeslayer-profile.h>
 
 G_BEGIN_DECLS
@@ -80,7 +79,7 @@ struct _CodeSlayerMenuBarClass
 GType codeslayer_menu_bar_get_type (void) G_GNUC_CONST;
   
 GtkWidget*      codeslayer_menu_bar_new                        (GtkWidget             *window, 
-                                                                CodeSlayerProfiles    *profiles);
+                                                                CodeSlayerProfile     *profile);
                                                              
 void            codeslayer_menu_bar_new_editor                 (CodeSlayerMenuBar     *menu_bar);
 void            codeslayer_menu_bar_open_editor                (CodeSlayerMenuBar     *menu_bar);

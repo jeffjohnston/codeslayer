@@ -91,25 +91,25 @@ typedef struct _CodeSlayerNotebookSearchPrivate CodeSlayerNotebookSearchPrivate;
 
 struct _CodeSlayerNotebookSearchPrivate
 {
-  GtkWidget          *grid;
-  GtkWidget          *notebook;
-  CodeSlayerProfiles *profiles;
-  GtkWidget          *close_button;
-  GtkWidget          *find_label;
-  GtkWidget          *find_entry;
-  GtkListStore       *find_store;
-  GtkWidget          *replace_spacer;
-  GtkWidget          *replace_label;
-  GtkWidget          *replace_entry;
-  GtkListStore       *replace_store;
-  GtkWidget          *replace_button;
-  GtkWidget          *replace_all_button;
-  GtkWidget          *find_previous_button;  
-  GtkWidget          *find_next_button;  
-  GtkWidget          *match_case_button;
-  GtkWidget          *match_word_button;
-  GdkRGBA             error_color;
-  GdkRGBA             default_color;
+  GtkWidget         *grid;
+  GtkWidget         *notebook;
+  CodeSlayerProfile *profile;
+  GtkWidget         *close_button;
+  GtkWidget         *find_label;
+  GtkWidget         *find_entry;
+  GtkListStore      *find_store;
+  GtkWidget         *replace_spacer;
+  GtkWidget         *replace_label;
+  GtkWidget         *replace_entry;
+  GtkListStore      *replace_store;
+  GtkWidget         *replace_button;
+  GtkWidget         *replace_all_button;
+  GtkWidget         *find_previous_button;  
+  GtkWidget         *find_next_button;  
+  GtkWidget         *match_case_button;
+  GtkWidget         *match_word_button;
+  GdkRGBA            error_color;
+  GdkRGBA            default_color;
 };
 
 enum
@@ -173,8 +173,8 @@ codeslayer_notebook_search_finalize (CodeSlayerNotebookSearch *notebook_search)
  * Returns: a new #CodeSlayerNotebookSearch. 
  */
 GtkWidget*
-codeslayer_notebook_search_new (GtkWidget          *notebook, 
-                                CodeSlayerProfiles *profiles)
+codeslayer_notebook_search_new (GtkWidget         *notebook, 
+                                CodeSlayerProfile *profile)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *notebook_search;
@@ -182,7 +182,7 @@ codeslayer_notebook_search_new (GtkWidget          *notebook,
   notebook_search = g_object_new (codeslayer_notebook_search_get_type (), NULL);
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   priv->notebook = notebook;
-  priv->profiles = profiles;
+  priv->profile = profile;
   
   priv->grid = gtk_grid_new ();
   gtk_grid_set_row_spacing (GTK_GRID (priv->grid), 2);
@@ -574,7 +574,6 @@ void
 codeslayer_notebook_search_sync_with_notebook (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry;
   gboolean match_case_selected;
   gboolean match_word_selected;
@@ -583,8 +582,7 @@ codeslayer_notebook_search_sync_with_notebook (CodeSlayerNotebookSearch *noteboo
 
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
 
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
   sensitive = pages > 0;
@@ -772,15 +770,13 @@ static void
 save_search_options (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
-  CodeSlayerProfile *profile;
   CodeSlayerRegistry *registry;
   gboolean match_case_selected;
   gboolean match_word_selected;
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   
-  profile = codeslayer_profiles_get_profile (priv->profiles);
-  registry = codeslayer_profile_get_registry (profile);
+  registry = codeslayer_profile_get_registry (priv->profile);
   
   match_case_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_button));
   match_word_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_button));

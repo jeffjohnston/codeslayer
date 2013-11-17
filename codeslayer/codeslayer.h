@@ -79,7 +79,7 @@ struct _CodeSlayerClass
 GType codeslayer_get_type (void) G_GNUC_CONST;
   
 CodeSlayer*               codeslayer_new                             (GtkWindow                   *window,
-                                                                      CodeSlayerProfiles          *profiles,
+                                                                      CodeSlayerProfile           *profile,
                                                                       CodeSlayerProcesses         *processes, 
                                                                       CodeSlayerMenuBar           *menu_bar,
                                                                       CodeSlayerNotebook          *notebook,

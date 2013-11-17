@@ -20,7 +20,6 @@
 #define	__CODESLAYER_MENU_BAR_PROJECTS_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-profiles.h>
 #include <codeslayer/codeslayer-profile.h>
 
 G_BEGIN_DECLS
@@ -46,10 +45,10 @@ struct _CodeSlayerMenuBarProjectsClass
 
 GType codeslayer_menu_bar_projects_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_menu_bar_projects_new   (GtkWidget           *window, 
-                                                GtkWidget           *menu_bar, 
-                                                GtkAccelGroup       *accel_group, 
-                                                CodeSlayerProfiles  *profiles);
+GtkWidget*  codeslayer_menu_bar_projects_new   (GtkWidget          *window, 
+                                                GtkWidget          *menu_bar, 
+                                                GtkAccelGroup      *accel_group, 
+                                                CodeSlayerProfile  *profile);
 
 G_END_DECLS
 

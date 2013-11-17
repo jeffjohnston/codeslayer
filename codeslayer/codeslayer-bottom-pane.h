@@ -45,7 +45,7 @@ struct _CodeSlayerBottomPaneClass
 
 GType codeslayer_bottom_pane_get_type (void) G_GNUC_CONST;
 
-GtkWidget*  codeslayer_bottom_pane_new  (CodeSlayerProfiles *profiles);
+GtkWidget*  codeslayer_bottom_pane_new  (CodeSlayerProfile *profile);
 
 G_END_DECLS
 

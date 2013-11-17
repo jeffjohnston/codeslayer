@@ -53,7 +53,7 @@ GType
 codeslayer_notebook_get_type (void) G_GNUC_CONST;
   
 GtkWidget*  codeslayer_notebook_new                  (GtkWindow          *window,
-                                                      CodeSlayerProfiles *profiles);
+                                                      CodeSlayerProfile  *profile);
 
 void        codeslayer_notebook_add_editor           (CodeSlayerNotebook *notebook, 
                                                       CodeSlayerDocument *document);

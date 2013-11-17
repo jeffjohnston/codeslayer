@@ -47,8 +47,8 @@ struct _CodeSlayerPreferencesClass
 
 GType codeslayer_preferences_get_type (void) G_GNUC_CONST;
 
-CodeSlayerPreferences*  codeslayer_preferences_new          (GtkWidget          *window, 
-                                                             CodeSlayerProfiles *profiles);
+CodeSlayerPreferences*  codeslayer_preferences_new          (GtkWidget             *window, 
+                                                             CodeSlayerProfile     *profile);
 
 void                    codeslayer_preferences_run_dialog   (CodeSlayerPreferences *preferences);
 

@@ -57,7 +57,7 @@ GType codeslayer_editor_get_type (void) G_GNUC_CONST;
 
 GtkWidget*           codeslayer_editor_new                       (GtkWindow                    *window,
                                                                   CodeSlayerDocument           *document,
-                                                                  CodeSlayerProfiles           *profiles);
+                                                                  CodeSlayerProfile            *profile);
 
 gboolean             codeslayer_editor_scroll_to_line            (CodeSlayerEditor             *editor,
                                                                   gint                          line_number);
