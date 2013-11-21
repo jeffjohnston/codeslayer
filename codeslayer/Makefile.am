@@ -45,7 +45,7 @@ pkginclude_HEADERS = \
     codeslayer-notebook-tab.h \
     codeslayer-notebook-page.h \
     codeslayer-editor-linker.h \
-    codeslayer-editor.h \
+    codeslayer-sourceview.h \
     codeslayer-utils.h \
     codeslayer-xml.h \
     codeslayer-marshaller.h \
@@ -101,7 +101,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-notebook-tab.c \
     codeslayer-notebook-page.c \
     codeslayer-editor-linker.c \
-    codeslayer-editor.c \
+    codeslayer-sourceview.c \
     codeslayer-utils.c \
     codeslayer-xml.c \
     codeslayer-marshaller.c \

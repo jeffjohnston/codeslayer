@@ -20,7 +20,7 @@
 #include <codeslayer/codeslayer-notebook-tab.h>
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-document.h>
-#include <codeslayer/codeslayer-editor.h>
+#include <codeslayer/codeslayer-sourceview.h>
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-profiles.h>
 
@@ -333,10 +333,10 @@ decorate_popup_menu (CodeSlayerNotebookTab *notebook_tab,
   priv = CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE (notebook_tab);
   priv->menu = menu;
 
-  close_all_editors_menu_item = gtk_menu_item_new_with_label (_("Close All Tabs"));
-  close_other_editors_menu_item = gtk_menu_item_new_with_label (_("Close Other Tabs"));
-  close_right_editors_menu_item = gtk_menu_item_new_with_label (_("Close Right Tabs"));
-  close_left_editors_menu_item = gtk_menu_item_new_with_label (_("Close Left Tabs"));
+  close_all_editors_menu_item = gtk_menu_item_new_with_label (_("Close All"));
+  close_other_editors_menu_item = gtk_menu_item_new_with_label (_("Close Other"));
+  close_right_editors_menu_item = gtk_menu_item_new_with_label (_("Close Right"));
+  close_left_editors_menu_item = gtk_menu_item_new_with_label (_("Close Left"));
 
   priv->close_other_editors_menu_item = close_other_editors_menu_item;
   priv->close_all_editors_menu_item = close_all_editors_menu_item;

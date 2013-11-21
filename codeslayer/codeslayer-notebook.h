@@ -20,7 +20,7 @@
 #define	__CODESLAYER_NOTEBOOK_H__
 
 #include <gtk/gtk.h>
-#include <codeslayer/codeslayer-editor.h>
+#include <codeslayer/codeslayer-sourceview.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-profiles.h>
 

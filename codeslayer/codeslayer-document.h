@@ -65,6 +65,9 @@ void                 codeslayer_document_set_active              (CodeSlayerDocu
 CodeSlayerProject*   codeslayer_document_get_project             (CodeSlayerDocument  *document);
 void                 codeslayer_document_set_project             (CodeSlayerDocument  *document, 
                                                                   CodeSlayerProject   *project);
+GtkWidget*           codeslayer_document_get_source_view         (CodeSlayerDocument  *document);
+void                 codeslayer_document_set_source_view         (CodeSlayerDocument  *document, 
+                                                                  GtkWidget           *source_view);
 
 G_END_DECLS
 

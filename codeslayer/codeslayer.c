@@ -40,7 +40,7 @@ static void codeslayer_init                   (CodeSlayer        *codeslayer);
 static void codeslayer_finalize               (CodeSlayer        *codeslayer);
 
 static void editor_saved_action               (CodeSlayer        *codeslayer,
-                                               CodeSlayerEditor  *editor);
+                                               CodeSlayerSourceView  *editor);
 static void editors_all_saved_action          (CodeSlayer        *codeslayer,
                                                GList             *editors);
 static void project_properties_opened_action  (CodeSlayer        *codeslayer,
@@ -102,7 +102,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
   /**
    * CodeSlayer::editor-saved
    * @codeslayer: the plugin that received the signal
-   * @editor: the #CodeSlayerEditor that was saved
+   * @editor: the #CodeSlayerSourceView that was saved
    *
    * The ::editor-saved signal is emitted when an editor is saved successfully
    */
@@ -112,12 +112,12 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerClass, editor_saved), 
                   NULL, NULL,
-                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
+                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
 
   /**
    * CodeSlayer::editors-all-saved
    * @codeslayer: the plugin that received the signal
-   * @editors: a #GList of #CodeSlayerEditor objects that were saved
+   * @editors: a #GList of #CodeSlayerSourceView objects that were saved
    *
    * The ::editors-all-saved signal is emitted when all the editors have been saved successfully
    */
@@ -132,7 +132,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
   /**
    * CodeSlayer::editor-added
    * @codeslayer: the plugin that received the signal
-   * @editor: the #CodeSlayerEditor that was added
+   * @editor: the #CodeSlayerSourceView that was added
    *
    * The ::editor-added signal is emitted when the editor is added to the notebook
    */
@@ -142,12 +142,12 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerClass, editor_added), 
                   NULL, NULL,
-                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
+                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
 
   /**
    * CodeSlayer::editor-removed
    * @codeslayer: the plugin that received the signal
-   * @editor: the #CodeSlayerEditor that was removed
+   * @editor: the #CodeSlayerSourceView that was removed
    *
    * The ::editor-removed signal is emitted when the editor is removed from the notebook
    */
@@ -157,12 +157,12 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerClass, editor_removed), 
                   NULL, NULL,
-                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
+                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
 
   /**
    * CodeSlayer::editor-switched
    * @codeslayer: the plugin that received the signal
-   * @editor: the #CodeSlayerEditor switched to
+   * @editor: the #CodeSlayerSourceView switched to
    *
    * The ::editor-switched signal is emitted when the active editor is switched in the notebook
    */
@@ -172,7 +172,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerClass, editor_switched), 
                   NULL, NULL,
-                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_EDITOR_TYPE);
+                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
 
   /**
    * CodeSlayer::path-navigated
@@ -379,7 +379,7 @@ codeslayer_select_editor_by_file_path (CodeSlayer  *codeslayer,
  * Returns: The editor in the notebook that has focus. Will 
  *          return NULL if there is no active editor.
  */
-CodeSlayerEditor*
+CodeSlayerSourceView*
 codeslayer_get_active_editor (CodeSlayer *codeslayer)
 {
   CodeSlayerPrivate *priv;
@@ -393,7 +393,7 @@ codeslayer_get_active_editor (CodeSlayer *codeslayer)
     return NULL;
 
   editor = codeslayer_notebook_get_active_editor (priv->notebook);
-  return CODESLAYER_EDITOR(editor);
+  return CODESLAYER_SOURCE_VIEW(editor);
 }
 
 /**
@@ -407,7 +407,7 @@ codeslayer_get_active_editor (CodeSlayer *codeslayer)
 const gchar*
 codeslayer_get_active_editor_file_path (CodeSlayer *codeslayer)
 {
-  CodeSlayerEditor *editor;
+  CodeSlayerSourceView *editor;
   CodeSlayerDocument *document;
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   
@@ -416,7 +416,7 @@ codeslayer_get_active_editor_file_path (CodeSlayer *codeslayer)
   if (editor == NULL)
     return NULL;
   
-  document = codeslayer_editor_get_document (editor);
+  document = codeslayer_source_view_get_document (editor);
   return codeslayer_document_get_file_path (document);;
 }
 
@@ -433,7 +433,7 @@ codeslayer_get_active_editor_file_path (CodeSlayer *codeslayer)
 CodeSlayerDocument*             
 codeslayer_get_active_editor_document (CodeSlayer *codeslayer)
 {
-  CodeSlayerEditor *editor;
+  CodeSlayerSourceView *editor;
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
 
@@ -441,7 +441,7 @@ codeslayer_get_active_editor_document (CodeSlayer *codeslayer)
   if (!editor)
     return NULL;
 
-  return codeslayer_editor_get_document (editor);
+  return codeslayer_source_view_get_document (editor);
 }
 
 /**
@@ -457,7 +457,7 @@ codeslayer_get_active_editor_document (CodeSlayer *codeslayer)
 CodeSlayerProject*             
 codeslayer_get_active_editor_project (CodeSlayer *codeslayer)
 {
-  CodeSlayerEditor *editor;
+  CodeSlayerSourceView *editor;
   CodeSlayerDocument *document;
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
@@ -466,7 +466,7 @@ codeslayer_get_active_editor_project (CodeSlayer *codeslayer)
   if (!editor)
     return NULL;
   
-  document = codeslayer_editor_get_document (editor);
+  document = codeslayer_source_view_get_document (editor);
 
   return codeslayer_document_get_project (document);
 }
@@ -475,7 +475,7 @@ codeslayer_get_active_editor_project (CodeSlayer *codeslayer)
  * codeslayer_get_all_editors:
  *  @codeslayer: a #CodeSlayer.
  *
- * Returns: a #GList of #CodeSlayerEditor. Note: you need to call g_list_free
+ * Returns: a #GList of #CodeSlayerSourceView. Note: you need to call g_list_free
  * when you are done with the list.
  */
 GList*
@@ -945,7 +945,7 @@ codeslayer_send_plugin_message (CodeSlayer  *codeslayer,
 
 static void
 editor_saved_action (CodeSlayer       *codeslayer,
-                     CodeSlayerEditor *editor)                     
+                     CodeSlayerSourceView *editor)                     
 {
   g_signal_emit_by_name ((gpointer) codeslayer, "editor-saved", editor);
 }

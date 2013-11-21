@@ -31,7 +31,7 @@
 #include <codeslayer/codeslayer-notebook-tab.h>
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-notebook-pane.h>
-#include <codeslayer/codeslayer-editor.h>
+#include <codeslayer/codeslayer-sourceview.h>
 
 /**
  * SECTION:codeslayer-engine
@@ -493,7 +493,7 @@ get_document_name (CodeSlayerEngine *engine)
 
   num = g_strdup_printf ("%d", count);
 
-  result = g_strconcat (CODESLAYER_EDITOR_UNTITLED, " ", num, NULL);
+  result = g_strconcat (CODESLAYER_SOURCE_VIEW_UNTITLED, " ", num, NULL);
 
   g_free (num);
 
@@ -843,7 +843,7 @@ registry_changed_action (CodeSlayerEngine *engine)
       
       notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
       editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-      codeslayer_editor_sync_registry (CODESLAYER_EDITOR (editor));
+      codeslayer_source_view_sync_registry (CODESLAYER_SOURCE_VIEW (editor));
     }
     
   if (codeslayer_profile_get_enable_projects (priv->profile))
@@ -927,7 +927,7 @@ go_to_line_keypress_action (GtkWidget        *entry,
     {
       GtkWidget *editor;
       editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
-      if (!codeslayer_editor_scroll_to_line (CODESLAYER_EDITOR (editor), atoi(string)))
+      if (!codeslayer_source_view_scroll_to_line (CODESLAYER_SOURCE_VIEW (editor), atoi(string)))
         {
           gtk_widget_override_color (entry, GTK_STATE_FLAG_NORMAL, 
                                      &(priv->go_to_line_error_color));
@@ -1351,12 +1351,12 @@ scan_external_changes_action (CodeSlayerEngine *engine)
       notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
       editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
       
-      if (codeslayer_editor_get_file_path (CODESLAYER_EDITOR (editor)) == NULL)
+      if (codeslayer_source_view_get_file_path (CODESLAYER_SOURCE_VIEW (editor)) == NULL)
         continue;
         
-      original_modification_time = codeslayer_editor_get_modification_time (CODESLAYER_EDITOR (editor));
+      original_modification_time = codeslayer_source_view_get_modification_time (CODESLAYER_SOURCE_VIEW (editor));
 
-      file_path = codeslayer_editor_get_file_path (CODESLAYER_EDITOR (editor));
+      file_path = codeslayer_source_view_get_file_path (CODESLAYER_SOURCE_VIEW (editor));
       latest_modification_time = codeslayer_utils_get_modification_time (file_path);
       
       if (latest_modification_time->tv_sec > original_modification_time->tv_sec)

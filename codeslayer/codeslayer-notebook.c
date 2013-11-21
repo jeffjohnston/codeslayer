@@ -23,7 +23,7 @@
 #include <codeslayer/codeslayer-notebook-tab.h>
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-document.h>
-#include <codeslayer/codeslayer-editor.h>
+#include <codeslayer/codeslayer-sourceview.h>
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-registry.h>
 
@@ -122,7 +122,7 @@ codeslayer_notebook_class_init (CodeSlayerNotebookClass *klass)
   /**
    * CodeSlayerNotebook::editors-all-saved
    * @codeslayernotebook: the notebook that received the signal
-   * @editors: a #GList of #CodeSlayerEditor objects that were saved
+   * @editors: a #GList of #CodeSlayerSourceView objects that were saved
    *
    * The ::editors-all-saved signal is emitted when all the editors have been saved successfully
    */
@@ -212,7 +212,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
   
   /* create page, editor and buffer */
 
-  editor = codeslayer_editor_new (priv->window, document, priv->profile);
+  editor = codeslayer_source_view_new (priv->window, document, priv->profile);
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(editor));
 
   file_path = codeslayer_document_get_file_path (document);
@@ -224,14 +224,14 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
       if (contents != NULL)
         {
           gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
-          codeslayer_editor_set_text (CODESLAYER_EDITOR (editor), contents);
+          codeslayer_source_view_set_text (CODESLAYER_SOURCE_VIEW (editor), contents);
           gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
           gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
           g_free (contents);
         }
       
       modification_time = codeslayer_utils_get_modification_time (file_path);
-      codeslayer_editor_set_modification_time (CODESLAYER_EDITOR (editor), modification_time);
+      codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (editor), modification_time);
     }
 
   notebook_page = codeslayer_notebook_page_new (editor);
@@ -272,7 +272,7 @@ codeslayer_notebook_add_editor (CodeSlayerNotebook *notebook,
 
   line_number = codeslayer_document_get_line_number (document);
   if (line_number > 0)
-    codeslayer_editor_scroll_to_line (CODESLAYER_EDITOR (editor), line_number);
+    codeslayer_source_view_scroll_to_line (CODESLAYER_SOURCE_VIEW (editor), line_number);
 }
 
 /**
@@ -315,7 +315,7 @@ codeslayer_notebook_select_editor (CodeSlayerNotebook *notebook,
             {
               GtkWidget *editor;
               editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-              codeslayer_editor_scroll_to_line (CODESLAYER_EDITOR (editor), line_number);
+              codeslayer_source_view_scroll_to_line (CODESLAYER_SOURCE_VIEW (editor), line_number);
             }
 
           return TRUE;
@@ -423,7 +423,7 @@ save_editor (CodeSlayerNotebook *notebook,
           g_free (contents);
           
           modification_time = codeslayer_utils_get_modification_time (file_path);
-          codeslayer_editor_set_modification_time (CODESLAYER_EDITOR (editor), modification_time);
+          codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (editor), modification_time);
               
           g_signal_emit_by_name((gpointer)notebook, "editor-saved", editor);          
           gtk_text_buffer_set_modified (buffer, FALSE);
@@ -606,7 +606,7 @@ codeslayer_notebook_get_active_editor (CodeSlayerNotebook *notebook)
  * codeslayer_notebook_get_all_editors:
  * @notebook: a #CodeSlayerNotebook.
  *
- * Returns: a #GList of #CodeSlayerEditor. Note: you need to call g_list_free
+ * Returns: a #GList of #CodeSlayerSourceView. Note: you need to call g_list_free
  * when you are done with the list.
  */
 GList*

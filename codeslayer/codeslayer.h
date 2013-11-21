@@ -29,7 +29,7 @@
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
 #include <codeslayer/codeslayer-editor-linker.h>
-#include <codeslayer/codeslayer-editor.h>
+#include <codeslayer/codeslayer-sourceview.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-menuitem.h>
@@ -95,7 +95,7 @@ gboolean                  codeslayer_select_editor_by_file_path      (CodeSlayer
                                                                       const gchar                 *file_path, 
                                                                       gint                         line_number);
 
-CodeSlayerEditor*         codeslayer_get_active_editor               (CodeSlayer                  *codeslayer);
+CodeSlayerSourceView*         codeslayer_get_active_editor               (CodeSlayer                  *codeslayer);
 
 const gchar*              codeslayer_get_active_editor_file_path     (CodeSlayer                  *codeslayer);
 

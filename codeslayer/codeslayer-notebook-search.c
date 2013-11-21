@@ -21,7 +21,7 @@
 #include <codeslayer/codeslayer-notebook.h>
 #include <codeslayer/codeslayer-notebook-search.h>
 #include <codeslayer/codeslayer-notebook-page.h>
-#include <codeslayer/codeslayer-editor.h>
+#include <codeslayer/codeslayer-sourceview.h>
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-registry.h>
 
@@ -568,7 +568,7 @@ add_replace_all_button (CodeSlayerNotebookSearch *notebook_search)
  * @notebook_search: a #CodeSlayerNotebookSearch.
  * 
  * Update the sensitivity of search related items based on the current 
- * state of the notebook #CodeSlayerEditor widgets.
+ * state of the notebook #CodeSlayerSourceView widgets.
  */
 void
 codeslayer_notebook_search_sync_with_notebook (CodeSlayerNotebookSearch *notebook_search)

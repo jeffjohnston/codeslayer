@@ -60,6 +60,7 @@ struct _CodeSlayerDocumentPrivate
   gchar               *file_path;
   gboolean             active;
   CodeSlayerProject   *project;
+  GtkWidget           *source_view;
 };
 
 G_DEFINE_TYPE (CodeSlayerDocument, codeslayer_document, G_TYPE_OBJECT)
@@ -171,6 +172,7 @@ codeslayer_document_init (CodeSlayerDocument *document)
   priv->file_path = NULL;
   priv->active = FALSE;
   priv->project = NULL;
+  priv->source_view = NULL;
   priv->tree_row_reference = NULL;
 }
 
@@ -465,3 +467,29 @@ codeslayer_document_set_project (CodeSlayerDocument *document,
   priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
   priv->project = project;
 }
+
+/**
+ * codeslayer_document_get_source_view:
+ * @document: a #CodeSlayerDocument.
+ *
+ * Returns: the #CodeSlayerSourceView that this document is attached to.
+ */
+GtkWidget*
+codeslayer_document_get_source_view (CodeSlayerDocument *document)
+{
+  return CODESLAYER_DOCUMENT_GET_PRIVATE (document)->source_view;
+}
+
+/**
+ * codeslayer_document_set_source_view:
+ * @document: a #CodeSlayerDocument.
+ * @source_view: the #CodeSlayerSourceView that this document is attached to.
+ */
+void
+codeslayer_document_set_source_view (CodeSlayerDocument *document, 
+                                     GtkWidget          *source_view)
+{
+  CodeSlayerDocumentPrivate *priv;
+  priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
+  priv->source_view = source_view;
+}                                     

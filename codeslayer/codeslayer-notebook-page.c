@@ -18,7 +18,7 @@
 
 #include <gtksourceview/gtksource.h>
 #include <codeslayer/codeslayer-notebook-page.h>
-#include <codeslayer/codeslayer-editor.h>
+#include <codeslayer/codeslayer-sourceview.h>
 #include <codeslayer/codeslayer-utils.h>
 
 /**
@@ -81,7 +81,7 @@ codeslayer_notebook_page_finalize (CodeSlayerNotebookPage *notebook_page)
 
 /**
  * codeslayer_notebook_page_new:
- * @editor: a #CodeSlayerEditor.
+ * @editor: a #CodeSlayerSourceView.
  *
  * Creates a new #CodeSlayerNotebookPage.
  *
@@ -113,7 +113,7 @@ codeslayer_notebook_page_new (GtkWidget *editor)
  * codeslayer_notebook_page_get_editor:
  * @notebook_page: a #CodeSlayerNotebookPage.
  * 
- * Returns: the #CodeSlayerEditor in the page.
+ * Returns: the #CodeSlayerSourceView in the page.
  */
 GtkWidget*
 codeslayer_notebook_page_get_editor (CodeSlayerNotebookPage *notebook_page)
@@ -132,7 +132,7 @@ codeslayer_notebook_page_get_document (CodeSlayerNotebookPage *notebook_page)
 {
   CodeSlayerNotebookPagePrivate *priv;
   priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
-  return codeslayer_editor_get_document (CODESLAYER_EDITOR (priv->editor));
+  return codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->editor));
 }
 
 /**
@@ -161,7 +161,7 @@ codeslayer_notebook_page_show_document_not_found_info_bar (CodeSlayerNotebookPag
       gtk_info_bar_set_message_type (GTK_INFO_BAR (priv->document_not_found_info_bar), GTK_MESSAGE_ERROR);
 
       content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (priv->document_not_found_info_bar));
-      document = codeslayer_editor_get_document (CODESLAYER_EDITOR (priv->editor));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->editor));
       file_path =  codeslayer_document_get_file_path (document);
       text = g_strdup_printf(_("The document %s no longer exists."), file_path);
       label = gtk_label_new (text);
@@ -196,7 +196,7 @@ codeslayer_notebook_page_show_external_changes_info_bar (CodeSlayerNotebookPage 
 
       content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (priv->external_changes_info_bar));
 
-      document = codeslayer_editor_get_document (CODESLAYER_EDITOR (priv->editor));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->editor));
       file_path =  codeslayer_document_get_file_path (document);
       text = g_strdup_printf(_("The document %s changed on disk."), file_path);
       label = gtk_label_new (text);
@@ -233,7 +233,7 @@ external_changes_response_action (CodeSlayerNotebookPage *notebook_page,
       gchar *contents;
 
       buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(priv->editor));
-      document = codeslayer_editor_get_document (CODESLAYER_EDITOR (priv->editor));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->editor));
       file_path = codeslayer_document_get_file_path (document);
 
       contents = codeslayer_utils_get_utf8_text (file_path);
@@ -251,7 +251,7 @@ external_changes_response_action (CodeSlayerNotebookPage *notebook_page,
           priv->external_changes_info_bar = NULL;
 
           modification_time = codeslayer_utils_get_modification_time (file_path);
-          codeslayer_editor_set_modification_time (CODESLAYER_EDITOR (priv->editor), modification_time);
+          codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (priv->editor), modification_time);
         }
     }
 }

@@ -25,7 +25,7 @@
 #include <codeslayer/codeslayer-projects.h>
 #include <codeslayer/codeslayer-project-properties.h>
 #include <codeslayer/codeslayer-notebook.h>
-#include <codeslayer/codeslayer-editor.h>
+#include <codeslayer/codeslayer-sourceview.h>
 #include <codeslayer/codeslayer-notebook-pane.h>
 #include <codeslayer/codeslayer-notebook-search.h>
 #include <codeslayer/codeslayer-notebook-page.h>
