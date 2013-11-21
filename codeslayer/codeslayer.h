@@ -95,7 +95,7 @@ gboolean                  codeslayer_select_editor_by_file_path      (CodeSlayer
                                                                       const gchar                 *file_path, 
                                                                       gint                         line_number);
 
-CodeSlayerSourceView*         codeslayer_get_active_editor               (CodeSlayer                  *codeslayer);
+CodeSlayerSourceView*     codeslayer_get_active_editor               (CodeSlayer                  *codeslayer);
 
 const gchar*              codeslayer_get_active_editor_file_path     (CodeSlayer                  *codeslayer);
 

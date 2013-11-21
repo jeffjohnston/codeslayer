@@ -392,7 +392,7 @@ codeslayer_get_active_editor (CodeSlayer *codeslayer)
   if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook)) == 0)
     return NULL;
 
-  editor = codeslayer_notebook_get_active_editor (priv->notebook);
+  editor = codeslayer_notebook_get_active_document (priv->notebook);
   return CODESLAYER_SOURCE_VIEW(editor);
 }
 
@@ -486,7 +486,7 @@ codeslayer_get_all_editors (CodeSlayer *codeslayer)
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   
-  return codeslayer_notebook_get_all_editors (priv->notebook);
+  return codeslayer_notebook_get_all_documents (priv->notebook);
 }
 
 /**

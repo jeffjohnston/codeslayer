@@ -432,8 +432,8 @@ codeslayer_engine_open_editor (CodeSlayerEngine *engine,
   document = codeslayer_document_new ();
   codeslayer_document_set_file_path (document, file_path);
   
-  if (!codeslayer_notebook_select_editor (CODESLAYER_NOTEBOOK (priv->notebook), document))
-    codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
+  if (!codeslayer_notebook_select_document (CODESLAYER_NOTEBOOK (priv->notebook), document))
+    codeslayer_notebook_add_document (CODESLAYER_NOTEBOOK (priv->notebook), document);
   
   g_object_unref (document);
 
@@ -453,7 +453,7 @@ codeslayer_engine_save_profile (CodeSlayerEngine *engine)
   if (priv->profile == NULL)
     return TRUE;
   
-  if (codeslayer_notebook_has_unsaved_editors (CODESLAYER_NOTEBOOK (priv->notebook)))
+  if (codeslayer_notebook_has_unsaved_documents (CODESLAYER_NOTEBOOK (priv->notebook)))
     return FALSE;
 
   save_window_settings (engine);
@@ -474,11 +474,11 @@ close_default_editor (CodeSlayerEngine *engine)
     {
       GtkWidget *editor;
       GtkTextBuffer *buffer;
-      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+      editor = codeslayer_notebook_get_active_document (CODESLAYER_NOTEBOOK (priv->notebook));
       buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
 
       if (gtk_text_buffer_get_char_count (buffer) <= 0)
-        codeslayer_notebook_close_editor (CODESLAYER_NOTEBOOK (priv->notebook), 0);
+        codeslayer_notebook_close_document (CODESLAYER_NOTEBOOK (priv->notebook), 0);
     }
 }
 
@@ -513,7 +513,7 @@ new_editor_action (CodeSlayerEngine *engine)
   
   document = codeslayer_document_new ();
   codeslayer_document_set_name (document, name);
-  codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
+  codeslayer_notebook_add_document (CODESLAYER_NOTEBOOK (priv->notebook), document);
   
   g_object_unref (document);
   g_free (name);
@@ -560,7 +560,7 @@ open_editor_action (CodeSlayerEngine *engine)
           document = codeslayer_document_new ();
           codeslayer_document_set_file_path (document, file_path);
           
-          codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (priv->notebook), document);
+          codeslayer_notebook_add_document (CODESLAYER_NOTEBOOK (priv->notebook), document);
           
           g_object_unref (document);
 
@@ -586,7 +586,7 @@ save_editor_action (CodeSlayerEngine *engine)
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   notebook = priv->notebook;
   page = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
-  codeslayer_notebook_save_editor (CODESLAYER_NOTEBOOK (notebook), page);
+  codeslayer_notebook_save_document (CODESLAYER_NOTEBOOK (notebook), page);
 }
 
 static void
@@ -597,7 +597,7 @@ save_all_editors_action (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   notebook = priv->notebook;
-  codeslayer_notebook_save_all_editors (CODESLAYER_NOTEBOOK (notebook));
+  codeslayer_notebook_save_all_documents (CODESLAYER_NOTEBOOK (notebook));
 }
 
 static void
@@ -610,7 +610,7 @@ close_editor_action (CodeSlayerEngine *engine)
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   notebook = priv->notebook;
   page = gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook));
-  codeslayer_notebook_close_editor (CODESLAYER_NOTEBOOK (notebook), page);
+  codeslayer_notebook_close_document (CODESLAYER_NOTEBOOK (notebook), page);
 }
 
 static void
@@ -926,7 +926,7 @@ go_to_line_keypress_action (GtkWidget        *entry,
   if (codeslayer_utils_isdigit (string))
     {
       GtkWidget *editor;
-      editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+      editor = codeslayer_notebook_get_active_document (CODESLAYER_NOTEBOOK (priv->notebook));
       if (!codeslayer_source_view_scroll_to_line (CODESLAYER_SOURCE_VIEW (editor), atoi(string)))
         {
           gtk_widget_override_color (entry, GTK_STATE_FLAG_NORMAL, 
@@ -1078,7 +1078,7 @@ copy_lines_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   GtkWidget *editor;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+  editor = codeslayer_notebook_get_active_document (CODESLAYER_NOTEBOOK (priv->notebook));
   g_signal_emit_by_name ((gpointer) editor, "copy-lines");
 }
 
@@ -1088,7 +1088,7 @@ lowercase_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   GtkWidget *editor;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+  editor = codeslayer_notebook_get_active_document (CODESLAYER_NOTEBOOK (priv->notebook));
   g_signal_emit_by_name ((gpointer) editor, "to-lowercase");
 }
 
@@ -1098,7 +1098,7 @@ uppercase_action (CodeSlayerEngine *engine)
   CodeSlayerEnginePrivate *priv;
   GtkWidget *editor;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  editor = codeslayer_notebook_get_active_editor (CODESLAYER_NOTEBOOK (priv->notebook));
+  editor = codeslayer_notebook_get_active_document (CODESLAYER_NOTEBOOK (priv->notebook));
   g_signal_emit_by_name ((gpointer) editor, "to-uppercase");
 }
 
@@ -1181,8 +1181,8 @@ select_projects_document_action (CodeSlayerEngine   *engine,
     }
   g_object_unref (file);
   
-  if (!codeslayer_notebook_select_editor (CODESLAYER_NOTEBOOK (notebook), document))
-    codeslayer_notebook_add_editor (CODESLAYER_NOTEBOOK (notebook), document);
+  if (!codeslayer_notebook_select_document (CODESLAYER_NOTEBOOK (notebook), document))
+    codeslayer_notebook_add_document (CODESLAYER_NOTEBOOK (notebook), document);
 
   sync_menu_bar (CODESLAYER_ENGINE (engine));
 }

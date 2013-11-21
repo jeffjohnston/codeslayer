@@ -489,7 +489,7 @@ delete_event (CodeSlayerWindow *window)
   if (!codeslayer_engine_save_profile (priv->engine))
     return TRUE;
 
-  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
+  codeslayer_notebook_close_all_documents (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_plugins_deactivate (priv->plugins);
   return FALSE;
 }
@@ -503,7 +503,7 @@ quit_application_action (CodeSlayerWindow *window)
   if (!codeslayer_engine_save_profile (priv->engine))
     return;
   
-  codeslayer_notebook_close_all_editors (CODESLAYER_NOTEBOOK (priv->notebook));
+  codeslayer_notebook_close_all_documents (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_plugins_deactivate (priv->plugins);
   gtk_widget_destroy (GTK_WIDGET (window));
 }
