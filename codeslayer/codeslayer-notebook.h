@@ -66,8 +66,8 @@ gboolean    codeslayer_notebook_has_unsaved_documents  (CodeSlayerNotebook *note
 gboolean    codeslayer_notebook_close_document         (CodeSlayerNotebook *notebook, 
                                                         gint                page_num);
 void        codeslayer_notebook_close_all_documents    (CodeSlayerNotebook *notebook);
-GtkWidget*  codeslayer_notebook_get_active_document    (CodeSlayerNotebook *notebook);
-GList*      codeslayer_notebook_get_all_documents      (CodeSlayerNotebook *notebook);
+GtkWidget*  codeslayer_notebook_get_active_source_view    (CodeSlayerNotebook *notebook);
+GList*      codeslayer_notebook_get_all_source_views      (CodeSlayerNotebook *notebook);
 
 G_END_DECLS
 

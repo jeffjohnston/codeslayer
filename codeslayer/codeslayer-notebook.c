@@ -39,17 +39,17 @@
 static void codeslayer_notebook_class_init  (CodeSlayerNotebookClass *klass);
 static void codeslayer_notebook_init        (CodeSlayerNotebook      *notebook);
 static void codeslayer_notebook_finalize    (CodeSlayerNotebook      *notebook);
-static void select_editor_action            (CodeSlayerNotebookTab   *notebook_tab, 
+static void select_document_action            (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
-static void close_editor_action             (CodeSlayerNotebookTab   *notebook_tab, 
+static void close_document_action             (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
-static void close_all_editors_action        (CodeSlayerNotebookTab   *notebook_tab, 
+static void close_all_documents_action        (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
-static void close_other_editors_action      (CodeSlayerNotebookTab   *notebook_tab, 
+static void close_other_documents_action      (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
-static void close_right_editors_action      (CodeSlayerNotebookTab   *notebook_tab, 
+static void close_right_documents_action      (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
-static void close_left_editors_action       (CodeSlayerNotebookTab   *notebook_tab, 
+static void close_left_documents_action       (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
 static void buffer_modified_action          (GtkTextBuffer           *buffer, 
                                              CodeSlayerNotebook      *notebook);
@@ -57,7 +57,7 @@ static void save_as_dialog                  (CodeSlayerNotebook      *notebook,
                                              GtkWidget               *notebook_page, 
                                              CodeSlayerDocument      *document);
 static void registry_changed_action         (CodeSlayerNotebook      *notebook);
-static GtkWidget* save_editor               (CodeSlayerNotebook      *notebook, 
+static GtkWidget* save_document               (CodeSlayerNotebook      *notebook, 
                                              gint                     page_num);
 static void get_dirty_buffer_pages          (CodeSlayerNotebook      *notebook, 
                                              gint                     page,
@@ -243,17 +243,17 @@ codeslayer_notebook_add_document (CodeSlayerNotebook *notebook,
                                              notebook_page);
 
   g_signal_connect (G_OBJECT (notebook_tab), "select-editor",
-                    G_CALLBACK (select_editor_action), notebook);
+                    G_CALLBACK (select_document_action), notebook);
   g_signal_connect (G_OBJECT (notebook_tab), "close-editor",
-                    G_CALLBACK (close_editor_action), notebook);
+                    G_CALLBACK (close_document_action), notebook);
   g_signal_connect (G_OBJECT (notebook_tab), "close-all-editors",
-                    G_CALLBACK (close_all_editors_action), notebook);
+                    G_CALLBACK (close_all_documents_action), notebook);
   g_signal_connect (G_OBJECT (notebook_tab), "close-other-editors",
-                    G_CALLBACK (close_other_editors_action), notebook);
+                    G_CALLBACK (close_other_documents_action), notebook);
   g_signal_connect (G_OBJECT (notebook_tab), "close-right-editors",
-                    G_CALLBACK (close_right_editors_action), notebook);
+                    G_CALLBACK (close_right_documents_action), notebook);
   g_signal_connect (G_OBJECT (notebook_tab), "close-left-editors",
-                    G_CALLBACK (close_left_editors_action), notebook);
+                    G_CALLBACK (close_left_documents_action), notebook);
 
   page_num = gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
                                        GTK_WIDGET (notebook_page),
@@ -314,7 +314,7 @@ codeslayer_notebook_select_document (CodeSlayerNotebook *notebook,
           if (line_number > 0)
             {
               GtkWidget *source_view;
-              source_view = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+              source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
               codeslayer_source_view_scroll_to_line (CODESLAYER_SOURCE_VIEW (source_view), line_number);
             }
 
@@ -334,18 +334,18 @@ void
 codeslayer_notebook_save_document (CodeSlayerNotebook *notebook, 
                                    gint                page_num)
 {
-  GList *editors = NULL;
-  GtkWidget *editor;
+  GList *source_views = NULL;
+  GtkWidget *source_view;
   
-  editor = save_editor (notebook, page_num);
+  source_view = save_document (notebook, page_num);
   
-  if (editor != NULL)
-    editors = g_list_prepend (editors, editor);
+  if (source_view != NULL)
+    source_views = g_list_prepend (source_views, source_view);
   
-  if (editors != NULL)
+  if (source_views != NULL)
     {
-      g_signal_emit_by_name((gpointer)notebook, "editors-all-saved", editors);
-      g_list_free (editors);
+      g_signal_emit_by_name((gpointer)notebook, "editors-all-saved", source_views);
+      g_list_free (source_views);
     }
 }
 
@@ -356,7 +356,7 @@ codeslayer_notebook_save_document (CodeSlayerNotebook *notebook,
 void
 codeslayer_notebook_save_all_documents (CodeSlayerNotebook *notebook)
 {
-  GList *editors = NULL;
+  GList *source_views = NULL;
   gint pages;
   gint i;
   
@@ -364,34 +364,34 @@ codeslayer_notebook_save_all_documents (CodeSlayerNotebook *notebook)
 
   for (i = 0; i < pages; i++)
     {
-      GtkWidget *editor;
-      editor = save_editor (notebook, i);
-      if (editor != NULL)
-        editors = g_list_prepend (editors, editor);
+      GtkWidget *source_view;
+      source_view = save_document (notebook, i);
+      if (source_view != NULL)
+        source_views = g_list_prepend (source_views, source_view);
     }
   
-  if (editors != NULL)
+  if (source_views != NULL)
     {
-      editors = g_list_reverse (editors);
-      g_signal_emit_by_name((gpointer)notebook, "editors-all-saved", editors);
-      g_list_free (editors);
+      source_views = g_list_reverse (source_views);
+      g_signal_emit_by_name((gpointer)notebook, "editors-all-saved", source_views);
+      g_list_free (source_views);
     }
 }
 
 static GtkWidget*
-save_editor (CodeSlayerNotebook *notebook, 
+save_document (CodeSlayerNotebook *notebook, 
              gint                page_num)
 {
   GtkWidget *notebook_page;
-  GtkWidget *editor = NULL;
+  GtkWidget *source_view = NULL;
   GtkTextBuffer *buffer;
   GtkWidget *notebook_tab;
   
   notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), page_num);
 
-  editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+  source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
   if (gtk_text_buffer_get_modified (buffer))
     {
       CodeSlayerDocument *document;
@@ -423,9 +423,9 @@ save_editor (CodeSlayerNotebook *notebook,
           g_free (contents);
           
           modification_time = codeslayer_utils_get_modification_time (file_path);
-          codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (editor), modification_time);
+          codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (source_view), modification_time);
               
-          g_signal_emit_by_name((gpointer)notebook, "editor-saved", editor);          
+          g_signal_emit_by_name((gpointer)notebook, "editor-saved", source_view);          
           gtk_text_buffer_set_modified (buffer, FALSE);
         }      
     }
@@ -434,7 +434,7 @@ save_editor (CodeSlayerNotebook *notebook,
                                              GTK_WIDGET (notebook_page));
   codeslayer_notebook_tab_show_buffer_clean (CODESLAYER_NOTEBOOK_TAB (notebook_tab));
   
-  return editor;
+  return source_view;
 }
 
 static void
@@ -491,7 +491,7 @@ save_as_dialog (CodeSlayerNotebook *notebook,
  * @page_num: the notebook page to close. Pages begin with 0 starting 
  *            from the left.
  *
- * Returns: is TRUE unless the editor needs to be saved. If the editor needs 
+ * Returns: is TRUE unless the document needs to be saved. If the document needs 
  *          to be saved then the page will not be closed and this method 
  *          will return FALSE.
  */
@@ -527,7 +527,7 @@ codeslayer_notebook_close_document (CodeSlayerNotebook *notebook,
  * codeslayer_notebook_has_unsaved_documents:
  * @notebook: a #CodeSlayerNotebook.
  *
- * Returns: is FALSE unless there are editors that need to saved.
+ * Returns: is FALSE unless there are documents that need to saved.
  */
 gboolean
 codeslayer_notebook_has_unsaved_documents (CodeSlayerNotebook *notebook)
@@ -581,13 +581,13 @@ codeslayer_notebook_close_all_documents (CodeSlayerNotebook *notebook)
 }
 
 /**
- * codeslayer_notebook_get_active_document:
+ * codeslayer_notebook_get_active_source_view:
  * @notebook: a #CodeSlayerNotebook.
  *
- * Returns: the active editor.
+ * Returns: the active source view.
  */
 GtkWidget*
-codeslayer_notebook_get_active_document (CodeSlayerNotebook *notebook)
+codeslayer_notebook_get_active_source_view (CodeSlayerNotebook *notebook)
 {
   gint page_num;
   GtkWidget *notebook_page;
@@ -599,18 +599,18 @@ codeslayer_notebook_get_active_document (CodeSlayerNotebook *notebook)
   if (notebook_page == NULL)
     return NULL;
 
-  return codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+  return codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
 }
 
 /**
- * codeslayer_notebook_get_all_documents:
+ * codeslayer_notebook_get_all_source_views:
  * @notebook: a #CodeSlayerNotebook.
  *
  * Returns: a #GList of #CodeSlayerSourceView. Note: you need to call g_list_free
  * when you are done with the list.
  */
 GList*
-codeslayer_notebook_get_all_documents (CodeSlayerNotebook *notebook)
+codeslayer_notebook_get_all_source_views (CodeSlayerNotebook *notebook)
 {
   GList *results = NULL;
   gint pages;
@@ -621,17 +621,17 @@ codeslayer_notebook_get_all_documents (CodeSlayerNotebook *notebook)
   for (i = 0; i < pages; i++)
     {
       GtkWidget *notebook_page;
-      GtkWidget *editor; 
+      GtkWidget *source_view; 
       notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), i);
-      editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-      results = g_list_prepend (results, editor);
+      source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      results = g_list_prepend (results, source_view);
     }
     
   return g_list_reverse (results);
 }
 
 static void
-select_editor_action (CodeSlayerNotebookTab *notebook_tab,
+select_document_action (CodeSlayerNotebookTab *notebook_tab,
                       CodeSlayerNotebook    *notebook)
 {
   GtkWidget *notebook_page;
@@ -644,7 +644,7 @@ select_editor_action (CodeSlayerNotebookTab *notebook_tab,
 }
 
 static void
-close_editor_action (CodeSlayerNotebookTab *notebook_tab,
+close_document_action (CodeSlayerNotebookTab *notebook_tab,
                      CodeSlayerNotebook    *notebook)
 {
   GtkWidget *notebook_page;
@@ -657,7 +657,7 @@ close_editor_action (CodeSlayerNotebookTab *notebook_tab,
 }
 
 static void
-close_all_editors_action (CodeSlayerNotebookTab *notebook_tab,
+close_all_documents_action (CodeSlayerNotebookTab *notebook_tab,
                           CodeSlayerNotebook    *notebook)
 {
   if (!codeslayer_notebook_has_unsaved_documents (notebook))
@@ -665,7 +665,7 @@ close_all_editors_action (CodeSlayerNotebookTab *notebook_tab,
 }
 
 static void
-close_other_editors_action (CodeSlayerNotebookTab *notebook_tab,
+close_other_documents_action (CodeSlayerNotebookTab *notebook_tab,
                             CodeSlayerNotebook    *notebook)
 {
   GList *dirty_pages = NULL;
@@ -705,7 +705,7 @@ close_other_editors_action (CodeSlayerNotebookTab *notebook_tab,
 }
 
 static void
-close_right_editors_action (CodeSlayerNotebookTab *notebook_tab,
+close_right_documents_action (CodeSlayerNotebookTab *notebook_tab,
                             CodeSlayerNotebook    *notebook)
 {
   GList *dirty_pages = NULL;
@@ -736,7 +736,7 @@ close_right_editors_action (CodeSlayerNotebookTab *notebook_tab,
 }
 
 static void
-close_left_editors_action (CodeSlayerNotebookTab *notebook_tab,
+close_left_documents_action (CodeSlayerNotebookTab *notebook_tab,
                            CodeSlayerNotebook    *notebook)
 {
   GList *dirty_pages = NULL;
@@ -770,12 +770,12 @@ get_dirty_buffer_pages (CodeSlayerNotebook *notebook,
                         GList              **dirty_pages)
 {
   GtkWidget *notebook_page;
-  GtkWidget *editor;
+  GtkWidget *source_view;
   GtkTextBuffer *buffer;
 
   notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), page);
-  editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
   if (gtk_text_buffer_get_modified (buffer))
     {
       gint *dirty_page = malloc (sizeof (gint));
@@ -875,23 +875,23 @@ registry_changed_action (CodeSlayerNotebook *notebook)
 {
   CodeSlayerNotebookPrivate *priv;
   CodeSlayerRegistry *registry;
-  gchar *editor_value;
+  gchar *source_view_value;
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
   
   registry = codeslayer_profile_get_registry (priv->profile);
 
-  editor_value = codeslayer_registry_get_string (registry, CODESLAYER_REGISTRY_EDITOR_TAB_POSITION);
+  source_view_value = codeslayer_registry_get_string (registry, CODESLAYER_REGISTRY_EDITOR_TAB_POSITION);
 
-  if (g_strcmp0 (editor_value, "left") == 0)
+  if (g_strcmp0 (source_view_value, "left") == 0)
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_LEFT);
-  else if (g_strcmp0 (editor_value, "right") == 0)
+  else if (g_strcmp0 (source_view_value, "right") == 0)
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_RIGHT);
-  else if (g_strcmp0 (editor_value, "top") == 0)
+  else if (g_strcmp0 (source_view_value, "top") == 0)
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
-  else if (g_strcmp0 (editor_value, "bottom") == 0)
+  else if (g_strcmp0 (source_view_value, "bottom") == 0)
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_BOTTOM);
     
-  if (editor_value)                                             
-    g_free (editor_value);
+  if (source_view_value)                                             
+    g_free (source_view_value);
 }                                   

@@ -110,13 +110,13 @@ codeslayer_notebook_page_new (GtkWidget *editor)
 }
 
 /**
- * codeslayer_notebook_page_get_editor:
+ * codeslayer_notebook_page_get_source_view:
  * @notebook_page: a #CodeSlayerNotebookPage.
  * 
  * Returns: the #CodeSlayerSourceView in the page.
  */
 GtkWidget*
-codeslayer_notebook_page_get_editor (CodeSlayerNotebookPage *notebook_page)
+codeslayer_notebook_page_get_source_view (CodeSlayerNotebookPage *notebook_page)
 {
   return CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page)->editor;
 }

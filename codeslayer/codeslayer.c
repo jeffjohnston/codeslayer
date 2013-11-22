@@ -392,7 +392,7 @@ codeslayer_get_active_editor (CodeSlayer *codeslayer)
   if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook)) == 0)
     return NULL;
 
-  editor = codeslayer_notebook_get_active_document (priv->notebook);
+  editor = codeslayer_notebook_get_active_source_view (priv->notebook);
   return CODESLAYER_SOURCE_VIEW(editor);
 }
 
@@ -486,7 +486,7 @@ codeslayer_get_all_editors (CodeSlayer *codeslayer)
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   
-  return codeslayer_notebook_get_all_documents (priv->notebook);
+  return codeslayer_notebook_get_all_source_views (priv->notebook);
 }
 
 /**
@@ -963,7 +963,7 @@ editor_added_action (CodeSlayer *codeslayer,
                      guint       page_num)                     
 {
   GtkWidget *editor;
-  editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (page));
+  editor = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
   g_signal_emit_by_name ((gpointer) codeslayer, "editor-added", editor);
 }
 
@@ -973,7 +973,7 @@ editor_removed_action (CodeSlayer *codeslayer,
                        guint       page_num)
 {
   GtkWidget *editor;
-  editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (page));
+  editor = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
   g_signal_emit_by_name ((gpointer) codeslayer, "editor-removed", editor);
 }
 
@@ -987,7 +987,7 @@ editor_switched_action (CodeSlayer *codeslayer,
   GtkWidget *page;
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);  
-  editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (page));
+  editor = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
   g_signal_emit_by_name ((gpointer) codeslayer, "editor-switched", editor);
 }
 

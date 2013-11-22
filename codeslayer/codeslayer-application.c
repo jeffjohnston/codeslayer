@@ -143,7 +143,7 @@ codeslayer_application_open (GApplication *application,
           if (window == NULL)
             window = get_window (application);
         
-          codeslayer_window_open_editor (CODESLAYER_WINDOW (window), file_path);
+          codeslayer_window_open_document (CODESLAYER_WINDOW (window), file_path);
           g_free (file_path);
         }
     }

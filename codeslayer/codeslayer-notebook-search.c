@@ -891,7 +891,7 @@ get_editor (CodeSlayerNotebookSearch *notebook_search)
   if (notebook_page == NULL)
     return NULL;
 
-  return codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+  return codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
 }
 
 static void
@@ -930,7 +930,7 @@ clear_all_search_marks (CodeSlayerNotebookSearch *notebook_search)
       GtkTextIter start, end;
 
       notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
-      editor = codeslayer_notebook_page_get_editor (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      editor = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
       buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
 
       gtk_text_buffer_get_bounds (buffer, &start, &end);

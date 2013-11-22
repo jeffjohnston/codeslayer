@@ -509,8 +509,8 @@ quit_application_action (CodeSlayerWindow *window)
 }
 
 void
-codeslayer_window_open_editor (CodeSlayerWindow *window, 
-                               gchar            *file_path)
+codeslayer_window_open_document (CodeSlayerWindow *window, 
+                                 gchar            *file_path)
 {
   CodeSlayerWindowPrivate *priv;
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
