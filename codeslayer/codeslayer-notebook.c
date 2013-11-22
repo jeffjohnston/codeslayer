@@ -881,7 +881,7 @@ registry_changed_action (CodeSlayerNotebook *notebook)
   
   registry = codeslayer_profile_get_registry (priv->profile);
 
-  source_view_value = codeslayer_registry_get_string (registry, CODESLAYER_REGISTRY_EDITOR_TAB_POSITION);
+  source_view_value = codeslayer_registry_get_string (registry, CODESLAYER_REGISTRY_TAB_POSITION);
 
   if (g_strcmp0 (source_view_value, "left") == 0)
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_LEFT);

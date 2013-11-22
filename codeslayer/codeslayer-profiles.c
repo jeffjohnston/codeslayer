@@ -367,21 +367,21 @@ set_profile_registry_defaults (CodeSlayerProfile *profile)
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR, "true");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_ENABLE_PROJECTS, "false");
   
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_DISPLAY_LINE_NUMBERS, "false");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_CURRENT_LINE, "false");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_DISPLAY_RIGHT_MARGIN, "false");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_HIGHLIGHT_MATCHING_BRACKET, "false");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS, "true");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_ENABLE_AUTOMATIC_INDENTATION, "true");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_RIGHT_MARGIN_POSITION, "80");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_TAB_WIDTH, "2");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_FONT, "Monospace 9");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_THEME, "classic");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_TAB_POSITION, "top");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS, "false");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_HIGHLIGHT_CURRENT_LINE, "false");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_DISPLAY_RIGHT_MARGIN, "false");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_HIGHLIGHT_MATCHING_BRACKET, "false");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_INSERT_SPACES_INSTEAD_OF_TABS, "true");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_ENABLE_AUTOMATIC_INDENTATION, "true");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_RIGHT_MARGIN_POSITION, "80");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_TAB_WIDTH, "2");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_FONT, "Monospace 9");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_THEME, "classic");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_TAB_POSITION, "top");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION, "top");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION, "left");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS, ".csv,.git,.svn");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_EDITOR_WORD_WRAP_TYPES, ".txt");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_WORD_WRAP_TYPES, ".txt");
 }
 
 void

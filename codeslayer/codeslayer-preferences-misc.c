@@ -88,7 +88,7 @@ codeslayer_preferences_misc_new (CodeSlayerPreferences *preferences,
   priv = CODESLAYER_PREFERENCES_MISC_GET_PRIVATE (preferences_misc);
 
   priv->word_wrap_types = codeslayer_preferences_list_view_new (preferences, profile,
-                                       CODESLAYER_REGISTRY_EDITOR_WORD_WRAP_TYPES,
+                                       CODESLAYER_REGISTRY_WORD_WRAP_TYPES,
                                        preferences_misc, _("Word Wrap File Types"));
   
   return preferences_misc;
