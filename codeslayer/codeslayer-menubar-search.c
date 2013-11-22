@@ -41,7 +41,7 @@ static void find_projects_action                   (CodeSlayerMenuBarSearch     
 static void go_to_line_action                      (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void sync_engine_action                     (CodeSlayerMenuBarSearch      *menu_bar_search,
                                                     gboolean                      enable_projects,
-                                                    gboolean                      has_open_editors);
+                                                    gboolean                      has_open_documents);
 
 #define CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_SEARCH_TYPE, CodeSlayerMenuBarSearchPrivate))
@@ -202,16 +202,16 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
 static void
 sync_engine_action (CodeSlayerMenuBarSearch *menu_bar_search,
                     gboolean                 enable_projects,
-                    gboolean                 has_open_editors)
+                    gboolean                 has_open_documents)
 {
   CodeSlayerMenuBarSearchPrivate *priv;
   priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
   
-  gtk_widget_set_sensitive (priv->find_item, enable_projects || has_open_editors);  
-  gtk_widget_set_sensitive (priv->find_next_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->find_previous_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->replace_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->go_to_line_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->find_item, enable_projects || has_open_documents);  
+  gtk_widget_set_sensitive (priv->find_next_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->find_previous_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->replace_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->go_to_line_item, has_open_documents);
 
   if (enable_projects)
     {

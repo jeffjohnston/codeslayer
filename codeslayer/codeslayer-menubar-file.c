@@ -33,16 +33,16 @@ static void codeslayer_menu_bar_file_finalize    (CodeSlayerMenuBarFile      *me
 
 static void add_menu_items                       (CodeSlayerMenuBarFile      *menu_bar_file);
 
-static void new_editor_action                    (CodeSlayerMenuBarFile      *menu_bar_file);
-static void open_editor_action                   (CodeSlayerMenuBarFile      *menu_bar_file);
-static void save_editor_action                   (CodeSlayerMenuBarFile      *menu_bar_file);
-static void save_all_editors_action              (CodeSlayerMenuBarFile      *menu_bar_file);
-static void close_editor_action                  (CodeSlayerMenuBarFile      *menu_bar_file);
+static void new_document_action                    (CodeSlayerMenuBarFile      *menu_bar_file);
+static void open_document_action                   (CodeSlayerMenuBarFile      *menu_bar_file);
+static void save_document_action                   (CodeSlayerMenuBarFile      *menu_bar_file);
+static void save_all_documents_action              (CodeSlayerMenuBarFile      *menu_bar_file);
+static void close_document_action                  (CodeSlayerMenuBarFile      *menu_bar_file);
 static void quit_application_action              (CodeSlayerMenuBarFile      *menu_bar_file);
 static void show_profiles_action                 (CodeSlayerMenuBarFile      *menu_bar_file);
 static void sync_engine_action                   (CodeSlayerMenuBarFile      *menu_bar_file,
                                                   gboolean                    enable_projects,
-                                                  gboolean                    has_open_editors);
+                                                  gboolean                    has_open_documents);
 
 #define CODESLAYER_MENU_BAR_FILE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_FILE_TYPE, CodeSlayerMenuBarFilePrivate))
@@ -179,19 +179,19 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
                             G_CALLBACK (show_profiles_action), menu_bar_file);  
 
   g_signal_connect_swapped (G_OBJECT (new_item), "activate",
-                            G_CALLBACK (new_editor_action), menu_bar_file);
+                            G_CALLBACK (new_document_action), menu_bar_file);
   
   g_signal_connect_swapped (G_OBJECT (open_item), "activate",
-                            G_CALLBACK (open_editor_action), menu_bar_file);
+                            G_CALLBACK (open_document_action), menu_bar_file);
   
   g_signal_connect_swapped (G_OBJECT (save_item), "activate",
-                            G_CALLBACK (save_editor_action), menu_bar_file);
+                            G_CALLBACK (save_document_action), menu_bar_file);
   
   g_signal_connect_swapped (G_OBJECT (save_all_item), "activate",
-                            G_CALLBACK (save_all_editors_action), menu_bar_file);
+                            G_CALLBACK (save_all_documents_action), menu_bar_file);
   
   g_signal_connect_swapped (G_OBJECT (close_tab_item), "activate",
-                            G_CALLBACK (close_editor_action), menu_bar_file);
+                            G_CALLBACK (close_document_action), menu_bar_file);
   
   g_signal_connect_swapped (G_OBJECT (quit_application_item), "activate",
                             G_CALLBACK (quit_application_action), menu_bar_file);
@@ -200,14 +200,14 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
 static void
 sync_engine_action (CodeSlayerMenuBarFile *menu_bar_file,
                     gboolean               enable_projects,
-                    gboolean               has_open_editors)
+                    gboolean               has_open_documents)
 {
   CodeSlayerMenuBarFilePrivate *priv;
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
 
-  gtk_widget_set_sensitive (priv->save_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->save_all_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->close_tab_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->save_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->save_all_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->close_tab_item, has_open_documents);
 
   if (enable_projects)
     {
@@ -224,43 +224,43 @@ sync_engine_action (CodeSlayerMenuBarFile *menu_bar_file,
 }
 
 static void
-new_editor_action (CodeSlayerMenuBarFile *menu_bar_file)
+new_document_action (CodeSlayerMenuBarFile *menu_bar_file)
 {
   CodeSlayerMenuBarFilePrivate *priv;
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
-  codeslayer_menu_bar_new_editor (CODESLAYER_MENU_BAR (priv->menu_bar));
+  codeslayer_menu_bar_new_document (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void
-open_editor_action (CodeSlayerMenuBarFile *menu_bar_file)
+open_document_action (CodeSlayerMenuBarFile *menu_bar_file)
 {
   CodeSlayerMenuBarFilePrivate *priv;
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
-  codeslayer_menu_bar_open_editor (CODESLAYER_MENU_BAR (priv->menu_bar));
+  codeslayer_menu_bar_open_document (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void
-save_editor_action (CodeSlayerMenuBarFile *menu_bar_file)
+save_document_action (CodeSlayerMenuBarFile *menu_bar_file)
 {
   CodeSlayerMenuBarFilePrivate *priv;
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
-  codeslayer_menu_bar_save_editor (CODESLAYER_MENU_BAR (priv->menu_bar));
+  codeslayer_menu_bar_save_document (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void
-save_all_editors_action (CodeSlayerMenuBarFile *menu_bar_file)
+save_all_documents_action (CodeSlayerMenuBarFile *menu_bar_file)
 {
   CodeSlayerMenuBarFilePrivate *priv;
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
-  codeslayer_menu_bar_save_all_editors (CODESLAYER_MENU_BAR (priv->menu_bar));
+  codeslayer_menu_bar_save_all_documents (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void
-close_editor_action (CodeSlayerMenuBarFile *menu_bar_file)
+close_document_action (CodeSlayerMenuBarFile *menu_bar_file)
 {
   CodeSlayerMenuBarFilePrivate *priv;
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
-  codeslayer_menu_bar_close_editor (CODESLAYER_MENU_BAR (priv->menu_bar));
+  codeslayer_menu_bar_close_document (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void

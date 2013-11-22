@@ -307,28 +307,28 @@ codeslayer_abstract_pane_sync_registry (CodeSlayerAbstractPane *abstract_pane)
 {
   CodeSlayerAbstractPanePrivate *priv;
   CodeSlayerRegistry *registry; 
-  gchar *editor_value;
+  gchar *tab_position;
   
   priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
   
   registry = codeslayer_profile_get_registry (priv->profile);
 
-  editor_value = codeslayer_registry_get_string (registry, tab_position_key (abstract_pane));
+  tab_position = codeslayer_registry_get_string (registry, tab_position_key (abstract_pane));
                                                     
-  if (!codeslayer_utils_has_text (editor_value))
+  if (!codeslayer_utils_has_text (tab_position))
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (priv->notebook), GTK_POS_TOP);                                                    
 
-  if (g_strcmp0 (editor_value, "left") == 0)
+  if (g_strcmp0 (tab_position, "left") == 0)
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (priv->notebook), GTK_POS_LEFT);
-  else if (g_strcmp0 (editor_value, "right") == 0)
+  else if (g_strcmp0 (tab_position, "right") == 0)
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (priv->notebook), GTK_POS_RIGHT);
-  else if (g_strcmp0 (editor_value, "top") == 0)
+  else if (g_strcmp0 (tab_position, "top") == 0)
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (priv->notebook), GTK_POS_TOP);
-  else if (g_strcmp0 (editor_value, "bottom") == 0)
+  else if (g_strcmp0 (tab_position, "bottom") == 0)
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (priv->notebook), GTK_POS_BOTTOM);
     
-  if (editor_value)                                             
-    g_free (editor_value);
+  if (tab_position)                                             
+    g_free (tab_position);
 }
 
 static gint

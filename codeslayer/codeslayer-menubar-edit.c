@@ -43,7 +43,7 @@ static void to_lowercase_action                  (CodeSlayerMenuBarEdit      *me
 static void show_preferences_action              (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void sync_engine_action                   (CodeSlayerMenuBarEdit      *menu_bar_edit,
                                                   gboolean                    enable_projects,
-                                                  gboolean                    has_open_editors);
+                                                  gboolean                    has_open_documents);
 
 #define CODESLAYER_MENU_BAR_EDIT_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_EDIT_TYPE, CodeSlayerMenuBarEditPrivate))
@@ -213,18 +213,18 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
 static void
 sync_engine_action (CodeSlayerMenuBarEdit *menu_bar_edit,
                     gboolean               enable_projects,
-                    gboolean               has_open_editors)
+                    gboolean               has_open_documents)
 {
   CodeSlayerMenuBarEditPrivate *priv;
   priv = CODESLAYER_MENU_BAR_EDIT_GET_PRIVATE (menu_bar_edit);
 
-  gtk_widget_set_sensitive (priv->cut_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->copy_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->paste_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->delete_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->copy_lines_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->to_lowercase_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->to_uppercase_item, has_open_editors);
+  gtk_widget_set_sensitive (priv->cut_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->copy_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->paste_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->delete_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->copy_lines_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->to_lowercase_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->to_uppercase_item, has_open_documents);
 }
 
 static void

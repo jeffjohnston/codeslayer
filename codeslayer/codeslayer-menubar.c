@@ -38,7 +38,7 @@ static void codeslayer_menu_bar_finalize    (CodeSlayerMenuBar      *menu_bar);
                          
 static void sync_engine_action              (CodeSlayerMenuBar      *menu_bar,
                                              gboolean                enable_projects,
-                                             gboolean                has_open_editors);
+                                             gboolean                has_open_documents);
                             
 #define CODESLAYER_MENU_BAR_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_TYPE, CodeSlayerMenuBarPrivate))
@@ -679,7 +679,7 @@ codeslayer_menu_bar_new (GtkWidget         *window,
 static void
 sync_engine_action (CodeSlayerMenuBar *menu_bar,
                     gboolean           enable_projects,
-                    gboolean           has_open_editors)
+                    gboolean           has_open_documents)
 {
   CodeSlayerMenuBarPrivate *priv;
   priv = CODESLAYER_MENU_BAR_GET_PRIVATE (menu_bar);
@@ -699,51 +699,51 @@ codeslayer_menu_bar_get_accel_group (CodeSlayerMenuBar *menu_bar)
 }
 
 /**
- * codeslayer_menu_bar_new_editor:
+ * codeslayer_menu_bar_new_document:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menu_bar_new_editor (CodeSlayerMenuBar *menu_bar)
+codeslayer_menu_bar_new_document (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "new-editor");
 }
 
 /**
- * codeslayer_menu_bar_open_editor:
+ * codeslayer_menu_bar_open_document:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menu_bar_open_editor (CodeSlayerMenuBar *menu_bar)
+codeslayer_menu_bar_open_document (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "open-editor");
 }
 
 /**
- * codeslayer_menu_bar_save_editor:
+ * codeslayer_menu_bar_save_document:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menu_bar_save_editor (CodeSlayerMenuBar *menu_bar)
+codeslayer_menu_bar_save_document (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "save-editor");
 }
 
 /**
- * codeslayer_menu_bar_save_all_editors:
+ * codeslayer_menu_bar_save_all_documents:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menu_bar_save_all_editors (CodeSlayerMenuBar *menu_bar)
+codeslayer_menu_bar_save_all_documents (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "save-all-editors");
 }
 
 /**
- * codeslayer_menu_bar_close_editor:
+ * codeslayer_menu_bar_close_document:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
-codeslayer_menu_bar_close_editor (CodeSlayerMenuBar *menu_bar)
+codeslayer_menu_bar_close_document (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "close-editor");
 }
@@ -1015,15 +1015,15 @@ codeslayer_menu_bar_show_plugins (CodeSlayerMenuBar *menu_bar)
 }
 
 /**
- * codeslayer_menu_bar_sync_with_editor:
+ * codeslayer_menu_bar_sync_with_document:
  * @menu_bar: a #CodeSlayerMenuBar.
- * @sync_with_editor: is TRUE if the projects should be synced with the editor.
+ * @sync_with_document: is TRUE if the projects should be synced with the document.
  */
 void            
-codeslayer_menu_bar_sync_with_editor (CodeSlayerMenuBar *menu_bar, 
-                                      gboolean           sync_with_editor)
+codeslayer_menu_bar_sync_with_document (CodeSlayerMenuBar *menu_bar, 
+                                      gboolean           sync_with_document)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "sync-with-editor", sync_with_editor);
+  g_signal_emit_by_name ((gpointer) menu_bar, "sync-with-editor", sync_with_document);
 }                                               
 
 /**

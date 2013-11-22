@@ -514,7 +514,7 @@ codeslayer_window_open_document (CodeSlayerWindow *window,
 {
   CodeSlayerWindowPrivate *priv;
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
-  codeslayer_engine_open_editor (priv->engine, file_path);
+  codeslayer_engine_open_document (priv->engine, file_path);
 }
 
 CodeSlayerProfile*  

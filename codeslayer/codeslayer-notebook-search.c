@@ -49,7 +49,7 @@ static void add_replace_all_button                 (CodeSlayerNotebookSearch    
 static void set_find_entry_color                   (CodeSlayerNotebookSearch      *notebook_search);
 static void find_previous_action                   (CodeSlayerNotebookSearch      *notebook_search);
 static void find_next_action                       (CodeSlayerNotebookSearch      *notebook_search);
-static GtkWidget *get_editor                       (CodeSlayerNotebookSearch      *notebook_search);
+static GtkWidget *get_source_view                       (CodeSlayerNotebookSearch      *notebook_search);
 static void find_entry_action                      (CodeSlayerNotebookSearch      *notebook_search);
 static gboolean entry_keypress_action              (CodeSlayerNotebookSearch      *notebook_search,
                                                     GdkEventKey                   *event);
@@ -75,7 +75,7 @@ static void entry_set_text                         (GtkWidget                   
                                                     gchar                         *text);
 static gboolean is_active                          (GtkWidget *toggle_button);
 static void search_find                            (CodeSlayerNotebookSearch      *notebook_search);
-static gboolean search_marks_in_view               (GtkWidget                     *editor, 
+static gboolean search_marks_in_view               (GtkWidget                     *source_view, 
                                                     GdkRectangle                   rect, 
                                                     GtkTextIter                    begin, 
                                                     GtkTextIter                    end);
@@ -226,7 +226,7 @@ set_find_entry_color (CodeSlayerNotebookSearch *notebook_search)
  * codeslayer_notebook_search_find:
  * @notebook_search: a #CodeSlayerNotebookSearch.
  *
- * Search the editors highlighted text.
+ * Search the source view highlighted text.
  */
 void
 codeslayer_notebook_search_find (CodeSlayerNotebookSearch *notebook_search)
@@ -273,13 +273,13 @@ codeslayer_notebook_search_find_previous (CodeSlayerNotebookSearch *notebook_sea
  * codeslayer_notebook_search_replace:
  * @notebook_search: a #CodeSlayerNotebookSearch.
  *
- * Replace the editors highlighted text.
+ * Replace the source view highlighted text.
  */
 void
 codeslayer_notebook_search_replace (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
-  GtkWidget *editor;
+  GtkWidget *source_view;
   GtkTextBuffer *buffer;
   GtkTextMark *insert_mark;
   GtkTextMark *selection_mark;
@@ -288,11 +288,11 @@ codeslayer_notebook_search_replace (CodeSlayerNotebookSearch *notebook_search)
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
-  editor = get_editor (notebook_search);
-  if (editor == NULL)
+  source_view = get_source_view (notebook_search);
+  if (source_view == NULL)
     return;
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
 
   insert_mark = gtk_text_buffer_get_insert (buffer);
   selection_mark = gtk_text_buffer_get_selection_bound (buffer);
@@ -625,7 +625,7 @@ static void
 search_find (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
-  GtkWidget *editor;
+  GtkWidget *source_view;
   GtkTextBuffer *buffer;
   GtkTextMark *insert_mark;
   GtkTextMark *selection_mark;
@@ -634,11 +634,11 @@ search_find (CodeSlayerNotebookSearch *notebook_search)
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
-  editor = get_editor (notebook_search);
-  if (editor == NULL)
+  source_view = get_source_view (notebook_search);
+  if (source_view == NULL)
     return;
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
 
   insert_mark = gtk_text_buffer_get_insert (buffer);
   selection_mark = gtk_text_buffer_get_selection_bound (buffer);
@@ -676,7 +676,7 @@ codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebo
                                                 gboolean                  scrollable)
 {
   CodeSlayerNotebookSearchPrivate *priv;
-  GtkWidget *editor;
+  GtkWidget *source_view;
   GtkWidget *label;
   GdkRectangle rect;
   GtkTextBuffer *buffer;
@@ -692,8 +692,8 @@ codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebo
   find = entry_get_current_text (priv->find_entry, priv->find_store);
   label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
 
-  editor = get_editor (notebook_search);
-  if (editor == NULL || g_strcmp0 (find, "") == 0)
+  source_view = get_source_view (notebook_search);
+  if (source_view == NULL || g_strcmp0 (find, "") == 0)
     {
       gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
       if (find)
@@ -701,10 +701,10 @@ codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebo
       return;
     }
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
 
   gtk_text_buffer_get_start_iter (buffer, &start);
-  gtk_text_view_get_visible_rect (GTK_TEXT_VIEW (editor), &rect);
+  gtk_text_view_get_visible_rect (GTK_TEXT_VIEW (source_view), &rect);
 
   success = forward_search (find, &start, &begin, &end, notebook_search);
   
@@ -718,13 +718,13 @@ codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebo
     }
 
   gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
-  need_to_scroll = !search_marks_in_view (editor, rect, begin, end);
+  need_to_scroll = !search_marks_in_view (source_view, rect, begin, end);
   first = begin;
   
   while (success)
     {
       if (need_to_scroll)
-        need_to_scroll = !search_marks_in_view (editor, rect, begin, end);
+        need_to_scroll = !search_marks_in_view (source_view, rect, begin, end);
     
       gtk_text_buffer_apply_tag_by_name (buffer, "search-marks", &begin, &end);
       gtk_text_iter_forward_char (&start);
@@ -734,7 +734,7 @@ codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebo
 
   if (need_to_scroll && scrollable)
     {
-      gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (editor), &first, .1, FALSE, 0, 0);
+      gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (source_view), &first, .1, FALSE, 0, 0);
       gtk_text_buffer_place_cursor (buffer, &first);
     }
     
@@ -743,7 +743,7 @@ codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebo
 }
 
 static gboolean
-search_marks_in_view (GtkWidget    *editor, 
+search_marks_in_view (GtkWidget    *source_view, 
                       GdkRectangle  rect, 
                       GtkTextIter   begin, 
                       GtkTextIter   end) 
@@ -751,10 +751,10 @@ search_marks_in_view (GtkWidget    *editor,
   GtkTextIter start_visible;
   GtkTextIter end_visible;
 
-  gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (editor), &start_visible,
+  gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (source_view), &start_visible,
                                       rect.x, rect.y);
                                       
-  gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (editor), &end_visible,
+  gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (source_view), &end_visible,
                                       rect.x + rect.width, rect.y + rect.height);
                                       
   if (gtk_text_iter_in_range (&begin, &start_visible, &end_visible) ||
@@ -794,7 +794,7 @@ static void
 find_previous_action (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
-  GtkWidget *editor;
+  GtkWidget *source_view;
   GtkTextBuffer *buffer;
   GtkTextIter start, begin, end;
   GtkTextMark *insert_mark;
@@ -802,8 +802,8 @@ find_previous_action (CodeSlayerNotebookSearch *notebook_search)
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
-  editor = get_editor (notebook_search);
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  source_view = get_source_view (notebook_search);
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
 
   find = entry_get_current_text (priv->find_entry, priv->find_store);
 
@@ -812,7 +812,7 @@ find_previous_action (CodeSlayerNotebookSearch *notebook_search)
 
   if (backward_search (find, &start, &begin, &end, notebook_search))
     {
-      gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (editor), 
+      gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (source_view), 
                                     &begin, .1, FALSE, 0, 0);
       gtk_text_buffer_select_range (buffer, &begin, &end);
     }
@@ -821,7 +821,7 @@ find_previous_action (CodeSlayerNotebookSearch *notebook_search)
       gtk_text_buffer_get_end_iter (buffer, &start);
       if (backward_search (find, &start, &begin, &end, notebook_search))
         {
-          gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (editor), 
+          gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (source_view), 
                                         &begin, .1, FALSE, 0, 0);
           gtk_text_buffer_select_range (buffer, &begin, &end);
         }
@@ -837,7 +837,7 @@ static void
 find_next_action (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
-  GtkWidget *editor;
+  GtkWidget *source_view;
   GtkTextBuffer *buffer;
   GtkTextIter start, begin, end;
   GtkTextMark *insert_mark;
@@ -845,8 +845,8 @@ find_next_action (CodeSlayerNotebookSearch *notebook_search)
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
-  editor = get_editor (notebook_search);
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  source_view = get_source_view (notebook_search);
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
 
   find = entry_get_current_text (priv->find_entry, priv->find_store);
 
@@ -855,7 +855,7 @@ find_next_action (CodeSlayerNotebookSearch *notebook_search)
 
   if (forward_search (find, &start, &begin, &end, notebook_search))
     {
-      gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (editor), 
+      gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (source_view), 
                                     &begin, .1, FALSE, 0, 0);
       gtk_text_buffer_select_range (buffer, &begin, &end);
     }
@@ -864,7 +864,7 @@ find_next_action (CodeSlayerNotebookSearch *notebook_search)
       gtk_text_buffer_get_start_iter (buffer, &start);
       if (forward_search (find, &start, &begin, &end, notebook_search))
         {
-          gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (editor), 
+          gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (source_view), 
                                         &begin, .1, FALSE, 0, 0);
           gtk_text_buffer_select_range (buffer, &begin, &end);
         }
@@ -877,7 +877,7 @@ find_next_action (CodeSlayerNotebookSearch *notebook_search)
 }
 
 static GtkWidget*
-get_editor (CodeSlayerNotebookSearch *notebook_search)
+get_source_view (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   gint page;
@@ -897,15 +897,15 @@ get_editor (CodeSlayerNotebookSearch *notebook_search)
 static void
 clear_search_marks (CodeSlayerNotebookSearch *notebook_search)
 {
-  GtkWidget *editor;
+  GtkWidget *source_view;
   GtkTextBuffer *buffer;
   GtkTextIter start, end;
 
-  editor = get_editor (notebook_search);
-  if (editor == NULL)
+  source_view = get_source_view (notebook_search);
+  if (source_view == NULL)
     return;
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
 
   gtk_text_buffer_get_bounds (buffer, &start, &end);
   gtk_text_buffer_remove_tag_by_name (buffer, "search-marks", &start, &end);
@@ -925,13 +925,13 @@ clear_all_search_marks (CodeSlayerNotebookSearch *notebook_search)
   for (page = 0; page < pages; page++)
     {
       GtkWidget *notebook_page;
-      GtkWidget *editor;
+      GtkWidget *source_view;
       GtkTextBuffer *buffer;
       GtkTextIter start, end;
 
       notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
-      editor = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+      source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
 
       gtk_text_buffer_get_bounds (buffer, &start, &end);
       gtk_text_buffer_remove_tag_by_name (buffer, "search-marks", &start, &end);
@@ -942,7 +942,7 @@ static void
 replace_action (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
-  GtkWidget *editor;
+  GtkWidget *source_view;
   GtkTextBuffer *buffer;
   GtkTextMark *insert_mark;
   GtkTextMark *selection_mark;
@@ -954,8 +954,8 @@ replace_action (CodeSlayerNotebookSearch *notebook_search)
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
-  editor = get_editor (notebook_search);
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  source_view = get_source_view (notebook_search);
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
 
   find = entry_get_current_text (priv->find_entry, priv->find_store);
   replace = entry_get_current_text (priv->replace_entry, priv->replace_store);
@@ -1003,7 +1003,7 @@ static void
 replace_all_action (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
-  GtkWidget *editor;
+  GtkWidget *source_view;
   GtkTextBuffer *buffer;
   gchar *find;
   gchar *replace;
@@ -1011,8 +1011,8 @@ replace_all_action (CodeSlayerNotebookSearch *notebook_search)
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
-  editor = get_editor (notebook_search);
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (editor));
+  source_view = get_source_view (notebook_search);
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
 
   find = entry_get_current_text (priv->find_entry, priv->find_store);
   replace = entry_get_current_text (priv->replace_entry, priv->replace_store);

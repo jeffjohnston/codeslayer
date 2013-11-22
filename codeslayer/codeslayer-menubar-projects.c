@@ -32,10 +32,10 @@ static void codeslayer_menu_bar_projects_finalize    (CodeSlayerMenuBarProjects 
 
 static void add_menu_items                           (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void add_projects_action                      (CodeSlayerMenuBarProjects      *menu_bar_projects);
-static void sync_with_editor_action                  (CodeSlayerMenuBarProjects      *menu_bar_projects);
+static void sync_with_document_action                  (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void sync_engine_action                       (CodeSlayerMenuBarProjects      *menu_bar_projects,
                                                       gboolean                        enable_projects,
-                                                      gboolean                        has_open_editors);
+                                                      gboolean                        has_open_documents);
 
 #define CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_PROJECTS_TYPE, CodeSlayerMenuBarProjectsPrivate))
@@ -50,7 +50,7 @@ struct _CodeSlayerMenuBarProjectsPrivate
   GtkWidget          *menu_bar;
   GtkWidget          *menu;
   GtkWidget          *add_projects_item;
-  GtkWidget          *sync_with_editor_item;
+  GtkWidget          *sync_with_document_item;
   GtkWidget          *sync_with_editor_separator_item;
 };
 
@@ -125,7 +125,7 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   GtkWidget *add_projects_item;
-  GtkWidget *sync_with_editor_item;
+  GtkWidget *sync_with_document_item;
   GtkWidget *sync_with_editor_separator_item;
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
@@ -139,21 +139,21 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
   priv->sync_with_editor_separator_item = sync_with_editor_separator_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), sync_with_editor_separator_item);
 
-  sync_with_editor_item = gtk_check_menu_item_new_with_label (_("Sync With Editor"));
-  priv->sync_with_editor_item = sync_with_editor_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), sync_with_editor_item);
+  sync_with_document_item = gtk_check_menu_item_new_with_label (_("Sync With Editor"));
+  priv->sync_with_document_item = sync_with_document_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), sync_with_document_item);
   
   g_signal_connect_swapped (G_OBJECT (add_projects_item), "activate",
                             G_CALLBACK (add_projects_action), menu_bar_projects);
 
-  g_signal_connect_swapped (G_OBJECT (sync_with_editor_item), "activate",
-                            G_CALLBACK (sync_with_editor_action), menu_bar_projects);
+  g_signal_connect_swapped (G_OBJECT (sync_with_document_item), "activate",
+                            G_CALLBACK (sync_with_document_action), menu_bar_projects);
 }
 
 static void
 sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
                     gboolean                   enable_projects,
-                    gboolean                   has_open_editors)
+                    gboolean                   has_open_documents)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   CodeSlayerRegistry *registry;
@@ -167,17 +167,17 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
       gboolean sync_with_editor;
      
       gtk_widget_show (priv->add_projects_item);
-      gtk_widget_show (priv->sync_with_editor_item);
+      gtk_widget_show (priv->sync_with_document_item);
       gtk_widget_show (priv->sync_with_editor_separator_item);
 
       sync_with_editor = codeslayer_registry_get_boolean (registry, 
                                                           CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item), sync_with_editor);    
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->sync_with_document_item), sync_with_editor);    
     }
   else
     {
       gtk_widget_hide (priv->add_projects_item);
-      gtk_widget_hide (priv->sync_with_editor_item);
+      gtk_widget_hide (priv->sync_with_document_item);
       gtk_widget_hide (priv->sync_with_editor_separator_item);
     }
 }
@@ -216,20 +216,20 @@ add_projects_action (CodeSlayerMenuBarProjects *menu_bar_projects)
 }
 
 static void
-sync_with_editor_action (CodeSlayerMenuBarProjects *menu_bar_projects)
+sync_with_document_action (CodeSlayerMenuBarProjects *menu_bar_projects)
 {
   CodeSlayerMenuBarProjectsPrivate *priv;
   CodeSlayerRegistry *registry; 
-  gboolean sync_with_editor;
+  gboolean sync_with_document;
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
   registry = codeslayer_profile_get_registry (priv->profile);
   
-  sync_with_editor = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (priv->sync_with_editor_item));
-  codeslayer_menu_bar_sync_with_editor (CODESLAYER_MENU_BAR (priv->menu_bar),
-                                        sync_with_editor);
+  sync_with_document = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (priv->sync_with_document_item));
+  codeslayer_menu_bar_sync_with_document (CODESLAYER_MENU_BAR (priv->menu_bar),
+                                        sync_with_document);
                                                 
   codeslayer_registry_set_boolean (registry, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR,
-                                   sync_with_editor);
+                                   sync_with_document);
 }

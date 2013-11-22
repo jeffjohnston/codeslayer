@@ -296,7 +296,7 @@ codeslayer_source_view_get_document (CodeSlayerSourceView *source_view)
  * codeslayer_source_view_get_name:
  * @source_view: a #CodeSlayerSourceView  
  *
- * The name for the editors document.
+ * The name for the source view document.
  *
  * Returns: a string that is owned by the source view and should not be freed.
  */
@@ -312,7 +312,7 @@ codeslayer_source_view_get_name (CodeSlayerSourceView *source_view)
  * codeslayer_source_view_get_file_path:
  * @source_view: a #CodeSlayerSourceView  
  *
- * The file path for the editors document.
+ * The file path for the source view document.
  *
  * Returns: a string that is owned by the source view and should not be freed.
  */
@@ -328,7 +328,7 @@ codeslayer_source_view_get_file_path (CodeSlayerSourceView *source_view)
  * codeslayer_source_view_get_line_number:
  * @source_view: a #CodeSlayerSourceView  
  *
- * The current line number for the editors document.
+ * The current line number for the source view document.
  */
 gint
 codeslayer_source_view_get_line_number (CodeSlayerSourceView *source_view)

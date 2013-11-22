@@ -88,22 +88,22 @@ CodeSlayer*               codeslayer_new                             (GtkWindow 
                                                                       CodeSlayerSidePane          *side_pane,
                                                                       CodeSlayerBottomPane        *bottom_pane);
 
-gboolean                  codeslayer_select_editor                   (CodeSlayer                  *codeslayer, 
+gboolean                  codeslayer_select_document                   (CodeSlayer                  *codeslayer, 
                                                                       CodeSlayerDocument          *document);
 
-gboolean                  codeslayer_select_editor_by_file_path      (CodeSlayer                  *codeslayer, 
+gboolean                  codeslayer_select_document_by_file_path      (CodeSlayer                  *codeslayer, 
                                                                       const gchar                 *file_path, 
                                                                       gint                         line_number);
 
-CodeSlayerSourceView*     codeslayer_get_active_editor               (CodeSlayer                  *codeslayer);
+CodeSlayerSourceView*     codeslayer_get_active_document               (CodeSlayer                  *codeslayer);
 
-const gchar*              codeslayer_get_active_editor_file_path     (CodeSlayer                  *codeslayer);
+const gchar*              codeslayer_get_active_document_file_path     (CodeSlayer                  *codeslayer);
 
-CodeSlayerProject*        codeslayer_get_active_editor_project       (CodeSlayer                  *codeslayer);
+CodeSlayerProject*        codeslayer_get_active_document_project       (CodeSlayer                  *codeslayer);
 
-CodeSlayerDocument*       codeslayer_get_active_editor_document      (CodeSlayer                  *codeslayer);
+CodeSlayerDocument*       codeslayer_get_active_document_document      (CodeSlayer                  *codeslayer);
 
-GList*                    codeslayer_get_all_editors                 (CodeSlayer                  *codeslayer);
+GList*                    codeslayer_get_all_documents                 (CodeSlayer                  *codeslayer);
 
 
 void                      codeslayer_add_to_side_pane                (CodeSlayer                  *codeslayer, 
@@ -171,7 +171,7 @@ gint                      codeslayer_add_to_process_bar              (CodeSlayer
 void                      codeslayer_remove_from_process_bar         (CodeSlayer                  *codeslayer,
                                                                       gint                         id);
 
-CodeSlayerDocumentLinker*   codeslayer_create_editor_linker            (CodeSlayer                  *codeslayer,
+CodeSlayerDocumentLinker*   codeslayer_create_document_linker            (CodeSlayer                  *codeslayer,
                                                                       GtkTextView                 *text_view);
 
 G_END_DECLS

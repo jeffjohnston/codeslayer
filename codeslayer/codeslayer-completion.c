@@ -99,7 +99,7 @@ codeslayer_completion_class_init (CodeSlayerCompletionClass *klass)
    * CodeSlayerCompletion::row-selected
    * @completion: the completion that received the signal
    *
-   * The ::row-selected signal enables the current selection to be set in the editor.
+   * The ::row-selected signal enables the current selection to be set in the source view.
    */
   codeslayer_completion_signals[ROW_SELECTED] =
     g_signal_new ("row-selected", 

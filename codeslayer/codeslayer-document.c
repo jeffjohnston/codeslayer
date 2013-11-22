@@ -21,18 +21,18 @@
 
 /**
  * SECTION:codeslayer-document
- * @short_description: Represents the source file to create the editor.
+ * @short_description: Represents the source file to create the source view.
  * @title: CodeSlayerDocument
  * @include: codeslayer/codeslayer-document.h
  *
- * The document represents the source file loaded into the editor. This 
+ * The document represents the source file loaded into the source view. This 
  * abstraction is very useful because you can create a document and then 
  * pass it to the codeslayer_projects_select_document() method. 
  * This in turn selects the document in the projects tree and adds a page in 
  * the notebook. It also automatically takes into account features like the 
  * documents line number. This means that if you load a document that has 
  * the line number specified it will load the document and the scroll to the 
- * proper line in the editor.
+ * proper line in the source view.
  */
 
 static void codeslayer_document_class_init    (CodeSlayerDocumentClass *klass);
@@ -92,7 +92,7 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
   /**
    * CodeSlayerDocument:line-number:
    *
-   * The line that the editor should scroll to.
+   * The line that the source view should scroll to.
    */
   g_object_class_install_property (gobject_class, 
                                    PROP_LINE_NUMBER,
@@ -283,7 +283,7 @@ codeslayer_document_new (void)
  * codeslayer_document_get_line_number:
  * @document: a #CodeSlayerDocument.
  *
- * Returns: the line number to scroll to when loaded into the editor.
+ * Returns: the line number to scroll to when loaded into the source view.
  */
 const gint
 codeslayer_document_get_line_number (CodeSlayerDocument *document)
@@ -294,7 +294,7 @@ codeslayer_document_get_line_number (CodeSlayerDocument *document)
 /**
  * codeslayer_document_set_line_number:
  * @document: a #CodeSlayerDocument.
- * @line_number: the line number to scroll to when loaded into the editor.
+ * @line_number: the line number to scroll to when loaded into the source view.
  */
 void
 codeslayer_document_set_line_number (CodeSlayerDocument *document,
@@ -417,7 +417,7 @@ codeslayer_document_set_file_path (CodeSlayerDocument *document,
  * @document: a #CodeSlayerDocument.
  *
  * Note: this is only used when the active group is first loaded up so that 
- *       the corresponding editor is selected. After 
+ *       the corresponding source view is selected. After 
  *       that it is not updated until the active group is saved.
  *
  * Returns: is TRUE if this is the active document in the project. 

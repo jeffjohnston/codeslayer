@@ -78,51 +78,51 @@ struct _CodeSlayerMenuBarClass
 
 GType codeslayer_menu_bar_get_type (void) G_GNUC_CONST;
   
-GtkWidget*      codeslayer_menu_bar_new                        (GtkWidget             *window, 
-                                                                CodeSlayerProfile     *profile);
+GtkWidget*      codeslayer_menu_bar_new                    (GtkWidget         *window, 
+                                                            CodeSlayerProfile *profile);
                                                              
-void            codeslayer_menu_bar_new_editor                 (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_open_editor                (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_save_editor                (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_save_all_editors           (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_close_editor               (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_quit_application           (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_new_document           (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_open_document          (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_save_document          (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_save_all_documents     (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_close_document         (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_quit_application       (CodeSlayerMenuBar *menu_bar);
 
-void            codeslayer_menu_bar_cut                        (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_copy                       (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_paste                      (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_delete                     (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_to_uppercase               (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_to_lowercase               (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_copy_lines                 (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_show_preferences           (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_show_profiles              (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_sync_with_editor           (CodeSlayerMenuBar     *menu_bar, 
-                                                                gboolean               sync_with_editor);
-void            codeslayer_menu_bar_scan_external_changes      (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_cut                    (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_copy                   (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_paste                  (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_delete                 (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_to_uppercase           (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_to_lowercase           (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_copy_lines             (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_show_preferences       (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_show_profiles          (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_sync_with_document     (CodeSlayerMenuBar *menu_bar, 
+                                                            gboolean           sync_with_document);
+void            codeslayer_menu_bar_scan_external_changes  (CodeSlayerMenuBar *menu_bar);
 
-void            codeslayer_menu_bar_find                       (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_replace                    (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_find_next                  (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_find_previous              (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_find_projects              (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_go_to_line                 (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_find                   (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_replace                (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_find_next              (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_find_previous          (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_find_projects          (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_go_to_line             (CodeSlayerMenuBar *menu_bar);
 
-void            codeslayer_menu_bar_fullscreen_window          (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_show_side_pane             (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_show_bottom_pane           (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_draw_spaces                (CodeSlayerMenuBar     *menu_bar);
-void            codeslayer_menu_bar_word_wrap                  (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_fullscreen_window      (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_show_side_pane         (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_show_bottom_pane       (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_draw_spaces            (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_word_wrap              (CodeSlayerMenuBar *menu_bar);
 
-void            codeslayer_menu_bar_add_tools_item             (CodeSlayerMenuBar     *menu_bar, 
-                                                                GtkWidget             *item);
-void            codeslayer_menu_bar_remove_tools_item          (CodeSlayerMenuBar     *menu_bar, 
-                                                                GtkWidget             *item);
-GtkAccelGroup*  codeslayer_menu_bar_get_accel_group            (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_add_tools_item         (CodeSlayerMenuBar *menu_bar, 
+                                                            GtkWidget         *item);
+void            codeslayer_menu_bar_remove_tools_item      (CodeSlayerMenuBar *menu_bar, 
+                                                            GtkWidget         *item);
+GtkAccelGroup*  codeslayer_menu_bar_get_accel_group        (CodeSlayerMenuBar *menu_bar);
 
-void            codeslayer_menu_bar_add_projects               (CodeSlayerMenuBar     *menu_bar, 
-                                                                GSList                *files);
-void            codeslayer_menu_bar_show_plugins               (CodeSlayerMenuBar     *menu_bar);
+void            codeslayer_menu_bar_add_projects           (CodeSlayerMenuBar *menu_bar, 
+                                                            GSList            *files);
+void            codeslayer_menu_bar_show_plugins           (CodeSlayerMenuBar *menu_bar);
 
 G_END_DECLS
 

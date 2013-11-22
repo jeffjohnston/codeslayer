@@ -412,15 +412,15 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
 }
 
 /**
- * codeslayer_engine_open_editor:
+ * codeslayer_engine_open_document:
  * @engine: a #CodeSlayerEngine.
- * @file_path: the editor to open by file path.
+ * @file_path: the document to open by file path.
  *
- * Will first check to make sure that the editor doesn't already exist.
+ * Will first check to make sure that the document doesn't already exist.
  */
 void
-codeslayer_engine_open_editor (CodeSlayerEngine *engine, 
-                               gchar            *file_path)
+codeslayer_engine_open_document (CodeSlayerEngine *engine, 
+                                 gchar            *file_path)
 {
   CodeSlayerEnginePrivate *priv;
   CodeSlayerDocument *document;

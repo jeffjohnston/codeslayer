@@ -41,7 +41,7 @@ static void word_wrap_action                     (CodeSlayerMenuBarView      *me
 static void scan_external_changes_action         (CodeSlayerMenuBarView      *menu_bar_view);
 static void sync_engine_action                   (CodeSlayerMenuBarView      *menu_bar_view,
                                                   gboolean                    enable_projects,
-                                                  gboolean                    has_open_editors);
+                                                  gboolean                    has_open_documents);
 
 #define CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_VIEW_TYPE, CodeSlayerMenuBarViewPrivate))
@@ -204,7 +204,7 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view)
 static void
 sync_engine_action (CodeSlayerMenuBarView *menu_bar_view,
                     gboolean               enable_projects,
-                    gboolean               has_open_editors)
+                    gboolean               has_open_documents)
 {
   CodeSlayerMenuBarViewPrivate *priv;
   CodeSlayerRegistry *registry;
@@ -213,10 +213,10 @@ sync_engine_action (CodeSlayerMenuBarView *menu_bar_view,
   
   registry = codeslayer_profile_get_registry (priv->profile);
   
-  gtk_widget_set_sensitive (priv->draw_spaces_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->word_wrap_item, has_open_editors);
-  gtk_widget_set_sensitive (priv->scan_external_changes_item, has_open_editors || enable_projects);
-  gtk_widget_set_sensitive (priv->scan_external_changes_separator_item, has_open_editors || enable_projects);
+  gtk_widget_set_sensitive (priv->draw_spaces_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->word_wrap_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->scan_external_changes_item, has_open_documents || enable_projects);
+  gtk_widget_set_sensitive (priv->scan_external_changes_separator_item, has_open_documents || enable_projects);
   
   g_signal_handler_block (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_block (priv->show_bottom_pane_item, priv->show_bottom_pane_id);

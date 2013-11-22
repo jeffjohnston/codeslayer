@@ -453,7 +453,7 @@ select_link_action (CodeSlayerDocumentLinker *linker,
               codeslayer_document_set_line_number (document, link->line_number);
               codeslayer_document_set_project (document, project);
 
-              codeslayer_select_editor (priv->codeslayer, document);
+              codeslayer_select_document (priv->codeslayer, document);
               g_object_unref (document);
               return TRUE;
             }

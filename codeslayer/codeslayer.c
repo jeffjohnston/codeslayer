@@ -39,21 +39,21 @@ static void codeslayer_class_init             (CodeSlayerClass   *klass);
 static void codeslayer_init                   (CodeSlayer        *codeslayer);
 static void codeslayer_finalize               (CodeSlayer        *codeslayer);
 
-static void editor_saved_action               (CodeSlayer        *codeslayer,
+static void document_saved_action               (CodeSlayer        *codeslayer,
                                                CodeSlayerSourceView  *editor);
-static void editors_all_saved_action          (CodeSlayer        *codeslayer,
+static void documents_all_saved_action          (CodeSlayer        *codeslayer,
                                                GList             *editors);
 static void project_properties_opened_action  (CodeSlayer        *codeslayer,
                                                CodeSlayerProject *project);
 static void project_properties_closed_action  (CodeSlayer        *codeslayer,
                                                CodeSlayerProject *project);
-static void editor_added_action               (CodeSlayer        *codeslayer,
+static void document_added_action               (CodeSlayer        *codeslayer,
                                                GtkWidget         *child,
                                                guint              page_num);
-static void editor_removed_action             (CodeSlayer        *codeslayer, 
+static void document_removed_action             (CodeSlayer        *codeslayer, 
                                                GtkWidget         *child,
                                                guint              page_num);
-static void editor_switched_action            (CodeSlayer        *codeslayer,
+static void document_switched_action            (CodeSlayer        *codeslayer,
                                                GtkWidget         *child,
                                                guint              page_num);
 static void projects_changed_action           (CodeSlayer        *codeslayer);
@@ -276,19 +276,19 @@ codeslayer_new (GtkWindow                   *window,
   priv->bottom_pane = bottom_pane;
   
   g_signal_connect_swapped (G_OBJECT (notebook), "page-added",
-                            G_CALLBACK (editor_added_action), codeslayer);
+                            G_CALLBACK (document_added_action), codeslayer);
   
   g_signal_connect_swapped (G_OBJECT (notebook), "page-removed",
-                            G_CALLBACK (editor_removed_action), codeslayer);
+                            G_CALLBACK (document_removed_action), codeslayer);
   
   g_signal_connect_swapped (G_OBJECT (notebook), "switch-page",
-                            G_CALLBACK (editor_switched_action), codeslayer);
+                            G_CALLBACK (document_switched_action), codeslayer);
   
   g_signal_connect_swapped (G_OBJECT (notebook), "editor-saved",
-                            G_CALLBACK (editor_saved_action), codeslayer);
+                            G_CALLBACK (document_saved_action), codeslayer);
   
   g_signal_connect_swapped (G_OBJECT (notebook), "editors-all-saved",
-                            G_CALLBACK (editors_all_saved_action), codeslayer);
+                            G_CALLBACK (documents_all_saved_action), codeslayer);
   
   g_signal_connect_swapped (G_OBJECT (projects), "properties-opened",
                             G_CALLBACK (project_properties_opened_action), codeslayer);
@@ -303,22 +303,22 @@ codeslayer_new (GtkWindow                   *window,
 }
 
 /**
- * codeslayer_select_editor:
+ * codeslayer_select_document:
  * @codeslayer: a #CodeSlayer.
  * @document: a #CodeSlayerDocument.
  *
- * Finds the editor based on the document file path. First it will find the
- * document in the tree and then open up the editor in the notebook. It is Ok
- * to call this method as much as you want because after the editor is initially
+ * Finds the document based on the file path. First it will find the
+ * document in the tree and then open up the document in the notebook. It is Ok
+ * to call this method as much as you want because after the document is initially
  * loaded up then subsequent calls are very efficient.
  *
  * The minimum document attribute that needs to be filled in is the file_path.
  *
- * Returns: is TRUE if the editor is able to be found in the tree. 
+ * Returns: is TRUE if the document is able to be found in the tree. 
  */
 gboolean
-codeslayer_select_editor (CodeSlayer         *codeslayer, 
-                          CodeSlayerDocument *document)
+codeslayer_select_document (CodeSlayer         *codeslayer, 
+                            CodeSlayerDocument *document)
 {
   CodeSlayerPrivate *priv;
   CodeSlayerProject *project;
@@ -339,22 +339,22 @@ codeslayer_select_editor (CodeSlayer         *codeslayer,
 }
 
 /**
- * codeslayer_select_editor_by_file_path:
+ * codeslayer_select_document_by_file_path:
  * @codeslayer: a #CodeSlayer.
- * @file_path: the path to the editor to open.
- * @line_number: the line in the editor to scroll to.
+ * @file_path: the path to the document to open.
+ * @line_number: the line in the document to scroll to.
  *
- * Finds the editor based on the file path. First it will find the document in the 
- * tree and then open up the editor in the notebook. It is Ok to call this method 
- * as much as you want because after the editor is initially loaded up then 
+ * Finds the document based on the file path. First it will find the document in the 
+ * tree and then open up the document in the notebook. It is Ok to call this method 
+ * as much as you want because after the document is initially loaded up then 
  * subsequent calls are very efficient.
  *
- * Returns: is TRUE if the editor is able to be found in the tree. 
+ * Returns: is TRUE if the document is able to be found in the tree. 
  */
 gboolean
-codeslayer_select_editor_by_file_path (CodeSlayer  *codeslayer, 
-                                       const gchar *file_path, 
-                                       gint         line_number)
+codeslayer_select_document_by_file_path (CodeSlayer  *codeslayer, 
+                                         const gchar *file_path, 
+                                         gint         line_number)
 {
   CodeSlayerDocument *document;
   gboolean result;
@@ -365,7 +365,7 @@ codeslayer_select_editor_by_file_path (CodeSlayer  *codeslayer,
   codeslayer_document_set_file_path (document, file_path);
   codeslayer_document_set_line_number (document, line_number);
   
-  result = codeslayer_select_editor (codeslayer, document);
+  result = codeslayer_select_document (codeslayer, document);
   
   g_object_unref (document);
   
@@ -373,17 +373,17 @@ codeslayer_select_editor_by_file_path (CodeSlayer  *codeslayer,
 }                                       
 
 /**
- * codeslayer_get_active_editor:
+ * codeslayer_get_active_document:
  * @codeslayer: a #CodeSlayer.
  *
- * Returns: The editor in the notebook that has focus. Will 
- *          return NULL if there is no active editor.
+ * Returns: The document in the notebook that has focus. Will 
+ *          return NULL if there is no active document.
  */
 CodeSlayerSourceView*
-codeslayer_get_active_editor (CodeSlayer *codeslayer)
+codeslayer_get_active_document (CodeSlayer *codeslayer)
 {
   CodeSlayerPrivate *priv;
-  GtkWidget *editor;
+  GtkWidget *source_view;
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   
@@ -392,94 +392,94 @@ codeslayer_get_active_editor (CodeSlayer *codeslayer)
   if (gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook)) == 0)
     return NULL;
 
-  editor = codeslayer_notebook_get_active_source_view (priv->notebook);
-  return CODESLAYER_SOURCE_VIEW(editor);
+  source_view = codeslayer_notebook_get_active_source_view (priv->notebook);
+  return CODESLAYER_SOURCE_VIEW(source_view);
 }
 
 /**
- * codeslayer_get_active_editor_file_path:
+ * codeslayer_get_active_document_file_path:
  * @codeslayer: a #CodeSlayer.
  *
- * The file path for the active editor.
+ * The file path for the active document.
  *
- * Returns: a string that is owned by the editor and should not be freed.
+ * Returns: a string that is owned by the document and should not be freed.
  */
 const gchar*
-codeslayer_get_active_editor_file_path (CodeSlayer *codeslayer)
+codeslayer_get_active_document_file_path (CodeSlayer *codeslayer)
 {
-  CodeSlayerSourceView *editor;
+  CodeSlayerSourceView *source_view;
   CodeSlayerDocument *document;
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   
-  editor = codeslayer_get_active_editor (codeslayer);
+  source_view = codeslayer_get_active_document (codeslayer);
   
-  if (editor == NULL)
+  if (source_view == NULL)
     return NULL;
   
-  document = codeslayer_source_view_get_document (editor);
+  document = codeslayer_source_view_get_document (source_view);
   return codeslayer_document_get_file_path (document);;
 }
 
 /**
- * codeslayer_get_active_editor_document:
+ * codeslayer_get_active_document_document:
  * @codeslayer: a #CodeSlayer.
  *
  * This is a convenience function so that you can easily get at the
- * document associated with the active editor.
+ * document associated with the active document.
  *
- * Returns: The document that is associated with the active editor. Will 
- *          return NULL if there is no active editor.
+ * Returns: The document that is associated with the active document. Will 
+ *          return NULL if there is no active document.
  */
 CodeSlayerDocument*             
-codeslayer_get_active_editor_document (CodeSlayer *codeslayer)
+codeslayer_get_active_document_document (CodeSlayer *codeslayer)
 {
-  CodeSlayerSourceView *editor;
+  CodeSlayerSourceView *source_view;
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
 
-  editor = codeslayer_get_active_editor (codeslayer);
-  if (!editor)
+  source_view = codeslayer_get_active_document (codeslayer);
+  if (!source_view)
     return NULL;
 
-  return codeslayer_source_view_get_document (editor);
+  return codeslayer_source_view_get_document (source_view);
 }
 
 /**
- * codeslayer_get_active_editor_project:
+ * codeslayer_get_active_document_project:
  * @codeslayer: a #CodeSlayer.
  *
  * This is a convenience function so that you can easily get at the
- * project associated with the active editor.
+ * project associated with the active document.
  *
- * Returns: The project that is associated with the active editor. Will 
-            return NULL if there is no active editor.
+ * Returns: The project that is associated with the active document. Will 
+            return NULL if there is no active document.
  */
 CodeSlayerProject*             
-codeslayer_get_active_editor_project (CodeSlayer *codeslayer)
+codeslayer_get_active_document_project (CodeSlayer *codeslayer)
 {
-  CodeSlayerSourceView *editor;
+  CodeSlayerSourceView *source_view;
   CodeSlayerDocument *document;
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
 
-  editor = codeslayer_get_active_editor (codeslayer);
-  if (!editor)
+  source_view = codeslayer_get_active_document (codeslayer);
+  if (!source_view)
     return NULL;
   
-  document = codeslayer_source_view_get_document (editor);
+  document = codeslayer_source_view_get_document (source_view);
 
   return codeslayer_document_get_project (document);
 }
 
 /**
- * codeslayer_get_all_editors:
+ * codeslayer_get_all_documents:
  *  @codeslayer: a #CodeSlayer.
  *
  * Returns: a #GList of #CodeSlayerSourceView. Note: you need to call g_list_free
  * when you are done with the list.
  */
 GList*
-codeslayer_get_all_editors (CodeSlayer *codeslayer)
+codeslayer_get_all_documents (CodeSlayer *codeslayer)
 {
   CodeSlayerPrivate *priv;
   
@@ -916,7 +916,7 @@ codeslayer_remove_from_process_bar (CodeSlayer *codeslayer,
 }
 
 /**
- * codeslayer_create_editor_linker:
+ * codeslayer_create_document_linker:
  * @codeslayer: a #CodeSlayer.
  * @text_view: the text_view to create the links in.
  *
@@ -924,8 +924,8 @@ codeslayer_remove_from_process_bar (CodeSlayer *codeslayer,
             g_object_unref () when done with it.
  */
 CodeSlayerDocumentLinker*   
-codeslayer_create_editor_linker (CodeSlayer  *codeslayer,
-                                 GtkTextView *text_view)
+codeslayer_create_document_linker (CodeSlayer  *codeslayer,
+                                   GtkTextView *text_view)
 {
   return codeslayer_document_linker_new (G_OBJECT (codeslayer), text_view);
 }
@@ -944,51 +944,51 @@ codeslayer_send_plugin_message (CodeSlayer  *codeslayer,
 }
 
 static void
-editor_saved_action (CodeSlayer       *codeslayer,
-                     CodeSlayerSourceView *editor)                     
+document_saved_action (CodeSlayer       *codeslayer,
+                     CodeSlayerSourceView *source_view)                     
 {
-  g_signal_emit_by_name ((gpointer) codeslayer, "editor-saved", editor);
+  g_signal_emit_by_name ((gpointer) codeslayer, "editor-saved", source_view);
 }
 
 static void
-editors_all_saved_action (CodeSlayer *codeslayer,
-                          GList      *editors)
+documents_all_saved_action (CodeSlayer *codeslayer,
+                          GList      *source_views)
 {
-  g_signal_emit_by_name ((gpointer) codeslayer, "editors-all-saved", editors);
+  g_signal_emit_by_name ((gpointer) codeslayer, "editors-all-saved", source_views);
 }
 
 static void
-editor_added_action (CodeSlayer *codeslayer,
+document_added_action (CodeSlayer *codeslayer,
                      GtkWidget  *page,
                      guint       page_num)                     
 {
-  GtkWidget *editor;
-  editor = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer) codeslayer, "editor-added", editor);
+  GtkWidget *source_view;
+  source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
+  g_signal_emit_by_name ((gpointer) codeslayer, "editor-added", source_view);
 }
 
 static void      
-editor_removed_action (CodeSlayer *codeslayer, 
+document_removed_action (CodeSlayer *codeslayer, 
                        GtkWidget  *page,
                        guint       page_num)
 {
-  GtkWidget *editor;
-  editor = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer) codeslayer, "editor-removed", editor);
+  GtkWidget *source_view;
+  source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
+  g_signal_emit_by_name ((gpointer) codeslayer, "editor-removed", source_view);
 }
 
 static void
-editor_switched_action (CodeSlayer *codeslayer, 
+document_switched_action (CodeSlayer *codeslayer, 
                         GtkWidget  *notebook_page,
                         guint       page_num)
 {
   CodeSlayerPrivate *priv;
-  GtkWidget *editor;
+  GtkWidget *source_view;
   GtkWidget *page;
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);  
-  editor = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer) codeslayer, "editor-switched", editor);
+  source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
+  g_signal_emit_by_name ((gpointer) codeslayer, "editor-switched", source_view);
 }
 
 static void 
