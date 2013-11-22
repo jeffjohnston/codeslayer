@@ -143,7 +143,7 @@ am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-notebook.lo \
 	libcodeslayer_la-codeslayer-notebook-tab.lo \
 	libcodeslayer_la-codeslayer-notebook-page.lo \
-	libcodeslayer_la-codeslayer-editor-linker.lo \
+	libcodeslayer_la-codeslayer-document-linker.lo \
 	libcodeslayer_la-codeslayer-sourceview.lo \
 	libcodeslayer_la-codeslayer-utils.lo \
 	libcodeslayer_la-codeslayer-xml.lo \
@@ -400,7 +400,7 @@ pkginclude_HEADERS = \
     codeslayer-notebook.h \
     codeslayer-notebook-tab.h \
     codeslayer-notebook-page.h \
-    codeslayer-editor-linker.h \
+    codeslayer-document-linker.h \
     codeslayer-sourceview.h \
     codeslayer-utils.h \
     codeslayer-xml.h \
@@ -456,7 +456,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-notebook.c \
     codeslayer-notebook-tab.c \
     codeslayer-notebook-page.c \
-    codeslayer-editor-linker.c \
+    codeslayer-document-linker.c \
     codeslayer-sourceview.c \
     codeslayer-utils.c \
     codeslayer-xml.c \
@@ -605,8 +605,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-completion-proposal.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-completion-provider.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-completion.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-document-linker.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-document.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-editor-linker.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-engine.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-listview.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-marshaller.Plo@am__quote@
@@ -977,12 +977,12 @@ libcodeslayer_la-codeslayer-notebook-page.lo: codeslayer-notebook-page.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-notebook-page.lo `test -f 'codeslayer-notebook-page.c' || echo '$(srcdir)/'`codeslayer-notebook-page.c
 
-libcodeslayer_la-codeslayer-editor-linker.lo: codeslayer-editor-linker.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-editor-linker.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-editor-linker.Tpo -c -o libcodeslayer_la-codeslayer-editor-linker.lo `test -f 'codeslayer-editor-linker.c' || echo '$(srcdir)/'`codeslayer-editor-linker.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-editor-linker.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-editor-linker.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-editor-linker.c' object='libcodeslayer_la-codeslayer-editor-linker.lo' libtool=yes @AMDEPBACKSLASH@
+libcodeslayer_la-codeslayer-document-linker.lo: codeslayer-document-linker.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-document-linker.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-document-linker.Tpo -c -o libcodeslayer_la-codeslayer-document-linker.lo `test -f 'codeslayer-document-linker.c' || echo '$(srcdir)/'`codeslayer-document-linker.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-document-linker.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-document-linker.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-document-linker.c' object='libcodeslayer_la-codeslayer-document-linker.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-editor-linker.lo `test -f 'codeslayer-editor-linker.c' || echo '$(srcdir)/'`codeslayer-editor-linker.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-document-linker.lo `test -f 'codeslayer-document-linker.c' || echo '$(srcdir)/'`codeslayer-document-linker.c
 
 libcodeslayer_la-codeslayer-sourceview.lo: codeslayer-sourceview.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-sourceview.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-sourceview.Tpo -c -o libcodeslayer_la-codeslayer-sourceview.lo `test -f 'codeslayer-sourceview.c' || echo '$(srcdir)/'`codeslayer-sourceview.c

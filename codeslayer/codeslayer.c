@@ -920,14 +920,14 @@ codeslayer_remove_from_process_bar (CodeSlayer *codeslayer,
  * @codeslayer: a #CodeSlayer.
  * @text_view: the text_view to create the links in.
  *
- * Returns: Creates a new @CodeSlayerEditorLinker. You must free this with 
+ * Returns: Creates a new @CodeSlayerDocumentLinker. You must free this with 
             g_object_unref () when done with it.
  */
-CodeSlayerEditorLinker*   
+CodeSlayerDocumentLinker*   
 codeslayer_create_editor_linker (CodeSlayer  *codeslayer,
                                  GtkTextView *text_view)
 {
-  return codeslayer_editor_linker_new (G_OBJECT (codeslayer), text_view);
+  return codeslayer_document_linker_new (G_OBJECT (codeslayer), text_view);
 }
 
 /**

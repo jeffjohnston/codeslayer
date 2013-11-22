@@ -28,7 +28,7 @@
 #include <codeslayer/codeslayer-project-properties.h>
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
-#include <codeslayer/codeslayer-editor-linker.h>
+#include <codeslayer/codeslayer-document-linker.h>
 #include <codeslayer/codeslayer-sourceview.h>
 #include <codeslayer/codeslayer-project.h>
 #include <codeslayer/codeslayer-document.h>
@@ -171,7 +171,7 @@ gint                      codeslayer_add_to_process_bar              (CodeSlayer
 void                      codeslayer_remove_from_process_bar         (CodeSlayer                  *codeslayer,
                                                                       gint                         id);
 
-CodeSlayerEditorLinker*   codeslayer_create_editor_linker            (CodeSlayer                  *codeslayer,
+CodeSlayerDocumentLinker*   codeslayer_create_editor_linker            (CodeSlayer                  *codeslayer,
                                                                       GtkTextView                 *text_view);
 
 G_END_DECLS
