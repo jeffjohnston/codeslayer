@@ -23,7 +23,7 @@
 
 /**
  * SECTION:codeslayer-notebook-page
- * @short_description: Contains the editor and document.
+ * @short_description: Contains the source view and document.
  * @title: CodeSlayerNotebookPage
  * @include: codeslayer/codeslayer-notebook-page.h
  */
@@ -42,7 +42,7 @@ typedef struct _CodeSlayerNotebookPagePrivate CodeSlayerNotebookPagePrivate;
 
 struct _CodeSlayerNotebookPagePrivate
 {
-  GtkWidget *editor;
+  GtkWidget *source_view;
   GtkWidget *document_not_found_info_bar;
   GtkWidget *external_changes_info_bar;
 };
@@ -81,14 +81,14 @@ codeslayer_notebook_page_finalize (CodeSlayerNotebookPage *notebook_page)
 
 /**
  * codeslayer_notebook_page_new:
- * @editor: a #CodeSlayerSourceView.
+ * @source_view: a #CodeSlayerSourceView.
  *
  * Creates a new #CodeSlayerNotebookPage.
  *
  * Returns: a new #CodeSlayerNotebookPage. 
  */
 GtkWidget*
-codeslayer_notebook_page_new (GtkWidget *editor)
+codeslayer_notebook_page_new (GtkWidget *source_view)
 {
   CodeSlayerNotebookPagePrivate *priv;
   GtkWidget *notebook_page;
@@ -97,12 +97,12 @@ codeslayer_notebook_page_new (GtkWidget *editor)
   notebook_page = g_object_new (codeslayer_notebook_page_get_type (), NULL);
 
   priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
-  priv->editor = editor;
+  priv->source_view = source_view;
 
   scrolled_window = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                   GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (editor));
+  gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (source_view));
 
   gtk_box_pack_start (GTK_BOX (notebook_page), scrolled_window, TRUE, TRUE, 0);
 
@@ -118,7 +118,7 @@ codeslayer_notebook_page_new (GtkWidget *editor)
 GtkWidget*
 codeslayer_notebook_page_get_source_view (CodeSlayerNotebookPage *notebook_page)
 {
-  return CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page)->editor;
+  return CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page)->source_view;
 }
 
 /**
@@ -132,7 +132,7 @@ codeslayer_notebook_page_get_document (CodeSlayerNotebookPage *notebook_page)
 {
   CodeSlayerNotebookPagePrivate *priv;
   priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
-  return codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->editor));
+  return codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->source_view));
 }
 
 /**
@@ -161,7 +161,7 @@ codeslayer_notebook_page_show_document_not_found_info_bar (CodeSlayerNotebookPag
       gtk_info_bar_set_message_type (GTK_INFO_BAR (priv->document_not_found_info_bar), GTK_MESSAGE_ERROR);
 
       content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (priv->document_not_found_info_bar));
-      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->editor));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->source_view));
       file_path =  codeslayer_document_get_file_path (document);
       text = g_strdup_printf(_("The document %s no longer exists."), file_path);
       label = gtk_label_new (text);
@@ -196,7 +196,7 @@ codeslayer_notebook_page_show_external_changes_info_bar (CodeSlayerNotebookPage 
 
       content_area = gtk_info_bar_get_content_area (GTK_INFO_BAR (priv->external_changes_info_bar));
 
-      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->editor));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->source_view));
       file_path =  codeslayer_document_get_file_path (document);
       text = g_strdup_printf(_("The document %s changed on disk."), file_path);
       label = gtk_label_new (text);
@@ -232,8 +232,8 @@ external_changes_response_action (CodeSlayerNotebookPage *notebook_page,
       GtkTextBuffer *buffer;
       gchar *contents;
 
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(priv->editor));
-      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->editor));
+      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(priv->source_view));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->source_view));
       file_path = codeslayer_document_get_file_path (document);
 
       contents = codeslayer_utils_get_utf8_text (file_path);
@@ -251,7 +251,7 @@ external_changes_response_action (CodeSlayerNotebookPage *notebook_page,
           priv->external_changes_info_bar = NULL;
 
           modification_time = codeslayer_utils_get_modification_time (file_path);
-          codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (priv->editor), modification_time);
+          codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (priv->source_view), modification_time);
         }
     }
 }

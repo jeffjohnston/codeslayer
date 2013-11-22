@@ -44,10 +44,10 @@ static void show_search                            (CodeSlayerNotebookPane      
 static void close_search                           (CodeSlayerNotebookSearch    *notebook_search);
 
 static void find_next_action                       (CodeSlayerNotebookPane      *notebook_pane);
-static void editor_added_action                    (CodeSlayerNotebookPane      *notebook_pane,
+static void document_added_action                  (CodeSlayerNotebookPane      *notebook_pane,
                                                     GtkWidget                   *page,
                                                     guint                        page_num);
-static void editor_switched_action                 (CodeSlayerNotebookPane      *notebook_pane,
+static void document_switched_action               (CodeSlayerNotebookPane      *notebook_pane,
                                                     GParamSpec                  *spec);
                         
 #define CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE(obj) \
@@ -247,10 +247,10 @@ codeslayer_notebook_pane_set_notebook (CodeSlayerNotebookPane *notebook_pane,
                       TRUE, TRUE, 0);
 
   g_signal_connect_swapped (G_OBJECT (notebook), "page-added",
-                            G_CALLBACK (editor_added_action), notebook_pane);
+                            G_CALLBACK (document_added_action), notebook_pane);
   
   g_signal_connect_swapped (G_OBJECT (notebook), "notify::page",
-                            G_CALLBACK (editor_switched_action), notebook_pane);
+                            G_CALLBACK (document_switched_action), notebook_pane);
 }
 
 /**
@@ -392,7 +392,7 @@ close_search (CodeSlayerNotebookSearch *notebook_search)
 }
 
 static void
-editor_added_action (CodeSlayerNotebookPane *notebook_pane,
+document_added_action (CodeSlayerNotebookPane *notebook_pane,
                      GtkWidget              *page, 
                      guint                   page_num)                     
 {
@@ -403,7 +403,7 @@ editor_added_action (CodeSlayerNotebookPane *notebook_pane,
 }
 
 static void
-editor_switched_action (CodeSlayerNotebookPane *notebook_pane,
+document_switched_action (CodeSlayerNotebookPane *notebook_pane,
                         GParamSpec             *spec)
 {
   CodeSlayerNotebookPanePrivate *priv;

@@ -31,7 +31,7 @@
  * @include: codeslayer/codeslayer-notebook-tab.h
  *
  * The tab is appended to the notebook page as a way to give the page a 
- * label. This label can also communicate whether or not the editor needs 
+ * label. This label can also communicate whether or not the document needs 
  * to be saved. The tab itself allows a page to be closed.
  */
 
@@ -50,11 +50,11 @@ static GtkWidget *decorate_popup_menu             (CodeSlayerNotebookTab      *n
                                                    GtkWidget                  *label);
 static gboolean button_press_action                   (CodeSlayerNotebookTab      *notebook_tab, 
                                                    GdkEventButton             *event);
-static void close_editor_action                   (CodeSlayerNotebookTab      *notebook_tab);
-static void close_all_editors_action              (CodeSlayerNotebookTab      *notebook_tab);
-static void close_other_editors_action            (CodeSlayerNotebookTab      *notebook_tab);
-static void close_right_editors_action            (CodeSlayerNotebookTab      *notebook_tab);
-static void close_left_editors_action             (CodeSlayerNotebookTab      *notebook_tab);
+static void close_document_action                   (CodeSlayerNotebookTab      *notebook_tab);
+static void close_all_documents_action              (CodeSlayerNotebookTab      *notebook_tab);
+static void close_other_documents_action            (CodeSlayerNotebookTab      *notebook_tab);
+static void close_right_documents_action            (CodeSlayerNotebookTab      *notebook_tab);
+static void close_left_documents_action             (CodeSlayerNotebookTab      *notebook_tab);
 static void set_tooltip                           (CodeSlayerNotebookTab      *notebook_tab);
 
 #define CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE(obj) \
@@ -65,10 +65,10 @@ typedef struct _CodeSlayerNotebookTabPrivate CodeSlayerNotebookTabPrivate;
 struct _CodeSlayerNotebookTabPrivate
 {
   GtkWidget *menu;
-  GtkWidget *close_all_editors_menu_item;
-  GtkWidget *close_other_editors_menu_item;
-  GtkWidget *close_right_editors_menu_item;
-  GtkWidget *close_left_editors_menu_item;
+  GtkWidget *close_all_documents_menu_item;
+  GtkWidget *close_other_documents_menu_item;
+  GtkWidget *close_right_documents_menu_item;
+  GtkWidget *close_left_documents_menu_item;
   GtkWidget *notebook_page;
   GtkWidget *notebook;
   GtkWidget *label;
@@ -307,7 +307,7 @@ codeslayer_notebook_tab_new (GtkWidget   *notebook,
   codeslayer_utils_style_close_button (button);
 
   g_signal_connect_swapped (G_OBJECT (button), "clicked",
-                            G_CALLBACK (close_editor_action), notebook_tab);
+                            G_CALLBACK (close_document_action), notebook_tab);
 
   gtk_box_pack_start (GTK_BOX (notebook_tab), 
                       decorate_popup_menu (CODESLAYER_NOTEBOOK_TAB (notebook_tab), label), 
@@ -323,30 +323,30 @@ decorate_popup_menu (CodeSlayerNotebookTab *notebook_tab,
 {
   CodeSlayerNotebookTabPrivate *priv;
   GtkWidget *menu;
-  GtkWidget *close_all_editors_menu_item;
-  GtkWidget *close_other_editors_menu_item;
-  GtkWidget *close_right_editors_menu_item;
-  GtkWidget *close_left_editors_menu_item;
+  GtkWidget *close_all_documents_menu_item;
+  GtkWidget *close_other_documents_menu_item;
+  GtkWidget *close_right_documents_menu_item;
+  GtkWidget *close_left_documents_menu_item;
   GtkWidget *event_box;
   
   menu = gtk_menu_new ();
   priv = CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE (notebook_tab);
   priv->menu = menu;
 
-  close_all_editors_menu_item = gtk_menu_item_new_with_label (_("Close All"));
-  close_other_editors_menu_item = gtk_menu_item_new_with_label (_("Close Other"));
-  close_right_editors_menu_item = gtk_menu_item_new_with_label (_("Close Right"));
-  close_left_editors_menu_item = gtk_menu_item_new_with_label (_("Close Left"));
+  close_all_documents_menu_item = gtk_menu_item_new_with_label (_("Close All"));
+  close_other_documents_menu_item = gtk_menu_item_new_with_label (_("Close Other"));
+  close_right_documents_menu_item = gtk_menu_item_new_with_label (_("Close Right"));
+  close_left_documents_menu_item = gtk_menu_item_new_with_label (_("Close Left"));
 
-  priv->close_other_editors_menu_item = close_other_editors_menu_item;
-  priv->close_all_editors_menu_item = close_all_editors_menu_item;
-  priv->close_right_editors_menu_item = close_right_editors_menu_item;
-  priv->close_left_editors_menu_item = close_left_editors_menu_item;
+  priv->close_other_documents_menu_item = close_other_documents_menu_item;
+  priv->close_all_documents_menu_item = close_all_documents_menu_item;
+  priv->close_right_documents_menu_item = close_right_documents_menu_item;
+  priv->close_left_documents_menu_item = close_left_documents_menu_item;
 
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), close_all_editors_menu_item);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), close_other_editors_menu_item);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), close_right_editors_menu_item);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), close_left_editors_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), close_all_documents_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), close_other_documents_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), close_right_documents_menu_item);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), close_left_documents_menu_item);
 
   gtk_menu_attach_to_widget (GTK_MENU (menu), GTK_WIDGET (label), NULL);
   gtk_widget_show_all (menu);
@@ -358,14 +358,14 @@ decorate_popup_menu (CodeSlayerNotebookTab *notebook_tab,
 
   g_signal_connect_swapped (G_OBJECT (event_box), "button-press-event",
                             G_CALLBACK (button_press_action), notebook_tab);
-  g_signal_connect_swapped (G_OBJECT (close_all_editors_menu_item), "activate",
-                            G_CALLBACK (close_all_editors_action), notebook_tab);
-  g_signal_connect_swapped (G_OBJECT (close_other_editors_menu_item), "activate",
-                            G_CALLBACK (close_other_editors_action), notebook_tab);
-  g_signal_connect_swapped (G_OBJECT (close_right_editors_menu_item), "activate",
-                            G_CALLBACK (close_right_editors_action), notebook_tab);
-  g_signal_connect_swapped (G_OBJECT (close_left_editors_menu_item), "activate",
-                            G_CALLBACK (close_left_editors_action), notebook_tab);
+  g_signal_connect_swapped (G_OBJECT (close_all_documents_menu_item), "activate",
+                            G_CALLBACK (close_all_documents_action), notebook_tab);
+  g_signal_connect_swapped (G_OBJECT (close_other_documents_menu_item), "activate",
+                            G_CALLBACK (close_other_documents_action), notebook_tab);
+  g_signal_connect_swapped (G_OBJECT (close_right_documents_menu_item), "activate",
+                            G_CALLBACK (close_right_documents_action), notebook_tab);
+  g_signal_connect_swapped (G_OBJECT (close_left_documents_menu_item), "activate",
+                            G_CALLBACK (close_left_documents_action), notebook_tab);
 
   return event_box;
 }
@@ -385,10 +385,10 @@ button_press_action (CodeSlayerNotebookTab *notebook_tab,
   else if ((event->button == 3) && (event->type == GDK_BUTTON_PRESS))
     {
       gboolean sensitive = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook)) > 1;
-      gtk_widget_set_sensitive (priv->close_all_editors_menu_item, sensitive);
-      gtk_widget_set_sensitive (priv->close_other_editors_menu_item, sensitive);
-      gtk_widget_set_sensitive (priv->close_right_editors_menu_item, sensitive);
-      gtk_widget_set_sensitive (priv->close_left_editors_menu_item, sensitive);
+      gtk_widget_set_sensitive (priv->close_all_documents_menu_item, sensitive);
+      gtk_widget_set_sensitive (priv->close_other_documents_menu_item, sensitive);
+      gtk_widget_set_sensitive (priv->close_right_documents_menu_item, sensitive);
+      gtk_widget_set_sensitive (priv->close_left_documents_menu_item, sensitive);
       gtk_menu_popup (GTK_MENU (priv->menu), NULL, NULL, NULL, NULL,
                       event->button, event->time);
       return TRUE;
@@ -398,31 +398,31 @@ button_press_action (CodeSlayerNotebookTab *notebook_tab,
 }
 
 static void
-close_editor_action (CodeSlayerNotebookTab *notebook_tab)
+close_document_action (CodeSlayerNotebookTab *notebook_tab)
 {
   g_signal_emit_by_name ((gpointer) notebook_tab, "close-editor");
 }
 
 static void
-close_all_editors_action (CodeSlayerNotebookTab *notebook_tab)
+close_all_documents_action (CodeSlayerNotebookTab *notebook_tab)
 {
   g_signal_emit_by_name ((gpointer) notebook_tab, "close-all-editors");
 }
 
 static void
-close_other_editors_action (CodeSlayerNotebookTab *notebook_tab)
+close_other_documents_action (CodeSlayerNotebookTab *notebook_tab)
 {
   g_signal_emit_by_name ((gpointer) notebook_tab, "close-other-editors");
 }
 
 static void
-close_right_editors_action (CodeSlayerNotebookTab *notebook_tab)
+close_right_documents_action (CodeSlayerNotebookTab *notebook_tab)
 {
   g_signal_emit_by_name ((gpointer) notebook_tab, "close-right-editors");
 }
 
 static void
-close_left_editors_action (CodeSlayerNotebookTab *notebook_tab)
+close_left_documents_action (CodeSlayerNotebookTab *notebook_tab)
 {
   g_signal_emit_by_name ((gpointer) notebook_tab, "close-left-editors");
 }
@@ -431,7 +431,7 @@ close_left_editors_action (CodeSlayerNotebookTab *notebook_tab)
  * codeslayer_notebook_tab_show_buffer_dirty:
  * @notebook_tab: a #CodeSlayerNotebookTab.
  * 
- * The tab label needs to be show that the editor needs to be saved.
+ * The tab label needs to be show that the document needs to be saved.
  */
 void
 codeslayer_notebook_tab_show_buffer_dirty (CodeSlayerNotebookTab *notebook_tab)
@@ -448,7 +448,7 @@ codeslayer_notebook_tab_show_buffer_dirty (CodeSlayerNotebookTab *notebook_tab)
  * codeslayer_notebook_tab_show_buffer_clean:
  * @notebook_tab: a #CodeSlayerNotebookTab.
  * 
- * The tab label needs to be show that the editor no longer needs to be saved.
+ * The tab label needs to be show that the document no longer needs to be saved.
  */
 void
 codeslayer_notebook_tab_show_buffer_clean (CodeSlayerNotebookTab *notebook_tab)

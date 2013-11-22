@@ -45,7 +45,7 @@ struct _CodeSlayerNotebookPageClass
 
 GType codeslayer_notebook_page_get_type (void) G_GNUC_CONST;
      
-GtkWidget*           codeslayer_notebook_page_new                               (GtkWidget              *editor);
+GtkWidget*           codeslayer_notebook_page_new                               (GtkWidget              *source_view);
 GtkWidget*           codeslayer_notebook_page_get_source_view                   (CodeSlayerNotebookPage *notebook_page);
 CodeSlayerDocument*  codeslayer_notebook_page_get_document                      (CodeSlayerNotebookPage *notebook_page);
 void                 codeslayer_notebook_page_show_document_not_found_info_bar  (CodeSlayerNotebookPage *notebook_page);

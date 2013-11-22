@@ -51,7 +51,7 @@ struct _CodeSlayerMenuBarProjectsPrivate
   GtkWidget          *menu;
   GtkWidget          *add_projects_item;
   GtkWidget          *sync_with_document_item;
-  GtkWidget          *sync_with_editor_separator_item;
+  GtkWidget          *sync_with_document_separator_item;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarProjects, codeslayer_menu_bar_projects, GTK_TYPE_MENU_ITEM)
@@ -126,7 +126,7 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
   CodeSlayerMenuBarProjectsPrivate *priv;
   GtkWidget *add_projects_item;
   GtkWidget *sync_with_document_item;
-  GtkWidget *sync_with_editor_separator_item;
+  GtkWidget *sync_with_document_separator_item;
   
   priv = CODESLAYER_MENU_BAR_PROJECTS_GET_PRIVATE (menu_bar_projects);
   
@@ -135,9 +135,9 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
   gtk_menu_set_accel_group (GTK_MENU (priv->menu), priv->accel_group);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), add_projects_item);
   
-  sync_with_editor_separator_item = gtk_separator_menu_item_new ();
-  priv->sync_with_editor_separator_item = sync_with_editor_separator_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), sync_with_editor_separator_item);
+  sync_with_document_separator_item = gtk_separator_menu_item_new ();
+  priv->sync_with_document_separator_item = sync_with_document_separator_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), sync_with_document_separator_item);
 
   sync_with_document_item = gtk_check_menu_item_new_with_label (_("Sync With Editor"));
   priv->sync_with_document_item = sync_with_document_item;
@@ -168,7 +168,7 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
      
       gtk_widget_show (priv->add_projects_item);
       gtk_widget_show (priv->sync_with_document_item);
-      gtk_widget_show (priv->sync_with_editor_separator_item);
+      gtk_widget_show (priv->sync_with_document_separator_item);
 
       sync_with_editor = codeslayer_registry_get_boolean (registry, 
                                                           CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);
@@ -178,7 +178,7 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
     {
       gtk_widget_hide (priv->add_projects_item);
       gtk_widget_hide (priv->sync_with_document_item);
-      gtk_widget_hide (priv->sync_with_editor_separator_item);
+      gtk_widget_hide (priv->sync_with_document_separator_item);
     }
 }
 
