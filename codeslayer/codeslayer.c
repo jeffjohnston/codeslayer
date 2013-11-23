@@ -80,11 +80,11 @@ struct _CodeSlayerPrivate
 
 enum
 {
-  EDITOR_SAVED,
-  EDITORS_ALL_SAVED,
-  EDITOR_ADDED,
-  EDITOR_REMOVED,
-  EDITOR_SWITCHED,
+  DOCUMENT_SAVED,
+  DOCUMENTS_ALL_SAVED,
+  DOCUMENT_ADDED,
+  DOCUMENT_REMOVED,
+  DOCUMENT_SWITCHED,
   PATH_NAVIGATED,
   PROJECT_PROPERTIES_OPENED,
   PROJECT_PROPERTIES_SAVED,
@@ -106,7 +106,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
    *
    * The ::document-saved signal is emitted when an document is saved successfully
    */
-  codeslayer_signals[EDITOR_SAVED] =
+  codeslayer_signals[DOCUMENT_SAVED] =
     g_signal_new ("document-saved", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -121,7 +121,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
    *
    * The ::documents-all-saved signal is emitted when all the documents have been saved successfully
    */
-  codeslayer_signals[EDITORS_ALL_SAVED] =
+  codeslayer_signals[DOCUMENTS_ALL_SAVED] =
     g_signal_new ("documents-all-saved", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -136,7 +136,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
    *
    * The ::document-added signal is emitted when the document is added to the notebook
    */
-  codeslayer_signals[EDITOR_ADDED] =
+  codeslayer_signals[DOCUMENT_ADDED] =
     g_signal_new ("document-added", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -151,7 +151,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
    *
    * The ::document-removed signal is emitted when the document is removed from the notebook
    */
-  codeslayer_signals[EDITOR_REMOVED] =
+  codeslayer_signals[DOCUMENT_REMOVED] =
     g_signal_new ("document-removed", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -166,7 +166,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
    *
    * The ::document-switched signal is emitted when the active document is switched in the notebook
    */
-  codeslayer_signals[EDITOR_SWITCHED] =
+  codeslayer_signals[DOCUMENT_SWITCHED] =
     g_signal_new ("document-switched", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
@@ -595,7 +595,7 @@ codeslayer_show_bottom_pane (CodeSlayer *codeslayer,
  */
 void
 codeslayer_add_to_menu_bar (CodeSlayer  *codeslayer, 
-                           GtkMenuItem *menuitem)
+                            GtkMenuItem *menuitem)
 {
   CodeSlayerPrivate *priv;
   g_return_if_fail (IS_CODESLAYER (codeslayer));
@@ -613,7 +613,7 @@ codeslayer_add_to_menu_bar (CodeSlayer  *codeslayer,
  */
 void
 codeslayer_remove_from_menu_bar (CodeSlayer  *codeslayer, 
-                                GtkMenuItem *menuitem)
+                                 GtkMenuItem *menuitem)
 {
   CodeSlayerPrivate *priv;
   g_return_if_fail (IS_CODESLAYER (codeslayer));
@@ -934,42 +934,58 @@ codeslayer_send_plugin_message (CodeSlayer  *codeslayer,
 
 static void
 document_saved_action (CodeSlayer       *codeslayer,
-                     CodeSlayerSourceView *source_view)                     
+                       CodeSlayerSourceView *source_view)                     
 {
-  g_signal_emit_by_name ((gpointer) codeslayer, "document-saved", source_view);
+  g_signal_emit_by_name ((gpointer) codeslayer, "document-saved", 
+                         codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view)));
 }
 
 static void
 documents_all_saved_action (CodeSlayer *codeslayer,
-                          GList      *source_views)
+                            GList      *source_views)
 {
-  g_signal_emit_by_name ((gpointer) codeslayer, "documents-all-saved", source_views);
+  GList *documents = NULL;
+
+  while (source_views != NULL)
+    {
+      CodeSlayerSourceView *source_view = source_views->data;
+      CodeSlayerDocument *document;
+      document = codeslayer_source_view_get_document (source_view);
+      documents = g_list_append (documents, document);
+      source_views = g_list_next (source_views);
+    }
+
+  g_signal_emit_by_name ((gpointer) codeslayer, "documents-all-saved", documents);
+  
+  g_list_free (documents);
 }
 
 static void
 document_added_action (CodeSlayer *codeslayer,
-                     GtkWidget  *page,
-                     guint       page_num)                     
+                       GtkWidget  *page,
+                       guint       page_num)                     
 {
   GtkWidget *source_view;
   source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer) codeslayer, "document-added", source_view);
+  g_signal_emit_by_name ((gpointer) codeslayer, "document-added", 
+                         codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view)));
 }
 
 static void      
 document_removed_action (CodeSlayer *codeslayer, 
-                       GtkWidget  *page,
-                       guint       page_num)
+                         GtkWidget  *page,
+                         guint       page_num)
 {
   GtkWidget *source_view;
   source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer) codeslayer, "document-removed", source_view);
+  g_signal_emit_by_name ((gpointer) codeslayer, "document-removed", 
+                         codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view)));
 }
 
 static void
 document_switched_action (CodeSlayer *codeslayer, 
-                        GtkWidget  *notebook_page,
-                        guint       page_num)
+                          GtkWidget  *notebook_page,
+                          guint       page_num)
 {
   CodeSlayerPrivate *priv;
   GtkWidget *source_view;
@@ -977,7 +993,8 @@ document_switched_action (CodeSlayer *codeslayer,
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);  
   source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer) codeslayer, "document-switched", source_view);
+  g_signal_emit_by_name ((gpointer) codeslayer, "document-switched", 
+                         codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view)));
 }
 
 static void 

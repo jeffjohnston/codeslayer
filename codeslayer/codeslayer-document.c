@@ -340,7 +340,7 @@ codeslayer_document_set_tree_row_reference (CodeSlayerDocument  *document,
  *
  * Returns: the name of the document.
  */
-const gchar *
+const gchar*
 codeslayer_document_get_name (CodeSlayerDocument *document)
 {
   return CODESLAYER_DOCUMENT_GET_PRIVATE (document)->name;
@@ -376,7 +376,7 @@ codeslayer_document_set_name (CodeSlayerDocument *document,
  *
  * Returns: the fully qualified path to the document.
  */
-const gchar *
+const gchar*
 codeslayer_document_get_file_path (CodeSlayerDocument *document)
 {
   return CODESLAYER_DOCUMENT_GET_PRIVATE (document)->file_path;
