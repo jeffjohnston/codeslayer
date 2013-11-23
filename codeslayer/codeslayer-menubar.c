@@ -65,11 +65,11 @@ enum
   REMOVE_GROUP,
   GROUP_CHANGED,
   ADD_PROJECTS,
-  NEW_EDITOR,
-  OPEN_EDITOR,
-  SAVE_EDITOR,
-  SAVE_ALL_EDITORS,
-  CLOSE_EDITOR,
+  NEW_DOCUMENT,
+  OPEN_DOCUMENT,
+  SAVE_DOCUMENT,
+  SAVE_ALL_DOCUMENTS,
+  CLOSE_DOCUMENT,
   QUIT_APPLICATION,
   FIND_GROUP,
   FULLSCREEN_WINDOW,
@@ -94,7 +94,7 @@ enum
   TO_UPPERCASE,
   TO_LOWERCASE,
   COPY_LINES,  
-  SYNC_WITH_EDITOR,  
+  SYNC_WITH_DOCUMENT,  
   SYNC_ENGINE,  
   LAST_SIGNAL
 };
@@ -123,82 +123,82 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-   * CodeSlayerMenuBar::new-editor
+   * CodeSlayerMenuBar::new-document
    * @menu: the menu that received the signal
    *
    * Note: for internal use only.
    *
-   * The ::new-editor signal is a request to save the active editor. 
+   * The ::new-document signal is a request to save the active document. 
    */
-  codeslayer_menu_bar_signals[NEW_EDITOR] =
-    g_signal_new ("new-editor", 
+  codeslayer_menu_bar_signals[NEW_DOCUMENT] =
+    g_signal_new ("new-document", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, new_editor),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, new_document),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
                   
   /**
-   * CodeSlayerMenuBar::open-editor
+   * CodeSlayerMenuBar::open-document
    * @menu: the menu that received the signal
    *
    * Note: for internal use only.
    *
-   * The ::open-editor signal is a request to save the active editor. 
+   * The ::open-document signal is a request to save the active document. 
    */
-  codeslayer_menu_bar_signals[OPEN_EDITOR] =
-    g_signal_new ("open-editor", 
+  codeslayer_menu_bar_signals[OPEN_DOCUMENT] =
+    g_signal_new ("open-document", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, open_editor),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, open_document),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
                   
   /**
-   * CodeSlayerMenuBar::save-editor
+   * CodeSlayerMenuBar::save-document
    * @menu: the menu that received the signal
    *
    * Note: for internal use only.
    *
-   * The ::save-editor signal is a request to save the active editor. 
+   * The ::save-document signal is a request to save the active document. 
    */
-  codeslayer_menu_bar_signals[SAVE_EDITOR] =
-    g_signal_new ("save-editor", 
+  codeslayer_menu_bar_signals[SAVE_DOCUMENT] =
+    g_signal_new ("save-document", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, save_editor),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, save_document),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerMenuBar::save-all-editors
+   * CodeSlayerMenuBar::save-all-documents
    * @menu: the menu that received the signal
    *
    * Note: for internal use only.
    *
-   * The ::save-all-editors signal is a request to save all the open editors.
+   * The ::save-all-documents signal is a request to save all the open documents.
    */
-  codeslayer_menu_bar_signals[SAVE_ALL_EDITORS] =
-    g_signal_new ("save-all-editors", 
+  codeslayer_menu_bar_signals[SAVE_ALL_DOCUMENTS] =
+    g_signal_new ("save-all-documents", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, save_all_editors),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, save_all_documents),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerMenuBar::close-editor
+   * CodeSlayerMenuBar::close-document
    * @menu: the menu that received the signal
    *
    * Note: for internal use only.
    *
-   * The ::close-editor signal is a request to close the active editor.
+   * The ::close-document signal is a request to close the active document.
    */
-  codeslayer_menu_bar_signals[CLOSE_EDITOR] =
-    g_signal_new ("close-editor", 
+  codeslayer_menu_bar_signals[CLOSE_DOCUMENT] =
+    g_signal_new ("close-document", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, close_editor),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, close_document),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -288,7 +288,7 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * Note: for internal use only.
    *
-   * The ::draw-spaces signal is a request to show the invisible characters in the editors.
+   * The ::draw-spaces signal is a request to show the invisible characters in the documents.
    */
   codeslayer_menu_bar_signals[DRAW_SPACES] =
     g_signal_new ("draw-spaces", 
@@ -304,7 +304,7 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * Note: for internal use only.
    *
-   * The ::word-wrap signal is a request to show the invisible characters in the editors.
+   * The ::word-wrap signal is a request to show the invisible characters in the documents.
    */
   codeslayer_menu_bar_signals[WORD_WRAP] =
     g_signal_new ("word-wrap", 
@@ -434,7 +434,7 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * Note: for internal use only.
    *
-   * The ::scan-external-changes signal is a request to scan for changes outside editor.
+   * The ::scan-external-changes signal is a request to scan for changes outside document.
    */
   codeslayer_menu_bar_signals[SCAN_EXTERNAL_CHANGES] =
     g_signal_new ("scan-external-changes", 
@@ -570,14 +570,14 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerMenuBar::sync-with-editor 
+   * CodeSlayerMenuBar::sync-with-document 
    * @menu: the menu that received the signal
    */
-  codeslayer_menu_bar_signals[SYNC_WITH_EDITOR] =
-    g_signal_new ("sync-with-editor", 
+  codeslayer_menu_bar_signals[SYNC_WITH_DOCUMENT] =
+    g_signal_new ("sync-with-document", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, sync_with_editor),
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, sync_with_document),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__BOOLEAN, G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
                   
@@ -705,7 +705,7 @@ codeslayer_menu_bar_get_accel_group (CodeSlayerMenuBar *menu_bar)
 void
 codeslayer_menu_bar_new_document (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "new-editor");
+  g_signal_emit_by_name ((gpointer) menu_bar, "new-document");
 }
 
 /**
@@ -715,7 +715,7 @@ codeslayer_menu_bar_new_document (CodeSlayerMenuBar *menu_bar)
 void
 codeslayer_menu_bar_open_document (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "open-editor");
+  g_signal_emit_by_name ((gpointer) menu_bar, "open-document");
 }
 
 /**
@@ -725,7 +725,7 @@ codeslayer_menu_bar_open_document (CodeSlayerMenuBar *menu_bar)
 void
 codeslayer_menu_bar_save_document (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "save-editor");
+  g_signal_emit_by_name ((gpointer) menu_bar, "save-document");
 }
 
 /**
@@ -735,7 +735,7 @@ codeslayer_menu_bar_save_document (CodeSlayerMenuBar *menu_bar)
 void
 codeslayer_menu_bar_save_all_documents (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "save-all-editors");
+  g_signal_emit_by_name ((gpointer) menu_bar, "save-all-documents");
 }
 
 /**
@@ -745,11 +745,11 @@ codeslayer_menu_bar_save_all_documents (CodeSlayerMenuBar *menu_bar)
 void
 codeslayer_menu_bar_close_document (CodeSlayerMenuBar *menu_bar)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "close-editor");
+  g_signal_emit_by_name ((gpointer) menu_bar, "close-document");
 }
 
 /**
- * codeslayer_menu_bar_quit_editor:
+ * codeslayer_menu_bar_quit_application:
  * @menu_bar: a #CodeSlayerMenuBar.
  */
 void
@@ -1023,7 +1023,7 @@ void
 codeslayer_menu_bar_sync_with_document (CodeSlayerMenuBar *menu_bar, 
                                       gboolean           sync_with_document)
 {
-  g_signal_emit_by_name ((gpointer) menu_bar, "sync-with-editor", sync_with_document);
+  g_signal_emit_by_name ((gpointer) menu_bar, "sync-with-document", sync_with_document);
 }                                               
 
 /**

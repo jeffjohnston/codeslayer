@@ -120,8 +120,6 @@ codeslayer_project_finalize (CodeSlayerProject *project)
       priv->folder_path = NULL;
     }
   G_OBJECT_CLASS (codeslayer_project_parent_class)->finalize (G_OBJECT (project));
-  
-  g_print ("codeslayer_project_finalize\n");
 }
 
 static void

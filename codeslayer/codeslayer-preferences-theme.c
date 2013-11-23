@@ -42,10 +42,10 @@ static void font_action                              (CodeSlayerPreferencesTheme
 static void add_tab_positions                        (CodeSlayerPreferencesTheme      *preferences_theme);
 static gboolean theme_action                         (GtkTreeView                     *treeview,
                                                       CodeSlayerPreferencesTheme      *preferences_theme);
-static void editor_tab_position_action               (CodeSlayerPreferencesTheme      *preferences_theme);
+static void document_tab_position_action               (CodeSlayerPreferencesTheme      *preferences_theme);
 static void side_pane_tab_position_action            (CodeSlayerPreferencesTheme      *preferences_theme);
 static void bottom_pane_tab_position_action          (CodeSlayerPreferencesTheme      *preferences_theme);
-static void add_editor_tab_position                  (CodeSlayerPreferencesTheme      *preferences_theme, 
+static void add_document_tab_position                  (CodeSlayerPreferencesTheme      *preferences_theme, 
                                                       GtkWidget                       *table);
 static void add_side_pane_tab_position               (CodeSlayerPreferencesTheme      *preferences_theme, 
                                                       GtkWidget                       *table);
@@ -68,7 +68,7 @@ struct _CodeSlayerPreferencesThemePrivate
   CodeSlayerProfile     *profile;
   GtkFontButton         *font;
   GtkListStore          *themes_store;
-  GtkWidget             *editor_tab_position;
+  GtkWidget             *document_tab_position;
   GtkWidget             *side_pane_tab_position;
   GtkWidget             *bottom_pane_tab_position;
 };
@@ -176,7 +176,7 @@ add_tab_positions (CodeSlayerPreferencesTheme *preferences_theme)
   grid = gtk_grid_new ();
   gtk_grid_set_row_spacing (GTK_GRID (grid), 3);
 
-  add_editor_tab_position (preferences_theme, grid);
+  add_document_tab_position (preferences_theme, grid);
   add_side_pane_tab_position (preferences_theme, grid);
   add_bottom_pane_tab_position (preferences_theme, grid);
   
@@ -184,8 +184,8 @@ add_tab_positions (CodeSlayerPreferencesTheme *preferences_theme)
 }
 
 static void
-add_editor_tab_position (CodeSlayerPreferencesTheme *preferences_theme, 
-                         GtkWidget                  *grid)
+add_document_tab_position (CodeSlayerPreferencesTheme *preferences_theme, 
+                           GtkWidget                  *grid)
 {
   CodeSlayerPreferencesThemePrivate *priv;
   GtkWidget *label;
@@ -193,9 +193,9 @@ add_editor_tab_position (CodeSlayerPreferencesTheme *preferences_theme,
 
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
 
-  label = gtk_label_new (_("Editor: "));
+  label = gtk_label_new (_("Document: "));
   combo_box = gtk_combo_box_text_new ();
-  priv->editor_tab_position = combo_box;
+  priv->document_tab_position = combo_box;
   
   populate_combo_box (preferences_theme, 
                       combo_box, 
@@ -203,7 +203,7 @@ add_editor_tab_position (CodeSlayerPreferencesTheme *preferences_theme,
                       GTK_POS_TOP);
 
   g_signal_connect_swapped (G_OBJECT (combo_box), "changed", 
-                            G_CALLBACK (editor_tab_position_action), preferences_theme);
+                            G_CALLBACK (document_tab_position_action), preferences_theme);
 
   gtk_misc_set_alignment (GTK_MISC (label), 1, .5);
   gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);    
@@ -272,32 +272,32 @@ populate_combo_box (CodeSlayerPreferencesTheme *preferences_theme,
 {
   CodeSlayerPreferencesThemePrivate *priv;
   CodeSlayerRegistry *registry; 
-  gchar *editor_value;
+  gchar *value;
 
   priv = CODESLAYER_PREFERENCES_THEME_GET_PRIVATE (preferences_theme);
   
   registry = codeslayer_profile_get_registry (priv->profile);
   
-  editor_value = codeslayer_registry_get_string (registry, preferences_key);
+  value = codeslayer_registry_get_string (registry, preferences_key);
 
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo_box), _("Left"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo_box), _("Right"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo_box), _("Top"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo_box), _("Bottom"));  
 
-  if (g_strcmp0 (editor_value, "left") == 0)
+  if (g_strcmp0 (value, "left") == 0)
     gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), GTK_POS_LEFT);
-  else if (g_strcmp0 (editor_value, "right") == 0)
+  else if (g_strcmp0 (value, "right") == 0)
     gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), GTK_POS_RIGHT);
-  else if (g_strcmp0 (editor_value, "top") == 0)
+  else if (g_strcmp0 (value, "top") == 0)
     gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), GTK_POS_TOP);
-  else if (g_strcmp0 (editor_value, "bottom") == 0)
+  else if (g_strcmp0 (value, "bottom") == 0)
     gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), GTK_POS_BOTTOM); 
   else
     gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), default_position_type); 
     
-  if (editor_value)                                             
-    g_free (editor_value);
+  if (value)                                             
+    g_free (value);
 }
 
 static void
@@ -449,7 +449,7 @@ font_action (CodeSlayerPreferencesTheme *preferences_theme)
 }
 
 static void                
-editor_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
+document_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
 {
   CodeSlayerPreferencesThemePrivate *priv;
   CodeSlayerRegistry *registry; 
@@ -460,7 +460,7 @@ editor_tab_position_action (CodeSlayerPreferencesTheme *preferences_theme)
   
   registry = codeslayer_profile_get_registry (priv->profile);
 
-  value = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->editor_tab_position));
+  value = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (priv->document_tab_position));
   string = g_string_new (value);
   g_free (value);
   string = g_string_ascii_down (string);

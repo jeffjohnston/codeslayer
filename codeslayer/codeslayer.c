@@ -40,9 +40,9 @@ static void codeslayer_init                   (CodeSlayer        *codeslayer);
 static void codeslayer_finalize               (CodeSlayer        *codeslayer);
 
 static void document_saved_action               (CodeSlayer        *codeslayer,
-                                               CodeSlayerSourceView  *editor);
+                                               CodeSlayerSourceView  *source_view);
 static void documents_all_saved_action          (CodeSlayer        *codeslayer,
-                                               GList             *editors);
+                                               GList             *source_views);
 static void project_properties_opened_action  (CodeSlayer        *codeslayer,
                                                CodeSlayerProject *project);
 static void project_properties_closed_action  (CodeSlayer        *codeslayer,
@@ -100,77 +100,77 @@ static void
 codeslayer_class_init (CodeSlayerClass *klass)
 {
   /**
-   * CodeSlayer::editor-saved
+   * CodeSlayer::document-saved
    * @codeslayer: the plugin that received the signal
-   * @editor: the #CodeSlayerSourceView that was saved
+   * @document: the #CodeSlayerSourceView that was saved
    *
-   * The ::editor-saved signal is emitted when an editor is saved successfully
+   * The ::document-saved signal is emitted when an document is saved successfully
    */
   codeslayer_signals[EDITOR_SAVED] =
-    g_signal_new ("editor-saved", 
+    g_signal_new ("document-saved", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerClass, editor_saved), 
+                  G_STRUCT_OFFSET (CodeSlayerClass, document_saved), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
 
   /**
-   * CodeSlayer::editors-all-saved
+   * CodeSlayer::documents-all-saved
    * @codeslayer: the plugin that received the signal
-   * @editors: a #GList of #CodeSlayerSourceView objects that were saved
+   * @documents: a #GList of #CodeSlayerSourceView objects that were saved
    *
-   * The ::editors-all-saved signal is emitted when all the editors have been saved successfully
+   * The ::documents-all-saved signal is emitted when all the documents have been saved successfully
    */
   codeslayer_signals[EDITORS_ALL_SAVED] =
-    g_signal_new ("editors-all-saved", 
+    g_signal_new ("documents-all-saved", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerClass, editors_all_saved), 
+                  G_STRUCT_OFFSET (CodeSlayerClass, documents_all_saved), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-   * CodeSlayer::editor-added
+   * CodeSlayer::document-added
    * @codeslayer: the plugin that received the signal
-   * @editor: the #CodeSlayerSourceView that was added
+   * @document: the #CodeSlayerSourceView that was added
    *
-   * The ::editor-added signal is emitted when the editor is added to the notebook
+   * The ::document-added signal is emitted when the document is added to the notebook
    */
   codeslayer_signals[EDITOR_ADDED] =
-    g_signal_new ("editor-added", 
+    g_signal_new ("document-added", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerClass, editor_added), 
+                  G_STRUCT_OFFSET (CodeSlayerClass, document_added), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
 
   /**
-   * CodeSlayer::editor-removed
+   * CodeSlayer::document-removed
    * @codeslayer: the plugin that received the signal
-   * @editor: the #CodeSlayerSourceView that was removed
+   * @document: the #CodeSlayerSourceView that was removed
    *
-   * The ::editor-removed signal is emitted when the editor is removed from the notebook
+   * The ::document-removed signal is emitted when the document is removed from the notebook
    */
   codeslayer_signals[EDITOR_REMOVED] =
-    g_signal_new ("editor-removed", 
+    g_signal_new ("document-removed", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerClass, editor_removed), 
+                  G_STRUCT_OFFSET (CodeSlayerClass, document_removed), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
 
   /**
-   * CodeSlayer::editor-switched
+   * CodeSlayer::document-switched
    * @codeslayer: the plugin that received the signal
-   * @editor: the #CodeSlayerSourceView switched to
+   * @document: the #CodeSlayerSourceView switched to
    *
-   * The ::editor-switched signal is emitted when the active editor is switched in the notebook
+   * The ::document-switched signal is emitted when the active document is switched in the notebook
    */
   codeslayer_signals[EDITOR_SWITCHED] =
-    g_signal_new ("editor-switched", 
+    g_signal_new ("document-switched", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerClass, editor_switched), 
+                  G_STRUCT_OFFSET (CodeSlayerClass, document_switched), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
 
@@ -182,7 +182,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
    * @to_file_path: the file path navigated to
    * @to_line_number: the line number navigated to
    *
-   * The ::path-navigated signal is emitted when the editor is navigated to in the notebook
+   * The ::path-navigated signal is emitted when the document is navigated to in the notebook
    */
   codeslayer_signals[PATH_NAVIGATED] =
     g_signal_new ("path-navigated", 
@@ -284,10 +284,10 @@ codeslayer_new (GtkWindow                   *window,
   g_signal_connect_swapped (G_OBJECT (notebook), "switch-page",
                             G_CALLBACK (document_switched_action), codeslayer);
   
-  g_signal_connect_swapped (G_OBJECT (notebook), "editor-saved",
+  g_signal_connect_swapped (G_OBJECT (notebook), "document-saved",
                             G_CALLBACK (document_saved_action), codeslayer);
   
-  g_signal_connect_swapped (G_OBJECT (notebook), "editors-all-saved",
+  g_signal_connect_swapped (G_OBJECT (notebook), "documents-all-saved",
                             G_CALLBACK (documents_all_saved_action), codeslayer);
   
   g_signal_connect_swapped (G_OBJECT (projects), "properties-opened",
@@ -379,7 +379,7 @@ codeslayer_select_document_by_file_path (CodeSlayer  *codeslayer,
  * Returns: The document in the notebook that has focus. Will 
  *          return NULL if there is no active document.
  */
-CodeSlayerSourceView*
+CodeSlayerDocument*
 codeslayer_get_active_document (CodeSlayer *codeslayer)
 {
   CodeSlayerPrivate *priv;
@@ -393,7 +393,7 @@ codeslayer_get_active_document (CodeSlayer *codeslayer)
     return NULL;
 
   source_view = codeslayer_notebook_get_active_source_view (priv->notebook);
-  return CODESLAYER_SOURCE_VIEW(source_view);
+  return codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW(source_view));
 }
 
 /**
@@ -407,41 +407,15 @@ codeslayer_get_active_document (CodeSlayer *codeslayer)
 const gchar*
 codeslayer_get_active_document_file_path (CodeSlayer *codeslayer)
 {
-  CodeSlayerSourceView *source_view;
   CodeSlayerDocument *document;
+  
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
   
-  source_view = codeslayer_get_active_document (codeslayer);
-  
-  if (source_view == NULL)
+  document = codeslayer_get_active_document (codeslayer);  
+  if (document == NULL)
     return NULL;
   
-  document = codeslayer_source_view_get_document (source_view);
   return codeslayer_document_get_file_path (document);;
-}
-
-/**
- * codeslayer_get_active_document_document:
- * @codeslayer: a #CodeSlayer.
- *
- * This is a convenience function so that you can easily get at the
- * document associated with the active document.
- *
- * Returns: The document that is associated with the active document. Will 
- *          return NULL if there is no active document.
- */
-CodeSlayerDocument*             
-codeslayer_get_active_document_document (CodeSlayer *codeslayer)
-{
-  CodeSlayerSourceView *source_view;
-  
-  g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-
-  source_view = codeslayer_get_active_document (codeslayer);
-  if (!source_view)
-    return NULL;
-
-  return codeslayer_source_view_get_document (source_view);
 }
 
 /**
@@ -457,17 +431,14 @@ codeslayer_get_active_document_document (CodeSlayer *codeslayer)
 CodeSlayerProject*             
 codeslayer_get_active_document_project (CodeSlayer *codeslayer)
 {
-  CodeSlayerSourceView *source_view;
   CodeSlayerDocument *document;
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
 
-  source_view = codeslayer_get_active_document (codeslayer);
-  if (!source_view)
+  document = codeslayer_get_active_document (codeslayer);
+  if (!document)
     return NULL;
   
-  document = codeslayer_source_view_get_document (source_view);
-
   return codeslayer_document_get_project (document);
 }
 
@@ -482,11 +453,29 @@ GList*
 codeslayer_get_all_documents (CodeSlayer *codeslayer)
 {
   CodeSlayerPrivate *priv;
+  GList *documents = NULL;
+  GList *source_views;
+  GList *list;
   
   g_return_val_if_fail (IS_CODESLAYER (codeslayer), NULL);
-  priv = CODESLAYER_GET_PRIVATE (codeslayer);
+
+  priv = CODESLAYER_GET_PRIVATE (codeslayer);  
+
+  source_views = codeslayer_notebook_get_all_source_views (priv->notebook);
+  list = source_views;
   
-  return codeslayer_notebook_get_all_source_views (priv->notebook);
+  while (list != NULL)
+    {
+      CodeSlayerSourceView *source_view = list->data;
+      CodeSlayerDocument *document;
+      document = codeslayer_source_view_get_document (source_view);
+      documents = g_list_append (documents, document);
+      list = g_list_next (list);
+    }
+  
+  g_list_free (source_views);
+  
+  return documents;
 }
 
 /**
@@ -947,14 +936,14 @@ static void
 document_saved_action (CodeSlayer       *codeslayer,
                      CodeSlayerSourceView *source_view)                     
 {
-  g_signal_emit_by_name ((gpointer) codeslayer, "editor-saved", source_view);
+  g_signal_emit_by_name ((gpointer) codeslayer, "document-saved", source_view);
 }
 
 static void
 documents_all_saved_action (CodeSlayer *codeslayer,
                           GList      *source_views)
 {
-  g_signal_emit_by_name ((gpointer) codeslayer, "editors-all-saved", source_views);
+  g_signal_emit_by_name ((gpointer) codeslayer, "documents-all-saved", source_views);
 }
 
 static void
@@ -964,7 +953,7 @@ document_added_action (CodeSlayer *codeslayer,
 {
   GtkWidget *source_view;
   source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer) codeslayer, "editor-added", source_view);
+  g_signal_emit_by_name ((gpointer) codeslayer, "document-added", source_view);
 }
 
 static void      
@@ -974,7 +963,7 @@ document_removed_action (CodeSlayer *codeslayer,
 {
   GtkWidget *source_view;
   source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer) codeslayer, "editor-removed", source_view);
+  g_signal_emit_by_name ((gpointer) codeslayer, "document-removed", source_view);
 }
 
 static void
@@ -988,7 +977,7 @@ document_switched_action (CodeSlayer *codeslayer,
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);  
   source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (page));
-  g_signal_emit_by_name ((gpointer) codeslayer, "editor-switched", source_view);
+  g_signal_emit_by_name ((gpointer) codeslayer, "document-switched", source_view);
 }
 
 static void 

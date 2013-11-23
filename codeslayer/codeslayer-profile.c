@@ -91,8 +91,6 @@ codeslayer_profile_finalize (CodeSlayerProfile *profile)
   g_object_unref (priv->registry);
 
   G_OBJECT_CLASS (codeslayer_profile_parent_class)->finalize (G_OBJECT (profile));
-  
-  g_print ("codeslayer_profile_finalize\n");
 }
 
 /**

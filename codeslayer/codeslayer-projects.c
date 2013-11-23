@@ -882,7 +882,7 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
       else
         {
           GtkTreeRowReference *tree_row_reference;
-          gboolean sync_with_editor;
+          gboolean sync_with_document;
           
           /* we found the document and can now select it */
           tree_row_reference = gtk_tree_row_reference_new (GTK_TREE_MODEL (priv->treestore), 
@@ -890,9 +890,9 @@ codeslayer_projects_select_document (CodeSlayerProjects *projects,
           codeslayer_document_set_tree_row_reference (document, tree_row_reference);
           g_signal_emit_by_name ((gpointer) projects, "select-document", document);
           
-          sync_with_editor = codeslayer_registry_get_boolean (registry, 
-                                                              CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);          
-          if (sync_with_editor)
+          sync_with_document = codeslayer_registry_get_boolean (registry, 
+                                                                CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT);          
+          if (sync_with_document)
             select_document (document, projects);
         }
 

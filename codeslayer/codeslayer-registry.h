@@ -46,7 +46,7 @@ G_BEGIN_DECLS
 #define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD "notebook_search_match_word"
 #define CODESLAYER_REGISTRY_DRAW_SPACES "draw_spaces"
 #define CODESLAYER_REGISTRY_WORD_WRAP "word_wrap"
-#define CODESLAYER_REGISTRY_SYNC_WITH_EDITOR "sync_with_editor"
+#define CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT "sync_with_document"
 #define CODESLAYER_REGISTRY_ENABLE_PROJECTS "enable_projects"
 
 #define CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS "display_line_numbers"

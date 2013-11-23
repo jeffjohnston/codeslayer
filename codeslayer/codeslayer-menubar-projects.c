@@ -164,15 +164,15 @@ sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
 
   if (enable_projects)
     {    
-      gboolean sync_with_editor;
+      gboolean sync_with_document;
      
       gtk_widget_show (priv->add_projects_item);
       gtk_widget_show (priv->sync_with_document_item);
       gtk_widget_show (priv->sync_with_document_separator_item);
 
-      sync_with_editor = codeslayer_registry_get_boolean (registry, 
-                                                          CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->sync_with_document_item), sync_with_editor);    
+      sync_with_document = codeslayer_registry_get_boolean (registry, 
+                                                          CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT);
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->sync_with_document_item), sync_with_document);    
     }
   else
     {
@@ -230,6 +230,6 @@ sync_with_document_action (CodeSlayerMenuBarProjects *menu_bar_projects)
   codeslayer_menu_bar_sync_with_document (CODESLAYER_MENU_BAR (priv->menu_bar),
                                         sync_with_document);
                                                 
-  codeslayer_registry_set_boolean (registry, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR,
+  codeslayer_registry_set_boolean (registry, CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT,
                                    sync_with_document);
 }

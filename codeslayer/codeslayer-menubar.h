@@ -50,11 +50,11 @@ struct _CodeSlayerMenuBarClass
   void (*show_bottom_pane) (CodeSlayerMenuBar *menu_bar);
   void (*draw_spaces) (CodeSlayerMenuBar *menu_bar);
   void (*word_wrap) (CodeSlayerMenuBar *menu_bar);
-  void (*new_editor) (CodeSlayerMenuBar *menu_bar);
-  void (*open_editor) (CodeSlayerMenuBar *menu_bar);
-  void (*save_editor) (CodeSlayerMenuBar *menu_bar);
-  void (*save_all_editors) (CodeSlayerMenuBar *menu_bar);
-  void (*close_editor) (CodeSlayerMenuBar *menu_bar);
+  void (*new_document) (CodeSlayerMenuBar *menu_bar);
+  void (*open_document) (CodeSlayerMenuBar *menu_bar);
+  void (*save_document) (CodeSlayerMenuBar *menu_bar);
+  void (*save_all_documents) (CodeSlayerMenuBar *menu_bar);
+  void (*close_document) (CodeSlayerMenuBar *menu_bar);
   void (*quit_application) (CodeSlayerMenuBar *menu_bar);
   void (*find) (CodeSlayerMenuBar *menu_bar);
   void (*replace) (CodeSlayerMenuBar *menu_bar);
@@ -71,7 +71,7 @@ struct _CodeSlayerMenuBarClass
   void (*to_uppercase) (CodeSlayerMenuBar *menu_bar);
   void (*to_lowercase) (CodeSlayerMenuBar *menu_bar);
   void (*copy_lines) (CodeSlayerMenuBar *menu_bar);
-  void (*sync_with_editor) (CodeSlayerMenuBar *menu_bar);
+  void (*sync_with_document) (CodeSlayerMenuBar *menu_bar);
   void (*scan_external_changes) (CodeSlayerMenuBar *menu_bar);
   void (*sync_engine) (CodeSlayerMenuBar *menu_bar);
 };

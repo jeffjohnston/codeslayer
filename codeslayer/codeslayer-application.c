@@ -45,16 +45,6 @@ static void verify_plugins_dir_exists          (void);
 static void verify_plugins_config_dir_exists   (void);
 static void verify_profiles_dir_exists         (void);
 
-#define CODESLAYER_APPLICATION_GET_PRIVATE(obj) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_APPLICATION_TYPE, CodeSlayerApplicationPrivate))
-
-typedef struct _CodeSlayerApplicationPrivate CodeSlayerApplicationPrivate;
-
-struct _CodeSlayerApplicationPrivate
-{
-  gchar *profile_name;
-};
-
 G_DEFINE_TYPE (CodeSlayerApplication, codeslayer_application, GTK_TYPE_APPLICATION)
 
 static void 
@@ -67,39 +57,26 @@ codeslayer_application_class_init (CodeSlayerApplicationClass *klass)
   application_class->open = codeslayer_application_open;
 
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_application_finalize;
-  g_type_class_add_private (klass, sizeof (CodeSlayerApplicationPrivate));
 }
 
 static void
 codeslayer_application_init (CodeSlayerApplication *application)
 {
-  CodeSlayerApplicationPrivate *priv;
-  priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
-  priv->profile_name = NULL;
 }
 
 static void
 codeslayer_application_finalize (CodeSlayerApplication *application)
 {
-  CodeSlayerApplicationPrivate *priv;
-  priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
-
-  if (priv->profile_name)
-    g_free (priv->profile_name);
-
   G_OBJECT_CLASS (codeslayer_application_parent_class)->finalize (G_OBJECT (application));
 }
 
 static void
 codeslayer_application_startup (GApplication *application)
 {
-  CodeSlayerApplicationPrivate *priv;
   GtkWidget *window;
 
   G_APPLICATION_CLASS (codeslayer_application_parent_class)->startup (application);
   
-  priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
-
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
@@ -109,7 +86,7 @@ codeslayer_application_startup (GApplication *application)
   verify_plugins_config_dir_exists ();
   verify_profiles_dir_exists ();
   
-  window = codeslayer_window_new (GTK_APPLICATION (application), priv->profile_name);
+  window = codeslayer_window_new (GTK_APPLICATION (application), CODESLAYER_PROFILES_DEFAULT);
   gtk_application_add_window (GTK_APPLICATION (application), GTK_WINDOW (window));
 }
 
@@ -160,19 +137,12 @@ codeslayer_application_open (GApplication *application,
  * Returns: a new #CodeSlayerApplication. 
  */
 CodeSlayerApplication*
-codeslayer_application_new (gchar *profile_name)
+codeslayer_application_new (void)
 {
   CodeSlayerApplication *application;
-  CodeSlayerApplicationPrivate *priv;
-
   application = CODESLAYER_APPLICATION (g_object_new (codeslayer_application_get_type (), NULL));
-  priv = CODESLAYER_APPLICATION_GET_PRIVATE (application);
-
   g_application_set_application_id (G_APPLICATION (application), "org.codeslayer");
   g_application_set_flags (G_APPLICATION (application), G_APPLICATION_HANDLES_OPEN);
-  
-  priv->profile_name = profile_name;
-
   return application;
 }
 

@@ -364,7 +364,7 @@ set_profile_registry_defaults (CodeSlayerProfile *profile)
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE, "false");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE, "false");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_DRAW_SPACES, "false");
-  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_SYNC_WITH_EDITOR, "true");
+  codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT, "true");
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_ENABLE_PROJECTS, "false");
   
   codeslayer_registry_set_setting (registry, CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS, "false");

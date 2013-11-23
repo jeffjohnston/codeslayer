@@ -84,12 +84,12 @@ enum
 
 enum
 {
-  SELECT_EDITOR,
-  CLOSE_EDITOR,
-  CLOSE_ALL_EDITORS,
-  CLOSE_OTHER_EDITORS,
-  CLOSE_RIGHT_EDITORS,
-  CLOSE_LEFT_EDITORS,
+  SELECT_DOCUMENT,
+  CLOSE_DOCUMENT,
+  CLOSE_ALL_DOCUMENTS,
+  CLOSE_OTHER_DOCUMENTS,
+  CLOSE_RIGHT_DOCUMENTS,
+  CLOSE_LEFT_DOCUMENTS,
   LAST_SIGNAL
 };
 
@@ -103,89 +103,89 @@ codeslayer_notebook_tab_class_init (CodeSlayerNotebookTabClass *klass)
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
   /**
-   * CodeSlayerNotebookTab::select-editor
+   * CodeSlayerNotebookTab::select-document
    * @codeslayernotebooktab: the tab that received the signal
    *
-   * The ::select-editor signal is a request to close the active editor.
+   * The ::select-document signal is a request to close the active document.
    */
-  codeslayer_notebook_tab_signals[SELECT_EDITOR] =
-    g_signal_new ("select-editor", 
+  codeslayer_notebook_tab_signals[SELECT_DOCUMENT] =
+    g_signal_new ("select-document", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, select_editor),
+                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, select_document),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerNotebookTab::close-editor
+   * CodeSlayerNotebookTab::close-document
    * @codeslayernotebooktab: the tab that received the signal
    *
-   * The ::close-editor signal is a request to close the active editor.
+   * The ::close-document signal is a request to close the active document.
    */
-  codeslayer_notebook_tab_signals[CLOSE_EDITOR] =
-    g_signal_new ("close-editor", 
+  codeslayer_notebook_tab_signals[CLOSE_DOCUMENT] =
+    g_signal_new ("close-document", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, close_editor),
+                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, close_document),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerNotebookTab::close-all-editors
+   * CodeSlayerNotebookTab::close-all-documents
    * @codeslayernotebooktab: the tab that received the signal
    *
-   * The ::close-all-editors signal is a request to close all the editors.
+   * The ::close-all-documents signal is a request to close all the documents.
    */
-  codeslayer_notebook_tab_signals[CLOSE_ALL_EDITORS] =
-    g_signal_new ("close-all-editors", 
+  codeslayer_notebook_tab_signals[CLOSE_ALL_DOCUMENTS] =
+    g_signal_new ("close-all-documents", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, close_all_editors), 
+                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, close_all_documents), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerNotebookTab::close-other-editors
+   * CodeSlayerNotebookTab::close-other-documents
    * @codeslayernotebooktab: the tab that received the signal
    *
-   * The ::close-other-editors signal is a request to close all editors except the 
+   * The ::close-other-documents signal is a request to close all documents except the 
    * active one.
    */
-  codeslayer_notebook_tab_signals[CLOSE_OTHER_EDITORS] =
-    g_signal_new ("close-other-editors", 
+  codeslayer_notebook_tab_signals[CLOSE_OTHER_DOCUMENTS] =
+    g_signal_new ("close-other-documents", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, close_other_editors), 
+                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, close_other_documents), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerNotebookTab::close-right-editors
+   * CodeSlayerNotebookTab::close-right-documents
    * @codeslayernotebooktab: the tab that received the signal
    *
-   * The ::close-right-editors signal is a request to close all editors to the right of 
+   * The ::close-right-documents signal is a request to close all documents to the right of 
    * the active one.
    */
-  codeslayer_notebook_tab_signals[CLOSE_RIGHT_EDITORS] =
-    g_signal_new ("close-right-editors", 
+  codeslayer_notebook_tab_signals[CLOSE_RIGHT_DOCUMENTS] =
+    g_signal_new ("close-right-documents", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, close_right_editors), 
+                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, close_right_documents), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
-   * CodeSlayerNotebookTab::close-left-editors
+   * CodeSlayerNotebookTab::close-left-documents
    * @codeslayernotebooktab: the tab that received the signal
    *
-   * The ::close-left-editors signal is a request to close all editors to the left of the 
+   * The ::close-left-documents signal is a request to close all documents to the left of the 
    * active one.
    */
-  codeslayer_notebook_tab_signals[CLOSE_LEFT_EDITORS] =
-    g_signal_new ("close-left-editors", 
+  codeslayer_notebook_tab_signals[CLOSE_LEFT_DOCUMENTS] =
+    g_signal_new ("close-left-documents", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, close_left_editors), 
+                  G_STRUCT_OFFSET (CodeSlayerNotebookTabClass, close_left_documents), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -380,7 +380,7 @@ button_press_action (CodeSlayerNotebookTab *notebook_tab,
 
   if ((event->button == 1) && (event->type == GDK_BUTTON_PRESS))
     {
-      g_signal_emit_by_name ((gpointer) notebook_tab, "select-editor");
+      g_signal_emit_by_name ((gpointer) notebook_tab, "select-document");
     }
   else if ((event->button == 3) && (event->type == GDK_BUTTON_PRESS))
     {
@@ -400,31 +400,31 @@ button_press_action (CodeSlayerNotebookTab *notebook_tab,
 static void
 close_document_action (CodeSlayerNotebookTab *notebook_tab)
 {
-  g_signal_emit_by_name ((gpointer) notebook_tab, "close-editor");
+  g_signal_emit_by_name ((gpointer) notebook_tab, "close-document");
 }
 
 static void
 close_all_documents_action (CodeSlayerNotebookTab *notebook_tab)
 {
-  g_signal_emit_by_name ((gpointer) notebook_tab, "close-all-editors");
+  g_signal_emit_by_name ((gpointer) notebook_tab, "close-all-documents");
 }
 
 static void
 close_other_documents_action (CodeSlayerNotebookTab *notebook_tab)
 {
-  g_signal_emit_by_name ((gpointer) notebook_tab, "close-other-editors");
+  g_signal_emit_by_name ((gpointer) notebook_tab, "close-other-documents");
 }
 
 static void
 close_right_documents_action (CodeSlayerNotebookTab *notebook_tab)
 {
-  g_signal_emit_by_name ((gpointer) notebook_tab, "close-right-editors");
+  g_signal_emit_by_name ((gpointer) notebook_tab, "close-right-documents");
 }
 
 static void
 close_left_documents_action (CodeSlayerNotebookTab *notebook_tab)
 {
-  g_signal_emit_by_name ((gpointer) notebook_tab, "close-left-editors");
+  g_signal_emit_by_name ((gpointer) notebook_tab, "close-left-documents");
 }
 
 /**

@@ -44,30 +44,30 @@ struct _CodeSlayerNotebookClass
 {
   GtkNotebookClass parent_class;
 
-  void (*select_editor) (CodeSlayerNotebook *notebook);
-  void (*editor_saved) (CodeSlayerNotebook *notebook);
-  void (*editors_all_saved) (CodeSlayerNotebook *notebook);
+  void (*select_document) (CodeSlayerNotebook *notebook);
+  void (*document_saved) (CodeSlayerNotebook *notebook);
+  void (*documents_all_saved) (CodeSlayerNotebook *notebook);
 };
 
 GType
 codeslayer_notebook_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_notebook_new                    (GtkWindow          *window,
-                                                        CodeSlayerProfile  *profile);
+GtkWidget*  codeslayer_notebook_new                     (GtkWindow          *window,
+                                                         CodeSlayerProfile  *profile);
 
-void        codeslayer_notebook_add_document           (CodeSlayerNotebook *notebook, 
-                                                        CodeSlayerDocument *document);
-gboolean    codeslayer_notebook_select_document        (CodeSlayerNotebook *notebook, 
-                                                        CodeSlayerDocument *document);
-void        codeslayer_notebook_save_document          (CodeSlayerNotebook *notebook, 
-                                                        gint                page_num);
-void        codeslayer_notebook_save_all_documents     (CodeSlayerNotebook *notebook);
-gboolean    codeslayer_notebook_has_unsaved_documents  (CodeSlayerNotebook *notebook);
-gboolean    codeslayer_notebook_close_document         (CodeSlayerNotebook *notebook, 
-                                                        gint                page_num);
-void        codeslayer_notebook_close_all_documents    (CodeSlayerNotebook *notebook);
-GtkWidget*  codeslayer_notebook_get_active_source_view    (CodeSlayerNotebook *notebook);
-GList*      codeslayer_notebook_get_all_source_views      (CodeSlayerNotebook *notebook);
+void        codeslayer_notebook_add_document            (CodeSlayerNotebook *notebook, 
+                                                         CodeSlayerDocument *document);
+gboolean    codeslayer_notebook_select_document         (CodeSlayerNotebook *notebook, 
+                                                         CodeSlayerDocument *document);
+void        codeslayer_notebook_save_document           (CodeSlayerNotebook *notebook, 
+                                                         gint                page_num);
+void        codeslayer_notebook_save_all_documents      (CodeSlayerNotebook *notebook);
+gboolean    codeslayer_notebook_has_unsaved_documents   (CodeSlayerNotebook *notebook);
+gboolean    codeslayer_notebook_close_document          (CodeSlayerNotebook *notebook, 
+                                                         gint                page_num);
+void        codeslayer_notebook_close_all_documents     (CodeSlayerNotebook *notebook);
+GtkWidget*  codeslayer_notebook_get_active_source_view  (CodeSlayerNotebook *notebook);
+GList*      codeslayer_notebook_get_all_source_views    (CodeSlayerNotebook *notebook);
 
 G_END_DECLS
 

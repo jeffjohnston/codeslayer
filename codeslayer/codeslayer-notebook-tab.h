@@ -41,12 +41,12 @@ struct _CodeSlayerNotebookTabClass
 {
   GtkHBoxClass parent_class;
 
-  void (*select_editor) (CodeSlayerNotebookTab *notebook_tab);
-  void (*close_editor) (CodeSlayerNotebookTab *notebook_tab);
-  void (*close_all_editors) (CodeSlayerNotebookTab *notebook_tab);
-  void (*close_other_editors) (CodeSlayerNotebookTab *notebook_tab);
-  void (*close_right_editors) (CodeSlayerNotebookTab *notebook_tab);
-  void (*close_left_editors) (CodeSlayerNotebookTab *notebook_tab);
+  void (*select_document) (CodeSlayerNotebookTab *notebook_tab);
+  void (*close_document) (CodeSlayerNotebookTab *notebook_tab);
+  void (*close_all_documents) (CodeSlayerNotebookTab *notebook_tab);
+  void (*close_other_documents) (CodeSlayerNotebookTab *notebook_tab);
+  void (*close_right_documents) (CodeSlayerNotebookTab *notebook_tab);
+  void (*close_left_documents) (CodeSlayerNotebookTab *notebook_tab);
 };
 
 GType codeslayer_notebook_tab_get_type (void) G_GNUC_CONST;

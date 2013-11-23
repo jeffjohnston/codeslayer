@@ -78,9 +78,9 @@ struct _CodeSlayerNotebookPrivate
 
 enum
 {
-  SELECT_EDITOR,
-  EDITOR_SAVED,
-  EDITORS_ALL_SAVED,
+  SELECT_DOCUMENT,
+  DOCUMENT_SAVED,
+  DOCUMENTS_ALL_SAVED,
   LAST_SIGNAL
 };
 
@@ -92,45 +92,45 @@ static void
 codeslayer_notebook_class_init (CodeSlayerNotebookClass *klass)
 {
   /**
-   * CodeSlayerNotebook::select-editor
+   * CodeSlayerNotebook::select-document
    * @codeslayernotebook: the notebook that received the signal
    *
-   * The ::editor-saved signal is emitted when an editor is saved successfully
+   * The ::document-saved signal is emitted when an document is saved successfully
    */
-  codeslayer_notebook_signals[SELECT_EDITOR] =
-    g_signal_new ("select-editor", 
+  codeslayer_notebook_signals[SELECT_DOCUMENT] =
+    g_signal_new ("select-document", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerNotebookClass, select_editor), 
+                  G_STRUCT_OFFSET (CodeSlayerNotebookClass, select_document), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__UINT, G_TYPE_NONE, 1, G_TYPE_UINT);
                   
   /**
-   * CodeSlayerNotebook::editor-saved
+   * CodeSlayerNotebook::document-saved
    * @codeslayernotebook: the notebook that received the signal
    *
-   * The ::editor-saved signal is emitted when an editor is saved successfully
+   * The ::document-saved signal is emitted when an document is saved successfully
    */
-  codeslayer_notebook_signals[EDITOR_SAVED] =
-    g_signal_new ("editor-saved", 
+  codeslayer_notebook_signals[DOCUMENT_SAVED] =
+    g_signal_new ("document-saved", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerNotebookClass, editor_saved), 
+                  G_STRUCT_OFFSET (CodeSlayerNotebookClass, document_saved), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   /**
-   * CodeSlayerNotebook::editors-all-saved
+   * CodeSlayerNotebook::documents-all-saved
    * @codeslayernotebook: the notebook that received the signal
-   * @editors: a #GList of #CodeSlayerSourceView objects that were saved
+   * @documents: a #GList of #CodeSlayerSourceView objects that were saved
    *
-   * The ::editors-all-saved signal is emitted when all the editors have been saved successfully
+   * The ::documents-all-saved signal is emitted when all the documents have been saved successfully
    */
-  codeslayer_notebook_signals[EDITORS_ALL_SAVED] =
-    g_signal_new ("editors-all-saved", 
+  codeslayer_notebook_signals[DOCUMENTS_ALL_SAVED] =
+    g_signal_new ("documents-all-saved", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerNotebookClass, editors_all_saved), 
+                  G_STRUCT_OFFSET (CodeSlayerNotebookClass, documents_all_saved), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
@@ -242,17 +242,17 @@ codeslayer_notebook_add_document (CodeSlayerNotebook *notebook,
   codeslayer_notebook_tab_set_notebook_page (CODESLAYER_NOTEBOOK_TAB (notebook_tab), 
                                              notebook_page);
 
-  g_signal_connect (G_OBJECT (notebook_tab), "select-editor",
+  g_signal_connect (G_OBJECT (notebook_tab), "select-document",
                     G_CALLBACK (select_document_action), notebook);
-  g_signal_connect (G_OBJECT (notebook_tab), "close-editor",
+  g_signal_connect (G_OBJECT (notebook_tab), "close-document",
                     G_CALLBACK (close_document_action), notebook);
-  g_signal_connect (G_OBJECT (notebook_tab), "close-all-editors",
+  g_signal_connect (G_OBJECT (notebook_tab), "close-all-documents",
                     G_CALLBACK (close_all_documents_action), notebook);
-  g_signal_connect (G_OBJECT (notebook_tab), "close-other-editors",
+  g_signal_connect (G_OBJECT (notebook_tab), "close-other-documents",
                     G_CALLBACK (close_other_documents_action), notebook);
-  g_signal_connect (G_OBJECT (notebook_tab), "close-right-editors",
+  g_signal_connect (G_OBJECT (notebook_tab), "close-right-documents",
                     G_CALLBACK (close_right_documents_action), notebook);
-  g_signal_connect (G_OBJECT (notebook_tab), "close-left-editors",
+  g_signal_connect (G_OBJECT (notebook_tab), "close-left-documents",
                     G_CALLBACK (close_left_documents_action), notebook);
 
   page_num = gtk_notebook_append_page (GTK_NOTEBOOK (notebook),
@@ -344,7 +344,7 @@ codeslayer_notebook_save_document (CodeSlayerNotebook *notebook,
   
   if (source_views != NULL)
     {
-      g_signal_emit_by_name((gpointer)notebook, "editors-all-saved", source_views);
+      g_signal_emit_by_name((gpointer)notebook, "documents-all-saved", source_views);
       g_list_free (source_views);
     }
 }
@@ -373,7 +373,7 @@ codeslayer_notebook_save_all_documents (CodeSlayerNotebook *notebook)
   if (source_views != NULL)
     {
       source_views = g_list_reverse (source_views);
-      g_signal_emit_by_name((gpointer)notebook, "editors-all-saved", source_views);
+      g_signal_emit_by_name((gpointer)notebook, "documents-all-saved", source_views);
       g_list_free (source_views);
     }
 }
@@ -425,7 +425,7 @@ save_document (CodeSlayerNotebook *notebook,
           modification_time = codeslayer_utils_get_modification_time (file_path);
           codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (source_view), modification_time);
               
-          g_signal_emit_by_name((gpointer)notebook, "editor-saved", source_view);          
+          g_signal_emit_by_name((gpointer)notebook, "document-saved", source_view);          
           gtk_text_buffer_set_modified (buffer, FALSE);
         }      
     }
@@ -512,7 +512,7 @@ codeslayer_notebook_close_document (CodeSlayerNotebook *notebook,
       gtk_notebook_remove_page (GTK_NOTEBOOK (notebook), page_num);
       
       if (current_page_num == page_num)
-        g_signal_emit_by_name((gpointer)notebook, "select-editor", --page_num);
+        g_signal_emit_by_name((gpointer)notebook, "select-document", --page_num);
 
       result = TRUE;
     }
@@ -640,7 +640,7 @@ select_document_action (CodeSlayerNotebookTab *notebook_tab,
   notebook_page = codeslayer_notebook_tab_get_notebook_page (notebook_tab);
   page = gtk_notebook_page_num (GTK_NOTEBOOK (notebook),
                                 GTK_WIDGET (notebook_page));
-  g_signal_emit_by_name((gpointer)notebook, "select-editor", page);
+  g_signal_emit_by_name((gpointer)notebook, "select-document", page);
 }
 
 static void

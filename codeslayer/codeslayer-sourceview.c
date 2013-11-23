@@ -192,8 +192,6 @@ codeslayer_source_view_finalize (CodeSlayerSourceView *source_view)
   g_object_unref (priv->document);
 
   G_OBJECT_CLASS (codeslayer_source_view_parent_class)->finalize (G_OBJECT (source_view));
-  
-  g_print ("codeslayer_source_view_finalize\n");
 }
 
 /**
@@ -778,7 +776,7 @@ codeslayer_source_view_sync_registry (CodeSlayerSourceView *source_view)
   gboolean display_line_number;
   gboolean display_right_margin;
   gdouble right_margin_position;
-  gdouble editor_tab_width;
+  gdouble tab_width;
   gboolean draw_spaces;
   gboolean word_wrap;
   gboolean enable_automatic_indentation;
@@ -799,71 +797,52 @@ codeslayer_source_view_sync_registry (CodeSlayerSourceView *source_view)
   
   registry = codeslayer_profile_get_registry (priv->profile);
 
-  display_line_number = codeslayer_registry_get_boolean (registry,
-                                                            CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS);
-  gtk_source_view_set_show_line_numbers (GTK_SOURCE_VIEW (source_view), 
-                                         display_line_number);
+  display_line_number = codeslayer_registry_get_boolean (registry, CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS);
+  gtk_source_view_set_show_line_numbers (GTK_SOURCE_VIEW (source_view), display_line_number);
 
-  display_right_margin = codeslayer_registry_get_boolean (registry,
-                                                             CODESLAYER_REGISTRY_DISPLAY_RIGHT_MARGIN);
-  gtk_source_view_set_show_right_margin (GTK_SOURCE_VIEW (source_view), 
-                                         display_right_margin);
+  display_right_margin = codeslayer_registry_get_boolean (registry, CODESLAYER_REGISTRY_DISPLAY_RIGHT_MARGIN);
+  gtk_source_view_set_show_right_margin (GTK_SOURCE_VIEW (source_view),  display_right_margin);
 
-  right_margin_position = codeslayer_registry_get_double (registry,
-                                                             CODESLAYER_REGISTRY_RIGHT_MARGIN_POSITION);
-  gtk_source_view_set_right_margin_position (GTK_SOURCE_VIEW (source_view), 
-                                             right_margin_position);
+  right_margin_position = codeslayer_registry_get_double (registry, CODESLAYER_REGISTRY_RIGHT_MARGIN_POSITION);
+  gtk_source_view_set_right_margin_position (GTK_SOURCE_VIEW (source_view), right_margin_position);
 
-  editor_tab_width = codeslayer_registry_get_double (registry,
-                                                        CODESLAYER_REGISTRY_TAB_WIDTH);
-  gtk_source_view_set_tab_width (GTK_SOURCE_VIEW (source_view), editor_tab_width);
+  tab_width = codeslayer_registry_get_double (registry, CODESLAYER_REGISTRY_TAB_WIDTH);
+  gtk_source_view_set_tab_width (GTK_SOURCE_VIEW (source_view), tab_width);
   gtk_source_view_set_indent_width (GTK_SOURCE_VIEW (source_view), -1);
 
-  enable_automatic_indentation = codeslayer_registry_get_boolean (registry,
-                                                                     CODESLAYER_REGISTRY_ENABLE_AUTOMATIC_INDENTATION);
-  gtk_source_view_set_auto_indent (GTK_SOURCE_VIEW (source_view), 
-                                   enable_automatic_indentation);
-  gtk_source_view_set_indent_on_tab (GTK_SOURCE_VIEW (source_view),
-                                     enable_automatic_indentation);
+  enable_automatic_indentation = codeslayer_registry_get_boolean (registry, CODESLAYER_REGISTRY_ENABLE_AUTOMATIC_INDENTATION);
+  gtk_source_view_set_auto_indent (GTK_SOURCE_VIEW (source_view), enable_automatic_indentation);
+  gtk_source_view_set_indent_on_tab (GTK_SOURCE_VIEW (source_view), enable_automatic_indentation);
 
-  draw_spaces = codeslayer_registry_get_boolean (registry,
-                                                 CODESLAYER_REGISTRY_DRAW_SPACES);
+  draw_spaces = codeslayer_registry_get_boolean (registry, CODESLAYER_REGISTRY_DRAW_SPACES);
   if (draw_spaces)
     gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW (source_view), GTK_SOURCE_DRAW_SPACES_ALL);
   else
     gtk_source_view_set_draw_spaces (GTK_SOURCE_VIEW (source_view), 0);
 
-  insert_spaces_instead_of_tabs = codeslayer_registry_get_boolean (registry,
-                                                                      CODESLAYER_REGISTRY_INSERT_SPACES_INSTEAD_OF_TABS);
-  gtk_source_view_set_insert_spaces_instead_of_tabs (GTK_SOURCE_VIEW (source_view),
-                                                     insert_spaces_instead_of_tabs);
+  insert_spaces_instead_of_tabs = codeslayer_registry_get_boolean (registry, CODESLAYER_REGISTRY_INSERT_SPACES_INSTEAD_OF_TABS);
+  gtk_source_view_set_insert_spaces_instead_of_tabs (GTK_SOURCE_VIEW (source_view), insert_spaces_instead_of_tabs);
 
-  highlight_current_line = codeslayer_registry_get_boolean (registry,
-                                                               CODESLAYER_REGISTRY_HIGHLIGHT_CURRENT_LINE);
-  gtk_source_view_set_highlight_current_line (GTK_SOURCE_VIEW (source_view),
-                                              highlight_current_line);
+  highlight_current_line = codeslayer_registry_get_boolean (registry, CODESLAYER_REGISTRY_HIGHLIGHT_CURRENT_LINE);
+  gtk_source_view_set_highlight_current_line (GTK_SOURCE_VIEW (source_view), highlight_current_line);
 
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
 
-  highlight_matching_bracket = codeslayer_registry_get_boolean (registry,
-                                                                   CODESLAYER_REGISTRY_HIGHLIGHT_MATCHING_BRACKET);
-  gtk_source_buffer_set_highlight_matching_brackets (GTK_SOURCE_BUFFER (buffer),
-                                                     highlight_matching_bracket);
+  highlight_matching_bracket = codeslayer_registry_get_boolean (registry, CODESLAYER_REGISTRY_HIGHLIGHT_MATCHING_BRACKET);
+  gtk_source_buffer_set_highlight_matching_brackets (GTK_SOURCE_BUFFER (buffer), highlight_matching_bracket);
 
-  theme = codeslayer_registry_get_string (registry,
-                                             CODESLAYER_REGISTRY_THEME);
+  theme = codeslayer_registry_get_string (registry, CODESLAYER_REGISTRY_THEME);
   
   style_scheme_manager = gtk_source_style_scheme_manager_get_default ();
-  style_scheme = gtk_source_style_scheme_manager_get_scheme (style_scheme_manager, 
-                                                             theme);
+  style_scheme = gtk_source_style_scheme_manager_get_scheme (style_scheme_manager, theme);
+
   if (theme)
     g_free (theme);
 
   if (style_scheme)
     gtk_source_buffer_set_style_scheme (GTK_SOURCE_BUFFER (buffer), style_scheme);
 
-  fontname = codeslayer_registry_get_string (registry,
-                                                CODESLAYER_REGISTRY_FONT);
+  fontname = codeslayer_registry_get_string (registry, CODESLAYER_REGISTRY_FONT);
   font_description = pango_font_description_from_string (fontname);
   
   if (fontname)
@@ -874,8 +853,8 @@ codeslayer_source_view_sync_registry (CodeSlayerSourceView *source_view)
   
   /* word wrap */
   
-  word_wrap = codeslayer_registry_get_boolean (registry,
-                                               CODESLAYER_REGISTRY_WORD_WRAP);
+  word_wrap = codeslayer_registry_get_boolean (registry, CODESLAYER_REGISTRY_WORD_WRAP);
+  
   if (word_wrap)
     {
       gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (GTK_WIDGET (source_view)), GTK_WRAP_WORD);
@@ -884,8 +863,7 @@ codeslayer_source_view_sync_registry (CodeSlayerSourceView *source_view)
     {
       document_file_path = codeslayer_document_get_file_path (priv->document);
       
-      word_wrap_types_str = codeslayer_registry_get_string (registry,
-                                                               CODESLAYER_REGISTRY_WORD_WRAP_TYPES);
+      word_wrap_types_str = codeslayer_registry_get_string (registry, CODESLAYER_REGISTRY_WORD_WRAP_TYPES);
 
       word_wrap_types = codeslayer_utils_string_to_list (word_wrap_types_str);
       

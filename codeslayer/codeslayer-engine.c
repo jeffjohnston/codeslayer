@@ -225,19 +225,19 @@ codeslayer_engine_new (GtkWindow          *window,
 
   registry = codeslayer_profile_get_registry (profile);
   
-  g_signal_connect_swapped (G_OBJECT (menubar), "new-editor",
+  g_signal_connect_swapped (G_OBJECT (menubar), "new-document",
                             G_CALLBACK (new_document_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (menubar), "open-editor",
+  g_signal_connect_swapped (G_OBJECT (menubar), "open-document",
                             G_CALLBACK (open_document_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (menubar), "save-editor",
+  g_signal_connect_swapped (G_OBJECT (menubar), "save-document",
                             G_CALLBACK (save_document_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (menubar), "save-all-editors",
+  g_signal_connect_swapped (G_OBJECT (menubar), "save-all-documents",
                             G_CALLBACK (save_all_documents_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (menubar), "close-editor",
+  g_signal_connect_swapped (G_OBJECT (menubar), "close-document",
                             G_CALLBACK (close_document_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (menubar), "find",
@@ -339,7 +339,7 @@ codeslayer_engine_new (GtkWindow          *window,
   g_signal_connect_swapped (G_OBJECT (projects), "select-document",
                             G_CALLBACK (select_projects_document_action), engine);
   
-  g_signal_connect_swapped (G_OBJECT (notebook), "select-editor",
+  g_signal_connect_swapped (G_OBJECT (notebook), "select-document",
                             G_CALLBACK (select_document_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (projects), "file-path-renamed",
@@ -1211,7 +1211,7 @@ select_document_action (CodeSlayerEngine *engine,
   document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
 
   sync_with_document = codeslayer_registry_get_boolean (registry, 
-                                                      CODESLAYER_REGISTRY_SYNC_WITH_EDITOR);
+                                                        CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT);
   
   if (sync_with_document)
     {
