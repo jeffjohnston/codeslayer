@@ -72,8 +72,8 @@ struct _CodeSlayerSourceViewPrivate
 {
   GtkWindow             *window;
   CodeSlayerDocument    *document;
-  GTimeVal              *modification_time;
   CodeSlayerProfile     *profile;
+  GTimeVal              *modification_time;
   CodeSlayerCompletion  *completion;
   gulong                 cursor_position_id;
 };
@@ -222,7 +222,7 @@ codeslayer_source_view_new (GtkWindow          *window,
   
   g_object_ref_sink (G_OBJECT (document));
   
-  codeslayer_document_set_source_view (document, source_view);
+  codeslayer_document_set_source_view (document, GTK_SOURCE_VIEW (source_view));
   
   file_path = codeslayer_document_get_file_path (document);
   
@@ -288,52 +288,6 @@ codeslayer_source_view_get_document (CodeSlayerSourceView *source_view)
   CodeSlayerSourceViewPrivate *priv;
   priv = CODESLAYER_SOURCE_VIEW_GET_PRIVATE (source_view);
   return priv->document;
-}
-
-/**
- * codeslayer_source_view_get_name:
- * @source_view: a #CodeSlayerSourceView  
- *
- * The name for the source view document.
- *
- * Returns: a string that is owned by the source view and should not be freed.
- */
-const gchar*
-codeslayer_source_view_get_name (CodeSlayerSourceView *source_view)
-{
-  CodeSlayerSourceViewPrivate *priv;
-  priv = CODESLAYER_SOURCE_VIEW_GET_PRIVATE (source_view);
-  return codeslayer_document_get_name (priv->document);
-}
-
-/**
- * codeslayer_source_view_get_file_path:
- * @source_view: a #CodeSlayerSourceView  
- *
- * The file path for the source view document.
- *
- * Returns: a string that is owned by the source view and should not be freed.
- */
-const gchar*
-codeslayer_source_view_get_file_path (CodeSlayerSourceView *source_view)
-{
-  CodeSlayerSourceViewPrivate *priv;
-  priv = CODESLAYER_SOURCE_VIEW_GET_PRIVATE (source_view);
-  return codeslayer_document_get_file_path (priv->document);
-}
-
-/**
- * codeslayer_source_view_get_line_number:
- * @source_view: a #CodeSlayerSourceView  
- *
- * The current line number for the source view document.
- */
-gint
-codeslayer_source_view_get_line_number (CodeSlayerSourceView *source_view)
-{
-  CodeSlayerSourceViewPrivate *priv;
-  priv = CODESLAYER_SOURCE_VIEW_GET_PRIVATE (source_view);
-  return codeslayer_document_get_line_number (priv->document);
 }
 
 /**

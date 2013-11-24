@@ -18,6 +18,7 @@
 
 #include <codeslayer/codeslayer-document.h>
 #include <codeslayer/codeslayer-project.h>
+#include <codeslayer/codeslayer-sourceview.h>
 
 /**
  * SECTION:codeslayer-document
@@ -46,6 +47,9 @@ static void codeslayer_document_set_property  (GObject                 *object,
                                                guint                    prop_id,
                                                const GValue            *value,
                                                GParamSpec              *pspec);
+                                               
+static void set_name                          (CodeSlayerDocument      *document, 
+                                               const gchar             *name);
 
 #define CODESLAYER_DOCUMENT_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENT_TYPE, CodeSlayerDocumentPrivate))
@@ -54,13 +58,12 @@ typedef struct _CodeSlayerDocumentPrivate CodeSlayerDocumentPrivate;
 
 struct _CodeSlayerDocumentPrivate
 {
-  gint                 line_number;
-  GtkTreeRowReference *tree_row_reference;
   gchar               *name;
   gchar               *file_path;
-  gboolean             active;
+  gint                 line_number;
   CodeSlayerProject   *project;
-  GtkWidget           *source_view;
+  GtkSourceView       *source_view;
+  GtkTreeRowReference *tree_row_reference;
 };
 
 G_DEFINE_TYPE (CodeSlayerDocument, codeslayer_document, G_TYPE_OBJECT)
@@ -68,12 +71,11 @@ G_DEFINE_TYPE (CodeSlayerDocument, codeslayer_document, G_TYPE_OBJECT)
 enum
 {
   PROP_0,
-  PROP_LINE_NUMBER,
   PROP_NAME,
   PROP_FILE_PATH,
-  PROP_ACTIVE,
+  PROP_LINE_NUMBER,
   PROP_PROJECT,
-  PROP_PROJECT_KEY,
+  PROP_SOURCE_VIEW,
   PROP_TREE_ROW_REFERENCE
 };
 
@@ -90,19 +92,6 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
   g_type_class_add_private (klass, sizeof (CodeSlayerDocumentPrivate));
 
   /**
-   * CodeSlayerDocument:line-number:
-   *
-   * The line that the source view should scroll to.
-   */
-  g_object_class_install_property (gobject_class, 
-                                   PROP_LINE_NUMBER,
-                                   g_param_spec_int ("line_number",
-                                                     "Line Number",
-                                                     "Line Number", 
-                                                     0, 100000, 0,
-                                                     G_PARAM_READWRITE));
-
-  /**
    * CodeSlayerDocument:name:
    *
    * The name of the document.
@@ -115,7 +104,7 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-   * CodeSlayerDocument:file-path:
+   * CodeSlayerDocument:file_path:
    *
    * The fully qualified file path where the document is located.
    */
@@ -127,16 +116,17 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-   * CodeSlayerDocument:active:
+   * CodeSlayerDocument:line_number:
    *
-   * The currently selected document.
+   * The line that the source view should scroll to.
    */
   g_object_class_install_property (gobject_class, 
-                                   PROP_ACTIVE,
-                                   g_param_spec_boolean ("active", 
-                                                         "Active",
-                                                         "Active", FALSE,
-                                                         G_PARAM_READWRITE));
+                                   PROP_LINE_NUMBER,
+                                   g_param_spec_int ("line_number",
+                                                     "Line Number",
+                                                     "Line Number", 
+                                                     0, 100000, 0,
+                                                     G_PARAM_READWRITE));
 
   /**
    * CodeSlayerDocument:project:
@@ -152,7 +142,20 @@ codeslayer_document_class_init (CodeSlayerDocumentClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-   * CodeSlayerDocument:tree-row-reference:
+   * CodeSlayerDocument:source_view:
+   *
+   * a #CodeSlayerSourceView.
+   */
+  g_object_class_install_property (gobject_class, 
+                                   PROP_SOURCE_VIEW,
+                                   g_param_spec_object ("source_view",
+                                                        "CodeSlayerSourceView",
+                                                        "CodeSlayerSourceView",
+                                                        CODESLAYER_SOURCE_VIEW_TYPE,
+                                                        G_PARAM_READWRITE));
+
+  /**
+   * CodeSlayerDocument:tree_row_reference:
    *
    * The reference to the node in the tree.
    */
@@ -169,8 +172,8 @@ codeslayer_document_init (CodeSlayerDocument *document)
 {
   CodeSlayerDocumentPrivate *priv;
   priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
+  priv->name = NULL;
   priv->file_path = NULL;
-  priv->active = FALSE;
   priv->project = NULL;
   priv->source_view = NULL;
   priv->tree_row_reference = NULL;
@@ -205,20 +208,20 @@ codeslayer_document_get_property (GObject    *object,
 
   switch (prop_id)
     {
-    case PROP_LINE_NUMBER:
-      g_value_set_int (value, priv->line_number);
-      break;
     case PROP_NAME:
       g_value_set_string (value, priv->name);
       break;
     case PROP_FILE_PATH:
       g_value_set_string (value, priv->file_path);
       break;
-    case PROP_ACTIVE:
-      g_value_set_boolean (value, priv->active);
+    case PROP_LINE_NUMBER:
+      g_value_set_int (value, priv->line_number);
       break;
     case PROP_PROJECT:
       g_value_set_pointer (value, priv->project);
+      break;
+    case PROP_SOURCE_VIEW:
+      g_value_set_pointer (value, priv->source_view);
       break;
     case PROP_TREE_ROW_REFERENCE:
       g_value_set_pointer (value, priv->tree_row_reference);
@@ -240,20 +243,20 @@ codeslayer_document_set_property (GObject      *object,
 
   switch (prop_id)
     {
-    case PROP_LINE_NUMBER:
-      codeslayer_document_set_line_number (document, g_value_get_int (value));
-      break;
     case PROP_NAME:
-      codeslayer_document_set_name (document, g_value_get_string (value));
+      set_name (document, g_value_get_string (value));
       break;
     case PROP_FILE_PATH:
       codeslayer_document_set_file_path (document, g_value_get_string (value));
       break;
-    case PROP_ACTIVE:
-      codeslayer_document_set_active (document, g_value_get_boolean (value));
+    case PROP_LINE_NUMBER:
+      codeslayer_document_set_line_number (document, g_value_get_int (value));
       break;
     case PROP_PROJECT:
       codeslayer_document_set_project (document, CODESLAYER_PROJECT (value));
+      break;
+    case PROP_SOURCE_VIEW:
+      codeslayer_document_set_source_view (document, g_value_get_pointer (value));
       break;
     case PROP_TREE_ROW_REFERENCE:
       codeslayer_document_set_tree_row_reference (document, g_value_get_pointer (value));
@@ -278,63 +281,6 @@ codeslayer_document_new (void)
 }
 
 /**
- * codeslayer_document_get_line_number:
- * @document: a #CodeSlayerDocument.
- *
- * Returns: the line number to scroll to when loaded into the source view.
- */
-const gint
-codeslayer_document_get_line_number (CodeSlayerDocument *document)
-{
-  return CODESLAYER_DOCUMENT_GET_PRIVATE (document)->line_number;
-}
-
-/**
- * codeslayer_document_set_line_number:
- * @document: a #CodeSlayerDocument.
- * @line_number: the line number to scroll to when loaded into the source view.
- */
-void
-codeslayer_document_set_line_number (CodeSlayerDocument *document,
-                                     const gint          line_number)
-{
-  CodeSlayerDocumentPrivate *priv;
-  priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
-  priv->line_number = line_number;
-}
-
-/**
- * codeslayer_document_get_tree_row_reference:
- * @document: a #CodeSlayerDocument.
- *
- * Returns: the #GtkTreeRowReference within the projects tree.
- */
-GtkTreeRowReference *
-codeslayer_document_get_tree_row_reference (CodeSlayerDocument *document)
-{
-  return CODESLAYER_DOCUMENT_GET_PRIVATE (document)->tree_row_reference;
-}
-
-/**
- * codeslayer_document_set_tree_row_reference:
- * @document: a #CodeSlayerDocument.
- * @tree_row_reference: a #GtkTreeRowReference so the document can 
- *                      keep its position within the projects tree.
- */
-void
-codeslayer_document_set_tree_row_reference (CodeSlayerDocument  *document,
-                                            GtkTreeRowReference *tree_row_reference)
-{
-  CodeSlayerDocumentPrivate *priv;
-  priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
-
-  if (priv->tree_row_reference != NULL)
-    gtk_tree_row_reference_free (priv->tree_row_reference);      
-
-  priv->tree_row_reference = tree_row_reference;
-}
-
-/**
  * codeslayer_document_get_name:
  * @document: a #CodeSlayerDocument.
  *
@@ -346,18 +292,14 @@ codeslayer_document_get_name (CodeSlayerDocument *document)
   return CODESLAYER_DOCUMENT_GET_PRIVATE (document)->name;
 }
 
-/**
- * codeslayer_document_set_name:
- * @document: a #CodeSlayerDocument.
- * @name: the name of the document.
- *
+/*
  * This call is used internally to give a name to a document that does not 
- * have a file path specified (Untitled 1, Untitled 1, etc...). If there is 
+ * have a file path specified (Document 1, Document 1, etc...). If there is 
  * a file path specified then the name is overridden to be the base name of 
  * the file path.
  */
-void
-codeslayer_document_set_name (CodeSlayerDocument *document,
+static void
+set_name (CodeSlayerDocument *document,
                               const gchar        *name)
 {
   CodeSlayerDocumentPrivate *priv;
@@ -406,38 +348,34 @@ codeslayer_document_set_file_path (CodeSlayerDocument *document,
   priv->file_path = g_strdup (file_path);
   
   name = g_path_get_basename (file_path);
-  codeslayer_document_set_name (document, name);
+  set_name (document, name);
   g_free (name);
 }
 
 /**
- * codeslayer_document_get_active:
+ * codeslayer_document_get_line_number:
  * @document: a #CodeSlayerDocument.
  *
- * Note: this is only used when the active group is first loaded up so that 
- *       the corresponding source view is selected. After 
- *       that it is not updated until the active group is saved.
- *
- * Returns: is TRUE if this is the active document in the project. 
+ * Returns: the line number to scroll to when loaded into the source view.
  */
-const gboolean
-codeslayer_document_get_active (CodeSlayerDocument *document)
+const gint
+codeslayer_document_get_line_number (CodeSlayerDocument *document)
 {
-  return CODESLAYER_DOCUMENT_GET_PRIVATE (document)->active;
+  return CODESLAYER_DOCUMENT_GET_PRIVATE (document)->line_number;
 }
 
 /**
- * codeslayer_document_set_active:
+ * codeslayer_document_set_line_number:
  * @document: a #CodeSlayerDocument.
- * @active: TRUE if this is the active document in the project.
+ * @line_number: the line number to scroll to when loaded into the source view.
  */
 void
-codeslayer_document_set_active (CodeSlayerDocument *document,
-                                const gboolean active)
+codeslayer_document_set_line_number (CodeSlayerDocument *document,
+                                     const gint          line_number)
 {
   CodeSlayerDocumentPrivate *priv;
   priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
-  priv->active = active;
+  priv->line_number = line_number;
 }
 
 /**
@@ -472,7 +410,7 @@ codeslayer_document_set_project (CodeSlayerDocument *document,
  *
  * Returns: the #CodeSlayerSourceView that this document is attached to.
  */
-GtkWidget*
+GtkSourceView*
 codeslayer_document_get_source_view (CodeSlayerDocument *document)
 {
   return CODESLAYER_DOCUMENT_GET_PRIVATE (document)->source_view;
@@ -485,9 +423,40 @@ codeslayer_document_get_source_view (CodeSlayerDocument *document)
  */
 void
 codeslayer_document_set_source_view (CodeSlayerDocument *document, 
-                                     GtkWidget          *source_view)
+                                     GtkSourceView      *source_view)
 {
   CodeSlayerDocumentPrivate *priv;
   priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
   priv->source_view = source_view;
 }                                     
+
+/**
+ * codeslayer_document_get_tree_row_reference:
+ * @document: a #CodeSlayerDocument.
+ *
+ * Returns: the #GtkTreeRowReference within the projects tree.
+ */
+GtkTreeRowReference *
+codeslayer_document_get_tree_row_reference (CodeSlayerDocument *document)
+{
+  return CODESLAYER_DOCUMENT_GET_PRIVATE (document)->tree_row_reference;
+}
+
+/**
+ * codeslayer_document_set_tree_row_reference:
+ * @document: a #CodeSlayerDocument.
+ * @tree_row_reference: a #GtkTreeRowReference so the document can 
+ *                      keep its position within the projects tree.
+ */
+void
+codeslayer_document_set_tree_row_reference (CodeSlayerDocument  *document,
+                                            GtkTreeRowReference *tree_row_reference)
+{
+  CodeSlayerDocumentPrivate *priv;
+  priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
+
+  if (priv->tree_row_reference != NULL)
+    gtk_tree_row_reference_free (priv->tree_row_reference);      
+
+  priv->tree_row_reference = tree_row_reference;
+}

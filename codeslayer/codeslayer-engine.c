@@ -512,7 +512,9 @@ new_document_action (CodeSlayerEngine *engine)
   name = get_document_name (engine);
   
   document = codeslayer_document_new ();
-  codeslayer_document_set_name (document, name);
+  g_object_set (document, "name", name, NULL);
+  
+  /*codeslayer_document_set_name (document, name);*/
   codeslayer_notebook_add_document (CODESLAYER_NOTEBOOK (priv->notebook), document);
   
   g_object_unref (document);
@@ -1344,19 +1346,21 @@ scan_external_changes_action (CodeSlayerEngine *engine)
     {
       GtkWidget *notebook_page; 
       GtkWidget *source_view;
+      CodeSlayerDocument *document;
       const gchar *file_path;
       GTimeVal *original_modification_time;
       GTimeVal *latest_modification_time;
       
       notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
       source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view));
+      file_path = codeslayer_document_get_file_path (document);
       
-      if (codeslayer_source_view_get_file_path (CODESLAYER_SOURCE_VIEW (source_view)) == NULL)
+      if (file_path == NULL)
         continue;
         
       original_modification_time = codeslayer_source_view_get_modification_time (CODESLAYER_SOURCE_VIEW (source_view));
 
-      file_path = codeslayer_source_view_get_file_path (CODESLAYER_SOURCE_VIEW (source_view));
       latest_modification_time = codeslayer_utils_get_modification_time (file_path);
       
       if (latest_modification_time->tv_sec > original_modification_time->tv_sec)

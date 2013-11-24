@@ -33,7 +33,7 @@ G_BEGIN_DECLS
 #define IS_CODESLAYER_SOURCE_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_SOURCE_VIEW_TYPE))
 #define IS_CODESLAYER_SOURCE_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_SOURCE_VIEW_TYPE))
 
-#define CODESLAYER_SOURCE_VIEW_UNTITLED "Untitled"
+#define CODESLAYER_SOURCE_VIEW_UNTITLED "Document"
 
 typedef struct _CodeSlayerSourceView CodeSlayerSourceView;
 typedef struct _CodeSlayerSourceViewClass CodeSlayerSourceViewClass;
@@ -64,9 +64,6 @@ void                 codeslayer_source_view_sync_registry            (CodeSlayer
 CodeSlayerDocument*  codeslayer_source_view_get_document             (CodeSlayerSourceView         *source_view);
 void                 codeslayer_source_view_add_completion_provider  (CodeSlayerSourceView         *source_view, 
                                                                       CodeSlayerCompletionProvider *provider);
-const gchar*         codeslayer_source_view_get_name                 (CodeSlayerSourceView         *source_view);
-const gchar*         codeslayer_source_view_get_file_path            (CodeSlayerSourceView         *source_view);
-gint                 codeslayer_source_view_get_line_number          (CodeSlayerSourceView         *source_view);
 GTimeVal*            codeslayer_source_view_get_modification_time    (CodeSlayerSourceView         *source_view);
 void                 codeslayer_source_view_set_modification_time    (CodeSlayerSourceView         *source_view, 
                                                                       GTimeVal                     *modification_time);

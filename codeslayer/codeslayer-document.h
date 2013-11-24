@@ -21,6 +21,7 @@
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-project.h>
+#include <gtksourceview/gtksource.h>
 
 G_BEGIN_DECLS
 
@@ -47,27 +48,22 @@ GType codeslayer_document_get_type (void) G_GNUC_CONST;
 
 CodeSlayerDocument*  codeslayer_document_new (void);
 
-const gint           codeslayer_document_get_line_number         (CodeSlayerDocument  *document);
-void                 codeslayer_document_set_line_number         (CodeSlayerDocument  *document, 
-                                                                  const gint          line_number);
-GtkTreeRowReference* codeslayer_document_get_tree_row_reference  (CodeSlayerDocument  *document);
-void                 codeslayer_document_set_tree_row_reference  (CodeSlayerDocument  *document, 
-                                                                  GtkTreeRowReference *tree_row_reference);
 const gchar*         codeslayer_document_get_name                (CodeSlayerDocument  *document);
-void                 codeslayer_document_set_name                (CodeSlayerDocument  *document, 
-                                                                  const gchar         *name);
 const gchar*         codeslayer_document_get_file_path           (CodeSlayerDocument  *document);
 void                 codeslayer_document_set_file_path           (CodeSlayerDocument  *document, 
                                                                   const gchar         *file_path);
-const gboolean       codeslayer_document_get_active              (CodeSlayerDocument  *document);
-void                 codeslayer_document_set_active              (CodeSlayerDocument  *document, 
-                                                                  const gboolean       active);
+const gint           codeslayer_document_get_line_number         (CodeSlayerDocument  *document);
+void                 codeslayer_document_set_line_number         (CodeSlayerDocument  *document, 
+                                                                  const gint          line_number);
 CodeSlayerProject*   codeslayer_document_get_project             (CodeSlayerDocument  *document);
 void                 codeslayer_document_set_project             (CodeSlayerDocument  *document, 
                                                                   CodeSlayerProject   *project);
-GtkWidget*           codeslayer_document_get_source_view         (CodeSlayerDocument  *document);
+GtkSourceView*       codeslayer_document_get_source_view         (CodeSlayerDocument  *document);
 void                 codeslayer_document_set_source_view         (CodeSlayerDocument  *document, 
-                                                                  GtkWidget           *source_view);
+                                                                  GtkSourceView       *source_view);
+GtkTreeRowReference* codeslayer_document_get_tree_row_reference  (CodeSlayerDocument  *document);
+void                 codeslayer_document_set_tree_row_reference  (CodeSlayerDocument  *document, 
+                                                                  GtkTreeRowReference *tree_row_reference);
 
 G_END_DECLS
 
