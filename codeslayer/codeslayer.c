@@ -35,29 +35,29 @@
 #define PROJECT_CONFIG ".codeslayer"
 #define CONFIG "config"
 
-static void codeslayer_class_init             (CodeSlayerClass   *klass);
-static void codeslayer_init                   (CodeSlayer        *codeslayer);
-static void codeslayer_finalize               (CodeSlayer        *codeslayer);
+static void codeslayer_class_init             (CodeSlayerClass      *klass);
+static void codeslayer_init                   (CodeSlayer           *codeslayer);
+static void codeslayer_finalize               (CodeSlayer           *codeslayer);
 
-static void document_saved_action               (CodeSlayer        *codeslayer,
-                                               CodeSlayerSourceView  *source_view);
-static void documents_all_saved_action          (CodeSlayer        *codeslayer,
-                                               GList             *source_views);
-static void project_properties_opened_action  (CodeSlayer        *codeslayer,
-                                               CodeSlayerProject *project);
-static void project_properties_closed_action  (CodeSlayer        *codeslayer,
-                                               CodeSlayerProject *project);
-static void document_added_action               (CodeSlayer        *codeslayer,
-                                               GtkWidget         *child,
-                                               guint              page_num);
-static void document_removed_action             (CodeSlayer        *codeslayer, 
-                                               GtkWidget         *child,
-                                               guint              page_num);
-static void document_switched_action            (CodeSlayer        *codeslayer,
-                                               GtkWidget         *child,
-                                               guint              page_num);
-static void projects_changed_action           (CodeSlayer        *codeslayer);
-static void verify_project_config_dir_exists  (CodeSlayerProject *project);
+static void document_saved_action             (CodeSlayer           *codeslayer,
+                                               CodeSlayerSourceView *source_view);
+static void documents_all_saved_action        (CodeSlayer           *codeslayer,
+                                               GList                *source_views);
+static void project_properties_opened_action  (CodeSlayer           *codeslayer,
+                                               CodeSlayerProject    *project);
+static void project_properties_closed_action  (CodeSlayer           *codeslayer,
+                                               CodeSlayerProject    *project);
+static void document_added_action             (CodeSlayer           *codeslayer,
+                                               GtkWidget            *child,
+                                               guint                 page_num);
+static void document_removed_action           (CodeSlayer           *codeslayer, 
+                                               GtkWidget            *child,
+                                               guint                 page_num);
+static void document_switched_action          (CodeSlayer           *codeslayer,
+                                               GtkWidget            *child,
+                                               guint                 page_num);
+static void projects_changed_action           (CodeSlayer           *codeslayer);
+static void verify_project_config_dir_exists  (CodeSlayerProject    *project);
 
 #define CODESLAYER_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_TYPE, CodeSlayerPrivate))
@@ -112,7 +112,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerClass, document_saved), 
                   NULL, NULL,
-                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
+                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_DOCUMENT_TYPE);
 
   /**
    * CodeSlayer::documents-all-saved
@@ -142,7 +142,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerClass, document_added), 
                   NULL, NULL,
-                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
+                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_DOCUMENT_TYPE);
 
   /**
    * CodeSlayer::document-removed
@@ -157,7 +157,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerClass, document_removed), 
                   NULL, NULL,
-                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
+                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_DOCUMENT_TYPE);
 
   /**
    * CodeSlayer::document-switched
@@ -172,7 +172,7 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerClass, document_switched), 
                   NULL, NULL,
-                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_SOURCE_VIEW_TYPE);
+                  g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_DOCUMENT_TYPE);
 
   /**
    * CodeSlayer::path-navigated
