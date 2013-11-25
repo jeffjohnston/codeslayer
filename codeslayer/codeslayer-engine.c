@@ -109,7 +109,7 @@ static void rename_file_path_action         (CodeSlayerEngine      *engine,
 /* engine common code */                                             
 
 static void load_window_settings            (CodeSlayerEngine      *engine);
-static void sync_menu_bar                   (CodeSlayerEngine      *engine);
+static void sync_engine                   (CodeSlayerEngine      *engine);
 static void save_document_settings          (CodeSlayerEngine      *engine);
 static void save_window_settings            (CodeSlayerEngine      *engine);
 
@@ -405,7 +405,7 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
       gtk_widget_hide (priv->projects);
     }  
   
-  sync_menu_bar (CODESLAYER_ENGINE (engine));
+  sync_engine (CODESLAYER_ENGINE (engine));
   codeslayer_plugins_activate (priv->plugins, priv->profile);
 
   g_signal_emit_by_name ((gpointer) registry, "registry-initialized");
@@ -437,7 +437,7 @@ codeslayer_engine_open_document (CodeSlayerEngine *engine,
   
   g_object_unref (document);
 
-  sync_menu_bar (CODESLAYER_ENGINE (engine));
+  sync_engine (CODESLAYER_ENGINE (engine));
 }
 
 /**
@@ -520,7 +520,7 @@ new_document_action (CodeSlayerEngine *engine)
   g_object_unref (document);
   g_free (name);
   
-  sync_menu_bar (CODESLAYER_ENGINE (engine));
+  sync_engine (CODESLAYER_ENGINE (engine));
 }
 
 static void
@@ -575,7 +575,7 @@ open_document_action (CodeSlayerEngine *engine)
     }
   gtk_widget_destroy (GTK_WIDGET (dialog));
 
-  sync_menu_bar (CODESLAYER_ENGINE (engine));
+  sync_engine (CODESLAYER_ENGINE (engine));
 }
 
 static void
@@ -620,7 +620,7 @@ page_removed_action (CodeSlayerEngine *engine,
                      GtkWidget        *page,
                      guint             removed_page_num)
 {
-  sync_menu_bar (CODESLAYER_ENGINE (engine));
+  sync_engine (CODESLAYER_ENGINE (engine));
 }        
 
 static void
@@ -723,7 +723,7 @@ toggle_bottom_pane_action (CodeSlayerEngine *engine)
                                        TRUE);
     }
     
-  sync_menu_bar (CODESLAYER_ENGINE (engine));
+  sync_engine (CODESLAYER_ENGINE (engine));
 }
 
 static void
@@ -740,7 +740,7 @@ open_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_registry_set_boolean (registry, 
                                    CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE,
                                    TRUE);
-  sync_menu_bar (CODESLAYER_ENGINE (engine));
+  sync_engine (CODESLAYER_ENGINE (engine));
 }
 
 static void
@@ -757,7 +757,7 @@ close_bottom_pane_action (CodeSlayerEngine *engine)
   codeslayer_registry_set_boolean (registry, 
                                    CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE,
                                    FALSE);
-  sync_menu_bar (CODESLAYER_ENGINE (engine));
+  sync_engine (CODESLAYER_ENGINE (engine));
 }
 
 static void
@@ -853,7 +853,7 @@ registry_changed_action (CodeSlayerEngine *engine)
   else
     gtk_widget_hide (priv->projects);
 
-  sync_menu_bar (engine);
+  sync_engine (engine);
 }
 
 static void
@@ -1186,7 +1186,7 @@ select_projects_document_action (CodeSlayerEngine   *engine,
   if (!codeslayer_notebook_select_document (CODESLAYER_NOTEBOOK (notebook), document))
     codeslayer_notebook_add_document (CODESLAYER_NOTEBOOK (notebook), document);
 
-  sync_menu_bar (CODESLAYER_ENGINE (engine));
+  sync_engine (CODESLAYER_ENGINE (engine));
 }
 
 static void
@@ -1577,7 +1577,7 @@ load_window_settings (CodeSlayerEngine *engine)
 }
 
 static void 
-sync_menu_bar (CodeSlayerEngine *engine)
+sync_engine (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   gboolean enable_projects;

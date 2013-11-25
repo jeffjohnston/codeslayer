@@ -58,17 +58,17 @@ GtkWidget*           codeslayer_source_view_new                      (GtkWindow 
                                                                       CodeSlayerDocument           *document,
                                                                       CodeSlayerProfile            *profile);
 
-gboolean             codeslayer_source_view_scroll_to_line           (CodeSlayerSourceView         *source_view,
-                                                                      gint                          line_number);
-void                 codeslayer_source_view_sync_registry            (CodeSlayerSourceView         *source_view);
 CodeSlayerDocument*  codeslayer_source_view_get_document             (CodeSlayerSourceView         *source_view);
-void                 codeslayer_source_view_add_completion_provider  (CodeSlayerSourceView         *source_view, 
-                                                                      CodeSlayerCompletionProvider *provider);
 GTimeVal*            codeslayer_source_view_get_modification_time    (CodeSlayerSourceView         *source_view);
 void                 codeslayer_source_view_set_modification_time    (CodeSlayerSourceView         *source_view, 
                                                                       GTimeVal                     *modification_time);
+void                 codeslayer_source_view_add_completion_provider  (CodeSlayerSourceView         *source_view, 
+                                                                      CodeSlayerCompletionProvider *provider);
 void                 codeslayer_source_view_set_text                 (CodeSlayerSourceView         *source_view, 
                                                                       gchar                        *text);
+gboolean             codeslayer_source_view_scroll_to_line           (CodeSlayerSourceView         *source_view,
+                                                                      gint                          line_number);
+void                 codeslayer_source_view_sync_registry            (CodeSlayerSourceView         *source_view);
 
 G_END_DECLS
 
