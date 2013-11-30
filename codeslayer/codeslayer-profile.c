@@ -360,7 +360,6 @@ codeslayer_profile_add_document (CodeSlayerProfile   *profile,
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   priv->documents = g_list_append (priv->documents, document);
-  /*g_object_ref_sink (G_OBJECT (document));*/
 }
 
 /**
@@ -375,7 +374,6 @@ codeslayer_profile_remove_document (CodeSlayerProfile  *profile,
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   priv->documents = g_list_remove (priv->documents, document);
-  /*g_object_unref (document);*/
 }
 
 static void
@@ -385,7 +383,6 @@ remove_all_documents (CodeSlayerProfile *profile)
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   if (priv->documents)
     {
-      /*g_list_foreach (priv->documents, (GFunc) g_object_unref, NULL);*/
       priv->documents = g_list_remove_all (priv->documents, NULL);
       g_list_free (priv->documents);
       priv->documents = NULL;

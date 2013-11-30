@@ -627,15 +627,8 @@ load_profile_names (CodeSlayerProfilesManager *profiles_manager)
   while (list != NULL)
     {
       gchar *profile_name = list->data;
-      CodeSlayerProfile *profile;
-
-      profile = codeslayer_profiles_retrieve_profile (priv->profiles, profile_name);      
-      if (profile != NULL)
-        {
-          gtk_list_store_append (priv->store, &iter);
-          gtk_list_store_set (priv->store, &iter, PROFILE_NAME, profile_name, -1);
-        }
-
+      gtk_list_store_append (priv->store, &iter);
+      gtk_list_store_set (priv->store, &iter, PROFILE_NAME, profile_name, -1);
       list = g_list_next (list);
     }
     

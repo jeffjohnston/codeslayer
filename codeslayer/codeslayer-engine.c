@@ -394,7 +394,6 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
           CodeSlayerDocument *document = documents->data;
           codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), 
                                                document);
-          g_object_unref (document);
           documents = g_list_next (documents);
         }
         
@@ -514,7 +513,6 @@ new_document_action (CodeSlayerEngine *engine)
   document = codeslayer_document_new ();
   g_object_set (document, "name", name, NULL);
   
-  /*codeslayer_document_set_name (document, name);*/
   codeslayer_notebook_add_document (CODESLAYER_NOTEBOOK (priv->notebook), document);
   
   g_object_unref (document);

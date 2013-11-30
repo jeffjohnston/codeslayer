@@ -254,7 +254,8 @@ load_profile (CodeSlayerProfile *profile,
               codeslayer_document_set_file_path (document, (gchar*) file_path);
               codeslayer_document_set_line_number (document, atoi ((gchar*) line_number));
               
-              /*g_object_force_floating (G_OBJECT (document));*/
+              /*float and let the source view get the reference*/
+              g_object_force_floating (G_OBJECT (document));
               codeslayer_profile_add_document (profile, document);
               
               project = codeslayer_profile_get_project_by_file_path (profile, (gchar*) file_path);

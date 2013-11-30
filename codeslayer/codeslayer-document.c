@@ -185,6 +185,9 @@ codeslayer_document_finalize (CodeSlayerDocument *document)
   CodeSlayerDocumentPrivate *priv;
   priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
 
+  if (priv->name != NULL)
+    g_free (priv->name);
+
   if (priv->file_path != NULL)
     g_free (priv->file_path);
 
@@ -274,7 +277,7 @@ codeslayer_document_set_property (GObject      *object,
  *
  * Returns: a new #CodeSlayerDocument. 
  */
-CodeSlayerDocument *
+CodeSlayerDocument*
 codeslayer_document_new (void)
 {
   return CODESLAYER_DOCUMENT (g_object_new (codeslayer_document_get_type (), NULL));
@@ -300,7 +303,7 @@ codeslayer_document_get_name (CodeSlayerDocument *document)
  */
 static void
 set_name (CodeSlayerDocument *document,
-                              const gchar        *name)
+          const gchar        *name)
 {
   CodeSlayerDocumentPrivate *priv;
   priv = CODESLAYER_DOCUMENT_GET_PRIVATE (document);
