@@ -204,37 +204,17 @@ codeslayer_notebook_add_document (CodeSlayerNotebook *notebook,
   GtkWidget *notebook_page;
   GtkWidget *notebook_tab;
   gint page_num;
-  gchar *contents;
-  gint line_number;
-  GTimeVal *modification_time;
   
   priv = CODESLAYER_NOTEBOOK_GET_PRIVATE (notebook);
   
-  /* create page, source view and buffer */
+  /* create page and source view */
 
   source_view = codeslayer_source_view_new (priv->window, document, priv->profile);
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(source_view));
+  notebook_page = codeslayer_notebook_page_new (source_view);
 
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(source_view));
   file_path = codeslayer_document_get_file_path (document);
   name = codeslayer_document_get_name (document);
-  
-  if (file_path != NULL)
-    {
-      contents = codeslayer_utils_get_utf8_text (file_path);
-      if (contents != NULL)
-        {
-          gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
-          codeslayer_source_view_set_text (CODESLAYER_SOURCE_VIEW (source_view), contents);
-          gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
-          gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
-          g_free (contents);
-        }
-      
-      modification_time = codeslayer_utils_get_modification_time (file_path);
-      codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (source_view), modification_time);
-    }
-
-  notebook_page = codeslayer_notebook_page_new (source_view);
 
   /* create tab */
   
@@ -269,10 +249,9 @@ codeslayer_notebook_add_document (CodeSlayerNotebook *notebook,
 
   gtk_notebook_set_current_page (GTK_NOTEBOOK (notebook), page_num);
   gtk_widget_grab_focus (source_view);
-
-  line_number = codeslayer_document_get_line_number (document);
-  if (line_number > 0)
-    codeslayer_source_view_scroll_to_line (CODESLAYER_SOURCE_VIEW (source_view), line_number);
+  
+  if (file_path != NULL)
+    codeslayer_notebook_page_load_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
 }
 
 /**

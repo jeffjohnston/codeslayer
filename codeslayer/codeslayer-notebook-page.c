@@ -27,7 +27,7 @@
  * @title: CodeSlayerNotebookPage
  * @include: codeslayer/codeslayer-notebook-page.h
  */
-
+ 
 static void codeslayer_notebook_page_class_init    (CodeSlayerNotebookPageClass *klass);
 static void codeslayer_notebook_page_init          (CodeSlayerNotebookPage      *notebook_page);
 static void codeslayer_notebook_page_finalize      (CodeSlayerNotebookPage      *notebook_page);
@@ -227,31 +227,43 @@ external_changes_response_action (CodeSlayerNotebookPage *notebook_page,
     }
   else if (response_id == GTK_RESPONSE_OK)
     {
-      CodeSlayerDocument *document;
-      const gchar *file_path;
-      GtkTextBuffer *buffer;
-      gchar *contents;
-
-      buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(priv->source_view));
-      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->source_view));
-      file_path = codeslayer_document_get_file_path (document);
-
-      contents = codeslayer_utils_get_utf8_text (file_path);
-      if (contents != NULL)
-        {
-          GTimeVal *modification_time;
-
-          gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
-          gtk_text_buffer_set_text (GTK_TEXT_BUFFER (buffer), contents, -1);
-          gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
-          gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
-          g_free (contents);
-          
-          gtk_container_remove (GTK_CONTAINER (notebook_page), priv->external_changes_info_bar);
-          priv->external_changes_info_bar = NULL;
-
-          modification_time = codeslayer_utils_get_modification_time (file_path);
-          codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (priv->source_view), modification_time);
-        }
+      codeslayer_notebook_page_load_source_view (notebook_page);
+      gtk_container_remove (GTK_CONTAINER (notebook_page), priv->external_changes_info_bar);
+      priv->external_changes_info_bar = NULL;
     }
+}
+
+void
+codeslayer_notebook_page_load_source_view (CodeSlayerNotebookPage *notebook_page)
+{
+  CodeSlayerNotebookPagePrivate *priv;
+  CodeSlayerDocument *document;
+  const gchar *file_path;
+  GtkTextBuffer *buffer;
+  GTimeVal *modification_time;
+  gchar *contents;
+  gint line_number;
+  
+  priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
+
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
+  document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->source_view));
+  file_path = codeslayer_document_get_file_path (document);
+  line_number = codeslayer_document_get_line_number (document);
+  
+  contents = codeslayer_utils_get_utf8_text (file_path);  
+  if (contents != NULL)
+    {
+      gtk_source_buffer_begin_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
+      codeslayer_source_view_set_text (CODESLAYER_SOURCE_VIEW (priv->source_view), contents);
+      gtk_source_buffer_end_not_undoable_action (GTK_SOURCE_BUFFER (buffer));
+      gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (buffer), FALSE);
+      g_free (contents);
+    }
+  
+  modification_time = codeslayer_utils_get_modification_time (file_path);
+  codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (priv->source_view), modification_time);
+  
+  if (line_number > 0)
+    codeslayer_source_view_scroll_to_line (CODESLAYER_SOURCE_VIEW (priv->source_view), line_number);
 }
