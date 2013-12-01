@@ -39,17 +39,17 @@
 static void codeslayer_notebook_class_init  (CodeSlayerNotebookClass *klass);
 static void codeslayer_notebook_init        (CodeSlayerNotebook      *notebook);
 static void codeslayer_notebook_finalize    (CodeSlayerNotebook      *notebook);
-static void select_document_action            (CodeSlayerNotebookTab   *notebook_tab, 
+static void select_document_action          (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
-static void close_document_action             (CodeSlayerNotebookTab   *notebook_tab, 
+static void close_document_action           (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
-static void close_all_documents_action        (CodeSlayerNotebookTab   *notebook_tab, 
+static void close_all_documents_action      (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
-static void close_other_documents_action      (CodeSlayerNotebookTab   *notebook_tab, 
+static void close_other_documents_action    (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
-static void close_right_documents_action      (CodeSlayerNotebookTab   *notebook_tab, 
+static void close_right_documents_action    (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
-static void close_left_documents_action       (CodeSlayerNotebookTab   *notebook_tab, 
+static void close_left_documents_action     (CodeSlayerNotebookTab   *notebook_tab, 
                                              CodeSlayerNotebook      *notebook);
 static void buffer_modified_action          (GtkTextBuffer           *buffer, 
                                              CodeSlayerNotebook      *notebook);
@@ -57,7 +57,7 @@ static void save_as_dialog                  (CodeSlayerNotebook      *notebook,
                                              GtkWidget               *notebook_page, 
                                              CodeSlayerDocument      *document);
 static void registry_changed_action         (CodeSlayerNotebook      *notebook);
-static GtkWidget* save_document               (CodeSlayerNotebook      *notebook, 
+static GtkWidget* save_document             (CodeSlayerNotebook      *notebook, 
                                              gint                     page_num);
 static void get_dirty_buffer_pages          (CodeSlayerNotebook      *notebook, 
                                              gint                     page,
@@ -361,7 +361,7 @@ codeslayer_notebook_save_all_documents (CodeSlayerNotebook *notebook)
 
 static GtkWidget*
 save_document (CodeSlayerNotebook *notebook, 
-             gint                page_num)
+               gint                page_num)
 {
   GtkWidget *notebook_page;
   GtkWidget *source_view = NULL;
@@ -378,12 +378,6 @@ save_document (CodeSlayerNotebook *notebook,
       CodeSlayerDocument *document;
       const gchar *file_path;
       GTimeVal *modification_time;
-      gchar *contents;
-      GtkTextIter start;
-      GtkTextIter end;
-      gtk_text_buffer_get_bounds (buffer, &start, &end);
-
-      contents = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
 
       document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view));
       file_path = codeslayer_document_get_file_path (document);
@@ -396,12 +390,21 @@ save_document (CodeSlayerNotebook *notebook,
 
       if (file_path != NULL)
         {
+          /*gchar *contents;
+          GtkTextIter start;
+          GtkTextIter end;
+          gtk_text_buffer_get_bounds (buffer, &start, &end);
+
+          contents = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
           if (!g_file_set_contents (file_path, contents, -1, NULL))
             {
               g_free (contents);
               return NULL;
             }
-          g_free (contents);
+          g_free (contents);*/
+          
+          if (!codeslayer_notebook_page_save_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page)))
+            return NULL;
           
           modification_time = codeslayer_utils_get_modification_time (file_path);
           codeslayer_source_view_set_modification_time (CODESLAYER_SOURCE_VIEW (source_view), modification_time);
@@ -613,7 +616,7 @@ codeslayer_notebook_get_all_source_views (CodeSlayerNotebook *notebook)
 
 static void
 select_document_action (CodeSlayerNotebookTab *notebook_tab,
-                      CodeSlayerNotebook    *notebook)
+                        CodeSlayerNotebook    *notebook)
 {
   GtkWidget *notebook_page;
   gint page;
@@ -626,7 +629,7 @@ select_document_action (CodeSlayerNotebookTab *notebook_tab,
 
 static void
 close_document_action (CodeSlayerNotebookTab *notebook_tab,
-                     CodeSlayerNotebook    *notebook)
+                       CodeSlayerNotebook    *notebook)
 {
   GtkWidget *notebook_page;
   gint page;
@@ -639,7 +642,7 @@ close_document_action (CodeSlayerNotebookTab *notebook_tab,
 
 static void
 close_all_documents_action (CodeSlayerNotebookTab *notebook_tab,
-                          CodeSlayerNotebook    *notebook)
+                            CodeSlayerNotebook    *notebook)
 {
   if (!codeslayer_notebook_has_unsaved_documents (notebook))
     codeslayer_notebook_close_all_documents (notebook);
@@ -647,7 +650,7 @@ close_all_documents_action (CodeSlayerNotebookTab *notebook_tab,
 
 static void
 close_other_documents_action (CodeSlayerNotebookTab *notebook_tab,
-                            CodeSlayerNotebook    *notebook)
+                              CodeSlayerNotebook    *notebook)
 {
   GList *dirty_pages = NULL;
   gint pages;

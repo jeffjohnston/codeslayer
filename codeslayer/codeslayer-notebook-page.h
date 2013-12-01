@@ -50,6 +50,7 @@ GtkWidget*           codeslayer_notebook_page_get_source_view                   
 void                 codeslayer_notebook_page_show_document_not_found_info_bar  (CodeSlayerNotebookPage *notebook_page);
 void                 codeslayer_notebook_page_show_external_changes_info_bar    (CodeSlayerNotebookPage *notebook_page);
 void                 codeslayer_notebook_page_load_source_view                  (CodeSlayerNotebookPage *notebook_page);
+gboolean             codeslayer_notebook_page_save_source_view                  (CodeSlayerNotebookPage *notebook_page);
 
 G_END_DECLS
 

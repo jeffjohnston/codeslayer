@@ -20,6 +20,7 @@
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-sourceview.h>
 #include <codeslayer/codeslayer-utils.h>
+#include <string.h>
 
 /**
  * SECTION:codeslayer-notebook-page
@@ -252,4 +253,47 @@ codeslayer_notebook_page_load_source_view (CodeSlayerNotebookPage *notebook_page
   
   if (line_number > 0)
     codeslayer_source_view_scroll_to_line (CODESLAYER_SOURCE_VIEW (priv->source_view), line_number);
+}
+
+gboolean
+codeslayer_notebook_page_save_source_view (CodeSlayerNotebookPage *notebook_page)
+{
+  CodeSlayerNotebookPagePrivate *priv;
+  gboolean result;
+  CodeSlayerDocument *document;
+  const gchar *file_path;
+  GtkTextBuffer *buffer;
+  GFile *file;
+  gchar *contents;
+  GtkTextIter start;
+  GtkTextIter end;
+  GError *error = NULL;
+
+  priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
+
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
+  document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->source_view));
+  file_path = codeslayer_document_get_file_path (document);
+  
+  gtk_text_buffer_get_bounds (buffer, &start, &end);
+
+  contents = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
+  
+  if (contents == NULL)
+    return FALSE;
+  
+  file = g_file_new_for_path (file_path);
+  
+  result = g_file_replace_contents (file, contents, strlen(contents), NULL, FALSE, 
+                                    G_FILE_CREATE_NONE, NULL, NULL, &error);
+
+  if (error != NULL)
+    {
+      g_warning ("problems saving file %s. %s", file_path, error->message);    
+      g_error_free (error);
+    }
+    
+  g_free (contents);
+
+  return result;
 }

@@ -49,7 +49,7 @@ static void add_replace_all_button                 (CodeSlayerNotebookSearch    
 static void set_find_entry_color                   (CodeSlayerNotebookSearch      *notebook_search);
 static void find_previous_action                   (CodeSlayerNotebookSearch      *notebook_search);
 static void find_next_action                       (CodeSlayerNotebookSearch      *notebook_search);
-static GtkWidget *get_source_view                       (CodeSlayerNotebookSearch      *notebook_search);
+static GtkWidget *get_source_view                  (CodeSlayerNotebookSearch      *notebook_search);
 static void find_entry_action                      (CodeSlayerNotebookSearch      *notebook_search);
 static gboolean entry_keypress_action              (CodeSlayerNotebookSearch      *notebook_search,
                                                     GdkEventKey                   *event);
