@@ -276,11 +276,13 @@ codeslayer_notebook_select_document (CodeSlayerNotebook *notebook,
   for (page = 0; page < pages; page++)
     {
       GtkWidget *notebook_page;
+      GtkWidget *source_view;
       CodeSlayerDocument *current_document;
       const gchar *current_file_path;
       
       notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), page);
-      current_document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      current_document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view));
       current_file_path = codeslayer_document_get_file_path (current_document);
 
       if (g_strcmp0 (current_file_path, file_path) == 0)
@@ -383,7 +385,7 @@ save_document (CodeSlayerNotebook *notebook,
 
       contents = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
 
-      document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view));
       file_path = codeslayer_document_get_file_path (document);
       
       if (file_path == NULL)
@@ -779,6 +781,7 @@ resolve_dirty_buffers (CodeSlayerNotebook *notebook,
       gint *page = dirty_pages->data;
 
       GtkWidget *notebook_page;
+      GtkWidget *source_view;
       CodeSlayerDocument *document;
       const gchar *name;
       gchar *text;
@@ -786,7 +789,8 @@ resolve_dirty_buffers (CodeSlayerNotebook *notebook,
       gint response;
       
       notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), *page);
-      document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view));
       name = codeslayer_document_get_name (document);
       
       text = g_strdup_printf (_("Save changes to %s?"), name);

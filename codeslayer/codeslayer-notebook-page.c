@@ -122,20 +122,6 @@ codeslayer_notebook_page_get_source_view (CodeSlayerNotebookPage *notebook_page)
 }
 
 /**
- * codeslayer_notebook_page_get_document:
- * @notebook_page: a #CodeSlayerNotebookPage.
- * 
- * Returns: the #CodeSlayerDocument in the page.
- */
-CodeSlayerDocument*
-codeslayer_notebook_page_get_document (CodeSlayerNotebookPage *notebook_page)
-{
-  CodeSlayerNotebookPagePrivate *priv;
-  priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
-  return codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (priv->source_view));
-}
-
-/**
  * codeslayer_notebook_page_show_document_not_found_info_bar:
  * @notebook_page: a #CodeSlayerNotebookPage.
  * 

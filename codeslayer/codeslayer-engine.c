@@ -1189,12 +1189,11 @@ select_projects_document_action (CodeSlayerEngine   *engine,
 
 static void
 select_document_action (CodeSlayerEngine *engine, 
-                      guint             page_num)
+                        guint             page_num)
 {
   CodeSlayerEnginePrivate *priv;
   CodeSlayerRegistry *registry; 
   GtkWidget *notebook_page;
-  CodeSlayerDocument *document;
   gboolean sync_with_document;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
@@ -1208,13 +1207,17 @@ select_document_action (CodeSlayerEngine *engine,
   if (notebook_page == NULL)
     return;
   
-  document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-
   sync_with_document = codeslayer_registry_get_boolean (registry, 
                                                         CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT);
   
   if (sync_with_document)
     {
+      GtkWidget *source_view;
+      CodeSlayerDocument *document;
+
+      source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view));
+
       if (!codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), document))
         codeslayer_notebook_page_show_document_not_found_info_bar (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
     }
@@ -1386,13 +1389,15 @@ rename_file_path_action (CodeSlayerEngine *engine,
   for (page = 0; page < pages; page++)
     {
       GtkWidget *notebook_page;
-      CodeSlayerDocument *current_document;
+      GtkWidget *source_view;
+      CodeSlayerDocument *document;
       const gchar *current_file_path;
       guint length;
       
       notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
-      current_document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-      current_file_path = codeslayer_document_get_file_path (current_document);
+      source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view));
+      current_file_path = codeslayer_document_get_file_path (document);
 
       length = g_strv_length (&file_path);
 
@@ -1405,7 +1410,7 @@ rename_file_path_action (CodeSlayerEngine *engine,
           replacement_file_path = codeslayer_utils_strreplace (current_file_path, 
                                                                file_path,
                                                                renamed_file_path);
-          codeslayer_document_set_file_path (current_document,
+          codeslayer_document_set_file_path (document,
                                              replacement_file_path);
 
           replacement_basename = g_path_get_basename (replacement_file_path);
@@ -1440,9 +1445,13 @@ save_document_settings (CodeSlayerEngine *engine)
   for (page = 0; page < pages; page++)
     {
       GtkWidget *notebook_page;
+      GtkWidget *source_view;
       CodeSlayerDocument *document;
+      
       notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page);
-      document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
+      document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view));
+
       documents = g_list_append (documents, document);
     }
     

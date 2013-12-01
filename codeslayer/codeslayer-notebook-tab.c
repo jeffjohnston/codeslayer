@@ -524,12 +524,14 @@ static void
 set_tooltip (CodeSlayerNotebookTab *notebook_tab)
 {
   CodeSlayerNotebookTabPrivate *priv;
+  GtkWidget *source_view;
   CodeSlayerDocument *document;
   const gchar *file_path;
 
   priv = CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE (notebook_tab);
   
-  document = codeslayer_notebook_page_get_document (CODESLAYER_NOTEBOOK_PAGE (priv->notebook_page));
+  source_view = codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (priv->notebook_page));
+  document = codeslayer_source_view_get_document (CODESLAYER_SOURCE_VIEW (source_view));
   file_path = codeslayer_document_get_file_path (document);
 
   if (file_path != NULL)
