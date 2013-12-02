@@ -53,10 +53,10 @@ static void close_left_documents_action     (CodeSlayerNotebookTab   *notebook_t
                                              CodeSlayerNotebook      *notebook);
 static void buffer_modified_action          (GtkTextBuffer           *buffer, 
                                              CodeSlayerNotebook      *notebook);
+static void registry_changed_action         (CodeSlayerNotebook      *notebook);
 static void save_as_dialog                  (CodeSlayerNotebook      *notebook, 
                                              GtkWidget               *notebook_page, 
                                              CodeSlayerDocument      *document);
-static void registry_changed_action         (CodeSlayerNotebook      *notebook);
 static GtkWidget* save_document             (CodeSlayerNotebook      *notebook, 
                                              gint                     page_num);
 static void get_dirty_buffer_pages          (CodeSlayerNotebook      *notebook, 
@@ -880,4 +880,4 @@ registry_changed_action (CodeSlayerNotebook *notebook)
     
   if (source_view_value)                                             
     g_free (source_view_value);
-}                                   
+}

@@ -126,7 +126,7 @@ codeslayer_window_init (CodeSlayerWindow *window)
   gtk_window_set_default_icon_name ("codeslayer");
   
   gtk_window_set_title (GTK_WINDOW (window),
-                        CODESLAYER_REGISTRY_MAIN_TITLE);
+                        CODESLAYER_MAIN_TITLE);
                         
   gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 }

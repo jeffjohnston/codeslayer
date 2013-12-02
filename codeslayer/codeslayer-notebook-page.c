@@ -29,12 +29,12 @@
  * @include: codeslayer/codeslayer-notebook-page.h
  */
  
-static void codeslayer_notebook_page_class_init    (CodeSlayerNotebookPageClass *klass);
-static void codeslayer_notebook_page_init          (CodeSlayerNotebookPage      *notebook_page);
-static void codeslayer_notebook_page_finalize      (CodeSlayerNotebookPage      *notebook_page);
+static void codeslayer_notebook_page_class_init  (CodeSlayerNotebookPageClass *klass);
+static void codeslayer_notebook_page_init        (CodeSlayerNotebookPage      *notebook_page);
+static void codeslayer_notebook_page_finalize    (CodeSlayerNotebookPage      *notebook_page);
 
-static void external_changes_response_action       (CodeSlayerNotebookPage      *notebook_page,
-                                                    gint                         response_id);
+static void external_changes_response_action     (CodeSlayerNotebookPage      *notebook_page,
+                                                  gint                         response_id);
 
 #define CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_NOTEBOOK_PAGE_TYPE, CodeSlayerNotebookPagePrivate))
@@ -162,7 +162,14 @@ codeslayer_notebook_page_show_document_not_found_info_bar (CodeSlayerNotebookPag
     }
 }
 
-void 
+/**
+ * codeslayer_notebook_page_show_external_changes_info_bar:
+ * @notebook_page: a #CodeSlayerNotebookPage.
+ * 
+ * Show the information bar at the top of the page to inform the user that the
+ * document has changed on disk.
+ */
+void
 codeslayer_notebook_page_show_external_changes_info_bar (CodeSlayerNotebookPage *notebook_page)
 {
   CodeSlayerNotebookPagePrivate *priv;
@@ -220,6 +227,10 @@ external_changes_response_action (CodeSlayerNotebookPage *notebook_page,
     }
 }
 
+/**
+ * codeslayer_notebook_page_load_source_view:
+ * @notebook_page: a #CodeSlayerNotebookPage.
+ */
 void
 codeslayer_notebook_page_load_source_view (CodeSlayerNotebookPage *notebook_page)
 {
@@ -255,6 +266,12 @@ codeslayer_notebook_page_load_source_view (CodeSlayerNotebookPage *notebook_page
     codeslayer_source_view_scroll_to_line (CODESLAYER_SOURCE_VIEW (priv->source_view), line_number);
 }
 
+/**
+ * codeslayer_notebook_page_save_source_view:
+ * @notebook_page: a #CodeSlayerNotebookPage.
+ * 
+ * Returns: Is true if the save was successful.
+ */
 gboolean
 codeslayer_notebook_page_save_source_view (CodeSlayerNotebookPage *notebook_page)
 {

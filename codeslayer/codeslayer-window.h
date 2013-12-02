@@ -30,6 +30,8 @@ G_BEGIN_DECLS
 #define IS_CODESLAYER_WINDOW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_WINDOW_TYPE))
 #define IS_CODESLAYER_WINDOW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_WINDOW_TYPE))
 
+#define CODESLAYER_MAIN_TITLE "CodeSlayer"
+
 typedef struct _CodeSlayerWindow CodeSlayerWindow;
 typedef struct _CodeSlayerWindowClass CodeSlayerWindowClass;
 
