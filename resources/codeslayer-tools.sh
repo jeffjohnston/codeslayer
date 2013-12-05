@@ -4,10 +4,7 @@ projects=( codeslayer
            codeslayer.comments-plugin
            codeslayer.ctags-plugin
            codeslayer.filesearch-plugin
-           codeslayer.launcher-plugin
            codeslayer.navigation-plugin
-           codeslayer.scratchpad-plugin 
-           codeslayer.snippets-plugin 
            codeslayer.wordcomplete-plugin
           )
 
@@ -39,9 +36,9 @@ execute_make_all ()
         LD_LIBRARY_PATH=$BASE_FOLDER/codeslayer/build/codeslayer/.libs/
         export LD_LIBRARY_PATH
 
-        $BASE_FOLDER/$project/configure CFLAGS="-Wall -Werror -Wdeclaration-after-statement -g -O0" --prefix=$HOME/install --enable-codeslayer-dev=true --enable-gtk-doc 
+        $BASE_FOLDER/$project/configure CFLAGS="-Wall -Werror -Wdeclaration-after-statement -g -O0 -I$HOME/install/include" --prefix=$HOME/install --enable-codeslayer-dev=true --enable-gtk-doc 
       else
-        $BASE_FOLDER/$project/configure CFLAGS="-Wall -Werror -Wdeclaration-after-statement -g -O0" --prefix=$HOME/install --enable-codeslayer-dev=true
+        $BASE_FOLDER/$project/configure CFLAGS="-Wall -Werror -Wdeclaration-after-statement -g -O0 -I$HOME/install/include" --prefix=$HOME/install --enable-codeslayer-dev=true
       fi
 
       make
