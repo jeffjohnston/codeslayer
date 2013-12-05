@@ -141,7 +141,12 @@ codeslayer_application_new (void)
 {
   CodeSlayerApplication *application;
   application = CODESLAYER_APPLICATION (g_object_new (codeslayer_application_get_type (), NULL));
-  g_application_set_application_id (G_APPLICATION (application), "org.codeslayer");
+  
+  if (g_strcmp0 (CODESLAYER_HOME, ".codeslayer-dev") == 0)
+    g_application_set_application_id (G_APPLICATION (application), "org.codeslayer.dev");
+  else
+    g_application_set_application_id (G_APPLICATION (application), "org.codeslayer");
+  
   g_application_set_flags (G_APPLICATION (application), G_APPLICATION_HANDLES_OPEN);
   return application;
 }

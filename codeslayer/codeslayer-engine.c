@@ -1110,6 +1110,9 @@ add_projects_action (CodeSlayerEngine *engine,
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  gtk_widget_show (priv->projects);
+  open_side_pane_action (engine);
 
   while (files != NULL)
     {
