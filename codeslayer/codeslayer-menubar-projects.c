@@ -139,7 +139,7 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
   priv->sync_with_document_separator_item = sync_with_document_separator_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), sync_with_document_separator_item);
 
-  sync_with_document_item = gtk_check_menu_item_new_with_label (_("Sync With Editor"));
+  sync_with_document_item = gtk_check_menu_item_new_with_label (_("Sync With Document"));
   priv->sync_with_document_item = sync_with_document_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), sync_with_document_item);
   
