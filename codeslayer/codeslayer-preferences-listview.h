@@ -48,11 +48,11 @@ struct _CodeSlayerPreferencesListViewClass
 
 GType codeslayer_preferences_list_view_get_type (void) G_GNUC_CONST;
 
-GObject*  codeslayer_preferences_list_view_new (CodeSlayerPreferences *preferences, 
-                                                CodeSlayerProfile     *profile,
-                                                gchar                 *key,
-                                                GtkWidget             *tab, 
-                                                const gchar           *title);
+GObject*  codeslayer_preferences_list_view_new  (CodeSlayerPreferences *preferences, 
+                                                 CodeSlayerProfile     *profile,
+                                                 gchar                 *key,
+                                                 GtkWidget             *tab, 
+                                                 const gchar           *title);
 
 G_END_DECLS
 

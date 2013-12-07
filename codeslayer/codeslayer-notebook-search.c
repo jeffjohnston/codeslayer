@@ -1041,10 +1041,10 @@ replace_all_action (CodeSlayerNotebookSearch *notebook_search)
 }
 
 static gboolean
-backward_search (const gchar *find, 
-                 GtkTextIter *start, 
-                 GtkTextIter *begin,
-                 GtkTextIter *end,
+backward_search (const gchar              *find, 
+                 GtkTextIter              *start, 
+                 GtkTextIter              *begin,
+                 GtkTextIter              *end,
                  CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;

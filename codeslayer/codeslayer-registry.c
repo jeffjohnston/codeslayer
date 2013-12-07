@@ -212,7 +212,7 @@ codeslayer_registry_set_integer (CodeSlayerRegistry *registry,
  */
 gdouble
 codeslayer_registry_get_double (CodeSlayerRegistry *registry,
-                                gchar                 *key)
+                                gchar              *key)
 {
   const gchar *value;
   value = codeslayer_registry_get_setting (registry, key);
@@ -271,8 +271,8 @@ codeslayer_registry_get_boolean (CodeSlayerRegistry *registry,
  */
 void
 codeslayer_registry_set_boolean (CodeSlayerRegistry *registry,
-                                 gchar                 *key, 
-                                 gboolean               value)
+                                 gchar              *key, 
+                                 gboolean            value)
 {
   if (value == TRUE)  
     codeslayer_registry_set_setting (registry, key, "true");

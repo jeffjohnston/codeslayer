@@ -4,7 +4,6 @@ projects=( codeslayer
            codeslayer.comments-plugin
            codeslayer.ctags-plugin
            codeslayer.filesearch-plugin
-           codeslayer.navigation-plugin
            codeslayer.wordcomplete-plugin
           )
 

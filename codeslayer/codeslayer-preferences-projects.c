@@ -74,6 +74,7 @@ codeslayer_preferences_projects_finalize (CodeSlayerPreferencesProjects *prefere
 /**
  * codeslayer_preferences_projects_new:
  * @preferences: a #CodeSlayerPreferences.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerPreferencesProjects.
  *

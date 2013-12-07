@@ -30,29 +30,29 @@ typedef struct
 static void codeslayer_document_linker_class_init    (CodeSlayerDocumentLinkerClass *klass);
 static void codeslayer_document_linker_init          (CodeSlayerDocumentLinker      *linker);
 static void codeslayer_document_linker_finalize      (CodeSlayerDocumentLinker      *linker);
-static void codeslayer_document_linker_get_property  (GObject                     *object, 
-                                                    guint                        prop_id,
-                                                    GValue                      *value,
-                                                    GParamSpec                  *pspec);
-static void codeslayer_document_linker_set_property  (GObject                     *object, 
-                                                    guint                        prop_id,
-                                                    const GValue                *value,
-                                                    GParamSpec                  *pspec);
+static void codeslayer_document_linker_get_property  (GObject                       *object, 
+                                                      guint                          prop_id,
+                                                      GValue                        *value,
+                                                      GParamSpec                    *pspec);
+static void codeslayer_document_linker_set_property  (GObject                       *object, 
+                                                      guint                          prop_id,
+                                                      const GValue                  *value,
+                                                      GParamSpec                    *pspec);
 
-static void clear_links                            (CodeSlayerDocumentLinker      *linker);
-static GList* mark_links                           (CodeSlayerDocumentLinker      *linker, 
-                                                    GtkTextBuffer               *buffer, 
-                                                    GList                       *matches);
-static GList* find_matches                         (CodeSlayerDocumentLinker      *linker, 
-                                                    gchar                       *text);
-static Link* create_link                           (CodeSlayerDocumentLinker      *linker,
-                                                    gchar                       *text,
-                                                    GtkTextIter                 *begin, 
-                                                    GtkTextIter                 *end);
-static gboolean select_link_action                 (CodeSlayerDocumentLinker      *linker, 
-                                                    GdkEventButton              *event);
-static gboolean notify_link_action                 (CodeSlayerDocumentLinker      *linker, 
-                                                    GdkEventButton              *event);
+static void clear_links                              (CodeSlayerDocumentLinker      *linker);
+static GList* mark_links                             (CodeSlayerDocumentLinker      *linker, 
+                                                      GtkTextBuffer                 *buffer, 
+                                                      GList                         *matches);
+static GList* find_matches                           (CodeSlayerDocumentLinker      *linker, 
+                                                      gchar                         *text);
+static Link* create_link                             (CodeSlayerDocumentLinker      *linker,
+                                                      gchar                         *text,
+                                                      GtkTextIter                   *begin, 
+                                                      GtkTextIter                   *end);
+static gboolean select_link_action                   (CodeSlayerDocumentLinker      *linker, 
+                                                      GdkEventButton                *event);
+static gboolean notify_link_action                   (CodeSlayerDocumentLinker      *linker, 
+                                                      GdkEventButton                *event);
                                              
 #define LINKER_DEFAULT_PATTERN "(\\/.*?:\\d+)"                                             
 
@@ -125,9 +125,9 @@ codeslayer_document_linker_finalize (CodeSlayerDocumentLinker *linker)
 
 static void
 codeslayer_document_linker_get_property (GObject    *object, 
-                                guint       prop_id,
-                                GValue     *value, 
-                                GParamSpec *pspec)
+                                         guint       prop_id,
+                                         GValue     *value, 
+                                         GParamSpec *pspec)
 {
   CodeSlayerDocumentLinker *linker;
   CodeSlayerDocumentLinkerPrivate *priv;
@@ -148,9 +148,9 @@ codeslayer_document_linker_get_property (GObject    *object,
 
 static void
 codeslayer_document_linker_set_property (GObject      *object, 
-                                guint         prop_id,
-                                const GValue *value, 
-                                GParamSpec   *pspec)
+                                         guint         prop_id,
+                                         const GValue *value, 
+                                         GParamSpec   *pspec)
 {
   CodeSlayerDocumentLinker *linker;
   linker = CODESLAYER_DOCUMENT_LINKER (object);
@@ -167,8 +167,8 @@ codeslayer_document_linker_set_property (GObject      *object,
 }
 
 CodeSlayerDocumentLinker*
-codeslayer_document_linker_new (GObject  *codeslayer, 
-                              GtkTextView *text_view)
+codeslayer_document_linker_new (GObject     *codeslayer, 
+                                GtkTextView *text_view)
 {
   GtkWidget *linker;
   CodeSlayerDocumentLinkerPrivate *priv;
@@ -215,7 +215,7 @@ codeslayer_document_linker_get_pattern (CodeSlayerDocumentLinker *linker)
  */
 void
 codeslayer_document_linker_set_pattern (CodeSlayerDocumentLinker *linker, 
-                                      const gchar      *pattern)
+                                        const gchar              *pattern)
 {
   CodeSlayerDocumentLinkerPrivate *priv;
   priv = CODESLAYER_DOCUMENT_LINKER_GET_PRIVATE (linker);
@@ -291,7 +291,7 @@ clear_links (CodeSlayerDocumentLinker *linker)
 
 static GList*
 find_matches (CodeSlayerDocumentLinker *linker, 
-              gchar            *text)
+              gchar                    *text)
 {
   CodeSlayerDocumentLinkerPrivate *priv;
   GList *results = NULL;
@@ -330,8 +330,8 @@ find_matches (CodeSlayerDocumentLinker *linker,
 
 static GList*
 mark_links (CodeSlayerDocumentLinker *linker, 
-            GtkTextBuffer   *buffer, 
-            GList           *matches)
+            GtkTextBuffer            *buffer, 
+            GList                    *matches)
 {
   GList *results = NULL;
 
@@ -365,9 +365,9 @@ mark_links (CodeSlayerDocumentLinker *linker,
 
 static Link*
 create_link (CodeSlayerDocumentLinker *linker,
-             gchar           *text,
-             GtkTextIter     *begin, 
-             GtkTextIter     *end)
+             gchar                    *text,
+             GtkTextIter              *begin, 
+             GtkTextIter              *end)
 {
   Link *link = NULL;
   gchar **split, **tmp;
@@ -393,7 +393,7 @@ create_link (CodeSlayerDocumentLinker *linker,
 
 static gboolean
 select_link_action (CodeSlayerDocumentLinker *linker, 
-                    GdkEventButton  *event)
+                    GdkEventButton           *event)
 {
   CodeSlayerDocumentLinkerPrivate *priv;
 
@@ -466,7 +466,7 @@ select_link_action (CodeSlayerDocumentLinker *linker,
 
 static gboolean
 notify_link_action (CodeSlayerDocumentLinker *linker, 
-                    GdkEventButton  *event)
+                    GdkEventButton           *event)
 {
 
   CodeSlayerDocumentLinkerPrivate *priv;

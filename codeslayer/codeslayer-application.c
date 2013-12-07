@@ -221,8 +221,8 @@ verify_profiles_dir_exists (void)
   GFile *file;
   
   profiles_dir = g_build_filename (g_get_home_dir (),
-                                  CODESLAYER_HOME,
-                                  CODESLAYER_PROFILES_DIR,
+                                   CODESLAYER_HOME,
+                                   CODESLAYER_PROFILES_DIR,
                                   NULL);
   file = g_file_new_for_path (profiles_dir);
 

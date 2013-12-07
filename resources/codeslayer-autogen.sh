@@ -4,10 +4,6 @@ projects=( codeslayer
            commentscodeslayerplugin
            ctagscodeslayerplugin
            filesearchcodeslayerplugin
-           launchercodeslayerplugin
-           navigationcodeslayerplugin
-           scratchpadcodeslayerplugin 
-           snippetscodeslayerplugin 
            wordcompletioncodeslayerplugin
           )
           

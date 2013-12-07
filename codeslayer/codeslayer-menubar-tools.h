@@ -45,11 +45,9 @@ struct _CodeSlayerMenuBarToolsClass
 GType codeslayer_menu_bar_tools_get_type (void) G_GNUC_CONST;
   
 GtkWidget*  codeslayer_menu_bar_tools_new          (GtkWidget              *menu_bar, 
-                                                    GtkAccelGroup          *accel_group);
-                                           
+                                                    GtkAccelGroup          *accel_group);                                           
 void        codeslayer_menu_bar_tools_add_item     (CodeSlayerMenuBarTools *menu_bar_tools,
                                                     GtkWidget              *item);
-
 void        codeslayer_menu_bar_tools_remove_item  (CodeSlayerMenuBarTools *menu_bar_tools,
                                                     GtkWidget              *item);
                                            

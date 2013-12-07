@@ -611,7 +611,7 @@ codeslayer_menu_bar_finalize (CodeSlayerMenuBar *menu)
 /**
  * codeslayer_menu_bar_new:
  * @window: the main application window.
- * @registry: a #CodeSlayerRegistry.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerMenuBar.
  *

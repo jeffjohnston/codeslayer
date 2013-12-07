@@ -118,42 +118,42 @@ typedef struct
 
 struct _CodeSlayerProjectsPrivate
 {
-  GtkWidget          *window;
-  CodeSlayerProfile  *profile;
-  GtkWidget          *project_properties;
-  GtkWidget          *properties_dialog;
-  GtkWidget          *name_entry;
-  GtkWidget          *folder_entry;
-  GtkBindingSet      *binding_set;
-  GtkWidget          *scrolled_window;
-  GtkWidget          *treeview;
-  GtkTreeStore       *treestore;
-  GtkTreeSortable    *sortable;
-  GdkPixbuf          *project_pixbuf;
-  GdkPixbuf          *folder_pixbuf;
-  GdkPixbuf          *text_pixbuf;
-  GtkCellRenderer    *cell_text;
-  CutCopyPaste       *ccp;
+  GtkWidget         *window;
+  CodeSlayerProfile *profile;
+  GtkWidget         *project_properties;
+  GtkWidget         *properties_dialog;
+  GtkWidget         *name_entry;
+  GtkWidget         *folder_entry;
+  GtkBindingSet     *binding_set;
+  GtkWidget         *scrolled_window;
+  GtkWidget         *treeview;
+  GtkTreeStore      *treestore;
+  GtkTreeSortable   *sortable;
+  GdkPixbuf         *project_pixbuf;
+  GdkPixbuf         *folder_pixbuf;
+  GdkPixbuf         *text_pixbuf;
+  GtkCellRenderer   *cell_text;
+  CutCopyPaste      *ccp;
   
-  GList              *plugins;
+  GList             *plugins;
 
   /* popup menu items */
-  GtkWidget          *menu;
-  GtkWidget          *remove_project_item;
-  GtkWidget          *project_separator;
-  GtkWidget          *new_folder_item;
-  GtkWidget          *new_file_item;
-  GtkWidget          *new_separator;
-  GtkWidget          *cut_item;
-  GtkWidget          *copy_item;
-  GtkWidget          *paste_item;
-  GtkWidget          *ccp_separator;
-  GtkWidget          *rename_item;
-  GtkWidget          *delete_item;
-  GtkWidget          *properties_separator;
-  GtkWidget          *properties_item;
-  GtkWidget          *find_item;
-  GtkWidget          *plugins_separator;
+  GtkWidget         *menu;
+  GtkWidget         *remove_project_item;
+  GtkWidget         *project_separator;
+  GtkWidget         *new_folder_item;
+  GtkWidget         *new_file_item;
+  GtkWidget         *new_separator;
+  GtkWidget         *cut_item;
+  GtkWidget         *copy_item;
+  GtkWidget         *paste_item;
+  GtkWidget         *ccp_separator;
+  GtkWidget         *rename_item;
+  GtkWidget         *delete_item;
+  GtkWidget         *properties_separator;
+  GtkWidget         *properties_item;
+  GtkWidget         *find_item;
+  GtkWidget         *plugins_separator;
 };
 
 enum
@@ -362,18 +362,8 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
 
   binding_set = gtk_binding_set_by_class (klass);
 
-  /*gtk_binding_entry_add_signal (binding_set, GDK_KEY_X, GDK_CONTROL_MASK,
-                                "cut-file-folder", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KEY_C, GDK_CONTROL_MASK,
-                                "copy-file-folder", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KEY_V, GDK_CONTROL_MASK,
-                                "paste-file-folder", 0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KEY_Delete, 0,
-                                "delete-file-folder", 0);*/
   gtk_binding_entry_add_signal (binding_set, GDK_KEY_R, GDK_CONTROL_MASK,
                                 "rename-file-folder", 0);
-  /*gtk_binding_entry_add_signal (binding_set, GDK_KEY_F, GDK_CONTROL_MASK,
-                                "search-find", 0);*/
 
   g_type_class_add_private (klass, sizeof (CodeSlayerProjectsPrivate));
 }

@@ -42,10 +42,10 @@ static void font_action                              (CodeSlayerPreferencesTheme
 static void add_tab_positions                        (CodeSlayerPreferencesTheme      *preferences_theme);
 static gboolean theme_action                         (GtkTreeView                     *treeview,
                                                       CodeSlayerPreferencesTheme      *preferences_theme);
-static void document_tab_position_action               (CodeSlayerPreferencesTheme      *preferences_theme);
+static void document_tab_position_action             (CodeSlayerPreferencesTheme      *preferences_theme);
 static void side_pane_tab_position_action            (CodeSlayerPreferencesTheme      *preferences_theme);
 static void bottom_pane_tab_position_action          (CodeSlayerPreferencesTheme      *preferences_theme);
-static void add_document_tab_position                  (CodeSlayerPreferencesTheme      *preferences_theme, 
+static void add_document_tab_position                (CodeSlayerPreferencesTheme      *preferences_theme, 
                                                       GtkWidget                       *table);
 static void add_side_pane_tab_position               (CodeSlayerPreferencesTheme      *preferences_theme, 
                                                       GtkWidget                       *table);
@@ -106,6 +106,7 @@ codeslayer_preferences_theme_finalize (CodeSlayerPreferencesTheme *preferences_t
 /**
  * codeslayer_preferences_theme_new:
  * @preferences: a #CodeSlayerPreferences.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerPreferencesTheme.
  *

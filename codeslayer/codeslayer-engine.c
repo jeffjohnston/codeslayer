@@ -109,7 +109,7 @@ static void rename_file_path_action         (CodeSlayerEngine      *engine,
 /* engine common code */                                             
 
 static void load_window_settings            (CodeSlayerEngine      *engine);
-static void sync_engine                   (CodeSlayerEngine      *engine);
+static void sync_engine                     (CodeSlayerEngine      *engine);
 static void save_document_settings          (CodeSlayerEngine      *engine);
 static void save_window_settings            (CodeSlayerEngine      *engine);
 
@@ -173,16 +173,17 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
 /**
  * codeslayer_engine_new:
  * @window: a #GtkWindow.
- * @registry: a #CodeSlayerRegistry.
- * @preferences: a #CodeSlayerPreferences.
+ * @profile: a #CodeSlayerProfile.
+ * @profiles: a #CodeSlayerProfiles.
+ * @profiles_manager: a #CodeSlayerProfilesManager.
  * @plugins: a #CodeSlayerPlugins.
  * @menubar: a #CodeSlayerMenuBar.
+ * @notebook: a #CodeSlayerNotebook.
  * @notebook_pane: a #CodeSlayerNotebookPane.
  * @side_pane: a #CodeSlayerSidePane.
  * @bottom_pane: a #CodeSlayerBottomPane.
- *
- * Creates a new #CodeSlayerEngine. There should be only one engine 
- * per application.
+ * @hpaned: a horizontal paned container.
+ * @vpaned: a vertical paned container.
  *
  * Returns: a new #CodeSlayerEngine. 
  */
@@ -349,7 +350,7 @@ codeslayer_engine_new (GtkWindow          *window,
 }
 
 /**
- * codeslayer_engine_load_default_profile:
+ * codeslayer_engine_load_profile:
  * @engine: a #CodeSlayerEngine.
  */
 void

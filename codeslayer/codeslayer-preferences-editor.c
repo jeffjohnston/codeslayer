@@ -92,6 +92,7 @@ codeslayer_preferences_editor_finalize (CodeSlayerPreferencesEditor *preferences
 /**
  * codeslayer_preferences_editor_new:
  * @preferences: a #CodeSlayerPreferences.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerPreferencesEditor.
  *

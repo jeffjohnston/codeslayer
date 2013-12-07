@@ -32,7 +32,7 @@ static void codeslayer_menu_bar_projects_finalize    (CodeSlayerMenuBarProjects 
 
 static void add_menu_items                           (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void add_projects_action                      (CodeSlayerMenuBarProjects      *menu_bar_projects);
-static void sync_with_document_action                  (CodeSlayerMenuBarProjects      *menu_bar_projects);
+static void sync_with_document_action                (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void sync_engine_action                       (CodeSlayerMenuBarProjects      *menu_bar_projects,
                                                       gboolean                        enable_projects,
                                                       gboolean                        has_open_documents);
@@ -89,7 +89,7 @@ codeslayer_menu_bar_projects_finalize (CodeSlayerMenuBarProjects *menu_bar_proje
  * @window: a #GtkWindow.
  * @menu_bar: a #CodeSlayerMenuBar.
  * @accel_group: a #GtkAccelGroup.
- * @registry: a #CodeSlayerRegistry.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerMenuBarProjects.
  *

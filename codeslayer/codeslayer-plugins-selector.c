@@ -95,7 +95,7 @@ codeslayer_plugins_selector_finalize (CodeSlayerPluginsSelector *plugins_selecto
 
 GtkWidget*
 codeslayer_plugins_selector_new (CodeSlayerPlugins *plugins, 
-                                  CodeSlayerProfile   *profile)
+                                 CodeSlayerProfile   *profile)
 {
   CodeSlayerPluginsSelectorPrivate *priv;
   GtkWidget *plugins_selector;

@@ -44,14 +44,13 @@ struct _CodeSlayerProjectClass
 
 GType codeslayer_project_get_type (void) G_GNUC_CONST;
 
-CodeSlayerProject  *codeslayer_project_new                     (void);
-
-const gchar*       codeslayer_project_get_name                 (CodeSlayerProject *project);
-void               codeslayer_project_set_name                 (CodeSlayerProject *project,
-                                                                const gchar       *name);
-const gchar*       codeslayer_project_get_folder_path          (CodeSlayerProject *project);
-void               codeslayer_project_set_folder_path          (CodeSlayerProject *project,
-                                                                const gchar       *folder_path);
+CodeSlayerProject*  codeslayer_project_new             (void);
+const gchar*       codeslayer_project_get_name         (CodeSlayerProject *project);
+void               codeslayer_project_set_name         (CodeSlayerProject *project,
+                                                        const gchar       *name);
+const gchar*       codeslayer_project_get_folder_path  (CodeSlayerProject *project);
+void               codeslayer_project_set_folder_path  (CodeSlayerProject *project,
+                                                        const gchar       *folder_path);
 
 G_END_DECLS
 

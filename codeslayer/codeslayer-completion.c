@@ -40,7 +40,7 @@ static void move_window                       (CodeSlayerCompletion         *com
 static void resize_window                     (CodeSlayerCompletion         *completion, 
                                                GtkTextView                  *text_view,
                                                GtkTextIter                   iter);
-static void add_model_proposals                     (CodeSlayerCompletion         *completion,
+static void add_model_proposals               (CodeSlayerCompletion         *completion,
                                                GtkTextView                  *text_view,
                                                GtkTextIter                  *iter);
 static void add_model_proposal                (CodeSlayerCompletionProposal *proposal, 

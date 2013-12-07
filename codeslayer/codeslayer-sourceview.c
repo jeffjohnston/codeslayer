@@ -313,7 +313,7 @@ codeslayer_source_view_get_modification_time (CodeSlayerSourceView *source_view)
  */
 void
 codeslayer_source_view_set_modification_time (CodeSlayerSourceView *source_view, 
-                                         GTimeVal         *modification_time)
+                                              GTimeVal             *modification_time)
 {
   CodeSlayerSourceViewPrivate *priv;
   priv = CODESLAYER_SOURCE_VIEW_GET_PRIVATE (source_view);

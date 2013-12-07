@@ -48,35 +48,27 @@ CodeSlayerPlugin*  codeslayer_plugin_new               (void);
 
 void               codeslayer_plugin_set_data          (CodeSlayerPlugin *plugin, 
                                                         GObject          *data);
-
 const gchar*       codeslayer_plugin_get_lib           (CodeSlayerPlugin *plugin);
 void               codeslayer_plugin_set_lib           (CodeSlayerPlugin *plugin, 
                                                         const gchar      *lib);
-
 const gchar*       codeslayer_plugin_get_version       (CodeSlayerPlugin *plugin);
 void               codeslayer_plugin_set_version       (CodeSlayerPlugin *plugin, 
                                                         const gchar      *version);
-
 const gchar*       codeslayer_plugin_get_name          (CodeSlayerPlugin *plugin);
 void               codeslayer_plugin_set_name          (CodeSlayerPlugin *plugin, 
                                                         const gchar      *name);
-
 const gchar*       codeslayer_plugin_get_description   (CodeSlayerPlugin *plugin);
 void               codeslayer_plugin_set_description   (CodeSlayerPlugin *plugin, 
                                                         const gchar      *description);
-
 const gchar*       codeslayer_plugin_get_authors       (CodeSlayerPlugin *plugin);
 void               codeslayer_plugin_set_authors       (CodeSlayerPlugin *plugin, 
                                                         const gchar      *authors);
-
 const gchar*       codeslayer_plugin_get_copyright     (CodeSlayerPlugin *plugin);
 void               codeslayer_plugin_set_copyright     (CodeSlayerPlugin *plugin, 
                                                         const gchar      *copyright);
-
 const gchar*       codeslayer_plugin_get_website       (CodeSlayerPlugin *plugin);
 void               codeslayer_plugin_set_website       (CodeSlayerPlugin *plugin, 
                                                         const gchar      *website);
-
 gboolean           codeslayer_plugin_get_enabled       (CodeSlayerPlugin *plugin);
 void               codeslayer_plugin_set_enabled       (CodeSlayerPlugin *plugin, 
                                                         gboolean          enabled);

@@ -67,7 +67,7 @@ codeslayer_bottom_pane_finalize (CodeSlayerBottomPane *bottom_pane)
 
 /**
  * codeslayer_bottom_pane_new:
- * @registry: a #CodeSlayerRegistry.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerBottomPane.
  *

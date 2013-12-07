@@ -33,11 +33,11 @@ static void codeslayer_menu_bar_file_finalize    (CodeSlayerMenuBarFile      *me
 
 static void add_menu_items                       (CodeSlayerMenuBarFile      *menu_bar_file);
 
-static void new_document_action                    (CodeSlayerMenuBarFile      *menu_bar_file);
-static void open_document_action                   (CodeSlayerMenuBarFile      *menu_bar_file);
-static void save_document_action                   (CodeSlayerMenuBarFile      *menu_bar_file);
-static void save_all_documents_action              (CodeSlayerMenuBarFile      *menu_bar_file);
-static void close_document_action                  (CodeSlayerMenuBarFile      *menu_bar_file);
+static void new_document_action                  (CodeSlayerMenuBarFile      *menu_bar_file);
+static void open_document_action                 (CodeSlayerMenuBarFile      *menu_bar_file);
+static void save_document_action                 (CodeSlayerMenuBarFile      *menu_bar_file);
+static void save_all_documents_action            (CodeSlayerMenuBarFile      *menu_bar_file);
+static void close_document_action                (CodeSlayerMenuBarFile      *menu_bar_file);
 static void quit_application_action              (CodeSlayerMenuBarFile      *menu_bar_file);
 static void show_profiles_action                 (CodeSlayerMenuBarFile      *menu_bar_file);
 static void sync_engine_action                   (CodeSlayerMenuBarFile      *menu_bar_file,

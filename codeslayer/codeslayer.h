@@ -70,7 +70,6 @@ struct _CodeSlayerClass
   void (*document_added) (CodeSlayer *codeslayer);
   void (*document_removed) (CodeSlayer *codeslayer);
   void (*document_switched) (CodeSlayer *codeslayer);
-  void (*path_navigated) (CodeSlayer *codeslayer);
   void (*project_properties_opened) (CodeSlayer *codeslayer);
   void (*project_properties_saved) (CodeSlayer *codeslayer);
   void (*projects_changed) (CodeSlayer *codeslayer);

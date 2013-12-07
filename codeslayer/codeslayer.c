@@ -85,7 +85,6 @@ enum
   DOCUMENT_ADDED,
   DOCUMENT_REMOVED,
   DOCUMENT_SWITCHED,
-  PATH_NAVIGATED,
   PROJECT_PROPERTIES_OPENED,
   PROJECT_PROPERTIES_SAVED,
   PROJECTS_CHANGED,
@@ -173,25 +172,6 @@ codeslayer_class_init (CodeSlayerClass *klass)
                   G_STRUCT_OFFSET (CodeSlayerClass, document_switched), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, CODESLAYER_DOCUMENT_TYPE);
-
-  /**
-   * CodeSlayer::path-navigated
-   * @codeslayer: the plugin that received the signal
-   * @from_file_path: the file path navigated from
-   * @from_line_number: the line number navigated from
-   * @to_file_path: the file path navigated to
-   * @to_line_number: the line number navigated to
-   *
-   * The ::path-navigated signal is emitted when the document is navigated to in the notebook
-   */
-  codeslayer_signals[PATH_NAVIGATED] =
-    g_signal_new ("path-navigated", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerClass, path_navigated), 
-                  NULL, NULL,
-                  _codeslayer_marshal_VOID__STRING_INT_STRING_INT, G_TYPE_NONE, 4, 
-                  G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_INT);
 
   /**
    * CodeSlayer::project-properties-opened

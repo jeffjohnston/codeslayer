@@ -390,19 +390,6 @@ save_document (CodeSlayerNotebook *notebook,
 
       if (file_path != NULL)
         {
-          /*gchar *contents;
-          GtkTextIter start;
-          GtkTextIter end;
-          gtk_text_buffer_get_bounds (buffer, &start, &end);
-
-          contents = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
-          if (!g_file_set_contents (file_path, contents, -1, NULL))
-            {
-              g_free (contents);
-              return NULL;
-            }
-          g_free (contents);*/
-          
           if (!codeslayer_notebook_page_save_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page)))
             return NULL;
           
@@ -690,7 +677,7 @@ close_other_documents_action (CodeSlayerNotebookTab *notebook_tab,
 
 static void
 close_right_documents_action (CodeSlayerNotebookTab *notebook_tab,
-                            CodeSlayerNotebook    *notebook)
+                              CodeSlayerNotebook    *notebook)
 {
   GList *dirty_pages = NULL;
   gint pages;
@@ -721,7 +708,7 @@ close_right_documents_action (CodeSlayerNotebookTab *notebook_tab,
 
 static void
 close_left_documents_action (CodeSlayerNotebookTab *notebook_tab,
-                           CodeSlayerNotebook    *notebook)
+                             CodeSlayerNotebook    *notebook)
 {
   GList *dirty_pages = NULL;
   GtkWidget *notebook_page;

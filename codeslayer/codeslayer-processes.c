@@ -18,11 +18,11 @@
 
 #include <codeslayer/codeslayer-processes.h>
 
-static void codeslayer_processes_class_init  (CodeSlayerProcessesClass  *klass);
-static void codeslayer_processes_init        (CodeSlayerProcesses       *processes);
-static void codeslayer_processes_finalize    (CodeSlayerProcesses       *processes);
-static void process_stopped                  (CodeSlayerProcesses       *processes, 
-                                              CodeSlayerProcess         *process);
+static void codeslayer_processes_class_init  (CodeSlayerProcessesClass *klass);
+static void codeslayer_processes_init        (CodeSlayerProcesses      *processes);
+static void codeslayer_processes_finalize    (CodeSlayerProcesses      *processes);
+static void process_stopped                  (CodeSlayerProcesses      *processes, 
+                                              CodeSlayerProcess        *process);
                                                    
 #define CODESLAYER_PROCESSES_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PROCESSES_TYPE, CodeSlayerProcessesPrivate))

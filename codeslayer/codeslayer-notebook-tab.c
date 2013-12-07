@@ -48,13 +48,13 @@ static void codeslayer_notebook_tab_set_property  (GObject                    *o
                                                    GParamSpec                 *pspec);
 static GtkWidget *decorate_popup_menu             (CodeSlayerNotebookTab      *notebook_tab, 
                                                    GtkWidget                  *label);
-static gboolean button_press_action                   (CodeSlayerNotebookTab      *notebook_tab, 
+static gboolean button_press_action               (CodeSlayerNotebookTab      *notebook_tab, 
                                                    GdkEventButton             *event);
-static void close_document_action                   (CodeSlayerNotebookTab      *notebook_tab);
-static void close_all_documents_action              (CodeSlayerNotebookTab      *notebook_tab);
-static void close_other_documents_action            (CodeSlayerNotebookTab      *notebook_tab);
-static void close_right_documents_action            (CodeSlayerNotebookTab      *notebook_tab);
-static void close_left_documents_action             (CodeSlayerNotebookTab      *notebook_tab);
+static void close_document_action                 (CodeSlayerNotebookTab      *notebook_tab);
+static void close_all_documents_action            (CodeSlayerNotebookTab      *notebook_tab);
+static void close_other_documents_action          (CodeSlayerNotebookTab      *notebook_tab);
+static void close_right_documents_action          (CodeSlayerNotebookTab      *notebook_tab);
+static void close_left_documents_action           (CodeSlayerNotebookTab      *notebook_tab);
 static void set_tooltip                           (CodeSlayerNotebookTab      *notebook_tab);
 
 #define CODESLAYER_NOTEBOOK_TAB_GET_PRIVATE(obj) \

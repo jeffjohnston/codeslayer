@@ -298,7 +298,7 @@ on_delete_event (CodeSlayerProjectsSearch *search)
  */
 void 
 codeslayer_projects_search_find_selection (CodeSlayerProjectsSearch *search, 
-                                  const gchar      *file_paths)
+                                           const gchar              *file_paths)
 {
   CodeSlayerProjectsSearchPrivate *priv;
   priv = CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE (search);
@@ -797,12 +797,12 @@ search_projects (CodeSlayerProjectsSearch *search,
 
 static void
 create_search_files (CodeSlayerProjectsSearch *search,
-                     GPatternSpec         *find_pattern,
-                     GPatternSpec         *file_pattern,
-                     GFile                *file,
-                     GList                **search_files, 
-                     GList                *exclude_types,
-                     GList                *exclude_dirs)
+                     GPatternSpec             *find_pattern,
+                     GPatternSpec             *file_pattern,
+                     GFile                    *file,
+                     GList                    **search_files, 
+                     GList                    *exclude_types,
+                     GList                    *exclude_dirs)
 {
   GFileEnumerator *enumerator;
 
@@ -842,10 +842,10 @@ create_search_files (CodeSlayerProjectsSearch *search,
 
 static void
 create_search_results (CodeSlayerProjectsSearch *search,
-                       GPatternSpec         *find_pattern,
-                       GPatternSpec         *file_pattern,
-                       GFile                *file,
-                       GList                **search_files)
+                       GPatternSpec             *find_pattern,
+                       GPatternSpec             *file_pattern,
+                       GFile                    *file,
+                       GList                    **search_files)
 {
   CodeSlayerProjectsSearchPrivate *priv;
   gchar *file_path;
@@ -1012,8 +1012,8 @@ create_search_tree (SearchContext *context)
 
 static void 
 add_project (CodeSlayerProjectsSearch *search, 
-             CodeSlayerProject    *project,
-             GtkTreeIter          *project_iter)
+             CodeSlayerProject        *project,
+             GtkTreeIter              *project_iter)
 {
   CodeSlayerProjectsSearchPrivate *priv;
   const gchar *project_name;
@@ -1031,8 +1031,8 @@ add_project (CodeSlayerProjectsSearch *search,
 
 static gboolean
 select_document (CodeSlayerProjectsSearch *search, 
-                 GtkTreeIter          *treeiter, 
-                 GtkTreeViewColumn    *column)
+                 GtkTreeIter              *treeiter, 
+                 GtkTreeViewColumn        *column)
 {
   CodeSlayerProjectsSearchPrivate *priv;
   GtkTreeModel *model;

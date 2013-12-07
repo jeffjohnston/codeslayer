@@ -49,7 +49,6 @@ GType codeslayer_notebook_search_get_type (void) G_GNUC_CONST;
 
 GtkWidget*  codeslayer_notebook_search_new                  (GtkWidget                *notebook, 
                                                              CodeSlayerProfile        *profile);
-
 void        codeslayer_notebook_search_find                 (CodeSlayerNotebookSearch *notebook_search);
 void        codeslayer_notebook_search_replace              (CodeSlayerNotebookSearch *notebook_search);
 void        codeslayer_notebook_search_find_next            (CodeSlayerNotebookSearch *notebook_search);

@@ -25,9 +25,9 @@
 
 G_BEGIN_DECLS
 
-GtkBox* codeslayer_preferences_utils_content_area    (GtkBox                *tab, 
-                                                      gchar                 *title);                                                 
-void codeslayer_preferences_utils_notify             (CodeSlayerRegistry    *registry);
+GtkBox*  codeslayer_preferences_utils_content_area  (GtkBox             *tab, 
+                                                     gchar              *title);                                                 
+void     codeslayer_preferences_utils_notify        (CodeSlayerRegistry *registry);
 
 G_END_DECLS
 
