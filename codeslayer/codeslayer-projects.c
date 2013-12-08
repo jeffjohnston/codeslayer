@@ -408,7 +408,7 @@ codeslayer_projects_finalize (CodeSlayerProjects *projects)
 /**
  * codeslayer_projects_new:
  * @window: a #GtkWindow.
- * @registry: a #CodeSlayerRegistry.
+ * @profile: a #CodeSlayerProfile.
  * @project_properties: a #CodeSlayerProjectProperties.
  *
  * Creates a new #CodeSlayerProjects.

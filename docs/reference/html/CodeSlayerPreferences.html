@@ -3,11 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerPreferences</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerPreferencesTheme.html" title="CodeSlayerPreferencesTheme">
-<link rel="next" href="CodeSlayerProcessBar.html" title="CodeSlayerProcessBar">
+<link rel="next" href="CodeSlayerProcess.html" title="CodeSlayerProcess">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -18,7 +18,7 @@
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
-<td><a accesskey="n" href="CodeSlayerProcessBar.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="CodeSlayerProcess.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#CodeSlayerPreferences.synopsis" class="shortcut">Top</a>
@@ -26,8 +26,6 @@
                   <a href="#CodeSlayerPreferences.description" class="shortcut">Description</a>
                    | 
                   <a href="#CodeSlayerPreferences.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#CodeSlayerPreferences.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
 <div class="refentry">
@@ -35,7 +33,7 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="CodeSlayerPreferences.top_of_page"></a>CodeSlayerPreferences</span></h2>
-<p>CodeSlayerPreferences — The group preferences.</p>
+<p>CodeSlayerPreferences — The profile preferences.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
@@ -44,46 +42,9 @@
 <pre class="synopsis">
 #include &lt;codeslayer/codeslayer-preferences.h&gt;
 
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBERS:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS">CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-CURRENT-LINE:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE">CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-RIGHT-MARGIN:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN">CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-MATCHING-BRACKET:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET">CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-INSERT-SPACES-INSTEAD-OF-TABS:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS">CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-ENABLE-AUTOMATIC-INDENTATION:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION">CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-RIGHT-MARGIN-POSITION:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION">CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-TAB-WIDTH:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH">CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-FONT:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_FONT">CODESLAYER_PREFERENCES_EDITOR_FONT</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-THEME:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_THEME">CODESLAYER_PREFERENCES_EDITOR_THEME</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-BOTTOM-PANE-TAB-POSITION:CAPS" title="CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION">CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-SIDE-PANE-TAB-POSITION:CAPS" title="CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION">CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-HOME:CAPS" title="CODESLAYER_HOME">CODESLAYER_HOME</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-WORD-WRAP-TYPES:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES">CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-TAB-POSITION:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION">CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-PROJECTS-EXCLUDE-DIRS:CAPS" title="CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS">CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS</a>
-#define             <a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-PROJECTS-EXCLUDE-TYPES:CAPS" title="CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES">CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES</a>
 struct              <a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-struct" title="struct CodeSlayerPreferences">CodeSlayerPreferences</a>;
-<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="returnvalue">CodeSlayerPreferences</span></a> * <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-new" title="codeslayer_preferences_new ()">codeslayer_preferences_new</a>      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-get-integer" title="codeslayer_preferences_get_integer ()">codeslayer_preferences_get_integer</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-set-integer" title="codeslayer_preferences_set_integer ()">codeslayer_preferences_set_integer</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> value</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-get-double" title="codeslayer_preferences_get_double ()">codeslayer_preferences_get_double</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-set-double" title="codeslayer_preferences_set_double ()">codeslayer_preferences_set_double</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> value</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-get-boolean" title="codeslayer_preferences_get_boolean ()">codeslayer_preferences_get_boolean</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-set-boolean" title="codeslayer_preferences_set_boolean ()">codeslayer_preferences_set_boolean</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> value</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-get-string" title="codeslayer_preferences_get_string ()">codeslayer_preferences_get_string</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-set-string" title="codeslayer_preferences_set_string ()">codeslayer_preferences_set_string</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-save" title="codeslayer_preferences_save ()">codeslayer_preferences_save</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);
+<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="returnvalue">CodeSlayerPreferences</span></a> * <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-new" title="codeslayer_preferences_new ()">codeslayer_preferences_new</a>      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-run-dialog" title="codeslayer_preferences_run_dialog ()">codeslayer_preferences_run_dialog</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);
 </pre>
 </div>
@@ -95,127 +56,14 @@ struct              <a class="link" href="CodeSlayerPreferences.html#CodeSlayerP
 </pre>
 </div>
 <div class="refsect1">
-<a name="CodeSlayerPreferences.signals"></a><h2>Signals</h2>
-<pre class="synopsis">
-  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-bottom-pane-preferences-changed" title='The "bottom-pane-preferences-changed" signal'>bottom-pane-preferences-changed</a>"                : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-editor-preferences-changed" title='The "editor-preferences-changed" signal'>editor-preferences-changed</a>"                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-initialize-preferences" title='The "initialize-preferences" signal'>initialize-preferences</a>"                         : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-notebook-preferences-changed" title='The "notebook-preferences-changed" signal'>notebook-preferences-changed</a>"                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-projects-preferences-changed" title='The "projects-preferences-changed" signal'>projects-preferences-changed</a>"                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-side-pane-preferences-changed" title='The "side-pane-preferences-changed" signal'>side-pane-preferences-changed</a>"                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-</pre>
-</div>
-<div class="refsect1">
 <a name="CodeSlayerPreferences.description"></a><h2>Description</h2>
 <p>
-Saves the group preferences using the GKeyFile. The file is saved in the 
-users home directory under the .codeslayer/groups/"active group" folder.
+Saves the profile preferences using the GKeyFile. The file is saved in the 
+users home directory under the .codeslayer" folder.
 </p>
 </div>
 <div class="refsect1">
 <a name="CodeSlayerPreferences.details"></a><h2>Details</h2>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBERS:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS "editor_display_line_numbers"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-CURRENT-LINE:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE "editor_highlight_current_line"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-DISPLAY-RIGHT-MARGIN:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN "editor_display_right_margin"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-MATCHING-BRACKET:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET "editor_highlight_matching_bracket"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-INSERT-SPACES-INSTEAD-OF-TABS:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS "editor_insert_spaces_instead_of_tabs"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-ENABLE-AUTOMATIC-INDENTATION:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION "editor_enable_automatic_indentation"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-RIGHT-MARGIN-POSITION:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION "editor_right_margin_position"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-TAB-WIDTH:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH "editor_tab_width"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-FONT:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_FONT</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_FONT "editor_font"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-THEME:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_THEME</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_THEME "editor_theme"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-BOTTOM-PANE-TAB-POSITION:CAPS"></a><h3>CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION "bottom_pane_tab_position"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-SIDE-PANE-TAB-POSITION:CAPS"></a><h3>CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION "side_pane_tab_position"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-HOME:CAPS"></a><h3>CODESLAYER_HOME</h3>
-<pre class="programlisting">#define CODESLAYER_HOME ".codeslayer"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-WORD-WRAP-TYPES:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES "editor_word_wrap_types"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-EDITOR-TAB-POSITION:CAPS"></a><h3>CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION "editor_tab_position"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-PROJECTS-EXCLUDE-DIRS:CAPS"></a><h3>CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS "projects_exclude_dirs"
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CODESLAYER-PREFERENCES-PROJECTS-EXCLUDE-TYPES:CAPS"></a><h3>CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES</h3>
-<pre class="programlisting">#define CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES "projects_exclude_types"
-</pre>
-</div>
-<hr>
 <div class="refsect2">
 <a name="CodeSlayerPreferences-struct"></a><h3>struct CodeSlayerPreferences</h3>
 <pre class="programlisting">struct CodeSlayerPreferences;</pre>
@@ -223,19 +71,21 @@ users home directory under the .codeslayer/groups/"active group" folder.
 <hr>
 <div class="refsect2">
 <a name="codeslayer-preferences-new"></a><h3>codeslayer_preferences_new ()</h3>
-<pre class="programlisting"><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="returnvalue">CodeSlayerPreferences</span></a> * codeslayer_preferences_new      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="returnvalue">CodeSlayerPreferences</span></a> * codeslayer_preferences_new      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
 <td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
@@ -246,414 +96,17 @@ Creates a new <a class="link" href="CodeSlayerPreferences.html" title="CodeSlaye
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-preferences-get-integer"></a><h3>codeslayer_preferences_get_integer ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                codeslayer_preferences_get_integer  (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a property name.</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the value as an integer for the given key.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-preferences-set-integer"></a><h3>codeslayer_preferences_set_integer ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_preferences_set_integer  (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> value</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a property name.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
-<td>a property value as a gint.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-preferences-get-double"></a><h3>codeslayer_preferences_get_double ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             codeslayer_preferences_get_double   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a property name.</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the value as a double for the given key.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-preferences-set-double"></a><h3>codeslayer_preferences_set_double ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_preferences_set_double   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> value</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a property name.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
-<td>a property value as a gdouble.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-preferences-get-boolean"></a><h3>codeslayer_preferences_get_boolean ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_preferences_get_boolean  (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a property name.</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the value as a boolean for the given key.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-preferences-set-boolean"></a><h3>codeslayer_preferences_set_boolean ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_preferences_set_boolean  (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> value</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a property name.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
-<td>a property value as a gboolean.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-preferences-get-string"></a><h3>codeslayer_preferences_get_string ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             codeslayer_preferences_get_string   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a property name.</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the value as a string for the given key.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-preferences-set-string"></a><h3>codeslayer_preferences_set_string ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_preferences_set_string   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
-<td>a property name.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
-<td>a property value as a gchar pointer.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-preferences-save"></a><h3>codeslayer_preferences_save ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_preferences_save         (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);</pre>
-<p>
-Save the users preference to disk.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
 <a name="codeslayer-preferences-run-dialog"></a><h3>codeslayer_preferences_run_dialog ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_preferences_run_dialog   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);</pre>
 <p>
 Show the preferences dialog.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
 </tr></tbody>
-</table></div>
-</div>
-</div>
-<div class="refsect1">
-<a name="CodeSlayerPreferences.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2">
-<a name="CodeSlayerPreferences-bottom-pane-preferences-changed"></a><h3>The <code class="literal">"bottom-pane-preferences-changed"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-The ::bottom-pane-preferences-changed signal lets all observers know that
-something in the preferences, related to the 
-<a class="link" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane"><span class="type">CodeSlayerSidePane</span></a>, changed.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>codeslayerpreferences</code></em> :</span></p></td>
-<td>the preference that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CodeSlayerPreferences-editor-preferences-changed"></a><h3>The <code class="literal">"editor-preferences-changed"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-The ::editor-preferences-changed signal lets all observers know that 
-something in the preferences, related to the 
-<a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a>, changed.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>codeslayerpreferences</code></em> :</span></p></td>
-<td>the preference that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CodeSlayerPreferences-initialize-preferences"></a><h3>The <code class="literal">"initialize-preferences"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-The ::initialize-preferences signal lets all observers know that 
-the preferences need to be applied.
-<a class="link" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane"><span class="type">CodeSlayerSidePane</span></a>, changed.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>codeslayerpreferences</code></em> :</span></p></td>
-<td>the preference that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CodeSlayerPreferences-notebook-preferences-changed"></a><h3>The <code class="literal">"notebook-preferences-changed"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-The ::notebook-preferences-changed signal lets all observers know that 
-something in the preferences, related to the 
-<a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>, changed.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>codeslayerpreferences</code></em> :</span></p></td>
-<td>the preference that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CodeSlayerPreferences-projects-preferences-changed"></a><h3>The <code class="literal">"projects-preferences-changed"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-The ::projects-preferences-changed signal lets all observers know that 
-something in the preferences, related to the 
-<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>, changed.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>codeslayerpreferences</code></em> :</span></p></td>
-<td>the preference that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CodeSlayerPreferences-side-pane-preferences-changed"></a><h3>The <code class="literal">"side-pane-preferences-changed"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *codeslayerpreferences,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-The ::side-pane-preferences-changed signal lets all observers know that 
-something in the preferences, related to the 
-<a class="link" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane"><span class="type">CodeSlayerSidePane</span></a>, changed.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>codeslayerpreferences</code></em> :</span></p></td>
-<td>the preference that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
 </table></div>
 </div>
 </div>

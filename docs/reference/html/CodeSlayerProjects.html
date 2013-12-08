@@ -3,11 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerProjects</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection">
-<link rel="next" href="CodeSlayerSearch.html" title="CodeSlayerSearch">
+<link rel="next" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -18,7 +18,7 @@
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
-<td><a accesskey="n" href="CodeSlayerSearch.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="CodeSlayerRegistry.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#CodeSlayerProjects.synopsis" class="shortcut">Top</a>
@@ -48,23 +48,18 @@
 
 struct              <a class="link" href="CodeSlayerProjects.html#CodeSlayerProjects-struct" title="struct CodeSlayerProjects">CodeSlayerProjects</a>;
 <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-new" title="codeslayer_projects_new ()">codeslayer_projects_new</a>             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *project_properties</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-load-group" title="codeslayer_projects_load_group ()">codeslayer_projects_load_group</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-add-project" title="codeslayer_projects_add_project ()">codeslayer_projects_add_project</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-select-document" title="codeslayer_projects_select_document ()">codeslayer_projects_select_document</a> (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-select-document" title="codeslayer_projects_select_document ()">codeslayer_projects_select_document</a> (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-refresh" title="codeslayer_projects_refresh ()">codeslayer_projects_refresh</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-add-popup-item" title="codeslayer_projects_add_popup_item ()">codeslayer_projects_add_popup_item</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-remove-popup-item" title="codeslayer_projects_remove_popup_item ()">codeslayer_projects_remove_popup_item</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-search-find" title="codeslayer_projects_search_find ()">codeslayer_projects_search_find</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-refresh" title="codeslayer_projects_refresh ()">codeslayer_projects_refresh</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -117,34 +112,21 @@ CodeSlayerProjects implements
 <div class="refsect2">
 <a name="codeslayer-projects-new"></a><h3>codeslayer_projects_new ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_projects_new             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *project_properties</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
 <td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>groups</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a>.</td>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>project_properties</code></em> :</span></p></td>
@@ -159,42 +141,14 @@ Creates a new <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerPr
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-projects-load-group"></a><h3>codeslayer_projects_load_group ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_load_group      (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
-<p>
-Load the group projects into the tree.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> to load into the tree.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
 <a name="codeslayer-projects-add-project"></a><h3>codeslayer_projects_add_project ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_add_project     (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);</pre>
 <p>
 Add the project to the tree.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
@@ -210,13 +164,10 @@ Add the project to the tree.
 <hr>
 <div class="refsect2">
 <a name="codeslayer-projects-select-document"></a><h3>codeslayer_projects_select_document ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_projects_select_document (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_projects_select_document (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
@@ -235,14 +186,26 @@ Add the project to the tree.
 </div>
 <hr>
 <div class="refsect2">
+<a name="codeslayer-projects-refresh"></a><h3>codeslayer_projects_refresh ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_refresh         (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>);</pre>
+<p>
+Refresh the projects folders with the latest on the file system.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
 <a name="codeslayer-projects-add-popup-item"></a><h3>codeslayer_projects_add_popup_item ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_add_popup_item  (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
@@ -261,11 +224,8 @@ Add the project to the tree.
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_remove_popup_item
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
@@ -278,97 +238,61 @@ Add the project to the tree.
 </tbody>
 </table></div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-projects-search-find"></a><h3>codeslayer_projects_search_find ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_search_find     (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>.</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-projects-refresh"></a><h3>codeslayer_projects_refresh ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_refresh         (<em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>);</pre>
-<p>
-Refresh the projects folders with the latest on the file system.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>projects</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a>.</td>
-</tr></tbody>
-</table></div>
-</div>
 </div>
 <div class="refsect1">
 <a name="CodeSlayerProjects.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
 <a name="CodeSlayerProjects-copy-file-folder"></a><h3>The <code class="literal">"copy-file-folder"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerProjects-cut-file-folder"></a><h3>The <code class="literal">"cut-file-folder"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerProjects-delete-file-folder"></a><h3>The <code class="literal">"delete-file-folder"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerProjects-file-path-renamed"></a><h3>The <code class="literal">"file-path-renamed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>              *arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>              *arg2,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>              *arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>              *arg2,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerProjects-find-projects"></a><h3>The <code class="literal">"find-projects"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>              *arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>              *arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerProjects-paste-file-folder"></a><h3>The <code class="literal">"paste-file-folder"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerProjects-project-renamed"></a><h3>The <code class="literal">"project-renamed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::project_renamed signal is invoked when the project was updated.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayerprojects</code></em> :</span></p></td>
@@ -385,18 +309,15 @@ The ::project_renamed signal is invoked when the project was updated.
 <div class="refsect2">
 <a name="CodeSlayerProjects-projects-changed"></a><h3>The <code class="literal">"projects-changed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::projects_changed signal is invoked when the projects structure changed.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayerprojects</code></em> :</span></p></td>
@@ -414,18 +335,15 @@ The ::projects_changed signal is invoked when the projects structure changed.
 <a name="CodeSlayerProjects-properties-opened"></a><h3>The <code class="literal">"properties-opened"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
                                                         <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a>  *arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::properties-opened signal is a activated when the properties is opened.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayerprojects</code></em> :</span></p></td>
@@ -443,25 +361,22 @@ The ::properties-opened signal is a activated when the properties is opened.
 <a name="CodeSlayerProjects-properties-saved"></a><h3>The <code class="literal">"properties-saved"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
                                                         <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a>  *arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerProjects-remove-project"></a><h3>The <code class="literal">"remove-project"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
-The ::remove-project signal is a request to remove the project from the group.
+The ::remove-project signal is a request to remove the project from the profile.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayerprojects</code></em> :</span></p></td>
@@ -478,31 +393,28 @@ The ::remove-project signal is a request to remove the project from the group.
 <div class="refsect2">
 <a name="CodeSlayerProjects-rename-file-folder"></a><h3>The <code class="literal">"rename-file-folder"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerProjects-search-find"></a><h3>The <code class="literal">"search-find"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerProjects-select-document"></a><h3>The <code class="literal">"select-document"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *codeslayerprojects,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::select-document signal is a request to open the document in the notebook.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayerprojects</code></em> :</span></p></td>

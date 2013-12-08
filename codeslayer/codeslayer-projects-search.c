@@ -25,10 +25,10 @@
 #include <codeslayer/codeslayer-utils.h>
 
 /**
- * SECTION:codeslayer-search
+ * SECTION:codeslayer-projects-search
  * @short_description: The global search page.
  * @title: CodeSlayerProjectsSearch
- * @include: codeslayer/codeslayer-search.h
+ * @include: codeslayer/codeslayer-projects-search.h
  *
  * The global search will find text in the files under the active profile.
  */
@@ -243,7 +243,7 @@ codeslayer_projects_search_finalize (CodeSlayerProjectsSearch *search)
 /**
  * codeslayer_projects_search_new:
  * @window: a #GtkWindow.
- * @registry: a #CodeSlayerRegistry.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerProjectsSearch.
  *

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerMenuBarTools</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerMenuBarSearch.html" title="CodeSlayerMenuBarSearch">
@@ -47,6 +47,11 @@
 struct              <a class="link" href="CodeSlayerMenuBarTools.html#CodeSlayerMenuBarTools-struct" title="struct CodeSlayerMenuBarTools">CodeSlayerMenuBarTools</a>;
 <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBarTools.html#codeslayer-menu-bar-tools-new" title="codeslayer_menu_bar_tools_new ()">codeslayer_menu_bar_tools_new</a>       (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBarTools.html#codeslayer-menu-bar-tools-add-item" title="codeslayer_menu_bar_tools_add_item ()">codeslayer_menu_bar_tools_add_item</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBarTools.html#codeslayer-menu-bar-tools-remove-item" title="codeslayer_menu_bar_tools_remove_item ()">codeslayer_menu_bar_tools_remove_item</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -84,11 +89,8 @@ CodeSlayerMenuBarTools implements
 <p>
 Creates a new <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
@@ -101,6 +103,45 @@ Creates a new <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlay
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>a new <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-menu-bar-tools-add-item"></a><h3>codeslayer_menu_bar_tools_add_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_tools_add_item  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar_tools</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-menu-bar-tools-remove-item"></a><h3>codeslayer_menu_bar_tools_remove_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_tools_remove_item
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar_tools</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 </tbody>
 </table></div>

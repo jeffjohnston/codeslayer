@@ -105,6 +105,7 @@ codeslayer_preferences_list_view_finalize (CodeSlayerPreferencesListView *projec
 /**
  * codeslayer_preferences_list_view_new:
  * @preferences: a #CodeSlayerPreferences.
+ * @profile: a #CodeSlayerProfile.
  * @key: the preferences key.
  * @tab: a #GtkWidget.
  * @title: the title to give the section.

@@ -29,7 +29,7 @@
 #include <codeslayer/codeslayer-completion-proposal.h>
 
 /**
- * SECTION:codeslayer-source_view
+ * SECTION:codeslayer-sourceview
  * @short_description: The view to edit a document.
  * @title: CodeSlayerSourceView
  * @include: codeslayer/codeslayer-sourceview.h
@@ -198,7 +198,7 @@ codeslayer_source_view_finalize (CodeSlayerSourceView *source_view)
  * codeslayer_source_view_new:
  * @window: a #GtkWindow.
  * @document: the #CodeSlayerDocument for this source_view.
- * @registry: a #CodeSlayerRegistry.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerSourceView.
  *

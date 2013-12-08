@@ -335,7 +335,7 @@ codeslayer_profile_get_documents (CodeSlayerProfile *profile)
 /**
  * codeslayer_profile_set_documents:
  * @profile: a #CodeSlayerProfile.
- * @projects: the list of #CodeSlayerDocument objects to add to the profile.
+ * @documents: the list of #CodeSlayerDocument objects to add to the profile.
  */
 void
 codeslayer_profile_set_documents (CodeSlayerProfile *profile, 

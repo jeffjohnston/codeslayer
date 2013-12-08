@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerSourceView</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane">
+<link rel="next" href="CodeSlayerWindow.html" title="CodeSlayerWindow">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerSidePane.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerWindow.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerSourceView.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerSourceView.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerSourceView.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerSourceView.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#CodeSlayerSourceView.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="CodeSlayerSourceView"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerSourceView.top_of_page"></a>CodeSlayerSourceView</span></h2>
+<p>CodeSlayerSourceView — The view to edit a document.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="CodeSlayerSourceView.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-sourceview.h&gt;
+
+struct              <a class="link" href="CodeSlayerSourceView.html#CodeSlayerSourceView-struct" title="struct CodeSlayerSourceView">CodeSlayerSourceView</a>;
+#define             <a class="link" href="CodeSlayerSourceView.html#CODESLAYER-SOURCE-VIEW-UNTITLED:CAPS" title="CODESLAYER_SOURCE_VIEW_UNTITLED">CODESLAYER_SOURCE_VIEW_UNTITLED</a>
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-new" title="codeslayer_source_view_new ()">codeslayer_source_view_new</a>          (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
+<a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="returnvalue">CodeSlayerDocument</span></a> * <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-get-document" title="codeslayer_source_view_get_document ()">codeslayer_source_view_get_document</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Date-and-Time-Functions.html#GTimeVal"><span class="returnvalue">GTimeVal</span></a> *          <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-get-modification-time" title="codeslayer_source_view_get_modification_time ()">codeslayer_source_view_get_modification_time</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-set-modification-time" title="codeslayer_source_view_set_modification_time ()">codeslayer_source_view_set_modification_time</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Date-and-Time-Functions.html#GTimeVal"><span class="type">GTimeVal</span></a> *modification_time</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-add-completion-provider" title="codeslayer_source_view_add_completion_provider ()">codeslayer_source_view_add_completion_provider</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider"><span class="type">CodeSlayerCompletionProvider</span></a> *provider</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-set-text" title="codeslayer_source_view_set_text ()">codeslayer_source_view_set_text</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-scroll-to-line" title="codeslayer_source_view_scroll_to_line ()">codeslayer_source_view_scroll_to_line</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> line_number</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-sync-registry" title="codeslayer_source_view_sync_registry ()">codeslayer_source_view_sync_registry</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerSourceView.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk3/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html">GtkTextView</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtksourceview-3.0/GtkSourceView.html">GtkSourceView</a>
+                                 +----CodeSlayerSourceView
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerSourceView.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+CodeSlayerSourceView implements
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3/GtkScrollable.html">GtkScrollable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerSourceView.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="CodeSlayerSourceView.html#CodeSlayerSourceView-completion" title='The "completion" signal'>completion</a>"                                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerSourceView.html#CodeSlayerSourceView-copy-lines" title='The "copy-lines" signal'>copy-lines</a>"                                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerSourceView.html#CodeSlayerSourceView-to-lowercase" title='The "to-lowercase" signal'>to-lowercase</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerSourceView.html#CodeSlayerSourceView-to-uppercase" title='The "to-uppercase" signal'>to-uppercase</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerSourceView.description"></a><h2>Description</h2>
+<p>
+Extends the <a href="/usr/share/gtk-doc/html/gtksourceview-3.0/GtkSourceView.html"><span class="type">GtkSourceView</span></a> to further enhance how a document can be edited.
+</p>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerSourceView.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CodeSlayerSourceView-struct"></a><h3>struct CodeSlayerSourceView</h3>
+<pre class="programlisting">struct CodeSlayerSourceView;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-SOURCE-VIEW-UNTITLED:CAPS"></a><h3>CODESLAYER_SOURCE_VIEW_UNTITLED</h3>
+<pre class="programlisting">#define CODESLAYER_SOURCE_VIEW_UNTITLED "Document"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-source-view-new"></a><h3>codeslayer_source_view_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_source_view_new          (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
+<td>the <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> for this source_view.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-source-view-get-document"></a><h3>codeslayer_source_view_get_document ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="returnvalue">CodeSlayerDocument</span></a> * codeslayer_source_view_get_document
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source_view</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> that represents this source view.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-source-view-get-modification-time"></a><h3>codeslayer_source_view_get_modification_time ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Date-and-Time-Functions.html#GTimeVal"><span class="returnvalue">GTimeVal</span></a> *          codeslayer_source_view_get_modification_time
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source_view</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the modification time of the underlying file</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-source-view-set-modification-time"></a><h3>codeslayer_source_view_set_modification_time ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_source_view_set_modification_time
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Date-and-Time-Functions.html#GTimeVal"><span class="type">GTimeVal</span></a> *modification_time</code></em>);</pre>
+<p>
+The modification time of the underlying file
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source_view</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>modification_time</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/glib/glib-Date-and-Time-Functions.html#GTimeVal"><span class="type">GTimeVal</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-source-view-add-completion-provider"></a><h3>codeslayer_source_view_add_completion_provider ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_source_view_add_completion_provider
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider"><span class="type">CodeSlayerCompletionProvider</span></a> *provider</code></em>);</pre>
+<p>
+Add the provider to find possible matches for the completion window.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source_view</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>provider</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider"><span class="type">CodeSlayerCompletionProvider</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-source-view-set-text"></a><h3>codeslayer_source_view_set_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_source_view_set_text     (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>);</pre>
+<p>
+Add the text to the source view, while blocking the cursor position signal.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source_view</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td>the text to set.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-source-view-scroll-to-line"></a><h3>codeslayer_source_view_scroll_to_line ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_source_view_scroll_to_line
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> line_number</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source_view</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>line_number</code></em> :</span></p></td>
+<td>the line to scroll to within the source view.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-source-view-sync-registry"></a><h3>codeslayer_source_view_sync_registry ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_source_view_sync_registry
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>);</pre>
+<p>
+Apply the preferences to the current source view.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>source_view</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerSourceView.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="CodeSlayerSourceView-completion"></a><h3>The <code class="literal">"completion"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)        : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+The ::completion signal enables the (Ctrl + Space) keystroke to invoke the
+completion widget.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source_view</code></em> :</span></p></td>
+<td>the source view that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerSourceView-copy-lines"></a><h3>The <code class="literal">"copy-lines"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)        : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+The ::copy_lines signal is a request to copy the lines of the selected text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source_view</code></em> :</span></p></td>
+<td>the source view that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerSourceView-to-lowercase"></a><h3>The <code class="literal">"to-lowercase"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *codeslayersourceview,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)                 : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerSourceView-to-uppercase"></a><h3>The <code class="literal">"to-uppercase"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)        : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+The ::uppercase signal is a request to lowercase the selected text.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source_view</code></em> :</span></p></td>
+<td>the source view that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -4,20 +4,17 @@
   <chapters>
     <sub name="API Reference" link="ch01.html">
       <sub name="CodeSlayerAbstractPane" link="CodeSlayerAbstractPane.html"/>
+      <sub name="CodeSlayerApplication" link="CodeSlayerApplication.html"/>
       <sub name="CodeSlayerBottomPane" link="CodeSlayerBottomPane.html"/>
-      <sub name="CodeSlayerCompletion" link="CodeSlayerCompletion.html"/>
       <sub name="CodeSlayerCompletionProposal" link="CodeSlayerCompletionProposal.html"/>
       <sub name="CodeSlayerCompletionProvider" link="CodeSlayerCompletionProvider.html"/>
+      <sub name="CodeSlayerCompletion" link="CodeSlayerCompletion.html"/>
+      <sub name="CodeSlayerDocumentLinker" link="CodeSlayerDocumentLinker.html"/>
       <sub name="CodeSlayerDocument" link="CodeSlayerDocument.html"/>
-      <sub name="CodeSlayerEditor" link="CodeSlayerEditor.html"/>
-      <sub name="CodeSlayerEditorLinker" link="CodeSlayerEditorLinker.html"/>
       <sub name="CodeSlayerEngine" link="CodeSlayerEngine.html"/>
-      <sub name="CodeSlayerGroupProperties" link="CodeSlayerGroupProperties.html"/>
-      <sub name="CodeSlayerGroup" link="CodeSlayerGroup.html"/>
-      <sub name="CodeSlayerGroups" link="CodeSlayerGroups.html"/>
       <sub name="CodeSlayerListView" link="CodeSlayerListView.html"/>
-      <sub name="CodeSlayerMenuBarEditor" link="CodeSlayerMenuBarEditor.html"/>
-      <sub name="CodeSlayerMenuBarGroups" link="CodeSlayerMenuBarGroups.html"/>
+      <sub name="CodeSlayerMenuBarEdit" link="CodeSlayerMenuBarEdit.html"/>
+      <sub name="CodeSlayerMenuBarFile" link="CodeSlayerMenuBarFile.html"/>
       <sub name="CodeSlayerMenuBarHelp" link="CodeSlayerMenuBarHelp.html"/>
       <sub name="CodeSlayerMenuBarProjects" link="CodeSlayerMenuBarProjects.html"/>
       <sub name="CodeSlayerMenuBarSearch" link="CodeSlayerMenuBarSearch.html"/>
@@ -39,16 +36,21 @@
       <sub name="CodeSlayerPreferencesProjects" link="CodeSlayerPreferencesProjects.html"/>
       <sub name="CodeSlayerPreferencesTheme" link="CodeSlayerPreferencesTheme.html"/>
       <sub name="CodeSlayerPreferences" link="CodeSlayerPreferences.html"/>
+      <sub name="CodeSlayerProcess" link="CodeSlayerProcess.html"/>
       <sub name="CodeSlayerProcessBar" link="CodeSlayerProcessBar.html"/>
       <sub name="CodeSlayerProcesses" link="CodeSlayerProcesses.html"/>
-      <sub name="CodeSlayerProcess" link="CodeSlayerProcess.html"/>
+      <sub name="CodeSlayerProfile" link="CodeSlayerProfile.html"/>
+      <sub name="CodeSlayerProfilesManager" link="CodeSlayerProfilesManager.html"/>
+      <sub name="CodeSlayerProfiles" link="CodeSlayerProfiles.html"/>
       <sub name="CodeSlayerProjectProperties" link="CodeSlayerProjectProperties.html"/>
       <sub name="CodeSlayerProject" link="CodeSlayerProject.html"/>
+      <sub name="CodeSlayerProjectsSearch" link="CodeSlayerProjectsSearch.html"/>
       <sub name="CodeSlayerProjectsSelection" link="CodeSlayerProjectsSelection.html"/>
       <sub name="CodeSlayerProjects" link="CodeSlayerProjects.html"/>
-      <sub name="CodeSlayerSearch" link="CodeSlayerSearch.html"/>
-      <sub name="CodeSlayerSettings" link="CodeSlayerSettings.html"/>
+      <sub name="CodeSlayerRegistry" link="CodeSlayerRegistry.html"/>
       <sub name="CodeSlayerSidePane" link="CodeSlayerSidePane.html"/>
+      <sub name="CodeSlayerSourceView" link="CodeSlayerSourceView.html"/>
+      <sub name="CodeSlayerWindow" link="CodeSlayerWindow.html"/>
       <sub name="CodeSlayer" link="CodeSlayer.html"/>
     </sub>
     <sub name="Object Hierarchy" link="object-tree.html"/>
@@ -57,16 +59,27 @@
   <functions>
     <keyword type="struct" name="struct CodeSlayerAbstractPane" link="CodeSlayerAbstractPane.html#CodeSlayerAbstractPane-struct"/>
     <keyword type="function" name="codeslayer_abstract_pane_create_notebook ()" link="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-create-notebook"/>
-    <keyword type="function" name="codeslayer_abstract_pane_sync_preferences ()" link="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-sync-preferences"/>
-    <keyword type="function" name="codeslayer_abstract_pane_set_preferences ()" link="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-set-preferences"/>
+    <keyword type="function" name="codeslayer_abstract_pane_sync_registry ()" link="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-sync-registry"/>
+    <keyword type="function" name="codeslayer_abstract_pane_set_profile ()" link="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-set-profile"/>
     <keyword type="function" name="codeslayer_abstract_pane_add ()" link="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-add"/>
+    <keyword type="function" name="codeslayer_abstract_pane_insert ()" link="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-insert"/>
     <keyword type="function" name="codeslayer_abstract_pane_remove ()" link="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-remove"/>
+    <keyword type="function" name="codeslayer_abstract_pane_exists ()" link="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-exists"/>
     <keyword type="function" name="codeslayer_abstract_pane_open ()" link="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-open"/>
     <keyword type="function" name="codeslayer_abstract_pane_close ()" link="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-close"/>
     <keyword type="signal" name="The &quot;close-pane&quot; signal" link="CodeSlayerAbstractPane.html#CodeSlayerAbstractPane-close-pane"/>
     <keyword type="signal" name="The &quot;open-pane&quot; signal" link="CodeSlayerAbstractPane.html#CodeSlayerAbstractPane-open-pane"/>
+    <keyword type="struct" name="struct CodeSlayerApplication" link="CodeSlayerApplication.html#CodeSlayerApplication-struct"/>
+    <keyword type="function" name="codeslayer_application_new ()" link="CodeSlayerApplication.html#codeslayer-application-new"/>
     <keyword type="struct" name="struct CodeSlayerBottomPane" link="CodeSlayerBottomPane.html#CodeSlayerBottomPane-struct"/>
     <keyword type="function" name="codeslayer_bottom_pane_new ()" link="CodeSlayerBottomPane.html#codeslayer-bottom-pane-new"/>
+    <keyword type="struct" name="struct CodeSlayerCompletionProposal" link="CodeSlayerCompletionProposal.html#CodeSlayerCompletionProposal-struct"/>
+    <keyword type="function" name="codeslayer_completion_proposal_new ()" link="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-new"/>
+    <keyword type="function" name="codeslayer_completion_proposal_get_label ()" link="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-get-label"/>
+    <keyword type="function" name="codeslayer_completion_proposal_get_text ()" link="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-get-text"/>
+    <keyword type="function" name="codeslayer_completion_proposal_get_mark ()" link="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-get-mark"/>
+    <keyword type="struct" name="CodeSlayerCompletionProvider" link="CodeSlayerCompletionProvider.html#CodeSlayerCompletionProvider-struct"/>
+    <keyword type="function" name="codeslayer_completion_provider_get_proposals ()" link="CodeSlayerCompletionProvider.html#codeslayer-completion-provider-get-proposals"/>
     <keyword type="struct" name="struct CodeSlayerCompletion" link="CodeSlayerCompletion.html#CodeSlayerCompletion-struct"/>
     <keyword type="function" name="codeslayer_completion_new ()" link="CodeSlayerCompletion.html#codeslayer-completion-new"/>
     <keyword type="function" name="codeslayer_completion_add_provider ()" link="CodeSlayerCompletion.html#codeslayer-completion-add-provider"/>
@@ -79,132 +92,75 @@
     <keyword type="function" name="codeslayer_completion_toggle_down ()" link="CodeSlayerCompletion.html#codeslayer-completion-toggle-down"/>
     <keyword type="function" name="codeslayer_completion_mouse_within_popup ()" link="CodeSlayerCompletion.html#codeslayer-completion-mouse-within-popup"/>
     <keyword type="signal" name="The &quot;row-selected&quot; signal" link="CodeSlayerCompletion.html#CodeSlayerCompletion-row-selected"/>
-    <keyword type="struct" name="struct CodeSlayerCompletionProposal" link="CodeSlayerCompletionProposal.html#CodeSlayerCompletionProposal-struct"/>
-    <keyword type="function" name="codeslayer_completion_proposal_new ()" link="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-new"/>
-    <keyword type="function" name="codeslayer_completion_proposal_get_label ()" link="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-get-label"/>
-    <keyword type="function" name="codeslayer_completion_proposal_get_text ()" link="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-get-text"/>
-    <keyword type="function" name="codeslayer_completion_proposal_get_mark ()" link="CodeSlayerCompletionProposal.html#codeslayer-completion-proposal-get-mark"/>
-    <keyword type="struct" name="CodeSlayerCompletionProvider" link="CodeSlayerCompletionProvider.html#CodeSlayerCompletionProvider-struct"/>
-    <keyword type="function" name="codeslayer_completion_provider_get_proposals ()" link="CodeSlayerCompletionProvider.html#codeslayer-completion-provider-get-proposals"/>
+    <keyword type="struct" name="struct CodeSlayerDocumentLinker" link="CodeSlayerDocumentLinker.html#CodeSlayerDocumentLinker-struct"/>
+    <keyword type="function" name="codeslayer_document_linker_new ()" link="CodeSlayerDocumentLinker.html#codeslayer-document-linker-new"/>
+    <keyword type="function" name="codeslayer_document_linker_create_links ()" link="CodeSlayerDocumentLinker.html#codeslayer-document-linker-create-links"/>
+    <keyword type="function" name="codeslayer_document_linker_get_pattern ()" link="CodeSlayerDocumentLinker.html#codeslayer-document-linker-get-pattern"/>
+    <keyword type="function" name="codeslayer_document_linker_set_pattern ()" link="CodeSlayerDocumentLinker.html#codeslayer-document-linker-set-pattern"/>
+    <keyword type="property" name="The &quot;pattern&quot; property" link="CodeSlayerDocumentLinker.html#CodeSlayerDocumentLinker--pattern"/>
     <keyword type="struct" name="struct CodeSlayerDocument" link="CodeSlayerDocument.html#CodeSlayerDocument-struct"/>
     <keyword type="function" name="codeslayer_document_new ()" link="CodeSlayerDocument.html#codeslayer-document-new"/>
-    <keyword type="function" name="codeslayer_document_get_line_number ()" link="CodeSlayerDocument.html#codeslayer-document-get-line-number"/>
-    <keyword type="function" name="codeslayer_document_set_line_number ()" link="CodeSlayerDocument.html#codeslayer-document-set-line-number"/>
-    <keyword type="function" name="codeslayer_document_get_tree_row_reference ()" link="CodeSlayerDocument.html#codeslayer-document-get-tree-row-reference"/>
-    <keyword type="function" name="codeslayer_document_set_tree_row_reference ()" link="CodeSlayerDocument.html#codeslayer-document-set-tree-row-reference"/>
+    <keyword type="function" name="codeslayer_document_get_name ()" link="CodeSlayerDocument.html#codeslayer-document-get-name"/>
     <keyword type="function" name="codeslayer_document_get_file_path ()" link="CodeSlayerDocument.html#codeslayer-document-get-file-path"/>
     <keyword type="function" name="codeslayer_document_set_file_path ()" link="CodeSlayerDocument.html#codeslayer-document-set-file-path"/>
-    <keyword type="function" name="codeslayer_document_get_active ()" link="CodeSlayerDocument.html#codeslayer-document-get-active"/>
-    <keyword type="function" name="codeslayer_document_set_active ()" link="CodeSlayerDocument.html#codeslayer-document-set-active"/>
+    <keyword type="function" name="codeslayer_document_get_line_number ()" link="CodeSlayerDocument.html#codeslayer-document-get-line-number"/>
+    <keyword type="function" name="codeslayer_document_set_line_number ()" link="CodeSlayerDocument.html#codeslayer-document-set-line-number"/>
     <keyword type="function" name="codeslayer_document_get_project ()" link="CodeSlayerDocument.html#codeslayer-document-get-project"/>
     <keyword type="function" name="codeslayer_document_set_project ()" link="CodeSlayerDocument.html#codeslayer-document-set-project"/>
-    <keyword type="property" name="The &quot;active&quot; property" link="CodeSlayerDocument.html#CodeSlayerDocument--active"/>
+    <keyword type="function" name="codeslayer_document_get_source_view ()" link="CodeSlayerDocument.html#codeslayer-document-get-source-view"/>
+    <keyword type="function" name="codeslayer_document_set_source_view ()" link="CodeSlayerDocument.html#codeslayer-document-set-source-view"/>
+    <keyword type="function" name="codeslayer_document_get_tree_row_reference ()" link="CodeSlayerDocument.html#codeslayer-document-get-tree-row-reference"/>
+    <keyword type="function" name="codeslayer_document_set_tree_row_reference ()" link="CodeSlayerDocument.html#codeslayer-document-set-tree-row-reference"/>
     <keyword type="property" name="The &quot;file-path&quot; property" link="CodeSlayerDocument.html#CodeSlayerDocument--file-path"/>
     <keyword type="property" name="The &quot;line-number&quot; property" link="CodeSlayerDocument.html#CodeSlayerDocument--line-number"/>
+    <keyword type="property" name="The &quot;name&quot; property" link="CodeSlayerDocument.html#CodeSlayerDocument--name"/>
     <keyword type="property" name="The &quot;project&quot; property" link="CodeSlayerDocument.html#CodeSlayerDocument--project"/>
+    <keyword type="property" name="The &quot;source-view&quot; property" link="CodeSlayerDocument.html#CodeSlayerDocument--source-view"/>
     <keyword type="property" name="The &quot;tree-row-reference&quot; property" link="CodeSlayerDocument.html#CodeSlayerDocument--tree-row-reference"/>
-    <keyword type="struct" name="struct CodeSlayerEditor" link="CodeSlayerEditor.html#CodeSlayerEditor-struct"/>
-    <keyword type="function" name="codeslayer_editor_new ()" link="CodeSlayerEditor.html#codeslayer-editor-new"/>
-    <keyword type="function" name="codeslayer_editor_scroll_to_line ()" link="CodeSlayerEditor.html#codeslayer-editor-scroll-to-line"/>
-    <keyword type="function" name="codeslayer_editor_sync_settings_preferences ()" link="CodeSlayerEditor.html#codeslayer-editor-sync-settings-preferences"/>
-    <keyword type="function" name="codeslayer_editor_get_document ()" link="CodeSlayerEditor.html#codeslayer-editor-get-document"/>
-    <keyword type="function" name="codeslayer_editor_add_completion_provider ()" link="CodeSlayerEditor.html#codeslayer-editor-add-completion-provider"/>
-    <keyword type="function" name="codeslayer_editor_get_file_path ()" link="CodeSlayerEditor.html#codeslayer-editor-get-file-path"/>
-    <keyword type="function" name="codeslayer_editor_get_line_number ()" link="CodeSlayerEditor.html#codeslayer-editor-get-line-number"/>
-    <keyword type="function" name="codeslayer_editor_get_modification_time ()" link="CodeSlayerEditor.html#codeslayer-editor-get-modification-time"/>
-    <keyword type="function" name="codeslayer_editor_set_modification_time ()" link="CodeSlayerEditor.html#codeslayer-editor-set-modification-time"/>
-    <keyword type="function" name="codeslayer_editor_set_text ()" link="CodeSlayerEditor.html#codeslayer-editor-set-text"/>
-    <keyword type="signal" name="The &quot;completion&quot; signal" link="CodeSlayerEditor.html#CodeSlayerEditor-completion"/>
-    <keyword type="signal" name="The &quot;copy-lines&quot; signal" link="CodeSlayerEditor.html#CodeSlayerEditor-copy-lines"/>
-    <keyword type="signal" name="The &quot;to-lowercase&quot; signal" link="CodeSlayerEditor.html#CodeSlayerEditor-to-lowercase"/>
-    <keyword type="signal" name="The &quot;to-uppercase&quot; signal" link="CodeSlayerEditor.html#CodeSlayerEditor-to-uppercase"/>
-    <keyword type="struct" name="struct CodeSlayerEditorLinker" link="CodeSlayerEditorLinker.html#CodeSlayerEditorLinker-struct"/>
-    <keyword type="function" name="codeslayer_editor_linker_new ()" link="CodeSlayerEditorLinker.html#codeslayer-editor-linker-new"/>
-    <keyword type="function" name="codeslayer_editor_linker_create_links ()" link="CodeSlayerEditorLinker.html#codeslayer-editor-linker-create-links"/>
-    <keyword type="function" name="codeslayer_editor_linker_get_pattern ()" link="CodeSlayerEditorLinker.html#codeslayer-editor-linker-get-pattern"/>
-    <keyword type="function" name="codeslayer_editor_linker_set_pattern ()" link="CodeSlayerEditorLinker.html#codeslayer-editor-linker-set-pattern"/>
-    <keyword type="property" name="The &quot;pattern&quot; property" link="CodeSlayerEditorLinker.html#CodeSlayerEditorLinker--pattern"/>
     <keyword type="struct" name="struct CodeSlayerEngine" link="CodeSlayerEngine.html#CodeSlayerEngine-struct"/>
     <keyword type="function" name="codeslayer_engine_new ()" link="CodeSlayerEngine.html#codeslayer-engine-new"/>
-    <keyword type="function" name="codeslayer_engine_close_active_group ()" link="CodeSlayerEngine.html#codeslayer-engine-close-active-group"/>
-    <keyword type="function" name="codeslayer_engine_open_active_group ()" link="CodeSlayerEngine.html#codeslayer-engine-open-active-group"/>
-    <keyword type="struct" name="struct CodeSlayerGroupProperties" link="CodeSlayerGroupProperties.html#CodeSlayerGroupProperties-struct"/>
-    <keyword type="function" name="codeslayer_group_properties_new ()" link="CodeSlayerGroupProperties.html#codeslayer-group-properties-new"/>
-    <keyword type="function" name="codeslayer_group_properties_get_name ()" link="CodeSlayerGroupProperties.html#codeslayer-group-properties-get-name"/>
-    <keyword type="struct" name="struct CodeSlayerGroup" link="CodeSlayerGroup.html#CodeSlayerGroup-struct"/>
-    <keyword type="function" name="codeslayer_group_new ()" link="CodeSlayerGroup.html#codeslayer-group-new"/>
-    <keyword type="function" name="codeslayer_group_get_name ()" link="CodeSlayerGroup.html#codeslayer-group-get-name"/>
-    <keyword type="function" name="codeslayer_group_set_name ()" link="CodeSlayerGroup.html#codeslayer-group-set-name"/>
-    <keyword type="function" name="codeslayer_group_get_projects ()" link="CodeSlayerGroup.html#codeslayer-group-get-projects"/>
-    <keyword type="function" name="codeslayer_group_set_projects ()" link="CodeSlayerGroup.html#codeslayer-group-set-projects"/>
-    <keyword type="function" name="codeslayer_group_find_project ()" link="CodeSlayerGroup.html#codeslayer-group-find-project"/>
-    <keyword type="function" name="codeslayer_group_add_project ()" link="CodeSlayerGroup.html#codeslayer-group-add-project"/>
-    <keyword type="function" name="codeslayer_group_remove_project ()" link="CodeSlayerGroup.html#codeslayer-group-remove-project"/>
-    <keyword type="function" name="codeslayer_group_contains_project ()" link="CodeSlayerGroup.html#codeslayer-group-contains-project"/>
-    <keyword type="function" name="codeslayer_group_get_project_by_file_path ()" link="CodeSlayerGroup.html#codeslayer-group-get-project-by-file-path"/>
-    <keyword type="function" name="codeslayer_group_add_lib ()" link="CodeSlayerGroup.html#codeslayer-group-add-lib"/>
-    <keyword type="function" name="codeslayer_group_contains_lib ()" link="CodeSlayerGroup.html#codeslayer-group-contains-lib"/>
-    <keyword type="function" name="codeslayer_group_get_libs ()" link="CodeSlayerGroup.html#codeslayer-group-get-libs"/>
-    <keyword type="function" name="codeslayer_group_remove_lib ()" link="CodeSlayerGroup.html#codeslayer-group-remove-lib"/>
-    <keyword type="function" name="codeslayer_group_set_libs ()" link="CodeSlayerGroup.html#codeslayer-group-set-libs"/>
-    <keyword type="property" name="The &quot;libs&quot; property" link="CodeSlayerGroup.html#CodeSlayerGroup--libs"/>
-    <keyword type="property" name="The &quot;name&quot; property" link="CodeSlayerGroup.html#CodeSlayerGroup--name"/>
-    <keyword type="property" name="The &quot;projects&quot; property" link="CodeSlayerGroup.html#CodeSlayerGroup--projects"/>
-    <keyword type="struct" name="struct CodeSlayerGroups" link="CodeSlayerGroups.html#CodeSlayerGroups-struct"/>
-    <keyword type="function" name="codeslayer_groups_new ()" link="CodeSlayerGroups.html#codeslayer-groups-new"/>
-    <keyword type="function" name="codeslayer_groups_get_list ()" link="CodeSlayerGroups.html#codeslayer-groups-get-list"/>
-    <keyword type="function" name="codeslayer_groups_set_list ()" link="CodeSlayerGroups.html#codeslayer-groups-set-list"/>
-    <keyword type="function" name="codeslayer_groups_add_group ()" link="CodeSlayerGroups.html#codeslayer-groups-add-group"/>
-    <keyword type="function" name="codeslayer_groups_remove_group ()" link="CodeSlayerGroups.html#codeslayer-groups-remove-group"/>
-    <keyword type="function" name="codeslayer_groups_find_group ()" link="CodeSlayerGroups.html#codeslayer-groups-find-group"/>
-    <keyword type="function" name="codeslayer_groups_find_next_group ()" link="CodeSlayerGroups.html#codeslayer-groups-find-next-group"/>
-    <keyword type="function" name="codeslayer_groups_get_active_group ()" link="CodeSlayerGroups.html#codeslayer-groups-get-active-group"/>
-    <keyword type="function" name="codeslayer_groups_set_active_group ()" link="CodeSlayerGroups.html#codeslayer-groups-set-active-group"/>
-    <keyword type="macro" name="CODESLAYER_DEFAULT_GROUP_DIR" link="CodeSlayerGroups.html#CODESLAYER-DEFAULT-GROUP-DIR:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_GROUPS_ACTVIE" link="CodeSlayerGroups.html#CODESLAYER-GROUPS-ACTVIE:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_GROUPS_CONF" link="CodeSlayerGroups.html#CODESLAYER-GROUPS-CONF:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_GROUPS_DIR" link="CodeSlayerGroups.html#CODESLAYER-GROUPS-DIR:CAPS"/>
-    <keyword type="property" name="The &quot;active&quot; property" link="CodeSlayerGroups.html#CodeSlayerGroups--active"/>
-    <keyword type="property" name="The &quot;list&quot; property" link="CodeSlayerGroups.html#CodeSlayerGroups--list"/>
+    <keyword type="function" name="codeslayer_engine_load_profile ()" link="CodeSlayerEngine.html#codeslayer-engine-load-profile"/>
+    <keyword type="function" name="codeslayer_engine_open_document ()" link="CodeSlayerEngine.html#codeslayer-engine-open-document"/>
+    <keyword type="function" name="codeslayer_engine_save_profile ()" link="CodeSlayerEngine.html#codeslayer-engine-save-profile"/>
     <keyword type="struct" name="struct CodeSlayerListView" link="CodeSlayerListView.html#CodeSlayerListView-struct"/>
     <keyword type="function" name="codeslayer_list_view_new ()" link="CodeSlayerListView.html#codeslayer-list-view-new"/>
     <keyword type="function" name="codeslayer_list_view_add_text ()" link="CodeSlayerListView.html#codeslayer-list-view-add-text"/>
     <keyword type="signal" name="The &quot;list-changed&quot; signal" link="CodeSlayerListView.html#CodeSlayerListView-list-changed"/>
-    <keyword type="struct" name="struct CodeSlayerMenuBarEditor" link="CodeSlayerMenuBarEditor.html#CodeSlayerMenuBarEditor-struct"/>
-    <keyword type="function" name="codeslayer_menu_bar_editor_new ()" link="CodeSlayerMenuBarEditor.html#codeslayer-menu-bar-editor-new"/>
-    <keyword type="function" name="codeslayer_menu_bar_editor_sync_with_notebook ()" link="CodeSlayerMenuBarEditor.html#codeslayer-menu-bar-editor-sync-with-notebook"/>
-    <keyword type="struct" name="struct CodeSlayerMenuBarGroups" link="CodeSlayerMenuBarGroups.html#CodeSlayerMenuBarGroups-struct"/>
-    <keyword type="function" name="codeslayer_menu_bar_groups_new ()" link="CodeSlayerMenuBarGroups.html#codeslayer-menu-bar-groups-new"/>
-    <keyword type="function" name="codeslayer_menu_bar_groups_refresh_groups ()" link="CodeSlayerMenuBarGroups.html#codeslayer-menu-bar-groups-refresh-groups"/>
+    <keyword type="struct" name="struct CodeSlayerMenuBarEdit" link="CodeSlayerMenuBarEdit.html#CodeSlayerMenuBarEdit-struct"/>
+    <keyword type="function" name="codeslayer_menu_bar_edit_new ()" link="CodeSlayerMenuBarEdit.html#codeslayer-menu-bar-edit-new"/>
+    <keyword type="struct" name="struct CodeSlayerMenuBarFile" link="CodeSlayerMenuBarFile.html#CodeSlayerMenuBarFile-struct"/>
+    <keyword type="function" name="codeslayer_menu_bar_file_new ()" link="CodeSlayerMenuBarFile.html#codeslayer-menu-bar-file-new"/>
     <keyword type="struct" name="struct CodeSlayerMenuBarHelp" link="CodeSlayerMenuBarHelp.html#CodeSlayerMenuBarHelp-struct"/>
     <keyword type="function" name="codeslayer_menu_bar_help_new ()" link="CodeSlayerMenuBarHelp.html#codeslayer-menu-bar-help-new"/>
     <keyword type="struct" name="struct CodeSlayerMenuBarProjects" link="CodeSlayerMenuBarProjects.html#CodeSlayerMenuBarProjects-struct"/>
     <keyword type="function" name="codeslayer_menu_bar_projects_new ()" link="CodeSlayerMenuBarProjects.html#codeslayer-menu-bar-projects-new"/>
     <keyword type="struct" name="struct CodeSlayerMenuBarSearch" link="CodeSlayerMenuBarSearch.html#CodeSlayerMenuBarSearch-struct"/>
     <keyword type="function" name="codeslayer_menu_bar_search_new ()" link="CodeSlayerMenuBarSearch.html#codeslayer-menu-bar-search-new"/>
-    <keyword type="function" name="codeslayer_menu_bar_search_sync_with_notebook ()" link="CodeSlayerMenuBarSearch.html#codeslayer-menu-bar-search-sync-with-notebook"/>
     <keyword type="struct" name="struct CodeSlayerMenuBarTools" link="CodeSlayerMenuBarTools.html#CodeSlayerMenuBarTools-struct"/>
     <keyword type="function" name="codeslayer_menu_bar_tools_new ()" link="CodeSlayerMenuBarTools.html#codeslayer-menu-bar-tools-new"/>
+    <keyword type="function" name="codeslayer_menu_bar_tools_add_item ()" link="CodeSlayerMenuBarTools.html#codeslayer-menu-bar-tools-add-item"/>
+    <keyword type="function" name="codeslayer_menu_bar_tools_remove_item ()" link="CodeSlayerMenuBarTools.html#codeslayer-menu-bar-tools-remove-item"/>
     <keyword type="struct" name="struct CodeSlayerMenuBarView" link="CodeSlayerMenuBarView.html#CodeSlayerMenuBarView-struct"/>
     <keyword type="function" name="codeslayer_menu_bar_view_new ()" link="CodeSlayerMenuBarView.html#codeslayer-menu-bar-view-new"/>
-    <keyword type="function" name="codeslayer_menu_bar_view_sync_with_panes ()" link="CodeSlayerMenuBarView.html#codeslayer-menu-bar-view-sync-with-panes"/>
     <keyword type="struct" name="struct CodeSlayerMenuBar" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-struct"/>
     <keyword type="function" name="codeslayer_menu_bar_new ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-new"/>
-    <keyword type="function" name="codeslayer_menu_bar_save_editor ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-editor"/>
-    <keyword type="function" name="codeslayer_menu_bar_save_all_editors ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-all-editors"/>
-    <keyword type="function" name="codeslayer_menu_bar_close_editor ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-close-editor"/>
+    <keyword type="function" name="codeslayer_menu_bar_new_document ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-new-document"/>
+    <keyword type="function" name="codeslayer_menu_bar_open_document ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-open-document"/>
+    <keyword type="function" name="codeslayer_menu_bar_save_document ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-document"/>
+    <keyword type="function" name="codeslayer_menu_bar_save_all_documents ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-all-documents"/>
+    <keyword type="function" name="codeslayer_menu_bar_close_document ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-close-document"/>
     <keyword type="function" name="codeslayer_menu_bar_quit_application ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-quit-application"/>
-    <keyword type="function" name="codeslayer_menu_bar_undo ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-undo"/>
-    <keyword type="function" name="codeslayer_menu_bar_redo ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-redo"/>
     <keyword type="function" name="codeslayer_menu_bar_cut ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-cut"/>
     <keyword type="function" name="codeslayer_menu_bar_copy ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-copy"/>
     <keyword type="function" name="codeslayer_menu_bar_paste ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-paste"/>
     <keyword type="function" name="codeslayer_menu_bar_delete ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-delete"/>
-    <keyword type="function" name="codeslayer_menu_bar_select_all ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-select-all"/>
     <keyword type="function" name="codeslayer_menu_bar_to_uppercase ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-to-uppercase"/>
     <keyword type="function" name="codeslayer_menu_bar_to_lowercase ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-to-lowercase"/>
     <keyword type="function" name="codeslayer_menu_bar_copy_lines ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-copy-lines"/>
     <keyword type="function" name="codeslayer_menu_bar_show_preferences ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-preferences"/>
+    <keyword type="function" name="codeslayer_menu_bar_show_profiles ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-profiles"/>
+    <keyword type="function" name="codeslayer_menu_bar_sync_with_document ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-with-document"/>
+    <keyword type="function" name="codeslayer_menu_bar_scan_external_changes ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-scan-external-changes"/>
     <keyword type="function" name="codeslayer_menu_bar_find ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-find"/>
     <keyword type="function" name="codeslayer_menu_bar_replace ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-replace"/>
     <keyword type="function" name="codeslayer_menu_bar_find_next ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-find-next"/>
@@ -215,24 +171,14 @@
     <keyword type="function" name="codeslayer_menu_bar_show_side_pane ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-side-pane"/>
     <keyword type="function" name="codeslayer_menu_bar_show_bottom_pane ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-bottom-pane"/>
     <keyword type="function" name="codeslayer_menu_bar_draw_spaces ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-draw-spaces"/>
-    <keyword type="function" name="codeslayer_menu_bar_refresh_groups ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-refresh-groups"/>
-    <keyword type="function" name="codeslayer_menu_bar_group_changed ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-group-changed"/>
-    <keyword type="function" name="codeslayer_menu_bar_new_group ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-new-group"/>
-    <keyword type="function" name="codeslayer_menu_bar_rename_group ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-rename-group"/>
-    <keyword type="function" name="codeslayer_menu_bar_remove_group ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-remove-group"/>
-    <keyword type="function" name="codeslayer_menu_bar_sync_with_notebook ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-with-notebook"/>
-    <keyword type="function" name="codeslayer_menu_bar_sync_with_panes ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-with-panes"/>
+    <keyword type="function" name="codeslayer_menu_bar_word_wrap ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-word-wrap"/>
     <keyword type="function" name="codeslayer_menu_bar_add_tools_item ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-add-tools-item"/>
+    <keyword type="function" name="codeslayer_menu_bar_remove_tools_item ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-remove-tools-item"/>
     <keyword type="function" name="codeslayer_menu_bar_get_accel_group ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-get-accel-group"/>
     <keyword type="function" name="codeslayer_menu_bar_add_projects ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-add-projects"/>
     <keyword type="function" name="codeslayer_menu_bar_show_plugins ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-plugins"/>
-    <keyword type="function" name="codeslayer_menu_bar_remove_tools_item ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-remove-tools-item"/>
-    <keyword type="function" name="codeslayer_menu_bar_tools_add_item ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-tools-add-item"/>
-    <keyword type="function" name="codeslayer_menu_bar_tools_remove_item ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-tools-remove-item"/>
-    <keyword type="function" name="codeslayer_menu_bar_sync_projects_with_editor ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-projects-with-editor"/>
-    <keyword type="function" name="codeslayer_menu_bar_scan_external_changes ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-scan-external-changes"/>
     <keyword type="signal" name="The &quot;add-projects&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-add-projects"/>
-    <keyword type="signal" name="The &quot;close-editor&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-close-editor"/>
+    <keyword type="signal" name="The &quot;close-document&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-close-document"/>
     <keyword type="signal" name="The &quot;copy&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-copy"/>
     <keyword type="signal" name="The &quot;copy-lines&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-copy-lines"/>
     <keyword type="signal" name="The &quot;cut&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-cut"/>
@@ -244,36 +190,35 @@
     <keyword type="signal" name="The &quot;find-projects&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-find-projects"/>
     <keyword type="signal" name="The &quot;fullscreen-window&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-fullscreen-window"/>
     <keyword type="signal" name="The &quot;go-to-line&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-go-to-line"/>
-    <keyword type="signal" name="The &quot;group-changed&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-group-changed"/>
-    <keyword type="signal" name="The &quot;new-group&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-new-group"/>
+    <keyword type="signal" name="The &quot;new-document&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-new-document"/>
+    <keyword type="signal" name="The &quot;open-document&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-open-document"/>
     <keyword type="signal" name="The &quot;paste&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-paste"/>
     <keyword type="signal" name="The &quot;quit-application&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-quit-application"/>
-    <keyword type="signal" name="The &quot;redo&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-redo"/>
-    <keyword type="signal" name="The &quot;remove-group&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-remove-group"/>
-    <keyword type="signal" name="The &quot;rename-group&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-rename-group"/>
     <keyword type="signal" name="The &quot;replace&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-replace"/>
-    <keyword type="signal" name="The &quot;save-all-editors&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-all-editors"/>
-    <keyword type="signal" name="The &quot;save-editor&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-editor"/>
+    <keyword type="signal" name="The &quot;save-all-documents&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-all-documents"/>
+    <keyword type="signal" name="The &quot;save-document&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-document"/>
     <keyword type="signal" name="The &quot;scan-external-changes&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-scan-external-changes"/>
-    <keyword type="signal" name="The &quot;select-all&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-select-all"/>
     <keyword type="signal" name="The &quot;show-bottom-pane&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-bottom-pane"/>
     <keyword type="signal" name="The &quot;show-plugins&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-plugins"/>
     <keyword type="signal" name="The &quot;show-preferences&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-preferences"/>
+    <keyword type="signal" name="The &quot;show-profiles&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-profiles"/>
     <keyword type="signal" name="The &quot;show-side-pane&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-side-pane"/>
-    <keyword type="signal" name="The &quot;sync-projects-with-editor&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-sync-projects-with-editor"/>
+    <keyword type="signal" name="The &quot;sync-engine&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-sync-engine"/>
+    <keyword type="signal" name="The &quot;sync-with-document&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-sync-with-document"/>
     <keyword type="signal" name="The &quot;to-lowercase&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-to-lowercase"/>
     <keyword type="signal" name="The &quot;to-uppercase&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-to-uppercase"/>
-    <keyword type="signal" name="The &quot;undo&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-undo"/>
+    <keyword type="signal" name="The &quot;word-wrap&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-word-wrap"/>
     <keyword type="struct" name="struct CodeSlayerMenuItem" link="CodeSlayerMenuItem.html#CodeSlayerMenuItem-struct"/>
     <keyword type="function" name="codeslayer_menu_item_new ()" link="CodeSlayerMenuItem.html#codeslayer-menu-item-new"/>
     <keyword type="function" name="codeslayer_menu_item_new_with_label ()" link="CodeSlayerMenuItem.html#codeslayer-menu-item-new-with-label"/>
     <keyword type="signal" name="The &quot;projects-menu-selected&quot; signal" link="CodeSlayerMenuItem.html#CodeSlayerMenuItem-projects-menu-selected"/>
     <keyword type="struct" name="struct CodeSlayerNotebookPage" link="CodeSlayerNotebookPage.html#CodeSlayerNotebookPage-struct"/>
     <keyword type="function" name="codeslayer_notebook_page_new ()" link="CodeSlayerNotebookPage.html#codeslayer-notebook-page-new"/>
-    <keyword type="function" name="codeslayer_notebook_page_get_editor ()" link="CodeSlayerNotebookPage.html#codeslayer-notebook-page-get-editor"/>
-    <keyword type="function" name="codeslayer_notebook_page_get_document ()" link="CodeSlayerNotebookPage.html#codeslayer-notebook-page-get-document"/>
+    <keyword type="function" name="codeslayer_notebook_page_get_source_view ()" link="CodeSlayerNotebookPage.html#codeslayer-notebook-page-get-source-view"/>
     <keyword type="function" name="codeslayer_notebook_page_show_document_not_found_info_bar ()" link="CodeSlayerNotebookPage.html#codeslayer-notebook-page-show-document-not-found-info-bar"/>
     <keyword type="function" name="codeslayer_notebook_page_show_external_changes_info_bar ()" link="CodeSlayerNotebookPage.html#codeslayer-notebook-page-show-external-changes-info-bar"/>
+    <keyword type="function" name="codeslayer_notebook_page_load_source_view ()" link="CodeSlayerNotebookPage.html#codeslayer-notebook-page-load-source-view"/>
+    <keyword type="function" name="codeslayer_notebook_page_save_source_view ()" link="CodeSlayerNotebookPage.html#codeslayer-notebook-page-save-source-view"/>
     <keyword type="struct" name="struct CodeSlayerNotebookPane" link="CodeSlayerNotebookPane.html#CodeSlayerNotebookPane-struct"/>
     <keyword type="function" name="codeslayer_notebook_pane_new ()" link="CodeSlayerNotebookPane.html#codeslayer-notebook-pane-new"/>
     <keyword type="function" name="codeslayer_notebook_pane_get_notebook ()" link="CodeSlayerNotebookPane.html#codeslayer-notebook-pane-get-notebook"/>
@@ -305,24 +250,26 @@
     <keyword type="function" name="codeslayer_notebook_tab_set_notebook_page ()" link="CodeSlayerNotebookTab.html#codeslayer-notebook-tab-set-notebook-page"/>
     <keyword type="function" name="codeslayer_notebook_tab_set_label_name ()" link="CodeSlayerNotebookTab.html#codeslayer-notebook-tab-set-label-name"/>
     <keyword type="property" name="The &quot;notebook-page&quot; property" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab--notebook-page"/>
-    <keyword type="signal" name="The &quot;close-all-editors&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-all-editors"/>
-    <keyword type="signal" name="The &quot;close-editor&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-editor"/>
-    <keyword type="signal" name="The &quot;close-left-editors&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-left-editors"/>
-    <keyword type="signal" name="The &quot;close-other-editors&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-other-editors"/>
-    <keyword type="signal" name="The &quot;close-right-editors&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-right-editors"/>
-    <keyword type="signal" name="The &quot;select-editor&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-select-editor"/>
+    <keyword type="signal" name="The &quot;close-all-documents&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-all-documents"/>
+    <keyword type="signal" name="The &quot;close-document&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-document"/>
+    <keyword type="signal" name="The &quot;close-left-documents&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-left-documents"/>
+    <keyword type="signal" name="The &quot;close-other-documents&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-other-documents"/>
+    <keyword type="signal" name="The &quot;close-right-documents&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-right-documents"/>
+    <keyword type="signal" name="The &quot;select-document&quot; signal" link="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-select-document"/>
     <keyword type="struct" name="struct CodeSlayerNotebook" link="CodeSlayerNotebook.html#CodeSlayerNotebook-struct"/>
     <keyword type="function" name="codeslayer_notebook_new ()" link="CodeSlayerNotebook.html#codeslayer-notebook-new"/>
-    <keyword type="function" name="codeslayer_notebook_add_editor ()" link="CodeSlayerNotebook.html#codeslayer-notebook-add-editor"/>
-    <keyword type="function" name="codeslayer_notebook_save_editor ()" link="CodeSlayerNotebook.html#codeslayer-notebook-save-editor"/>
-    <keyword type="function" name="codeslayer_notebook_save_all_editors ()" link="CodeSlayerNotebook.html#codeslayer-notebook-save-all-editors"/>
-    <keyword type="function" name="codeslayer_notebook_has_unsaved_editors ()" link="CodeSlayerNotebook.html#codeslayer-notebook-has-unsaved-editors"/>
-    <keyword type="function" name="codeslayer_notebook_close_editor ()" link="CodeSlayerNotebook.html#codeslayer-notebook-close-editor"/>
-    <keyword type="function" name="codeslayer_notebook_close_all_editors ()" link="CodeSlayerNotebook.html#codeslayer-notebook-close-all-editors"/>
-    <keyword type="function" name="codeslayer_notebook_get_active_editor ()" link="CodeSlayerNotebook.html#codeslayer-notebook-get-active-editor"/>
-    <keyword type="signal" name="The &quot;editor-saved&quot; signal" link="CodeSlayerNotebook.html#CodeSlayerNotebook-editor-saved"/>
-    <keyword type="signal" name="The &quot;editors-all-saved&quot; signal" link="CodeSlayerNotebook.html#CodeSlayerNotebook-editors-all-saved"/>
-    <keyword type="signal" name="The &quot;select-editor&quot; signal" link="CodeSlayerNotebook.html#CodeSlayerNotebook-select-editor"/>
+    <keyword type="function" name="codeslayer_notebook_add_document ()" link="CodeSlayerNotebook.html#codeslayer-notebook-add-document"/>
+    <keyword type="function" name="codeslayer_notebook_select_document ()" link="CodeSlayerNotebook.html#codeslayer-notebook-select-document"/>
+    <keyword type="function" name="codeslayer_notebook_save_document ()" link="CodeSlayerNotebook.html#codeslayer-notebook-save-document"/>
+    <keyword type="function" name="codeslayer_notebook_save_all_documents ()" link="CodeSlayerNotebook.html#codeslayer-notebook-save-all-documents"/>
+    <keyword type="function" name="codeslayer_notebook_has_unsaved_documents ()" link="CodeSlayerNotebook.html#codeslayer-notebook-has-unsaved-documents"/>
+    <keyword type="function" name="codeslayer_notebook_close_document ()" link="CodeSlayerNotebook.html#codeslayer-notebook-close-document"/>
+    <keyword type="function" name="codeslayer_notebook_close_all_documents ()" link="CodeSlayerNotebook.html#codeslayer-notebook-close-all-documents"/>
+    <keyword type="function" name="codeslayer_notebook_get_active_source_view ()" link="CodeSlayerNotebook.html#codeslayer-notebook-get-active-source-view"/>
+    <keyword type="function" name="codeslayer_notebook_get_all_source_views ()" link="CodeSlayerNotebook.html#codeslayer-notebook-get-all-source-views"/>
+    <keyword type="signal" name="The &quot;document-saved&quot; signal" link="CodeSlayerNotebook.html#CodeSlayerNotebook-document-saved"/>
+    <keyword type="signal" name="The &quot;documents-all-saved&quot; signal" link="CodeSlayerNotebook.html#CodeSlayerNotebook-documents-all-saved"/>
+    <keyword type="signal" name="The &quot;select-document&quot; signal" link="CodeSlayerNotebook.html#CodeSlayerNotebook-select-document"/>
     <keyword type="struct" name="struct CodeSlayerPlugin" link="CodeSlayerPlugin.html#CodeSlayerPlugin-struct"/>
     <keyword type="function" name="codeslayer_plugin_new ()" link="CodeSlayerPlugin.html#codeslayer-plugin-new"/>
     <keyword type="function" name="codeslayer_plugin_get_lib ()" link="CodeSlayerPlugin.html#codeslayer-plugin-get-lib"/>
@@ -367,7 +314,6 @@
     <keyword type="macro" name="CODESLAYER_PLUGINS_DIR" link="CodeSlayerPlugins.html#CODESLAYER-PLUGINS-DIR:CAPS"/>
     <keyword type="struct" name="struct CodeSlayerPreferencesEditor" link="CodeSlayerPreferencesEditor.html#CodeSlayerPreferencesEditor-struct"/>
     <keyword type="function" name="codeslayer_preferences_editor_new ()" link="CodeSlayerPreferencesEditor.html#codeslayer-preferences-editor-new"/>
-    <keyword type="function" name="codeslayer_preferences_load ()" link="CodeSlayerPreferencesEditor.html#codeslayer-preferences-load"/>
     <keyword type="struct" name="struct CodeSlayerPreferencesListView" link="CodeSlayerPreferencesListView.html#CodeSlayerPreferencesListView-struct"/>
     <keyword type="function" name="codeslayer_preferences_list_view_new ()" link="CodeSlayerPreferencesListView.html#codeslayer-preferences-list-view-new"/>
     <keyword type="signal" name="The &quot;list-changed&quot; signal" link="CodeSlayerPreferencesListView.html#CodeSlayerPreferencesListView-list-changed"/>
@@ -377,51 +323,11 @@
     <keyword type="function" name="codeslayer_preferences_projects_new ()" link="CodeSlayerPreferencesProjects.html#codeslayer-preferences-projects-new"/>
     <keyword type="struct" name="struct CodeSlayerPreferencesTheme" link="CodeSlayerPreferencesTheme.html#CodeSlayerPreferencesTheme-struct"/>
     <keyword type="function" name="codeslayer_preferences_theme_new ()" link="CodeSlayerPreferencesTheme.html#codeslayer-preferences-theme-new"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBERS:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-CURRENT-LINE:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-RIGHT-MARGIN:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-MATCHING-BRACKET:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-INSERT-SPACES-INSTEAD-OF-TABS:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-ENABLE-AUTOMATIC-INDENTATION:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-RIGHT-MARGIN-POSITION:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-TAB-WIDTH:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_FONT" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-FONT:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_THEME" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-THEME:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-BOTTOM-PANE-TAB-POSITION:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-SIDE-PANE-TAB-POSITION:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_HOME" link="CodeSlayerPreferences.html#CODESLAYER-HOME:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-WORD-WRAP-TYPES:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-TAB-POSITION:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-PROJECTS-EXCLUDE-DIRS:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES" link="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-PROJECTS-EXCLUDE-TYPES:CAPS"/>
     <keyword type="struct" name="struct CodeSlayerPreferences" link="CodeSlayerPreferences.html#CodeSlayerPreferences-struct"/>
     <keyword type="function" name="codeslayer_preferences_new ()" link="CodeSlayerPreferences.html#codeslayer-preferences-new"/>
-    <keyword type="function" name="codeslayer_preferences_get_integer ()" link="CodeSlayerPreferences.html#codeslayer-preferences-get-integer"/>
-    <keyword type="function" name="codeslayer_preferences_set_integer ()" link="CodeSlayerPreferences.html#codeslayer-preferences-set-integer"/>
-    <keyword type="function" name="codeslayer_preferences_get_double ()" link="CodeSlayerPreferences.html#codeslayer-preferences-get-double"/>
-    <keyword type="function" name="codeslayer_preferences_set_double ()" link="CodeSlayerPreferences.html#codeslayer-preferences-set-double"/>
-    <keyword type="function" name="codeslayer_preferences_get_boolean ()" link="CodeSlayerPreferences.html#codeslayer-preferences-get-boolean"/>
-    <keyword type="function" name="codeslayer_preferences_set_boolean ()" link="CodeSlayerPreferences.html#codeslayer-preferences-set-boolean"/>
-    <keyword type="function" name="codeslayer_preferences_get_string ()" link="CodeSlayerPreferences.html#codeslayer-preferences-get-string"/>
-    <keyword type="function" name="codeslayer_preferences_set_string ()" link="CodeSlayerPreferences.html#codeslayer-preferences-set-string"/>
-    <keyword type="function" name="codeslayer_preferences_save ()" link="CodeSlayerPreferences.html#codeslayer-preferences-save"/>
     <keyword type="function" name="codeslayer_preferences_run_dialog ()" link="CodeSlayerPreferences.html#codeslayer-preferences-run-dialog"/>
-    <keyword type="signal" name="The &quot;bottom-pane-preferences-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-bottom-pane-preferences-changed"/>
-    <keyword type="signal" name="The &quot;editor-preferences-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-editor-preferences-changed"/>
-    <keyword type="signal" name="The &quot;initialize-preferences&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-initialize-preferences"/>
-    <keyword type="signal" name="The &quot;notebook-preferences-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-notebook-preferences-changed"/>
-    <keyword type="signal" name="The &quot;projects-preferences-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-projects-preferences-changed"/>
-    <keyword type="signal" name="The &quot;side-pane-preferences-changed&quot; signal" link="CodeSlayerPreferences.html#CodeSlayerPreferences-side-pane-preferences-changed"/>
-    <keyword type="struct" name="struct CodeSlayerProcessBar" link="CodeSlayerProcessBar.html#CodeSlayerProcessBar-struct"/>
-    <keyword type="function" name="codeslayer_process_bar_new ()" link="CodeSlayerProcessBar.html#codeslayer-process-bar-new"/>
-    <keyword type="struct" name="struct CodeSlayerProcesses" link="CodeSlayerProcesses.html#CodeSlayerProcesses-struct"/>
-    <keyword type="function" name="StopProcessFunc ()" link="CodeSlayerProcesses.html#StopProcessFunc"/>
-    <keyword type="function" name="codeslayer_processes_new ()" link="CodeSlayerProcesses.html#codeslayer-processes-new"/>
-    <keyword type="function" name="codeslayer_processes_add ()" link="CodeSlayerProcesses.html#codeslayer-processes-add"/>
-    <keyword type="function" name="codeslayer_processes_remove ()" link="CodeSlayerProcesses.html#codeslayer-processes-remove"/>
-    <keyword type="signal" name="The &quot;process-finished&quot; signal" link="CodeSlayerProcesses.html#CodeSlayerProcesses-process-finished"/>
-    <keyword type="signal" name="The &quot;process-started&quot; signal" link="CodeSlayerProcesses.html#CodeSlayerProcesses-process-started"/>
     <keyword type="struct" name="struct CodeSlayerProcess" link="CodeSlayerProcess.html#CodeSlayerProcess-struct"/>
+    <keyword type="function" name="StopProcessFunc ()" link="CodeSlayerProcess.html#StopProcessFunc"/>
     <keyword type="function" name="codeslayer_process_new ()" link="CodeSlayerProcess.html#codeslayer-process-new"/>
     <keyword type="function" name="codeslayer_process_get_id ()" link="CodeSlayerProcess.html#codeslayer-process-get-id"/>
     <keyword type="function" name="codeslayer_process_get_name ()" link="CodeSlayerProcess.html#codeslayer-process-get-name"/>
@@ -435,6 +341,51 @@
     <keyword type="property" name="The &quot;func&quot; property" link="CodeSlayerProcess.html#CodeSlayerProcess--func"/>
     <keyword type="property" name="The &quot;name&quot; property" link="CodeSlayerProcess.html#CodeSlayerProcess--name"/>
     <keyword type="signal" name="The &quot;stopped&quot; signal" link="CodeSlayerProcess.html#CodeSlayerProcess-stopped"/>
+    <keyword type="struct" name="struct CodeSlayerProcessBar" link="CodeSlayerProcessBar.html#CodeSlayerProcessBar-struct"/>
+    <keyword type="function" name="codeslayer_process_bar_new ()" link="CodeSlayerProcessBar.html#codeslayer-process-bar-new"/>
+    <keyword type="struct" name="struct CodeSlayerProcesses" link="CodeSlayerProcesses.html#CodeSlayerProcesses-struct"/>
+    <keyword type="function" name="codeslayer_processes_new ()" link="CodeSlayerProcesses.html#codeslayer-processes-new"/>
+    <keyword type="function" name="codeslayer_processes_add ()" link="CodeSlayerProcesses.html#codeslayer-processes-add"/>
+    <keyword type="function" name="codeslayer_processes_remove ()" link="CodeSlayerProcesses.html#codeslayer-processes-remove"/>
+    <keyword type="signal" name="The &quot;process-finished&quot; signal" link="CodeSlayerProcesses.html#CodeSlayerProcesses-process-finished"/>
+    <keyword type="signal" name="The &quot;process-started&quot; signal" link="CodeSlayerProcesses.html#CodeSlayerProcesses-process-started"/>
+    <keyword type="struct" name="struct CodeSlayerProfile" link="CodeSlayerProfile.html#CodeSlayerProfile-struct"/>
+    <keyword type="function" name="codeslayer_profile_new ()" link="CodeSlayerProfile.html#codeslayer-profile-new"/>
+    <keyword type="function" name="codeslayer_profile_get_name ()" link="CodeSlayerProfile.html#codeslayer-profile-get-name"/>
+    <keyword type="function" name="codeslayer_profile_set_name ()" link="CodeSlayerProfile.html#codeslayer-profile-set-name"/>
+    <keyword type="function" name="codeslayer_profile_get_file_path ()" link="CodeSlayerProfile.html#codeslayer-profile-get-file-path"/>
+    <keyword type="function" name="codeslayer_profile_set_file_path ()" link="CodeSlayerProfile.html#codeslayer-profile-set-file-path"/>
+    <keyword type="function" name="codeslayer_profile_get_enable_projects ()" link="CodeSlayerProfile.html#codeslayer-profile-get-enable-projects"/>
+    <keyword type="function" name="codeslayer_profile_set_enable_projects ()" link="CodeSlayerProfile.html#codeslayer-profile-set-enable-projects"/>
+    <keyword type="function" name="codeslayer_profile_get_projects ()" link="CodeSlayerProfile.html#codeslayer-profile-get-projects"/>
+    <keyword type="function" name="codeslayer_profile_set_projects ()" link="CodeSlayerProfile.html#codeslayer-profile-set-projects"/>
+    <keyword type="function" name="codeslayer_profile_find_project ()" link="CodeSlayerProfile.html#codeslayer-profile-find-project"/>
+    <keyword type="function" name="codeslayer_profile_get_project_by_file_path ()" link="CodeSlayerProfile.html#codeslayer-profile-get-project-by-file-path"/>
+    <keyword type="function" name="codeslayer_profile_add_project ()" link="CodeSlayerProfile.html#codeslayer-profile-add-project"/>
+    <keyword type="function" name="codeslayer_profile_remove_project ()" link="CodeSlayerProfile.html#codeslayer-profile-remove-project"/>
+    <keyword type="function" name="codeslayer_profile_contains_project ()" link="CodeSlayerProfile.html#codeslayer-profile-contains-project"/>
+    <keyword type="function" name="codeslayer_profile_get_documents ()" link="CodeSlayerProfile.html#codeslayer-profile-get-documents"/>
+    <keyword type="function" name="codeslayer_profile_set_documents ()" link="CodeSlayerProfile.html#codeslayer-profile-set-documents"/>
+    <keyword type="function" name="codeslayer_profile_add_document ()" link="CodeSlayerProfile.html#codeslayer-profile-add-document"/>
+    <keyword type="function" name="codeslayer_profile_remove_document ()" link="CodeSlayerProfile.html#codeslayer-profile-remove-document"/>
+    <keyword type="function" name="codeslayer_profile_get_registry ()" link="CodeSlayerProfile.html#codeslayer-profile-get-registry"/>
+    <keyword type="function" name="codeslayer_profile_get_plugins ()" link="CodeSlayerProfile.html#codeslayer-profile-get-plugins"/>
+    <keyword type="function" name="codeslayer_profile_set_plugins ()" link="CodeSlayerProfile.html#codeslayer-profile-set-plugins"/>
+    <keyword type="function" name="codeslayer_profile_contains_plugin ()" link="CodeSlayerProfile.html#codeslayer-profile-contains-plugin"/>
+    <keyword type="function" name="codeslayer_profile_add_plugin ()" link="CodeSlayerProfile.html#codeslayer-profile-add-plugin"/>
+    <keyword type="function" name="codeslayer_profile_remove_plugin ()" link="CodeSlayerProfile.html#codeslayer-profile-remove-plugin"/>
+    <keyword type="struct" name="struct CodeSlayerProfilesManager" link="CodeSlayerProfilesManager.html#CodeSlayerProfilesManager-struct"/>
+    <keyword type="function" name="codeslayer_profiles_manager_new ()" link="CodeSlayerProfilesManager.html#codeslayer-profiles-manager-new"/>
+    <keyword type="function" name="codeslayer_profiles_manager_run_dialog ()" link="CodeSlayerProfilesManager.html#codeslayer-profiles-manager-run-dialog"/>
+    <keyword type="macro" name="CODESLAYER_PROFILES_DEFAULT" link="CodeSlayerProfiles.html#CODESLAYER-PROFILES-DEFAULT:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_PROFILES_DIR" link="CodeSlayerProfiles.html#CODESLAYER-PROFILES-DIR:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_PROFILE_FILE" link="CodeSlayerProfiles.html#CODESLAYER-PROFILE-FILE:CAPS"/>
+    <keyword type="struct" name="struct CodeSlayerProfiles" link="CodeSlayerProfiles.html#CodeSlayerProfiles-struct"/>
+    <keyword type="function" name="codeslayer_profiles_new ()" link="CodeSlayerProfiles.html#codeslayer-profiles-new"/>
+    <keyword type="function" name="codeslayer_profiles_create_profile ()" link="CodeSlayerProfiles.html#codeslayer-profiles-create-profile"/>
+    <keyword type="function" name="codeslayer_profiles_retrieve_profile ()" link="CodeSlayerProfiles.html#codeslayer-profiles-retrieve-profile"/>
+    <keyword type="function" name="codeslayer_profiles_save_profile ()" link="CodeSlayerProfiles.html#codeslayer-profiles-save-profile"/>
+    <keyword type="function" name="codeslayer_profiles_get_profile_names ()" link="CodeSlayerProfiles.html#codeslayer-profiles-get-profile-names"/>
     <keyword type="struct" name="struct CodeSlayerProjectProperties" link="CodeSlayerProjectProperties.html#CodeSlayerProjectProperties-struct"/>
     <keyword type="function" name="codeslayer_project_properties_new ()" link="CodeSlayerProjectProperties.html#codeslayer-project-properties-new"/>
     <keyword type="function" name="codeslayer_project_properties_add ()" link="CodeSlayerProjectProperties.html#codeslayer-project-properties-add"/>
@@ -447,6 +398,12 @@
     <keyword type="function" name="codeslayer_project_set_folder_path ()" link="CodeSlayerProject.html#codeslayer-project-set-folder-path"/>
     <keyword type="property" name="The &quot;folder-path&quot; property" link="CodeSlayerProject.html#CodeSlayerProject--folder-path"/>
     <keyword type="property" name="The &quot;name&quot; property" link="CodeSlayerProject.html#CodeSlayerProject--name"/>
+    <keyword type="struct" name="struct CodeSlayerProjectsSearch" link="CodeSlayerProjectsSearch.html#CodeSlayerProjectsSearch-struct"/>
+    <keyword type="function" name="codeslayer_projects_search_new ()" link="CodeSlayerProjectsSearch.html#codeslayer-projects-search-new"/>
+    <keyword type="function" name="codeslayer_projects_search_find_projects ()" link="CodeSlayerProjectsSearch.html#codeslayer-projects-search-find-projects"/>
+    <keyword type="function" name="codeslayer_projects_search_find_selection ()" link="CodeSlayerProjectsSearch.html#codeslayer-projects-search-find-selection"/>
+    <keyword type="signal" name="The &quot;close&quot; signal" link="CodeSlayerProjectsSearch.html#CodeSlayerProjectsSearch-close"/>
+    <keyword type="signal" name="The &quot;select-document&quot; signal" link="CodeSlayerProjectsSearch.html#CodeSlayerProjectsSearch-select-document"/>
     <keyword type="struct" name="struct CodeSlayerProjectsSelection" link="CodeSlayerProjectsSelection.html#CodeSlayerProjectsSelection-struct"/>
     <keyword type="function" name="codeslayer_projects_selection_new ()" link="CodeSlayerProjectsSelection.html#codeslayer-projects-selection-new"/>
     <keyword type="function" name="codeslayer_projects_selection_get_file_path ()" link="CodeSlayerProjectsSelection.html#codeslayer-projects-selection-get-file-path"/>
@@ -457,13 +414,11 @@
     <keyword type="property" name="The &quot;project&quot; property" link="CodeSlayerProjectsSelection.html#CodeSlayerProjectsSelection--project"/>
     <keyword type="struct" name="struct CodeSlayerProjects" link="CodeSlayerProjects.html#CodeSlayerProjects-struct"/>
     <keyword type="function" name="codeslayer_projects_new ()" link="CodeSlayerProjects.html#codeslayer-projects-new"/>
-    <keyword type="function" name="codeslayer_projects_load_group ()" link="CodeSlayerProjects.html#codeslayer-projects-load-group"/>
     <keyword type="function" name="codeslayer_projects_add_project ()" link="CodeSlayerProjects.html#codeslayer-projects-add-project"/>
     <keyword type="function" name="codeslayer_projects_select_document ()" link="CodeSlayerProjects.html#codeslayer-projects-select-document"/>
+    <keyword type="function" name="codeslayer_projects_refresh ()" link="CodeSlayerProjects.html#codeslayer-projects-refresh"/>
     <keyword type="function" name="codeslayer_projects_add_popup_item ()" link="CodeSlayerProjects.html#codeslayer-projects-add-popup-item"/>
     <keyword type="function" name="codeslayer_projects_remove_popup_item ()" link="CodeSlayerProjects.html#codeslayer-projects-remove-popup-item"/>
-    <keyword type="function" name="codeslayer_projects_search_find ()" link="CodeSlayerProjects.html#codeslayer-projects-search-find"/>
-    <keyword type="function" name="codeslayer_projects_refresh ()" link="CodeSlayerProjects.html#codeslayer-projects-refresh"/>
     <keyword type="signal" name="The &quot;copy-file-folder&quot; signal" link="CodeSlayerProjects.html#CodeSlayerProjects-copy-file-folder"/>
     <keyword type="signal" name="The &quot;cut-file-folder&quot; signal" link="CodeSlayerProjects.html#CodeSlayerProjects-cut-file-folder"/>
     <keyword type="signal" name="The &quot;delete-file-folder&quot; signal" link="CodeSlayerProjects.html#CodeSlayerProjects-delete-file-folder"/>
@@ -478,52 +433,85 @@
     <keyword type="signal" name="The &quot;rename-file-folder&quot; signal" link="CodeSlayerProjects.html#CodeSlayerProjects-rename-file-folder"/>
     <keyword type="signal" name="The &quot;search-find&quot; signal" link="CodeSlayerProjects.html#CodeSlayerProjects-search-find"/>
     <keyword type="signal" name="The &quot;select-document&quot; signal" link="CodeSlayerProjects.html#CodeSlayerProjects-select-document"/>
-    <keyword type="struct" name="struct CodeSlayerSearch" link="CodeSlayerSearch.html#CodeSlayerSearch-struct"/>
-    <keyword type="function" name="codeslayer_search_new ()" link="CodeSlayerSearch.html#codeslayer-search-new"/>
-    <keyword type="function" name="codeslayer_search_find_projects ()" link="CodeSlayerSearch.html#codeslayer-search-find-projects"/>
-    <keyword type="function" name="codeslayer_search_find_selection ()" link="CodeSlayerSearch.html#codeslayer-search-find-selection"/>
-    <keyword type="function" name="codeslayer_search_clear ()" link="CodeSlayerSearch.html#codeslayer-search-clear"/>
-    <keyword type="signal" name="The &quot;close&quot; signal" link="CodeSlayerSearch.html#CodeSlayerSearch-close"/>
-    <keyword type="signal" name="The &quot;select-document&quot; signal" link="CodeSlayerSearch.html#CodeSlayerSearch-select-document"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_HPANED_POSITION" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-HPANED-POSITION:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_VPANED_POSITION" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-VPANED-POSITION:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_WINDOW_WIDTH" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-WIDTH:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_WINDOW_HEIGHT" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-HEIGHT:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_WINDOW_X" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-X:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_WINDOW_Y" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-Y:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_SEARCH_WIDTH" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-WIDTH:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_SEARCH_HEIGHT" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-HEIGHT:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_SEARCH_X" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-X:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_SEARCH_Y" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-Y:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_MAIN_TITLE" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-MAIN-TITLE:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SIDE-PANE-VISIBLE:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-BOTTOM-PANE-VISIBLE:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_DRAW_SPACES" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-DRAW-SPACES:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-NOTEBOOK-SEARCH-MATCH-CASE:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-NOTEBOOK-SEARCH-MATCH-WORD:CAPS"/>
-    <keyword type="macro" name="CODESLAYER_SETTINGS_SYNC_WITH_EDITOR" link="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SYNC-WITH-EDITOR:CAPS"/>
-    <keyword type="struct" name="struct CodeSlayerSettings" link="CodeSlayerSettings.html#CodeSlayerSettings-struct"/>
-    <keyword type="function" name="codeslayer_settings_new ()" link="CodeSlayerSettings.html#codeslayer-settings-new"/>
-    <keyword type="function" name="codeslayer_settings_get_integer ()" link="CodeSlayerSettings.html#codeslayer-settings-get-integer"/>
-    <keyword type="function" name="codeslayer_settings_set_integer ()" link="CodeSlayerSettings.html#codeslayer-settings-set-integer"/>
-    <keyword type="function" name="codeslayer_settings_get_double ()" link="CodeSlayerSettings.html#codeslayer-settings-get-double"/>
-    <keyword type="function" name="codeslayer_settings_set_double ()" link="CodeSlayerSettings.html#codeslayer-settings-set-double"/>
-    <keyword type="function" name="codeslayer_settings_get_boolean ()" link="CodeSlayerSettings.html#codeslayer-settings-get-boolean"/>
-    <keyword type="function" name="codeslayer_settings_set_boolean ()" link="CodeSlayerSettings.html#codeslayer-settings-set-boolean"/>
-    <keyword type="function" name="codeslayer_settings_get_string ()" link="CodeSlayerSettings.html#codeslayer-settings-get-string"/>
-    <keyword type="function" name="codeslayer_settings_set_string ()" link="CodeSlayerSettings.html#codeslayer-settings-set-string"/>
-    <keyword type="function" name="codeslayer_settings_save ()" link="CodeSlayerSettings.html#codeslayer-settings-save"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_HPANED_POSITION" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-HPANED-POSITION:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_VPANED_POSITION" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-VPANED-POSITION:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_WINDOW_WIDTH" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-WIDTH:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_WINDOW_HEIGHT" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-HEIGHT:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_WINDOW_X" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-X:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_WINDOW_Y" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-Y:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_SEARCH_WIDTH" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-WIDTH:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_SEARCH_HEIGHT" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-HEIGHT:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_SEARCH_X" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-X:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_SEARCH_Y" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-Y:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SIDE-PANE-VISIBLE:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-BOTTOM-PANE-VISIBLE:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-MATCH-CASE:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-MATCH-WORD:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_DRAW_SPACES" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-DRAW-SPACES:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_WORD_WRAP" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WORD-WRAP:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SYNC-WITH-DOCUMENT:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_ENABLE_PROJECTS" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-ENABLE-PROJECTS:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-DISPLAY-LINE-NUMBERS:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_HIGHLIGHT_CURRENT_LINE" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-HIGHLIGHT-CURRENT-LINE:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_DISPLAY_RIGHT_MARGIN" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-DISPLAY-RIGHT-MARGIN:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_HIGHLIGHT_MATCHING_BRACKET" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-HIGHLIGHT-MATCHING-BRACKET:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_INSERT_SPACES_INSTEAD_OF_TABS" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-INSERT-SPACES-INSTEAD-OF-TABS:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_ENABLE_AUTOMATIC_INDENTATION" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-ENABLE-AUTOMATIC-INDENTATION:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_RIGHT_MARGIN_POSITION" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-RIGHT-MARGIN-POSITION:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_TAB_WIDTH" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-TAB-WIDTH:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_FONT" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-FONT:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_THEME" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-THEME:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_TAB_POSITION" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-TAB-POSITION:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_WORD_WRAP_TYPES" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WORD-WRAP-TYPES:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SIDE-PANE-TAB-POSITION:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-BOTTOM-PANE-TAB-POSITION:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-PROJECTS-EXCLUDE-TYPES:CAPS"/>
+    <keyword type="macro" name="CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS" link="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-PROJECTS-EXCLUDE-DIRS:CAPS"/>
+    <keyword type="struct" name="struct CodeSlayerRegistry" link="CodeSlayerRegistry.html#CodeSlayerRegistry-struct"/>
+    <keyword type="function" name="codeslayer_registry_new ()" link="CodeSlayerRegistry.html#codeslayer-registry-new"/>
+    <keyword type="function" name="codeslayer_registry_get_hashtable ()" link="CodeSlayerRegistry.html#codeslayer-registry-get-hashtable"/>
+    <keyword type="function" name="codeslayer_registry_get_setting ()" link="CodeSlayerRegistry.html#codeslayer-registry-get-setting"/>
+    <keyword type="function" name="codeslayer_registry_set_setting ()" link="CodeSlayerRegistry.html#codeslayer-registry-set-setting"/>
+    <keyword type="function" name="codeslayer_registry_get_integer ()" link="CodeSlayerRegistry.html#codeslayer-registry-get-integer"/>
+    <keyword type="function" name="codeslayer_registry_set_integer ()" link="CodeSlayerRegistry.html#codeslayer-registry-set-integer"/>
+    <keyword type="function" name="codeslayer_registry_get_double ()" link="CodeSlayerRegistry.html#codeslayer-registry-get-double"/>
+    <keyword type="function" name="codeslayer_registry_set_double ()" link="CodeSlayerRegistry.html#codeslayer-registry-set-double"/>
+    <keyword type="function" name="codeslayer_registry_get_boolean ()" link="CodeSlayerRegistry.html#codeslayer-registry-get-boolean"/>
+    <keyword type="function" name="codeslayer_registry_set_boolean ()" link="CodeSlayerRegistry.html#codeslayer-registry-set-boolean"/>
+    <keyword type="function" name="codeslayer_registry_get_string ()" link="CodeSlayerRegistry.html#codeslayer-registry-get-string"/>
+    <keyword type="function" name="codeslayer_registry_set_string ()" link="CodeSlayerRegistry.html#codeslayer-registry-set-string"/>
+    <keyword type="signal" name="The &quot;registry-changed&quot; signal" link="CodeSlayerRegistry.html#CodeSlayerRegistry-registry-changed"/>
+    <keyword type="signal" name="The &quot;registry-initialized&quot; signal" link="CodeSlayerRegistry.html#CodeSlayerRegistry-registry-initialized"/>
     <keyword type="struct" name="struct CodeSlayerSidePane" link="CodeSlayerSidePane.html#CodeSlayerSidePane-struct"/>
     <keyword type="function" name="codeslayer_side_pane_new ()" link="CodeSlayerSidePane.html#codeslayer-side-pane-new"/>
+    <keyword type="struct" name="struct CodeSlayerSourceView" link="CodeSlayerSourceView.html#CodeSlayerSourceView-struct"/>
+    <keyword type="macro" name="CODESLAYER_SOURCE_VIEW_UNTITLED" link="CodeSlayerSourceView.html#CODESLAYER-SOURCE-VIEW-UNTITLED:CAPS"/>
+    <keyword type="function" name="codeslayer_source_view_new ()" link="CodeSlayerSourceView.html#codeslayer-source-view-new"/>
+    <keyword type="function" name="codeslayer_source_view_get_document ()" link="CodeSlayerSourceView.html#codeslayer-source-view-get-document"/>
+    <keyword type="function" name="codeslayer_source_view_get_modification_time ()" link="CodeSlayerSourceView.html#codeslayer-source-view-get-modification-time"/>
+    <keyword type="function" name="codeslayer_source_view_set_modification_time ()" link="CodeSlayerSourceView.html#codeslayer-source-view-set-modification-time"/>
+    <keyword type="function" name="codeslayer_source_view_add_completion_provider ()" link="CodeSlayerSourceView.html#codeslayer-source-view-add-completion-provider"/>
+    <keyword type="function" name="codeslayer_source_view_set_text ()" link="CodeSlayerSourceView.html#codeslayer-source-view-set-text"/>
+    <keyword type="function" name="codeslayer_source_view_scroll_to_line ()" link="CodeSlayerSourceView.html#codeslayer-source-view-scroll-to-line"/>
+    <keyword type="function" name="codeslayer_source_view_sync_registry ()" link="CodeSlayerSourceView.html#codeslayer-source-view-sync-registry"/>
+    <keyword type="signal" name="The &quot;completion&quot; signal" link="CodeSlayerSourceView.html#CodeSlayerSourceView-completion"/>
+    <keyword type="signal" name="The &quot;copy-lines&quot; signal" link="CodeSlayerSourceView.html#CodeSlayerSourceView-copy-lines"/>
+    <keyword type="signal" name="The &quot;to-lowercase&quot; signal" link="CodeSlayerSourceView.html#CodeSlayerSourceView-to-lowercase"/>
+    <keyword type="signal" name="The &quot;to-uppercase&quot; signal" link="CodeSlayerSourceView.html#CodeSlayerSourceView-to-uppercase"/>
+    <keyword type="macro" name="CODESLAYER_MAIN_TITLE" link="CodeSlayerWindow.html#CODESLAYER-MAIN-TITLE:CAPS"/>
+    <keyword type="struct" name="struct CodeSlayerWindow" link="CodeSlayerWindow.html#CodeSlayerWindow-struct"/>
+    <keyword type="function" name="codeslayer_window_new ()" link="CodeSlayerWindow.html#codeslayer-window-new"/>
+    <keyword type="function" name="codeslayer_window_open_document ()" link="CodeSlayerWindow.html#codeslayer-window-open-document"/>
+    <keyword type="function" name="codeslayer_window_get_profile ()" link="CodeSlayerWindow.html#codeslayer-window-get-profile"/>
+    <keyword type="macro" name="CODESLAYER_HOME" link="CodeSlayer.html#CODESLAYER-HOME:CAPS"/>
     <keyword type="struct" name="struct CodeSlayer" link="CodeSlayer.html#CodeSlayer-struct"/>
     <keyword type="function" name="codeslayer_new ()" link="CodeSlayer.html#codeslayer-new"/>
-    <keyword type="function" name="codeslayer_select_editor ()" link="CodeSlayer.html#codeslayer-select-editor"/>
-    <keyword type="function" name="codeslayer_select_editor_by_file_path ()" link="CodeSlayer.html#codeslayer-select-editor-by-file-path"/>
-    <keyword type="function" name="codeslayer_get_active_editor ()" link="CodeSlayer.html#codeslayer-get-active-editor"/>
-    <keyword type="function" name="codeslayer_get_active_editor_document ()" link="CodeSlayer.html#codeslayer-get-active-editor-document"/>
-    <keyword type="function" name="codeslayer_get_active_editor_project ()" link="CodeSlayer.html#codeslayer-get-active-editor-project"/>
-    <keyword type="function" name="codeslayer_get_active_editor_file_path ()" link="CodeSlayer.html#codeslayer-get-active-editor-file-path"/>
-    <keyword type="function" name="codeslayer_get_all_editors ()" link="CodeSlayer.html#codeslayer-get-all-editors"/>
+    <keyword type="function" name="codeslayer_select_document ()" link="CodeSlayer.html#codeslayer-select-document"/>
+    <keyword type="function" name="codeslayer_select_document_by_file_path ()" link="CodeSlayer.html#codeslayer-select-document-by-file-path"/>
+    <keyword type="function" name="codeslayer_get_active_document ()" link="CodeSlayer.html#codeslayer-get-active-document"/>
+    <keyword type="function" name="codeslayer_get_active_document_file_path ()" link="CodeSlayer.html#codeslayer-get-active-document-file-path"/>
+    <keyword type="function" name="codeslayer_get_active_document_project ()" link="CodeSlayer.html#codeslayer-get-active-document-project"/>
+    <keyword type="function" name="codeslayer_get_all_documents ()" link="CodeSlayer.html#codeslayer-get-all-documents"/>
     <keyword type="function" name="codeslayer_add_to_side_pane ()" link="CodeSlayer.html#codeslayer-add-to-side-pane"/>
     <keyword type="function" name="codeslayer_remove_from_side_pane ()" link="CodeSlayer.html#codeslayer-remove-from-side-pane"/>
     <keyword type="function" name="codeslayer_add_to_bottom_pane ()" link="CodeSlayer.html#codeslayer-add-to-bottom-pane"/>
@@ -531,35 +519,27 @@
     <keyword type="function" name="codeslayer_show_bottom_pane ()" link="CodeSlayer.html#codeslayer-show-bottom-pane"/>
     <keyword type="function" name="codeslayer_show_side_pane ()" link="CodeSlayer.html#codeslayer-show-side-pane"/>
     <keyword type="function" name="codeslayer_add_to_menu_bar ()" link="CodeSlayer.html#codeslayer-add-to-menu-bar"/>
-    <keyword type="function" name="codeslayer_add_to_menubar ()" link="CodeSlayer.html#codeslayer-add-to-menubar"/>
     <keyword type="function" name="codeslayer_remove_from_menu_bar ()" link="CodeSlayer.html#codeslayer-remove-from-menu-bar"/>
-    <keyword type="function" name="codeslayer_remove_from_menubar ()" link="CodeSlayer.html#codeslayer-remove-from-menubar"/>
     <keyword type="function" name="codeslayer_add_to_projects_popup ()" link="CodeSlayer.html#codeslayer-add-to-projects-popup"/>
     <keyword type="function" name="codeslayer_remove_from_projects_popup ()" link="CodeSlayer.html#codeslayer-remove-from-projects-popup"/>
     <keyword type="function" name="codeslayer_add_to_project_properties ()" link="CodeSlayer.html#codeslayer-add-to-project-properties"/>
     <keyword type="function" name="codeslayer_remove_from_project_properties ()" link="CodeSlayer.html#codeslayer-remove-from-project-properties"/>
-    <keyword type="function" name="codeslayer_get_menubar_accel_group ()" link="CodeSlayer.html#codeslayer-get-menubar-accel-group"/>
     <keyword type="function" name="codeslayer_get_menu_bar_accel_group ()" link="CodeSlayer.html#codeslayer-get-menu-bar-accel-group"/>
-    <keyword type="function" name="codeslayer_get_group ()" link="CodeSlayer.html#codeslayer-get-group"/>
-    <keyword type="function" name="codeslayer_get_group_config_folder_path ()" link="CodeSlayer.html#codeslayer-get-group-config-folder-path"/>
     <keyword type="function" name="codeslayer_get_project_config_folder_path ()" link="CodeSlayer.html#codeslayer-get-project-config-folder-path"/>
     <keyword type="function" name="codeslayer_get_plugins_config_folder_path ()" link="CodeSlayer.html#codeslayer-get-plugins-config-folder-path"/>
-    <keyword type="function" name="codeslayer_get_active_group ()" link="CodeSlayer.html#codeslayer-get-active-group" deprecated="3.0: use codeslayer_get_group now."/>
-    <keyword type="function" name="codeslayer_get_active_group_folder_path ()" link="CodeSlayer.html#codeslayer-get-active-group-folder-path" deprecated="3.0: use codeslayer_get_group_config_folder_path now."/>
-    <keyword type="function" name="codeslayer_get_configuration_folder_path ()" link="CodeSlayer.html#codeslayer-get-configuration-folder-path" deprecated="3.0: use codeslayer_get_plugins_config_folder_path now."/>
+    <keyword type="function" name="codeslayer_get_profile_config_folder_path ()" link="CodeSlayer.html#codeslayer-get-profile-config-folder-path"/>
     <keyword type="function" name="codeslayer_get_project_by_file_path ()" link="CodeSlayer.html#codeslayer-get-project-by-file-path"/>
-    <keyword type="function" name="codeslayer_get_preferences ()" link="CodeSlayer.html#codeslayer-get-preferences"/>
+    <keyword type="function" name="codeslayer_get_registry ()" link="CodeSlayer.html#codeslayer-get-registry"/>
+    <keyword type="function" name="codeslayer_get_projects ()" link="CodeSlayer.html#codeslayer-get-projects"/>
     <keyword type="function" name="codeslayer_get_toplevel_window ()" link="CodeSlayer.html#codeslayer-get-toplevel-window"/>
     <keyword type="function" name="codeslayer_add_to_process_bar ()" link="CodeSlayer.html#codeslayer-add-to-process-bar"/>
     <keyword type="function" name="codeslayer_remove_from_process_bar ()" link="CodeSlayer.html#codeslayer-remove-from-process-bar"/>
-    <keyword type="function" name="codeslayer_create_editor_linker ()" link="CodeSlayer.html#codeslayer-create-editor-linker"/>
-    <keyword type="function" name="codeslayer_get_editor_linker ()" link="CodeSlayer.html#codeslayer-get-editor-linker" deprecated="3.0: use codeslayer_create_editor_linker now."/>
-    <keyword type="signal" name="The &quot;editor-added&quot; signal" link="CodeSlayer.html#CodeSlayer-editor-added"/>
-    <keyword type="signal" name="The &quot;editor-removed&quot; signal" link="CodeSlayer.html#CodeSlayer-editor-removed"/>
-    <keyword type="signal" name="The &quot;editor-saved&quot; signal" link="CodeSlayer.html#CodeSlayer-editor-saved"/>
-    <keyword type="signal" name="The &quot;editor-switched&quot; signal" link="CodeSlayer.html#CodeSlayer-editor-switched"/>
-    <keyword type="signal" name="The &quot;editors-all-saved&quot; signal" link="CodeSlayer.html#CodeSlayer-editors-all-saved"/>
-    <keyword type="signal" name="The &quot;path-navigated&quot; signal" link="CodeSlayer.html#CodeSlayer-path-navigated"/>
+    <keyword type="function" name="codeslayer_create_document_linker ()" link="CodeSlayer.html#codeslayer-create-document-linker"/>
+    <keyword type="signal" name="The &quot;document-added&quot; signal" link="CodeSlayer.html#CodeSlayer-document-added"/>
+    <keyword type="signal" name="The &quot;document-removed&quot; signal" link="CodeSlayer.html#CodeSlayer-document-removed"/>
+    <keyword type="signal" name="The &quot;document-saved&quot; signal" link="CodeSlayer.html#CodeSlayer-document-saved"/>
+    <keyword type="signal" name="The &quot;document-switched&quot; signal" link="CodeSlayer.html#CodeSlayer-document-switched"/>
+    <keyword type="signal" name="The &quot;documents-all-saved&quot; signal" link="CodeSlayer.html#CodeSlayer-documents-all-saved"/>
     <keyword type="signal" name="The &quot;project-properties-opened&quot; signal" link="CodeSlayer.html#CodeSlayer-project-properties-opened"/>
     <keyword type="signal" name="The &quot;project-properties-saved&quot; signal" link="CodeSlayer.html#CodeSlayer-project-properties-saved"/>
     <keyword type="signal" name="The &quot;projects-changed&quot; signal" link="CodeSlayer.html#CodeSlayer-projects-changed"/>

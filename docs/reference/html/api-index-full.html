@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>API Index</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="prev" href="object-tree.html" title="Object Hierarchy">
@@ -49,11 +49,13 @@
                    <a class="shortcut" href="#idxR">R</a>
                       | 
                    <a class="shortcut" href="#idxS">S</a>
+                      | 
+                   <a class="shortcut" href="#idxW">W</a>
 </td></tr>
 </table>
 <div class="index">
-<div class="titlepage"><div><div><h1 class="title">
-<a name="api-index-full"></a>API Index</h1></div></div></div>
+<div class="titlepage"><div><div><h2 class="title">
+<a name="api-index-full"></a>API Index</h2></div></div></div>
 <a name="idx"></a><a name="idx"></a><h3 class="title"></h3>
 <dt>
 <a class="link" href="CodeSlayer.html#CodeSlayer-struct" title="struct CodeSlayer">CodeSlayer</a>, struct in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
@@ -61,27 +63,23 @@
 <dd></dd>
 <a name="idx:"></a><h3 class="title">:</h3>
 <dt>
-<a class="link" href="CodeSlayer.html#CodeSlayer-editor-added" title='The "editor-added" signal'>CodeSlayer::editor-added</a>, object signal in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayer.html#CodeSlayer-document-added" title='The "document-added" signal'>CodeSlayer::document-added</a>, object signal in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayer.html#CodeSlayer-editor-removed" title='The "editor-removed" signal'>CodeSlayer::editor-removed</a>, object signal in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayer.html#CodeSlayer-document-removed" title='The "document-removed" signal'>CodeSlayer::document-removed</a>, object signal in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayer.html#CodeSlayer-editor-saved" title='The "editor-saved" signal'>CodeSlayer::editor-saved</a>, object signal in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayer.html#CodeSlayer-document-saved" title='The "document-saved" signal'>CodeSlayer::document-saved</a>, object signal in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayer.html#CodeSlayer-editor-switched" title='The "editor-switched" signal'>CodeSlayer::editor-switched</a>, object signal in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayer.html#CodeSlayer-document-switched" title='The "document-switched" signal'>CodeSlayer::document-switched</a>, object signal in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayer.html#CodeSlayer-editors-all-saved" title='The "editors-all-saved" signal'>CodeSlayer::editors-all-saved</a>, object signal in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#CodeSlayer-path-navigated" title='The "path-navigated" signal'>CodeSlayer::path-navigated</a>, object signal in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayer.html#CodeSlayer-documents-all-saved" title='The "documents-all-saved" signal'>CodeSlayer::documents-all-saved</a>, object signal in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
@@ -122,6 +120,14 @@
 </dt>
 <dd></dd>
 <dt>
+<a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-exists" title="codeslayer_abstract_pane_exists ()">codeslayer_abstract_pane_exists</a>, function in <a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane">CodeSlayerAbstractPane</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-insert" title="codeslayer_abstract_pane_insert ()">codeslayer_abstract_pane_insert</a>, function in <a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane">CodeSlayerAbstractPane</a>
+</dt>
+<dd></dd>
+<dt>
 <a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-open" title="codeslayer_abstract_pane_open ()">codeslayer_abstract_pane_open</a>, function in <a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane">CodeSlayerAbstractPane</a>
 </dt>
 <dd></dd>
@@ -130,19 +136,15 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-set-preferences" title="codeslayer_abstract_pane_set_preferences ()">codeslayer_abstract_pane_set_preferences</a>, function in <a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane">CodeSlayerAbstractPane</a>
+<a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-set-profile" title="codeslayer_abstract_pane_set_profile ()">codeslayer_abstract_pane_set_profile</a>, function in <a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane">CodeSlayerAbstractPane</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-sync-preferences" title="codeslayer_abstract_pane_sync_preferences ()">codeslayer_abstract_pane_sync_preferences</a>, function in <a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane">CodeSlayerAbstractPane</a>
+<a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-sync-registry" title="codeslayer_abstract_pane_sync_registry ()">codeslayer_abstract_pane_sync_registry</a>, function in <a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane">CodeSlayerAbstractPane</a>
 </dt>
 <dd></dd>
 <dt>
 <a class="link" href="CodeSlayer.html#codeslayer-add-to-bottom-pane" title="codeslayer_add_to_bottom_pane ()">codeslayer_add_to_bottom_pane</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#codeslayer-add-to-menubar" title="codeslayer_add_to_menubar ()">codeslayer_add_to_menubar</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
@@ -163,6 +165,14 @@
 <dd></dd>
 <dt>
 <a class="link" href="CodeSlayer.html#codeslayer-add-to-side-pane" title="codeslayer_add_to_side_pane ()">codeslayer_add_to_side_pane</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerApplication.html#CodeSlayerApplication-struct" title="struct CodeSlayerApplication">CodeSlayerApplication</a>, struct in <a class="link" href="CodeSlayerApplication.html" title="CodeSlayerApplication">CodeSlayerApplication</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerApplication.html#codeslayer-application-new" title="codeslayer_application_new ()">codeslayer_application_new</a>, function in <a class="link" href="CodeSlayerApplication.html" title="CodeSlayerApplication">CodeSlayerApplication</a>
 </dt>
 <dd></dd>
 <a name="idxB"></a><h3 class="title">B</h3>
@@ -252,20 +262,12 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayer.html#codeslayer-create-editor-linker" title="codeslayer_create_editor_linker ()">codeslayer_create_editor_linker</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayer.html#codeslayer-create-document-linker" title="codeslayer_create_document_linker ()">codeslayer_create_document_linker</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <a name="idxD"></a><h3 class="title">D</h3>
 <dt>
-<a class="link" href="CodeSlayerGroups.html#CODESLAYER-DEFAULT-GROUP-DIR:CAPS" title="CODESLAYER_DEFAULT_GROUP_DIR">CODESLAYER_DEFAULT_GROUP_DIR</a>, macro in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
 <a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument-struct" title="struct CodeSlayerDocument">CodeSlayerDocument</a>, struct in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--active" title='The "active" property'>CodeSlayerDocument:active</a>, object property in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
 </dt>
 <dd></dd>
 <dt>
@@ -277,7 +279,15 @@
 </dt>
 <dd></dd>
 <dt>
+<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--name" title='The "name" property'>CodeSlayerDocument:name</a>, object property in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
+</dt>
+<dd></dd>
+<dt>
 <a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--project" title='The "project" property'>CodeSlayerDocument:project</a>, object property in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerDocument.html#CodeSlayerDocument--source-view" title='The "source-view" property'>CodeSlayerDocument:source-view</a>, object property in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
 </dt>
 <dd></dd>
 <dt>
@@ -285,7 +295,11 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-active" title="codeslayer_document_get_active ()">codeslayer_document_get_active</a>, function in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
+<a class="link" href="CodeSlayerDocumentLinker.html#CodeSlayerDocumentLinker-struct" title="struct CodeSlayerDocumentLinker">CodeSlayerDocumentLinker</a>, struct in <a class="link" href="CodeSlayerDocumentLinker.html" title="CodeSlayerDocumentLinker">CodeSlayerDocumentLinker</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerDocumentLinker.html#CodeSlayerDocumentLinker--pattern" title='The "pattern" property'>CodeSlayerDocumentLinker:pattern</a>, object property in <a class="link" href="CodeSlayerDocumentLinker.html" title="CodeSlayerDocumentLinker">CodeSlayerDocumentLinker</a>
 </dt>
 <dd></dd>
 <dt>
@@ -297,7 +311,15 @@
 </dt>
 <dd></dd>
 <dt>
+<a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-name" title="codeslayer_document_get_name ()">codeslayer_document_get_name</a>, function in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
+</dt>
+<dd></dd>
+<dt>
 <a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-project" title="codeslayer_document_get_project ()">codeslayer_document_get_project</a>, function in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerDocument.html#codeslayer-document-get-source-view" title="codeslayer_document_get_source_view ()">codeslayer_document_get_source_view</a>, function in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
 </dt>
 <dd></dd>
 <dt>
@@ -305,11 +327,23 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerDocument.html#codeslayer-document-new" title="codeslayer_document_new ()">codeslayer_document_new</a>, function in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
+<a class="link" href="CodeSlayerDocumentLinker.html#codeslayer-document-linker-create-links" title="codeslayer_document_linker_create_links ()">codeslayer_document_linker_create_links</a>, function in <a class="link" href="CodeSlayerDocumentLinker.html" title="CodeSlayerDocumentLinker">CodeSlayerDocumentLinker</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerDocument.html#codeslayer-document-set-active" title="codeslayer_document_set_active ()">codeslayer_document_set_active</a>, function in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
+<a class="link" href="CodeSlayerDocumentLinker.html#codeslayer-document-linker-get-pattern" title="codeslayer_document_linker_get_pattern ()">codeslayer_document_linker_get_pattern</a>, function in <a class="link" href="CodeSlayerDocumentLinker.html" title="CodeSlayerDocumentLinker">CodeSlayerDocumentLinker</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerDocumentLinker.html#codeslayer-document-linker-new" title="codeslayer_document_linker_new ()">codeslayer_document_linker_new</a>, function in <a class="link" href="CodeSlayerDocumentLinker.html" title="CodeSlayerDocumentLinker">CodeSlayerDocumentLinker</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerDocumentLinker.html#codeslayer-document-linker-set-pattern" title="codeslayer_document_linker_set_pattern ()">codeslayer_document_linker_set_pattern</a>, function in <a class="link" href="CodeSlayerDocumentLinker.html" title="CodeSlayerDocumentLinker">CodeSlayerDocumentLinker</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerDocument.html#codeslayer-document-new" title="codeslayer_document_new ()">codeslayer_document_new</a>, function in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
 </dt>
 <dd></dd>
 <dt>
@@ -325,100 +359,20 @@
 </dt>
 <dd></dd>
 <dt>
+<a class="link" href="CodeSlayerDocument.html#codeslayer-document-set-source-view" title="codeslayer_document_set_source_view ()">codeslayer_document_set_source_view</a>, function in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
+</dt>
+<dd></dd>
+<dt>
 <a class="link" href="CodeSlayerDocument.html#codeslayer-document-set-tree-row-reference" title="codeslayer_document_set_tree_row_reference ()">codeslayer_document_set_tree_row_reference</a>, function in <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument">CodeSlayerDocument</a>
 </dt>
 <dd></dd>
 <a name="idxE"></a><h3 class="title">E</h3>
 <dt>
-<a class="link" href="CodeSlayerEditor.html#CodeSlayerEditor-struct" title="struct CodeSlayerEditor">CodeSlayerEditor</a>, struct in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#CodeSlayerEditor-completion" title='The "completion" signal'>CodeSlayerEditor::completion</a>, object signal in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#CodeSlayerEditor-copy-lines" title='The "copy-lines" signal'>CodeSlayerEditor::copy-lines</a>, object signal in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#CodeSlayerEditor-to-lowercase" title='The "to-lowercase" signal'>CodeSlayerEditor::to-lowercase</a>, object signal in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#CodeSlayerEditor-to-uppercase" title='The "to-uppercase" signal'>CodeSlayerEditor::to-uppercase</a>, object signal in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditorLinker.html#CodeSlayerEditorLinker-struct" title="struct CodeSlayerEditorLinker">CodeSlayerEditorLinker</a>, struct in <a class="link" href="CodeSlayerEditorLinker.html" title="CodeSlayerEditorLinker">CodeSlayerEditorLinker</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditorLinker.html#CodeSlayerEditorLinker--pattern" title='The "pattern" property'>CodeSlayerEditorLinker:pattern</a>, object property in <a class="link" href="CodeSlayerEditorLinker.html" title="CodeSlayerEditorLinker">CodeSlayerEditorLinker</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#codeslayer-editor-add-completion-provider" title="codeslayer_editor_add_completion_provider ()">codeslayer_editor_add_completion_provider</a>, function in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#codeslayer-editor-get-document" title="codeslayer_editor_get_document ()">codeslayer_editor_get_document</a>, function in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#codeslayer-editor-get-file-path" title="codeslayer_editor_get_file_path ()">codeslayer_editor_get_file_path</a>, function in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#codeslayer-editor-get-line-number" title="codeslayer_editor_get_line_number ()">codeslayer_editor_get_line_number</a>, function in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#codeslayer-editor-get-modification-time" title="codeslayer_editor_get_modification_time ()">codeslayer_editor_get_modification_time</a>, function in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditorLinker.html#codeslayer-editor-linker-create-links" title="codeslayer_editor_linker_create_links ()">codeslayer_editor_linker_create_links</a>, function in <a class="link" href="CodeSlayerEditorLinker.html" title="CodeSlayerEditorLinker">CodeSlayerEditorLinker</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditorLinker.html#codeslayer-editor-linker-get-pattern" title="codeslayer_editor_linker_get_pattern ()">codeslayer_editor_linker_get_pattern</a>, function in <a class="link" href="CodeSlayerEditorLinker.html" title="CodeSlayerEditorLinker">CodeSlayerEditorLinker</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditorLinker.html#codeslayer-editor-linker-new" title="codeslayer_editor_linker_new ()">codeslayer_editor_linker_new</a>, function in <a class="link" href="CodeSlayerEditorLinker.html" title="CodeSlayerEditorLinker">CodeSlayerEditorLinker</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditorLinker.html#codeslayer-editor-linker-set-pattern" title="codeslayer_editor_linker_set_pattern ()">codeslayer_editor_linker_set_pattern</a>, function in <a class="link" href="CodeSlayerEditorLinker.html" title="CodeSlayerEditorLinker">CodeSlayerEditorLinker</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#codeslayer-editor-new" title="codeslayer_editor_new ()">codeslayer_editor_new</a>, function in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#codeslayer-editor-scroll-to-line" title="codeslayer_editor_scroll_to_line ()">codeslayer_editor_scroll_to_line</a>, function in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#codeslayer-editor-set-modification-time" title="codeslayer_editor_set_modification_time ()">codeslayer_editor_set_modification_time</a>, function in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#codeslayer-editor-set-text" title="codeslayer_editor_set_text ()">codeslayer_editor_set_text</a>, function in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerEditor.html#codeslayer-editor-sync-settings-preferences" title="codeslayer_editor_sync_settings_preferences ()">codeslayer_editor_sync_settings_preferences</a>, function in <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor">CodeSlayerEditor</a>
-</dt>
-<dd></dd>
-<dt>
 <a class="link" href="CodeSlayerEngine.html#CodeSlayerEngine-struct" title="struct CodeSlayerEngine">CodeSlayerEngine</a>, struct in <a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine">CodeSlayerEngine</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerEngine.html#codeslayer-engine-close-active-group" title="codeslayer_engine_close_active_group ()">codeslayer_engine_close_active_group</a>, function in <a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine">CodeSlayerEngine</a>
+<a class="link" href="CodeSlayerEngine.html#codeslayer-engine-load-profile" title="codeslayer_engine_load_profile ()">codeslayer_engine_load_profile</a>, function in <a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine">CodeSlayerEngine</a>
 </dt>
 <dd></dd>
 <dt>
@@ -426,56 +380,28 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerEngine.html#codeslayer-engine-open-active-group" title="codeslayer_engine_open_active_group ()">codeslayer_engine_open_active_group</a>, function in <a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine">CodeSlayerEngine</a>
+<a class="link" href="CodeSlayerEngine.html#codeslayer-engine-open-document" title="codeslayer_engine_open_document ()">codeslayer_engine_open_document</a>, function in <a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine">CodeSlayerEngine</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerEngine.html#codeslayer-engine-save-profile" title="codeslayer_engine_save_profile ()">codeslayer_engine_save_profile</a>, function in <a class="link" href="CodeSlayerEngine.html" title="CodeSlayerEngine">CodeSlayerEngine</a>
 </dt>
 <dd></dd>
 <a name="idxG"></a><h3 class="title">G</h3>
 <dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-active-editor" title="codeslayer_get_active_editor ()">codeslayer_get_active_editor</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayer.html#codeslayer-get-active-document" title="codeslayer_get_active_document ()">codeslayer_get_active_document</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-active-editor-document" title="codeslayer_get_active_editor_document ()">codeslayer_get_active_editor_document</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayer.html#codeslayer-get-active-document-file-path" title="codeslayer_get_active_document_file_path ()">codeslayer_get_active_document_file_path</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-active-editor-file-path" title="codeslayer_get_active_editor_file_path ()">codeslayer_get_active_editor_file_path</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayer.html#codeslayer-get-active-document-project" title="codeslayer_get_active_document_project ()">codeslayer_get_active_document_project</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-active-editor-project" title="codeslayer_get_active_editor_project ()">codeslayer_get_active_editor_project</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-active-group" title="codeslayer_get_active_group ()">codeslayer_get_active_group</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-active-group-folder-path" title="codeslayer_get_active_group_folder_path ()">codeslayer_get_active_group_folder_path</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-all-editors" title="codeslayer_get_all_editors ()">codeslayer_get_all_editors</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-configuration-folder-path" title="codeslayer_get_configuration_folder_path ()">codeslayer_get_configuration_folder_path</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-editor-linker" title="codeslayer_get_editor_linker ()">codeslayer_get_editor_linker</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-group" title="codeslayer_get_group ()">codeslayer_get_group</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-group-config-folder-path" title="codeslayer_get_group_config_folder_path ()">codeslayer_get_group_config_folder_path</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-menubar-accel-group" title="codeslayer_get_menubar_accel_group ()">codeslayer_get_menubar_accel_group</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayer.html#codeslayer-get-all-documents" title="codeslayer_get_all_documents ()">codeslayer_get_all_documents</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
@@ -487,7 +413,11 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayer.html#codeslayer-get-preferences" title="codeslayer_get_preferences ()">codeslayer_get_preferences</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayer.html#codeslayer-get-profile-config-folder-path" title="codeslayer_get_profile_config_folder_path ()">codeslayer_get_profile_config_folder_path</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayer.html#codeslayer-get-projects" title="codeslayer_get_projects ()">codeslayer_get_projects</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
@@ -499,160 +429,16 @@
 </dt>
 <dd></dd>
 <dt>
+<a class="link" href="CodeSlayer.html#codeslayer-get-registry" title="codeslayer_get_registry ()">codeslayer_get_registry</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+</dt>
+<dd></dd>
+<dt>
 <a class="link" href="CodeSlayer.html#codeslayer-get-toplevel-window" title="codeslayer_get_toplevel_window ()">codeslayer_get_toplevel_window</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#CodeSlayerGroup-struct" title="struct CodeSlayerGroup">CodeSlayerGroup</a>, struct in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#CodeSlayerGroup--libs" title='The "libs" property'>CodeSlayerGroup:libs</a>, object property in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#CodeSlayerGroup--name" title='The "name" property'>CodeSlayerGroup:name</a>, object property in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#CodeSlayerGroup--projects" title='The "projects" property'>CodeSlayerGroup:projects</a>, object property in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroupProperties.html#CodeSlayerGroupProperties-struct" title="struct CodeSlayerGroupProperties">CodeSlayerGroupProperties</a>, struct in <a class="link" href="CodeSlayerGroupProperties.html" title="CodeSlayerGroupProperties">CodeSlayerGroupProperties</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#CodeSlayerGroups-struct" title="struct CodeSlayerGroups">CodeSlayerGroups</a>, struct in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#CodeSlayerGroups--active" title='The "active" property'>CodeSlayerGroups:active</a>, object property in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#CodeSlayerGroups--list" title='The "list" property'>CodeSlayerGroups:list</a>, object property in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#CODESLAYER-GROUPS-ACTVIE:CAPS" title="CODESLAYER_GROUPS_ACTVIE">CODESLAYER_GROUPS_ACTVIE</a>, macro in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#codeslayer-groups-add-group" title="codeslayer_groups_add_group ()">codeslayer_groups_add_group</a>, function in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#CODESLAYER-GROUPS-CONF:CAPS" title="CODESLAYER_GROUPS_CONF">CODESLAYER_GROUPS_CONF</a>, macro in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#CODESLAYER-GROUPS-DIR:CAPS" title="CODESLAYER_GROUPS_DIR">CODESLAYER_GROUPS_DIR</a>, macro in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#codeslayer-groups-find-group" title="codeslayer_groups_find_group ()">codeslayer_groups_find_group</a>, function in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#codeslayer-groups-find-next-group" title="codeslayer_groups_find_next_group ()">codeslayer_groups_find_next_group</a>, function in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#codeslayer-groups-get-active-group" title="codeslayer_groups_get_active_group ()">codeslayer_groups_get_active_group</a>, function in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#codeslayer-groups-get-list" title="codeslayer_groups_get_list ()">codeslayer_groups_get_list</a>, function in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#codeslayer-groups-new" title="codeslayer_groups_new ()">codeslayer_groups_new</a>, function in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#codeslayer-groups-remove-group" title="codeslayer_groups_remove_group ()">codeslayer_groups_remove_group</a>, function in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#codeslayer-groups-set-active-group" title="codeslayer_groups_set_active_group ()">codeslayer_groups_set_active_group</a>, function in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroups.html#codeslayer-groups-set-list" title="codeslayer_groups_set_list ()">codeslayer_groups_set_list</a>, function in <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups">CodeSlayerGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-add-lib" title="codeslayer_group_add_lib ()">codeslayer_group_add_lib</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-add-project" title="codeslayer_group_add_project ()">codeslayer_group_add_project</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-contains-lib" title="codeslayer_group_contains_lib ()">codeslayer_group_contains_lib</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-contains-project" title="codeslayer_group_contains_project ()">codeslayer_group_contains_project</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-find-project" title="codeslayer_group_find_project ()">codeslayer_group_find_project</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-get-libs" title="codeslayer_group_get_libs ()">codeslayer_group_get_libs</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-get-name" title="codeslayer_group_get_name ()">codeslayer_group_get_name</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-get-projects" title="codeslayer_group_get_projects ()">codeslayer_group_get_projects</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-get-project-by-file-path" title="codeslayer_group_get_project_by_file_path ()">codeslayer_group_get_project_by_file_path</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-new" title="codeslayer_group_new ()">codeslayer_group_new</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroupProperties.html#codeslayer-group-properties-get-name" title="codeslayer_group_properties_get_name ()">codeslayer_group_properties_get_name</a>, function in <a class="link" href="CodeSlayerGroupProperties.html" title="CodeSlayerGroupProperties">CodeSlayerGroupProperties</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroupProperties.html#codeslayer-group-properties-new" title="codeslayer_group_properties_new ()">codeslayer_group_properties_new</a>, function in <a class="link" href="CodeSlayerGroupProperties.html" title="CodeSlayerGroupProperties">CodeSlayerGroupProperties</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-remove-lib" title="codeslayer_group_remove_lib ()">codeslayer_group_remove_lib</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-remove-project" title="codeslayer_group_remove_project ()">codeslayer_group_remove_project</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-set-libs" title="codeslayer_group_set_libs ()">codeslayer_group_set_libs</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-set-name" title="codeslayer_group_set_name ()">codeslayer_group_set_name</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerGroup.html#codeslayer-group-set-projects" title="codeslayer_group_set_projects ()">codeslayer_group_set_projects</a>, function in <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup">CodeSlayerGroup</a>
 </dt>
 <dd></dd>
 <a name="idxH"></a><h3 class="title">H</h3>
 <dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-HOME:CAPS" title="CODESLAYER_HOME">CODESLAYER_HOME</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
+<a class="link" href="CodeSlayer.html#CODESLAYER-HOME:CAPS" title="CODESLAYER_HOME">CODESLAYER_HOME</a>, macro in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <a name="idxL"></a><h3 class="title">L</h3>
@@ -674,6 +460,10 @@
 <dd></dd>
 <a name="idxM"></a><h3 class="title">M</h3>
 <dt>
+<a class="link" href="CodeSlayerWindow.html#CODESLAYER-MAIN-TITLE:CAPS" title="CODESLAYER_MAIN_TITLE">CODESLAYER_MAIN_TITLE</a>, macro in <a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow">CodeSlayerWindow</a>
+</dt>
+<dd></dd>
+<dt>
 <a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-struct" title="struct CodeSlayerMenuBar">CodeSlayerMenuBar</a>, struct in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
@@ -682,7 +472,7 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-close-editor" title='The "close-editor" signal'>CodeSlayerMenuBar::close-editor</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-close-document" title='The "close-document" signal'>CodeSlayerMenuBar::close-document</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
@@ -730,11 +520,11 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-group-changed" title='The "group-changed" signal'>CodeSlayerMenuBar::group-changed</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-new-document" title='The "new-document" signal'>CodeSlayerMenuBar::new-document</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-new-group" title='The "new-group" signal'>CodeSlayerMenuBar::new-group</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-open-document" title='The "open-document" signal'>CodeSlayerMenuBar::open-document</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
@@ -746,35 +536,19 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-redo" title='The "redo" signal'>CodeSlayerMenuBar::redo</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-remove-group" title='The "remove-group" signal'>CodeSlayerMenuBar::remove-group</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-rename-group" title='The "rename-group" signal'>CodeSlayerMenuBar::rename-group</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
 <a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-replace" title='The "replace" signal'>CodeSlayerMenuBar::replace</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-all-editors" title='The "save-all-editors" signal'>CodeSlayerMenuBar::save-all-editors</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-all-documents" title='The "save-all-documents" signal'>CodeSlayerMenuBar::save-all-documents</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-editor" title='The "save-editor" signal'>CodeSlayerMenuBar::save-editor</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-document" title='The "save-document" signal'>CodeSlayerMenuBar::save-document</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
 <a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-scan-external-changes" title='The "scan-external-changes" signal'>CodeSlayerMenuBar::scan-external-changes</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-select-all" title='The "select-all" signal'>CodeSlayerMenuBar::select-all</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
@@ -790,11 +564,19 @@
 </dt>
 <dd></dd>
 <dt>
+<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-profiles" title='The "show-profiles" signal'>CodeSlayerMenuBar::show-profiles</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+</dt>
+<dd></dd>
+<dt>
 <a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-side-pane" title='The "show-side-pane" signal'>CodeSlayerMenuBar::show-side-pane</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-sync-projects-with-editor" title='The "sync-projects-with-editor" signal'>CodeSlayerMenuBar::sync-projects-with-editor</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-sync-engine" title='The "sync-engine" signal'>CodeSlayerMenuBar::sync-engine</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-sync-with-document" title='The "sync-with-document" signal'>CodeSlayerMenuBar::sync-with-document</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
@@ -806,15 +588,15 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-undo" title='The "undo" signal'>CodeSlayerMenuBar::undo</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-word-wrap" title='The "word-wrap" signal'>CodeSlayerMenuBar::word-wrap</a>, object signal in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBarEditor.html#CodeSlayerMenuBarEditor-struct" title="struct CodeSlayerMenuBarEditor">CodeSlayerMenuBarEditor</a>, struct in <a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSlayerMenuBarEditor">CodeSlayerMenuBarEditor</a>
+<a class="link" href="CodeSlayerMenuBarEdit.html#CodeSlayerMenuBarEdit-struct" title="struct CodeSlayerMenuBarEdit">CodeSlayerMenuBarEdit</a>, struct in <a class="link" href="CodeSlayerMenuBarEdit.html" title="CodeSlayerMenuBarEdit">CodeSlayerMenuBarEdit</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBarGroups.html#CodeSlayerMenuBarGroups-struct" title="struct CodeSlayerMenuBarGroups">CodeSlayerMenuBarGroups</a>, struct in <a class="link" href="CodeSlayerMenuBarGroups.html" title="CodeSlayerMenuBarGroups">CodeSlayerMenuBarGroups</a>
+<a class="link" href="CodeSlayerMenuBarFile.html#CodeSlayerMenuBarFile-struct" title="struct CodeSlayerMenuBarFile">CodeSlayerMenuBarFile</a>, struct in <a class="link" href="CodeSlayerMenuBarFile.html" title="CodeSlayerMenuBarFile">CodeSlayerMenuBarFile</a>
 </dt>
 <dd></dd>
 <dt>
@@ -854,7 +636,7 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-close-editor" title="codeslayer_menu_bar_close_editor ()">codeslayer_menu_bar_close_editor</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-close-document" title="codeslayer_menu_bar_close_document ()">codeslayer_menu_bar_close_document</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
@@ -878,11 +660,11 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBarEditor.html#codeslayer-menu-bar-editor-new" title="codeslayer_menu_bar_editor_new ()">codeslayer_menu_bar_editor_new</a>, function in <a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSlayerMenuBarEditor">CodeSlayerMenuBarEditor</a>
+<a class="link" href="CodeSlayerMenuBarEdit.html#codeslayer-menu-bar-edit-new" title="codeslayer_menu_bar_edit_new ()">codeslayer_menu_bar_edit_new</a>, function in <a class="link" href="CodeSlayerMenuBarEdit.html" title="CodeSlayerMenuBarEdit">CodeSlayerMenuBarEdit</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBarEditor.html#codeslayer-menu-bar-editor-sync-with-notebook" title="codeslayer_menu_bar_editor_sync_with_notebook ()">codeslayer_menu_bar_editor_sync_with_notebook</a>, function in <a class="link" href="CodeSlayerMenuBarEditor.html" title="CodeSlayerMenuBarEditor">CodeSlayerMenuBarEditor</a>
+<a class="link" href="CodeSlayerMenuBarFile.html#codeslayer-menu-bar-file-new" title="codeslayer_menu_bar_file_new ()">codeslayer_menu_bar_file_new</a>, function in <a class="link" href="CodeSlayerMenuBarFile.html" title="CodeSlayerMenuBarFile">CodeSlayerMenuBarFile</a>
 </dt>
 <dd></dd>
 <dt>
@@ -914,18 +696,6 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBarGroups.html#codeslayer-menu-bar-groups-new" title="codeslayer_menu_bar_groups_new ()">codeslayer_menu_bar_groups_new</a>, function in <a class="link" href="CodeSlayerMenuBarGroups.html" title="CodeSlayerMenuBarGroups">CodeSlayerMenuBarGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBarGroups.html#codeslayer-menu-bar-groups-refresh-groups" title="codeslayer_menu_bar_groups_refresh_groups ()">codeslayer_menu_bar_groups_refresh_groups</a>, function in <a class="link" href="CodeSlayerMenuBarGroups.html" title="CodeSlayerMenuBarGroups">CodeSlayerMenuBarGroups</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-group-changed" title="codeslayer_menu_bar_group_changed ()">codeslayer_menu_bar_group_changed</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
 <a class="link" href="CodeSlayerMenuBarHelp.html#codeslayer-menu-bar-help-new" title="codeslayer_menu_bar_help_new ()">codeslayer_menu_bar_help_new</a>, function in <a class="link" href="CodeSlayerMenuBarHelp.html" title="CodeSlayerMenuBarHelp">CodeSlayerMenuBarHelp</a>
 </dt>
 <dd></dd>
@@ -934,7 +704,11 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-new-group" title="codeslayer_menu_bar_new_group ()">codeslayer_menu_bar_new_group</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-new-document" title="codeslayer_menu_bar_new_document ()">codeslayer_menu_bar_new_document</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-open-document" title="codeslayer_menu_bar_open_document ()">codeslayer_menu_bar_open_document</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
@@ -950,23 +724,7 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-redo" title="codeslayer_menu_bar_redo ()">codeslayer_menu_bar_redo</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-refresh-groups" title="codeslayer_menu_bar_refresh_groups ()">codeslayer_menu_bar_refresh_groups</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-remove-group" title="codeslayer_menu_bar_remove_group ()">codeslayer_menu_bar_remove_group</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
 <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-remove-tools-item" title="codeslayer_menu_bar_remove_tools_item ()">codeslayer_menu_bar_remove_tools_item</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-rename-group" title="codeslayer_menu_bar_rename_group ()">codeslayer_menu_bar_rename_group</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
@@ -974,11 +732,11 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-all-editors" title="codeslayer_menu_bar_save_all_editors ()">codeslayer_menu_bar_save_all_editors</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-all-documents" title="codeslayer_menu_bar_save_all_documents ()">codeslayer_menu_bar_save_all_documents</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-editor" title="codeslayer_menu_bar_save_editor ()">codeslayer_menu_bar_save_editor</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-document" title="codeslayer_menu_bar_save_document ()">codeslayer_menu_bar_save_document</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
@@ -987,14 +745,6 @@
 <dd></dd>
 <dt>
 <a class="link" href="CodeSlayerMenuBarSearch.html#codeslayer-menu-bar-search-new" title="codeslayer_menu_bar_search_new ()">codeslayer_menu_bar_search_new</a>, function in <a class="link" href="CodeSlayerMenuBarSearch.html" title="CodeSlayerMenuBarSearch">CodeSlayerMenuBarSearch</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBarSearch.html#codeslayer-menu-bar-search-sync-with-notebook" title="codeslayer_menu_bar_search_sync_with_notebook ()">codeslayer_menu_bar_search_sync_with_notebook</a>, function in <a class="link" href="CodeSlayerMenuBarSearch.html" title="CodeSlayerMenuBarSearch">CodeSlayerMenuBarSearch</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-select-all" title="codeslayer_menu_bar_select_all ()">codeslayer_menu_bar_select_all</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1010,23 +760,19 @@
 </dt>
 <dd></dd>
 <dt>
+<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-profiles" title="codeslayer_menu_bar_show_profiles ()">codeslayer_menu_bar_show_profiles</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+</dt>
+<dd></dd>
+<dt>
 <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-side-pane" title="codeslayer_menu_bar_show_side_pane ()">codeslayer_menu_bar_show_side_pane</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-projects-with-editor" title="codeslayer_menu_bar_sync_projects_with_editor ()">codeslayer_menu_bar_sync_projects_with_editor</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-with-document" title="codeslayer_menu_bar_sync_with_document ()">codeslayer_menu_bar_sync_with_document</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-with-notebook" title="codeslayer_menu_bar_sync_with_notebook ()">codeslayer_menu_bar_sync_with_notebook</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-with-panes" title="codeslayer_menu_bar_sync_with_panes ()">codeslayer_menu_bar_sync_with_panes</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-tools-add-item" title="codeslayer_menu_bar_tools_add_item ()">codeslayer_menu_bar_tools_add_item</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBarTools.html#codeslayer-menu-bar-tools-add-item" title="codeslayer_menu_bar_tools_add_item ()">codeslayer_menu_bar_tools_add_item</a>, function in <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools">CodeSlayerMenuBarTools</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1034,7 +780,7 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-tools-remove-item" title="codeslayer_menu_bar_tools_remove_item ()">codeslayer_menu_bar_tools_remove_item</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
+<a class="link" href="CodeSlayerMenuBarTools.html#codeslayer-menu-bar-tools-remove-item" title="codeslayer_menu_bar_tools_remove_item ()">codeslayer_menu_bar_tools_remove_item</a>, function in <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools">CodeSlayerMenuBarTools</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1046,15 +792,11 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-undo" title="codeslayer_menu_bar_undo ()">codeslayer_menu_bar_undo</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
-</dt>
-<dd></dd>
-<dt>
 <a class="link" href="CodeSlayerMenuBarView.html#codeslayer-menu-bar-view-new" title="codeslayer_menu_bar_view_new ()">codeslayer_menu_bar_view_new</a>, function in <a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlayerMenuBarView">CodeSlayerMenuBarView</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerMenuBarView.html#codeslayer-menu-bar-view-sync-with-panes" title="codeslayer_menu_bar_view_sync_with_panes ()">codeslayer_menu_bar_view_sync_with_panes</a>, function in <a class="link" href="CodeSlayerMenuBarView.html" title="CodeSlayerMenuBarView">CodeSlayerMenuBarView</a>
+<a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-word-wrap" title="codeslayer_menu_bar_word_wrap ()">codeslayer_menu_bar_word_wrap</a>, function in <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">CodeSlayerMenuBar</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1075,15 +817,15 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-editor-saved" title='The "editor-saved" signal'>CodeSlayerNotebook::editor-saved</a>, object signal in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
+<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-document-saved" title='The "document-saved" signal'>CodeSlayerNotebook::document-saved</a>, object signal in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-editors-all-saved" title='The "editors-all-saved" signal'>CodeSlayerNotebook::editors-all-saved</a>, object signal in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
+<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-documents-all-saved" title='The "documents-all-saved" signal'>CodeSlayerNotebook::documents-all-saved</a>, object signal in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-select-editor" title='The "select-editor" signal'>CodeSlayerNotebook::select-editor</a>, object signal in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
+<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-select-document" title='The "select-document" signal'>CodeSlayerNotebook::select-document</a>, object signal in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1119,27 +861,27 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-all-editors" title='The "close-all-editors" signal'>CodeSlayerNotebookTab::close-all-editors</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
+<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-all-documents" title='The "close-all-documents" signal'>CodeSlayerNotebookTab::close-all-documents</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-editor" title='The "close-editor" signal'>CodeSlayerNotebookTab::close-editor</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
+<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-document" title='The "close-document" signal'>CodeSlayerNotebookTab::close-document</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-left-editors" title='The "close-left-editors" signal'>CodeSlayerNotebookTab::close-left-editors</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
+<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-left-documents" title='The "close-left-documents" signal'>CodeSlayerNotebookTab::close-left-documents</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-other-editors" title='The "close-other-editors" signal'>CodeSlayerNotebookTab::close-other-editors</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
+<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-other-documents" title='The "close-other-documents" signal'>CodeSlayerNotebookTab::close-other-documents</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-right-editors" title='The "close-right-editors" signal'>CodeSlayerNotebookTab::close-right-editors</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
+<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-right-documents" title='The "close-right-documents" signal'>CodeSlayerNotebookTab::close-right-documents</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-select-editor" title='The "select-editor" signal'>CodeSlayerNotebookTab::select-editor</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
+<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-select-document" title='The "select-document" signal'>CodeSlayerNotebookTab::select-document</a>, object signal in <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1147,23 +889,27 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-add-editor" title="codeslayer_notebook_add_editor ()">codeslayer_notebook_add_editor</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
+<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-add-document" title="codeslayer_notebook_add_document ()">codeslayer_notebook_add_document</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-close-all-editors" title="codeslayer_notebook_close_all_editors ()">codeslayer_notebook_close_all_editors</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
+<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-close-all-documents" title="codeslayer_notebook_close_all_documents ()">codeslayer_notebook_close_all_documents</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-close-editor" title="codeslayer_notebook_close_editor ()">codeslayer_notebook_close_editor</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
+<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-close-document" title="codeslayer_notebook_close_document ()">codeslayer_notebook_close_document</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-get-active-editor" title="codeslayer_notebook_get_active_editor ()">codeslayer_notebook_get_active_editor</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
+<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-get-active-source-view" title="codeslayer_notebook_get_active_source_view ()">codeslayer_notebook_get_active_source_view</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-has-unsaved-editors" title="codeslayer_notebook_has_unsaved_editors ()">codeslayer_notebook_has_unsaved_editors</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
+<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-get-all-source-views" title="codeslayer_notebook_get_all_source_views ()">codeslayer_notebook_get_all_source_views</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-has-unsaved-documents" title="codeslayer_notebook_has_unsaved_documents ()">codeslayer_notebook_has_unsaved_documents</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1171,15 +917,19 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-get-document" title="codeslayer_notebook_page_get_document ()">codeslayer_notebook_page_get_document</a>, function in <a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage">CodeSlayerNotebookPage</a>
+<a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-get-source-view" title="codeslayer_notebook_page_get_source_view ()">codeslayer_notebook_page_get_source_view</a>, function in <a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage">CodeSlayerNotebookPage</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-get-editor" title="codeslayer_notebook_page_get_editor ()">codeslayer_notebook_page_get_editor</a>, function in <a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage">CodeSlayerNotebookPage</a>
+<a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-load-source-view" title="codeslayer_notebook_page_load_source_view ()">codeslayer_notebook_page_load_source_view</a>, function in <a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage">CodeSlayerNotebookPage</a>
 </dt>
 <dd></dd>
 <dt>
 <a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-new" title="codeslayer_notebook_page_new ()">codeslayer_notebook_page_new</a>, function in <a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage">CodeSlayerNotebookPage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerNotebookPage.html#codeslayer-notebook-page-save-source-view" title="codeslayer_notebook_page_save_source_view ()">codeslayer_notebook_page_save_source_view</a>, function in <a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage">CodeSlayerNotebookPage</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1231,11 +981,11 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-save-all-editors" title="codeslayer_notebook_save_all_editors ()">codeslayer_notebook_save_all_editors</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
+<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-save-all-documents" title="codeslayer_notebook_save_all_documents ()">codeslayer_notebook_save_all_documents</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-save-editor" title="codeslayer_notebook_save_editor ()">codeslayer_notebook_save_editor</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
+<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-save-document" title="codeslayer_notebook_save_document ()">codeslayer_notebook_save_document</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1264,6 +1014,10 @@
 <dd></dd>
 <dt>
 <a class="link" href="CodeSlayerNotebookSearch.html#codeslayer-notebook-search-sync-with-notebook" title="codeslayer_notebook_search_sync_with_notebook ()">codeslayer_notebook_search_sync_with_notebook</a>, function in <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch">CodeSlayerNotebookSearch</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-select-document" title="codeslayer_notebook_select_document ()">codeslayer_notebook_select_document</a>, function in <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook">CodeSlayerNotebook</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1464,30 +1218,6 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-bottom-pane-preferences-changed" title='The "bottom-pane-preferences-changed" signal'>CodeSlayerPreferences::bottom-pane-preferences-changed</a>, object signal in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-editor-preferences-changed" title='The "editor-preferences-changed" signal'>CodeSlayerPreferences::editor-preferences-changed</a>, object signal in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-initialize-preferences" title='The "initialize-preferences" signal'>CodeSlayerPreferences::initialize-preferences</a>, object signal in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-notebook-preferences-changed" title='The "notebook-preferences-changed" signal'>CodeSlayerPreferences::notebook-preferences-changed</a>, object signal in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-projects-preferences-changed" title='The "projects-preferences-changed" signal'>CodeSlayerPreferences::projects-preferences-changed</a>, object signal in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CodeSlayerPreferences-side-pane-preferences-changed" title='The "side-pane-preferences-changed" signal'>CodeSlayerPreferences::side-pane-preferences-changed</a>, object signal in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
 <a class="link" href="CodeSlayerPreferencesEditor.html#CodeSlayerPreferencesEditor-struct" title="struct CodeSlayerPreferencesEditor">CodeSlayerPreferencesEditor</a>, struct in <a class="link" href="CodeSlayerPreferencesEditor.html" title="CodeSlayerPreferencesEditor">CodeSlayerPreferencesEditor</a>
 </dt>
 <dd></dd>
@@ -1512,83 +1242,11 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-BOTTOM-PANE-TAB-POSITION:CAPS" title="CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION">CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-LINE-NUMBERS:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS">CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-DISPLAY-RIGHT-MARGIN:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN">CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-ENABLE-AUTOMATIC-INDENTATION:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION">CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-FONT:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_FONT">CODESLAYER_PREFERENCES_EDITOR_FONT</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-CURRENT-LINE:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE">CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-HIGHLIGHT-MATCHING-BRACKET:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET">CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-INSERT-SPACES-INSTEAD-OF-TABS:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS">CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
 <a class="link" href="CodeSlayerPreferencesEditor.html#codeslayer-preferences-editor-new" title="codeslayer_preferences_editor_new ()">codeslayer_preferences_editor_new</a>, function in <a class="link" href="CodeSlayerPreferencesEditor.html" title="CodeSlayerPreferencesEditor">CodeSlayerPreferencesEditor</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-RIGHT-MARGIN-POSITION:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION">CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-TAB-POSITION:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION">CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-TAB-WIDTH:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH">CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-THEME:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_THEME">CODESLAYER_PREFERENCES_EDITOR_THEME</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-EDITOR-WORD-WRAP-TYPES:CAPS" title="CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES">CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-get-boolean" title="codeslayer_preferences_get_boolean ()">codeslayer_preferences_get_boolean</a>, function in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-get-double" title="codeslayer_preferences_get_double ()">codeslayer_preferences_get_double</a>, function in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-get-integer" title="codeslayer_preferences_get_integer ()">codeslayer_preferences_get_integer</a>, function in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-get-string" title="codeslayer_preferences_get_string ()">codeslayer_preferences_get_string</a>, function in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
 <a class="link" href="CodeSlayerPreferencesListView.html#codeslayer-preferences-list-view-new" title="codeslayer_preferences_list_view_new ()">codeslayer_preferences_list_view_new</a>, function in <a class="link" href="CodeSlayerPreferencesListView.html" title="CodeSlayerPreferencesListView">CodeSlayerPreferencesListView</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferencesEditor.html#codeslayer-preferences-load" title="codeslayer_preferences_load ()">codeslayer_preferences_load</a>, function in <a class="link" href="CodeSlayerPreferencesEditor.html" title="CodeSlayerPreferencesEditor">CodeSlayerPreferencesEditor</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1600,43 +1258,11 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-PROJECTS-EXCLUDE-DIRS:CAPS" title="CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS">CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-PROJECTS-EXCLUDE-TYPES:CAPS" title="CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES">CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
 <a class="link" href="CodeSlayerPreferencesProjects.html#codeslayer-preferences-projects-new" title="codeslayer_preferences_projects_new ()">codeslayer_preferences_projects_new</a>, function in <a class="link" href="CodeSlayerPreferencesProjects.html" title="CodeSlayerPreferencesProjects">CodeSlayerPreferencesProjects</a>
 </dt>
 <dd></dd>
 <dt>
 <a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-run-dialog" title="codeslayer_preferences_run_dialog ()">codeslayer_preferences_run_dialog</a>, function in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-save" title="codeslayer_preferences_save ()">codeslayer_preferences_save</a>, function in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-set-boolean" title="codeslayer_preferences_set_boolean ()">codeslayer_preferences_set_boolean</a>, function in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-set-double" title="codeslayer_preferences_set_double ()">codeslayer_preferences_set_double</a>, function in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-set-integer" title="codeslayer_preferences_set_integer ()">codeslayer_preferences_set_integer</a>, function in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#codeslayer-preferences-set-string" title="codeslayer_preferences_set_string ()">codeslayer_preferences_set_string</a>, function in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerPreferences.html#CODESLAYER-PREFERENCES-SIDE-PANE-TAB-POSITION:CAPS" title="CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION">CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION</a>, macro in <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">CodeSlayerPreferences</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1732,6 +1358,154 @@
 </dt>
 <dd></dd>
 <dt>
+<a class="link" href="CodeSlayerProfile.html#CodeSlayerProfile-struct" title="struct CodeSlayerProfile">CodeSlayerProfile</a>, struct in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfiles.html#CodeSlayerProfiles-struct" title="struct CodeSlayerProfiles">CodeSlayerProfiles</a>, struct in <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles">CodeSlayerProfiles</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfilesManager.html#CodeSlayerProfilesManager-struct" title="struct CodeSlayerProfilesManager">CodeSlayerProfilesManager</a>, struct in <a class="link" href="CodeSlayerProfilesManager.html" title="CodeSlayerProfilesManager">CodeSlayerProfilesManager</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfiles.html#codeslayer-profiles-create-profile" title="codeslayer_profiles_create_profile ()">codeslayer_profiles_create_profile</a>, function in <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles">CodeSlayerProfiles</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfiles.html#CODESLAYER-PROFILES-DEFAULT:CAPS" title="CODESLAYER_PROFILES_DEFAULT">CODESLAYER_PROFILES_DEFAULT</a>, macro in <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles">CodeSlayerProfiles</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfiles.html#CODESLAYER-PROFILES-DIR:CAPS" title="CODESLAYER_PROFILES_DIR">CODESLAYER_PROFILES_DIR</a>, macro in <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles">CodeSlayerProfiles</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfiles.html#codeslayer-profiles-get-profile-names" title="codeslayer_profiles_get_profile_names ()">codeslayer_profiles_get_profile_names</a>, function in <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles">CodeSlayerProfiles</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfilesManager.html#codeslayer-profiles-manager-new" title="codeslayer_profiles_manager_new ()">codeslayer_profiles_manager_new</a>, function in <a class="link" href="CodeSlayerProfilesManager.html" title="CodeSlayerProfilesManager">CodeSlayerProfilesManager</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfilesManager.html#codeslayer-profiles-manager-run-dialog" title="codeslayer_profiles_manager_run_dialog ()">codeslayer_profiles_manager_run_dialog</a>, function in <a class="link" href="CodeSlayerProfilesManager.html" title="CodeSlayerProfilesManager">CodeSlayerProfilesManager</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfiles.html#codeslayer-profiles-new" title="codeslayer_profiles_new ()">codeslayer_profiles_new</a>, function in <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles">CodeSlayerProfiles</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfiles.html#codeslayer-profiles-retrieve-profile" title="codeslayer_profiles_retrieve_profile ()">codeslayer_profiles_retrieve_profile</a>, function in <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles">CodeSlayerProfiles</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfiles.html#codeslayer-profiles-save-profile" title="codeslayer_profiles_save_profile ()">codeslayer_profiles_save_profile</a>, function in <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles">CodeSlayerProfiles</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-add-document" title="codeslayer_profile_add_document ()">codeslayer_profile_add_document</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-add-plugin" title="codeslayer_profile_add_plugin ()">codeslayer_profile_add_plugin</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-add-project" title="codeslayer_profile_add_project ()">codeslayer_profile_add_project</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-contains-plugin" title="codeslayer_profile_contains_plugin ()">codeslayer_profile_contains_plugin</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-contains-project" title="codeslayer_profile_contains_project ()">codeslayer_profile_contains_project</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfiles.html#CODESLAYER-PROFILE-FILE:CAPS" title="CODESLAYER_PROFILE_FILE">CODESLAYER_PROFILE_FILE</a>, macro in <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles">CodeSlayerProfiles</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-find-project" title="codeslayer_profile_find_project ()">codeslayer_profile_find_project</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-documents" title="codeslayer_profile_get_documents ()">codeslayer_profile_get_documents</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-enable-projects" title="codeslayer_profile_get_enable_projects ()">codeslayer_profile_get_enable_projects</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-file-path" title="codeslayer_profile_get_file_path ()">codeslayer_profile_get_file_path</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-name" title="codeslayer_profile_get_name ()">codeslayer_profile_get_name</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-plugins" title="codeslayer_profile_get_plugins ()">codeslayer_profile_get_plugins</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-projects" title="codeslayer_profile_get_projects ()">codeslayer_profile_get_projects</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-project-by-file-path" title="codeslayer_profile_get_project_by_file_path ()">codeslayer_profile_get_project_by_file_path</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-registry" title="codeslayer_profile_get_registry ()">codeslayer_profile_get_registry</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-new" title="codeslayer_profile_new ()">codeslayer_profile_new</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-remove-document" title="codeslayer_profile_remove_document ()">codeslayer_profile_remove_document</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-remove-plugin" title="codeslayer_profile_remove_plugin ()">codeslayer_profile_remove_plugin</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-remove-project" title="codeslayer_profile_remove_project ()">codeslayer_profile_remove_project</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-set-documents" title="codeslayer_profile_set_documents ()">codeslayer_profile_set_documents</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-set-enable-projects" title="codeslayer_profile_set_enable_projects ()">codeslayer_profile_set_enable_projects</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-set-file-path" title="codeslayer_profile_set_file_path ()">codeslayer_profile_set_file_path</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-set-name" title="codeslayer_profile_set_name ()">codeslayer_profile_set_name</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-set-plugins" title="codeslayer_profile_set_plugins ()">codeslayer_profile_set_plugins</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProfile.html#codeslayer-profile-set-projects" title="codeslayer_profile_set_projects ()">codeslayer_profile_set_projects</a>, function in <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile">CodeSlayerProfile</a>
+</dt>
+<dd></dd>
+<dt>
 <a class="link" href="CodeSlayerProject.html#CodeSlayerProject-struct" title="struct CodeSlayerProject">CodeSlayerProject</a>, struct in <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject">CodeSlayerProject</a>
 </dt>
 <dd></dd>
@@ -1808,6 +1582,18 @@
 </dt>
 <dd></dd>
 <dt>
+<a class="link" href="CodeSlayerProjectsSearch.html#CodeSlayerProjectsSearch-struct" title="struct CodeSlayerProjectsSearch">CodeSlayerProjectsSearch</a>, struct in <a class="link" href="CodeSlayerProjectsSearch.html" title="CodeSlayerProjectsSearch">CodeSlayerProjectsSearch</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProjectsSearch.html#CodeSlayerProjectsSearch-close" title='The "close" signal'>CodeSlayerProjectsSearch::close</a>, object signal in <a class="link" href="CodeSlayerProjectsSearch.html" title="CodeSlayerProjectsSearch">CodeSlayerProjectsSearch</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProjectsSearch.html#CodeSlayerProjectsSearch-select-document" title='The "select-document" signal'>CodeSlayerProjectsSearch::select-document</a>, object signal in <a class="link" href="CodeSlayerProjectsSearch.html" title="CodeSlayerProjectsSearch">CodeSlayerProjectsSearch</a>
+</dt>
+<dd></dd>
+<dt>
 <a class="link" href="CodeSlayerProjectsSelection.html#CodeSlayerProjectsSelection-struct" title="struct CodeSlayerProjectsSelection">CodeSlayerProjectsSelection</a>, struct in <a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection">CodeSlayerProjectsSelection</a>
 </dt>
 <dd></dd>
@@ -1828,10 +1614,6 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerProjects.html#codeslayer-projects-load-group" title="codeslayer_projects_load_group ()">codeslayer_projects_load_group</a>, function in <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects">CodeSlayerProjects</a>
-</dt>
-<dd></dd>
-<dt>
 <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-new" title="codeslayer_projects_new ()">codeslayer_projects_new</a>, function in <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects">CodeSlayerProjects</a>
 </dt>
 <dd></dd>
@@ -1844,7 +1626,15 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerProjects.html#codeslayer-projects-search-find" title="codeslayer_projects_search_find ()">codeslayer_projects_search_find</a>, function in <a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects">CodeSlayerProjects</a>
+<a class="link" href="CodeSlayerProjectsSearch.html#codeslayer-projects-search-find-projects" title="codeslayer_projects_search_find_projects ()">codeslayer_projects_search_find_projects</a>, function in <a class="link" href="CodeSlayerProjectsSearch.html" title="CodeSlayerProjectsSearch">CodeSlayerProjectsSearch</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProjectsSearch.html#codeslayer-projects-search-find-selection" title="codeslayer_projects_search_find_selection ()">codeslayer_projects_search_find_selection</a>, function in <a class="link" href="CodeSlayerProjectsSearch.html" title="CodeSlayerProjectsSearch">CodeSlayerProjectsSearch</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProjectsSearch.html#codeslayer-projects-search-new" title="codeslayer_projects_search_new ()">codeslayer_projects_search_new</a>, function in <a class="link" href="CodeSlayerProjectsSearch.html" title="CodeSlayerProjectsSearch">CodeSlayerProjectsSearch</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1905,11 +1695,203 @@
 <dd></dd>
 <a name="idxR"></a><h3 class="title">R</h3>
 <dt>
-<a class="link" href="CodeSlayer.html#codeslayer-remove-from-bottom-pane" title="codeslayer_remove_from_bottom_pane ()">codeslayer_remove_from_bottom_pane</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayerRegistry.html#CodeSlayerRegistry-struct" title="struct CodeSlayerRegistry">CodeSlayerRegistry</a>, struct in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayer.html#codeslayer-remove-from-menubar" title="codeslayer_remove_from_menubar ()">codeslayer_remove_from_menubar</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
+<a class="link" href="CodeSlayerRegistry.html#CodeSlayerRegistry-registry-changed" title='The "registry-changed" signal'>CodeSlayerRegistry::registry-changed</a>, object signal in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CodeSlayerRegistry-registry-initialized" title='The "registry-initialized" signal'>CodeSlayerRegistry::registry-initialized</a>, object signal in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-BOTTOM-PANE-TAB-POSITION:CAPS" title="CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION">CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-BOTTOM-PANE-VISIBLE:CAPS" title="CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE">CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-DISPLAY-LINE-NUMBERS:CAPS" title="CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS">CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-DISPLAY-RIGHT-MARGIN:CAPS" title="CODESLAYER_REGISTRY_DISPLAY_RIGHT_MARGIN">CODESLAYER_REGISTRY_DISPLAY_RIGHT_MARGIN</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-DRAW-SPACES:CAPS" title="CODESLAYER_REGISTRY_DRAW_SPACES">CODESLAYER_REGISTRY_DRAW_SPACES</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-ENABLE-AUTOMATIC-INDENTATION:CAPS" title="CODESLAYER_REGISTRY_ENABLE_AUTOMATIC_INDENTATION">CODESLAYER_REGISTRY_ENABLE_AUTOMATIC_INDENTATION</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-ENABLE-PROJECTS:CAPS" title="CODESLAYER_REGISTRY_ENABLE_PROJECTS">CODESLAYER_REGISTRY_ENABLE_PROJECTS</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-FONT:CAPS" title="CODESLAYER_REGISTRY_FONT">CODESLAYER_REGISTRY_FONT</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-boolean" title="codeslayer_registry_get_boolean ()">codeslayer_registry_get_boolean</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-double" title="codeslayer_registry_get_double ()">codeslayer_registry_get_double</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-hashtable" title="codeslayer_registry_get_hashtable ()">codeslayer_registry_get_hashtable</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-integer" title="codeslayer_registry_get_integer ()">codeslayer_registry_get_integer</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-setting" title="codeslayer_registry_get_setting ()">codeslayer_registry_get_setting</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-string" title="codeslayer_registry_get_string ()">codeslayer_registry_get_string</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-HIGHLIGHT-CURRENT-LINE:CAPS" title="CODESLAYER_REGISTRY_HIGHLIGHT_CURRENT_LINE">CODESLAYER_REGISTRY_HIGHLIGHT_CURRENT_LINE</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-HIGHLIGHT-MATCHING-BRACKET:CAPS" title="CODESLAYER_REGISTRY_HIGHLIGHT_MATCHING_BRACKET">CODESLAYER_REGISTRY_HIGHLIGHT_MATCHING_BRACKET</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-HPANED-POSITION:CAPS" title="CODESLAYER_REGISTRY_HPANED_POSITION">CODESLAYER_REGISTRY_HPANED_POSITION</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-INSERT-SPACES-INSTEAD-OF-TABS:CAPS" title="CODESLAYER_REGISTRY_INSERT_SPACES_INSTEAD_OF_TABS">CODESLAYER_REGISTRY_INSERT_SPACES_INSTEAD_OF_TABS</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-new" title="codeslayer_registry_new ()">codeslayer_registry_new</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-MATCH-CASE:CAPS" title="CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE">CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-MATCH-WORD:CAPS" title="CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD">CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-PROJECTS-EXCLUDE-DIRS:CAPS" title="CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS">CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-PROJECTS-EXCLUDE-TYPES:CAPS" title="CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES">CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-RIGHT-MARGIN-POSITION:CAPS" title="CODESLAYER_REGISTRY_RIGHT_MARGIN_POSITION">CODESLAYER_REGISTRY_RIGHT_MARGIN_POSITION</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-HEIGHT:CAPS" title="CODESLAYER_REGISTRY_SEARCH_HEIGHT">CODESLAYER_REGISTRY_SEARCH_HEIGHT</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-WIDTH:CAPS" title="CODESLAYER_REGISTRY_SEARCH_WIDTH">CODESLAYER_REGISTRY_SEARCH_WIDTH</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-X:CAPS" title="CODESLAYER_REGISTRY_SEARCH_X">CODESLAYER_REGISTRY_SEARCH_X</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-Y:CAPS" title="CODESLAYER_REGISTRY_SEARCH_Y">CODESLAYER_REGISTRY_SEARCH_Y</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-set-boolean" title="codeslayer_registry_set_boolean ()">codeslayer_registry_set_boolean</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-set-double" title="codeslayer_registry_set_double ()">codeslayer_registry_set_double</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-set-integer" title="codeslayer_registry_set_integer ()">codeslayer_registry_set_integer</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-set-setting" title="codeslayer_registry_set_setting ()">codeslayer_registry_set_setting</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-set-string" title="codeslayer_registry_set_string ()">codeslayer_registry_set_string</a>, function in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SIDE-PANE-TAB-POSITION:CAPS" title="CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION">CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SIDE-PANE-VISIBLE:CAPS" title="CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE">CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SYNC-WITH-DOCUMENT:CAPS" title="CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT">CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-TAB-POSITION:CAPS" title="CODESLAYER_REGISTRY_TAB_POSITION">CODESLAYER_REGISTRY_TAB_POSITION</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-TAB-WIDTH:CAPS" title="CODESLAYER_REGISTRY_TAB_WIDTH">CODESLAYER_REGISTRY_TAB_WIDTH</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-THEME:CAPS" title="CODESLAYER_REGISTRY_THEME">CODESLAYER_REGISTRY_THEME</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-VPANED-POSITION:CAPS" title="CODESLAYER_REGISTRY_VPANED_POSITION">CODESLAYER_REGISTRY_VPANED_POSITION</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-HEIGHT:CAPS" title="CODESLAYER_REGISTRY_WINDOW_HEIGHT">CODESLAYER_REGISTRY_WINDOW_HEIGHT</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-WIDTH:CAPS" title="CODESLAYER_REGISTRY_WINDOW_WIDTH">CODESLAYER_REGISTRY_WINDOW_WIDTH</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-X:CAPS" title="CODESLAYER_REGISTRY_WINDOW_X">CODESLAYER_REGISTRY_WINDOW_X</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-Y:CAPS" title="CODESLAYER_REGISTRY_WINDOW_Y">CODESLAYER_REGISTRY_WINDOW_Y</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WORD-WRAP:CAPS" title="CODESLAYER_REGISTRY_WORD_WRAP">CODESLAYER_REGISTRY_WORD_WRAP</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WORD-WRAP-TYPES:CAPS" title="CODESLAYER_REGISTRY_WORD_WRAP_TYPES">CODESLAYER_REGISTRY_WORD_WRAP_TYPES</a>, macro in <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">CodeSlayerRegistry</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayer.html#codeslayer-remove-from-bottom-pane" title="codeslayer_remove_from_bottom_pane ()">codeslayer_remove_from_bottom_pane</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
@@ -1934,151 +1916,11 @@
 <dd></dd>
 <a name="idxS"></a><h3 class="title">S</h3>
 <dt>
-<a class="link" href="CodeSlayerSearch.html#CodeSlayerSearch-struct" title="struct CodeSlayerSearch">CodeSlayerSearch</a>, struct in <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch">CodeSlayerSearch</a>
+<a class="link" href="CodeSlayer.html#codeslayer-select-document" title="codeslayer_select_document ()">codeslayer_select_document</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerSearch.html#CodeSlayerSearch-close" title='The "close" signal'>CodeSlayerSearch::close</a>, object signal in <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch">CodeSlayerSearch</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSearch.html#CodeSlayerSearch-select-document" title='The "select-document" signal'>CodeSlayerSearch::select-document</a>, object signal in <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch">CodeSlayerSearch</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSearch.html#codeslayer-search-clear" title="codeslayer_search_clear ()">codeslayer_search_clear</a>, function in <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch">CodeSlayerSearch</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSearch.html#codeslayer-search-find-projects" title="codeslayer_search_find_projects ()">codeslayer_search_find_projects</a>, function in <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch">CodeSlayerSearch</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSearch.html#codeslayer-search-find-selection" title="codeslayer_search_find_selection ()">codeslayer_search_find_selection</a>, function in <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch">CodeSlayerSearch</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSearch.html#codeslayer-search-new" title="codeslayer_search_new ()">codeslayer_search_new</a>, function in <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch">CodeSlayerSearch</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#codeslayer-select-editor" title="codeslayer_select_editor ()">codeslayer_select_editor</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayer.html#codeslayer-select-editor-by-file-path" title="codeslayer_select_editor_by_file_path ()">codeslayer_select_editor_by_file_path</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CodeSlayerSettings-struct" title="struct CodeSlayerSettings">CodeSlayerSettings</a>, struct in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-BOTTOM-PANE-VISIBLE:CAPS" title="CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE">CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-DRAW-SPACES:CAPS" title="CODESLAYER_SETTINGS_DRAW_SPACES">CODESLAYER_SETTINGS_DRAW_SPACES</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#codeslayer-settings-get-boolean" title="codeslayer_settings_get_boolean ()">codeslayer_settings_get_boolean</a>, function in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#codeslayer-settings-get-double" title="codeslayer_settings_get_double ()">codeslayer_settings_get_double</a>, function in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#codeslayer-settings-get-integer" title="codeslayer_settings_get_integer ()">codeslayer_settings_get_integer</a>, function in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#codeslayer-settings-get-string" title="codeslayer_settings_get_string ()">codeslayer_settings_get_string</a>, function in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-HPANED-POSITION:CAPS" title="CODESLAYER_SETTINGS_HPANED_POSITION">CODESLAYER_SETTINGS_HPANED_POSITION</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-MAIN-TITLE:CAPS" title="CODESLAYER_SETTINGS_MAIN_TITLE">CODESLAYER_SETTINGS_MAIN_TITLE</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#codeslayer-settings-new" title="codeslayer_settings_new ()">codeslayer_settings_new</a>, function in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-NOTEBOOK-SEARCH-MATCH-CASE:CAPS" title="CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE">CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-NOTEBOOK-SEARCH-MATCH-WORD:CAPS" title="CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD">CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#codeslayer-settings-save" title="codeslayer_settings_save ()">codeslayer_settings_save</a>, function in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-HEIGHT:CAPS" title="CODESLAYER_SETTINGS_SEARCH_HEIGHT">CODESLAYER_SETTINGS_SEARCH_HEIGHT</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-WIDTH:CAPS" title="CODESLAYER_SETTINGS_SEARCH_WIDTH">CODESLAYER_SETTINGS_SEARCH_WIDTH</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-X:CAPS" title="CODESLAYER_SETTINGS_SEARCH_X">CODESLAYER_SETTINGS_SEARCH_X</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SEARCH-Y:CAPS" title="CODESLAYER_SETTINGS_SEARCH_Y">CODESLAYER_SETTINGS_SEARCH_Y</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#codeslayer-settings-set-boolean" title="codeslayer_settings_set_boolean ()">codeslayer_settings_set_boolean</a>, function in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#codeslayer-settings-set-double" title="codeslayer_settings_set_double ()">codeslayer_settings_set_double</a>, function in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#codeslayer-settings-set-integer" title="codeslayer_settings_set_integer ()">codeslayer_settings_set_integer</a>, function in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#codeslayer-settings-set-string" title="codeslayer_settings_set_string ()">codeslayer_settings_set_string</a>, function in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SIDE-PANE-VISIBLE:CAPS" title="CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE">CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-SYNC-WITH-EDITOR:CAPS" title="CODESLAYER_SETTINGS_SYNC_WITH_EDITOR">CODESLAYER_SETTINGS_SYNC_WITH_EDITOR</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-VPANED-POSITION:CAPS" title="CODESLAYER_SETTINGS_VPANED_POSITION">CODESLAYER_SETTINGS_VPANED_POSITION</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-HEIGHT:CAPS" title="CODESLAYER_SETTINGS_WINDOW_HEIGHT">CODESLAYER_SETTINGS_WINDOW_HEIGHT</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-WIDTH:CAPS" title="CODESLAYER_SETTINGS_WINDOW_WIDTH">CODESLAYER_SETTINGS_WINDOW_WIDTH</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-X:CAPS" title="CODESLAYER_SETTINGS_WINDOW_X">CODESLAYER_SETTINGS_WINDOW_X</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
-</dt>
-<dd></dd>
-<dt>
-<a class="link" href="CodeSlayerSettings.html#CODESLAYER-SETTINGS-WINDOW-Y:CAPS" title="CODESLAYER_SETTINGS_WINDOW_Y">CODESLAYER_SETTINGS_WINDOW_Y</a>, macro in <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings">CodeSlayerSettings</a>
+<a class="link" href="CodeSlayer.html#codeslayer-select-document-by-file-path" title="codeslayer_select_document_by_file_path ()">codeslayer_select_document_by_file_path</a>, function in <a class="link" href="CodeSlayer.html" title="CodeSlayer">CodeSlayer</a>
 </dt>
 <dd></dd>
 <dt>
@@ -2098,7 +1940,80 @@
 </dt>
 <dd></dd>
 <dt>
-<a class="link" href="CodeSlayerProcesses.html#StopProcessFunc" title="StopProcessFunc ()">StopProcessFunc</a>, user_function in <a class="link" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses">CodeSlayerProcesses</a>
+<a class="link" href="CodeSlayerSourceView.html#CodeSlayerSourceView-struct" title="struct CodeSlayerSourceView">CodeSlayerSourceView</a>, struct in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#CodeSlayerSourceView-completion" title='The "completion" signal'>CodeSlayerSourceView::completion</a>, object signal in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#CodeSlayerSourceView-copy-lines" title='The "copy-lines" signal'>CodeSlayerSourceView::copy-lines</a>, object signal in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#CodeSlayerSourceView-to-lowercase" title='The "to-lowercase" signal'>CodeSlayerSourceView::to-lowercase</a>, object signal in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#CodeSlayerSourceView-to-uppercase" title='The "to-uppercase" signal'>CodeSlayerSourceView::to-uppercase</a>, object signal in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-add-completion-provider" title="codeslayer_source_view_add_completion_provider ()">codeslayer_source_view_add_completion_provider</a>, function in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-get-document" title="codeslayer_source_view_get_document ()">codeslayer_source_view_get_document</a>, function in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-get-modification-time" title="codeslayer_source_view_get_modification_time ()">codeslayer_source_view_get_modification_time</a>, function in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-new" title="codeslayer_source_view_new ()">codeslayer_source_view_new</a>, function in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-scroll-to-line" title="codeslayer_source_view_scroll_to_line ()">codeslayer_source_view_scroll_to_line</a>, function in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-set-modification-time" title="codeslayer_source_view_set_modification_time ()">codeslayer_source_view_set_modification_time</a>, function in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-set-text" title="codeslayer_source_view_set_text ()">codeslayer_source_view_set_text</a>, function in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-sync-registry" title="codeslayer_source_view_sync_registry ()">codeslayer_source_view_sync_registry</a>, function in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerSourceView.html#CODESLAYER-SOURCE-VIEW-UNTITLED:CAPS" title="CODESLAYER_SOURCE_VIEW_UNTITLED">CODESLAYER_SOURCE_VIEW_UNTITLED</a>, macro in <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">CodeSlayerSourceView</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerProcess.html#StopProcessFunc" title="StopProcessFunc ()">StopProcessFunc</a>, user_function in <a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess">CodeSlayerProcess</a>
+</dt>
+<dd></dd>
+<a name="idxW"></a><h3 class="title">W</h3>
+<dt>
+<a class="link" href="CodeSlayerWindow.html#CodeSlayerWindow-struct" title="struct CodeSlayerWindow">CodeSlayerWindow</a>, struct in <a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow">CodeSlayerWindow</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerWindow.html#codeslayer-window-get-profile" title="codeslayer_window_get_profile ()">codeslayer_window_get_profile</a>, function in <a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow">CodeSlayerWindow</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerWindow.html#codeslayer-window-new" title="codeslayer_window_new ()">codeslayer_window_new</a>, function in <a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow">CodeSlayerWindow</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="CodeSlayerWindow.html#codeslayer-window-open-document" title="codeslayer_window_open_document ()">codeslayer_window_open_document</a>, function in <a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow">CodeSlayerWindow</a>
 </dt>
 <dd></dd>
 </div>

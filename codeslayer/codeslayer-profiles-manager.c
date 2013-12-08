@@ -103,7 +103,10 @@ codeslayer_profiles_manager_finalize (CodeSlayerProfilesManager *profiles_manage
 
 /**
  * codeslayer_profiles_manager_new:
- * @window: a #GtkWindow.
+ * @window: a #CodeSlayerWindow.
+ * @application: a #CodeSlayerApplication.
+ * @profiles: a #CodeSlayerProfiles.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerProfilesManager.
  *
@@ -130,7 +133,7 @@ codeslayer_profiles_manager_new (GtkWidget          *window,
 
 /**
  * codeslayer_profiles_manager_run_dialog:
- * @profiles: a #CodeSlayerProfilesManager.
+ * @profiles_manager: a #CodeSlayerProfilesManager.
  *
  * Show the profiles dialog.
  */

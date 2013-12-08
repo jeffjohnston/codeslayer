@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerPreferencesEditor</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins">
@@ -45,9 +45,8 @@
 #include &lt;codeslayer/codeslayer-preferences-editor.h&gt;
 
 struct              <a class="link" href="CodeSlayerPreferencesEditor.html#CodeSlayerPreferencesEditor-struct" title="struct CodeSlayerPreferencesEditor">CodeSlayerPreferencesEditor</a>;
-<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerPreferencesEditor.html#codeslayer-preferences-editor-new" title="codeslayer_preferences_editor_new ()">codeslayer_preferences_editor_new</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPreferencesEditor.html#codeslayer-preferences-load" title="codeslayer_preferences_load ()">codeslayer_preferences_load</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerPreferencesEditor.html#codeslayer-preferences-editor-new" title="codeslayer_preferences_editor_new ()">codeslayer_preferences_editor_new</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -80,48 +79,25 @@ CodeSlayerPreferencesEditor implements
 <hr>
 <div class="refsect2">
 <a name="codeslayer-preferences-editor-new"></a><h3>codeslayer_preferences_editor_new ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_preferences_editor_new   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_preferences_editor_new   (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerPreferencesEditor.html" title="CodeSlayerPreferencesEditor"><span class="type">CodeSlayerPreferencesEditor</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>a new <a class="link" href="CodeSlayerPreferencesEditor.html" title="CodeSlayerPreferencesEditor"><span class="type">CodeSlayerPreferencesEditor</span></a>.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-preferences-load"></a><h3>codeslayer_preferences_load ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_preferences_load         (<em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
-<p>
-Load the group preferences.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.</td>
 </tr>
 </tbody>
 </table></div>

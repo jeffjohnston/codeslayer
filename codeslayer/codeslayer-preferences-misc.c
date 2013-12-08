@@ -72,6 +72,7 @@ codeslayer_preferences_misc_finalize (CodeSlayerPreferencesMisc *preferences_mis
 /**
  * codeslayer_preferences_misc_new:
  * @preferences: a #CodeSlayerPreferences.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerPreferencesMisc.
  *

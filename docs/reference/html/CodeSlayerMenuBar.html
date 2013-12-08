@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerMenuBar</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerMenuBarView.html" title="CodeSlayerMenuBarView">
@@ -48,26 +48,29 @@
 
 struct              <a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-struct" title="struct CodeSlayerMenuBar">CodeSlayerMenuBar</a>;
 <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-new" title="codeslayer_menu_bar_new ()">codeslayer_menu_bar_new</a>             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-editor" title="codeslayer_menu_bar_save_editor ()">codeslayer_menu_bar_save_editor</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-all-editors" title="codeslayer_menu_bar_save_all_editors ()">codeslayer_menu_bar_save_all_editors</a>
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-new-document" title="codeslayer_menu_bar_new_document ()">codeslayer_menu_bar_new_document</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-open-document" title="codeslayer_menu_bar_open_document ()">codeslayer_menu_bar_open_document</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-document" title="codeslayer_menu_bar_save_document ()">codeslayer_menu_bar_save_document</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-all-documents" title="codeslayer_menu_bar_save_all_documents ()">codeslayer_menu_bar_save_all_documents</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-close-editor" title="codeslayer_menu_bar_close_editor ()">codeslayer_menu_bar_close_editor</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-close-document" title="codeslayer_menu_bar_close_document ()">codeslayer_menu_bar_close_document</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-quit-application" title="codeslayer_menu_bar_quit_application ()">codeslayer_menu_bar_quit_application</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-undo" title="codeslayer_menu_bar_undo ()">codeslayer_menu_bar_undo</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-redo" title="codeslayer_menu_bar_redo ()">codeslayer_menu_bar_redo</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-cut" title="codeslayer_menu_bar_cut ()">codeslayer_menu_bar_cut</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-copy" title="codeslayer_menu_bar_copy ()">codeslayer_menu_bar_copy</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-paste" title="codeslayer_menu_bar_paste ()">codeslayer_menu_bar_paste</a>           (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-delete" title="codeslayer_menu_bar_delete ()">codeslayer_menu_bar_delete</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-select-all" title="codeslayer_menu_bar_select_all ()">codeslayer_menu_bar_select_all</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-to-uppercase" title="codeslayer_menu_bar_to_uppercase ()">codeslayer_menu_bar_to_uppercase</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-to-lowercase" title="codeslayer_menu_bar_to_lowercase ()">codeslayer_menu_bar_to_lowercase</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-copy-lines" title="codeslayer_menu_bar_copy_lines ()">codeslayer_menu_bar_copy_lines</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-preferences" title="codeslayer_menu_bar_show_preferences ()">codeslayer_menu_bar_show_preferences</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-profiles" title="codeslayer_menu_bar_show_profiles ()">codeslayer_menu_bar_show_profiles</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-with-document" title="codeslayer_menu_bar_sync_with_document ()">codeslayer_menu_bar_sync_with_document</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sync_with_document</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-scan-external-changes" title="codeslayer_menu_bar_scan_external_changes ()">codeslayer_menu_bar_scan_external_changes</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-find" title="codeslayer_menu_bar_find ()">codeslayer_menu_bar_find</a>            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-replace" title="codeslayer_menu_bar_replace ()">codeslayer_menu_bar_replace</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
@@ -81,40 +84,16 @@ struct              <a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuB
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-bottom-pane" title="codeslayer_menu_bar_show_bottom_pane ()">codeslayer_menu_bar_show_bottom_pane</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-draw-spaces" title="codeslayer_menu_bar_draw_spaces ()">codeslayer_menu_bar_draw_spaces</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-refresh-groups" title="codeslayer_menu_bar_refresh_groups ()">codeslayer_menu_bar_refresh_groups</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-group-changed" title="codeslayer_menu_bar_group_changed ()">codeslayer_menu_bar_group_changed</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-new-group" title="codeslayer_menu_bar_new_group ()">codeslayer_menu_bar_new_group</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-rename-group" title="codeslayer_menu_bar_rename_group ()">codeslayer_menu_bar_rename_group</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-remove-group" title="codeslayer_menu_bar_remove_group ()">codeslayer_menu_bar_remove_group</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-with-notebook" title="codeslayer_menu_bar_sync_with_notebook ()">codeslayer_menu_bar_sync_with_notebook</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-with-panes" title="codeslayer_menu_bar_sync_with_panes ()">codeslayer_menu_bar_sync_with_panes</a> (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_side_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_bottom_pane</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-word-wrap" title="codeslayer_menu_bar_word_wrap ()">codeslayer_menu_bar_word_wrap</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-add-tools-item" title="codeslayer_menu_bar_add_tools_item ()">codeslayer_menu_bar_add_tools_item</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
-<a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *     <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-get-accel-group" title="codeslayer_menu_bar_get_accel_group ()">codeslayer_menu_bar_get_accel_group</a> (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-add-projects" title="codeslayer_menu_bar_add_projects ()">codeslayer_menu_bar_add_projects</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *files</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-plugins" title="codeslayer_menu_bar_show_plugins ()">codeslayer_menu_bar_show_plugins</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-remove-tools-item" title="codeslayer_menu_bar_remove_tools_item ()">codeslayer_menu_bar_remove_tools_item</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-tools-add-item" title="codeslayer_menu_bar_tools_add_item ()">codeslayer_menu_bar_tools_add_item</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-tools-remove-item" title="codeslayer_menu_bar_tools_remove_item ()">codeslayer_menu_bar_tools_remove_item</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-sync-projects-with-editor" title="codeslayer_menu_bar_sync_projects_with_editor ()">codeslayer_menu_bar_sync_projects_with_editor</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sync_projects_with_editor</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-scan-external-changes" title="codeslayer_menu_bar_scan_external_changes ()">codeslayer_menu_bar_scan_external_changes</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk3/gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *     <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-get-accel-group" title="codeslayer_menu_bar_get_accel_group ()">codeslayer_menu_bar_get_accel_group</a> (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-add-projects" title="codeslayer_menu_bar_add_projects ()">codeslayer_menu_bar_add_projects</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *files</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-plugins" title="codeslayer_menu_bar_show_plugins ()">codeslayer_menu_bar_show_plugins</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -139,7 +118,7 @@ CodeSlayerMenuBar implements
 <a name="CodeSlayerMenuBar.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-add-projects" title='The "add-projects" signal'>add-projects</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-close-editor" title='The "close-editor" signal'>close-editor</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-close-document" title='The "close-document" signal'>close-document</a>"                                 : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-copy" title='The "copy" signal'>copy</a>"                                           : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-copy-lines" title='The "copy-lines" signal'>copy-lines</a>"                                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-cut" title='The "cut" signal'>cut</a>"                                            : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
@@ -151,26 +130,24 @@ CodeSlayerMenuBar implements
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-find-projects" title='The "find-projects" signal'>find-projects</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-fullscreen-window" title='The "fullscreen-window" signal'>fullscreen-window</a>"                              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-go-to-line" title='The "go-to-line" signal'>go-to-line</a>"                                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-group-changed" title='The "group-changed" signal'>group-changed</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-new-group" title='The "new-group" signal'>new-group</a>"                                      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-new-document" title='The "new-document" signal'>new-document</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-open-document" title='The "open-document" signal'>open-document</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-paste" title='The "paste" signal'>paste</a>"                                          : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-quit-application" title='The "quit-application" signal'>quit-application</a>"                               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-redo" title='The "redo" signal'>redo</a>"                                           : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-remove-group" title='The "remove-group" signal'>remove-group</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-rename-group" title='The "rename-group" signal'>rename-group</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-replace" title='The "replace" signal'>replace</a>"                                        : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-all-editors" title='The "save-all-editors" signal'>save-all-editors</a>"                               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-editor" title='The "save-editor" signal'>save-editor</a>"                                    : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-all-documents" title='The "save-all-documents" signal'>save-all-documents</a>"                             : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-document" title='The "save-document" signal'>save-document</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-scan-external-changes" title='The "scan-external-changes" signal'>scan-external-changes</a>"                          : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-select-all" title='The "select-all" signal'>select-all</a>"                                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-bottom-pane" title='The "show-bottom-pane" signal'>show-bottom-pane</a>"                               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-plugins" title='The "show-plugins" signal'>show-plugins</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-preferences" title='The "show-preferences" signal'>show-preferences</a>"                               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-profiles" title='The "show-profiles" signal'>show-profiles</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-side-pane" title='The "show-side-pane" signal'>show-side-pane</a>"                                 : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-sync-projects-with-editor" title='The "sync-projects-with-editor" signal'>sync-projects-with-editor</a>"                      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-sync-engine" title='The "sync-engine" signal'>sync-engine</a>"                                    : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-sync-with-document" title='The "sync-with-document" signal'>sync-with-document</a>"                             : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-to-lowercase" title='The "to-lowercase" signal'>to-lowercase</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-to-uppercase" title='The "to-uppercase" signal'>to-uppercase</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-undo" title='The "undo" signal'>undo</a>"                                           : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-word-wrap" title='The "word-wrap" signal'>word-wrap</a>"                                      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
 </pre>
 </div>
 <div class="refsect1">
@@ -186,33 +163,20 @@ CodeSlayerMenuBar implements
 <div class="refsect2">
 <a name="codeslayer-menu-bar-new"></a><h3>codeslayer_menu_bar_new ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menu_bar_new             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
 <td>the main application window.</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>groups</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
@@ -223,13 +187,10 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menu-bar-save-editor"></a><h3>codeslayer_menu_bar_save_editor ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_save_editor     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<a name="codeslayer-menu-bar-new-document"></a><h3>codeslayer_menu_bar_new_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_new_document    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -238,14 +199,35 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menu-bar-save-all-editors"></a><h3>codeslayer_menu_bar_save_all_editors ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_save_all_editors
+<a name="codeslayer-menu-bar-open-document"></a><h3>codeslayer_menu_bar_open_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_open_document   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-menu-bar-save-document"></a><h3>codeslayer_menu_bar_save_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_save_document   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-menu-bar-save-all-documents"></a><h3>codeslayer_menu_bar_save_all_documents ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_save_all_documents
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -254,13 +236,10 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menu-bar-close-editor"></a><h3>codeslayer_menu_bar_close_editor ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_close_editor    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<a name="codeslayer-menu-bar-close-document"></a><h3>codeslayer_menu_bar_close_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_close_document  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -272,31 +251,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <a name="codeslayer-menu-bar-quit-application"></a><h3>codeslayer_menu_bar_quit_application ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_quit_application
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-undo"></a><h3>codeslayer_menu_bar_undo ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_undo            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-redo"></a><h3>codeslayer_menu_bar_redo ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_redo            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -307,11 +263,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-cut"></a><h3>codeslayer_menu_bar_cut ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_cut             (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -322,11 +275,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-copy"></a><h3>codeslayer_menu_bar_copy ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_copy            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -337,11 +287,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-paste"></a><h3>codeslayer_menu_bar_paste ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_paste           (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -352,26 +299,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-delete"></a><h3>codeslayer_menu_bar_delete ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_delete          (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-select-all"></a><h3>codeslayer_menu_bar_select_all ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_select_all      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -382,16 +311,20 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-to-uppercase"></a><h3>codeslayer_menu_bar_to_uppercase ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_to_uppercase    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
+</tr></tbody>
+</table></div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="codeslayer-menu-bar-to-lowercase"></a><h3>codeslayer_menu_bar_to_lowercase ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_to_lowercase    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -402,11 +335,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-copy-lines"></a><h3>codeslayer_menu_bar_copy_lines ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_copy_lines      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -418,11 +348,53 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <a name="codeslayer-menu-bar-show-preferences"></a><h3>codeslayer_menu_bar_show_preferences ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_show_preferences
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-menu-bar-show-profiles"></a><h3>codeslayer_menu_bar_show_profiles ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_show_profiles   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-menu-bar-sync-with-document"></a><h3>codeslayer_menu_bar_sync_with_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_sync_with_document
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sync_with_document</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sync_with_document</code></em> :</span></p></td>
+<td>is TRUE if the projects should be synced with the document.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-menu-bar-scan-external-changes"></a><h3>codeslayer_menu_bar_scan_external_changes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_scan_external_changes
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -433,11 +405,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-find"></a><h3>codeslayer_menu_bar_find ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_find            (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -448,11 +417,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-replace"></a><h3>codeslayer_menu_bar_replace ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_replace         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -463,11 +429,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-find-next"></a><h3>codeslayer_menu_bar_find_next ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_find_next       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -478,11 +441,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-find-previous"></a><h3>codeslayer_menu_bar_find_previous ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_find_previous   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -493,11 +453,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-find-projects"></a><h3>codeslayer_menu_bar_find_projects ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_find_projects   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -508,11 +465,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-go-to-line"></a><h3>codeslayer_menu_bar_go_to_line ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_go_to_line      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -524,11 +478,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <a name="codeslayer-menu-bar-fullscreen-window"></a><h3>codeslayer_menu_bar_fullscreen_window ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_fullscreen_window
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -539,11 +490,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-show-side-pane"></a><h3>codeslayer_menu_bar_show_side_pane ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_show_side_pane  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -555,11 +503,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <a name="codeslayer-menu-bar-show-bottom-pane"></a><h3>codeslayer_menu_bar_show_bottom_pane ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_show_bottom_pane
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -570,11 +515,8 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-draw-spaces"></a><h3>codeslayer_menu_bar_draw_spaces ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_draw_spaces     (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -583,163 +525,14 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-menu-bar-refresh-groups"></a><h3>codeslayer_menu_bar_refresh_groups ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_refresh_groups  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a> *groups</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<a name="codeslayer-menu-bar-word-wrap"></a><h3>codeslayer_menu_bar_word_wrap ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_word_wrap       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>groups</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerGroups.html" title="CodeSlayerGroups"><span class="type">CodeSlayerGroups</span></a>.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-group-changed"></a><h3>codeslayer_menu_bar_group_changed ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_group_changed   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>group_name</code></em> :</span></p></td>
-<td>the group name.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-new-group"></a><h3>codeslayer_menu_bar_new_group ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_new_group       (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>group_name</code></em> :</span></p></td>
-<td>the group name.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-rename-group"></a><h3>codeslayer_menu_bar_rename_group ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_rename_group    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *group_name</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>group_name</code></em> :</span></p></td>
-<td>the group name.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-remove-group"></a><h3>codeslayer_menu_bar_remove_group ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_remove_group    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-sync-with-notebook"></a><h3>codeslayer_menu_bar_sync_with_notebook ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_sync_with_notebook
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>);</pre>
-<p>
-Update the sensitivity of editor related menu items based on the current 
-state of the notebook <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> widgets.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-sync-with-panes"></a><h3>codeslayer_menu_bar_sync_with_panes ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_sync_with_panes (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_side_pane</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> show_bottom_pane</code></em>);</pre>
-<p>
-Update the sensitivity of view related menu items based on the current 
-state of the bottom and side pane.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>show_side_pane</code></em> :</span></p></td>
-<td>if TRUE then the side pane is shown</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>show_bottom_pane</code></em> :</span></p></td>
-<td>if TRUE then the bottom pane is shown</td>
-</tr>
-</tbody>
 </table></div>
 </div>
 <hr>
@@ -747,11 +540,28 @@ state of the bottom and side pane.
 <a name="codeslayer-menu-bar-add-tools-item"></a><h3>codeslayer_menu_bar_add_tools_item ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_add_tools_item  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-menu-bar-remove-tools-item"></a><h3>codeslayer_menu_bar_remove_tools_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_remove_tools_item
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
@@ -773,12 +583,9 @@ state of the bottom and side pane.
 <div class="refsect2">
 <a name="codeslayer-menu-bar-add-projects"></a><h3>codeslayer_menu_bar_add_projects ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_add_projects    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *files</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *files</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
@@ -795,118 +602,8 @@ state of the bottom and side pane.
 <div class="refsect2">
 <a name="codeslayer-menu-bar-show-plugins"></a><h3>codeslayer_menu_bar_show_plugins ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_show_plugins    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-remove-tools-item"></a><h3>codeslayer_menu_bar_remove_tools_item ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_remove_tools_item
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkMenuItem.html"><span class="type">GtkMenuItem</span></a>.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-tools-add-item"></a><h3>codeslayer_menu_bar_tools_add_item ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_tools_add_item  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar_tools</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-tools-remove-item"></a><h3>codeslayer_menu_bar_tools_remove_item ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_tools_remove_item
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a> *menu_bar_tools</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *item</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar_tools</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBarTools.html" title="CodeSlayerMenuBarTools"><span class="type">CodeSlayerMenuBarTools</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>item</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-sync-projects-with-editor"></a><h3>codeslayer_menu_bar_sync_projects_with_editor ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_sync_projects_with_editor
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sync_projects_with_editor</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>sync_projects_with_editor</code></em> :</span></p></td>
-<td>is TRUE if the projects should be synced with the editor.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-menu-bar-scan-external-changes"></a><h3>codeslayer_menu_bar_scan_external_changes ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_scan_external_changes
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
@@ -919,25 +616,22 @@ state of the bottom and side pane.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-add-projects"></a><h3>The <code class="literal">"add-projects"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *codeslayermenubar,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerMenuBar-close-editor"></a><h3>The <code class="literal">"close-editor"</code> signal</h3>
+<a name="CodeSlayerMenuBar-close-document"></a><h3>The <code class="literal">"close-document"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
-The ::close-editor signal is a request to close the active editor.
+The ::close-document signal is a request to close the active document.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -954,18 +648,15 @@ The ::close-editor signal is a request to close the active editor.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-copy"></a><h3>The <code class="literal">"copy"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::copy signal is a request to copy the selected text.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -982,16 +673,13 @@ The ::copy signal is a request to copy the selected text.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-copy-lines"></a><h3>The <code class="literal">"copy-lines"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 The ::copy-lines signal enables the (Ctrl + Shift + Down) keystroke to copy
 the currently selected lines.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1008,18 +696,15 @@ the currently selected lines.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-cut"></a><h3>The <code class="literal">"cut"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::cut signal is a request to cut the selected text.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1035,47 +720,22 @@ The ::cut signal is a request to cut the selected text.
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-del"></a><h3>The <code class="literal">"del"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-Note: for internal use only.
-</p>
-<p>
-The ::del signal is a request to delete the selected text.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
-<td>the menu that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *codeslayermenubar,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-draw-spaces"></a><h3>The <code class="literal">"draw-spaces"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
-The ::draw-spaces signal is a request to show the invisible characters in the editors.
+The ::draw-spaces signal is a request to show the invisible characters in the documents.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1092,18 +752,15 @@ The ::draw-spaces signal is a request to show the invisible characters in the ed
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-find"></a><h3>The <code class="literal">"find"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::find signal is a request to open up the notebook search.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1120,7 +777,7 @@ The ::find signal is a request to open up the notebook search.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-find-next"></a><h3>The <code class="literal">"find-next"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
@@ -1128,11 +785,8 @@ Note: for internal use only.
 The ::find-next signal is a request to find the next 
 value using the notebook search.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1149,7 +803,7 @@ value using the notebook search.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-find-previous"></a><h3>The <code class="literal">"find-previous"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
@@ -1157,11 +811,8 @@ Note: for internal use only.
 The ::find-previous signal is a request to find the previous 
 value using the notebook search.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1178,19 +829,16 @@ value using the notebook search.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-find-projects"></a><h3>The <code class="literal">"find-projects"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>             *arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>             *arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::find-projects signal is a request to open up the search dialog.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1207,18 +855,15 @@ The ::find-projects signal is a request to open up the search dialog.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-fullscreen-window"></a><h3>The <code class="literal">"fullscreen-window"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::fullscreen-window signal is a request to open up the search dialog.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1235,18 +880,15 @@ The ::fullscreen-window signal is a request to open up the search dialog.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-go-to-line"></a><h3>The <code class="literal">"go-to-line"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::go-to-line signal is a request to jump to the line number.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1261,21 +903,17 @@ The ::go-to-line signal is a request to jump to the line number.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerMenuBar-group-changed"></a><h3>The <code class="literal">"group-changed"</code> signal</h3>
+<a name="CodeSlayerMenuBar-new-document"></a><h3>The <code class="literal">"new-document"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>             *arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
-The ::group-changed signal is a request for the active group to be changed.
+The ::new-document signal is a request to save the active document.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1290,21 +928,17 @@ The ::group-changed signal is a request for the active group to be changed.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerMenuBar-new-group"></a><h3>The <code class="literal">"new-group"</code> signal</h3>
+<a name="CodeSlayerMenuBar-open-document"></a><h3>The <code class="literal">"open-document"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>             *arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
-The ::new-group signal is a request to create a new group.
+The ::open-document signal is a request to save the active document.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1321,18 +955,15 @@ The ::new-group signal is a request to create a new group.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-paste"></a><h3>The <code class="literal">"paste"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::paste signal is a request to paste the selected text.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1349,103 +980,15 @@ The ::paste signal is a request to paste the selected text.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-quit-application"></a><h3>The <code class="literal">"quit-application"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::quit-application signal is a request to close the application.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
-<td>the menu that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CodeSlayerMenuBar-redo"></a><h3>The <code class="literal">"redo"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-Note: for internal use only.
-</p>
-<p>
-The ::redo signal is a request to redo the last change.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
-<td>the menu that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CodeSlayerMenuBar-remove-group"></a><h3>The <code class="literal">"remove-group"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-Note: for internal use only.
-</p>
-<p>
-The ::remove-group signal is a request to remove the active group.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
-<td>the menu that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CodeSlayerMenuBar-rename-group"></a><h3>The <code class="literal">"rename-group"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>             *arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-Note: for internal use only.
-</p>
-<p>
-The ::rename-group signal is a request to rename the active group.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1462,18 +1005,15 @@ The ::rename-group signal is a request to rename the active group.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-replace"></a><h3>The <code class="literal">"replace"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::replace signal is a request to open up the notebook search.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1488,20 +1028,17 @@ The ::replace signal is a request to open up the notebook search.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerMenuBar-save-all-editors"></a><h3>The <code class="literal">"save-all-editors"</code> signal</h3>
+<a name="CodeSlayerMenuBar-save-all-documents"></a><h3>The <code class="literal">"save-all-documents"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
-The ::save-all-editors signal is a request to save all the open editors.
+The ::save-all-documents signal is a request to save all the open documents.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1516,20 +1053,17 @@ The ::save-all-editors signal is a request to save all the open editors.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerMenuBar-save-editor"></a><h3>The <code class="literal">"save-editor"</code> signal</h3>
+<a name="CodeSlayerMenuBar-save-document"></a><h3>The <code class="literal">"save-document"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
-The ::save-editor signal is a request to save the active editor.
+The ::save-document signal is a request to save the active document.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1546,46 +1080,15 @@ The ::save-editor signal is a request to save the active editor.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-scan-external-changes"></a><h3>The <code class="literal">"scan-external-changes"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
-The ::scan-external-changes signal is a request to scan for changes outside editor.
+The ::scan-external-changes signal is a request to scan for changes outside document.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
-<td>the menu that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CodeSlayerMenuBar-select-all"></a><h3>The <code class="literal">"select-all"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-Note: for internal use only.
-</p>
-<p>
-The ::select-all signal is a request to select all the text.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1602,18 +1105,15 @@ The ::select-all signal is a request to select all the text.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-show-bottom-pane"></a><h3>The <code class="literal">"show-bottom-pane"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::show-side-pane signal is a request to open up the bottom pane.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1630,18 +1130,15 @@ The ::show-side-pane signal is a request to open up the bottom pane.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-show-plugins"></a><h3>The <code class="literal">"show-plugins"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::show-plugins signal is a request to open up the plugins dialog.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1658,18 +1155,40 @@ The ::show-plugins signal is a request to open up the plugins dialog.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-show-preferences"></a><h3>The <code class="literal">"show-preferences"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::show-preferences signal is a request to open up the preferences dialog.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
+<td>the menu that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerMenuBar-show-profiles"></a><h3>The <code class="literal">"show-profiles"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::show-profiles signal is a request to open up the profiles dialog.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1686,18 +1205,15 @@ The ::show-preferences signal is a request to open up the preferences dialog.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-show-side-pane"></a><h3>The <code class="literal">"show-side-pane"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::show-side-pane signal is a request to open up the side pane.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1712,15 +1228,33 @@ The ::show-side-pane signal is a request to open up the side pane.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerMenuBar-sync-projects-with-editor"></a><h3>The <code class="literal">"sync-projects-with-editor"</code> signal</h3>
+<a name="CodeSlayerMenuBar-sync-engine"></a><h3>The <code class="literal">"sync-engine"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>           arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>           arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>           arg2,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
+<td>the menu that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerMenuBar-sync-with-document"></a><h3>The <code class="literal">"sync-with-document"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>           arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1737,16 +1271,13 @@ The ::show-side-pane signal is a request to open up the side pane.
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-to-lowercase"></a><h3>The <code class="literal">"to-lowercase"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 The ::to-lowercase signal enables the (Ctrl + L) keystroke to lowercase the 
 selected text.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
@@ -1762,56 +1293,14 @@ selected text.
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerMenuBar-to-uppercase"></a><h3>The <code class="literal">"to-uppercase"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-The ::to-uppercase signal enables the (Ctrl + U) keystroke to uppercase 
-the selected text.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
-<td>the menu that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *codeslayermenubar,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerMenuBar-undo"></a><h3>The <code class="literal">"undo"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
-<p>
-Note: for internal use only.
-</p>
-<p>
-The ::undo signal is a request to undo the last change.
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
-<td>the menu that received the signal</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
-<td>user data set when the signal handler was connected.</td>
-</tr>
-</tbody>
-</table></div>
+<a name="CodeSlayerMenuBar-word-wrap"></a><h3>The <code class="literal">"word-wrap"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *codeslayermenubar,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 </div>
 </div>

@@ -221,7 +221,7 @@ load_plugin_from_file (gchar *file_path)
 /**
  * codeslayer_plugins_activate:
  * @plugins: a #CodeSlayerPlugins.
- * @group: a #CodeSlayerProfile.
+ * @profile: a #CodeSlayerProfile.
  */
 void 
 codeslayer_plugins_activate (CodeSlayerPlugins *plugins, 

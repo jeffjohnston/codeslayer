@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerProfiles</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerProfilesManager.html" title="CodeSlayerProfilesManager">
+<link rel="next" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerProfilesManager.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerProjectProperties.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerProfiles.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerProfiles.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerProfiles.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="CodeSlayerProfiles"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerProfiles.top_of_page"></a>CodeSlayerProfiles</span></h2>
+<p>CodeSlayerProfiles — Contains the projects.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="CodeSlayerProfiles.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-profiles.h&gt;
+
+#define             <a class="link" href="CodeSlayerProfiles.html#CODESLAYER-PROFILES-DEFAULT:CAPS" title="CODESLAYER_PROFILES_DEFAULT">CODESLAYER_PROFILES_DEFAULT</a>
+#define             <a class="link" href="CodeSlayerProfiles.html#CODESLAYER-PROFILES-DIR:CAPS" title="CODESLAYER_PROFILES_DIR">CODESLAYER_PROFILES_DIR</a>
+#define             <a class="link" href="CodeSlayerProfiles.html#CODESLAYER-PROFILE-FILE:CAPS" title="CODESLAYER_PROFILE_FILE">CODESLAYER_PROFILE_FILE</a>
+struct              <a class="link" href="CodeSlayerProfiles.html#CodeSlayerProfiles-struct" title="struct CodeSlayerProfiles">CodeSlayerProfiles</a>;
+<a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="returnvalue">CodeSlayerProfiles</span></a> * <a class="link" href="CodeSlayerProfiles.html#codeslayer-profiles-new" title="codeslayer_profiles_new ()">codeslayer_profiles_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="returnvalue">CodeSlayerProfile</span></a> * <a class="link" href="CodeSlayerProfiles.html#codeslayer-profiles-create-profile" title="codeslayer_profiles_create_profile ()">codeslayer_profiles_create_profile</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a> *profiles</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="returnvalue">CodeSlayerProfile</span></a> * <a class="link" href="CodeSlayerProfiles.html#codeslayer-profiles-retrieve-profile" title="codeslayer_profiles_retrieve_profile ()">codeslayer_profiles_retrieve_profile</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a> *profiles</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfiles.html#codeslayer-profiles-save-profile" title="codeslayer_profiles_save_profile ()">codeslayer_profiles_save_profile</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a> *profiles</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="CodeSlayerProfiles.html#codeslayer-profiles-get-profile-names" title="codeslayer_profiles_get_profile_names ()">codeslayer_profiles_get_profile_names</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a> *profiles</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProfiles.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----CodeSlayerProfiles
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProfiles.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProfiles.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CODESLAYER-PROFILES-DEFAULT:CAPS"></a><h3>CODESLAYER_PROFILES_DEFAULT</h3>
+<pre class="programlisting">#define CODESLAYER_PROFILES_DEFAULT "Default"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-PROFILES-DIR:CAPS"></a><h3>CODESLAYER_PROFILES_DIR</h3>
+<pre class="programlisting">#define CODESLAYER_PROFILES_DIR "profiles"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-PROFILE-FILE:CAPS"></a><h3>CODESLAYER_PROFILE_FILE</h3>
+<pre class="programlisting">#define CODESLAYER_PROFILE_FILE "codeslayer.profile"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerProfiles-struct"></a><h3>struct CodeSlayerProfiles</h3>
+<pre class="programlisting">struct CodeSlayerProfiles;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profiles-new"></a><h3>codeslayer_profiles_new ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="returnvalue">CodeSlayerProfiles</span></a> * codeslayer_profiles_new            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profiles-create-profile"></a><h3>codeslayer_profiles_create_profile ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="returnvalue">CodeSlayerProfile</span></a> * codeslayer_profiles_create_profile  (<em class="parameter"><code><a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a> *profiles</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profiles-retrieve-profile"></a><h3>codeslayer_profiles_retrieve_profile ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="returnvalue">CodeSlayerProfile</span></a> * codeslayer_profiles_retrieve_profile
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a> *profiles</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profiles-save-profile"></a><h3>codeslayer_profiles_save_profile ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_profiles_save_profile    (<em class="parameter"><code><a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a> *profiles</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profiles-get-profile-names"></a><h3>codeslayer_profiles_get_profile_names ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             codeslayer_profiles_get_profile_names
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a> *profiles</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

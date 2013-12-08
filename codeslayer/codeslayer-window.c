@@ -163,7 +163,8 @@ codeslayer_window_finalize (CodeSlayerWindow *window)
 
 /**
  * codeslayer_window_new:
- * @window: a #GtkApplication.
+ * @application: a #GtkApplication.
+ * @profile_name: the name of the @Profile to load.
  *
  * Creates a new #CodeSlayerWindow.
  *

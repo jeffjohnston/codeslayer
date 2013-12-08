@@ -59,7 +59,7 @@ codeslayer_side_pane_finalize (CodeSlayerSidePane *side_pane)
 
 /**
  * codeslayer_side_pane_new:
- * @registry: a #CodeSlayerRegistry.
+ * @profile: a #CodeSlayerProfile.
  * @process_bar: a #GtkWidget.
  *
  * Creates a new #CodeSlayerSidePane.

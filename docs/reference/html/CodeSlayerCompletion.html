@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerCompletion</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
-<link rel="prev" href="CodeSlayerBottomPane.html" title="CodeSlayerBottomPane">
-<link rel="next" href="CodeSlayerCompletionProposal.html" title="CodeSlayerCompletionProposal">
+<link rel="prev" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider">
+<link rel="next" href="CodeSlayerDocumentLinker.html" title="CodeSlayerDocumentLinker">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="CodeSlayerBottomPane.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="CodeSlayerCompletionProvider.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
-<td><a accesskey="n" href="CodeSlayerCompletionProposal.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="CodeSlayerDocumentLinker.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#CodeSlayerCompletion.synopsis" class="shortcut">Top</a>
@@ -58,10 +58,10 @@ struct              <a class="link" href="CodeSlayerCompletion.html#CodeSlayerCo
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-hide" title="codeslayer_completion_hide ()">codeslayer_completion_hide</a>          (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-get-visible" title="codeslayer_completion_get_visible ()">codeslayer_completion_get_visible</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-toggle-up" title="codeslayer_completion_toggle_up ()">codeslayer_completion_toggle_up</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-toggle-down" title="codeslayer_completion_toggle_down ()">codeslayer_completion_toggle_down</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-mouse-within-popup" title="codeslayer_completion_mouse_within_popup ()">codeslayer_completion_mouse_within_popup</a>
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-get-visible" title="codeslayer_completion_get_visible ()">codeslayer_completion_get_visible</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-toggle-up" title="codeslayer_completion_toggle_up ()">codeslayer_completion_toggle_up</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-toggle-down" title="codeslayer_completion_toggle_down ()">codeslayer_completion_toggle_down</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerCompletion.html#codeslayer-completion-mouse-within-popup" title="codeslayer_completion_mouse_within_popup ()">codeslayer_completion_mouse_within_popup</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);
 </pre>
 </div>
@@ -94,11 +94,8 @@ struct              <a class="link" href="CodeSlayerCompletion.html#CodeSlayerCo
 <p>
 Creates a new <a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
@@ -119,11 +116,8 @@ Creates a new <a class="link" href="CodeSlayerCompletion.html" title="CodeSlayer
 <p>
 Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayerCompletionProvider"><span class="type">CodeSlayerCompletionProvider</span></a> to the completion window.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>
@@ -142,11 +136,8 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_completion_show          (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>
@@ -169,11 +160,8 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_completion_filter        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>
@@ -196,11 +184,8 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_completion_select        (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextIter.html"><span class="type">GtkTextIter</span></a> iter</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>
@@ -221,11 +206,8 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 <div class="refsect2">
 <a name="codeslayer-completion-hide"></a><h3>codeslayer_completion_hide ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_completion_hide          (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>
@@ -241,22 +223,22 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 <hr>
 <div class="refsect2">
 <a name="codeslayer-completion-get-visible"></a><h3>codeslayer_completion_get_visible ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_completion_get_visible   (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_completion_get_visible   (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="codeslayer-completion-toggle-up"></a><h3>codeslayer_completion_toggle_up ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_completion_toggle_up     (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_completion_toggle_up     (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="codeslayer-completion-toggle-down"></a><h3>codeslayer_completion_toggle_down ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_completion_toggle_down   (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_completion_toggle_down   (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="codeslayer-completion-mouse-within-popup"></a><h3>codeslayer_completion_mouse_within_popup ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_completion_mouse_within_popup
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_completion_mouse_within_popup
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion</code></em>);</pre>
 </div>
 </div>
@@ -265,15 +247,12 @@ Add a <a class="link" href="CodeSlayerCompletionProvider.html" title="CodeSlayer
 <div class="refsect2">
 <a name="CodeSlayerCompletion-row-selected"></a><h3>The <code class="literal">"row-selected"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerCompletion.html" title="CodeSlayerCompletion"><span class="type">CodeSlayerCompletion</span></a> *completion,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)       : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)       : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::row-selected signal enables the current selection to be set in the editor.
+The ::row-selected signal enables the current selection to be set in the source view.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>completion</code></em> :</span></p></td>

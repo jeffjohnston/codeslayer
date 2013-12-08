@@ -166,7 +166,7 @@ codeslayer_notebook_search_finalize (CodeSlayerNotebookSearch *notebook_search)
 /**
  * codeslayer_notebook_search_new:
  * @notebook: a #CodeSlayerNotebook.
- * @registry: a #CodeSlayerRegistry.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerNotebookSearch.
  *

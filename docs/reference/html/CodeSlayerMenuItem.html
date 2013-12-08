@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerMenuItem</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar">
@@ -48,7 +48,7 @@
 
 struct              <a class="link" href="CodeSlayerMenuItem.html#CodeSlayerMenuItem-struct" title="struct CodeSlayerMenuItem">CodeSlayerMenuItem</a>;
 <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuItem.html#codeslayer-menu-item-new" title="codeslayer_menu_item_new ()">codeslayer_menu_item_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
-<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuItem.html#codeslayer-menu-item-new-with-label" title="codeslayer_menu_item_new_with_label ()">codeslayer_menu_item_new_with_label</a> (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>);
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerMenuItem.html#codeslayer-menu-item-new-with-label" title="codeslayer_menu_item_new_with_label ()">codeslayer_menu_item_new_with_label</a> (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -95,11 +95,8 @@ bind to the projects-menu-selected signal.
 <p>
 Creates a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a>.</td>
@@ -109,15 +106,12 @@ Creates a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMe
 <hr>
 <div class="refsect2">
 <a name="codeslayer-menu-item-new-with-label"></a><h3>codeslayer_menu_item_new_with_label ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menu_item_new_with_label (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_menu_item_new_with_label (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *label</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>label</code></em> :</span></p></td>
@@ -136,16 +130,13 @@ Creates a new <a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMe
 <div class="refsect2">
 <a name="CodeSlayerMenuItem-projects-menu-selected"></a><h3>The <code class="literal">"projects-menu-selected"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuItem.html" title="CodeSlayerMenuItem"><span class="type">CodeSlayerMenuItem</span></a> *menuitem,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            selections,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)       : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            selections,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)       : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 The ::projects-menu-selected signal is a request once the menu item is selected.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>menuitem</code></em> :</span></p></td>
@@ -153,7 +144,7 @@ The ::projects-menu-selected signal is a request once the menu item is selected.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>selections</code></em> :</span></p></td>
-<td>the <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a> objects</td>
+<td>the <a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a> objects</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>

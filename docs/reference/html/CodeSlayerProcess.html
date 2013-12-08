@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerProcess</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
-<link rel="prev" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses">
-<link rel="next" href="CodeSlayerProjectProperties.html" title="CodeSlayerProjectProperties">
+<link rel="prev" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">
+<link rel="next" href="CodeSlayerProcessBar.html" title="CodeSlayerProcessBar">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="CodeSlayerProcesses.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="CodeSlayerPreferences.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
-<td><a accesskey="n" href="CodeSlayerProjectProperties.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="CodeSlayerProcessBar.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#CodeSlayerProcess.synopsis" class="shortcut">Top</a>
@@ -47,17 +47,18 @@
 #include &lt;codeslayer/codeslayer-process.h&gt;
 
 struct              <a class="link" href="CodeSlayerProcess.html#CodeSlayerProcess-struct" title="struct CodeSlayerProcess">CodeSlayerProcess</a>;
-<a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="returnvalue">CodeSlayerProcess</span></a> * <a class="link" href="CodeSlayerProcess.html#codeslayer-process-new" title="codeslayer_process_new ()">codeslayer_process_new</a>              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> id</code></em>);
-const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>          <a class="link" href="CodeSlayerProcess.html#codeslayer-process-get-id" title="codeslayer_process_get_id ()">codeslayer_process_get_id</a>           (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);
-const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="CodeSlayerProcess.html#codeslayer-process-get-name" title="codeslayer_process_get_name ()">codeslayer_process_get_name</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="CodeSlayerProcess.html#StopProcessFunc" title="StopProcessFunc ()">*StopProcessFunc</a>)                  (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+<a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="returnvalue">CodeSlayerProcess</span></a> * <a class="link" href="CodeSlayerProcess.html#codeslayer-process-new" title="codeslayer_process_new ()">codeslayer_process_new</a>              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> id</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>          <a class="link" href="CodeSlayerProcess.html#codeslayer-process-get-id" title="codeslayer_process_get_id ()">codeslayer_process_get_id</a>           (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="CodeSlayerProcess.html#codeslayer-process-get-name" title="codeslayer_process_get_name ()">codeslayer_process_get_name</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProcess.html#codeslayer-process-set-name" title="codeslayer_process_set_name ()">codeslayer_process_set_name</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
-<a class="link" href="CodeSlayerProcesses.html#StopProcessFunc" title="StopProcessFunc ()"><span class="returnvalue">StopProcessFunc</span></a>     <a class="link" href="CodeSlayerProcess.html#codeslayer-process-get-func" title="codeslayer_process_get_func ()">codeslayer_process_get_func</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a class="link" href="CodeSlayerProcess.html#StopProcessFunc" title="StopProcessFunc ()"><span class="returnvalue">StopProcessFunc</span></a>     <a class="link" href="CodeSlayerProcess.html#codeslayer-process-get-func" title="codeslayer_process_get_func ()">codeslayer_process_get_func</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProcess.html#codeslayer-process-set-func" title="codeslayer_process_set_func ()">codeslayer_process_set_func</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProcesses.html#StopProcessFunc" title="StopProcessFunc ()"><span class="type">StopProcessFunc</span></a> func</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="CodeSlayerProcess.html#codeslayer-process-get-data" title="codeslayer_process_get_data ()">codeslayer_process_get_data</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProcess.html#StopProcessFunc" title="StopProcessFunc ()"><span class="type">StopProcessFunc</span></a> func</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="CodeSlayerProcess.html#codeslayer-process-get-data" title="codeslayer_process_get_data ()">codeslayer_process_get_data</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProcess.html#codeslayer-process-set-data" title="codeslayer_process_set_data ()">codeslayer_process_set_data</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProcess.html#codeslayer-process-stop" title="codeslayer_process_stop ()">codeslayer_process_stop</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);
 </pre>
 </div>
@@ -71,9 +72,9 @@ const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/g
 <div class="refsect1">
 <a name="CodeSlayerProcess.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="CodeSlayerProcess.html#CodeSlayerProcess--data" title='The "data" property'>data</a>"                     <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
-  "<a class="link" href="CodeSlayerProcess.html#CodeSlayerProcess--func" title='The "func" property'>func</a>"                     <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
-  "<a class="link" href="CodeSlayerProcess.html#CodeSlayerProcess--name" title='The "name" property'>name</a>"                     <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="CodeSlayerProcess.html#CodeSlayerProcess--data" title='The "data" property'>data</a>"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
+  "<a class="link" href="CodeSlayerProcess.html#CodeSlayerProcess--func" title='The "func" property'>func</a>"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
+  "<a class="link" href="CodeSlayerProcess.html#CodeSlayerProcess--name" title='The "name" property'>name</a>"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
 </pre>
 </div>
 <div class="refsect1">
@@ -93,16 +94,18 @@ const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/g
 </div>
 <hr>
 <div class="refsect2">
+<a name="StopProcessFunc"></a><h3>StopProcessFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*StopProcessFunc)                  (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="codeslayer-process-new"></a><h3>codeslayer_process_new ()</h3>
-<pre class="programlisting"><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="returnvalue">CodeSlayerProcess</span></a> * codeslayer_process_new              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> id</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="returnvalue">CodeSlayerProcess</span></a> * codeslayer_process_new              (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> id</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
@@ -118,12 +121,9 @@ Creates a new <a class="link" href="CodeSlayerProcess.html" title="CodeSlayerPro
 <hr>
 <div class="refsect2">
 <a name="codeslayer-process-get-id"></a><h3>codeslayer_process_get_id ()</h3>
-<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>          codeslayer_process_get_id           (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>          codeslayer_process_get_id           (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>process</code></em> :</span></p></td>
@@ -139,12 +139,9 @@ Creates a new <a class="link" href="CodeSlayerProcess.html" title="CodeSlayerPro
 <hr>
 <div class="refsect2">
 <a name="codeslayer-process-get-name"></a><h3>codeslayer_process_get_name ()</h3>
-<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       codeslayer_process_get_name         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       codeslayer_process_get_name         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>process</code></em> :</span></p></td>
@@ -161,12 +158,9 @@ Creates a new <a class="link" href="CodeSlayerProcess.html" title="CodeSlayerPro
 <div class="refsect2">
 <a name="codeslayer-process-set-name"></a><h3>codeslayer_process_set_name ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_process_set_name         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>process</code></em> :</span></p></td>
@@ -182,12 +176,9 @@ Creates a new <a class="link" href="CodeSlayerProcess.html" title="CodeSlayerPro
 <hr>
 <div class="refsect2">
 <a name="codeslayer-process-get-func"></a><h3>codeslayer_process_get_func ()</h3>
-<pre class="programlisting"><a class="link" href="CodeSlayerProcesses.html#StopProcessFunc" title="StopProcessFunc ()"><span class="returnvalue">StopProcessFunc</span></a>     codeslayer_process_get_func         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<pre class="programlisting"><a class="link" href="CodeSlayerProcess.html#StopProcessFunc" title="StopProcessFunc ()"><span class="returnvalue">StopProcessFunc</span></a>     codeslayer_process_get_func         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>process</code></em> :</span></p></td>
@@ -204,12 +195,9 @@ Creates a new <a class="link" href="CodeSlayerProcess.html" title="CodeSlayerPro
 <div class="refsect2">
 <a name="codeslayer-process-set-func"></a><h3>codeslayer_process_set_func ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_process_set_func         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProcesses.html#StopProcessFunc" title="StopProcessFunc ()"><span class="type">StopProcessFunc</span></a> func</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProcess.html#StopProcessFunc" title="StopProcessFunc ()"><span class="type">StopProcessFunc</span></a> func</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>process</code></em> :</span></p></td>
@@ -225,12 +213,9 @@ Creates a new <a class="link" href="CodeSlayerProcess.html" title="CodeSlayerPro
 <hr>
 <div class="refsect2">
 <a name="codeslayer-process-get-data"></a><h3>codeslayer_process_get_data ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            codeslayer_process_get_data         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            codeslayer_process_get_data         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>process</code></em> :</span></p></td>
@@ -247,12 +232,9 @@ Creates a new <a class="link" href="CodeSlayerProcess.html" title="CodeSlayerPro
 <div class="refsect2">
 <a name="codeslayer-process-set-data"></a><h3>codeslayer_process_set_data ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_process_set_data         (<em class="parameter"><code><a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *process</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>process</code></em> :</span></p></td>
@@ -272,11 +254,8 @@ Creates a new <a class="link" href="CodeSlayerProcess.html" title="CodeSlayerPro
 <p>
 Stop the running thread
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>process</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a>.</td>
@@ -288,7 +267,7 @@ Stop the running thread
 <a name="CodeSlayerProcess.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="CodeSlayerProcess--data"></a><h3>The <code class="literal">"data"</code> property</h3>
-<pre class="programlisting">  "data"                     <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
+<pre class="programlisting">  "data"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
 <p>
 The thread data for the process.
 </p>
@@ -296,7 +275,7 @@ The thread data for the process.
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerProcess--func"></a><h3>The <code class="literal">"func"</code> property</h3>
-<pre class="programlisting">  "func"                     <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
+<pre class="programlisting">  "func"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
 <p>
 The callback function for the process.
 </p>
@@ -304,7 +283,7 @@ The callback function for the process.
 <hr>
 <div class="refsect2">
 <a name="CodeSlayerProcess--name"></a><h3>The <code class="literal">"name"</code> property</h3>
-<pre class="programlisting">  "name"                     <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<pre class="programlisting">  "name"                     <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
 <p>
 The displayed name for the process.
 </p>
@@ -316,19 +295,16 @@ The displayed name for the process.
 <div class="refsect2">
 <a name="CodeSlayerProcess-stopped"></a><h3>The <code class="literal">"stopped"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProcess.html" title="CodeSlayerProcess"><span class="type">CodeSlayerProcess</span></a> *codeslayerprocess,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::stopped signal is invoked when a thread is finished
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayerprocess</code></em> :</span></p></td>

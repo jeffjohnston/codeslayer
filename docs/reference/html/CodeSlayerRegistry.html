@@ -1,0 +1,618 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerRegistry</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerProjects.html" title="CodeSlayerProjects">
+<link rel="next" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerProjects.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerSidePane.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerRegistry.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerRegistry.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerRegistry.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerRegistry.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="CodeSlayerRegistry"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerRegistry.top_of_page"></a>CodeSlayerRegistry</span></h2>
+<p>CodeSlayerRegistry — The application properties.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="CodeSlayerRegistry.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-registry.h&gt;
+
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-HPANED-POSITION:CAPS" title="CODESLAYER_REGISTRY_HPANED_POSITION">CODESLAYER_REGISTRY_HPANED_POSITION</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-VPANED-POSITION:CAPS" title="CODESLAYER_REGISTRY_VPANED_POSITION">CODESLAYER_REGISTRY_VPANED_POSITION</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-WIDTH:CAPS" title="CODESLAYER_REGISTRY_WINDOW_WIDTH">CODESLAYER_REGISTRY_WINDOW_WIDTH</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-HEIGHT:CAPS" title="CODESLAYER_REGISTRY_WINDOW_HEIGHT">CODESLAYER_REGISTRY_WINDOW_HEIGHT</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-X:CAPS" title="CODESLAYER_REGISTRY_WINDOW_X">CODESLAYER_REGISTRY_WINDOW_X</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WINDOW-Y:CAPS" title="CODESLAYER_REGISTRY_WINDOW_Y">CODESLAYER_REGISTRY_WINDOW_Y</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-WIDTH:CAPS" title="CODESLAYER_REGISTRY_SEARCH_WIDTH">CODESLAYER_REGISTRY_SEARCH_WIDTH</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-HEIGHT:CAPS" title="CODESLAYER_REGISTRY_SEARCH_HEIGHT">CODESLAYER_REGISTRY_SEARCH_HEIGHT</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-X:CAPS" title="CODESLAYER_REGISTRY_SEARCH_X">CODESLAYER_REGISTRY_SEARCH_X</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SEARCH-Y:CAPS" title="CODESLAYER_REGISTRY_SEARCH_Y">CODESLAYER_REGISTRY_SEARCH_Y</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SIDE-PANE-VISIBLE:CAPS" title="CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE">CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-BOTTOM-PANE-VISIBLE:CAPS" title="CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE">CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-MATCH-CASE:CAPS" title="CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE">CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-MATCH-WORD:CAPS" title="CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD">CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-DRAW-SPACES:CAPS" title="CODESLAYER_REGISTRY_DRAW_SPACES">CODESLAYER_REGISTRY_DRAW_SPACES</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WORD-WRAP:CAPS" title="CODESLAYER_REGISTRY_WORD_WRAP">CODESLAYER_REGISTRY_WORD_WRAP</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SYNC-WITH-DOCUMENT:CAPS" title="CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT">CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-ENABLE-PROJECTS:CAPS" title="CODESLAYER_REGISTRY_ENABLE_PROJECTS">CODESLAYER_REGISTRY_ENABLE_PROJECTS</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-DISPLAY-LINE-NUMBERS:CAPS" title="CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS">CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-HIGHLIGHT-CURRENT-LINE:CAPS" title="CODESLAYER_REGISTRY_HIGHLIGHT_CURRENT_LINE">CODESLAYER_REGISTRY_HIGHLIGHT_CURRENT_LINE</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-DISPLAY-RIGHT-MARGIN:CAPS" title="CODESLAYER_REGISTRY_DISPLAY_RIGHT_MARGIN">CODESLAYER_REGISTRY_DISPLAY_RIGHT_MARGIN</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-HIGHLIGHT-MATCHING-BRACKET:CAPS" title="CODESLAYER_REGISTRY_HIGHLIGHT_MATCHING_BRACKET">CODESLAYER_REGISTRY_HIGHLIGHT_MATCHING_BRACKET</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-INSERT-SPACES-INSTEAD-OF-TABS:CAPS" title="CODESLAYER_REGISTRY_INSERT_SPACES_INSTEAD_OF_TABS">CODESLAYER_REGISTRY_INSERT_SPACES_INSTEAD_OF_TABS</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-ENABLE-AUTOMATIC-INDENTATION:CAPS" title="CODESLAYER_REGISTRY_ENABLE_AUTOMATIC_INDENTATION">CODESLAYER_REGISTRY_ENABLE_AUTOMATIC_INDENTATION</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-RIGHT-MARGIN-POSITION:CAPS" title="CODESLAYER_REGISTRY_RIGHT_MARGIN_POSITION">CODESLAYER_REGISTRY_RIGHT_MARGIN_POSITION</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-TAB-WIDTH:CAPS" title="CODESLAYER_REGISTRY_TAB_WIDTH">CODESLAYER_REGISTRY_TAB_WIDTH</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-FONT:CAPS" title="CODESLAYER_REGISTRY_FONT">CODESLAYER_REGISTRY_FONT</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-THEME:CAPS" title="CODESLAYER_REGISTRY_THEME">CODESLAYER_REGISTRY_THEME</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-TAB-POSITION:CAPS" title="CODESLAYER_REGISTRY_TAB_POSITION">CODESLAYER_REGISTRY_TAB_POSITION</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WORD-WRAP-TYPES:CAPS" title="CODESLAYER_REGISTRY_WORD_WRAP_TYPES">CODESLAYER_REGISTRY_WORD_WRAP_TYPES</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SIDE-PANE-TAB-POSITION:CAPS" title="CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION">CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-BOTTOM-PANE-TAB-POSITION:CAPS" title="CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION">CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-PROJECTS-EXCLUDE-TYPES:CAPS" title="CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES">CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-PROJECTS-EXCLUDE-DIRS:CAPS" title="CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS">CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS</a>
+struct              <a class="link" href="CodeSlayerRegistry.html#CodeSlayerRegistry-struct" title="struct CodeSlayerRegistry">CodeSlayerRegistry</a>;
+<a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="returnvalue">CodeSlayerRegistry</span></a> * <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-new" title="codeslayer_registry_new ()">codeslayer_registry_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-hashtable" title="codeslayer_registry_get_hashtable ()">codeslayer_registry_get_hashtable</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>);
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-setting" title="codeslayer_registry_get_setting ()">codeslayer_registry_get_setting</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-set-setting" title="codeslayer_registry_set_setting ()">codeslayer_registry_set_setting</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-integer" title="codeslayer_registry_get_integer ()">codeslayer_registry_get_integer</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-set-integer" title="codeslayer_registry_set_integer ()">codeslayer_registry_set_integer</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> value</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-double" title="codeslayer_registry_get_double ()">codeslayer_registry_get_double</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-set-double" title="codeslayer_registry_set_double ()">codeslayer_registry_set_double</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> value</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-boolean" title="codeslayer_registry_get_boolean ()">codeslayer_registry_get_boolean</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-set-boolean" title="codeslayer_registry_set_boolean ()">codeslayer_registry_set_boolean</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> value</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-string" title="codeslayer_registry_get_string ()">codeslayer_registry_get_string</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-set-string" title="codeslayer_registry_set_string ()">codeslayer_registry_set_string</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerRegistry.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----CodeSlayerRegistry
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerRegistry.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="CodeSlayerRegistry.html#CodeSlayerRegistry-registry-changed" title='The "registry-changed" signal'>registry-changed</a>"                               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerRegistry.html#CodeSlayerRegistry-registry-initialized" title='The "registry-initialized" signal'>registry-initialized</a>"                           : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerRegistry.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerRegistry.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-HPANED-POSITION:CAPS"></a><h3>CODESLAYER_REGISTRY_HPANED_POSITION</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_HPANED_POSITION "hpaned_position"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-VPANED-POSITION:CAPS"></a><h3>CODESLAYER_REGISTRY_VPANED_POSITION</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_VPANED_POSITION "vpaned_position"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-WINDOW-WIDTH:CAPS"></a><h3>CODESLAYER_REGISTRY_WINDOW_WIDTH</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_WINDOW_WIDTH "window_width"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-WINDOW-HEIGHT:CAPS"></a><h3>CODESLAYER_REGISTRY_WINDOW_HEIGHT</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_WINDOW_HEIGHT "window_height"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-WINDOW-X:CAPS"></a><h3>CODESLAYER_REGISTRY_WINDOW_X</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_WINDOW_X "window_x"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-WINDOW-Y:CAPS"></a><h3>CODESLAYER_REGISTRY_WINDOW_Y</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_WINDOW_Y "window_y"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-SEARCH-WIDTH:CAPS"></a><h3>CODESLAYER_REGISTRY_SEARCH_WIDTH</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_SEARCH_WIDTH "search_width"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-SEARCH-HEIGHT:CAPS"></a><h3>CODESLAYER_REGISTRY_SEARCH_HEIGHT</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_SEARCH_HEIGHT "search_height"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-SEARCH-X:CAPS"></a><h3>CODESLAYER_REGISTRY_SEARCH_X</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_SEARCH_X "search_x"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-SEARCH-Y:CAPS"></a><h3>CODESLAYER_REGISTRY_SEARCH_Y</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_SEARCH_Y "search_y"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-SIDE-PANE-VISIBLE:CAPS"></a><h3>CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE "side_pane_visible"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-BOTTOM-PANE-VISIBLE:CAPS"></a><h3>CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE "bottom_pane_visible"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-MATCH-CASE:CAPS"></a><h3>CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE "notebook_search_match_case"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-MATCH-WORD:CAPS"></a><h3>CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD "notebook_search_match_word"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-DRAW-SPACES:CAPS"></a><h3>CODESLAYER_REGISTRY_DRAW_SPACES</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_DRAW_SPACES "draw_spaces"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-WORD-WRAP:CAPS"></a><h3>CODESLAYER_REGISTRY_WORD_WRAP</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_WORD_WRAP "word_wrap"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-SYNC-WITH-DOCUMENT:CAPS"></a><h3>CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT "sync_with_document"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-ENABLE-PROJECTS:CAPS"></a><h3>CODESLAYER_REGISTRY_ENABLE_PROJECTS</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_ENABLE_PROJECTS "enable_projects"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-DISPLAY-LINE-NUMBERS:CAPS"></a><h3>CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS "display_line_numbers"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-HIGHLIGHT-CURRENT-LINE:CAPS"></a><h3>CODESLAYER_REGISTRY_HIGHLIGHT_CURRENT_LINE</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_HIGHLIGHT_CURRENT_LINE "highlight_current_line"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-DISPLAY-RIGHT-MARGIN:CAPS"></a><h3>CODESLAYER_REGISTRY_DISPLAY_RIGHT_MARGIN</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_DISPLAY_RIGHT_MARGIN "display_right_margin"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-HIGHLIGHT-MATCHING-BRACKET:CAPS"></a><h3>CODESLAYER_REGISTRY_HIGHLIGHT_MATCHING_BRACKET</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_HIGHLIGHT_MATCHING_BRACKET "highlight_matching_bracket"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-INSERT-SPACES-INSTEAD-OF-TABS:CAPS"></a><h3>CODESLAYER_REGISTRY_INSERT_SPACES_INSTEAD_OF_TABS</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_INSERT_SPACES_INSTEAD_OF_TABS "insert_spaces_instead_of_tabs"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-ENABLE-AUTOMATIC-INDENTATION:CAPS"></a><h3>CODESLAYER_REGISTRY_ENABLE_AUTOMATIC_INDENTATION</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_ENABLE_AUTOMATIC_INDENTATION "enable_automatic_indentation"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-RIGHT-MARGIN-POSITION:CAPS"></a><h3>CODESLAYER_REGISTRY_RIGHT_MARGIN_POSITION</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_RIGHT_MARGIN_POSITION "right_margin_position"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-TAB-WIDTH:CAPS"></a><h3>CODESLAYER_REGISTRY_TAB_WIDTH</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_TAB_WIDTH "tab_width"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-FONT:CAPS"></a><h3>CODESLAYER_REGISTRY_FONT</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_FONT "font"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-THEME:CAPS"></a><h3>CODESLAYER_REGISTRY_THEME</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_THEME "theme"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-TAB-POSITION:CAPS"></a><h3>CODESLAYER_REGISTRY_TAB_POSITION</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_TAB_POSITION "tab_position"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-WORD-WRAP-TYPES:CAPS"></a><h3>CODESLAYER_REGISTRY_WORD_WRAP_TYPES</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_WORD_WRAP_TYPES "word_wrap_types"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-SIDE-PANE-TAB-POSITION:CAPS"></a><h3>CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION "side_pane_tab_position"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-BOTTOM-PANE-TAB-POSITION:CAPS"></a><h3>CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION "bottom_pane_tab_position"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-PROJECTS-EXCLUDE-TYPES:CAPS"></a><h3>CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES "projects_exclude_types"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-PROJECTS-EXCLUDE-DIRS:CAPS"></a><h3>CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS "projects_exclude_dirs"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerRegistry-struct"></a><h3>struct CodeSlayerRegistry</h3>
+<pre class="programlisting">struct CodeSlayerRegistry;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-new"></a><h3>codeslayer_registry_new ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="returnvalue">CodeSlayerRegistry</span></a> * codeslayer_registry_new            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-get-hashtable"></a><h3>codeslayer_registry_get_hashtable ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        codeslayer_registry_get_hashtable   (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-get-setting"></a><h3>codeslayer_registry_get_setting ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       codeslayer_registry_get_setting     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-set-setting"></a><h3>codeslayer_registry_set_setting ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_registry_set_setting     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>the key for the setting.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>the value for the setting.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-get-integer"></a><h3>codeslayer_registry_get_integer ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                codeslayer_registry_get_integer     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property key.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value as an integer for the given key.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-set-integer"></a><h3>codeslayer_registry_set_integer ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_registry_set_integer     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> value</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property key.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a property value as a gint.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-get-double"></a><h3>codeslayer_registry_get_double ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gdouble"><span class="returnvalue">gdouble</span></a>             codeslayer_registry_get_double      (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property key.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value as a double for the given key.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-set-double"></a><h3>codeslayer_registry_set_double ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_registry_set_double      (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> value</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property key.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a property value as a gdouble.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-get-boolean"></a><h3>codeslayer_registry_get_boolean ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_registry_get_boolean     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property key.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value as a boolean for the given key.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-set-boolean"></a><h3>codeslayer_registry_set_boolean ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_registry_set_boolean     (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> value</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property key.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a property value as a gboolean.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-get-string"></a><h3>codeslayer_registry_get_string ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             codeslayer_registry_get_string      (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property key.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the value as a string for the given key.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-registry-set-string"></a><h3>codeslayer_registry_set_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_registry_set_string      (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>registry</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>a property key.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a property value as a gchar pointer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerRegistry.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="CodeSlayerRegistry-registry-changed"></a><h3>The <code class="literal">"registry-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *arg0,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+The ::registry-changed signal lets all observers know that
+something in the registry changed.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerRegistry-registry-initialized"></a><h3>The <code class="literal">"registry-initialized"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *arg0,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+The ::registry-initialized signal lets all observers know that 
+the registry is initialized.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

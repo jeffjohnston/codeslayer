@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayer Reference Manual</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="next" href="ch01.html" title="API Reference">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
@@ -14,7 +14,7 @@
 <div class="titlepage">
 <div>
 <div><table class="navigation" id="top" width="100%" cellpadding="2" cellspacing="0"><tr><th valign="middle"><p class="title">CodeSlayer Reference Manual</p></th></tr></table></div>
-<div><p class="releaseinfo">for CodeSlayer 3.0.0
+<div><p class="releaseinfo">for CodeSlayer 4.0.0
 </p></div>
 </div>
 <hr>
@@ -26,10 +26,10 @@
 <span class="refentrytitle"><a href="CodeSlayerAbstractPane.html">CodeSlayerAbstractPane</a></span><span class="refpurpose"> — The abstract pane for the side and bottom pane.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerBottomPane.html">CodeSlayerBottomPane</a></span><span class="refpurpose"> — The bottom pane.</span>
+<span class="refentrytitle"><a href="CodeSlayerApplication.html">CodeSlayerApplication</a></span><span class="refpurpose"> — Represents the main application.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerCompletion.html">CodeSlayerCompletion</a></span><span class="refpurpose"> — The completion window.</span>
+<span class="refentrytitle"><a href="CodeSlayerBottomPane.html">CodeSlayerBottomPane</a></span><span class="refpurpose"> — The bottom pane.</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="CodeSlayerCompletionProposal.html">CodeSlayerCompletionProposal</a></span><span class="refpurpose"> — A proposal for the completion window.</span>
@@ -38,34 +38,25 @@
 <span class="refentrytitle"><a href="CodeSlayerCompletionProvider.html">CodeSlayerCompletionProvider</a></span><span class="refpurpose"> — Create proposals for the completion window.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerDocument.html">CodeSlayerDocument</a></span><span class="refpurpose"> — Represents the source file to create the editor.</span>
+<span class="refentrytitle"><a href="CodeSlayerCompletion.html">CodeSlayerCompletion</a></span><span class="refpurpose"> — The completion window.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerEditor.html">CodeSlayerEditor</a></span><span class="refpurpose"> — The view to edit a document.</span>
+<span class="refentrytitle"><a href="CodeSlayerDocumentLinker.html">CodeSlayerDocumentLinker</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerEditorLinker.html">CodeSlayerEditorLinker</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="CodeSlayerDocument.html">CodeSlayerDocument</a></span><span class="refpurpose"> — Represents the source file to create the source view.</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="CodeSlayerEngine.html">CodeSlayerEngine</a></span><span class="refpurpose"> — Central delegation class.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerGroupProperties.html">CodeSlayerGroupProperties</a></span><span class="refpurpose"> — The groups properties.</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="CodeSlayerGroup.html">CodeSlayerGroup</a></span><span class="refpurpose"> — Contains the projects.</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="CodeSlayerGroups.html">CodeSlayerGroups</a></span><span class="refpurpose"> — Contains the list of groups.</span>
-</dt>
-<dt>
 <span class="refentrytitle"><a href="CodeSlayerListView.html">CodeSlayerListView</a></span><span class="refpurpose"> — The generic list widget used throughout CodeSlayer.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerMenuBarEditor.html">CodeSlayerMenuBarEditor</a></span><span class="refpurpose"> — The editor menu.</span>
+<span class="refentrytitle"><a href="CodeSlayerMenuBarEdit.html">CodeSlayerMenuBarEdit</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerMenuBarGroups.html">CodeSlayerMenuBarGroups</a></span><span class="refpurpose"> — The groups menu.</span>
+<span class="refentrytitle"><a href="CodeSlayerMenuBarFile.html">CodeSlayerMenuBarFile</a></span><span class="refpurpose"> — The file menu.</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="CodeSlayerMenuBarHelp.html">CodeSlayerMenuBarHelp</a></span><span class="refpurpose"> — The help menu.</span>
@@ -89,7 +80,7 @@
 <span class="refentrytitle"><a href="CodeSlayerMenuItem.html">CodeSlayerMenuItem</a></span><span class="refpurpose"> — The menu item.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerNotebookPage.html">CodeSlayerNotebookPage</a></span><span class="refpurpose"> — Contains the editor and document.</span>
+<span class="refentrytitle"><a href="CodeSlayerNotebookPage.html">CodeSlayerNotebookPage</a></span><span class="refpurpose"> — Contains the source view and document.</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="CodeSlayerNotebookPane.html">CodeSlayerNotebookPane</a></span><span class="refpurpose"> — Container for the notebook and inline search.</span>
@@ -128,7 +119,10 @@
 <span class="refentrytitle"><a href="CodeSlayerPreferencesTheme.html">CodeSlayerPreferencesTheme</a></span><span class="refpurpose"> — The preferences theme tab.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerPreferences.html">CodeSlayerPreferences</a></span><span class="refpurpose"> — The group preferences.</span>
+<span class="refentrytitle"><a href="CodeSlayerPreferences.html">CodeSlayerPreferences</a></span><span class="refpurpose"> — The profile preferences.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="CodeSlayerProcess.html">CodeSlayerProcess</a></span><span class="refpurpose"> — Contains the documents.</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="CodeSlayerProcessBar.html">CodeSlayerProcessBar</a></span><span class="refpurpose"></span>
@@ -137,7 +131,13 @@
 <span class="refentrytitle"><a href="CodeSlayerProcesses.html">CodeSlayerProcesses</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerProcess.html">CodeSlayerProcess</a></span><span class="refpurpose"> — Contains the documents.</span>
+<span class="refentrytitle"><a href="CodeSlayerProfile.html">CodeSlayerProfile</a></span><span class="refpurpose"> — Contains the projects.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="CodeSlayerProfilesManager.html">CodeSlayerProfilesManager</a></span><span class="refpurpose"> — The profiles.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="CodeSlayerProfiles.html">CodeSlayerProfiles</a></span><span class="refpurpose"> — Contains the projects.</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="CodeSlayerProjectProperties.html">CodeSlayerProjectProperties</a></span><span class="refpurpose"> — The project properties.</span>
@@ -146,19 +146,25 @@
 <span class="refentrytitle"><a href="CodeSlayerProject.html">CodeSlayerProject</a></span><span class="refpurpose"> — Contains the documents.</span>
 </dt>
 <dt>
+<span class="refentrytitle"><a href="CodeSlayerProjectsSearch.html">CodeSlayerProjectsSearch</a></span><span class="refpurpose"> — The global search page.</span>
+</dt>
+<dt>
 <span class="refentrytitle"><a href="CodeSlayerProjectsSelection.html">CodeSlayerProjectsSelection</a></span><span class="refpurpose"> — Represents the nodes selected in the projects tree.</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="CodeSlayerProjects.html">CodeSlayerProjects</a></span><span class="refpurpose"> — The tree view that contains the projects.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CodeSlayerSearch.html">CodeSlayerSearch</a></span><span class="refpurpose"> — The global search page.</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="CodeSlayerSettings.html">CodeSlayerSettings</a></span><span class="refpurpose"> — The application properties.</span>
+<span class="refentrytitle"><a href="CodeSlayerRegistry.html">CodeSlayerRegistry</a></span><span class="refpurpose"> — The application properties.</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="CodeSlayerSidePane.html">CodeSlayerSidePane</a></span><span class="refpurpose"> — The left hand side pane.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="CodeSlayerSourceView.html">CodeSlayerSourceView</a></span><span class="refpurpose"> — The view to edit a document.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="CodeSlayerWindow.html">CodeSlayerWindow</a></span><span class="refpurpose"> — Contains the pages.</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="CodeSlayer.html">CodeSlayer</a></span><span class="refpurpose"> — The plugins context.</span>

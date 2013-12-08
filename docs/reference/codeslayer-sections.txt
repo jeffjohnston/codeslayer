@@ -3,10 +3,12 @@
 <TITLE>CodeSlayerAbstractPane</TITLE>
 CodeSlayerAbstractPane
 codeslayer_abstract_pane_create_notebook
-codeslayer_abstract_pane_sync_preferences
-codeslayer_abstract_pane_set_preferences
+codeslayer_abstract_pane_sync_registry
+codeslayer_abstract_pane_set_profile
 codeslayer_abstract_pane_add
+codeslayer_abstract_pane_insert
 codeslayer_abstract_pane_remove
+codeslayer_abstract_pane_exists
 codeslayer_abstract_pane_open
 codeslayer_abstract_pane_close
 <SUBSECTION Standard>
@@ -19,6 +21,23 @@ CODESLAYER_ABSTRACT_PANE_GET_CLASS
 <SUBSECTION Private>
 CodeSlayerAbstractPanePrivate
 codeslayer_abstract_pane_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-application</FILE>
+<TITLE>CodeSlayerApplication</TITLE>
+CodeSlayerApplication
+codeslayer_application_new
+<SUBSECTION Standard>
+CODESLAYER_APPLICATION_TYPE
+CODESLAYER_APPLICATION
+CODESLAYER_APPLICATION_CLASS
+IS_CODESLAYER_APPLICATION
+IS_CODESLAYER_APPLICATION_CLASS
+CODESLAYER_APPLICATION_GET_CLASS
+<SUBSECTION Private>
+CodeSlayerApplicationPrivate
+codeslayer_application_get_type
 </SECTION>
 
 <SECTION>
@@ -35,31 +54,6 @@ IS_CODESLAYER_BOTTOM_PANE_CLASS
 <SUBSECTION Private>
 CodeSlayerBottomPanePrivate
 codeslayer_bottom_pane_get_type
-</SECTION>
-
-<SECTION>
-<FILE>codeslayer-completion</FILE>
-<TITLE>CodeSlayerCompletion</TITLE>
-CodeSlayerCompletion
-codeslayer_completion_new
-codeslayer_completion_add_provider
-codeslayer_completion_show
-codeslayer_completion_filter
-codeslayer_completion_select
-codeslayer_completion_hide
-codeslayer_completion_get_visible
-codeslayer_completion_toggle_up
-codeslayer_completion_toggle_down
-codeslayer_completion_mouse_within_popup
-<SUBSECTION Standard>
-CODESLAYER_COMPLETION_TYPE
-CODESLAYER_COMPLETION
-CODESLAYER_COMPLETION_CLASS
-IS_CODESLAYER_COMPLETION
-IS_CODESLAYER_COMPLETION_CLASS
-<SUBSECTION Private>
-CodeSlayerCompletionPrivate
-codeslayer_completion_get_type
 </SECTION>
 
 <SECTION>
@@ -97,20 +91,65 @@ codeslayer_completion_provider_get_type
 </SECTION>
 
 <SECTION>
+<FILE>codeslayer-completion</FILE>
+<TITLE>CodeSlayerCompletion</TITLE>
+CodeSlayerCompletion
+codeslayer_completion_new
+codeslayer_completion_add_provider
+codeslayer_completion_show
+codeslayer_completion_filter
+codeslayer_completion_select
+codeslayer_completion_hide
+codeslayer_completion_get_visible
+codeslayer_completion_toggle_up
+codeslayer_completion_toggle_down
+codeslayer_completion_mouse_within_popup
+<SUBSECTION Standard>
+CODESLAYER_COMPLETION_TYPE
+CODESLAYER_COMPLETION
+CODESLAYER_COMPLETION_CLASS
+IS_CODESLAYER_COMPLETION
+IS_CODESLAYER_COMPLETION_CLASS
+<SUBSECTION Private>
+CodeSlayerCompletionPrivate
+codeslayer_completion_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-document-linker</FILE>
+<TITLE>CodeSlayerDocumentLinker</TITLE>
+CodeSlayerDocumentLinker
+codeslayer_document_linker_new
+codeslayer_document_linker_create_links
+codeslayer_document_linker_get_pattern
+codeslayer_document_linker_set_pattern
+<SUBSECTION Standard>
+CODESLAYER_DOCUMENT_LINKER
+CODESLAYER_DOCUMENT_LINKER_CLASS
+CODESLAYER_DOCUMENT_LINKER_TYPE
+IS_CODESLAYER_DOCUMENT_LINKER
+IS_CODESLAYER_DOCUMENT_LINKER_CLASS
+<SUBSECTION Private>
+CodeSlayerDocumentLinkerPrivate
+codeslayer_document_linker_get_type
+</SECTION>
+
+<SECTION>
 <FILE>codeslayer-document</FILE>
 <TITLE>CodeSlayerDocument</TITLE>
 CodeSlayerDocument
 codeslayer_document_new
-codeslayer_document_get_line_number
-codeslayer_document_set_line_number
-codeslayer_document_get_tree_row_reference
-codeslayer_document_set_tree_row_reference
+codeslayer_document_get_name
 codeslayer_document_get_file_path
 codeslayer_document_set_file_path
-codeslayer_document_get_active
-codeslayer_document_set_active
+codeslayer_document_get_line_number
+codeslayer_document_set_line_number
 codeslayer_document_get_project
 codeslayer_document_set_project
+codeslayer_document_get_source_view
+codeslayer_document_set_source_view
+codeslayer_document_get_tree_row_reference
+codeslayer_document_set_tree_row_reference
 <SUBSECTION Standard>
 CODESLAYER_DOCUMENT_TYPE
 CODESLAYER_DOCUMENT
@@ -123,56 +162,13 @@ codeslayer_document_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-editor</FILE>
-<TITLE>CodeSlayerEditor</TITLE>
-CodeSlayerEditor
-codeslayer_editor_new
-codeslayer_editor_scroll_to_line
-codeslayer_editor_sync_settings_preferences
-codeslayer_editor_get_document
-codeslayer_editor_add_completion_provider
-codeslayer_editor_get_file_path
-codeslayer_editor_get_line_number
-codeslayer_editor_get_modification_time
-codeslayer_editor_set_modification_time
-codeslayer_editor_set_text
-<SUBSECTION Standard>
-CODESLAYER_EDITOR_TYPE
-CODESLAYER_EDITOR
-CODESLAYER_EDITOR_CLASS
-IS_CODESLAYER_EDITOR
-IS_CODESLAYER_EDITOR_CLASS
-<SUBSECTION Private>
-CodeSlayerEditorPrivate
-codeslayer_editor_get_type
-</SECTION>
-
-<SECTION>
-<FILE>codeslayer-editor-linker</FILE>
-<TITLE>CodeSlayerEditorLinker</TITLE>
-CodeSlayerEditorLinker
-codeslayer_editor_linker_new
-codeslayer_editor_linker_create_links
-codeslayer_editor_linker_get_pattern
-codeslayer_editor_linker_set_pattern
-<SUBSECTION Standard>
-CODESLAYER_EDITOR_LINKER
-CODESLAYER_EDITOR_LINKER_CLASS
-CODESLAYER_EDITOR_LINKER_TYPE
-IS_CODESLAYER_EDITOR_LINKER
-IS_CODESLAYER_EDITOR_LINKER_CLASS
-<SUBSECTION Private>
-CodeSlayerEditorLinkerPrivate
-codeslayer_editor_linker_get_type
-</SECTION>
-
-<SECTION>
 <FILE>codeslayer-engine</FILE>
 <TITLE>CodeSlayerEngine</TITLE>
 CodeSlayerEngine
 codeslayer_engine_new
-codeslayer_engine_close_active_group
-codeslayer_engine_open_active_group
+codeslayer_engine_load_profile
+codeslayer_engine_open_document
+codeslayer_engine_save_profile
 <SUBSECTION Standard>
 CODESLAYER_ENGINE_TYPE
 CODESLAYER_ENGINE
@@ -182,81 +178,6 @@ IS_CODESLAYER_ENGINE_CLASS
 <SUBSECTION Private>
 CodeSlayerEnginePrivate
 codeslayer_engine_get_type
-</SECTION>
-
-<SECTION>
-<FILE>codeslayer-group-properties</FILE>
-<TITLE>CodeSlayerGroupProperties</TITLE>
-CodeSlayerGroupProperties
-codeslayer_group_properties_new
-codeslayer_group_properties_get_name
-<SUBSECTION Standard>
-CODESLAYER_GROUP_PROPERTIES_TYPE
-CODESLAYER_GROUP_PROPERTIES
-CODESLAYER_GROUP_PROPERTIES_CLASS
-IS_CODESLAYER_GROUP_PROPERTIES
-IS_CODESLAYER_GROUP_PROPERTIES_CLASS
-<SUBSECTION Private>
-CodeSlayerGroupPropertiesPrivate
-codeslayer_group_properties_get_type
-</SECTION>
-
-<SECTION>
-<FILE>codeslayer-group</FILE>
-<TITLE>CodeSlayerGroup</TITLE>
-CodeSlayerGroup
-codeslayer_group_new
-codeslayer_group_get_name
-codeslayer_group_set_name
-codeslayer_group_get_projects
-codeslayer_group_set_projects
-codeslayer_group_find_project
-codeslayer_group_add_project
-codeslayer_group_remove_project
-codeslayer_group_contains_project
-codeslayer_group_get_project_by_file_path
-codeslayer_group_add_lib
-codeslayer_group_contains_lib
-codeslayer_group_get_libs
-codeslayer_group_remove_lib
-codeslayer_group_set_libs
-<SUBSECTION Standard>
-CODESLAYER_GROUP_TYPE
-CODESLAYER_GROUP
-CODESLAYER_GROUP_CLASS
-IS_CODESLAYER_GROUP
-IS_CODESLAYER_GROUP_CLASS
-<SUBSECTION Private>
-CodeSlayerGroupPrivate
-codeslayer_group_get_type
-</SECTION>
-
-<SECTION>
-<FILE>codeslayer-groups</FILE>
-<TITLE>CodeSlayerGroups</TITLE>
-CodeSlayerGroups
-codeslayer_groups_new
-codeslayer_groups_get_list
-codeslayer_groups_set_list
-codeslayer_groups_add_group
-codeslayer_groups_remove_group
-codeslayer_groups_find_group
-codeslayer_groups_find_next_group
-codeslayer_groups_get_active_group
-codeslayer_groups_set_active_group
-CODESLAYER_DEFAULT_GROUP_DIR
-CODESLAYER_GROUPS_ACTVIE
-CODESLAYER_GROUPS_CONF
-CODESLAYER_GROUPS_DIR
-<SUBSECTION Standard>
-CODESLAYER_GROUPS_TYPE
-CODESLAYER_GROUPS
-CODESLAYER_GROUPS_CLASS
-IS_CODESLAYER_GROUPS
-IS_CODESLAYER_GROUPS_CLASS
-<SUBSECTION Private>
-CodeSlayerGroupsPrivate
-codeslayer_groups_get_type
 </SECTION>
 
 <SECTION>
@@ -277,37 +198,35 @@ codeslayer_list_view_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-menubar-editor</FILE>
-<TITLE>CodeSlayerMenuBarEditor</TITLE>
-CodeSlayerMenuBarEditor
-codeslayer_menu_bar_editor_new 
-codeslayer_menu_bar_editor_sync_with_notebook
+<FILE>codeslayer-menubar-edit</FILE>
+<TITLE>CodeSlayerMenuBarEdit</TITLE>
+CodeSlayerMenuBarEdit
+codeslayer_menu_bar_edit_new 
 <SUBSECTION Standard>
-CODESLAYER_MENU_BAR_EDITOR_TYPE
-CODESLAYER_MENU_BAR_EDITOR
-CODESLAYER_MENU_BAR_EDITOR_CLASS
-IS_CODESLAYER_MENU_BAR_EDITOR
-IS_CODESLAYER_MENU_BAR_EDITOR_CLASS
+CODESLAYER_MENU_BAR_EDIT_TYPE
+CODESLAYER_MENU_BAR_EDIT
+CODESLAYER_MENU_BAR_EDIT_CLASS
+IS_CODESLAYER_MENU_BAR_EDIT
+IS_CODESLAYER_MENU_BAR_EDIT_CLASS
 <SUBSECTION Private>
-CodeSlayerMenuBarEditorPrivate
-codeslayer_menu_bar_editor_get_type
+CodeSlayerMenuBarEditPrivate
+codeslayer_menu_bar_edit_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-menubar-groups</FILE>
-<TITLE>CodeSlayerMenuBarGroups</TITLE>
-CodeSlayerMenuBarGroups
-codeslayer_menu_bar_groups_new
-codeslayer_menu_bar_groups_refresh_groups
+<FILE>codeslayer-menubar-file</FILE>
+<TITLE>CodeSlayerMenuBarFile</TITLE>
+CodeSlayerMenuBarFile
+codeslayer_menu_bar_file_new
 <SUBSECTION Standard>
-CODESLAYER_MENU_BAR_GROUPS_TYPE
-CODESLAYER_MENU_BAR_GROUPS
-CODESLAYER_MENU_BAR_GROUPS_CLASS
-IS_CODESLAYER_MENU_BAR_GROUPS
-IS_CODESLAYER_MENU_BAR_GROUPS_CLASS
+CODESLAYER_MENU_BAR_FILE_TYPE
+CODESLAYER_MENU_BAR_FILE
+CODESLAYER_MENU_BAR_FILE_CLASS
+IS_CODESLAYER_MENU_BAR_FILE
+IS_CODESLAYER_MENU_BAR_FILE_CLASS
 <SUBSECTION Private>
-CodeSlayerMenuBarGroupsPrivate
-codeslayer_menu_bar_groups_get_type
+CodeSlayerMenuBarFilePrivate
+codeslayer_menu_bar_file_get_type
 </SECTION>
 
 <SECTION>
@@ -347,7 +266,6 @@ codeslayer_menu_bar_projects_get_type
 <TITLE>CodeSlayerMenuBarSearch</TITLE>
 CodeSlayerMenuBarSearch
 codeslayer_menu_bar_search_new
-codeslayer_menu_bar_search_sync_with_notebook
 <SUBSECTION Standard>
 CODESLAYER_MENU_BAR_SEARCH_TYPE
 CODESLAYER_MENU_BAR_SEARCH
@@ -364,6 +282,8 @@ codeslayer_menu_bar_search_get_type
 <TITLE>CodeSlayerMenuBarTools</TITLE>
 CodeSlayerMenuBarTools
 codeslayer_menu_bar_tools_new
+codeslayer_menu_bar_tools_add_item
+codeslayer_menu_bar_tools_remove_item
 <SUBSECTION Standard>
 CODESLAYER_MENU_BAR_TOOLS_TYPE
 CODESLAYER_MENU_BAR_TOOLS
@@ -380,7 +300,6 @@ codeslayer_menu_bar_tools_get_type
 <TITLE>CodeSlayerMenuBarView</TITLE>
 CodeSlayerMenuBarView
 codeslayer_menu_bar_view_new
-codeslayer_menu_bar_view_sync_with_panes
 <SUBSECTION Standard>
 CODESLAYER_MENU_BAR_VIEW_TYPE
 CODESLAYER_MENU_BAR_VIEW
@@ -397,21 +316,23 @@ codeslayer_menu_bar_view_get_type
 <TITLE>CodeSlayerMenuBar</TITLE>
 CodeSlayerMenuBar
 codeslayer_menu_bar_new
-codeslayer_menu_bar_save_editor
-codeslayer_menu_bar_save_all_editors
-codeslayer_menu_bar_close_editor
+codeslayer_menu_bar_new_document
+codeslayer_menu_bar_open_document
+codeslayer_menu_bar_save_document
+codeslayer_menu_bar_save_all_documents
+codeslayer_menu_bar_close_document
 codeslayer_menu_bar_quit_application
-codeslayer_menu_bar_undo
-codeslayer_menu_bar_redo
 codeslayer_menu_bar_cut
 codeslayer_menu_bar_copy
 codeslayer_menu_bar_paste
 codeslayer_menu_bar_delete
-codeslayer_menu_bar_select_all
 codeslayer_menu_bar_to_uppercase
 codeslayer_menu_bar_to_lowercase
 codeslayer_menu_bar_copy_lines
 codeslayer_menu_bar_show_preferences
+codeslayer_menu_bar_show_profiles
+codeslayer_menu_bar_sync_with_document
+codeslayer_menu_bar_scan_external_changes
 codeslayer_menu_bar_find
 codeslayer_menu_bar_replace
 codeslayer_menu_bar_find_next
@@ -422,22 +343,12 @@ codeslayer_menu_bar_fullscreen_window
 codeslayer_menu_bar_show_side_pane
 codeslayer_menu_bar_show_bottom_pane
 codeslayer_menu_bar_draw_spaces
-codeslayer_menu_bar_refresh_groups
-codeslayer_menu_bar_group_changed
-codeslayer_menu_bar_new_group
-codeslayer_menu_bar_rename_group
-codeslayer_menu_bar_remove_group
-codeslayer_menu_bar_sync_with_notebook
-codeslayer_menu_bar_sync_with_panes
+codeslayer_menu_bar_word_wrap
 codeslayer_menu_bar_add_tools_item
+codeslayer_menu_bar_remove_tools_item
 codeslayer_menu_bar_get_accel_group
 codeslayer_menu_bar_add_projects
 codeslayer_menu_bar_show_plugins
-codeslayer_menu_bar_remove_tools_item
-codeslayer_menu_bar_tools_add_item
-codeslayer_menu_bar_tools_remove_item
-codeslayer_menu_bar_sync_projects_with_editor
-codeslayer_menu_bar_scan_external_changes
 <SUBSECTION Standard>
 CODESLAYER_MENU_BAR_TYPE
 CODESLAYER_MENU_BAR
@@ -471,10 +382,11 @@ codeslayer_menu_item_get_type
 <TITLE>CodeSlayerNotebookPage</TITLE>
 CodeSlayerNotebookPage
 codeslayer_notebook_page_new
-codeslayer_notebook_page_get_editor
-codeslayer_notebook_page_get_document
+codeslayer_notebook_page_get_source_view
 codeslayer_notebook_page_show_document_not_found_info_bar
 codeslayer_notebook_page_show_external_changes_info_bar
+codeslayer_notebook_page_load_source_view
+codeslayer_notebook_page_save_source_view
 <SUBSECTION Standard>
 CODESLAYER_NOTEBOOK_PAGE_TYPE
 CODESLAYER_NOTEBOOK_PAGE
@@ -559,13 +471,15 @@ codeslayer_notebook_tab_get_type
 <TITLE>CodeSlayerNotebook</TITLE>
 CodeSlayerNotebook
 codeslayer_notebook_new
-codeslayer_notebook_add_editor
-codeslayer_notebook_save_editor
-codeslayer_notebook_save_all_editors
-codeslayer_notebook_has_unsaved_editors
-codeslayer_notebook_close_editor
-codeslayer_notebook_close_all_editors
-codeslayer_notebook_get_active_editor
+codeslayer_notebook_add_document
+codeslayer_notebook_select_document 
+codeslayer_notebook_save_document
+codeslayer_notebook_save_all_documents
+codeslayer_notebook_has_unsaved_documents
+codeslayer_notebook_close_document
+codeslayer_notebook_close_all_documents
+codeslayer_notebook_get_active_source_view
+codeslayer_notebook_get_all_source_views
 <SUBSECTION Standard>
 CODESLAYER_NOTEBOOK_TYPE
 CODESLAYER_NOTEBOOK
@@ -658,7 +572,6 @@ codeslayer_plugins_get_type
 <TITLE>CodeSlayerPreferencesEditor</TITLE>
 CodeSlayerPreferencesEditor
 codeslayer_preferences_editor_new
-codeslayer_preferences_load
 <SUBSECTION Standard>
 CODESLAYER_PREFERENCES_EDITOR_TYPE
 CODESLAYER_PREFERENCES_EDITOR
@@ -737,34 +650,8 @@ codeslayer_preferences_theme_get_type
 <SECTION>
 <FILE>codeslayer-preferences</FILE>
 <TITLE>CodeSlayerPreferences</TITLE>
-CODESLAYER_PREFERENCES_EDITOR_DISPLAY_LINE_NUMBERS
-CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_CURRENT_LINE
-CODESLAYER_PREFERENCES_EDITOR_DISPLAY_RIGHT_MARGIN
-CODESLAYER_PREFERENCES_EDITOR_HIGHLIGHT_MATCHING_BRACKET
-CODESLAYER_PREFERENCES_EDITOR_INSERT_SPACES_INSTEAD_OF_TABS
-CODESLAYER_PREFERENCES_EDITOR_ENABLE_AUTOMATIC_INDENTATION
-CODESLAYER_PREFERENCES_EDITOR_RIGHT_MARGIN_POSITION
-CODESLAYER_PREFERENCES_EDITOR_TAB_WIDTH
-CODESLAYER_PREFERENCES_EDITOR_FONT
-CODESLAYER_PREFERENCES_EDITOR_THEME
-CODESLAYER_PREFERENCES_BOTTOM_PANE_TAB_POSITION
-CODESLAYER_PREFERENCES_SIDE_PANE_TAB_POSITION
-CODESLAYER_HOME
-CODESLAYER_PREFERENCES_EDITOR_WORD_WRAP_TYPES
-CODESLAYER_PREFERENCES_EDITOR_TAB_POSITION
-CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_DIRS
-CODESLAYER_PREFERENCES_PROJECTS_EXCLUDE_TYPES
 CodeSlayerPreferences
 codeslayer_preferences_new
-codeslayer_preferences_get_integer
-codeslayer_preferences_set_integer
-codeslayer_preferences_get_double
-codeslayer_preferences_set_double
-codeslayer_preferences_get_boolean
-codeslayer_preferences_set_boolean
-codeslayer_preferences_get_string
-codeslayer_preferences_set_string
-codeslayer_preferences_save
 codeslayer_preferences_run_dialog
 <SUBSECTION Standard>
 CODESLAYER_PREFERENCES_TYPE
@@ -775,6 +662,31 @@ IS_CODESLAYER_PREFERENCES_CLASS
 <SUBSECTION Private>
 CodeSlayerPreferencesPrivate
 codeslayer_preferences_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-process</FILE>
+<TITLE>CodeSlayerProcess</TITLE>
+CodeSlayerProcess
+StopProcessFunc
+codeslayer_process_new
+codeslayer_process_get_id
+codeslayer_process_get_name
+codeslayer_process_set_name
+codeslayer_process_get_func
+codeslayer_process_set_func
+codeslayer_process_get_data
+codeslayer_process_set_data
+codeslayer_process_stop
+<SUBSECTION Standard>
+CODESLAYER_PROCESS_TYPE
+CODESLAYER_PROCESS
+CODESLAYER_PROCESS_CLASS
+IS_CODESLAYER_PROCESS
+IS_CODESLAYER_PROCESS_CLASS
+<SUBSECTION Private>
+CodeSlayerProcessPrivate
+codeslayer_process_get_type
 </SECTION>
 
 <SECTION>
@@ -797,7 +709,6 @@ codeslayer_process_bar_get_type
 <FILE>codeslayer-processes</FILE>
 <TITLE>CodeSlayerProcesses</TITLE>
 CodeSlayerProcesses
-StopProcessFunc
 codeslayer_processes_new
 codeslayer_processes_add
 codeslayer_processes_remove
@@ -813,27 +724,82 @@ codeslayer_processes_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-process</FILE>
-<TITLE>CodeSlayerProcess</TITLE>
-CodeSlayerProcess
-codeslayer_process_new
-codeslayer_process_get_id
-codeslayer_process_get_name
-codeslayer_process_set_name
-codeslayer_process_get_func
-codeslayer_process_set_func
-codeslayer_process_get_data
-codeslayer_process_set_data
-codeslayer_process_stop
+<FILE>codeslayer-profile</FILE>
+<TITLE>CodeSlayerProfile</TITLE>
+CodeSlayerProfile
+codeslayer_profile_new
+codeslayer_profile_get_name
+codeslayer_profile_set_name
+codeslayer_profile_get_file_path
+codeslayer_profile_set_file_path
+codeslayer_profile_get_enable_projects
+codeslayer_profile_set_enable_projects
+codeslayer_profile_get_projects
+codeslayer_profile_set_projects
+codeslayer_profile_find_project
+codeslayer_profile_get_project_by_file_path
+codeslayer_profile_add_project
+codeslayer_profile_remove_project
+codeslayer_profile_contains_project
+codeslayer_profile_get_documents
+codeslayer_profile_set_documents
+codeslayer_profile_add_document
+codeslayer_profile_remove_document
+codeslayer_profile_get_registry
+codeslayer_profile_get_plugins
+codeslayer_profile_set_plugins
+codeslayer_profile_contains_plugin
+codeslayer_profile_add_plugin
+codeslayer_profile_remove_plugin
 <SUBSECTION Standard>
-CODESLAYER_PROCESS_TYPE
-CODESLAYER_PROCESS
-CODESLAYER_PROCESS_CLASS
-IS_CODESLAYER_PROCESS
-IS_CODESLAYER_PROCESS_CLASS
+CODESLAYER_PROFILE_TYPE
+CODESLAYER_PROFILE
+CODESLAYER_PROFILE_CLASS
+IS_CODESLAYER_PROFILE
+IS_CODESLAYER_PROFILE_CLASS
 <SUBSECTION Private>
-CodeSlayerProcessPrivate
-codeslayer_process_get_type
+CodeSlayerProfilePrivate
+codeslayer_profile_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-profiles-manager</FILE>
+<TITLE>CodeSlayerProfilesManager</TITLE>
+CodeSlayerProfilesManager
+codeslayer_profiles_manager_new
+codeslayer_profiles_manager_run_dialog
+<SUBSECTION Standard>
+CODESLAYER_PROFILES_MANAGER_TYPE
+CODESLAYER_PROFILES_MANAGER
+CODESLAYER_PROFILES_MANAGER_CLASS
+IS_CODESLAYER_PROFILES_MANAGER
+IS_CODESLAYER_PROFILES_MANAGER_CLASS
+<SUBSECTION Private>
+CodeSlayerProfilesManagerPrivate
+codeslayer_profiles_manager_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-profiles</FILE>
+<TITLE>CodeSlayerProfiles</TITLE>
+CODESLAYER_PROFILES_DEFAULT
+CODESLAYER_PROFILES_DIR
+CODESLAYER_PROFILE_FILE
+CodeSlayerProfiles
+codeslayer_profiles_new
+codeslayer_profiles_create_profile
+codeslayer_profiles_retrieve_profile
+codeslayer_profiles_save_profile
+codeslayer_profiles_get_profile_names
+<SUBSECTION Standard>
+CODESLAYER_PROFILES_TYPE
+CODESLAYER_PROFILES
+CODESLAYER_PROFILES_CLASS
+IS_CODESLAYER_PROFILES
+IS_CODESLAYER_PROFILES_CLASS
+<SUBSECTION Private>
+CodeSlayerProfilesPrivate
+codeslayer_profiles_get_type
 </SECTION>
 
 <SECTION>
@@ -875,6 +841,24 @@ codeslayer_project_get_type
 </SECTION>
 
 <SECTION>
+<FILE>codeslayer-projects-search</FILE>
+<TITLE>CodeSlayerProjectsSearch</TITLE>
+CodeSlayerProjectsSearch
+codeslayer_projects_search_new
+codeslayer_projects_search_find_projects
+codeslayer_projects_search_find_selection
+<SUBSECTION Standard>
+CODESLAYER_PROJECTS_SEARCH_TYPE
+CODESLAYER_PROJECTS_SEARCH
+CODESLAYER_PROJECTS_SEARCH_CLASS
+IS_CODESLAYER_PROJECTS_SEARCH
+IS_CODESLAYER_PROJECTS_SEARCH_CLASS
+<SUBSECTION Private>
+CodeSlayerProjectsSearchPrivate
+codeslayer_projects_search_get_type
+</SECTION>
+
+<SECTION>
 <FILE>codeslayer-projects-selection</FILE>
 <TITLE>CodeSlayerProjectsSelection</TITLE>
 CodeSlayerProjectsSelection
@@ -899,13 +883,11 @@ codeslayer_projects_selection_get_type
 <TITLE>CodeSlayerProjects</TITLE>
 CodeSlayerProjects
 codeslayer_projects_new
-codeslayer_projects_load_group
 codeslayer_projects_add_project
 codeslayer_projects_select_document
+codeslayer_projects_refresh
 codeslayer_projects_add_popup_item
 codeslayer_projects_remove_popup_item
-codeslayer_projects_search_find
-codeslayer_projects_refresh
 <SUBSECTION Standard>
 CODESLAYER_PROJECTS_TYPE
 CODESLAYER_PROJECTS
@@ -918,64 +900,64 @@ codeslayer_projects_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-search</FILE>
-<TITLE>CodeSlayerSearch</TITLE>
-CodeSlayerSearch
-codeslayer_search_new
-codeslayer_search_find_projects
-codeslayer_search_find_selection
-codeslayer_search_clear
+<FILE>codeslayer-registry</FILE>
+<TITLE>CodeSlayerRegistry</TITLE>
+CODESLAYER_REGISTRY_HPANED_POSITION
+CODESLAYER_REGISTRY_VPANED_POSITION
+CODESLAYER_REGISTRY_WINDOW_WIDTH
+CODESLAYER_REGISTRY_WINDOW_HEIGHT
+CODESLAYER_REGISTRY_WINDOW_X
+CODESLAYER_REGISTRY_WINDOW_Y
+CODESLAYER_REGISTRY_SEARCH_WIDTH
+CODESLAYER_REGISTRY_SEARCH_HEIGHT
+CODESLAYER_REGISTRY_SEARCH_X
+CODESLAYER_REGISTRY_SEARCH_Y
+CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE
+CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE
+CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE
+CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD
+CODESLAYER_REGISTRY_DRAW_SPACES
+CODESLAYER_REGISTRY_WORD_WRAP
+CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT
+CODESLAYER_REGISTRY_ENABLE_PROJECTS
+CODESLAYER_REGISTRY_DISPLAY_LINE_NUMBERS
+CODESLAYER_REGISTRY_HIGHLIGHT_CURRENT_LINE
+CODESLAYER_REGISTRY_DISPLAY_RIGHT_MARGIN
+CODESLAYER_REGISTRY_HIGHLIGHT_MATCHING_BRACKET
+CODESLAYER_REGISTRY_INSERT_SPACES_INSTEAD_OF_TABS
+CODESLAYER_REGISTRY_ENABLE_AUTOMATIC_INDENTATION
+CODESLAYER_REGISTRY_RIGHT_MARGIN_POSITION
+CODESLAYER_REGISTRY_TAB_WIDTH
+CODESLAYER_REGISTRY_FONT
+CODESLAYER_REGISTRY_THEME
+CODESLAYER_REGISTRY_TAB_POSITION
+CODESLAYER_REGISTRY_WORD_WRAP_TYPES
+CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION
+CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION
+CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES
+CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS
+CodeSlayerRegistry
+codeslayer_registry_new
+codeslayer_registry_get_hashtable
+codeslayer_registry_get_setting
+codeslayer_registry_set_setting
+codeslayer_registry_get_integer
+codeslayer_registry_set_integer
+codeslayer_registry_get_double
+codeslayer_registry_set_double
+codeslayer_registry_get_boolean
+codeslayer_registry_set_boolean
+codeslayer_registry_get_string
+codeslayer_registry_set_string
 <SUBSECTION Standard>
-CODESLAYER_SEARCH_TYPE
-CODESLAYER_SEARCH
-CODESLAYER_SEARCH_CLASS
-IS_CODESLAYER_SEARCH
-IS_CODESLAYER_SEARCH_CLASS
+CODESLAYER_REGISTRY_TYPE
+CODESLAYER_REGISTRY
+CODESLAYER_REGISTRY_CLASS
+IS_CODESLAYER_REGISTRY
+IS_CODESLAYER_REGISTRY_CLASS
 <SUBSECTION Private>
-CodeSlayerSearchPrivate
-codeslayer_search_get_type
-</SECTION>
-
-<SECTION>
-<FILE>codeslayer-settings</FILE>
-<TITLE>CodeSlayerSettings</TITLE>
-CODESLAYER_SETTINGS_HPANED_POSITION
-CODESLAYER_SETTINGS_VPANED_POSITION
-CODESLAYER_SETTINGS_WINDOW_WIDTH
-CODESLAYER_SETTINGS_WINDOW_HEIGHT
-CODESLAYER_SETTINGS_WINDOW_X
-CODESLAYER_SETTINGS_WINDOW_Y
-CODESLAYER_SETTINGS_SEARCH_WIDTH
-CODESLAYER_SETTINGS_SEARCH_HEIGHT
-CODESLAYER_SETTINGS_SEARCH_X
-CODESLAYER_SETTINGS_SEARCH_Y
-CODESLAYER_SETTINGS_MAIN_TITLE
-CODESLAYER_SETTINGS_SIDE_PANE_VISIBLE
-CODESLAYER_SETTINGS_BOTTOM_PANE_VISIBLE
-CODESLAYER_SETTINGS_DRAW_SPACES
-CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_CASE
-CODESLAYER_SETTINGS_NOTEBOOK_SEARCH_MATCH_WORD
-CODESLAYER_SETTINGS_SYNC_WITH_EDITOR
-CodeSlayerSettings
-codeslayer_settings_new
-codeslayer_settings_get_integer
-codeslayer_settings_set_integer
-codeslayer_settings_get_double
-codeslayer_settings_set_double
-codeslayer_settings_get_boolean
-codeslayer_settings_set_boolean
-codeslayer_settings_get_string
-codeslayer_settings_set_string
-codeslayer_settings_save
-<SUBSECTION Standard>
-CODESLAYER_SETTINGS_TYPE
-CODESLAYER_SETTINGS
-CODESLAYER_SETTINGS_CLASS
-IS_CODESLAYER_SETTINGS
-IS_CODESLAYER_SETTINGS_CLASS
-<SUBSECTION Private>
-CodeSlayerSettingsPrivate
-codeslayer_settings_get_type
+CodeSlayerRegistryPrivate
+codeslayer_registry_get_type
 </SECTION>
 
 <SECTION>
@@ -995,17 +977,60 @@ codeslayer_side_pane_get_type
 </SECTION>
 
 <SECTION>
+<FILE>codeslayer-sourceview</FILE>
+<TITLE>CodeSlayerSourceView</TITLE>
+CodeSlayerSourceView
+CODESLAYER_SOURCE_VIEW_UNTITLED
+codeslayer_source_view_new
+codeslayer_source_view_get_document
+codeslayer_source_view_get_modification_time
+codeslayer_source_view_set_modification_time
+codeslayer_source_view_add_completion_provider
+codeslayer_source_view_set_text
+codeslayer_source_view_scroll_to_line
+codeslayer_source_view_sync_registry 
+<SUBSECTION Standard>
+CODESLAYER_SOURCE_VIEW_TYPE
+CODESLAYER_SOURCE_VIEW
+CODESLAYER_SOURCE_VIEW_CLASS
+IS_CODESLAYER_SOURCE_VIEW
+IS_CODESLAYER_SOURCE_VIEW_CLASS
+<SUBSECTION Private>
+CodeSlayerSourceViewPrivate
+codeslayer_source_view_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-window</FILE>
+<TITLE>CodeSlayerWindow</TITLE>
+CODESLAYER_MAIN_TITLE
+CodeSlayerWindow
+codeslayer_window_new
+codeslayer_window_open_document
+codeslayer_window_get_profile
+<SUBSECTION Standard>
+CODESLAYER_WINDOW_TYPE
+CODESLAYER_WINDOW
+CODESLAYER_WINDOW_CLASS
+IS_CODESLAYER_WINDOW
+IS_CODESLAYER_WINDOW_CLASS
+<SUBSECTION Private>
+CodeSlayerWindowPrivate
+codeslayer_window_get_type
+</SECTION>
+
+<SECTION>
 <FILE>codeslayer</FILE>
 <TITLE>CodeSlayer</TITLE>
+CODESLAYER_HOME
 CodeSlayer
 codeslayer_new
-codeslayer_select_editor
-codeslayer_select_editor_by_file_path
-codeslayer_get_active_editor
-codeslayer_get_active_editor_document
-codeslayer_get_active_editor_project
-codeslayer_get_active_editor_file_path
-codeslayer_get_all_editors
+codeslayer_select_document
+codeslayer_select_document_by_file_path
+codeslayer_get_active_document
+codeslayer_get_active_document_file_path
+codeslayer_get_active_document_project
+codeslayer_get_all_documents
 codeslayer_add_to_side_pane
 codeslayer_remove_from_side_pane
 codeslayer_add_to_bottom_pane
@@ -1013,29 +1038,22 @@ codeslayer_remove_from_bottom_pane
 codeslayer_show_bottom_pane
 codeslayer_show_side_pane
 codeslayer_add_to_menu_bar
-codeslayer_add_to_menubar
 codeslayer_remove_from_menu_bar
-codeslayer_remove_from_menubar
 codeslayer_add_to_projects_popup
 codeslayer_remove_from_projects_popup
 codeslayer_add_to_project_properties
 codeslayer_remove_from_project_properties
-codeslayer_get_menubar_accel_group
 codeslayer_get_menu_bar_accel_group
-codeslayer_get_group
-codeslayer_get_group_config_folder_path
 codeslayer_get_project_config_folder_path
 codeslayer_get_plugins_config_folder_path
-codeslayer_get_active_group
-codeslayer_get_active_group_folder_path
-codeslayer_get_configuration_folder_path
+codeslayer_get_profile_config_folder_path
 codeslayer_get_project_by_file_path
-codeslayer_get_preferences
+codeslayer_get_registry
+codeslayer_get_projects
 codeslayer_get_toplevel_window
 codeslayer_add_to_process_bar
 codeslayer_remove_from_process_bar
-codeslayer_create_editor_linker
-codeslayer_get_editor_linker
+codeslayer_create_document_linker
 <SUBSECTION Standard>
 CODESLAYER_TYPE
 CODESLAYER

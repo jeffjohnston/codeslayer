@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerNotebookSearch</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane">
@@ -48,7 +48,7 @@
 
 struct              <a class="link" href="CodeSlayerNotebookSearch.html#CodeSlayerNotebookSearch-struct" title="struct CodeSlayerNotebookSearch">CodeSlayerNotebookSearch</a>;
 <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerNotebookSearch.html#codeslayer-notebook-search-new" title="codeslayer_notebook_search_new ()">codeslayer_notebook_search_new</a>      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookSearch.html#codeslayer-notebook-search-find" title="codeslayer_notebook_search_find ()">codeslayer_notebook_search_find</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookSearch.html#codeslayer-notebook-search-replace" title="codeslayer_notebook_search_replace ()">codeslayer_notebook_search_replace</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookSearch.html#codeslayer-notebook-search-find-next" title="codeslayer_notebook_search_find_next ()">codeslayer_notebook_search_find_next</a>
@@ -59,7 +59,7 @@ struct              <a class="link" href="CodeSlayerNotebookSearch.html#CodeSlay
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookSearch.html#codeslayer-notebook-search-create-search-marks" title="codeslayer_notebook_search_create_search_marks ()">codeslayer_notebook_search_create_search_marks</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> scrollable</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> scrollable</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -99,23 +99,20 @@ CodeSlayerNotebookSearch implements
 <div class="refsect2">
 <a name="codeslayer-notebook-search-new"></a><h3>codeslayer_notebook_search_new ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_notebook_search_new      (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>.</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
@@ -129,13 +126,10 @@ Creates a new <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSl
 <a name="codeslayer-notebook-search-find"></a><h3>codeslayer_notebook_search_find ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_search_find     (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>);</pre>
 <p>
-Search the editors highlighted text.
+Search the source view highlighted text.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_search</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a>.</td>
@@ -147,13 +141,10 @@ Search the editors highlighted text.
 <a name="codeslayer-notebook-search-replace"></a><h3>codeslayer_notebook_search_replace ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_search_replace  (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>);</pre>
 <p>
-Replace the editors highlighted text.
+Replace the source view highlighted text.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_search</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a>.</td>
@@ -168,11 +159,8 @@ Replace the editors highlighted text.
 <p>
 Find the next search value.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_search</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a>.</td>
@@ -187,11 +175,8 @@ Find the next search value.
 <p>
 Find the previous search value.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_search</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a>.</td>
@@ -205,13 +190,10 @@ Find the previous search value.
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>);</pre>
 <p>
 Update the sensitivity of search related items based on the current 
-state of the notebook <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> widgets.
+state of the notebook <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> widgets.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_search</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a>.</td>
@@ -223,15 +205,12 @@ state of the notebook <a class="link" href="CodeSlayerEditor.html" title="CodeSl
 <a name="codeslayer-notebook-search-create-search-marks"></a><h3>codeslayer_notebook_search_create_search_marks ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_search_create_search_marks
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *notebook_search</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> scrollable</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> scrollable</code></em>);</pre>
 <p>
-Create the search marks based on the current settings.
+Create the search marks based on the current registry.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_search</code></em> :</span></p></td>
@@ -250,18 +229,15 @@ Create the search marks based on the current settings.
 <div class="refsect2">
 <a name="CodeSlayerNotebookSearch-close-search"></a><h3>The <code class="literal">"close-search"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> *codeslayernotebooksearch,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                  user_data)                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                  user_data)                     : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 Note: for internal use only.
 </p>
 <p>
 The ::close-search signal is a request for the inline search to be closed.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayernotebooksearch</code></em> :</span></p></td>

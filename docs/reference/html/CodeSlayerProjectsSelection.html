@@ -3,10 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerProjectsSelection</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
-<link rel="prev" href="CodeSlayerProject.html" title="CodeSlayerProject">
+<link rel="prev" href="CodeSlayerProjectsSearch.html" title="CodeSlayerProjectsSearch">
 <link rel="next" href="CodeSlayerProjects.html" title="CodeSlayerProjects">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
@@ -14,7 +14,7 @@
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="CodeSlayerProject.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="CodeSlayerProjectsSearch.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
@@ -47,11 +47,11 @@
 struct              <a class="link" href="CodeSlayerProjectsSelection.html#CodeSlayerProjectsSelection-struct" title="struct CodeSlayerProjectsSelection">CodeSlayerProjectsSelection</a>;
 <a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="returnvalue">CodeSlayerProjectsSelection</span></a> * <a class="link" href="CodeSlayerProjectsSelection.html#codeslayer-projects-selection-new" title="codeslayer_projects_selection_new ()">codeslayer_projects_selection_new</a>
                                                         (<em class="parameter"><code><span class="type">void</span></code></em>);
-const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="CodeSlayerProjectsSelection.html#codeslayer-projects-selection-get-file-path" title="codeslayer_projects_selection_get_file_path ()">codeslayer_projects_selection_get_file_path</a>
+const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="CodeSlayerProjectsSelection.html#codeslayer-projects-selection-get-file-path" title="codeslayer_projects_selection_get_file_path ()">codeslayer_projects_selection_get_file_path</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a> *projects_selection</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjectsSelection.html#codeslayer-projects-selection-set-file-path" title="codeslayer_projects_selection_set_file_path ()">codeslayer_projects_selection_set_file_path</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a> *projects_selection</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);
 <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a> * <a class="link" href="CodeSlayerProjectsSelection.html#codeslayer-projects-selection-get-project" title="codeslayer_projects_selection_get_project ()">codeslayer_projects_selection_get_project</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a> *projects_selection</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProjectsSelection.html#codeslayer-projects-selection-set-project" title="codeslayer_projects_selection_set_project ()">codeslayer_projects_selection_set_project</a>
@@ -69,7 +69,7 @@ const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/g
 <div class="refsect1">
 <a name="CodeSlayerProjectsSelection.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="CodeSlayerProjectsSelection.html#CodeSlayerProjectsSelection--file-path" title='The "file-path" property'>file-path</a>"                <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="CodeSlayerProjectsSelection.html#CodeSlayerProjectsSelection--file-path" title='The "file-path" property'>file-path</a>"                <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
   "<a class="link" href="CodeSlayerProjectsSelection.html#CodeSlayerProjectsSelection--project" title='The "project" property'>project</a>"                  <a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a>*    : Read / Write
 </pre>
 </div>
@@ -90,11 +90,8 @@ const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/g
 <p>
 Creates a new <a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>a new <a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a>.</td>
@@ -104,13 +101,10 @@ Creates a new <a class="link" href="CodeSlayerProjectsSelection.html" title="Cod
 <hr>
 <div class="refsect2">
 <a name="codeslayer-projects-selection-get-file-path"></a><h3>codeslayer_projects_selection_get_file_path ()</h3>
-<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       codeslayer_projects_selection_get_file_path
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       codeslayer_projects_selection_get_file_path
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a> *projects_selection</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>projects_selection</code></em> :</span></p></td>
@@ -128,15 +122,12 @@ Creates a new <a class="link" href="CodeSlayerProjectsSelection.html" title="Cod
 <a name="codeslayer-projects-selection-set-file-path"></a><h3>codeslayer_projects_selection_set_file_path ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_selection_set_file_path
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a> *projects_selection</code></em>,
-                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);</pre>
 <p>
 Note: this is not a URI, but rather a normal file path.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>projects_selection</code></em> :</span></p></td>
@@ -154,11 +145,8 @@ Note: this is not a URI, but rather a normal file path.
 <a name="codeslayer-projects-selection-get-project"></a><h3>codeslayer_projects_selection_get_project ()</h3>
 <pre class="programlisting"><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="returnvalue">CodeSlayerProject</span></a> * codeslayer_projects_selection_get_project
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a> *projects_selection</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>projects_selection</code></em> :</span></p></td>
@@ -177,11 +165,8 @@ Note: this is not a URI, but rather a normal file path.
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_projects_selection_set_project
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProjectsSelection.html" title="CodeSlayerProjectsSelection"><span class="type">CodeSlayerProjectsSelection</span></a> *projects_selection</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>projects_selection</code></em> :</span></p></td>
@@ -199,7 +184,7 @@ Note: this is not a URI, but rather a normal file path.
 <a name="CodeSlayerProjectsSelection.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="CodeSlayerProjectsSelection--file-path"></a><h3>The <code class="literal">"file-path"</code> property</h3>
-<pre class="programlisting">  "file-path"                <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<pre class="programlisting">  "file-path"                <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
 <p>
 The fully qualified file path where the projects_selection is located.
 </p>

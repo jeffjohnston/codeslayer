@@ -74,6 +74,7 @@ codeslayer_preferences_finalize (CodeSlayerPreferences *preferences)
 /**
  * codeslayer_preferences_new:
  * @window: a #GtkWindow.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerPreferences.
  *

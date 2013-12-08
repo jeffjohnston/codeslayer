@@ -177,13 +177,14 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
  * @profiles: a #CodeSlayerProfiles.
  * @profiles_manager: a #CodeSlayerProfilesManager.
  * @plugins: a #CodeSlayerPlugins.
+ * @projects: a #CodeSlayerProjects.
  * @menubar: a #CodeSlayerMenuBar.
  * @notebook: a #CodeSlayerNotebook.
  * @notebook_pane: a #CodeSlayerNotebookPane.
  * @side_pane: a #CodeSlayerSidePane.
  * @bottom_pane: a #CodeSlayerBottomPane.
- * @hpaned: a horizontal paned container.
- * @vpaned: a vertical paned container.
+ * @hpaned: the main horizontal pane.
+ * @vpaned: the main vertical pane.
  *
  * Returns: a new #CodeSlayerEngine. 
  */

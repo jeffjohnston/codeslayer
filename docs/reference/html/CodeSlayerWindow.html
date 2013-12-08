@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerWindow</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView">
+<link rel="next" href="CodeSlayer.html" title="CodeSlayer">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerSourceView.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayer.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerWindow.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerWindow.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerWindow.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerWindow.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="CodeSlayerWindow"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerWindow.top_of_page"></a>CodeSlayerWindow</span></h2>
+<p>CodeSlayerWindow — Contains the pages.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="CodeSlayerWindow.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-window.h&gt;
+
+#define             <a class="link" href="CodeSlayerWindow.html#CODESLAYER-MAIN-TITLE:CAPS" title="CODESLAYER_MAIN_TITLE">CODESLAYER_MAIN_TITLE</a>
+struct              <a class="link" href="CodeSlayerWindow.html#CodeSlayerWindow-struct" title="struct CodeSlayerWindow">CodeSlayerWindow</a>;
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerWindow.html#codeslayer-window-new" title="codeslayer_window_new ()">codeslayer_window_new</a>               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkApplication.html"><span class="type">GtkApplication</span></a> *application</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *profile_name</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerWindow.html#codeslayer-window-open-document" title="codeslayer_window_open_document ()">codeslayer_window_open_document</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow"><span class="type">CodeSlayerWindow</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);
+<a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="returnvalue">CodeSlayerProfile</span></a> * <a class="link" href="CodeSlayerWindow.html#codeslayer-window-get-profile" title="codeslayer_window_get_profile ()">codeslayer_window_get_profile</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow"><span class="type">CodeSlayerWindow</span></a> *window</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerWindow.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk3/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk3/GtkBin.html">GtkBin</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html">GtkWindow</a>
+                                 +----CodeSlayerWindow
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerWindow.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+CodeSlayerWindow implements
+ AtkImplementorIface and  <a href="/usr/share/gtk-doc/html/gtk3/GtkBuildable.html">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerWindow.description"></a><h2>Description</h2>
+<p>
+A window which contains pages of documents to edit.
+</p>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerWindow.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CODESLAYER-MAIN-TITLE:CAPS"></a><h3>CODESLAYER_MAIN_TITLE</h3>
+<pre class="programlisting">#define CODESLAYER_MAIN_TITLE "CodeSlayer"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerWindow-struct"></a><h3>struct CodeSlayerWindow</h3>
+<pre class="programlisting">struct CodeSlayerWindow;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-window-new"></a><h3>codeslayer_window_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_window_new               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkApplication.html"><span class="type">GtkApplication</span></a> *application</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *profile_name</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow"><span class="type">CodeSlayerWindow</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>application</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkApplication.html"><span class="type">GtkApplication</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profile_name</code></em> :</span></p></td>
+<td>the name of the <em class="parameter"><code>Profile</code></em> to load.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow"><span class="type">CodeSlayerWindow</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-window-open-document"></a><h3>codeslayer_window_open_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_window_open_document     (<em class="parameter"><code><a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow"><span class="type">CodeSlayerWindow</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_path</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-window-get-profile"></a><h3>codeslayer_window_get_profile ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="returnvalue">CodeSlayerProfile</span></a> * codeslayer_window_get_profile       (<em class="parameter"><code><a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow"><span class="type">CodeSlayerWindow</span></a> *window</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

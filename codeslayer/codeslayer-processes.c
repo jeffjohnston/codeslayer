@@ -153,7 +153,7 @@ codeslayer_processes_remove (CodeSlayerProcesses *processes,
 
 static void
 process_stopped (CodeSlayerProcesses *processes, 
-                            CodeSlayerProcess   *process)
+                 CodeSlayerProcess   *process)
 {
   StopProcessFunc func;
   gpointer data;

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerNotebookTab</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch">
@@ -50,7 +50,7 @@
 
 struct              <a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-struct" title="struct CodeSlayerNotebookTab">CodeSlayerNotebookTab</a>;
 <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerNotebookTab.html#codeslayer-notebook-tab-new" title="codeslayer_notebook_tab_new ()">codeslayer_notebook_tab_new</a>         (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_name</code></em>);
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookTab.html#codeslayer-notebook-tab-show-buffer-dirty" title="codeslayer_notebook_tab_show_buffer_dirty ()">codeslayer_notebook_tab_show_buffer_dirty</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *notebook_tab</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookTab.html#codeslayer-notebook-tab-show-buffer-clean" title="codeslayer_notebook_tab_show_buffer_clean ()">codeslayer_notebook_tab_show_buffer_clean</a>
@@ -62,7 +62,7 @@ struct              <a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerN
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook_page</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookTab.html#codeslayer-notebook-tab-set-label-name" title="codeslayer_notebook_tab_set_label_name ()">codeslayer_notebook_tab_set_label_name</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *notebook_tab</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_name</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -86,25 +86,25 @@ CodeSlayerNotebookTab implements
 <div class="refsect1">
 <a name="CodeSlayerNotebookTab.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab--notebook-page" title='The "notebook-page" property'>notebook-page</a>"            <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
+  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab--notebook-page" title='The "notebook-page" property'>notebook-page</a>"            <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write
 </pre>
 </div>
 <div class="refsect1">
 <a name="CodeSlayerNotebookTab.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-all-editors" title='The "close-all-editors" signal'>close-all-editors</a>"                              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-editor" title='The "close-editor" signal'>close-editor</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-left-editors" title='The "close-left-editors" signal'>close-left-editors</a>"                             : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-other-editors" title='The "close-other-editors" signal'>close-other-editors</a>"                            : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-right-editors" title='The "close-right-editors" signal'>close-right-editors</a>"                            : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-select-editor" title='The "select-editor" signal'>select-editor</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-all-documents" title='The "close-all-documents" signal'>close-all-documents</a>"                            : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-document" title='The "close-document" signal'>close-document</a>"                                 : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-left-documents" title='The "close-left-documents" signal'>close-left-documents</a>"                           : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-other-documents" title='The "close-other-documents" signal'>close-other-documents</a>"                          : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-close-right-documents" title='The "close-right-documents" signal'>close-right-documents</a>"                          : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerNotebookTab.html#CodeSlayerNotebookTab-select-document" title='The "select-document" signal'>select-document</a>"                                : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
 </pre>
 </div>
 <div class="refsect1">
 <a name="CodeSlayerNotebookTab.description"></a><h2>Description</h2>
 <p>
 The tab is appended to the notebook page as a way to give the page a 
-label. This label can also communicate whether or not the editor needs 
+label. This label can also communicate whether or not the document needs 
 to be saved. The tab itself allows a page to be closed.
 </p>
 </div>
@@ -118,22 +118,19 @@ to be saved. The tab itself allows a page to be closed.
 <div class="refsect2">
 <a name="codeslayer-notebook-tab-new"></a><h3>codeslayer_notebook_tab_new ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_notebook_tab_new         (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_name</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
 <td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>file_name</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
 <td>the display name for the tab is the file name.</td>
 </tr>
 <tr>
@@ -149,13 +146,10 @@ Creates a new <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlaye
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_tab_show_buffer_dirty
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *notebook_tab</code></em>);</pre>
 <p>
-The tab label needs to be show that the editor needs to be saved.
+The tab label needs to be show that the document needs to be saved.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_tab</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a>.</td>
@@ -168,13 +162,10 @@ The tab label needs to be show that the editor needs to be saved.
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_tab_show_buffer_clean
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *notebook_tab</code></em>);</pre>
 <p>
-The tab label needs to be show that the editor no longer needs to be saved.
+The tab label needs to be show that the document no longer needs to be saved.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_tab</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a>.</td>
@@ -186,11 +177,8 @@ The tab label needs to be show that the editor no longer needs to be saved.
 <a name="codeslayer-notebook-tab-get-notebook-page"></a><h3>codeslayer_notebook_tab_get_notebook_page ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_notebook_tab_get_notebook_page
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *notebook_tab</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_tab</code></em> :</span></p></td>
@@ -209,11 +197,8 @@ The tab label needs to be show that the editor no longer needs to be saved.
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_tab_set_notebook_page
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *notebook_tab</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook_page</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_tab</code></em> :</span></p></td>
@@ -231,22 +216,19 @@ The tab label needs to be show that the editor no longer needs to be saved.
 <a name="codeslayer-notebook-tab-set-label-name"></a><h3>codeslayer_notebook_tab_set_label_name ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_tab_set_label_name
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *notebook_tab</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *file_name</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 <p>
 Change the label name of the tab.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_tab</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a>.</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>file_name</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
 <td>the display name for the tab is the file name.</td>
 </tr>
 </tbody>
@@ -257,7 +239,7 @@ Change the label name of the tab.
 <a name="CodeSlayerNotebookTab.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="CodeSlayerNotebookTab--notebook-page"></a><h3>The <code class="literal">"notebook-page"</code> property</h3>
-<pre class="programlisting">  "notebook-page"            <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
+<pre class="programlisting">  "notebook-page"            <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
 <p>
 A <a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage"><span class="type">CodeSlayerNotebookPage</span></a>.
 </p>
@@ -266,17 +248,14 @@ A <a class="link" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPa
 <div class="refsect1">
 <a name="CodeSlayerNotebookTab.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
-<a name="CodeSlayerNotebookTab-close-all-editors"></a><h3>The <code class="literal">"close-all-editors"</code> signal</h3>
+<a name="CodeSlayerNotebookTab-close-all-documents"></a><h3>The <code class="literal">"close-all-documents"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *codeslayernotebooktab,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::close-all-editors signal is a request to close all the editors.
+The ::close-all-documents signal is a request to close all the documents.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayernotebooktab</code></em> :</span></p></td>
@@ -291,17 +270,14 @@ The ::close-all-editors signal is a request to close all the editors.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerNotebookTab-close-editor"></a><h3>The <code class="literal">"close-editor"</code> signal</h3>
+<a name="CodeSlayerNotebookTab-close-document"></a><h3>The <code class="literal">"close-document"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *codeslayernotebooktab,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::close-editor signal is a request to close the active editor.
+The ::close-document signal is a request to close the active document.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayernotebooktab</code></em> :</span></p></td>
@@ -316,18 +292,15 @@ The ::close-editor signal is a request to close the active editor.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerNotebookTab-close-left-editors"></a><h3>The <code class="literal">"close-left-editors"</code> signal</h3>
+<a name="CodeSlayerNotebookTab-close-left-documents"></a><h3>The <code class="literal">"close-left-documents"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *codeslayernotebooktab,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::close-left-editors signal is a request to close all editors to the left of the
+The ::close-left-documents signal is a request to close all documents to the left of the
 active one.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayernotebooktab</code></em> :</span></p></td>
@@ -342,18 +315,15 @@ active one.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerNotebookTab-close-other-editors"></a><h3>The <code class="literal">"close-other-editors"</code> signal</h3>
+<a name="CodeSlayerNotebookTab-close-other-documents"></a><h3>The <code class="literal">"close-other-documents"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *codeslayernotebooktab,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::close-other-editors signal is a request to close all editors except the 
+The ::close-other-documents signal is a request to close all documents except the 
 active one.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayernotebooktab</code></em> :</span></p></td>
@@ -368,18 +338,15 @@ active one.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerNotebookTab-close-right-editors"></a><h3>The <code class="literal">"close-right-editors"</code> signal</h3>
+<a name="CodeSlayerNotebookTab-close-right-documents"></a><h3>The <code class="literal">"close-right-documents"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *codeslayernotebooktab,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::close-right-editors signal is a request to close all editors to the right of 
+The ::close-right-documents signal is a request to close all documents to the right of 
 the active one.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayernotebooktab</code></em> :</span></p></td>
@@ -394,17 +361,14 @@ the active one.
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerNotebookTab-select-editor"></a><h3>The <code class="literal">"select-editor"</code> signal</h3>
+<a name="CodeSlayerNotebookTab-select-document"></a><h3>The <code class="literal">"select-document"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab"><span class="type">CodeSlayerNotebookTab</span></a> *codeslayernotebooktab,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::select-editor signal is a request to close the active editor.
+The ::select-document signal is a request to close the active document.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayernotebooktab</code></em> :</span></p></td>

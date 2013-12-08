@@ -14,10 +14,6 @@ CFILE_GLOB = $(top_srcdir)/codeslayer/*.c
 IGNORE_HFILES = \
     encoding.h \
     codeslayer-utils.h \
-    codeslayer-repository.h \
-    codeslayer-repository-documents.h \
-    codeslayer-repository-groups.h \
-    codeslayer-repository-projects.h \
     codeslayer-preferences-utils.h \
     codeslayer-tearoff.h \
     codeslayer-marshaller.h \

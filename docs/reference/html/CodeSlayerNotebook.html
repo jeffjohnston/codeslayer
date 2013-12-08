@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerNotebook</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerNotebookTab.html" title="CodeSlayerNotebookTab">
@@ -48,21 +48,24 @@
 
 struct              <a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-struct" title="struct CodeSlayerNotebook">CodeSlayerNotebook</a>;
 <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-new" title="codeslayer_notebook_new ()">codeslayer_notebook_new</a>             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-add-editor" title="codeslayer_notebook_add_editor ()">codeslayer_notebook_add_editor</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-add-document" title="codeslayer_notebook_add_document ()">codeslayer_notebook_add_document</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-save-editor" title="codeslayer_notebook_save_editor ()">codeslayer_notebook_save_editor</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> page_num</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-save-all-editors" title="codeslayer_notebook_save_all_editors ()">codeslayer_notebook_save_all_editors</a>
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-select-document" title="codeslayer_notebook_select_document ()">codeslayer_notebook_select_document</a> (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-save-document" title="codeslayer_notebook_save_document ()">codeslayer_notebook_save_document</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> page_num</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-save-all-documents" title="codeslayer_notebook_save_all_documents ()">codeslayer_notebook_save_all_documents</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-has-unsaved-editors" title="codeslayer_notebook_has_unsaved_editors ()">codeslayer_notebook_has_unsaved_editors</a>
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-has-unsaved-documents" title="codeslayer_notebook_has_unsaved_documents ()">codeslayer_notebook_has_unsaved_documents</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-close-editor" title="codeslayer_notebook_close_editor ()">codeslayer_notebook_close_editor</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> page_num</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-close-all-editors" title="codeslayer_notebook_close_all_editors ()">codeslayer_notebook_close_all_editors</a>
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-close-document" title="codeslayer_notebook_close_document ()">codeslayer_notebook_close_document</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> page_num</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-close-all-documents" title="codeslayer_notebook_close_all_documents ()">codeslayer_notebook_close_all_documents</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);
-<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-get-active-editor" title="codeslayer_notebook_get_active_editor ()">codeslayer_notebook_get_active_editor</a>
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-get-active-source-view" title="codeslayer_notebook_get_active_source_view ()">codeslayer_notebook_get_active_source_view</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-get-all-source-views" title="codeslayer_notebook_get_all_source_views ()">codeslayer_notebook_get_all_source_views</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);
 </pre>
 </div>
@@ -86,9 +89,9 @@ CodeSlayerNotebook implements
 <div class="refsect1">
 <a name="CodeSlayerNotebook.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-editor-saved" title='The "editor-saved" signal'>editor-saved</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-editors-all-saved" title='The "editors-all-saved" signal'>editors-all-saved</a>"                              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
-  "<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-select-editor" title='The "select-editor" signal'>select-editor</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-document-saved" title='The "document-saved" signal'>document-saved</a>"                                 : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-documents-all-saved" title='The "documents-all-saved" signal'>documents-all-saved</a>"                            : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-select-document" title='The "select-document" signal'>select-document</a>"                                : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
 </pre>
 </div>
 <div class="refsect1">
@@ -107,28 +110,20 @@ A notebook which contains pages of documents to edit.
 <div class="refsect2">
 <a name="codeslayer-notebook-new"></a><h3>codeslayer_notebook_new ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_notebook_new             (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a> *preferences</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a> *settings</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
 <td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a>.</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>preferences</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences"><span class="type">CodeSlayerPreferences</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>settings</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerSettings.html" title="CodeSlayerSettings"><span class="type">CodeSlayerSettings</span></a>.</td>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
@@ -139,21 +134,15 @@ Creates a new <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNo
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-notebook-add-editor"></a><h3>codeslayer_notebook_add_editor ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_add_editor      (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
+<a name="codeslayer-notebook-add-document"></a><h3>codeslayer_notebook_add_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_add_document    (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
 <p>
 Add a new page to the notebook based on the document. This method is 
-for internal use only. The correct way for  plugins to add a page is to call 
-the <a class="link" href="CodeSlayerProjects.html#codeslayer-projects-select-document" title="codeslayer_projects_select_document ()"><code class="function">codeslayer_projects_select_document()</code></a> method. That will 
-select the document in the tree and then call this method to add the page 
-to the notebook.
+for internal use only.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
@@ -168,14 +157,34 @@ to the notebook.
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-notebook-save-editor"></a><h3>codeslayer_notebook_save_editor ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_save_editor     (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> page_num</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<a name="codeslayer-notebook-select-document"></a><h3>codeslayer_notebook_select_document ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_notebook_select_document (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>document</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>is TRUE if the document is able to be found.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-notebook-save-document"></a><h3>codeslayer_notebook_save_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_save_document   (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> page_num</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
@@ -183,22 +192,18 @@ to the notebook.
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>page_num</code></em> :</span></p></td>
-<td>the notebook page to save. Pages begin with 0 starting
-from the left.</td>
+<td>the notebook page to save.</td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-notebook-save-all-editors"></a><h3>codeslayer_notebook_save_all_editors ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_save_all_editors
+<a name="codeslayer-notebook-save-all-documents"></a><h3>codeslayer_notebook_save_all_documents ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_save_all_documents
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>.</td>
@@ -207,20 +212,30 @@ from the left.</td>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-notebook-has-unsaved-editors"></a><h3>codeslayer_notebook_has_unsaved_editors ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_notebook_has_unsaved_editors
+<a name="codeslayer-notebook-has-unsaved-documents"></a><h3>codeslayer_notebook_has_unsaved_documents ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_notebook_has_unsaved_documents
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>is FALSE unless there are documents that need to saved.</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-notebook-close-editor"></a><h3>codeslayer_notebook_close_editor ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_notebook_close_editor    (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
-                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> page_num</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<a name="codeslayer-notebook-close-document"></a><h3>codeslayer_notebook_close_document ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_notebook_close_document  (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> page_num</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
@@ -233,7 +248,7 @@ from the left.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>is TRUE unless the editor needs to be saved. If the editor needs
+<td>is TRUE unless the document needs to be saved. If the document needs
 to be saved then the page will not be closed and this method
 will return FALSE.</td>
 </tr>
@@ -242,14 +257,11 @@ will return FALSE.</td>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-notebook-close-all-editors"></a><h3>codeslayer_notebook_close_all_editors ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_close_all_editors
+<a name="codeslayer-notebook-close-all-documents"></a><h3>codeslayer_notebook_close_all_documents ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_close_all_documents
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>.</td>
@@ -258,14 +270,11 @@ will return FALSE.</td>
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-notebook-get-active-editor"></a><h3>codeslayer_notebook_get_active_editor ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_notebook_get_active_editor
+<a name="codeslayer-notebook-get-active-source-view"></a><h3>codeslayer_notebook_get_active_source_view ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_notebook_get_active_source_view
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
@@ -273,7 +282,27 @@ will return FALSE.</td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the active editor.</td>
+<td>the active source view.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-notebook-get-all-source-views"></a><h3>codeslayer_notebook_get_all_source_views ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             codeslayer_notebook_get_all_source_views
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a>. Note: you need to call g_list_free
+when you are done with the list.</td>
 </tr>
 </tbody>
 </table></div>
@@ -282,18 +311,15 @@ will return FALSE.</td>
 <div class="refsect1">
 <a name="CodeSlayerNotebook.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
-<a name="CodeSlayerNotebook-editor-saved"></a><h3>The <code class="literal">"editor-saved"</code> signal</h3>
+<a name="CodeSlayerNotebook-document-saved"></a><h3>The <code class="literal">"document-saved"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *codeslayernotebook,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::editor-saved signal is emitted when an editor is saved successfully
+The ::document-saved signal is emitted when an document is saved successfully
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayernotebook</code></em> :</span></p></td>
@@ -308,26 +334,23 @@ The ::editor-saved signal is emitted when an editor is saved successfully
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerNotebook-editors-all-saved"></a><h3>The <code class="literal">"editors-all-saved"</code> signal</h3>
+<a name="CodeSlayerNotebook-documents-all-saved"></a><h3>The <code class="literal">"documents-all-saved"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *codeslayernotebook,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            editors,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            documents,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::editors-all-saved signal is emitted when all the editors have been saved successfully
+The ::documents-all-saved signal is emitted when all the documents have been saved successfully
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayernotebook</code></em> :</span></p></td>
 <td>the notebook that received the signal</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>editors</code></em> :</span></p></td>
-<td>a <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <a class="link" href="CodeSlayerEditor.html" title="CodeSlayerEditor"><span class="type">CodeSlayerEditor</span></a> objects that were saved</td>
+<td><p><span class="term"><em class="parameter"><code>documents</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> objects that were saved</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
@@ -338,18 +361,15 @@ The ::editors-all-saved signal is emitted when all the editors have been saved s
 </div>
 <hr>
 <div class="refsect2">
-<a name="CodeSlayerNotebook-select-editor"></a><h3>The <code class="literal">"select-editor"</code> signal</h3>
+<a name="CodeSlayerNotebook-select-document"></a><h3>The <code class="literal">"select-document"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *codeslayernotebook,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#guint"><span class="type">guint</span></a>               arg1,
-                                                        <a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#guint"><span class="type">guint</span></a>               arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
-The ::editor-saved signal is emitted when an editor is saved successfully
+The ::document-saved signal is emitted when an document is saved successfully
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>codeslayernotebook</code></em> :</span></p></td>

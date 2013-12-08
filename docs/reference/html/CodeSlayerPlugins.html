@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>CodeSlayerPlugins</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerPluginsSelector.html" title="CodeSlayerPluginsSelector">
@@ -48,11 +48,11 @@ struct              <a class="link" href="CodeSlayerPlugins.html#CodeSlayerPlugi
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-load" title="codeslayer_plugins_load ()">codeslayer_plugins_load</a>             (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *data</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-activate" title="codeslayer_plugins_activate ()">codeslayer_plugins_activate</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-deactivate" title="codeslayer_plugins_deactivate ()">codeslayer_plugins_deactivate</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>);
-<a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-get-list" title="codeslayer_plugins_get_list ()">codeslayer_plugins_get_list</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-get-list" title="codeslayer_plugins_get_list ()">codeslayer_plugins_get_list</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerPlugins.html#codeslayer-plugins-run-dialog" title="codeslayer_plugins_run_dialog ()">codeslayer_plugins_run_dialog</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 #define             <a class="link" href="CodeSlayerPlugins.html#CODESLAYER-PLUGINS-DIR:CAPS" title="CODESLAYER_PLUGINS_DIR">CODESLAYER_PLUGINS_DIR</a>
 </pre>
 </div>
@@ -85,11 +85,8 @@ struct              <a class="link" href="CodeSlayerPlugins.html#CodeSlayerPlugi
 <p>
 Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a>.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
@@ -107,11 +104,8 @@ Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlu
 <a name="codeslayer-plugins-load"></a><h3>codeslayer_plugins_load ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugins_load             (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *data</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>plugins</code></em> :</span></p></td>
@@ -128,20 +122,17 @@ Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlu
 <div class="refsect2">
 <a name="codeslayer-plugins-activate"></a><h3>codeslayer_plugins_activate ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugins_activate         (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>plugins</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a>.</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.</td>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -150,11 +141,8 @@ Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlu
 <div class="refsect2">
 <a name="codeslayer-plugins-deactivate"></a><h3>codeslayer_plugins_deactivate ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugins_deactivate       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>plugins</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a>.</td>
@@ -164,12 +152,9 @@ Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlu
 <hr>
 <div class="refsect2">
 <a name="codeslayer-plugins-get-list"></a><h3>codeslayer_plugins_get_list ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             codeslayer_plugins_get_list         (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>);</pre>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             codeslayer_plugins_get_list         (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>);</pre>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>plugins</code></em> :</span></p></td>
@@ -186,23 +171,20 @@ Creates a new <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlu
 <div class="refsect2">
 <a name="codeslayer-plugins-run-dialog"></a><h3>codeslayer_plugins_run_dialog ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_plugins_run_dialog       (<em class="parameter"><code><a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a> *plugins</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a> *group</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
 <p>
 Show the plugins dialog.
 </p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
+<div class="variablelist"><table border="0">
 <col align="left" valign="top">
-<col>
-</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>plugins</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerPlugins.html" title="CodeSlayerPlugins"><span class="type">CodeSlayerPlugins</span></a>.</td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>group</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerGroup.html" title="CodeSlayerGroup"><span class="type">CodeSlayerGroup</span></a>.</td>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
 </tr>
 </tbody>
 </table></div>

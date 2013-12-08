@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerProfilesManager</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerProfile.html" title="CodeSlayerProfile">
+<link rel="next" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerProfile.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerProfiles.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerProfilesManager.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerProfilesManager.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerProfilesManager.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="CodeSlayerProfilesManager"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerProfilesManager.top_of_page"></a>CodeSlayerProfilesManager</span></h2>
+<p>CodeSlayerProfilesManager — The profiles.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="CodeSlayerProfilesManager.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-profiles-manager.h&gt;
+
+struct              <a class="link" href="CodeSlayerProfilesManager.html#CodeSlayerProfilesManager-struct" title="struct CodeSlayerProfilesManager">CodeSlayerProfilesManager</a>;
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerProfilesManager.html#codeslayer-profiles-manager-new" title="codeslayer_profiles_manager_new ()">codeslayer_profiles_manager_new</a>     (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkApplication.html"><span class="type">GtkApplication</span></a> *application</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a> *profiles</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfilesManager.html#codeslayer-profiles-manager-run-dialog" title="codeslayer_profiles_manager_run_dialog ()">codeslayer_profiles_manager_run_dialog</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfilesManager.html" title="CodeSlayerProfilesManager"><span class="type">CodeSlayerProfilesManager</span></a> *profiles_manager</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProfilesManager.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----CodeSlayerProfilesManager
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProfilesManager.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProfilesManager.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CodeSlayerProfilesManager-struct"></a><h3>struct CodeSlayerProfilesManager</h3>
+<pre class="programlisting">struct CodeSlayerProfilesManager;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profiles-manager-new"></a><h3>codeslayer_profiles_manager_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_profiles_manager_new     (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkApplication.html"><span class="type">GtkApplication</span></a> *application</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a> *profiles</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerProfilesManager.html" title="CodeSlayerProfilesManager"><span class="type">CodeSlayerProfilesManager</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>window</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerWindow.html" title="CodeSlayerWindow"><span class="type">CodeSlayerWindow</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>application</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerApplication.html" title="CodeSlayerApplication"><span class="type">CodeSlayerApplication</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profiles</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfiles.html" title="CodeSlayerProfiles"><span class="type">CodeSlayerProfiles</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="CodeSlayerProfilesManager.html" title="CodeSlayerProfilesManager"><span class="type">CodeSlayerProfilesManager</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profiles-manager-run-dialog"></a><h3>codeslayer_profiles_manager_run_dialog ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_profiles_manager_run_dialog
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfilesManager.html" title="CodeSlayerProfilesManager"><span class="type">CodeSlayerProfilesManager</span></a> *profiles_manager</code></em>);</pre>
+<p>
+Show the profiles dialog.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>profiles_manager</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfilesManager.html" title="CodeSlayerProfilesManager"><span class="type">CodeSlayerProfilesManager</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -101,7 +101,7 @@ codeslayer_menu_bar_view_finalize (CodeSlayerMenuBarView *menu_bar_view)
  * codeslayer_menu_bar_view_new:
  * @menu_bar: a #CodeSlayerMenuBar.
  * @accel_group: a #GtkAccelGroup.
- * @registry: a #CodeSlayerRegistry.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerMenuBarView.
  *
