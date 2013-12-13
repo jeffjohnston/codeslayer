@@ -47,6 +47,7 @@ struct _CodeSlayerNotebookClass
   void (*select_document) (CodeSlayerNotebook *notebook);
   void (*document_saved) (CodeSlayerNotebook *notebook);
   void (*documents_all_saved) (CodeSlayerNotebook *notebook);
+  void (*sync_notebook) (CodeSlayerNotebook *notebook);
 };
 
 GType

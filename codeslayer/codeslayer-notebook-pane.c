@@ -340,20 +340,6 @@ codeslayer_notebook_pane_search_find_previous (CodeSlayerNotebookPane *notebook_
   codeslayer_notebook_search_find_previous (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search));
 }
 
-/**
- * codeslayer_notebook_pane_sync_with_notebook:
- * @notebook_pane: a #CodeSlayerNotebookPane.
- *
- * Delegate to the inline search to sync the values.
- */
-void
-codeslayer_notebook_pane_sync_with_notebook (CodeSlayerNotebookPane *notebook_pane)
-{
-  CodeSlayerNotebookPanePrivate *priv;
-  priv = CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane);
-  codeslayer_notebook_search_sync_with_notebook (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search));
-}
-
 static void
 find_next_action (CodeSlayerNotebookPane *notebook_pane)
 {

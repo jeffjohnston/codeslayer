@@ -59,7 +59,6 @@ void        codeslayer_notebook_pane_search_find           (CodeSlayerNotebookPa
 void        codeslayer_notebook_pane_search_replace        (CodeSlayerNotebookPane   *notebook_pane);
 void        codeslayer_notebook_pane_search_find_next      (CodeSlayerNotebookPane   *notebook_pane);
 void        codeslayer_notebook_pane_search_find_previous  (CodeSlayerNotebookPane   *notebook_pane);
-void        codeslayer_notebook_pane_sync_with_notebook    (CodeSlayerNotebookPane   *notebook_pane);
 
 G_END_DECLS
 

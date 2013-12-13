@@ -61,7 +61,7 @@ static void create_side_and_bottom_pane   (CodeSlayerWindow      *window);
 static void create_notebook               (CodeSlayerWindow      *window);
 static void create_processes              (CodeSlayerWindow      *window);
 static void create_process_bar            (CodeSlayerWindow      *window);
-static void create_engines                (CodeSlayerWindow      *window);
+static void create_engine                 (CodeSlayerWindow      *window);
 static void create_profiles_manager       (CodeSlayerWindow      *window);
 static void load_plugins                  (CodeSlayerWindow      *window);
 static void create_paned_containers       (CodeSlayerWindow      *window);
@@ -213,7 +213,7 @@ codeslayer_window_new (GtkApplication *application,
   
   create_paned_containers (CODESLAYER_WINDOW (window));
 
-  create_engines (CODESLAYER_WINDOW (window));
+  create_engine (CODESLAYER_WINDOW (window));
 
   pack_window (CODESLAYER_WINDOW (window));
 
@@ -371,7 +371,7 @@ create_process_bar (CodeSlayerWindow *window)
 }
 
 static void 
-create_engines (CodeSlayerWindow *window)
+create_engine (CodeSlayerWindow *window)
 {
   CodeSlayerWindowPrivate *priv;
   CodeSlayerEngine *engine;

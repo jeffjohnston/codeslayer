@@ -81,6 +81,7 @@ enum
   SELECT_DOCUMENT,
   DOCUMENT_SAVED,
   DOCUMENTS_ALL_SAVED,
+  SYNC_NOTEBOOK,
   LAST_SIGNAL
 };
 
@@ -133,6 +134,20 @@ codeslayer_notebook_class_init (CodeSlayerNotebookClass *klass)
                   G_STRUCT_OFFSET (CodeSlayerNotebookClass, documents_all_saved), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, G_TYPE_POINTER);
+                  
+  /**
+   * CodeSlayerNotebook::sync-notebook
+   * @codeslayernotebook: the notebook that received the signal
+   *
+   * The ::sync-notebook signal is emitted when the notebook should sync up.
+   */
+  codeslayer_notebook_signals[SYNC_NOTEBOOK] =
+    g_signal_new ("sync-notebook", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
+                  G_STRUCT_OFFSET (CodeSlayerNotebookClass, sync_notebook),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_notebook_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerNotebookPrivate));

@@ -68,7 +68,7 @@ CodeSlayerEngine*  codeslayer_engine_new            (GtkWindow          *window,
 void               codeslayer_engine_load_profile   (CodeSlayerEngine   *engine);
 void               codeslayer_engine_open_document  (CodeSlayerEngine   *engine, 
                                                      gchar              *file_path);
-gboolean           codeslayer_engine_save_profile   (CodeSlayerEngine   *engine);                                                    
+gboolean           codeslayer_engine_save_profile   (CodeSlayerEngine   *engine);
 
 G_END_DECLS
 

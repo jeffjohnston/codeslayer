@@ -1609,7 +1609,6 @@ sync_engine (CodeSlayerEngine *engine)
   pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
   has_open_documents = pages > 0;
   
-  codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
-  
+  g_signal_emit_by_name ((gpointer) priv->notebook, "sync-notebook");
   g_signal_emit_by_name ((gpointer) priv->menubar, "sync-menu", enable_projects, has_open_documents);
 }

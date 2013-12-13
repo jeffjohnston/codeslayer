@@ -36,6 +36,7 @@ static void codeslayer_notebook_search_class_init  (CodeSlayerNotebookSearchClas
 static void codeslayer_notebook_search_init        (CodeSlayerNotebookSearch      *notebook_search);
 static void codeslayer_notebook_search_finalize    (CodeSlayerNotebookSearch      *notebook_search);
 
+static void sync_notebook_action                   (CodeSlayerNotebookSearch      *notebook_search);
 static void add_close_button                       (CodeSlayerNotebookSearch      *notebook_search);
 static void close_search_action                    (CodeSlayerNotebookSearch      *notebook_search);
 static void add_find_entry                         (CodeSlayerNotebookSearch      *notebook_search);
@@ -202,6 +203,9 @@ codeslayer_notebook_search_new (GtkWidget         *notebook,
   gtk_box_pack_start (GTK_BOX (notebook_search), priv->grid, FALSE, FALSE, 2);
   
   set_find_entry_color (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
+  
+  g_signal_connect_swapped (G_OBJECT (notebook), "sync-notebook",
+                            G_CALLBACK (sync_notebook_action), notebook_search);
   
   return notebook_search;
 }
@@ -563,15 +567,8 @@ add_replace_all_button (CodeSlayerNotebookSearch *notebook_search)
                            GTK_POS_RIGHT, 1, 1);
 }
 
-/**
- * codeslayer_notebook_search_sync_with_notebook:
- * @notebook_search: a #CodeSlayerNotebookSearch.
- * 
- * Update the sensitivity of search related items based on the current 
- * state of the notebook #CodeSlayerSourceView widgets.
- */
-void
-codeslayer_notebook_search_sync_with_notebook (CodeSlayerNotebookSearch *notebook_search)
+static void
+sync_notebook_action (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   CodeSlayerRegistry *registry;
