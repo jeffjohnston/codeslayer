@@ -39,7 +39,7 @@ static void find_previous_action                   (CodeSlayerMenuBarSearch     
 static void replace_action                         (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void find_projects_action                   (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void go_to_line_action                      (CodeSlayerMenuBarSearch      *menu_bar_search);
-static void sync_engine_action                     (CodeSlayerMenuBarSearch      *menu_bar_search,
+static void sync_menu_action                       (CodeSlayerMenuBarSearch      *menu_bar_search,
                                                     gboolean                      enable_projects,
                                                     gboolean                      has_open_documents);
 
@@ -116,8 +116,8 @@ codeslayer_menu_bar_search_new (GtkWidget     *menu_bar,
 
   add_menu_items (CODESLAYER_MENU_BAR_SEARCH (menu_bar_search));
 
-  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-engine",
-                            G_CALLBACK (sync_engine_action), menu_bar_search);
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-menu",
+                            G_CALLBACK (sync_menu_action), menu_bar_search);
 
   return menu_bar_search;
 }
@@ -200,7 +200,7 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
 }
 
 static void
-sync_engine_action (CodeSlayerMenuBarSearch *menu_bar_search,
+sync_menu_action (CodeSlayerMenuBarSearch *menu_bar_search,
                     gboolean                 enable_projects,
                     gboolean                 has_open_documents)
 {

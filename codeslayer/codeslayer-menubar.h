@@ -73,7 +73,7 @@ struct _CodeSlayerMenuBarClass
   void (*copy_lines) (CodeSlayerMenuBar *menu_bar);
   void (*sync_with_document) (CodeSlayerMenuBar *menu_bar);
   void (*scan_external_changes) (CodeSlayerMenuBar *menu_bar);
-  void (*sync_engine) (CodeSlayerMenuBar *menu_bar);
+  void (*sync_menu) (CodeSlayerMenuBar *menu_bar);
 };
 
 GType codeslayer_menu_bar_get_type (void) G_GNUC_CONST;

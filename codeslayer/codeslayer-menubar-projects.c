@@ -33,7 +33,7 @@ static void codeslayer_menu_bar_projects_finalize    (CodeSlayerMenuBarProjects 
 static void add_menu_items                           (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void add_projects_action                      (CodeSlayerMenuBarProjects      *menu_bar_projects);
 static void sync_with_document_action                (CodeSlayerMenuBarProjects      *menu_bar_projects);
-static void sync_engine_action                       (CodeSlayerMenuBarProjects      *menu_bar_projects,
+static void sync_menu_action                         (CodeSlayerMenuBarProjects      *menu_bar_projects,
                                                       gboolean                        enable_projects,
                                                       gboolean                        has_open_documents);
 
@@ -114,8 +114,8 @@ codeslayer_menu_bar_projects_new (GtkWidget         *window,
 
   add_menu_items (CODESLAYER_MENU_BAR_PROJECTS (menu_bar_projects));
 
-  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-engine",
-                            G_CALLBACK (sync_engine_action), menu_bar_projects);
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-menu",
+                            G_CALLBACK (sync_menu_action), menu_bar_projects);
 
   return menu_bar_projects;
 }
@@ -151,7 +151,7 @@ add_menu_items (CodeSlayerMenuBarProjects *menu_bar_projects)
 }
 
 static void
-sync_engine_action (CodeSlayerMenuBarProjects *menu_bar_projects,
+sync_menu_action (CodeSlayerMenuBarProjects *menu_bar_projects,
                     gboolean                   enable_projects,
                     gboolean                   has_open_documents)
 {

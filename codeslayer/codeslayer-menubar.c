@@ -36,7 +36,7 @@ static void codeslayer_menu_bar_class_init  (CodeSlayerMenuBarClass *klass);
 static void codeslayer_menu_bar_init        (CodeSlayerMenuBar      *menu_bar);
 static void codeslayer_menu_bar_finalize    (CodeSlayerMenuBar      *menu_bar);
                          
-static void sync_engine_action              (CodeSlayerMenuBar      *menu_bar,
+static void sync_menu_action                (CodeSlayerMenuBar      *menu_bar,
                                              gboolean                enable_projects,
                                              gboolean                has_open_documents);
                             
@@ -95,7 +95,7 @@ enum
   TO_LOWERCASE,
   COPY_LINES,  
   SYNC_WITH_DOCUMENT,  
-  SYNC_ENGINE,  
+  SYNC_MENU,  
   LAST_SIGNAL
 };
 
@@ -582,14 +582,14 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   g_cclosure_marshal_VOID__BOOLEAN, G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
                   
   /**
-   * CodeSlayerMenuBar::sync-engine 
+   * CodeSlayerMenuBar::sync-menu 
    * @menu: the menu that received the signal
    */
-  codeslayer_menu_bar_signals[SYNC_ENGINE] =
-    g_signal_new ("sync-engine", 
+  codeslayer_menu_bar_signals[SYNC_MENU] =
+    g_signal_new ("sync-menu", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, sync_engine), 
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, sync_menu), 
                   NULL, NULL,
                   _codeslayer_marshal_VOID__BOOLEAN_BOOLEAN, G_TYPE_NONE, 2, 
                   G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);                  
@@ -670,14 +670,14 @@ codeslayer_menu_bar_new (GtkWidget         *window,
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_tools);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_help);
   
-  g_signal_connect_swapped (G_OBJECT (menu), "sync-engine",
-                            G_CALLBACK (sync_engine_action), menu);
+  g_signal_connect_swapped (G_OBJECT (menu), "sync-menu",
+                            G_CALLBACK (sync_menu_action), menu);
 
   return menu;
 }
 
 static void
-sync_engine_action (CodeSlayerMenuBar *menu_bar,
+sync_menu_action (CodeSlayerMenuBar *menu_bar,
                     gboolean           enable_projects,
                     gboolean           has_open_documents)
 {

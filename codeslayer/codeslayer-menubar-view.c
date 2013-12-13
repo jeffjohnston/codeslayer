@@ -39,7 +39,7 @@ static void show_bottom_pane_action              (CodeSlayerMenuBarView      *me
 static void draw_spaces_action                   (CodeSlayerMenuBarView      *menu_bar_view);
 static void word_wrap_action                     (CodeSlayerMenuBarView      *menu_bar_view);
 static void scan_external_changes_action         (CodeSlayerMenuBarView      *menu_bar_view);
-static void sync_engine_action                   (CodeSlayerMenuBarView      *menu_bar_view,
+static void sync_menu_action                     (CodeSlayerMenuBarView      *menu_bar_view,
                                                   gboolean                    enable_projects,
                                                   gboolean                    has_open_documents);
 
@@ -124,8 +124,8 @@ codeslayer_menu_bar_view_new (GtkWidget         *menu_bar,
   
   add_menu_items (CODESLAYER_MENU_BAR_VIEW (menu_bar_view));
   
-  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-engine",
-                            G_CALLBACK (sync_engine_action), menu_bar_view);
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-menu",
+                            G_CALLBACK (sync_menu_action), menu_bar_view);
 
   return menu_bar_view;
 }
@@ -202,7 +202,7 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view)
 }
 
 static void
-sync_engine_action (CodeSlayerMenuBarView *menu_bar_view,
+sync_menu_action (CodeSlayerMenuBarView *menu_bar_view,
                     gboolean               enable_projects,
                     gboolean               has_open_documents)
 {

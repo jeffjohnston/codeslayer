@@ -40,7 +40,7 @@ static void save_all_documents_action            (CodeSlayerMenuBarFile      *me
 static void close_document_action                (CodeSlayerMenuBarFile      *menu_bar_file);
 static void quit_application_action              (CodeSlayerMenuBarFile      *menu_bar_file);
 static void show_profiles_action                 (CodeSlayerMenuBarFile      *menu_bar_file);
-static void sync_engine_action                   (CodeSlayerMenuBarFile      *menu_bar_file,
+static void sync_menu_action                     (CodeSlayerMenuBarFile      *menu_bar_file,
                                                   gboolean                    enable_projects,
                                                   gboolean                    has_open_documents);
 
@@ -116,8 +116,8 @@ codeslayer_menu_bar_file_new (GtkWidget     *menu_bar,
 
   add_menu_items (CODESLAYER_MENU_BAR_FILE (menu_bar_file));
 
-  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-engine",
-                            G_CALLBACK (sync_engine_action), menu_bar_file);
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-menu",
+                            G_CALLBACK (sync_menu_action), menu_bar_file);
 
   return menu_bar_file;
 }
@@ -198,7 +198,7 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
 }
 
 static void
-sync_engine_action (CodeSlayerMenuBarFile *menu_bar_file,
+sync_menu_action (CodeSlayerMenuBarFile *menu_bar_file,
                     gboolean               enable_projects,
                     gboolean               has_open_documents)
 {

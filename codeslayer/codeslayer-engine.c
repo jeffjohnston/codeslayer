@@ -1611,5 +1611,5 @@ sync_engine (CodeSlayerEngine *engine)
   
   codeslayer_notebook_pane_sync_with_notebook (CODESLAYER_NOTEBOOK_PANE (priv->notebook_pane));
   
-  g_signal_emit_by_name ((gpointer) priv->menubar, "sync-engine", enable_projects, has_open_documents);
+  g_signal_emit_by_name ((gpointer) priv->menubar, "sync-menu", enable_projects, has_open_documents);
 }

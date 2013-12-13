@@ -41,7 +41,7 @@ static void copy_lines_action                    (CodeSlayerMenuBarEdit      *me
 static void to_uppercase_action                  (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void to_lowercase_action                  (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void show_preferences_action              (CodeSlayerMenuBarEdit      *menu_bar_edit);
-static void sync_engine_action                   (CodeSlayerMenuBarEdit      *menu_bar_edit,
+static void sync_menu_action                     (CodeSlayerMenuBarEdit      *menu_bar_edit,
                                                   gboolean                    enable_projects,
                                                   gboolean                    has_open_documents);
 
@@ -118,8 +118,8 @@ codeslayer_menu_bar_edit_new (GtkWidget     *menu_bar,
 
   add_menu_items (CODESLAYER_MENU_BAR_EDIT (menu_bar_edit));
 
-  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-engine",
-                            G_CALLBACK (sync_engine_action), menu_bar_edit);
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-menu",
+                            G_CALLBACK (sync_menu_action), menu_bar_edit);
 
   return menu_bar_edit;
 }
@@ -211,7 +211,7 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
 }
 
 static void
-sync_engine_action (CodeSlayerMenuBarEdit *menu_bar_edit,
+sync_menu_action (CodeSlayerMenuBarEdit *menu_bar_edit,
                     gboolean               enable_projects,
                     gboolean               has_open_documents)
 {
