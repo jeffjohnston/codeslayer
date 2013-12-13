@@ -124,16 +124,16 @@ void                       codeslayer_show_bottom_pane                (CodeSlaye
                                                                        GtkWidget                   *widget);
 
 void                       codeslayer_add_to_menu_bar                 (CodeSlayer                  *codeslayer, 
-                                                                       GtkMenuItem                 *menuitem);
+                                                                       GtkMenuItem                 *menu_item);
 
 void                       codeslayer_remove_from_menu_bar            (CodeSlayer                  *codeslayer, 
-                                                                       GtkMenuItem                 *menuitem);
+                                                                       GtkMenuItem                 *menu_item);
                                                         
 void                       codeslayer_add_to_projects_popup           (CodeSlayer                  *codeslayer, 
-                                                                       GtkMenuItem                 *menuitem);
+                                                                       GtkMenuItem                 *menu_item);
 
 void                       codeslayer_remove_from_projects_popup      (CodeSlayer                  *codeslayer, 
-                                                                       GtkMenuItem                 *menuitem);
+                                                                       GtkMenuItem                 *menu_item);
                                                         
 void                       codeslayer_add_to_project_properties       (CodeSlayer                  *codeslayer, 
                                                                        GtkWidget                   *widget,

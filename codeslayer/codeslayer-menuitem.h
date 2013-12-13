@@ -42,7 +42,7 @@ struct _CodeSlayerMenuItemClass
 {
   GtkMenuItemClass parent_class;
   
-  void (*projects_menu_selected) (CodeSlayerMenuItem *menuitem);  
+  void (*projects_menu_selected) (CodeSlayerMenuItem *menu_item);  
 };
 
 GType codeslayer_menu_item_get_type (void) G_GNUC_CONST;

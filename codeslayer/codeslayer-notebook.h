@@ -63,6 +63,7 @@ gboolean    codeslayer_notebook_select_document         (CodeSlayerNotebook *not
 void        codeslayer_notebook_save_document           (CodeSlayerNotebook *notebook, 
                                                          gint                page_num);
 void        codeslayer_notebook_save_all_documents      (CodeSlayerNotebook *notebook);
+gboolean    codeslayer_notebook_has_open_documents      (CodeSlayerNotebook *notebook);
 gboolean    codeslayer_notebook_has_unsaved_documents   (CodeSlayerNotebook *notebook);
 gboolean    codeslayer_notebook_close_document          (CodeSlayerNotebook *notebook, 
                                                          gint                page_num);

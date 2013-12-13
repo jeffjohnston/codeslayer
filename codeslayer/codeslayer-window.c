@@ -86,7 +86,7 @@ struct _CodeSlayerWindowPrivate
   GtkWidget             *profiles_manager;
   GtkWidget             *projects;
   GtkWidget             *project_properties;
-  GtkWidget             *menubar;
+  GtkWidget             *menu_bar;
   CodeSlayerEngine      *engine;
   CodeSlayerProcesses   *processes;
   CodeSlayer            *codeslayer;
@@ -384,7 +384,7 @@ create_engine (CodeSlayerWindow *window)
                                   priv->profiles_manager,
                                   priv->plugins,
                                   priv->projects,
-                                  priv->menubar, 
+                                  priv->menu_bar, 
                                   priv->notebook, 
                                   priv->notebook_pane, 
                                   priv->side_pane, 
@@ -398,14 +398,14 @@ static void
 create_menu (CodeSlayerWindow *window)
 {
   CodeSlayerWindowPrivate *priv;
-  GtkWidget *menubar;
+  GtkWidget *menu_bar;
   
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
-  menubar = codeslayer_menu_bar_new (GTK_WIDGET (window), priv->profile);
-  priv->menubar = menubar;
+  menu_bar = codeslayer_menu_bar_new (GTK_WIDGET (window), priv->profile);
+  priv->menu_bar = menu_bar;
   
-  g_signal_connect_swapped (G_OBJECT (menubar), "quit-application",
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "quit-application",
                             G_CALLBACK (quit_application_action), window);
 }
 
@@ -420,7 +420,7 @@ load_plugins (CodeSlayerWindow *window)
   codeslayer = codeslayer_new (GTK_WINDOW (window), 
                                priv->profile,
                                priv->processes,
-                               CODESLAYER_MENU_BAR (priv->menubar), 
+                               CODESLAYER_MENU_BAR (priv->menu_bar), 
                                CODESLAYER_NOTEBOOK (priv->notebook), 
                                CODESLAYER_PROJECTS (priv->projects), 
                                CODESLAYER_PROJECT_PROPERTIES (priv->project_properties), 
@@ -466,7 +466,7 @@ pack_window (CodeSlayerWindow *window)
   vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
   gtk_box_set_homogeneous (GTK_BOX (vbox), FALSE);
 
-  gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (priv->menubar), FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (priv->menu_bar), FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), priv->vpaned, TRUE, TRUE, 0);
   
   gtk_container_add (GTK_CONTAINER (window), vbox);

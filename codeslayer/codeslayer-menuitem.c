@@ -28,8 +28,8 @@
  */
 
 static void codeslayer_menu_item_class_init  (CodeSlayerMenuItemClass *klass);
-static void codeslayer_menu_item_init        (CodeSlayerMenuItem      *menubar_help);
-static void codeslayer_menu_item_finalize    (CodeSlayerMenuItem      *menubar_help);
+static void codeslayer_menu_item_init        (CodeSlayerMenuItem      *menu_item);
+static void codeslayer_menu_item_finalize    (CodeSlayerMenuItem      *menu_item);
 
 enum
 {
@@ -46,7 +46,7 @@ codeslayer_menu_item_class_init (CodeSlayerMenuItemClass *klass)
 {
   /**
    * CodeSlayerMenuItem::projects-menu-selected
-   * @menuitem: the menuitem that received the signal
+   * @menu_item: the menu item that received the signal
    * @selections: the #GList of #CodeSlayerProjectsSelection objects
    *
    * The ::projects-menu-selected signal is a request once the menu item is selected.
@@ -63,14 +63,14 @@ codeslayer_menu_item_class_init (CodeSlayerMenuItemClass *klass)
 }
 
 static void
-codeslayer_menu_item_init (CodeSlayerMenuItem *menuitem)
+codeslayer_menu_item_init (CodeSlayerMenuItem *menu_item)
 {
 }
 
 static void
-codeslayer_menu_item_finalize (CodeSlayerMenuItem *menuitem)
+codeslayer_menu_item_finalize (CodeSlayerMenuItem *menu_item)
 {
-  G_OBJECT_CLASS (codeslayer_menu_item_parent_class)->finalize (G_OBJECT (menuitem));
+  G_OBJECT_CLASS (codeslayer_menu_item_parent_class)->finalize (G_OBJECT (menu_item));
 }
 
 /**
@@ -83,9 +83,9 @@ codeslayer_menu_item_finalize (CodeSlayerMenuItem *menuitem)
 GtkWidget*
 codeslayer_menu_item_new (void)
 {
-  GtkWidget *menuitem;
-  menuitem = g_object_new (codeslayer_menu_item_get_type (), NULL);
-  return menuitem;
+  GtkWidget *menu_item;
+  menu_item = g_object_new (codeslayer_menu_item_get_type (), NULL);
+  return menu_item;
 }
 
 /**
@@ -99,8 +99,8 @@ codeslayer_menu_item_new (void)
 GtkWidget*  
 codeslayer_menu_item_new_with_label  (const gchar *label)
 {
-  GtkWidget *menuitem;
-  menuitem = g_object_new (codeslayer_menu_item_get_type (), NULL);
-  gtk_menu_item_set_label (GTK_MENU_ITEM (menuitem), label);
-  return menuitem;
+  GtkWidget *menu_item;
+  menu_item = g_object_new (codeslayer_menu_item_get_type (), NULL);
+  gtk_menu_item_set_label (GTK_MENU_ITEM (menu_item), label);
+  return menu_item;
 }

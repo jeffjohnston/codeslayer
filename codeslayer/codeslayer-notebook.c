@@ -538,6 +538,20 @@ codeslayer_notebook_has_unsaved_documents (CodeSlayerNotebook *notebook)
 }
 
 /**
+ * codeslayer_notebook_has_open_documents:
+ * @notebook: a #CodeSlayerNotebook.
+ *
+ * Returns: is TRUE if there are documents open in the notebook.
+ */
+gboolean
+codeslayer_notebook_has_open_documents (CodeSlayerNotebook *notebook)
+{
+  gint pages;
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (notebook));
+  return pages > 0;
+}
+
+/**
  * codeslayer_notebook_close_all_documents:
  * @notebook: a #CodeSlayerNotebook.
  */

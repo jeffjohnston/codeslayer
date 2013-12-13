@@ -84,10 +84,10 @@ static void refresh_folders                   (CodeSlayerProjects      *projects
                                                GtkTreeIter              iter, 
                                                GList                   **rows_to_expand);
 static void project_properties_action         (CodeSlayerProjects      *projects);
-static void tools_action                      (GtkMenuItem             *menuitem, 
+static void tools_action                      (GtkMenuItem             *menu_item, 
                                                CodeSlayerProjects      *projects);
 static void activate_tools_item               (CodeSlayerProjects      *projects,
-                                               GtkWidget               *menuitem);
+                                               GtkWidget               *menu_item);
 static GList* get_showable_popup_items        (CodeSlayerProjects      *projects);
 static gboolean is_popup_item_showable        (CodeSlayerProjects      *projects, 
                                                GtkWidget               *popup_menu_item);
@@ -1073,7 +1073,7 @@ search_find_action (CodeSlayerProjects *projects)
  */
 void
 codeslayer_projects_add_popup_item (CodeSlayerProjects *projects,
-                                    GtkWidget          *menuitem)
+                                    GtkWidget          *menu_item)
 {
   CodeSlayerProjectsPrivate *priv;
   GList *children;
@@ -1081,31 +1081,31 @@ codeslayer_projects_add_popup_item (CodeSlayerProjects *projects,
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
   
   children = gtk_container_get_children (GTK_CONTAINER (priv->menu));
-  gtk_menu_shell_insert (GTK_MENU_SHELL (priv->menu), menuitem, g_list_length (children) - 2);  
+  gtk_menu_shell_insert (GTK_MENU_SHELL (priv->menu), menu_item, g_list_length (children) - 2);  
   
-  priv->plugins = g_list_append (priv->plugins, menuitem);
+  priv->plugins = g_list_append (priv->plugins, menu_item);
   
   reorder_plugins (projects);
 
-  activate_tools_item (projects, menuitem);
+  activate_tools_item (projects, menu_item);
 
   g_list_free (children);
-  gtk_widget_show_all (menuitem);                    
+  gtk_widget_show_all (menu_item);                    
 }
 
 static void
 activate_tools_item (CodeSlayerProjects  *projects,
-                     GtkWidget           *menuitem)
+                     GtkWidget           *menu_item)
 {
   GtkWidget *submenu;
 
-  if (IS_CODESLAYER_MENU_ITEM(menuitem))
+  if (IS_CODESLAYER_MENU_ITEM(menu_item))
     {
-      g_signal_connect (G_OBJECT (menuitem), "activate",
+      g_signal_connect (G_OBJECT (menu_item), "activate",
                         G_CALLBACK (tools_action), projects);
     }
 
-  submenu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (menuitem));
+  submenu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (menu_item));
   if (submenu)
     {
       GList *list;
@@ -1131,12 +1131,12 @@ activate_tools_item (CodeSlayerProjects  *projects,
  */
 void
 codeslayer_projects_remove_popup_item (CodeSlayerProjects *projects,
-                                       GtkWidget          *menuitem)
+                                       GtkWidget          *menu_item)
 {
   CodeSlayerProjectsPrivate *priv;
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
-  gtk_container_remove (GTK_CONTAINER (priv->menu), menuitem);
-  priv->plugins = g_list_remove (priv->plugins, menuitem);
+  gtk_container_remove (GTK_CONTAINER (priv->menu), menu_item);
+  priv->plugins = g_list_remove (priv->plugins, menu_item);
   reorder_plugins (projects);
 }
 
@@ -1176,13 +1176,13 @@ reorder_plugins (CodeSlayerProjects *projects)
 }
 
 static void
-tools_action (GtkMenuItem        *menuitem, 
+tools_action (GtkMenuItem        *menu_item, 
               CodeSlayerProjects *projects)
 {
   GList *selections;
   selections = get_selections (projects);
   
-  g_signal_emit_by_name ((gpointer) menuitem, "projects-menu-selected", selections);
+  g_signal_emit_by_name ((gpointer) menu_item, "projects-menu-selected", selections);
   
   if (selections != NULL)
     {

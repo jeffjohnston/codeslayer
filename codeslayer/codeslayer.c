@@ -569,81 +569,81 @@ codeslayer_show_bottom_pane (CodeSlayer *codeslayer,
 /**
  * codeslayer_add_to_menu_bar:
  * @codeslayer: a #CodeSlayer.
- * @menuitem: a #GtkMenuItem.
+ * @menu_item: a #GtkMenuItem.
  *
  * Add the given menu item to the menu bar tools menu. 
  */
 void
 codeslayer_add_to_menu_bar (CodeSlayer  *codeslayer, 
-                            GtkMenuItem *menuitem)
+                            GtkMenuItem *menu_item)
 {
   CodeSlayerPrivate *priv;
   g_return_if_fail (IS_CODESLAYER (codeslayer));
   priv = CODESLAYER_GET_PRIVATE (codeslayer); 
-  g_object_ref_sink (menuitem);  
-  codeslayer_menu_bar_add_tools_item (priv->menu_bar, GTK_WIDGET (menuitem));
+  g_object_ref_sink (menu_item);  
+  codeslayer_menu_bar_add_tools_item (priv->menu_bar, GTK_WIDGET (menu_item));
 }                              
 
 /**
  * codeslayer_remove_from_menu_bar:
  * @codeslayer: a #CodeSlayer.
- * @menuitem: a #GtkMenuItem.
+ * @menu_item: a #GtkMenuItem.
  *
  * Remove the given menu item from the menu bar tools menu. 
  */
 void
 codeslayer_remove_from_menu_bar (CodeSlayer  *codeslayer, 
-                                 GtkMenuItem *menuitem)
+                                 GtkMenuItem *menu_item)
 {
   CodeSlayerPrivate *priv;
   g_return_if_fail (IS_CODESLAYER (codeslayer));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  codeslayer_menu_bar_remove_tools_item (priv->menu_bar, GTK_WIDGET (menuitem));
+  codeslayer_menu_bar_remove_tools_item (priv->menu_bar, GTK_WIDGET (menu_item));
   
-  gtk_widget_destroy (GTK_WIDGET (menuitem));
-  g_object_unref (menuitem);   
+  gtk_widget_destroy (GTK_WIDGET (menu_item));
+  g_object_unref (menu_item);   
 }
 
 /**
  * codeslayer_add_to_projects_popup:
  * @codeslayer: a #CodeSlayer.
- * @menuitem: a #GtkMenuItem.
+ * @menu_item: a #GtkMenuItem.
  *
  * Add the given menu item to the projects tree tools menu. 
  */
 void
 codeslayer_add_to_projects_popup (CodeSlayer  *codeslayer, 
-                                  GtkMenuItem *menuitem)
+                                  GtkMenuItem *menu_item)
 {
   CodeSlayerPrivate *priv;
   g_return_if_fail (IS_CODESLAYER (codeslayer));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   
-  g_object_ref_sink (menuitem);
+  g_object_ref_sink (menu_item);
       
-  codeslayer_projects_add_popup_item (priv->projects, GTK_WIDGET (menuitem));
+  codeslayer_projects_add_popup_item (priv->projects, GTK_WIDGET (menu_item));
 }                                      
 
 /**
  * codeslayer_remove_from_projects_popup:
  * @codeslayer: a #CodeSlayer.
- * @menuitem: a #GtkMenuItem.
+ * @menu_item: a #GtkMenuItem.
  *
  * Remove the given menu item from the projects tree tools menu. 
  */
 void
 codeslayer_remove_from_projects_popup (CodeSlayer  *codeslayer, 
-                                       GtkMenuItem *menuitem)
+                                       GtkMenuItem *menu_item)
 {
   CodeSlayerPrivate *priv;
   g_return_if_fail (IS_CODESLAYER (codeslayer));
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
 
-  codeslayer_projects_remove_popup_item (priv->projects, GTK_WIDGET (menuitem));
+  codeslayer_projects_remove_popup_item (priv->projects, GTK_WIDGET (menu_item));
   
-  gtk_widget_destroy (GTK_WIDGET (menuitem));
-  g_object_unref (menuitem);   
+  gtk_widget_destroy (GTK_WIDGET (menu_item));
+  g_object_unref (menu_item);   
 }                                           
 
 /**
