@@ -540,6 +540,12 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
                   g_free (folder_path);
                   g_free (file_path);
                 }
+                
+              if (!is_profile_loaded (profiles_manager, codeslayer_profile_get_name (profile)))
+                {
+                  codeslayer_profile_remove_all_projects (profile);
+                  codeslayer_profile_remove_all_documents (profile);
+                }
               
               codeslayer_profiles_save_profile (priv->profiles, profile);
               g_signal_emit_by_name ((gpointer) registry, "registry-changed");

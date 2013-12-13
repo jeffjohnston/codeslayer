@@ -68,11 +68,12 @@ CodeSlayerProject*   codeslayer_profile_find_project              (CodeSlayerPro
 CodeSlayerProject*   codeslayer_profile_get_project_by_file_path  (CodeSlayerProfile  *profile, 
                                                                    const gchar        *file_path);                                                      
 void                 codeslayer_profile_add_project               (CodeSlayerProfile  *profile,
-                                                                  CodeSlayerProject  *project);
+                                                                   CodeSlayerProject  *project);
 void                 codeslayer_profile_remove_project            (CodeSlayerProfile  *profile,
                                                                    CodeSlayerProject  *project);
 gboolean             codeslayer_profile_contains_project          (CodeSlayerProfile  *profile,
                                                                    CodeSlayerProject  *project);                                                        
+void                 codeslayer_profile_remove_all_projects       (CodeSlayerProfile  *profile);                                                        
 GList*               codeslayer_profile_get_documents             (CodeSlayerProfile  *profile);
 void                 codeslayer_profile_set_documents             (CodeSlayerProfile  *profile,
                                                                    GList              *documents);
@@ -80,6 +81,7 @@ void                 codeslayer_profile_add_document              (CodeSlayerPro
                                                                    CodeSlayerDocument *document);
 void                 codeslayer_profile_remove_document           (CodeSlayerProfile  *profile,
                                                                    CodeSlayerDocument *document);
+void                 codeslayer_profile_remove_all_documents      (CodeSlayerProfile  *profile);
 CodeSlayerRegistry*  codeslayer_profile_get_registry              (CodeSlayerProfile  *profile);
 GList*               codeslayer_profile_get_plugins               (CodeSlayerProfile  *profile);
 void                 codeslayer_profile_set_plugins               (CodeSlayerProfile  *profile, 

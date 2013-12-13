@@ -404,7 +404,9 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
   else
     {
       gtk_widget_hide (priv->projects);
-    }  
+    }
+  
+  codeslayer_profile_remove_all_documents (priv->profile);
   
   sync_engine (CODESLAYER_ENGINE (engine));
   codeslayer_plugins_activate (priv->plugins, priv->profile);
@@ -459,6 +461,10 @@ codeslayer_engine_save_profile (CodeSlayerEngine *engine)
 
   save_window_settings (engine);
   save_document_settings (engine);
+  
+  if (!codeslayer_profile_get_enable_projects (priv->profile))
+    codeslayer_profile_remove_all_projects (priv->profile);
+  
   codeslayer_profiles_save_profile (priv->profiles, priv->profile);
   
   return TRUE;

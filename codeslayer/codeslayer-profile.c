@@ -29,8 +29,6 @@ static void codeslayer_profile_class_init  (CodeSlayerProfileClass *klass);
 static void codeslayer_profile_init        (CodeSlayerProfile      *profile);
 static void codeslayer_profile_finalize    (CodeSlayerProfile      *profile);
 
-static void remove_all_projects            (CodeSlayerProfile      *profile);
-static void remove_all_documents           (CodeSlayerProfile      *profile);
 static void remove_all_plugins             (CodeSlayerProfile      *profile);
 
 #define CODESLAYER_PROFILE_GET_PRIVATE(obj) \
@@ -85,8 +83,8 @@ codeslayer_profile_finalize (CodeSlayerProfile *profile)
   if (priv->file_path)
     g_free (priv->file_path);
 
-  remove_all_projects (profile);
-  remove_all_documents (profile);
+  codeslayer_profile_remove_all_projects (profile);
+  codeslayer_profile_remove_all_documents (profile);
   remove_all_plugins (profile);
   g_object_unref (priv->registry);
 
@@ -219,7 +217,7 @@ codeslayer_profile_set_projects (CodeSlayerProfile *profile,
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  remove_all_projects (profile);
+  codeslayer_profile_remove_all_projects (profile);
   priv->projects = projects;
   g_list_foreach (priv->projects, (GFunc) g_object_ref_sink, NULL);
 }
@@ -298,16 +296,20 @@ codeslayer_profile_remove_project (CodeSlayerProfile *profile,
  * @project: the #CodeSlayerProject to check.
  */
 gboolean            
-codeslayer_profile_contains_project (CodeSlayerProfile  *profile,
-                                    CodeSlayerProject *project)
+codeslayer_profile_contains_project (CodeSlayerProfile *profile,
+                                     CodeSlayerProject *project)
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   return g_list_index (priv->projects, project) != -1;
 }                                   
 
-static void
-remove_all_projects (CodeSlayerProfile *profile)
+/**
+ * codeslayer_profile_remove_all_projects:
+ * @profile: a #CodeSlayerProfile.
+ */
+void
+codeslayer_profile_remove_all_projects (CodeSlayerProfile *profile)
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);  
@@ -343,7 +345,7 @@ codeslayer_profile_set_documents (CodeSlayerProfile *profile,
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  remove_all_documents (profile);
+  codeslayer_profile_remove_all_documents (profile);
   priv->documents = documents;
   g_list_foreach (priv->projects, (GFunc) g_object_ref_sink, NULL);
 }
@@ -376,8 +378,12 @@ codeslayer_profile_remove_document (CodeSlayerProfile  *profile,
   priv->documents = g_list_remove (priv->documents, document);
 }
 
-static void
-remove_all_documents (CodeSlayerProfile *profile)
+/**
+ * codeslayer_profile_remove_all_documents:
+ * @profile: a #CodeSlayerProfile.
+ */
+void
+codeslayer_profile_remove_all_documents (CodeSlayerProfile *profile)
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
