@@ -30,7 +30,7 @@ execute_make_all ()
       cd $BUILD_FOLDER
       rm -Rf $BUILD_FOLDER/*
       
-      if [ $project == "codeslayer" && "$2" == "-docs" ]
+      if [[ $project == "codeslayer" && $2 == "-docs" ]]
       then
         LD_LIBRARY_PATH=$BASE_FOLDER/codeslayer/build/codeslayer/.libs/
         export LD_LIBRARY_PATH
@@ -60,7 +60,7 @@ execute_make_all ()
       cd $BUILD_FOLDER
       rm -Rf $BUILD_FOLDER/*
       
-      if [ $project == "codeslayer" && "$2" == "-docs" ]
+      if [[ $project == "codeslayer" && $2 == "-docs" ]]
       then
         LD_LIBRARY_PATH=$BASE_FOLDER/codeslayer/build-prod/codeslayer/.libs/
         export LD_LIBRARY_PATH
@@ -127,6 +127,24 @@ execute_git_commit ()
   done
 }
 
+execute_git_tag () 
+{
+
+  for project in ${projects[*]}
+  do
+    echo "tag ${project}...$1"
+    
+    if [ "$1" == "" ]
+    then
+      echo "you need to provide a tag version (eg v4.0.0)"    
+    else
+      cd $BASE_FOLDER/$project
+      git tag -a $1 -m 'version '$1
+      git push --tags
+    fi
+  done
+}
+
 BASE_FOLDER=`pwd`;
 
 case $1 in 
@@ -141,6 +159,9 @@ git-status)
   ;;
 git-commit)
   execute_git_commit $2
+  ;;
+git-tag)
+  execute_git_tag $2
   ;;
 *)
   echo "invalid command"
