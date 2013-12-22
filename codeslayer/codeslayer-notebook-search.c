@@ -55,7 +55,6 @@ static void find_entry_action                      (CodeSlayerNotebookSearch    
 static gboolean entry_keypress_action              (CodeSlayerNotebookSearch      *notebook_search,
                                                     GdkEventKey                   *event);
 static void create_search_marks                    (CodeSlayerNotebookSearch      *notebook_search);
-static void clear_search_marks                     (CodeSlayerNotebookSearch      *notebook_search);
 static void clear_all_search_marks                 (CodeSlayerNotebookSearch      *notebook_search);
 static void replace_action                         (CodeSlayerNotebookSearch      *notebook_search);
 static void replace_all_action                     (CodeSlayerNotebookSearch      *notebook_search);
@@ -76,10 +75,6 @@ static void entry_set_text                         (GtkWidget                   
                                                     gchar                         *text);
 static gboolean is_active                          (GtkWidget *toggle_button);
 static void search_find                            (CodeSlayerNotebookSearch      *notebook_search);
-static gboolean search_marks_in_view               (GtkWidget                     *source_view, 
-                                                    GdkRectangle                   rect, 
-                                                    GtkTextIter                    begin, 
-                                                    GtkTextIter                    end);
 static void save_search_options                    (CodeSlayerNotebookSearch      *notebook_search);
 
 #define FIND "Find:"
@@ -675,92 +670,40 @@ codeslayer_notebook_search_create_search_marks (CodeSlayerNotebookSearch *notebo
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *source_view;
   GtkWidget *label;
-  GdkRectangle rect;
-  GtkTextBuffer *buffer;
-  GtkTextIter start, first, begin, end;
   gchar *find;
-  gboolean success;
-  gboolean need_to_scroll = FALSE;
+  CodeSlayerSearch *search;
+  gboolean match_case;
+  gboolean match_word;
+
+  priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+  
+  source_view = get_source_view (notebook_search);
+  label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
+  find = entry_get_current_text (priv->find_entry, priv->find_store);
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   
-  clear_search_marks (notebook_search);
-
-  find = entry_get_current_text (priv->find_entry, priv->find_store);
-  label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
-
-  source_view = get_source_view (notebook_search);
-  if (source_view == NULL || g_strcmp0 (find, "") == 0)
+  search = codeslayer_source_view_get_search (CODESLAYER_SOURCE_VIEW (source_view));
+  
+  if (g_strcmp0 (find, "") == 0)
     {
+      codeslayer_search_clear_search_marks (search);
       gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
       if (find)
         g_free (find);
       return;
     }
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
-
-  gtk_text_buffer_get_start_iter (buffer, &start);
-  gtk_text_view_get_visible_rect (GTK_TEXT_VIEW (source_view), &rect);
-
-  success = forward_search (find, &start, &begin, &end, notebook_search);
+  match_case = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_button));
+  match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_button));
   
-  if (!success)
-    {
-      gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->error_color));
-      if (find)
-        g_free (find);
-        
-      return;
-    }
+  if (codeslayer_search_create_search_marks (search, find, match_case, match_word, scrollable))
+    gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
+  else
+    gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->error_color));
 
-  gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
-  need_to_scroll = !search_marks_in_view (source_view, rect, begin, end);
-  first = begin;
-  
-  while (success)
-    {
-      if (need_to_scroll)
-        need_to_scroll = !search_marks_in_view (source_view, rect, begin, end);
-    
-      gtk_text_buffer_apply_tag_by_name (buffer, "search-marks", &begin, &end);
-      gtk_text_iter_forward_char (&start);
-      success = forward_search (find, &start, &begin, &end, notebook_search);
-      start = begin;
-    }
-
-  if (need_to_scroll && scrollable)
-    {
-      gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (source_view), &first, .1, FALSE, 0, 0);
-      gtk_text_buffer_place_cursor (buffer, &first);
-    }
-    
   if (find)
     g_free (find);
-}
-
-static gboolean
-search_marks_in_view (GtkWidget    *source_view, 
-                      GdkRectangle  rect, 
-                      GtkTextIter   begin, 
-                      GtkTextIter   end) 
-{
-  GtkTextIter start_visible;
-  GtkTextIter end_visible;
-
-  gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (source_view), &start_visible,
-                                      rect.x, rect.y);
-                                      
-  gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (source_view), &end_visible,
-                                      rect.x + rect.width, rect.y + rect.height);
-                                      
-  if (gtk_text_iter_in_range (&begin, &start_visible, &end_visible) ||
-      gtk_text_iter_in_range (&end, &start_visible, &end_visible))
-    {
-      return TRUE;
-    }
-
-  return FALSE;
 }
 
 static void
@@ -889,23 +832,6 @@ get_source_view (CodeSlayerNotebookSearch *notebook_search)
     return NULL;
 
   return codeslayer_notebook_page_get_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
-}
-
-static void
-clear_search_marks (CodeSlayerNotebookSearch *notebook_search)
-{
-  GtkWidget *source_view;
-  GtkTextBuffer *buffer;
-  GtkTextIter start, end;
-
-  source_view = get_source_view (notebook_search);
-  if (source_view == NULL)
-    return;
-
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
-
-  gtk_text_buffer_get_bounds (buffer, &start, &end);
-  gtk_text_buffer_remove_tag_by_name (buffer, "search-marks", &start, &end);
 }
 
 static void

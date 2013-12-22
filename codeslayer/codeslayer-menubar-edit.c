@@ -212,16 +212,16 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
 
 static void
 sync_menu_action (CodeSlayerMenuBarEdit *menu_bar_edit,
-                    gboolean               enable_projects,
-                    gboolean               has_open_documents)
+                  gboolean               enable_projects,
+                  gboolean               has_open_documents)
 {
   CodeSlayerMenuBarEditPrivate *priv;
   priv = CODESLAYER_MENU_BAR_EDIT_GET_PRIVATE (menu_bar_edit);
 
-  gtk_widget_set_sensitive (priv->cut_item, has_open_documents);
-  gtk_widget_set_sensitive (priv->copy_item, has_open_documents);
-  gtk_widget_set_sensitive (priv->paste_item, has_open_documents);
-  gtk_widget_set_sensitive (priv->delete_item, has_open_documents);
+  gtk_widget_set_sensitive (priv->cut_item, enable_projects || has_open_documents);
+  gtk_widget_set_sensitive (priv->copy_item, enable_projects || has_open_documents);
+  gtk_widget_set_sensitive (priv->paste_item, enable_projects || has_open_documents);
+  gtk_widget_set_sensitive (priv->delete_item, enable_projects || has_open_documents);
   gtk_widget_set_sensitive (priv->copy_lines_item, has_open_documents);
   gtk_widget_set_sensitive (priv->to_lowercase_item, has_open_documents);
   gtk_widget_set_sensitive (priv->to_uppercase_item, has_open_documents);

@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 #include <gtksourceview/gtksourceview.h>
 #include <codeslayer/codeslayer-document.h>
+#include <codeslayer/codeslayer-search.h>
 #include <codeslayer/codeslayer-profile.h>
 #include <codeslayer/codeslayer-completion-provider.h>
 
@@ -59,6 +60,7 @@ GtkWidget*           codeslayer_source_view_new                      (GtkWindow 
                                                                       CodeSlayerProfile            *profile);
 
 CodeSlayerDocument*  codeslayer_source_view_get_document             (CodeSlayerSourceView         *source_view);
+CodeSlayerSearch*    codeslayer_source_view_get_search               (CodeSlayerSourceView         *source_view);
 GTimeVal*            codeslayer_source_view_get_modification_time    (CodeSlayerSourceView         *source_view);
 void                 codeslayer_source_view_set_modification_time    (CodeSlayerSourceView         *source_view, 
                                                                       GTimeVal                     *modification_time);

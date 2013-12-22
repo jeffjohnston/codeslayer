@@ -72,6 +72,7 @@ struct _CodeSlayerSourceViewPrivate
 {
   GtkWindow             *window;
   CodeSlayerDocument    *document;
+  CodeSlayerSearch      *search;
   CodeSlayerProfile     *profile;
   GTimeVal              *modification_time;
   CodeSlayerCompletion  *completion;
@@ -172,6 +173,7 @@ codeslayer_source_view_init (CodeSlayerSourceView *source_view)
   CodeSlayerSourceViewPrivate *priv;
   priv = CODESLAYER_SOURCE_VIEW_GET_PRIVATE(source_view);
   priv->completion = NULL;
+  priv->search = NULL;
 }
 
 static void
@@ -182,6 +184,9 @@ codeslayer_source_view_finalize (CodeSlayerSourceView *source_view)
   
   if (priv->completion != NULL)
     g_object_unref (priv->completion);
+    
+  if (priv->search != NULL)
+    g_object_unref (priv->search);
     
   if (priv->modification_time)
     {
@@ -288,6 +293,24 @@ codeslayer_source_view_get_document (CodeSlayerSourceView *source_view)
   CodeSlayerSourceViewPrivate *priv;
   priv = CODESLAYER_SOURCE_VIEW_GET_PRIVATE (source_view);
   return priv->document;
+}
+
+/**
+ * codeslayer_source_view_get_search:
+ * @source_view: a #CodeSlayerSourceView  
+ *
+ * Returns: the #CodeSlayerSearch to search the source view.
+ */
+CodeSlayerSearch*
+codeslayer_source_view_get_search (CodeSlayerSourceView *source_view)
+{
+  CodeSlayerSourceViewPrivate *priv;
+  priv = CODESLAYER_SOURCE_VIEW_GET_PRIVATE (source_view);
+  
+  if (priv->search == NULL)
+    priv->search = codeslayer_search_new (G_OBJECT (source_view));
+
+  return priv->search;
 }
 
 /**
