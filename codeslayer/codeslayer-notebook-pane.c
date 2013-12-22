@@ -379,8 +379,8 @@ close_search (CodeSlayerNotebookSearch *notebook_search)
 
 static void
 document_added_action (CodeSlayerNotebookPane *notebook_pane,
-                     GtkWidget              *page, 
-                     guint                   page_num)                     
+                       GtkWidget              *page, 
+                       guint                   page_num)                     
 {
   CodeSlayerNotebookPanePrivate *priv;
   priv = CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane);
@@ -390,7 +390,7 @@ document_added_action (CodeSlayerNotebookPane *notebook_pane,
 
 static void
 document_switched_action (CodeSlayerNotebookPane *notebook_pane,
-                        GParamSpec             *spec)
+                          GParamSpec             *spec)
 {
   CodeSlayerNotebookPanePrivate *priv;
   priv = CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane);

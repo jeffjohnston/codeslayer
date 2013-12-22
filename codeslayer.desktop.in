@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=CodeSlayer Source Editor
-Comment=A lightweight source code editor
+Name=CodeSlayer
+Comment=A lightweight editor
 Exec=codeslayer
 Icon=codeslayer.png
 Terminal=false
