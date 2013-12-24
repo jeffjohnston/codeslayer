@@ -323,8 +323,6 @@ codeslayer_search_create_search_marks (CodeSlayerSearch *search,
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
   
-  codeslayer_search_clear_search_marks (search);
-
   if (g_strcmp0 (find, "") == 0)
     return FALSE;
 
