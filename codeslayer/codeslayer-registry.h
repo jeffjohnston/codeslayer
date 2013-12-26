@@ -43,6 +43,7 @@ G_BEGIN_DECLS
 #define CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE "bottom_pane_visible"
 #define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE "notebook_search_match_case"
 #define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD "notebook_search_match_word"
+#define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGEX "notebook_search_regex"
 #define CODESLAYER_REGISTRY_DRAW_SPACES "draw_spaces"
 #define CODESLAYER_REGISTRY_WORD_WRAP "word_wrap"
 #define CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT "sync_with_document"

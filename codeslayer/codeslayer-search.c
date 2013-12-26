@@ -38,14 +38,19 @@ static gboolean forward_search            (CodeSlayerSearch      *search,
                                            GtkTextIter           *begin, 
                                            GtkTextIter           *end, 
                                            gboolean               match_case, 
-                                           gboolean               match_word);
+                                           gboolean               match_word, 
+                                           gboolean               regex);
 static gboolean backward_search           (CodeSlayerSearch      *search, 
                                            const gchar           *find, 
                                            GtkTextIter           *start, 
                                            GtkTextIter           *begin, 
                                            GtkTextIter           *end, 
                                            gboolean               match_case, 
-                                           gboolean               match_word);
+                                           gboolean               match_word,
+                                           gboolean               regex);
+static gchar* get_next_regex_match        (CodeSlayerSearch      *search, 
+                                           const gchar           *find, 
+                                           GtkTextIter           *start);
 static gboolean search_marks_in_view      (GtkWidget             *source_view, 
                                            GdkRectangle           rect, 
                                            GtkTextIter            begin, 
@@ -120,7 +125,8 @@ void
 codeslayer_search_find_next (CodeSlayerSearch *search, 
                              gchar            *find, 
                              gboolean          match_case, 
-                             gboolean          match_word)
+                             gboolean          match_word, 
+                             gboolean          regex)
 {
   CodeSlayerSearchPrivate *priv;
   GtkTextBuffer *buffer;
@@ -134,7 +140,7 @@ codeslayer_search_find_next (CodeSlayerSearch *search,
   insert_mark = gtk_text_buffer_get_selection_bound (buffer);
   gtk_text_buffer_get_iter_at_mark (buffer, &start, insert_mark);
 
-  if (forward_search (search, find, &start, &begin, &end, match_case, match_word))
+  if (forward_search (search, find, &start, &begin, &end, match_case, match_word, regex))
     {
       gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (priv->source_view), 
                                     &begin, .1, FALSE, 0, 0);
@@ -143,7 +149,7 @@ codeslayer_search_find_next (CodeSlayerSearch *search,
   else
     {
       gtk_text_buffer_get_start_iter (buffer, &start);
-      if (forward_search (search, find, &start, &begin, &end, match_case, match_word))
+      if (forward_search (search, find, &start, &begin, &end, match_case, match_word, regex))
         {
           gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (priv->source_view), 
                                         &begin, .1, FALSE, 0, 0);
@@ -165,7 +171,8 @@ void
 codeslayer_search_find_previous (CodeSlayerSearch *search, 
                                  gchar            *find, 
                                  gboolean          match_case, 
-                                 gboolean          match_word)
+                                 gboolean          match_word, 
+                                 gboolean          regex)
 {
   CodeSlayerSearchPrivate *priv;
   GtkTextBuffer *buffer;
@@ -179,7 +186,7 @@ codeslayer_search_find_previous (CodeSlayerSearch *search,
   insert_mark = gtk_text_buffer_get_insert (buffer);
   gtk_text_buffer_get_iter_at_mark (buffer, &start, insert_mark);
 
-  if (backward_search (search, find, &start, &begin, &end, match_case, match_word))
+  if (backward_search (search, find, &start, &begin, &end, match_case, match_word, regex))
     {
       gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (priv->source_view), 
                                     &begin, .1, FALSE, 0, 0);
@@ -188,7 +195,7 @@ codeslayer_search_find_previous (CodeSlayerSearch *search,
   else
     {
       gtk_text_buffer_get_end_iter (buffer, &start);
-      if (backward_search (search, find, &start, &begin, &end, match_case, match_word))
+      if (backward_search (search, find, &start, &begin, &end, match_case, match_word, regex))
         {
           gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (priv->source_view), 
                                         &begin, .1, FALSE, 0, 0);
@@ -212,7 +219,8 @@ codeslayer_search_replace (CodeSlayerSearch *search,
                            gchar            *find, 
                            gchar            *replace, 
                            gboolean          match_case, 
-                           gboolean          match_word)
+                           gboolean          match_word, 
+                           gboolean          regex)
 {
   CodeSlayerSearchPrivate *priv;
   GtkTextBuffer *buffer;
@@ -253,7 +261,7 @@ codeslayer_search_replace (CodeSlayerSearch *search,
   if (current != NULL)
     g_free (current);    
 
-  codeslayer_search_find_next (search, find, match_case, match_word);
+  codeslayer_search_find_next (search, find, match_case, match_word, regex);
 }
 
 /**
@@ -271,7 +279,8 @@ codeslayer_search_replace_all (CodeSlayerSearch *search,
                                gchar            *find, 
                                gchar            *replace, 
                                gboolean          match_case, 
-                               gboolean          match_word)
+                               gboolean          match_word, 
+                               gboolean          regex)
 {
   CodeSlayerSearchPrivate *priv;
   GtkTextBuffer *buffer;
@@ -285,7 +294,7 @@ codeslayer_search_replace_all (CodeSlayerSearch *search,
 
   gtk_text_buffer_begin_user_action (buffer);
 
-  while (forward_search (search, find, &start, &begin, &end, match_case, match_word))
+  while (forward_search (search, find, &start, &begin, &end, match_case, match_word, regex))
     {
       gtk_text_buffer_delete (buffer, &begin, &end);
       gtk_text_buffer_insert (buffer, &begin, replace, -1);
@@ -311,7 +320,8 @@ gboolean
 codeslayer_search_create_search_marks (CodeSlayerSearch *search,
                                        gchar            *find,
                                        gboolean          match_case, 
-                                       gboolean          match_word,                                       
+                                       gboolean          match_word, 
+                                       gboolean          regex,                                       
                                        gboolean          scrollable)
 {
   CodeSlayerSearchPrivate *priv;
@@ -331,7 +341,7 @@ codeslayer_search_create_search_marks (CodeSlayerSearch *search,
   gtk_text_buffer_get_start_iter (buffer, &start);
   gtk_text_view_get_visible_rect (GTK_TEXT_VIEW (priv->source_view), &rect);
 
-  success = forward_search (search, find, &start, &begin, &end, match_case, match_word);
+  success = forward_search (search, find, &start, &begin, &end, match_case, match_word, regex);
   
   if (!success)
     return FALSE;
@@ -346,7 +356,7 @@ codeslayer_search_create_search_marks (CodeSlayerSearch *search,
     
       gtk_text_buffer_apply_tag_by_name (buffer, "search-marks", &begin, &end);
       gtk_text_iter_forward_char (&start);
-      success = forward_search (search, find, &start, &begin, &end, match_case, match_word);
+      success = forward_search (search, find, &start, &begin, &end, match_case, match_word, regex);
       start = begin;
     }
 
@@ -405,24 +415,37 @@ forward_search (CodeSlayerSearch *search,
                 GtkTextIter      *begin,
                 GtkTextIter      *end, 
                 gboolean          match_case, 
-                gboolean          match_word)
+                gboolean          match_word, 
+                gboolean          regex)
 {
-  gboolean result;
+  gboolean result = FALSE;
   
-  if (match_case)
-      result = gtk_text_iter_forward_search (start, find, 0, begin, end, NULL);
-  else
-      result = gtk_text_iter_forward_search (start, find,
-                                             GTK_TEXT_SEARCH_CASE_INSENSITIVE,
-                                             begin, end, NULL);
-
-  if (result && match_word)
+  if (regex)
     {
-      if (!(gtk_text_iter_starts_word (begin) && gtk_text_iter_ends_word (end)))
+      gchar *match = get_next_regex_match (search, find, start);
+      if (match != NULL)
         {
-          *start = *begin;
-          gtk_text_iter_forward_char (start);
-          result = forward_search (search, find, start, begin, end, match_case, match_word);
+          result = gtk_text_iter_forward_search (start, match, 0, begin, end, NULL);
+          g_free (match);
+        }
+    }
+  else
+    {
+      if (match_case)
+          result = gtk_text_iter_forward_search (start, find, 0, begin, end, NULL);
+      else
+          result = gtk_text_iter_forward_search (start, find,
+                                                 GTK_TEXT_SEARCH_CASE_INSENSITIVE,
+                                                 begin, end, NULL);
+
+      if (result && match_word)
+        {
+          if (!(gtk_text_iter_starts_word (begin) && gtk_text_iter_ends_word (end)))
+            {
+              *start = *begin;
+              gtk_text_iter_forward_char (start);
+              result = forward_search (search, find, start, begin, end, match_case, match_word, regex);
+            }
         }
     }
 
@@ -436,10 +459,11 @@ backward_search (CodeSlayerSearch *search,
                  GtkTextIter      *begin,
                  GtkTextIter      *end, 
                  gboolean          match_case, 
-                 gboolean          match_word)
+                 gboolean          match_word, 
+                 gboolean          regex)
 {
   gboolean result;
-  
+
   if (match_case)
       result = gtk_text_iter_backward_search (start, find, 0, begin, end, NULL);
   else
@@ -453,9 +477,42 @@ backward_search (CodeSlayerSearch *search,
              gtk_text_iter_ends_word (end)))
         {
           *start = *begin;
-          result = backward_search (search, find, start, begin, end, match_case, match_word);
+          result = backward_search (search, find, start, begin, end, match_case, match_word, regex);
         }
     }
 
+  return result;
+}
+
+static gchar*
+get_next_regex_match (CodeSlayerSearch *search, 
+                      const gchar      *find, 
+                      GtkTextIter      *start)
+{
+  CodeSlayerSearchPrivate *priv;
+  gchar *result = NULL;
+  GtkTextIter end;  
+  GtkTextBuffer *buffer;
+  gchar *text;
+  GRegex *regex;
+  GMatchInfo *match_info = NULL;
+
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
+  gtk_text_buffer_get_end_iter (buffer, &end);
+  text = gtk_text_buffer_get_text (buffer, start, &end, FALSE);
+
+  regex = g_regex_new (find, 0, 0, NULL);
+  
+  if (regex != NULL && g_regex_match (regex, text, 0, &match_info))
+    {
+      if (g_match_info_matches (match_info))
+        result = g_match_info_fetch (match_info, 0);
+    
+      g_match_info_free (match_info);
+      g_regex_unref (regex);
+    }
+  
   return result;
 }
