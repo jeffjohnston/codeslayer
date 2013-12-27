@@ -561,6 +561,9 @@ add_regex_checkbox (CodeSlayerNotebookSearch *notebook_search)
   g_signal_connect_swapped (G_OBJECT (regex_checkbox), "clicked",
                             G_CALLBACK (update_registry_action), notebook_search);
 
+  g_signal_connect_swapped (G_OBJECT (regex_checkbox), "clicked",
+                            G_CALLBACK (sync_notebook_action), notebook_search);
+
   gtk_grid_attach_next_to (GTK_GRID (priv->grid), regex_checkbox, priv->match_word_checkbox, 
                            GTK_POS_RIGHT, 1, 1);
 }
@@ -683,6 +686,13 @@ sync_notebook_action (CodeSlayerNotebookSearch *notebook_search)
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox), match_word_selected);
 
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->regex_checkbox), regex_selected);
+  
+  if (regex_selected)
+    {
+      gtk_widget_set_sensitive (priv->find_previous_button, FALSE);    
+      gtk_widget_set_sensitive (priv->match_case_checkbox, FALSE);
+      gtk_widget_set_sensitive (priv->match_word_checkbox, FALSE);
+    }
 }
 
 static gboolean            
