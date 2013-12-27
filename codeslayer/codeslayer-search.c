@@ -48,7 +48,7 @@ static gboolean backward_search           (CodeSlayerSearch      *search,
                                            gboolean               match_case, 
                                            gboolean               match_word,
                                            gboolean               regex);
-static gchar* get_next_regex_match        (CodeSlayerSearch      *search, 
+static gchar* forward_regex_match         (CodeSlayerSearch      *search, 
                                            const gchar           *find, 
                                            GtkTextIter           *start);
 static gboolean search_marks_in_view      (GtkWidget             *source_view, 
@@ -228,7 +228,6 @@ codeslayer_search_replace (CodeSlayerSearch *search,
   GtkTextMark *selection_mark;
   gchar *current;
   GtkTextIter start, end;
-  gboolean is_search_same;
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
 
@@ -242,20 +241,42 @@ codeslayer_search_replace (CodeSlayerSearch *search,
 
   /* make sure that the highlighted text is in the current search */
   current = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
-
-  is_search_same = FALSE;
-
-  if (match_case)
-    is_search_same = g_ascii_strcasecmp (find, current) == 0;
-  else
-    is_search_same = g_strcmp0 (find, current) == 0;
-
-  if (is_search_same)
+  
+  if (regex)
     {
-      gtk_text_buffer_begin_user_action (buffer);
-      gtk_text_buffer_delete (buffer, &start, &end);
-      gtk_text_buffer_insert (buffer, &start, replace, -1);
-      gtk_text_buffer_end_user_action (buffer);
+      GRegex *regex;
+      gchar *text;
+
+      regex = g_regex_new (find, 0, 0, NULL);
+      text =  g_regex_replace (regex, current, -1, 0, replace, 0, NULL);
+      
+      if (text != NULL)
+        {
+          gtk_text_buffer_begin_user_action (buffer);
+          gtk_text_buffer_delete (buffer, &start, &end);
+          gtk_text_buffer_insert (buffer, &start, text, -1);
+          gtk_text_buffer_end_user_action (buffer);
+          g_free (text);        
+        }
+
+      g_regex_unref (regex);
+    }
+  else
+    {
+      gboolean is_search_same = FALSE;
+
+      if (match_case)
+        is_search_same = g_ascii_strcasecmp (find, current) == 0;
+      else
+        is_search_same = g_strcmp0 (find, current) == 0;
+
+      if (is_search_same)
+        {
+          gtk_text_buffer_begin_user_action (buffer);
+          gtk_text_buffer_delete (buffer, &start, &end);
+          gtk_text_buffer_insert (buffer, &start, replace, -1);
+          gtk_text_buffer_end_user_action (buffer);
+        }
     }
     
   if (current != NULL)
@@ -296,9 +317,36 @@ codeslayer_search_replace_all (CodeSlayerSearch *search,
 
   while (forward_search (search, find, &start, &begin, &end, match_case, match_word, regex))
     {
-      gtk_text_buffer_delete (buffer, &begin, &end);
-      gtk_text_buffer_insert (buffer, &begin, replace, -1);
-      start = begin;
+      if (regex)
+        {
+          GRegex *regex;
+          gchar *current;
+          gchar *text;
+
+          regex = g_regex_new (find, 0, 0, NULL);
+          current = gtk_text_buffer_get_text (buffer, &begin, &end, FALSE);
+          text =  g_regex_replace (regex, current, -1, 0, replace, 0, NULL);
+          
+          if (text != NULL)
+            {
+              gtk_text_buffer_delete (buffer, &begin, &end);
+              gtk_text_buffer_insert (buffer, &begin, text, -1);
+              g_free (text);
+            }
+
+          g_regex_unref (regex);
+          
+          if (current != NULL)
+            g_free (current);
+          
+          start = begin;
+        }
+      else
+        {
+          gtk_text_buffer_delete (buffer, &begin, &end);
+          gtk_text_buffer_insert (buffer, &begin, replace, -1);
+          start = begin;
+        }
     }
 
   gtk_text_buffer_end_user_action (buffer);
@@ -422,7 +470,7 @@ forward_search (CodeSlayerSearch *search,
   
   if (regex)
     {
-      gchar *match = get_next_regex_match (search, find, start);
+      gchar *match = forward_regex_match (search, find, start);
       if (match != NULL)
         {
           result = gtk_text_iter_forward_search (start, match, 0, begin, end, NULL);
@@ -485,9 +533,9 @@ backward_search (CodeSlayerSearch *search,
 }
 
 static gchar*
-get_next_regex_match (CodeSlayerSearch *search, 
-                      const gchar      *find, 
-                      GtkTextIter      *start)
+forward_regex_match (CodeSlayerSearch *search, 
+                     const gchar      *find, 
+                     GtkTextIter      *start)
 {
   CodeSlayerSearchPrivate *priv;
   gchar *result = NULL;

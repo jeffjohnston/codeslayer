@@ -299,11 +299,11 @@ codeslayer_notebook_search_replace (CodeSlayerNotebookSearch *notebook_search)
       entry_set_text (priv->replace_entry, priv->replace_store, current);
       gtk_widget_grab_focus (GTK_WIDGET (priv->replace_entry));
     }
-    
-  codeslayer_notebook_search_create_search_marks (notebook_search, TRUE);
-  
+
   if (current != NULL)
     g_free (current);
+    
+  codeslayer_notebook_search_create_search_marks (notebook_search, TRUE);
 }
 
 /**
@@ -689,7 +689,6 @@ sync_notebook_action (CodeSlayerNotebookSearch *notebook_search)
   
   if (regex_selected)
     {
-      gtk_widget_set_sensitive (priv->find_previous_button, FALSE);    
       gtk_widget_set_sensitive (priv->match_case_checkbox, FALSE);
       gtk_widget_set_sensitive (priv->match_word_checkbox, FALSE);
     }
