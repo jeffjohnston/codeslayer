@@ -51,6 +51,9 @@ static gboolean backward_search           (CodeSlayerSearch      *search,
 static gchar* forward_regex_match         (CodeSlayerSearch      *search, 
                                            const gchar           *find, 
                                            GtkTextIter           *start);
+static gchar* backward_regex_match        (CodeSlayerSearch      *search, 
+                                           const gchar           *find, 
+                                           GtkTextIter           *start);
 static gboolean search_marks_in_view      (GtkWidget             *source_view, 
                                            GdkRectangle           rect, 
                                            GtkTextIter            begin, 
@@ -510,25 +513,37 @@ backward_search (CodeSlayerSearch *search,
                  gboolean          match_word, 
                  gboolean          regex)
 {
-  gboolean result;
-
-  if (match_case)
-      result = gtk_text_iter_backward_search (start, find, 0, begin, end, NULL);
-  else
-      result = gtk_text_iter_backward_search (start, find,
-                                              GTK_TEXT_SEARCH_CASE_INSENSITIVE,
-                                              begin, end, NULL);
-
-  if (result && match_word)
+  gboolean result = FALSE;
+  
+  if (regex)
     {
-      if (!(gtk_text_iter_starts_word (begin) && 
-             gtk_text_iter_ends_word (end)))
+      gchar *match = backward_regex_match (search, find, start);
+      if (match != NULL)
         {
-          *start = *begin;
-          result = backward_search (search, find, start, begin, end, match_case, match_word, regex);
+          result = gtk_text_iter_backward_search (start, match, 0, begin, end, NULL);
+          g_free (match);
         }
     }
+  else
+    {
+      if (match_case)
+          result = gtk_text_iter_backward_search (start, find, 0, begin, end, NULL);
+      else
+          result = gtk_text_iter_backward_search (start, find,
+                                                  GTK_TEXT_SEARCH_CASE_INSENSITIVE,
+                                                  begin, end, NULL);
 
+      if (result && match_word)
+        {
+          if (!(gtk_text_iter_starts_word (begin) && 
+                 gtk_text_iter_ends_word (end)))
+            {
+              *start = *begin;
+              result = backward_search (search, find, start, begin, end, match_case, match_word, regex);
+            }
+        }
+    }
+    
   return result;
 }
 
@@ -547,20 +562,62 @@ forward_regex_match (CodeSlayerSearch *search,
 
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
 
+  regex = g_regex_new (find, 0, 0, NULL);
+
+  if (regex == NULL)
+    return NULL;
+
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
   gtk_text_buffer_get_end_iter (buffer, &end);
   text = gtk_text_buffer_get_text (buffer, start, &end, FALSE);
+  
+  g_regex_match (regex, text, 0, &match_info);
+  if (g_match_info_matches (match_info))
+    result = g_match_info_fetch (match_info, 0);
+    
+  g_regex_unref (regex);
+  g_match_info_free (match_info);
+  g_free (text);
+  
+  return result;
+}
+
+static gchar*
+backward_regex_match (CodeSlayerSearch *search, 
+                      const gchar      *find, 
+                      GtkTextIter      *end)
+{
+  CodeSlayerSearchPrivate *priv;
+  gchar *result = NULL;
+  GtkTextIter start;  
+  GtkTextBuffer *buffer;
+  gchar *text;
+  GRegex *regex;
+  GMatchInfo *match_info = NULL;
+
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
 
   regex = g_regex_new (find, 0, 0, NULL);
   
-  if (regex != NULL && g_regex_match (regex, text, 0, &match_info))
+  if (regex == NULL)
+    return NULL;
+
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
+  gtk_text_buffer_get_start_iter (buffer, &start);
+  text = gtk_text_buffer_get_text (buffer, &start, end, FALSE);
+  
+  g_regex_match (regex, text, 0, &match_info);
+  while (g_match_info_matches (match_info))
     {
-      if (g_match_info_matches (match_info))
-        result = g_match_info_fetch (match_info, 0);
-    
-      g_match_info_free (match_info);
-      g_regex_unref (regex);
+      if (result != NULL)
+        g_free (result);
+      result = g_match_info_fetch (match_info, 0);
+      g_match_info_next (match_info, NULL);
     }
   
+  g_regex_unref (regex);    
+  g_match_info_free (match_info);
+  g_free (text);
+    
   return result;
 }
