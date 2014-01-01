@@ -51,7 +51,7 @@ GType codeslayer_notebook_pane_get_type (void) G_GNUC_CONST;
 GtkWidget*  codeslayer_notebook_pane_new (void);
 GtkWidget*  codeslayer_notebook_pane_get_notebook          (CodeSlayerNotebookPane   *notebook_pane);
 void        codeslayer_notebook_pane_set_notebook          (CodeSlayerNotebookPane   *notebook_pane, 
-                                                            GtkWidget       *notebook);
+                                                            GtkWidget                *notebook);
 GtkWidget*  codeslayer_notebook_pane_get_notebook_search   (CodeSlayerNotebookPane   *notebook_pane);
 void        codeslayer_notebook_pane_set_notebook_search   (CodeSlayerNotebookPane   *notebook_pane,
                                                             GtkWidget                *notebook_search);

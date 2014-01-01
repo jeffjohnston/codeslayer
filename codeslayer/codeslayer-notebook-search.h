@@ -47,14 +47,13 @@ struct _CodeSlayerNotebookSearchClass
 
 GType codeslayer_notebook_search_get_type (void) G_GNUC_CONST;
 
-GtkWidget*  codeslayer_notebook_search_new                  (GtkWidget                *notebook, 
-                                                             CodeSlayerProfile        *profile);
-void        codeslayer_notebook_search_find                 (CodeSlayerNotebookSearch *notebook_search);
-void        codeslayer_notebook_search_replace              (CodeSlayerNotebookSearch *notebook_search);
-void        codeslayer_notebook_search_find_next            (CodeSlayerNotebookSearch *notebook_search);
-void        codeslayer_notebook_search_find_previous        (CodeSlayerNotebookSearch *notebook_search);
-void        codeslayer_notebook_search_create_search_marks  (CodeSlayerNotebookSearch *notebook_search, 
-                                                             gboolean                  scrollable);
+GtkWidget*  codeslayer_notebook_search_new            (GtkWidget                *notebook, 
+                                                       CodeSlayerProfile        *profile);
+void        codeslayer_notebook_search_find           (CodeSlayerNotebookSearch *notebook_search);
+void        codeslayer_notebook_search_replace        (CodeSlayerNotebookSearch *notebook_search);
+void        codeslayer_notebook_search_find_next      (CodeSlayerNotebookSearch *notebook_search);
+void        codeslayer_notebook_search_find_previous  (CodeSlayerNotebookSearch *notebook_search);
+void        codeslayer_notebook_search_highlight_all  (CodeSlayerNotebookSearch *notebook_search);
 
 G_END_DECLS
 

@@ -385,7 +385,7 @@ document_added_action (CodeSlayerNotebookPane *notebook_pane,
   CodeSlayerNotebookPanePrivate *priv;
   priv = CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane);
   if (gtk_widget_get_visible (priv->notebook_search))
-    codeslayer_notebook_search_create_search_marks (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search), FALSE);
+    codeslayer_notebook_search_highlight_all (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search));
 }
 
 static void
@@ -395,5 +395,5 @@ document_switched_action (CodeSlayerNotebookPane *notebook_pane,
   CodeSlayerNotebookPanePrivate *priv;
   priv = CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane);
   if (gtk_widget_get_visible (priv->notebook_search))
-    codeslayer_notebook_search_create_search_marks (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search), FALSE);
+    codeslayer_notebook_search_highlight_all (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search));
 }

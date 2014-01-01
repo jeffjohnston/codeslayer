@@ -45,36 +45,40 @@ struct _CodeSlayerSearchClass
 
 GType codeslayer_search_get_type (void) G_GNUC_CONST;
 
-CodeSlayerSearch*  codeslayer_search_new                  (GObject *source_view);
-void               codeslayer_search_find_next            (CodeSlayerSearch *search, 
-                                                           gchar            *find, 
-                                                           gboolean          match_case, 
-                                                           gboolean          match_word, 
-                                                           gboolean          regex);
-void               codeslayer_search_find_previous        (CodeSlayerSearch *search, 
-                                                           gchar            *find, 
-                                                           gboolean          match_case, 
-                                                           gboolean          match_word, 
-                                                           gboolean          regex);
-void               codeslayer_search_replace              (CodeSlayerSearch *search, 
-                                                           gchar            *find, 
-                                                           gchar            *replace, 
-                                                           gboolean          match_case, 
-                                                           gboolean          match_word, 
-                                                           gboolean          regex);
-void               codeslayer_search_replace_all          (CodeSlayerSearch *search, 
-                                                           gchar            *find, 
-                                                           gchar            *replace, 
-                                                           gboolean          match_case, 
-                                                           gboolean          match_word, 
-                                                           gboolean          regex);
-gboolean           codeslayer_search_create_search_marks  (CodeSlayerSearch *search, 
-                                                           gchar            *find,
-                                                           gboolean          match_case, 
-                                                           gboolean          match_word, 
-                                                           gboolean          regex, 
-                                                           gboolean          scrollable);
-void               codeslayer_search_clear_search_marks   (CodeSlayerSearch *search);
+CodeSlayerSearch*  codeslayer_search_new              (GObject          *source_view);
+gboolean           codeslayer_search_find             (CodeSlayerSearch *search, 
+                                                       gchar            *find,
+                                                       gboolean          match_case, 
+                                                       gboolean          match_word, 
+                                                       gboolean          regex);
+void               codeslayer_search_find_next        (CodeSlayerSearch *search, 
+                                                       gchar            *find, 
+                                                       gboolean          match_case, 
+                                                       gboolean          match_word, 
+                                                       gboolean          regex);
+void               codeslayer_search_find_previous    (CodeSlayerSearch *search, 
+                                                       gchar            *find, 
+                                                       gboolean          match_case, 
+                                                       gboolean          match_word, 
+                                                       gboolean          regex);
+void               codeslayer_search_replace          (CodeSlayerSearch *search, 
+                                                       gchar            *find, 
+                                                       gchar            *replace, 
+                                                       gboolean          match_case, 
+                                                       gboolean          match_word, 
+                                                       gboolean          regex);
+void               codeslayer_search_replace_all      (CodeSlayerSearch *search, 
+                                                       gchar            *find, 
+                                                       gchar            *replace, 
+                                                       gboolean          match_case, 
+                                                       gboolean          match_word, 
+                                                       gboolean          regex);
+gboolean           codeslayer_search_highlight_all    (CodeSlayerSearch *search, 
+                                                       gchar            *find,
+                                                       gboolean          match_case, 
+                                                       gboolean          match_word, 
+                                                       gboolean          regex);
+void               codeslayer_search_clear_highlight  (CodeSlayerSearch *search);
 
 G_END_DECLS
 

@@ -54,7 +54,7 @@ static gchar* forward_regex_match         (CodeSlayerSearch      *search,
 static gchar* backward_regex_match        (CodeSlayerSearch      *search, 
                                            const gchar           *find, 
                                            GtkTextIter           *start);
-static gboolean search_marks_in_view      (GtkWidget             *source_view, 
+static gboolean find_in_view              (GtkWidget             *source_view, 
                                            GdkRectangle           rect, 
                                            GtkTextIter            begin, 
                                            GtkTextIter            end);
@@ -116,11 +116,70 @@ codeslayer_search_new (GObject *source_view)
 }
 
 /**
+ * codeslayer_search_find:
+ * @search: a #CodeSlayerSearch.
+ * @find: the text to find
+ * @match_case: is true if should match case
+ * @match_word: is true if should match word
+ * @regex: is true if should use regex
+ * 
+ * Find the first search value. Will start looking in the current view. If
+ * a match is not found then start looking at the start of the buffer.
+ * 
+ * Returns: is TRUE if matches were found. 
+ */
+gboolean
+codeslayer_search_find (CodeSlayerSearch *search,
+                        gchar            *find,
+                        gboolean          match_case,
+                        gboolean          match_word,
+                        gboolean          regex)
+{
+  CodeSlayerSearchPrivate *priv;
+  GtkTextBuffer *buffer;
+  GtkTextIter start, begin, end;
+  GdkRectangle rect;
+  
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
+
+  if (g_strcmp0 (find, "") == 0)
+    {
+      gtk_text_buffer_get_start_iter (buffer, &start);
+      gtk_text_buffer_select_range (buffer, &start, &start);
+      return FALSE;
+    }
+
+  gtk_text_view_get_visible_rect (GTK_TEXT_VIEW (priv->source_view), &rect);  
+  gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (priv->source_view), 
+                                      &start, rect.x, rect.y);
+
+  if (!forward_search (search, find, &start, &begin, &end, match_case, match_word, regex))
+    {
+      gtk_text_buffer_get_start_iter (buffer, &start);
+      if (!forward_search (search, find, &start, &begin, &end, match_case, match_word, regex))
+        return FALSE;
+    }
+
+  if (!find_in_view (GTK_WIDGET (priv->source_view), rect, begin, end))
+    {
+      gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (priv->source_view), 
+                                    &begin, .1, FALSE, 0, 0);
+    }
+
+  gtk_text_buffer_select_range (buffer, &begin, &end);
+
+  return TRUE;
+}
+
+/**
  * codeslayer_search_find_next:
  * @search: a #CodeSlayerSearch.
  * @find: the text to find
  * @match_case: is true if should match case
  * @match_word: is true if should match word
+ * @regex: is true if should use regex
  *
  * Find the next search value.
  */
@@ -142,7 +201,7 @@ codeslayer_search_find_next (CodeSlayerSearch *search,
 
   insert_mark = gtk_text_buffer_get_selection_bound (buffer);
   gtk_text_buffer_get_iter_at_mark (buffer, &start, insert_mark);
-
+  
   if (forward_search (search, find, &start, &begin, &end, match_case, match_word, regex))
     {
       gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (priv->source_view), 
@@ -167,6 +226,7 @@ codeslayer_search_find_next (CodeSlayerSearch *search,
  * @find: the text to find
  * @match_case: is true if should match case
  * @match_word: is true if should match word
+ * @regex: is true if should use regex
  *
  * Find the previous search value.
  */
@@ -211,9 +271,10 @@ codeslayer_search_find_previous (CodeSlayerSearch *search,
  * codeslayer_search_replace:
  * @search: a #CodeSlayerSearch.
  * @find: the text to find
- * @find: the text to replace
+ * @replace: the text to replace
  * @match_case: is true if should match case
  * @match_word: is true if should match word
+ * @regex: is true if should use regex
  *
  * Replace the source view highlighted text.
  */
@@ -292,9 +353,10 @@ codeslayer_search_replace (CodeSlayerSearch *search,
  * codeslayer_search_replace_all:
  * @search: a #CodeSlayerSearch.
  * @find: the text to find
- * @find: the text to replace
+ * @replace: the text to replace
  * @match_case: is true if should match case
  * @match_word: is true if should match word
+ * @regex: is true if should use regex
  *
  * Replace all the source view highlighted text.
  */
@@ -356,31 +418,27 @@ codeslayer_search_replace_all (CodeSlayerSearch *search,
 }
 
 /**
- * codeslayer_search_create_search_marks:
+ * codeslayer_search_highlight_all:
  * @search: a #CodeSlayerSearch.
  * @find: the text to find
  * @match_case: is true if should match case
  * @match_word: is true if should match word
- * @scrollable: is TRUE if should scroll after finding marks.
+ * @regex: is true if should use regex
  * 
- * Create the search marks based on the current registry.
- * 
- * Returns: is TRUE if matches were found. 
+ * Create the search marks based on the current find entry.
  */
 gboolean
-codeslayer_search_create_search_marks (CodeSlayerSearch *search,
-                                       gchar            *find,
-                                       gboolean          match_case, 
-                                       gboolean          match_word, 
-                                       gboolean          regex,                                       
-                                       gboolean          scrollable)
+codeslayer_search_highlight_all (CodeSlayerSearch *search, 
+                                 gchar            *find,
+                                 gboolean          match_case, 
+                                 gboolean          match_word, 
+                                 gboolean          regex)
 {
+
   CodeSlayerSearchPrivate *priv;
-  GdkRectangle rect;
   GtkTextBuffer *buffer;
-  GtkTextIter start, first, begin, end;
+  GtkTextIter start, begin, end;
   gboolean success;
-  gboolean need_to_scroll = FALSE;
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
   
@@ -390,41 +448,47 @@ codeslayer_search_create_search_marks (CodeSlayerSearch *search,
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
 
   gtk_text_buffer_get_start_iter (buffer, &start);
-  gtk_text_view_get_visible_rect (GTK_TEXT_VIEW (priv->source_view), &rect);
 
   success = forward_search (search, find, &start, &begin, &end, match_case, match_word, regex);
   
   if (!success)
     return FALSE;
 
-  need_to_scroll = !search_marks_in_view (GTK_WIDGET (priv->source_view), rect, begin, end);
-  first = begin;
-  
   while (success)
     {
-      if (need_to_scroll)
-        need_to_scroll = !search_marks_in_view (GTK_WIDGET (priv->source_view), rect, begin, end);
-    
       gtk_text_buffer_apply_tag_by_name (buffer, "search-marks", &begin, &end);
       gtk_text_iter_forward_char (&start);
       success = forward_search (search, find, &start, &begin, &end, match_case, match_word, regex);
       start = begin;
     }
-
-  if (need_to_scroll && scrollable)
-    {
-      gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (priv->source_view), &first, .1, FALSE, 0, 0);
-      gtk_text_buffer_place_cursor (buffer, &first);
-    }
     
-  return TRUE;
+  return TRUE;    
+}
+
+/**
+ * codeslayer_search_highlight_all:
+ * @search: a #CodeSlayerSearch.
+ */
+void
+codeslayer_search_clear_highlight (CodeSlayerSearch *search)
+{
+  CodeSlayerSearchPrivate *priv;
+  GtkTextBuffer *buffer;
+  GtkTextIter start, end;
+
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
+
+  gtk_text_buffer_get_bounds (buffer, &start, &end);
+  gtk_text_buffer_remove_tag_by_name (buffer, "search-marks", &start, &end);
 }
 
 static gboolean
-search_marks_in_view (GtkWidget    *source_view, 
-                      GdkRectangle  rect, 
-                      GtkTextIter   begin, 
-                      GtkTextIter   end) 
+find_in_view (GtkWidget    *source_view, 
+              GdkRectangle  rect, 
+              GtkTextIter   begin, 
+              GtkTextIter   end) 
 {
   GtkTextIter start_visible;
   GtkTextIter end_visible;
@@ -442,21 +506,6 @@ search_marks_in_view (GtkWidget    *source_view,
     }
 
   return FALSE;
-}
-
-void
-codeslayer_search_clear_search_marks (CodeSlayerSearch *search)
-{
-  CodeSlayerSearchPrivate *priv;
-  GtkTextBuffer *buffer;
-  GtkTextIter start, end;
-
-  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
-
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
-
-  gtk_text_buffer_get_bounds (buffer, &start, &end);
-  gtk_text_buffer_remove_tag_by_name (buffer, "search-marks", &start, &end);
 }
 
 static gboolean
@@ -566,7 +615,7 @@ forward_regex_match (CodeSlayerSearch *search,
 
   if (regex == NULL)
     return NULL;
-
+    
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
   gtk_text_buffer_get_end_iter (buffer, &end);
   text = gtk_text_buffer_get_text (buffer, start, &end, FALSE);

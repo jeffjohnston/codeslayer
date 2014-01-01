@@ -41,6 +41,7 @@ G_BEGIN_DECLS
 #define CODESLAYER_REGISTRY_SEARCH_Y "search_y"
 #define CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE "side_pane_visible"
 #define CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE "bottom_pane_visible"
+#define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_HIGHLIGHT_ALL "notebook_search_highlight_all"
 #define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE "notebook_search_match_case"
 #define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD "notebook_search_match_word"
 #define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGEX "notebook_search_regex"
