@@ -59,6 +59,7 @@
     <xi:include href="xml/codeslayer-projects.xml"/>
     <xi:include href="xml/codeslayer-registry.xml"/>
     <xi:include href="xml/codeslayer-side-pane.xml"/>
+    <xi:include href="xml/codeslayer-search.xml"/>
     <xi:include href="xml/codeslayer-sourceview.xml"/>
     <xi:include href="xml/codeslayer-window.xml"/>
     <xi:include href="xml/codeslayer.xml"/>

@@ -431,7 +431,7 @@ codeslayer_notebook_search_find
 codeslayer_notebook_search_replace
 codeslayer_notebook_search_find_next
 codeslayer_notebook_search_find_previous
-codeslayer_notebook_search_create_search_marks
+codeslayer_notebook_search_verify_matches
 <SUBSECTION Standard>
 CODESLAYER_NOTEBOOK_SEARCH_TYPE
 CODESLAYER_NOTEBOOK_SEARCH
@@ -917,6 +917,8 @@ CODESLAYER_REGISTRY_SIDE_PANE_VISIBLE
 CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE
 CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE
 CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD
+CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_HIGHLIGHT_ALL
+CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGEX
 CODESLAYER_REGISTRY_DRAW_SPACES
 CODESLAYER_REGISTRY_WORD_WRAP
 CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT
@@ -978,12 +980,37 @@ codeslayer_side_pane_get_type
 </SECTION>
 
 <SECTION>
+<FILE>codeslayer-search</FILE>
+<TITLE>CodeSlayerSearch</TITLE>
+CodeSlayerSearch
+codeslayer_search_new
+codeslayer_search_has_matches
+codeslayer_search_find
+codeslayer_search_find_next
+codeslayer_search_find_previous
+codeslayer_search_replace
+codeslayer_search_replace_all
+codeslayer_search_highlight_all
+codeslayer_search_clear_highlight
+<SUBSECTION Standard>
+CODESLAYER_SEARCH_TYPE
+CODESLAYER_SEARCH
+CODESLAYER_SEARCH_CLASS
+IS_CODESLAYER_SEARCH
+IS_CODESLAYER_SEARCH_CLASS
+<SUBSECTION Private>
+CodeSlayerSearchPrivate
+codeslayer_search_get_type
+</SECTION>
+
+<SECTION>
 <FILE>codeslayer-sourceview</FILE>
 <TITLE>CodeSlayerSourceView</TITLE>
 CodeSlayerSourceView
 CODESLAYER_SOURCE_VIEW_UNTITLED
 codeslayer_source_view_new
 codeslayer_source_view_get_document
+codeslayer_source_view_get_search
 codeslayer_source_view_get_modification_time
 codeslayer_source_view_set_modification_time
 codeslayer_source_view_add_completion_provider

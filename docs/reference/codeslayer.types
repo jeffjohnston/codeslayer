@@ -44,6 +44,7 @@
 #include <codeslayer/codeslayer-projects.h>
 #include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-side-pane.h>
+#include <codeslayer/codeslayer-search.h>
 #include <codeslayer/codeslayer-sourceview.h>
 #include <codeslayer/codeslayer-window.h>
 #include <codeslayer/codeslayer.h>
@@ -94,6 +95,7 @@ codeslayer_projects_selection_get_type
 codeslayer_projects_get_type
 codeslayer_registry_get_type
 codeslayer_side_pane_get_type
+codeslayer_search_get_type
 codeslayer_source_view_get_type
 codeslayer_window_get_type
 codeslayer_get_type

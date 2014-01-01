@@ -501,7 +501,7 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
 }
 
 /**
- * codeslayer_search_highlight_all:
+ * codeslayer_search_clear_highlight:
  * @search: a #CodeSlayerSearch.
  */
 void
