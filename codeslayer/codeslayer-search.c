@@ -426,6 +426,8 @@ codeslayer_search_replace_all (CodeSlayerSearch *search,
  * @regex: is true if should use regex
  * 
  * Create the search marks based on the current find entry.
+ * 
+ * Returns: is TRUE if matches were found. 
  */
 gboolean
 codeslayer_search_highlight_all (CodeSlayerSearch *search, 
