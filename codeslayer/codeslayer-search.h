@@ -46,6 +46,11 @@ struct _CodeSlayerSearchClass
 GType codeslayer_search_get_type (void) G_GNUC_CONST;
 
 CodeSlayerSearch*  codeslayer_search_new              (GObject          *source_view);
+gboolean           codeslayer_search_has_matches      (CodeSlayerSearch *search, 
+                                                       gchar            *find,
+                                                       gboolean          match_case, 
+                                                       gboolean          match_word, 
+                                                       gboolean          regex);
 gboolean           codeslayer_search_find             (CodeSlayerSearch *search, 
                                                        gchar            *find,
                                                        gboolean          match_case, 

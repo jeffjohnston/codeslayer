@@ -116,6 +116,39 @@ codeslayer_search_new (GObject *source_view)
 }
 
 /**
+ * codeslayer_search_has_matches:
+ * @search: a #CodeSlayerSearch.
+ * @find: the text to find
+ * @match_case: is true if should match case
+ * @match_word: is true if should match word
+ * @regex: is true if should use regex
+ * 
+ * Returns: is TRUE if matches were found. 
+ */
+gboolean
+codeslayer_search_has_matches (CodeSlayerSearch *search,
+                               gchar            *find,
+                               gboolean          match_case,
+                               gboolean          match_word,
+                               gboolean          regex)
+{
+  CodeSlayerSearchPrivate *priv;
+  GtkTextBuffer *buffer;
+  GtkTextIter start, begin, end;
+  
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
+
+  if (g_strcmp0 (find, "") == 0)
+    return FALSE;
+
+  gtk_text_buffer_get_start_iter (buffer, &start);
+
+  return forward_search (search, find, &start, &begin, &end, match_case, match_word, regex);
+}
+
+/**
  * codeslayer_search_find:
  * @search: a #CodeSlayerSearch.
  * @find: the text to find
@@ -151,7 +184,7 @@ codeslayer_search_find (CodeSlayerSearch *search,
       return FALSE;
     }
 
-  gtk_text_view_get_visible_rect (GTK_TEXT_VIEW (priv->source_view), &rect);  
+  gtk_text_view_get_visible_rect (GTK_TEXT_VIEW (priv->source_view), &rect);
   gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW (priv->source_view), 
                                       &start, rect.x, rect.y);
 
@@ -196,7 +229,7 @@ codeslayer_search_find_next (CodeSlayerSearch *search,
   GtkTextMark *insert_mark;
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
-
+  
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
 
   insert_mark = gtk_text_buffer_get_selection_bound (buffer);
