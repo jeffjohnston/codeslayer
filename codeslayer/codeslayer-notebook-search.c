@@ -238,7 +238,7 @@ codeslayer_notebook_search_find (CodeSlayerNotebookSearch *notebook_search)
   gtk_text_buffer_get_iter_at_mark (buffer, &start, insert_mark);
   gtk_text_buffer_get_iter_at_mark (buffer, &end, selection_mark);
   
-  /* re-select the range so the way the user selected does not effect the find next */
+  /* re-select the range so the find next works consistently */
   gtk_text_iter_order (&start, &end);
   gtk_text_buffer_select_range (buffer, &start, &end);
 
@@ -277,7 +277,6 @@ codeslayer_notebook_search_replace (CodeSlayerNotebookSearch *notebook_search)
   GtkTextMark *insert_mark;
   GtkTextMark *selection_mark;
   GtkTextIter start, end;
-  gchar *current;
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
@@ -293,28 +292,37 @@ codeslayer_notebook_search_replace (CodeSlayerNotebookSearch *notebook_search)
 
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
   label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
-
+    
   insert_mark = gtk_text_buffer_get_insert (buffer);
   selection_mark = gtk_text_buffer_get_selection_bound (buffer);
 
   gtk_text_buffer_get_iter_at_mark (buffer, &start, insert_mark);
   gtk_text_buffer_get_iter_at_mark (buffer, &end, selection_mark);
+  
+  /* re-select the range so the find next works consistently */
+  gtk_text_iter_order (&start, &end);
+  gtk_text_buffer_select_range (buffer, &start, &end);
 
-  current = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
-  if (g_strcmp0 (current, "") != 0)
+  if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regex_checkbox)))
     {
-      g_signal_handler_block (priv->find_entry, priv->find_entry_changed_id);
-      entry_set_text (priv->find_entry, priv->find_store, current);
-      g_signal_handler_unblock (priv->find_entry, priv->find_entry_changed_id);
-      entry_set_text (priv->replace_entry, priv->replace_store, current);
-      gtk_widget_grab_focus (GTK_WIDGET (priv->replace_entry));
-      highlight_all_action (notebook_search);
-    }
-    
-  gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));    
+      gchar *current;
+      current = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
+      if (g_strcmp0 (current, "") != 0)
+        {
+          g_signal_handler_block (priv->find_entry, priv->find_entry_changed_id);
+          entry_set_text (priv->find_entry, priv->find_store, current);
+          g_signal_handler_unblock (priv->find_entry, priv->find_entry_changed_id);
 
-  if (current != NULL)
-    g_free (current);
+          entry_set_text (priv->replace_entry, priv->replace_store, current);
+          highlight_all_action (notebook_search);
+        }
+                  
+      if (current != NULL)
+        g_free (current);
+    }
+
+  gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));    
+  gtk_widget_grab_focus (GTK_WIDGET (priv->replace_entry));
 }
 
 /**
