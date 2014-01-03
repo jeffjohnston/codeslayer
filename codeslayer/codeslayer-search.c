@@ -456,7 +456,7 @@ codeslayer_search_replace_all (CodeSlayerSearch *search,
  * @find: the text to find
  * @match_case: is true if should match case
  * @match_word: is true if should match word
- * @regex: is true if should use regex
+ * @regular_expression: is true if should use regular expression
  * 
  * Create the search marks based on the current find entry.
  * 
