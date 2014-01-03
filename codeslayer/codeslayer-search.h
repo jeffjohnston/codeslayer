@@ -50,39 +50,39 @@ gboolean           codeslayer_search_has_matches      (CodeSlayerSearch *search,
                                                        gchar            *find,
                                                        gboolean          match_case, 
                                                        gboolean          match_word, 
-                                                       gboolean          regex);
+                                                       gboolean          regular_expression);
 gboolean           codeslayer_search_find             (CodeSlayerSearch *search, 
                                                        gchar            *find,
                                                        gboolean          match_case, 
                                                        gboolean          match_word, 
-                                                       gboolean          regex);
+                                                       gboolean          regular_expression);
 void               codeslayer_search_find_next        (CodeSlayerSearch *search, 
                                                        gchar            *find, 
                                                        gboolean          match_case, 
                                                        gboolean          match_word, 
-                                                       gboolean          regex);
+                                                       gboolean          regular_expression);
 void               codeslayer_search_find_previous    (CodeSlayerSearch *search, 
                                                        gchar            *find, 
                                                        gboolean          match_case, 
                                                        gboolean          match_word, 
-                                                       gboolean          regex);
+                                                       gboolean          regular_expression);
 void               codeslayer_search_replace          (CodeSlayerSearch *search, 
                                                        gchar            *find, 
                                                        gchar            *replace, 
                                                        gboolean          match_case, 
                                                        gboolean          match_word, 
-                                                       gboolean          regex);
+                                                       gboolean          regular_expression);
 void               codeslayer_search_replace_all      (CodeSlayerSearch *search, 
                                                        gchar            *find, 
                                                        gchar            *replace, 
                                                        gboolean          match_case, 
                                                        gboolean          match_word, 
-                                                       gboolean          regex);
+                                                       gboolean          regular_expression);
 gboolean           codeslayer_search_highlight_all    (CodeSlayerSearch *search, 
                                                        gchar            *find,
                                                        gboolean          match_case, 
                                                        gboolean          match_word, 
-                                                       gboolean          regex);
+                                                       gboolean          regular_expression);
 void               codeslayer_search_clear_highlight  (CodeSlayerSearch *search);
 
 G_END_DECLS
