@@ -365,7 +365,7 @@ codeslayer_notebook_search_verify_matches (CodeSlayerNotebookSearch *notebook_se
   CodeSlayerSearch *search;
   gboolean match_case;
   gboolean match_word;
-  gboolean regex;
+  gboolean regular_expression;
 
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   
@@ -386,9 +386,9 @@ codeslayer_notebook_search_verify_matches (CodeSlayerNotebookSearch *notebook_se
 
   match_case = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox));
   match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
-  regex = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
+  regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
   
-  if (codeslayer_search_has_matches (search, find, match_case, match_word, regex))
+  if (codeslayer_search_has_matches (search, find, match_case, match_word, regular_expression))
     gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
   else
     gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->error_color));
@@ -691,6 +691,7 @@ sync_notebook_action (CodeSlayerNotebookSearch *notebook_search)
   CodeSlayerRegistry *registry;
   gboolean match_case_selected;
   gboolean match_word_selected;
+  gboolean highlight_all_selected;
   gboolean regular_expression_selected;
   gboolean has_open_documents;
 
@@ -708,18 +709,24 @@ sync_notebook_action (CodeSlayerNotebookSearch *notebook_search)
   gtk_widget_set_sensitive (priv->replace_all_button, has_open_documents);
   gtk_widget_set_sensitive (priv->match_case_checkbox, has_open_documents);
   gtk_widget_set_sensitive (priv->match_word_checkbox, has_open_documents);
+  gtk_widget_set_sensitive (priv->highlight_all_checkbox, has_open_documents);
+  gtk_widget_set_sensitive (priv->regular_expression_checkbox, has_open_documents);
     
   match_case_selected = codeslayer_registry_get_boolean (registry,
                                                          CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE);
   match_word_selected = codeslayer_registry_get_boolean (registry,
                                                          CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD);
+  highlight_all_selected = codeslayer_registry_get_boolean (registry,
+                                                            CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_HIGHLIGHT_ALL);
   regular_expression_selected = codeslayer_registry_get_boolean (registry,
-                                                    CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGULAR_EXPRESSION);
+                                                                 CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGULAR_EXPRESSION);
 
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox), match_case_selected);
 
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox), match_word_selected);
 
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->highlight_all_checkbox), highlight_all_selected);
+  
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox), regular_expression_selected);
   
   if (regular_expression_selected)
@@ -744,24 +751,20 @@ update_registry_action (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   CodeSlayerRegistry *registry;
-  gboolean highlight_all_selected;
   gboolean match_case_selected;
   gboolean match_word_selected;
+  gboolean highlight_all_selected;
   gboolean regular_expression_selected;
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   
   registry = codeslayer_profile_get_registry (priv->profile);
   
-  highlight_all_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_all_checkbox));
   match_case_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox));
   match_word_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
+  highlight_all_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_all_checkbox));
   regular_expression_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
   
-  codeslayer_registry_set_boolean (registry, 
-                                   CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_HIGHLIGHT_ALL,
-                                   highlight_all_selected);
-
   codeslayer_registry_set_boolean (registry, 
                                    CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE,
                                    match_case_selected);
@@ -769,6 +772,10 @@ update_registry_action (CodeSlayerNotebookSearch *notebook_search)
   codeslayer_registry_set_boolean (registry, 
                                    CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD,
                                    match_word_selected);
+
+  codeslayer_registry_set_boolean (registry, 
+                                   CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_HIGHLIGHT_ALL,
+                                   highlight_all_selected);
 
   codeslayer_registry_set_boolean (registry, 
                                    CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGULAR_EXPRESSION,
@@ -786,7 +793,7 @@ find_action (CodeSlayerNotebookSearch *notebook_search)
   gboolean highlight_all;
   gboolean match_case;
   gboolean match_word;
-  gboolean regex;
+  gboolean regular_expression;
 
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   
@@ -818,12 +825,12 @@ find_action (CodeSlayerNotebookSearch *notebook_search)
   highlight_all = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_all_checkbox));
   match_case = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox));
   match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
-  regex = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
+  regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
   
-  if (codeslayer_search_find (search, find, match_case, match_word, regex))
+  if (codeslayer_search_find (search, find, match_case, match_word, regular_expression))
     {
       if (highlight_all)
-        codeslayer_search_highlight_all (search, find, match_case, match_word, regex);
+        codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression);
       gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
     }
   else
@@ -844,7 +851,7 @@ find_next_action (CodeSlayerNotebookSearch *notebook_search)
   CodeSlayerSearch *search;
   gboolean match_case;
   gboolean match_word;
-  gboolean regex;
+  gboolean regular_expression;
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
@@ -855,9 +862,9 @@ find_next_action (CodeSlayerNotebookSearch *notebook_search)
 
   match_case = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox));
   match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
-  regex = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
+  regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
 
-  codeslayer_search_find_next (search, find, match_case, match_word, regex);
+  codeslayer_search_find_next (search, find, match_case, match_word, regular_expression);
     
   g_signal_handler_block (priv->find_entry, priv->find_entry_changed_id);
   entry_set_text (priv->find_entry, priv->find_store, find);
@@ -876,7 +883,7 @@ find_previous_action (CodeSlayerNotebookSearch *notebook_search)
   CodeSlayerSearch *search;
   gboolean match_case;
   gboolean match_word;
-  gboolean regex;
+  gboolean regular_expression;
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
@@ -887,9 +894,9 @@ find_previous_action (CodeSlayerNotebookSearch *notebook_search)
 
   match_case = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox));
   match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
-  regex = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
+  regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
 
-  codeslayer_search_find_previous (search, find, match_case, match_word, regex);
+  codeslayer_search_find_previous (search, find, match_case, match_word, regular_expression);
     
   g_signal_handler_block (priv->find_entry, priv->find_entry_changed_id);
   entry_set_text (priv->find_entry, priv->find_store, find);
@@ -909,7 +916,7 @@ replace_action (CodeSlayerNotebookSearch *notebook_search)
   CodeSlayerSearch *search;
   gboolean match_case;
   gboolean match_word;
-  gboolean regex;
+  gboolean regular_expression;
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
@@ -922,9 +929,9 @@ replace_action (CodeSlayerNotebookSearch *notebook_search)
 
   match_case = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox));
   match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
-  regex = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
+  regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
 
-  codeslayer_search_replace (search, find, replace, match_case, match_word, regex);
+  codeslayer_search_replace (search, find, replace, match_case, match_word, regular_expression);
 
   g_signal_handler_block (priv->find_entry, priv->find_entry_changed_id);
   entry_set_text (priv->find_entry, priv->find_store, find);    
@@ -949,7 +956,7 @@ replace_all_action (CodeSlayerNotebookSearch *notebook_search)
   CodeSlayerSearch *search;
   gboolean match_case;
   gboolean match_word;
-  gboolean regex;
+  gboolean regular_expression;
   
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
 
@@ -962,9 +969,9 @@ replace_all_action (CodeSlayerNotebookSearch *notebook_search)
 
   match_case = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox));
   match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
-  regex = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
+  regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
 
-  codeslayer_search_replace_all (search, find, replace, match_case, match_word, regex);
+  codeslayer_search_replace_all (search, find, replace, match_case, match_word, regular_expression);
 
   g_signal_handler_block (priv->find_entry, priv->find_entry_changed_id);
   entry_set_text (priv->find_entry, priv->find_store, find);    
@@ -989,7 +996,7 @@ highlight_all_action (CodeSlayerNotebookSearch *notebook_search)
   gboolean highlight_all;
   gboolean match_case;
   gboolean match_word;
-  gboolean regex;
+  gboolean regular_expression;
 
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   
@@ -1006,9 +1013,9 @@ highlight_all_action (CodeSlayerNotebookSearch *notebook_search)
   
   match_case = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox));
   match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
-  regex = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
+  regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
   
-  codeslayer_search_highlight_all (search, find, match_case, match_word, regex);
+  codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression);
   
   if (find)
     g_free (find);
