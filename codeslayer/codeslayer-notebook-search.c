@@ -45,7 +45,7 @@ static void add_find_next_button                   (CodeSlayerNotebookSearch    
 static void add_highlight_all_checkbox             (CodeSlayerNotebookSearch      *notebook_search);
 static void add_match_case_checkbox                (CodeSlayerNotebookSearch      *notebook_search);
 static void add_match_word_checkbox                (CodeSlayerNotebookSearch      *notebook_search);
-static void add_regular_expression_checkbox                     (CodeSlayerNotebookSearch      *notebook_search);
+static void add_regular_expression_checkbox        (CodeSlayerNotebookSearch      *notebook_search);
 static void add_replace_entry                      (CodeSlayerNotebookSearch      *notebook_search);
 static void add_replace_button                     (CodeSlayerNotebookSearch      *notebook_search);
 static void add_replace_all_button                 (CodeSlayerNotebookSearch      *notebook_search);
@@ -61,14 +61,15 @@ static void replace_all_action                     (CodeSlayerNotebookSearch    
 static void highlight_all_action                   (CodeSlayerNotebookSearch      *notebook_search);
 static gchar* entry_get_current_text               (GtkWidget                     *entry, 
                                                     GtkListStore                  *store);
-static void set_find_entry_color                   (CodeSlayerNotebookSearch      *notebook_search);
+static void set_entry_color                        (CodeSlayerNotebookSearch      *notebook_search);
+static void set_checkbox_color                     (CodeSlayerNotebookSearch      *notebook_search);
 static void entry_set_text                         (GtkWidget                     *entry,
                                                     GtkListStore                  *store,
                                                     gchar                         *text);
 static void update_registry_action                 (CodeSlayerNotebookSearch      *notebook_search);
 
 #define ENTRY_SIZE_REQUEST 350
-#define HIGHTLIGHT_ALL_SEARCH_TIME .6
+#define HIGHTLIGHT_ALL_SEARCH_TIME 2
 
 #define CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_NOTEBOOK_SEARCH_TYPE, CodeSlayerNotebookSearchPrivate))
@@ -96,8 +97,10 @@ struct _CodeSlayerNotebookSearchPrivate
   GtkWidget         *match_case_checkbox;
   GtkWidget         *match_word_checkbox;
   GtkWidget         *regular_expression_checkbox;
-  GdkRGBA            error_color;
-  GdkRGBA            default_color;
+  GdkRGBA            entry_error_color;
+  GdkRGBA            entry_default_color;
+  GdkRGBA            checkbox_error_color;
+  GdkRGBA            checkbox_default_color;
   gulong             find_entry_changed_id;
 };
 
@@ -192,7 +195,8 @@ codeslayer_notebook_search_new (GtkWidget         *notebook,
   
   gtk_box_pack_start (GTK_BOX (notebook_search), priv->grid, FALSE, FALSE, 2);
   
-  set_find_entry_color (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
+  set_entry_color (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
+  set_checkbox_color (CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
   
   g_signal_connect_swapped (G_OBJECT (notebook), "sync-notebook",
                             G_CALLBACK (sync_notebook_action), notebook_search);
@@ -256,7 +260,7 @@ codeslayer_notebook_search_find (CodeSlayerNotebookSearch *notebook_search)
       gtk_widget_grab_focus (GTK_WIDGET (priv->find_entry));
     }
   
-  gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
+  gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));
   
   if (current != NULL)
     g_free (current);
@@ -322,7 +326,7 @@ codeslayer_notebook_search_replace (CodeSlayerNotebookSearch *notebook_search)
         g_free (current);
     }
 
-  gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));    
+  gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));    
   gtk_widget_grab_focus (GTK_WIDGET (priv->replace_entry));
 }
 
@@ -390,9 +394,9 @@ codeslayer_notebook_search_verify_matches (CodeSlayerNotebookSearch *notebook_se
   regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
   
   if (codeslayer_search_has_matches (search, find, match_case, match_word, regular_expression))
-    gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
+    gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));
   else
-    gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->error_color));
+    gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_error_color));
 
   highlight_all_action (notebook_search);
 }
@@ -815,7 +819,8 @@ find_action (CodeSlayerNotebookSearch *notebook_search)
       gtk_text_buffer_get_start_iter (buffer, &start);
       gtk_text_buffer_select_range (buffer, &start, &start);
 
-      gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
+      gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));
+      gtk_widget_override_color (priv->highlight_all_checkbox, GTK_STATE_FLAG_NORMAL, &(priv->checkbox_default_color));
 
       if (find)
         g_free (find);
@@ -831,12 +836,12 @@ find_action (CodeSlayerNotebookSearch *notebook_search)
   if (codeslayer_search_find (search, find, match_case, match_word, regular_expression))
     {
       if (highlight_all)
-        codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME, NULL);
-      gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->default_color));
+        codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME);
+      gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));
     }
   else
     {
-      gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->error_color));    
+      gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_error_color));    
     }
 
   if (find)
@@ -1008,7 +1013,10 @@ highlight_all_action (CodeSlayerNotebookSearch *notebook_search)
 
   highlight_all = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_all_checkbox));
   if (!highlight_all)
-    return;
+    {
+      gtk_widget_override_color (priv->highlight_all_checkbox, GTK_STATE_FLAG_NORMAL, &(priv->checkbox_default_color));
+      return;
+    }
   
   find = entry_get_current_text (priv->find_entry, priv->find_store);
   
@@ -1016,7 +1024,7 @@ highlight_all_action (CodeSlayerNotebookSearch *notebook_search)
   match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
   regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
   
-  codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME, NULL);
+  codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME);
   
   if (find)
     g_free (find);
@@ -1066,7 +1074,7 @@ get_source_view (CodeSlayerNotebookSearch *notebook_search)
 }
 
 static void
-set_find_entry_color (CodeSlayerNotebookSearch *notebook_search)
+set_entry_color (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   GtkStyleContext *style_context;
@@ -1077,8 +1085,24 @@ set_find_entry_color (CodeSlayerNotebookSearch *notebook_search)
   label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
   style_context = gtk_widget_get_style_context (label);
 
-  gdk_rgba_parse (&(priv->error_color), "#ed3636");
-  gtk_style_context_get_color (style_context, GTK_STATE_FLAG_NORMAL, &(priv->default_color));  
+  gdk_rgba_parse (&(priv->entry_error_color), "#ed3636");
+  gtk_style_context_get_color (style_context, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));  
+}
+
+static void
+set_checkbox_color (CodeSlayerNotebookSearch *notebook_search)
+{
+  CodeSlayerNotebookSearchPrivate *priv;
+  GtkStyleContext *style_context;
+  GtkWidget *label;
+  
+  priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+  
+  label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
+  style_context = gtk_widget_get_style_context (label);
+
+  gdk_rgba_parse (&(priv->checkbox_error_color), "#ed3636");
+  gtk_style_context_get_color (style_context, GTK_STATE_FLAG_NORMAL, &(priv->checkbox_default_color));  
 }
 
 static gchar*
