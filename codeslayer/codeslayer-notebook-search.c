@@ -69,7 +69,7 @@ static void entry_set_text                         (GtkWidget                   
 static void update_registry_action                 (CodeSlayerNotebookSearch      *notebook_search);
 
 #define ENTRY_SIZE_REQUEST 350
-#define HIGHTLIGHT_ALL_SEARCH_TIME 2
+#define HIGHTLIGHT_ALL_SEARCH_TIME .8
 
 #define CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_NOTEBOOK_SEARCH_TYPE, CodeSlayerNotebookSearchPrivate))
@@ -836,7 +836,7 @@ find_action (CodeSlayerNotebookSearch *notebook_search)
   if (codeslayer_search_find (search, find, match_case, match_word, regular_expression))
     {
       if (highlight_all)
-        codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME);
+        codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME, NULL);
       gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));
     }
   else
@@ -1024,7 +1024,7 @@ highlight_all_action (CodeSlayerNotebookSearch *notebook_search)
   match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
   regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
   
-  codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME);
+  codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME, NULL);
   
   if (find)
     g_free (find);

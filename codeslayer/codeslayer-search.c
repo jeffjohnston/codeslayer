@@ -458,6 +458,7 @@ codeslayer_search_replace_all (CodeSlayerSearch *search,
  * @match_word: is true if should match word
  * @regular_expression: is true if should use regular expression
  * @search_time: the amount of time, in seconds, that the search will run before timing out
+ * @search_timed_out: is TRUE if went past the search time [OUT].
  * 
  * Create the search marks based on the current find entry.
  * 
@@ -469,7 +470,8 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
                                  gboolean          match_case, 
                                  gboolean          match_word, 
                                  gboolean          regular_expression, 
-                                 gdouble           search_time)
+                                 gdouble           search_time, 
+                                 gboolean         *search_timed_out)
 {
 
   CodeSlayerSearchPrivate *priv;
@@ -487,6 +489,9 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
   gboolean time_expired = FALSE;
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  
+  if (search_timed_out != NULL)
+    *search_timed_out = FALSE;
   
   if (g_strcmp0 (find, "") == 0)
     return FALSE;
@@ -534,7 +539,7 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
     while (success)
       {
         elapsed = g_timer_elapsed (timer, NULL);
-        if (search_time != -1 && elapsed >= search_time)
+        if (elapsed >= search_time)
           {
             time_expired = TRUE;
             success = FALSE;
@@ -545,6 +550,13 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
         gtk_text_iter_forward_char (&first);
         success = forward_search (search, match, &first, &begin, &end, TRUE, FALSE, FALSE);
         first = begin;
+      }
+
+    elapsed = g_timer_elapsed (timer, NULL);
+    if (elapsed >= search_time)
+      {
+        time_expired = TRUE;
+        break;
       }
 
     list = g_list_next (list);
@@ -561,7 +573,12 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
   g_timer_destroy (timer);
   
   if (time_expired)
-    codeslayer_search_clear_highlight (search);
+    {
+      codeslayer_search_clear_highlight (search);
+    
+      if (search_timed_out != NULL)
+        *search_timed_out = TRUE;
+    }
 
   return success;    
 }
