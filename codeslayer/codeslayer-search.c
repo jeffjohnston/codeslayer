@@ -471,33 +471,97 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
 {
 
   CodeSlayerSearchPrivate *priv;
-  GtkTextBuffer *buffer;
-  GtkTextIter start, begin, end;
   gboolean success;
+  GtkTextBuffer *buffer;
+  GtkTextIter start, first, begin, end;
+  gchar *text;
+  GRegex *regex;
+  GMatchInfo *match_info = NULL;
+  GHashTable *hashtable;
+  GList *list;
+  GTimer *timer;
+  GList *keys;
+  gdouble elapsed = 0;
+  gboolean time_expired = FALSE;
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
   
   if (g_strcmp0 (find, "") == 0)
     return FALSE;
+    
+  if (regular_expression && (g_strcmp0 (find, ".") == 0 || g_strcmp0 (find, ".*") == 0))
+    return TRUE;
 
+  regex = g_regex_new (find, 0, 0, NULL);
+
+  if (regex == NULL)
+    return FALSE;
+    
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
 
-  gtk_text_buffer_get_start_iter (buffer, &start);
-
-  success = forward_search (search, find, &start, &begin, &end, match_case, match_word, regular_expression);
+  gtk_text_buffer_get_bounds (buffer, &start, &end);
+  text = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
   
-  if (!success)
-    return FALSE;
-
-  while (success)
+  hashtable = g_hash_table_new_full ((GHashFunc)g_str_hash, (GEqualFunc)g_str_equal, 
+                                     (GDestroyNotify)g_free, NULL);
+  
+  timer = g_timer_new ();
+  g_timer_start (timer);
+  
+  g_regex_match (regex, text, 0, &match_info);
+  while (g_match_info_matches (match_info))
     {
-      gtk_text_buffer_apply_tag_by_name (buffer, "search-marks", &begin, &end);
-      gtk_text_iter_forward_char (&start);
-      success = forward_search (search, find, &start, &begin, &end, match_case, match_word, regular_expression);
-      start = begin;
+      gchar *key = g_match_info_fetch (match_info, 0);
+      if (!g_hash_table_contains (hashtable, key))
+        g_hash_table_insert (hashtable, key, NULL);
+      else
+        g_free (key);
+                
+      g_match_info_next (match_info, NULL);
     }
     
-  return TRUE;    
+  keys = g_hash_table_get_keys (hashtable);
+  list = keys;
+  
+  while (list != NULL)
+  {
+    gchar *match = list->data;
+
+    first = start;
+    success = forward_search (search, match, &first, &begin, &end, TRUE, FALSE, FALSE);
+    while (success)
+      {
+        elapsed = g_timer_elapsed (timer, NULL);
+        if (elapsed >= 1)
+          {
+            time_expired = TRUE;
+            success = FALSE;
+            break;
+          }
+        
+        gtk_text_buffer_apply_tag_by_name (buffer, "search-marks", &begin, &end);
+        gtk_text_iter_forward_char (&first);
+        success = forward_search (search, match, &first, &begin, &end, TRUE, FALSE, FALSE);
+        first = begin;
+      }
+
+    list = g_list_next (list);
+  }
+  
+  g_regex_unref (regex);
+  g_match_info_free (match_info);
+  g_free (text);
+  
+  if (keys)
+    g_list_free (keys);
+    
+  g_hash_table_destroy (hashtable);
+  g_timer_destroy (timer);
+  
+  if (time_expired)
+    codeslayer_search_clear_highlight (search);
+
+  return success;    
 }
 
 /**
