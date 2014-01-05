@@ -457,6 +457,8 @@ codeslayer_search_replace_all (CodeSlayerSearch *search,
  * @match_case: is true if should match case
  * @match_word: is true if should match word
  * @regular_expression: is true if should use regular expression
+ * @search_time: the amount of time, in seconds, that the search will run before timing out
+ * @search_time_expired: return location to tell if the search took longer than allowed
  * 
  * Create the search marks based on the current find entry.
  * 
@@ -467,7 +469,9 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
                                  gchar            *find,
                                  gboolean          match_case, 
                                  gboolean          match_word, 
-                                 gboolean          regular_expression)
+                                 gboolean          regular_expression, 
+                                 gdouble           search_time,
+                                 gboolean         *search_time_expired)
 {
 
   CodeSlayerSearchPrivate *priv;
@@ -532,7 +536,7 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
     while (success)
       {
         elapsed = g_timer_elapsed (timer, NULL);
-        if (elapsed >= 1)
+        if (search_time != -1 && elapsed >= search_time)
           {
             time_expired = TRUE;
             success = FALSE;
