@@ -253,7 +253,6 @@ codeslayer_notebook_search_find (CodeSlayerNotebookSearch *notebook_search)
       g_signal_handler_block (priv->find_entry, priv->find_entry_changed_id);
       entry_set_text (priv->find_entry, priv->find_store, current);
       g_signal_handler_unblock (priv->find_entry, priv->find_entry_changed_id);
-      highlight_all_action (notebook_search);
     }
   else
     {
@@ -261,6 +260,8 @@ codeslayer_notebook_search_find (CodeSlayerNotebookSearch *notebook_search)
     }
   
   gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));
+
+  highlight_all_action (notebook_search);
   
   if (current != NULL)
     g_free (current);
