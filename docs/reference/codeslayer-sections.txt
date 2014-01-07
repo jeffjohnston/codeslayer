@@ -431,7 +431,6 @@ codeslayer_notebook_search_find
 codeslayer_notebook_search_replace
 codeslayer_notebook_search_find_next
 codeslayer_notebook_search_find_previous
-codeslayer_notebook_search_verify_matches
 <SUBSECTION Standard>
 CODESLAYER_NOTEBOOK_SEARCH_TYPE
 CODESLAYER_NOTEBOOK_SEARCH

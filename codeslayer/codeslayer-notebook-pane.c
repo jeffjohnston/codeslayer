@@ -44,11 +44,6 @@ static void show_search                            (CodeSlayerNotebookPane      
 static void close_search                           (CodeSlayerNotebookSearch    *notebook_search);
 
 static void find_next_action                       (CodeSlayerNotebookPane      *notebook_pane);
-static void document_added_action                  (CodeSlayerNotebookPane      *notebook_pane,
-                                                    GtkWidget                   *page,
-                                                    guint                        page_num);
-static void document_switched_action               (CodeSlayerNotebookPane      *notebook_pane,
-                                                    GParamSpec                  *spec);
                         
 #define CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_NOTEBOOK_PANE_TYPE, CodeSlayerNotebookPanePrivate))
@@ -220,18 +215,6 @@ codeslayer_notebook_pane_new ()
 }
 
 /**
- * codeslayer_notebook_pane_get_notebook:
- * @notebook_pane: a #CodeSlayerNotebookPane.
- *
- * Returns: the notebook contained with the pane.
- */
-GtkWidget*
-codeslayer_notebook_pane_get_notebook (CodeSlayerNotebookPane *notebook_pane)
-{
-  return CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane)->notebook;
-}
-
-/**
  * codeslayer_notebook_pane_set_notebook:
  * @notebook_pane: a #CodeSlayerNotebookPane.
  * @notebook: a #CodeSlayerNotebook.
@@ -245,25 +228,6 @@ codeslayer_notebook_pane_set_notebook (CodeSlayerNotebookPane *notebook_pane,
   priv->notebook = notebook;
   gtk_box_pack_start (GTK_BOX (notebook_pane), GTK_WIDGET (notebook), 
                       TRUE, TRUE, 0);
-
-  g_signal_connect_swapped (G_OBJECT (notebook), "page-added",
-                            G_CALLBACK (document_added_action), notebook_pane);
-  
-  g_signal_connect_swapped (G_OBJECT (notebook), "notify::page",
-                            G_CALLBACK (document_switched_action), notebook_pane);
-}
-
-/**
- * codeslayer_notebook_pane_get_notebook_search:
- * @notebook_pane: a #CodeSlayerNotebookPane.
- *
- * Returns: the notebook search contained with the pane.
- */
-GtkWidget*
-codeslayer_notebook_pane_get_notebook_search (CodeSlayerNotebookPane *notebook_pane)
-{
-  return
-    CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane)->notebook_search;
 }
 
 /**
@@ -375,25 +339,4 @@ static void
 close_search (CodeSlayerNotebookSearch *notebook_search)
 {
   gtk_widget_hide (GTK_WIDGET (notebook_search));
-}
-
-static void
-document_added_action (CodeSlayerNotebookPane *notebook_pane,
-                       GtkWidget              *page, 
-                       guint                   page_num)                     
-{
-  CodeSlayerNotebookPanePrivate *priv;
-  priv = CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane);
-  if (gtk_widget_get_visible (priv->notebook_search))
-    codeslayer_notebook_search_verify_matches (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search));
-}
-
-static void
-document_switched_action (CodeSlayerNotebookPane *notebook_pane,
-                          GParamSpec             *spec)
-{
-  CodeSlayerNotebookPanePrivate *priv;
-  priv = CODESLAYER_NOTEBOOK_PANE_GET_PRIVATE (notebook_pane);
-  if (gtk_widget_get_visible (priv->notebook_search))
-    codeslayer_notebook_search_verify_matches (CODESLAYER_NOTEBOOK_SEARCH (priv->notebook_search));
 }

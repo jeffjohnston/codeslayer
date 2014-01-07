@@ -470,8 +470,7 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
                                  gboolean          match_case, 
                                  gboolean          match_word, 
                                  gboolean          regular_expression, 
-                                 gdouble           search_time, 
-                                 gboolean         *search_timed_out)
+                                 gdouble           search_time)
 {
 
   CodeSlayerSearchPrivate *priv;
@@ -489,9 +488,6 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
   gboolean time_expired = FALSE;
   
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
-  
-  if (search_timed_out != NULL)
-    *search_timed_out = FALSE;
   
   if (g_strcmp0 (find, "") == 0)
     return FALSE;
@@ -552,8 +548,7 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
         first = begin;
       }
 
-    elapsed = g_timer_elapsed (timer, NULL);
-    if (elapsed >= search_time)
+    if (time_expired == TRUE)
       {
         time_expired = TRUE;
         break;
@@ -573,12 +568,7 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
   g_timer_destroy (timer);
   
   if (time_expired)
-    {
-      codeslayer_search_clear_highlight (search);
-    
-      if (search_timed_out != NULL)
-        *search_timed_out = TRUE;
-    }
+    codeslayer_search_clear_highlight (search);
 
   return success;    
 }

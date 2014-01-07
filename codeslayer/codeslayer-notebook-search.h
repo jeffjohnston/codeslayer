@@ -53,7 +53,6 @@ void        codeslayer_notebook_search_find            (CodeSlayerNotebookSearch
 void        codeslayer_notebook_search_replace         (CodeSlayerNotebookSearch *notebook_search);
 void        codeslayer_notebook_search_find_next       (CodeSlayerNotebookSearch *notebook_search);
 void        codeslayer_notebook_search_find_previous   (CodeSlayerNotebookSearch *notebook_search);
-void        codeslayer_notebook_search_verify_matches  (CodeSlayerNotebookSearch *notebook_search);
 
 G_END_DECLS
 
