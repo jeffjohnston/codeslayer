@@ -1042,7 +1042,11 @@ verify_matches (CodeSlayerNotebookSearch *notebook_search)
   else
     gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_error_color));
 
-  highlight_all_action (notebook_search);
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_all_checkbox)))
+    codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME);
+
+  if (find)
+    g_free (find);
 }
 
 static void

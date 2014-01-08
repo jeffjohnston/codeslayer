@@ -58,6 +58,9 @@ static gboolean find_in_view              (GtkWidget             *source_view,
                                            GdkRectangle           rect, 
                                            GtkTextIter            begin, 
                                            GtkTextIter            end);
+static void highlight_all_regex           (CodeSlayerSearch      *search, 
+                                           gchar                 *find,
+                                           gdouble                search_time);                                   
 
 #define FIND "Find:"
 #define FIND_INCREMENTAL "Find [I]:"
@@ -464,7 +467,7 @@ codeslayer_search_replace_all (CodeSlayerSearch *search,
  * 
  * Returns: is TRUE if matches were found. 
  */
-gboolean
+void
 codeslayer_search_highlight_all (CodeSlayerSearch *search, 
                                  gchar            *find,
                                  gboolean          match_case, 
@@ -472,7 +475,40 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
                                  gboolean          regular_expression, 
                                  gdouble           search_time)
 {
+  CodeSlayerSearchPrivate *priv;
+  gboolean success;
+  GtkTextBuffer *buffer;
+  GtkTextIter start, first, begin, end;
+  gchar *text;
 
+  if (regular_expression)
+    return highlight_all_regex (search, find, search_time);
+
+  priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
+  
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
+
+  gtk_text_buffer_get_bounds (buffer, &start, &end);
+  text = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
+  
+  first = start;
+  success = forward_search (search, find, &first, &begin, &end, match_case, match_word, FALSE);
+  while (success)
+    {
+      gtk_text_buffer_apply_tag_by_name (buffer, "search-marks", &begin, &end);
+      gtk_text_iter_forward_char (&first);
+      success = forward_search (search, find, &first, &begin, &end, match_case, match_word, FALSE);
+      first = begin;
+    }
+
+  g_free (text);
+}
+
+static void 
+highlight_all_regex (CodeSlayerSearch *search, 
+                     gchar            *find,
+                     gdouble           search_time)
+{
   CodeSlayerSearchPrivate *priv;
   gboolean success;
   GtkTextBuffer *buffer;
@@ -490,15 +526,15 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
   priv = CODESLAYER_SEARCH_GET_PRIVATE (search);
   
   if (g_strcmp0 (find, "") == 0)
-    return FALSE;
+    return;
     
-  if (regular_expression && (g_strcmp0 (find, ".") == 0 || g_strcmp0 (find, ".*") == 0))
-    return TRUE;
+  if (g_strcmp0 (find, ".") == 0 || g_strcmp0 (find, ".*") == 0)
+    return;
 
   regex = g_regex_new (find, 0, 0, NULL);
 
   if (regex == NULL)
-    return FALSE;
+    return;
     
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->source_view));
 
@@ -569,8 +605,6 @@ codeslayer_search_highlight_all (CodeSlayerSearch *search,
   
   if (time_expired)
     codeslayer_search_clear_highlight (search);
-
-  return success;    
 }
 
 /**
