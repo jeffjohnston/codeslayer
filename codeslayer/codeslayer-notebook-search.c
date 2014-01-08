@@ -994,7 +994,6 @@ document_added_action (CodeSlayerNotebookSearch *notebook_search,
 {
   if (gtk_widget_get_visible (GTK_WIDGET (notebook_search)))
     verify_matches (notebook_search);
-    
 }
 
 static void
