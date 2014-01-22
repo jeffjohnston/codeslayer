@@ -72,10 +72,12 @@ static void document_added_action                  (CodeSlayerNotebookSearch    
 static void document_switched_action               (CodeSlayerNotebookSearch      *notebook_pane,
                                                     GParamSpec                    *spec);
 static void verify_matches                         (CodeSlayerNotebookSearch      *notebook_search);
+static gboolean highlight_all_timeout              (CodeSlayerNotebookSearch      *notebook_search);
 
 
 #define ENTRY_SIZE_REQUEST 350
-#define HIGHTLIGHT_ALL_SEARCH_TIME .8
+#define HIGHTLIGHT_ALL_TIMEOUT 500
+#define HIGHTLIGHT_ALL_TIMER .4
 
 #define CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_NOTEBOOK_SEARCH_TYPE, CodeSlayerNotebookSearchPrivate))
@@ -106,6 +108,8 @@ struct _CodeSlayerNotebookSearchPrivate
   GdkRGBA            entry_error_color;
   GdkRGBA            entry_default_color;
   gulong             find_entry_changed_id;
+  GTimer            *highlight_all_timer;
+  guint              highlight_all_timeout_id;
 };
 
 enum
@@ -151,11 +155,21 @@ codeslayer_notebook_search_class_init (CodeSlayerNotebookSearchClass *klass)
 static void
 codeslayer_notebook_search_init (CodeSlayerNotebookSearch *notebook_search)
 {
+  CodeSlayerNotebookSearchPrivate *priv;
+  priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+  priv->highlight_all_timer = NULL;
+  priv->highlight_all_timeout_id = 0;
 }
 
 static void
 codeslayer_notebook_search_finalize (CodeSlayerNotebookSearch *notebook_search)
 {
+  CodeSlayerNotebookSearchPrivate *priv;
+  priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+
+  if (priv->highlight_all_timer != NULL)
+    g_timer_destroy (priv->highlight_all_timer);
+
   G_OBJECT_CLASS (codeslayer_notebook_search_parent_class)->finalize (G_OBJECT (notebook_search));
 }
 
@@ -242,6 +256,11 @@ codeslayer_notebook_search_find (CodeSlayerNotebookSearch *notebook_search)
   source_view = get_source_view (notebook_search);
   if (source_view == NULL)
     return;
+    
+  if (priv->highlight_all_timeout_id == 0)
+    priv->highlight_all_timeout_id = g_timeout_add (HIGHTLIGHT_ALL_TIMEOUT, 
+                                                    (GSourceFunc) highlight_all_timeout, 
+                                                    notebook_search);
 
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
   label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
@@ -304,6 +323,11 @@ codeslayer_notebook_search_replace (CodeSlayerNotebookSearch *notebook_search)
   source_view = get_source_view (notebook_search);
   if (source_view == NULL)
     return;
+    
+  if (priv->highlight_all_timeout_id == 0)
+    priv->highlight_all_timeout_id = g_timeout_add (HIGHTLIGHT_ALL_TIMEOUT, 
+                                                    (GSourceFunc) highlight_all_timeout, 
+                                                    notebook_search);
 
   buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (source_view));
   label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
@@ -711,6 +735,7 @@ close_search_action (CodeSlayerNotebookSearch *notebook_search)
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   clear_all_search_marks (notebook_search);
   entry_set_text (priv->replace_entry, priv->replace_store, "");
+  priv->highlight_all_timeout_id = 0;
   g_signal_emit_by_name ((gpointer) notebook_search, "close-search");
 }
 
@@ -771,8 +796,6 @@ find_action (CodeSlayerNotebookSearch *notebook_search)
   
   search = codeslayer_source_view_get_search (CODESLAYER_SOURCE_VIEW (source_view));
   
-  codeslayer_search_clear_highlight (search);
-  
   if (g_strcmp0 (find, "") == 0)
     {
       GtkTextBuffer *buffer;
@@ -783,6 +806,8 @@ find_action (CodeSlayerNotebookSearch *notebook_search)
       gtk_text_buffer_select_range (buffer, &start, &start);
 
       gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));
+      
+      codeslayer_search_clear_highlight (search);
 
       if (find)
         g_free (find);
@@ -798,7 +823,11 @@ find_action (CodeSlayerNotebookSearch *notebook_search)
   if (codeslayer_search_find (search, find, match_case, match_word, regular_expression))
     {
       if (highlight_all)
-        codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME);
+        {
+          if (priv->highlight_all_timer == NULL)
+              priv->highlight_all_timer = g_timer_new ();
+          g_timer_start (priv->highlight_all_timer);
+        }
       gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));
     }
   else
@@ -980,7 +1009,7 @@ highlight_all_action (CodeSlayerNotebookSearch *notebook_search)
       match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
       regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
      
-      codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME);
+      codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression);
      
       if (find)
         g_free (find);
@@ -1043,7 +1072,7 @@ verify_matches (CodeSlayerNotebookSearch *notebook_search)
     gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_error_color));
 
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_all_checkbox)))
-    codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression, HIGHTLIGHT_ALL_SEARCH_TIME);
+    codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression);
 
   if (find)
     g_free (find);
@@ -1072,6 +1101,56 @@ clear_all_search_marks (CodeSlayerNotebookSearch *notebook_search)
       
       codeslayer_search_clear_highlight (search);
     }
+}
+
+static gboolean 
+highlight_all_timeout (CodeSlayerNotebookSearch *notebook_search)
+{
+  CodeSlayerNotebookSearchPrivate *priv;
+  GtkWidget *source_view;
+  CodeSlayerSearch *search;
+  gboolean match_case;
+  gboolean match_word;
+  gboolean regular_expression;
+  gchar *find;
+
+  priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+
+  if (priv->highlight_all_timeout_id == 0)
+    {
+      if (priv->highlight_all_timer != NULL)
+        {
+          g_timer_destroy (priv->highlight_all_timer);
+          priv->highlight_all_timer = NULL;        
+        }
+      return FALSE;
+    }
+
+  if (priv->highlight_all_timer == NULL || 
+      g_timer_elapsed (priv->highlight_all_timer, NULL) < HIGHTLIGHT_ALL_TIMER)
+    return TRUE;
+
+  if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_all_checkbox)))
+    return TRUE;
+
+  match_case = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox));
+  match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
+  regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
+
+  source_view = get_source_view (notebook_search);
+  search = codeslayer_source_view_get_search (CODESLAYER_SOURCE_VIEW (source_view));
+
+  find = entry_get_current_text (priv->find_entry, priv->find_store);
+
+  g_timer_destroy (priv->highlight_all_timer);
+  priv->highlight_all_timer = NULL;
+  codeslayer_search_clear_highlight (search);
+  codeslayer_search_highlight_all (search, find, match_case, match_word, regular_expression);
+
+  if (find)
+    g_free (find);
+
+  return TRUE;
 }
 
 static GtkWidget*

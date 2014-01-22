@@ -82,8 +82,7 @@ void              codeslayer_search_highlight_all    (CodeSlayerSearch *search,
                                                        gchar            *find,
                                                        gboolean          match_case, 
                                                        gboolean          match_word, 
-                                                       gboolean          regular_expression, 
-                                                       gdouble           search_time);
+                                                       gboolean          regular_expression);
 void               codeslayer_search_clear_highlight  (CodeSlayerSearch *search);
 
 G_END_DECLS
