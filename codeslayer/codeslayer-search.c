@@ -467,8 +467,6 @@ codeslayer_search_replace_all (CodeSlayerSearch *search,
  * @match_case: is true if should match case
  * @match_word: is true if should match word
  * @regular_expression: is true if should use regular expression
- * @search_time: the amount of time, in seconds, that the search will run before timing out
- * @search_timed_out: is TRUE if went past the search time [OUT].
  * 
  * Create the search marks based on the current find entry.
  * 

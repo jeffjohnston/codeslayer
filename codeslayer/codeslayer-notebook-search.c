@@ -77,7 +77,7 @@ static gboolean highlight_all_timeout              (CodeSlayerNotebookSearch    
 
 #define ENTRY_SIZE_REQUEST 350
 #define HIGHTLIGHT_ALL_TIMEOUT 500
-#define HIGHTLIGHT_ALL_TIMER .4
+#define HIGHTLIGHT_ALL_TIMER .3
 
 #define CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_NOTEBOOK_SEARCH_TYPE, CodeSlayerNotebookSearchPrivate))
