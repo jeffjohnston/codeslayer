@@ -78,7 +78,7 @@ void               codeslayer_search_replace_all      (CodeSlayerSearch *search,
                                                        gboolean          match_case, 
                                                        gboolean          match_word, 
                                                        gboolean          regular_expression);
-void              codeslayer_search_highlight_all    (CodeSlayerSearch *search, 
+void              codeslayer_search_highlight_all     (CodeSlayerSearch *search, 
                                                        gchar            *find,
                                                        gboolean          match_case, 
                                                        gboolean          match_word, 
