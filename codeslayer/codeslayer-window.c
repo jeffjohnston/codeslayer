@@ -36,6 +36,7 @@
 #include <codeslayer/codeslayer-profiles.h>
 #include <codeslayer/codeslayer-profiles-manager.h>
 #include <codeslayer/codeslayer-plugins.h>
+#include <codeslayer/codeslayer-regexview.h>
 #include <codeslayer/codeslayer.h>
 #include <codeslayer/codeslayer-utils.h>
 
@@ -56,6 +57,7 @@ static void create_profiles               (CodeSlayerWindow      *window);
 static void create_plugins                (CodeSlayerWindow      *window);
 static void create_menu                   (CodeSlayerWindow      *window);
 static void create_projects               (CodeSlayerWindow      *window);
+static void create_regex_view             (CodeSlayerWindow      *window);
 static void create_project_properties     (CodeSlayerWindow      *window);
 static void create_side_and_bottom_pane   (CodeSlayerWindow      *window);
 static void create_notebook               (CodeSlayerWindow      *window);
@@ -85,6 +87,7 @@ struct _CodeSlayerWindowPrivate
   CodeSlayerProfile     *profile;
   GtkWidget             *profiles_manager;
   GtkWidget             *projects;
+  GtkWidget             *regex_view;
   GtkWidget             *project_properties;
   GtkWidget             *menu_bar;
   CodeSlayerEngine      *engine;
@@ -94,6 +97,7 @@ struct _CodeSlayerWindowPrivate
   GtkWidget             *notebook;
   CodeSlayerPlugins     *plugins;
   GtkWidget             *notebook_pane;
+  GtkWidget             *notebook_search;
   GtkWidget             *side_pane;
   GtkWidget             *bottom_pane;
   GtkWidget             *hpaned;
@@ -122,6 +126,7 @@ codeslayer_window_init (CodeSlayerWindow *window)
   priv->engine = NULL;
   priv->plugins = NULL;
   priv->codeslayer = NULL;
+  priv->regex_view = NULL;
   
   gtk_window_set_default_icon_name ("codeslayer");
   
@@ -212,6 +217,8 @@ codeslayer_window_new (GtkApplication *application,
   create_side_and_bottom_pane (CODESLAYER_WINDOW (window));  
   
   create_paned_containers (CODESLAYER_WINDOW (window));
+
+  create_regex_view (CODESLAYER_WINDOW (window));
 
   create_engine (CODESLAYER_WINDOW (window));
 
@@ -310,6 +317,23 @@ create_projects (CodeSlayerWindow *window)
 }
 
 static void 
+create_regex_view (CodeSlayerWindow *window)
+{
+  CodeSlayerWindowPrivate *priv;
+  GtkWidget *regex_view;
+  
+  priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
+
+  regex_view = codeslayer_regex_view_new (priv->notebook_search, 
+                                          priv->notebook, 
+                                          priv->profile);
+  priv->regex_view = regex_view;
+  
+  codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (priv->bottom_pane), 
+                                priv->regex_view, _("Regex"));  
+}
+
+static void 
 create_notebook (CodeSlayerWindow *window)
 {
   CodeSlayerWindowPrivate *priv;
@@ -325,6 +349,7 @@ create_notebook (CodeSlayerWindow *window)
   notebook_search = codeslayer_notebook_search_new (notebook, priv->profile);
   notebook_pane = codeslayer_notebook_pane_new ();
   priv->notebook_pane = notebook_pane;
+  priv->notebook_search = notebook_search;
   
   codeslayer_notebook_pane_set_notebook (CODESLAYER_NOTEBOOK_PANE (notebook_pane), notebook);
   codeslayer_notebook_pane_set_notebook_search (CODESLAYER_NOTEBOOK_PANE (notebook_pane), notebook_search);

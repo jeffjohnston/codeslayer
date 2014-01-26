@@ -42,7 +42,8 @@ struct _CodeSlayerNotebookSearchClass
 {
   GtkVBoxClass parent_class;
 
-  void (*close_search) (CodeSlayerNotebookSearch * notebook_search);
+  void (*close_search) (CodeSlayerNotebookSearch *notebook_search);
+  void (*search_changed) (CodeSlayerNotebookSearch *notebook_search);
 };
 
 GType codeslayer_notebook_search_get_type (void) G_GNUC_CONST;

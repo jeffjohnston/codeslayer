@@ -144,6 +144,7 @@ am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-notebook-tab.lo \
 	libcodeslayer_la-codeslayer-notebook-page.lo \
 	libcodeslayer_la-codeslayer-document-linker.lo \
+	libcodeslayer_la-codeslayer-regexview.lo \
 	libcodeslayer_la-codeslayer-sourceview.lo \
 	libcodeslayer_la-codeslayer-search.lo \
 	libcodeslayer_la-codeslayer-utils.lo \
@@ -402,6 +403,7 @@ pkginclude_HEADERS = \
     codeslayer-notebook-tab.h \
     codeslayer-notebook-page.h \
     codeslayer-document-linker.h \
+    codeslayer-regexview.h \
     codeslayer-sourceview.h \
     codeslayer-search.h \
     codeslayer-utils.h \
@@ -459,6 +461,7 @@ libcodeslayer_la_SOURCES = \
     codeslayer-notebook-tab.c \
     codeslayer-notebook-page.c \
     codeslayer-document-linker.c \
+    codeslayer-regexview.c \
     codeslayer-sourceview.c \
     codeslayer-search.c \
     codeslayer-utils.c \
@@ -648,6 +651,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-projects-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-projects-selection.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-projects.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-regexview.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-registry.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-side-pane.Plo@am__quote@
@@ -987,6 +991,13 @@ libcodeslayer_la-codeslayer-document-linker.lo: codeslayer-document-linker.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-document-linker.c' object='libcodeslayer_la-codeslayer-document-linker.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-document-linker.lo `test -f 'codeslayer-document-linker.c' || echo '$(srcdir)/'`codeslayer-document-linker.c
+
+libcodeslayer_la-codeslayer-regexview.lo: codeslayer-regexview.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-regexview.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-regexview.Tpo -c -o libcodeslayer_la-codeslayer-regexview.lo `test -f 'codeslayer-regexview.c' || echo '$(srcdir)/'`codeslayer-regexview.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-regexview.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-regexview.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-regexview.c' object='libcodeslayer_la-codeslayer-regexview.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-regexview.lo `test -f 'codeslayer-regexview.c' || echo '$(srcdir)/'`codeslayer-regexview.c
 
 libcodeslayer_la-codeslayer-sourceview.lo: codeslayer-sourceview.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-sourceview.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-sourceview.Tpo -c -o libcodeslayer_la-codeslayer-sourceview.lo `test -f 'codeslayer-sourceview.c' || echo '$(srcdir)/'`codeslayer-sourceview.c
