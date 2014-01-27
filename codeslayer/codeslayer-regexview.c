@@ -39,7 +39,7 @@ static void search_changed_action                    (CodeSlayerRegexView      *
                                                       gboolean                  regular_expression);
 static void add_buttons                              (CodeSlayerRegexView      *regex_view);                                               
 static void add_text_view                            (CodeSlayerRegexView      *regex_view);
-static void process_action                           (CodeSlayerRegexView      *regex_view);
+static void extract_action                           (CodeSlayerRegexView      *regex_view);
 static void extract_action                           (CodeSlayerRegexView      *regex_view);
 static GtkWidget* codeslayer_get_active_source_view  (CodeSlayerRegexView      *regex_view);
 
@@ -53,8 +53,6 @@ struct _CodeSlayerRegexViewPrivate
   GtkWidget         *notebook;
   CodeSlayerProfile *profile;
   GtkWidget         *text_view;
-  GtkWidget         *replace_radio_button;
-  GtkWidget         *extract_radio_button;
   gchar             *find;
   gchar             *replace;
 };
@@ -146,32 +144,19 @@ search_changed_action (CodeSlayerRegexView *regex_view,
 static void
 add_buttons (CodeSlayerRegexView *regex_view)
 {
-  CodeSlayerRegexViewPrivate *priv;
   GtkWidget *hbox;
-  GtkWidget *replace_radio_button;
-  GtkWidget *extract_radio_button;
-  GtkWidget *process_button;
-
-  priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
+  GtkWidget *extract_button;
 
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
   
-  replace_radio_button = gtk_radio_button_new_with_label (NULL, "Replace");
-  extract_radio_button = gtk_radio_button_new_with_label_from_widget (GTK_RADIO_BUTTON 
-                                                                      (replace_radio_button), "Extract");
-  process_button =  gtk_button_new_with_label ("Process");
+  extract_button =  gtk_button_new_with_label ("Extract Find/Replace");
   
-  priv->replace_radio_button = replace_radio_button;
-  priv->extract_radio_button = extract_radio_button;
-                                                                      
-  gtk_box_pack_start (GTK_BOX (hbox), replace_radio_button, FALSE, FALSE, 2);
-  gtk_box_pack_start (GTK_BOX (hbox), extract_radio_button, FALSE, FALSE, 2);
-  gtk_box_pack_start (GTK_BOX (hbox), process_button, FALSE, FALSE, 2);
+  gtk_box_pack_start (GTK_BOX (hbox), extract_button, FALSE, FALSE, 0);
   
-  gtk_box_pack_start (GTK_BOX (regex_view), hbox, FALSE, FALSE, 2);
+  gtk_box_pack_start (GTK_BOX (regex_view), hbox, FALSE, FALSE, 0);
   
-  g_signal_connect_swapped (G_OBJECT (process_button), "clicked",
-                            G_CALLBACK (process_action), regex_view);
+  g_signal_connect_swapped (G_OBJECT (extract_button), "clicked",
+                            G_CALLBACK (extract_action), regex_view);
 }
 
 static void
@@ -192,16 +177,6 @@ add_text_view (CodeSlayerRegexView *regex_view)
   gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (text_view));
 
   gtk_box_pack_start (GTK_BOX (regex_view), scrolled_window, TRUE, TRUE, 2);
-}
-
-static void
-process_action (CodeSlayerRegexView *regex_view)
-{
-  CodeSlayerRegexViewPrivate *priv;
-  priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
-
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->extract_radio_button)))
-    extract_action (regex_view);
 }
 
 static void
@@ -251,6 +226,7 @@ extract_action (CodeSlayerRegexView *regex_view)
       else
         {
           string = g_string_append (string, find_match);
+          string = g_string_append (string, "\n");
         }
 
       g_free (find_match);
