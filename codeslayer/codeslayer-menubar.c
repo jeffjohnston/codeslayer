@@ -81,6 +81,7 @@ enum
   FIND,
   FIND_NEXT,
   FIND_PREVIOUS,
+  REGULAR_EXPRESSION,
   GO_TO_LINE,
   FIND_INCREMENTAL,
   SHOW_PREFERENCES,
@@ -377,6 +378,22 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerMenuBarClass, find_previous), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  /**
+   * CodeSlayerMenuBar::regular-expression
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::regular-expression signal is a request to jump to the line number.
+   */
+  codeslayer_menu_bar_signals[REGULAR_EXPRESSION] =
+    g_signal_new ("regular-expression", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, regular_expression), 
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
@@ -906,6 +923,16 @@ void
 codeslayer_menu_bar_find_projects (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "find-projects", NULL);
+}
+
+/**
+ * codeslayer_menu_bar_regular_expression:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ */
+void            
+codeslayer_menu_bar_regular_expression (CodeSlayerMenuBar *menu_bar)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "regular-expression", NULL);
 }
 
 /**

@@ -31,6 +31,7 @@
 #include <codeslayer/codeslayer-notebook-tab.h>
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-notebook-pane.h>
+#include <codeslayer/codeslayer-regexview.h>
 #include <codeslayer/codeslayer-sourceview.h>
 
 /**
@@ -54,6 +55,7 @@ static void open_document_action            (CodeSlayerEngine      *engine);
 static void save_document_action            (CodeSlayerEngine      *engine);
 static void save_all_documents_action       (CodeSlayerEngine      *engine);
 static void close_document_action           (CodeSlayerEngine      *engine);
+static void regular_expression_action       (CodeSlayerEngine      *engine);
 static void go_to_line_action               (CodeSlayerEngine      *engine);
 static gboolean go_to_line_keypress_action  (GtkWidget             *entry,
                                              GdkEventKey           *event, 
@@ -106,8 +108,7 @@ static void rename_file_path_action         (CodeSlayerEngine      *engine,
                                              gchar                 *file_path,
                                              gchar                 *renamed_file_path);
                                              
-/* engine common code */                                             
-
+static void load_regular_expression         (CodeSlayerEngine      *engine);
 static void load_window_settings            (CodeSlayerEngine      *engine);
 static void sync_menu_and_notebook          (CodeSlayerEngine      *engine);
 static void save_document_settings          (CodeSlayerEngine      *engine);
@@ -131,7 +132,9 @@ struct _CodeSlayerEnginePrivate
   GtkWidget             *search;
   GtkWidget             *menu_bar;
   GtkWidget             *notebook;
+  GtkWidget             *notebook_search;
   GtkWidget             *notebook_pane;
+  GtkWidget             *regex_view;
   GtkWidget             *side_pane;
   GtkWidget             *bottom_pane;
   GtkWidget             *hpaned;
@@ -159,6 +162,7 @@ codeslayer_engine_init (CodeSlayerEngine *engine)
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   priv->preferences = NULL;
   priv->search = NULL;
+  priv->regex_view = NULL;
 }
 
 static void
@@ -180,6 +184,7 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
  * @projects: a #CodeSlayerProjects.
  * @menu_bar: a #CodeSlayerMenuBar.
  * @notebook: a #CodeSlayerNotebook.
+ * @notebook_search: a #CodeSlayerNotebookSearch.
  * @notebook_pane: a #CodeSlayerNotebookPane.
  * @side_pane: a #CodeSlayerSidePane.
  * @bottom_pane: a #CodeSlayerBottomPane.
@@ -197,6 +202,7 @@ codeslayer_engine_new (GtkWindow          *window,
                        GtkWidget          *projects,
                        GtkWidget          *menu_bar,
                        GtkWidget          *notebook,
+                       GtkWidget          *notebook_search,
                        GtkWidget          *notebook_pane, 
                        GtkWidget          *side_pane,
                        GtkWidget          *bottom_pane, 
@@ -217,6 +223,7 @@ codeslayer_engine_new (GtkWindow          *window,
   priv->plugins = plugins;
   priv->menu_bar = menu_bar;
   priv->notebook = notebook;
+  priv->notebook_search = notebook_search;
   priv->notebook_pane = notebook_pane;
   priv->side_pane = side_pane;
   priv->bottom_pane = bottom_pane;
@@ -253,6 +260,9 @@ codeslayer_engine_new (GtkWindow          *window,
   
   g_signal_connect_swapped (G_OBJECT (menu_bar), "find-previous",
                             G_CALLBACK (search_find_previous_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "regular-expression",
+                            G_CALLBACK (regular_expression_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (menu_bar), "go-to-line",
                             G_CALLBACK (go_to_line_action), engine);
@@ -358,13 +368,14 @@ void
 codeslayer_engine_load_profile (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
-  CodeSlayerRegistry *registry; 
+  CodeSlayerRegistry *registry;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
   registry = codeslayer_profile_get_registry (priv->profile);
   
-  load_window_settings (CODESLAYER_ENGINE (engine));
+  load_window_settings (engine);
+  load_regular_expression (engine);
 
   if (!codeslayer_profile_get_enable_projects (priv->profile))
     new_document_action (engine);
@@ -410,7 +421,7 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
   
   sync_menu_and_notebook (CODESLAYER_ENGINE (engine));
   codeslayer_plugins_activate (priv->plugins, priv->profile);
-
+  
   g_signal_emit_by_name ((gpointer) registry, "registry-initialized");
 }
 
@@ -863,6 +874,48 @@ registry_changed_action (CodeSlayerEngine *engine)
 }
 
 static void
+regular_expression_action (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv; 
+  CodeSlayerRegistry *registry;
+  gboolean regular_expression;
+
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  registry = codeslayer_profile_get_registry (priv->profile);
+
+  regular_expression = codeslayer_registry_get_boolean (registry, 
+                                                        CODESLAYER_REGISTRY_REGULAR_EXPRESSION);
+
+  if (regular_expression)
+    {
+      codeslayer_abstract_pane_remove (CODESLAYER_ABSTRACT_PANE (priv->bottom_pane), 
+                                       priv->regex_view);
+      priv->regex_view = NULL;
+
+      codeslayer_registry_set_boolean (registry, 
+                                       CODESLAYER_REGISTRY_REGULAR_EXPRESSION,
+                                       FALSE);
+    }
+  else
+    {
+      priv->regex_view = codeslayer_regex_view_new (priv->notebook_search, 
+                                                    priv->notebook, 
+                                                    priv->profile);
+                                                    
+      codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (priv->bottom_pane), 
+                                    priv->regex_view, _("Regular Expression"));
+      
+      gtk_widget_set_visible (gtk_paned_get_child2 (GTK_PANED(priv->vpaned)), TRUE);
+      
+      codeslayer_registry_set_boolean (registry, 
+                                       CODESLAYER_REGISTRY_REGULAR_EXPRESSION,
+                                       TRUE);
+    }
+}
+
+static void
+
 go_to_line_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
@@ -1507,6 +1560,30 @@ save_window_settings (CodeSlayerEngine *engine)
   codeslayer_registry_set_integer (registry,
                                    CODESLAYER_REGISTRY_VPANED_POSITION,
                                    position);
+}
+
+static void
+load_regular_expression (CodeSlayerEngine *engine)
+{
+  CodeSlayerEnginePrivate *priv;
+  CodeSlayerRegistry *registry;
+  gboolean regular_expression;
+
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  registry = codeslayer_profile_get_registry (priv->profile);
+
+  regular_expression = codeslayer_registry_get_boolean (registry, 
+                                                        CODESLAYER_REGISTRY_REGULAR_EXPRESSION);
+  if (regular_expression)
+    {
+      priv->regex_view = codeslayer_regex_view_new (priv->notebook_search, 
+                                                    priv->notebook, 
+                                                    priv->profile);
+                                                    
+      codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (priv->bottom_pane), 
+                                    priv->regex_view, _("Regular Expression"));
+    }
 }
 
 static void

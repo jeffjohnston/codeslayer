@@ -36,7 +36,6 @@
 #include <codeslayer/codeslayer-profiles.h>
 #include <codeslayer/codeslayer-profiles-manager.h>
 #include <codeslayer/codeslayer-plugins.h>
-#include <codeslayer/codeslayer-regexview.h>
 #include <codeslayer/codeslayer.h>
 #include <codeslayer/codeslayer-utils.h>
 
@@ -57,7 +56,6 @@ static void create_profiles               (CodeSlayerWindow      *window);
 static void create_plugins                (CodeSlayerWindow      *window);
 static void create_menu                   (CodeSlayerWindow      *window);
 static void create_projects               (CodeSlayerWindow      *window);
-static void create_regex_view             (CodeSlayerWindow      *window);
 static void create_project_properties     (CodeSlayerWindow      *window);
 static void create_side_and_bottom_pane   (CodeSlayerWindow      *window);
 static void create_notebook               (CodeSlayerWindow      *window);
@@ -218,8 +216,6 @@ codeslayer_window_new (GtkApplication *application,
   
   create_paned_containers (CODESLAYER_WINDOW (window));
 
-  create_regex_view (CODESLAYER_WINDOW (window));
-
   create_engine (CODESLAYER_WINDOW (window));
 
   pack_window (CODESLAYER_WINDOW (window));
@@ -317,23 +313,6 @@ create_projects (CodeSlayerWindow *window)
 }
 
 static void 
-create_regex_view (CodeSlayerWindow *window)
-{
-  CodeSlayerWindowPrivate *priv;
-  GtkWidget *regex_view;
-  
-  priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
-
-  regex_view = codeslayer_regex_view_new (priv->notebook_search, 
-                                          priv->notebook, 
-                                          priv->profile);
-  priv->regex_view = regex_view;
-  
-  codeslayer_abstract_pane_add (CODESLAYER_ABSTRACT_PANE (priv->bottom_pane), 
-                                priv->regex_view, _("Regex"));  
-}
-
-static void 
 create_notebook (CodeSlayerWindow *window)
 {
   CodeSlayerWindowPrivate *priv;
@@ -411,6 +390,7 @@ create_engine (CodeSlayerWindow *window)
                                   priv->projects,
                                   priv->menu_bar, 
                                   priv->notebook, 
+                                  priv->notebook_search, 
                                   priv->notebook_pane, 
                                   priv->side_pane, 
                                   priv->bottom_pane, 
