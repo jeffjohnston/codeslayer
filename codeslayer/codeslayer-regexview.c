@@ -50,11 +50,13 @@ typedef struct _CodeSlayerRegexViewPrivate CodeSlayerRegexViewPrivate;
 
 struct _CodeSlayerRegexViewPrivate
 {
+  GtkWidget         *notebook_search;
   GtkWidget         *notebook;
   CodeSlayerProfile *profile;
   GtkWidget         *text_view;
   gchar             *find;
   gchar             *replace;
+  gulong             search_changed_id;
 };
 
 G_DEFINE_TYPE (CodeSlayerRegexView, codeslayer_regex_view, GTK_TYPE_VBOX)
@@ -69,8 +71,12 @@ codeslayer_regex_view_class_init (CodeSlayerRegexViewClass *klass)
 static void
 codeslayer_regex_view_init (CodeSlayerRegexView *regex_view)
 {
-
-  gtk_container_set_border_width (GTK_CONTAINER (regex_view), 2);
+  CodeSlayerRegexViewPrivate *priv;
+  priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
+  gtk_container_set_border_width (GTK_CONTAINER (regex_view), 4);
+  priv->find = NULL;
+  priv->replace = NULL;
+  priv->search_changed_id = 0;
 }
 
 static void
@@ -79,11 +85,14 @@ codeslayer_regex_view_finalize (CodeSlayerRegexView *regex_view)
   CodeSlayerRegexViewPrivate *priv;
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
 
-  if (priv->find)
+  if (priv->find != NULL)
     g_free (priv->find);
 
-  if (priv->replace)
+  if (priv->replace != NULL)
     g_free (priv->replace);
+    
+  if (G_TYPE_CHECK_INSTANCE (priv->notebook_search) == TRUE)
+    g_signal_handler_disconnect (priv->notebook_search, priv->search_changed_id);
 
   G_OBJECT_CLASS (codeslayer_regex_view_parent_class)->finalize (G_OBJECT (regex_view));
 }
@@ -99,11 +108,12 @@ codeslayer_regex_view_new (GtkWidget         *notebook_search,
   regex_view = g_object_new (codeslayer_regex_view_get_type (), NULL);
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
   
+  priv->notebook_search = notebook_search;
   priv->notebook = notebook;
   priv->profile = profile;
   
-  g_signal_connect_swapped (G_OBJECT (notebook_search), "search-changed",
-                            G_CALLBACK (search_changed_action), regex_view);
+  priv->search_changed_id = g_signal_connect_swapped (G_OBJECT (notebook_search), "search-changed",
+                                                      G_CALLBACK (search_changed_action), regex_view);
                             
   add_buttons (CODESLAYER_REGEX_VIEW (regex_view));
   add_text_view (CODESLAYER_REGEX_VIEW (regex_view));
@@ -122,13 +132,13 @@ search_changed_action (CodeSlayerRegexView *regex_view,
   CodeSlayerRegexViewPrivate *priv;
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
   
-  if (priv->find)
+  if (priv->find == NULL)
     {
       g_free (priv->find);
       priv->find = NULL;    
     }
 
-  if (priv->replace)
+  if (priv->replace == NULL)
     {
       g_free (priv->replace);
       priv->replace = NULL;    
@@ -148,11 +158,9 @@ add_buttons (CodeSlayerRegexView *regex_view)
   GtkWidget *extract_button;
 
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
-  
-  extract_button =  gtk_button_new_with_label ("Extract Find/Replace");
-  
-  gtk_box_pack_start (GTK_BOX (hbox), extract_button, FALSE, FALSE, 0);
-  
+  extract_button =  gtk_button_new_with_label ("Extract");
+
+  gtk_box_pack_start (GTK_BOX (hbox), extract_button, FALSE, FALSE, 0);  
   gtk_box_pack_start (GTK_BOX (regex_view), hbox, FALSE, FALSE, 0);
   
   g_signal_connect_swapped (G_OBJECT (extract_button), "clicked",
@@ -254,4 +262,3 @@ codeslayer_get_active_source_view (CodeSlayerRegexView *regex_view)
 
   return codeslayer_notebook_get_active_source_view (CODESLAYER_NOTEBOOK (priv->notebook));
 }
-
