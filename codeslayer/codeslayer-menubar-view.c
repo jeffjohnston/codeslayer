@@ -37,7 +37,6 @@ static void fullscreen_window_action             (CodeSlayerMenuBarView      *me
 static void show_side_pane_action                (CodeSlayerMenuBarView      *menu_bar_view);
 static void show_bottom_pane_action              (CodeSlayerMenuBarView      *menu_bar_view);
 static void draw_spaces_action                   (CodeSlayerMenuBarView      *menu_bar_view);
-static void regular_expression_action            (CodeSlayerMenuBarView      *menu_bar_view);
 static void word_wrap_action                     (CodeSlayerMenuBarView      *menu_bar_view);
 static void scan_external_changes_action         (CodeSlayerMenuBarView      *menu_bar_view);
 static void sync_menu_action                     (CodeSlayerMenuBarView      *menu_bar_view,
@@ -58,13 +57,11 @@ struct _CodeSlayerMenuBarViewPrivate
   GtkWidget         *fullscreen_window_item;
   GtkWidget         *show_side_pane_item;
   GtkWidget         *show_bottom_pane_item;
-  GtkWidget         *regular_expression_item;
   GtkWidget         *draw_spaces_item;
   GtkWidget         *word_wrap_item;
   GtkWidget         *scan_external_changes_item;
   gulong             show_side_pane_id;
   gulong             show_bottom_pane_id;
-  gulong             regular_expression_id;
   gulong             word_wrap_id;
   gulong             draw_spaces_id;
 };
@@ -139,7 +136,6 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view)
   GtkWidget *fullscreen_window_item;
   GtkWidget *show_side_pane_item;
   GtkWidget *show_bottom_pane_item;
-  GtkWidget *regular_expression_item;
   GtkWidget *draw_spaces_item;
   GtkWidget *word_wrap_item;
   GtkWidget *scan_external_changes_item;
@@ -175,12 +171,6 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view)
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), draw_spaces_item);
   
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
-
-  regular_expression_item = gtk_check_menu_item_new_with_label (_("Regular Expression"));
-  priv->regular_expression_item = regular_expression_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), regular_expression_item);
-
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
   scan_external_changes_item = gtk_menu_item_new_with_label (_("Scan External Changes"));
   priv->scan_external_changes_item = scan_external_changes_item;
   gtk_widget_add_accelerator (scan_external_changes_item, "activate", 
@@ -199,9 +189,6 @@ add_menu_items (CodeSlayerMenuBarView *menu_bar_view)
   priv->show_bottom_pane_id = g_signal_connect_swapped (G_OBJECT (show_bottom_pane_item), "activate",
                                                         G_CALLBACK (show_bottom_pane_action), menu_bar_view);
 
-  priv->regular_expression_id = g_signal_connect_swapped (G_OBJECT (regular_expression_item), "activate",
-                                                          G_CALLBACK (regular_expression_action), menu_bar_view);
-  
   priv->word_wrap_id = g_signal_connect_swapped (G_OBJECT (word_wrap_item), "activate",
                                                  G_CALLBACK (word_wrap_action), menu_bar_view);
 
@@ -223,12 +210,10 @@ sync_menu_action (CodeSlayerMenuBarView *menu_bar_view,
   
   gtk_widget_set_sensitive (priv->draw_spaces_item, has_open_documents);
   gtk_widget_set_sensitive (priv->word_wrap_item, has_open_documents);
-  gtk_widget_set_sensitive (priv->regular_expression_item, has_open_documents);
   gtk_widget_set_sensitive (priv->scan_external_changes_item, has_open_documents || enable_projects);
   
   g_signal_handler_block (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_block (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
-  g_signal_handler_block (priv->regular_expression_item, priv->regular_expression_id);
   g_signal_handler_block (priv->word_wrap_item, priv->word_wrap_id);
   g_signal_handler_block (priv->draw_spaces_item, priv->draw_spaces_id);
   
@@ -240,10 +225,6 @@ sync_menu_action (CodeSlayerMenuBarView *menu_bar_view,
                                   codeslayer_registry_get_boolean (registry, 
                                                                    CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE));
 
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->regular_expression_item),
-                                  codeslayer_registry_get_boolean (registry, 
-                                                                   CODESLAYER_REGISTRY_REGULAR_EXPRESSION));
-
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->word_wrap_item),
                                   codeslayer_registry_get_boolean (registry, 
                                                                    CODESLAYER_REGISTRY_WORD_WRAP));
@@ -254,7 +235,6 @@ sync_menu_action (CodeSlayerMenuBarView *menu_bar_view,
 
   g_signal_handler_unblock (priv->show_side_pane_item, priv->show_side_pane_id);
   g_signal_handler_unblock (priv->show_bottom_pane_item, priv->show_bottom_pane_id);
-  g_signal_handler_unblock (priv->regular_expression_item, priv->regular_expression_id);
   g_signal_handler_unblock (priv->word_wrap_item, priv->word_wrap_id);
   g_signal_handler_unblock (priv->draw_spaces_item, priv->draw_spaces_id);
 }                                             
@@ -289,14 +269,6 @@ draw_spaces_action (CodeSlayerMenuBarView *menu_bar_view)
   CodeSlayerMenuBarViewPrivate *priv;
   priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
   codeslayer_menu_bar_draw_spaces (CODESLAYER_MENU_BAR (priv->menu_bar));
-}
-
-static void
-regular_expression_action (CodeSlayerMenuBarView *menu_bar_view)
-{
-  CodeSlayerMenuBarViewPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_VIEW_GET_PRIVATE (menu_bar_view);
-  codeslayer_menu_bar_regular_expression (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void

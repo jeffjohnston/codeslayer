@@ -8,6 +8,7 @@ codeslayer_abstract_pane_set_profile
 codeslayer_abstract_pane_add
 codeslayer_abstract_pane_insert
 codeslayer_abstract_pane_remove
+codeslayer_abstract_pane_remove_all
 codeslayer_abstract_pane_exists
 codeslayer_abstract_pane_open
 codeslayer_abstract_pane_close
@@ -337,6 +338,7 @@ codeslayer_menu_bar_find
 codeslayer_menu_bar_replace
 codeslayer_menu_bar_find_next
 codeslayer_menu_bar_find_previous
+codeslayer_menu_bar_regular_expression
 codeslayer_menu_bar_find_projects
 codeslayer_menu_bar_go_to_line
 codeslayer_menu_bar_fullscreen_window
@@ -898,6 +900,22 @@ codeslayer_projects_get_type
 </SECTION>
 
 <SECTION>
+<FILE>codeslayer-regexview</FILE>
+<TITLE>CodeSlayerRegexView</TITLE>
+CodeSlayerRegexView
+codeslayer_regex_view_new
+<SUBSECTION Standard>
+CODESLAYER_REGEX_VIEW_TYPE
+CODESLAYER_REGEX_VIEW
+CODESLAYER_REGEX_VIEW_CLASS
+IS_CODESLAYER_REGEX_VIEW
+IS_CODESLAYER_REGEX_VIEW_CLASS
+<SUBSECTION Private>
+CodeSlayerRegexViewPrivate
+codeslayer_regex_view_get_type
+</SECTION>
+
+<SECTION>
 <FILE>codeslayer-registry</FILE>
 <TITLE>CodeSlayerRegistry</TITLE>
 CODESLAYER_REGISTRY_HPANED_POSITION
@@ -936,6 +954,7 @@ CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION
 CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION
 CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES
 CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS
+CODESLAYER_REGISTRY_REGULAR_EXPRESSION
 CodeSlayerRegistry
 codeslayer_registry_new
 codeslayer_registry_get_hashtable

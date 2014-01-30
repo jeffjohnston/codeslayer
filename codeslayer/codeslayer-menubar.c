@@ -665,7 +665,7 @@ codeslayer_menu_bar_new (GtkWidget         *window,
   menu_bar_file = codeslayer_menu_bar_file_new (menu, accel_group);
   priv->menu_bar_file = menu_bar_file;
 
-  menu_bar_search = codeslayer_menu_bar_search_new (menu, accel_group);
+  menu_bar_search = codeslayer_menu_bar_search_new (menu, accel_group, profile);
   priv->menu_bar_search = menu_bar_search;
 
   menu_bar_view = codeslayer_menu_bar_view_new (menu, accel_group, profile);

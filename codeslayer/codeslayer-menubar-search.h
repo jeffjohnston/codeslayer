@@ -45,8 +45,9 @@ struct _CodeSlayerMenuBarSearchClass
 
 GType codeslayer_menu_bar_search_get_type (void) G_GNUC_CONST;
   
-GtkWidget*  codeslayer_menu_bar_search_new  (GtkWidget     *menu_bar, 
-                                             GtkAccelGroup *accel_group);
+GtkWidget*  codeslayer_menu_bar_search_new  (GtkWidget         *menu_bar, 
+                                             GtkAccelGroup     *accel_group, 
+                                             CodeSlayerProfile *profile);
                                                             
 G_END_DECLS
 

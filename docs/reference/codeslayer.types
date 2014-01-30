@@ -42,6 +42,7 @@
 #include <codeslayer/codeslayer-projects-search.h>
 #include <codeslayer/codeslayer-projects-selection.h>
 #include <codeslayer/codeslayer-projects.h>
+#include <codeslayer/codeslayer-regexview.h>
 #include <codeslayer/codeslayer-registry.h>
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-search.h>
@@ -93,6 +94,7 @@ codeslayer_project_get_type
 codeslayer_projects_search_get_type
 codeslayer_projects_selection_get_type
 codeslayer_projects_get_type
+codeslayer_regex_view_get_type
 codeslayer_registry_get_type
 codeslayer_side_pane_get_type
 codeslayer_search_get_type

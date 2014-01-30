@@ -21,10 +21,10 @@
 #include <codeslayer/codeslayer-utils.h>
 
 /**
- * SECTION:codeslayer-regex
+ * SECTION:codeslayer-regexview
  * @short_description: The view that contains the additional regular expression tools.
  * @title: CodeSlayerRegexView
- * @include: codeslayer/codeslayer-regex.h
+ * @include: codeslayer/codeslayer-regexview.h
  */
 
 static void codeslayer_regex_view_class_init         (CodeSlayerRegexViewClass *klass);
