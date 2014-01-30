@@ -178,7 +178,7 @@ codeslayer_abstract_pane_add  (CodeSlayerAbstractPane *abstract_pane,
  * @title: the title for the tab.
  * @position: the position to set.
  *
- * Add the widget to the side pane.
+ * Add the widget to the pane.
  */
 void
 codeslayer_abstract_pane_insert  (CodeSlayerAbstractPane *abstract_pane, 
@@ -206,7 +206,7 @@ codeslayer_abstract_pane_insert  (CodeSlayerAbstractPane *abstract_pane,
  * @abstract_pane: a #CodeSlayerAbstractPane.
  * @widget: a #GtkWidget.
  *
- * Remove the widget from the side pane.
+ * Remove the widget from the pane.
  */
 void
 codeslayer_abstract_pane_remove (CodeSlayerAbstractPane *abstract_pane, 
@@ -225,6 +225,26 @@ codeslayer_abstract_pane_remove (CodeSlayerAbstractPane *abstract_pane,
   gtk_notebook_remove_page (GTK_NOTEBOOK (priv->notebook), page_num);
   priv->plugins = g_list_remove (priv->plugins, widget);  
   reorder_plugins (abstract_pane);
+}
+
+/**
+ * codeslayer_abstract_pane_remove_all:
+ * @abstract_pane: a #CodeSlayerAbstractPane.
+ *
+ * Remove all the widgets from the pane.
+ */
+void
+codeslayer_abstract_pane_remove_all (CodeSlayerAbstractPane *abstract_pane)
+{
+  CodeSlayerAbstractPanePrivate *priv;
+  gint pages;
+
+  priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
+
+  pages = gtk_notebook_get_n_pages (GTK_NOTEBOOK (priv->notebook));
+  
+  for (; pages >= 0; pages--)
+    gtk_notebook_remove_page (GTK_NOTEBOOK (priv->notebook), pages - 1);
 }
 
 gboolean

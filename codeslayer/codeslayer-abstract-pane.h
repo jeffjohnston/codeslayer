@@ -64,6 +64,7 @@ void      codeslayer_abstract_pane_insert           (CodeSlayerAbstractPane *abs
                                                      gint                    position);
 void      codeslayer_abstract_pane_remove           (CodeSlayerAbstractPane *abstract_pane, 
                                                      GtkWidget              *widget);                                         
+void      codeslayer_abstract_pane_remove_all       (CodeSlayerAbstractPane *abstract_pane);                                         
 gboolean  codeslayer_abstract_pane_exists           (CodeSlayerAbstractPane *abstract_pane,
                                                      GtkWidget              *widget);
 void      codeslayer_abstract_pane_open             (CodeSlayerAbstractPane *abstract_pane,

@@ -497,6 +497,8 @@ delete_event (CodeSlayerWindow *window)
 
   codeslayer_notebook_close_all_documents (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_plugins_deactivate (priv->plugins);
+  codeslayer_abstract_pane_remove_all (CODESLAYER_ABSTRACT_PANE (priv->side_pane));
+  codeslayer_abstract_pane_remove_all (CODESLAYER_ABSTRACT_PANE (priv->bottom_pane));
   return FALSE;
 }
 
@@ -511,6 +513,8 @@ quit_application_action (CodeSlayerWindow *window)
   
   codeslayer_notebook_close_all_documents (CODESLAYER_NOTEBOOK (priv->notebook));
   codeslayer_plugins_deactivate (priv->plugins);
+  codeslayer_abstract_pane_remove_all (CODESLAYER_ABSTRACT_PANE (priv->side_pane));
+  codeslayer_abstract_pane_remove_all (CODESLAYER_ABSTRACT_PANE (priv->bottom_pane));
   gtk_widget_destroy (GTK_WIDGET (window));
 }
 

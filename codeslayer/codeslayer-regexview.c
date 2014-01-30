@@ -91,9 +91,8 @@ codeslayer_regex_view_finalize (CodeSlayerRegexView *regex_view)
   if (priv->replace != NULL)
     g_free (priv->replace);
     
-  if (G_TYPE_CHECK_INSTANCE (priv->notebook_search) == TRUE)
-    g_signal_handler_disconnect (priv->notebook_search, priv->search_changed_id);
-
+  g_signal_handler_disconnect (priv->notebook_search, priv->search_changed_id);
+    
   G_OBJECT_CLASS (codeslayer_regex_view_parent_class)->finalize (G_OBJECT (regex_view));
 }
 
