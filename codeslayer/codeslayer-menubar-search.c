@@ -169,7 +169,7 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), replace_item);
   
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
-  regular_expression_item = gtk_check_menu_item_new_with_label (_("Regular Expression"));
+  regular_expression_item = gtk_check_menu_item_new_with_label (_("Regular Expression View"));
   priv->regular_expression_item = regular_expression_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), regular_expression_item);
 
