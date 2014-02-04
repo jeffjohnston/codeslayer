@@ -156,36 +156,6 @@ codeslayer_regex_view_new (GtkWidget         *notebook_search,
 }
 
 static void
-search_changed_action (CodeSlayerRegexView *regex_view, 
-                       gchar               *find, 
-                       gchar               *replace, 
-                       gboolean             match_case, 
-                       gboolean             match_word, 
-                       gboolean             regular_expression)
-{
-  CodeSlayerRegexViewPrivate *priv;
-  priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
-  
-  if (priv->find == NULL)
-    {
-      g_free (priv->find);
-      priv->find = NULL;    
-    }
-
-  if (priv->replace == NULL)
-    {
-      g_free (priv->replace);
-      priv->replace = NULL;    
-    }
-    
-  if (regular_expression == TRUE)
-    {
-      priv->find = g_strdup (find);
-      priv->replace = g_strdup (replace);
-    }
-}
-
-static void
 add_buttons (CodeSlayerRegexView *regex_view)
 {
   CodeSlayerRegexViewPrivate *priv;
@@ -356,6 +326,43 @@ add_paned2 (CodeSlayerRegexView *regex_view)
   gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (text_view));
 
   gtk_paned_add2 (GTK_PANED (priv->paned), scrolled_window);
+}
+
+static void
+search_changed_action (CodeSlayerRegexView *regex_view, 
+                       gchar               *find, 
+                       gchar               *replace, 
+                       gboolean             match_case, 
+                       gboolean             match_word, 
+                       gboolean             regular_expression)
+{
+  CodeSlayerRegexViewPrivate *priv;
+  gboolean auto_refresh;
+  
+  priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
+  
+  if (priv->find == NULL)
+    {
+      g_free (priv->find);
+      priv->find = NULL;    
+    }
+
+  if (priv->replace == NULL)
+    {
+      g_free (priv->replace);
+      priv->replace = NULL;    
+    }
+    
+  if (regular_expression == TRUE)
+    {
+      priv->find = g_strdup (find);
+      priv->replace = g_strdup (replace);
+    }
+    
+  auto_refresh = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->auto_refresh_checkbox));
+  
+  if (auto_refresh)
+    process_action (regex_view);
 }
 
 static void
