@@ -31,6 +31,7 @@ typedef struct
 {
   gchar *find;
   gchar *replace;
+  gchar **groups;
 } Match;
 
 static void codeslayer_regex_view_class_init  (CodeSlayerRegexViewClass *klass);
@@ -57,6 +58,8 @@ static void add_grid_view                     (CodeSlayerRegexView      *regex_v
 static void populate_default_text_view        (CodeSlayerRegexView      *regex_view, 
                                                GList                    *matches);
 static void populate_grid_view                (CodeSlayerRegexView      *regex_view, 
+                                               GList                    *matches);
+static void populate_groups_view              (CodeSlayerRegexView      *regex_view, 
                                                GList                    *matches);
 
 #define CODESLAYER_REGEX_VIEW_GET_PRIVATE(obj) \
@@ -360,7 +363,7 @@ search_changed_action (CodeSlayerRegexView *regex_view,
     }
     
   auto_refresh = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->auto_refresh_checkbox));
-  
+    
   if (auto_refresh)
     process_action (regex_view);
 }
@@ -372,6 +375,7 @@ process_action (CodeSlayerRegexView *regex_view)
 
   CodeSlayerRegexViewPrivate *priv;
   gboolean grid_view;
+  gboolean groups_view;
   
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
 
@@ -381,6 +385,7 @@ process_action (CodeSlayerRegexView *regex_view)
     return;
 
   grid_view = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->grid_view_checkbox));
+  groups_view = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->groups_view_checkbox));
 
   if (grid_view)
     {
@@ -403,6 +408,9 @@ process_action (CodeSlayerRegexView *regex_view)
 
       populate_default_text_view (regex_view, matches);    
     }
+    
+  if (groups_view)
+    populate_groups_view (regex_view, matches);
   
   g_list_foreach (matches, (GFunc) free_match, NULL);
   g_list_free (matches);
@@ -412,8 +420,13 @@ static void
 free_match (Match *match)
 {
   g_free (match->find);
+  
   if (match->replace != NULL)
     g_free (match->replace);
+    
+  if (match->groups != NULL)
+    g_strfreev (match->groups);
+  
   g_free (match);
 }
 
@@ -494,6 +507,53 @@ populate_grid_view (CodeSlayerRegexView *regex_view,
     }
 }
 
+static void
+populate_groups_view (CodeSlayerRegexView *regex_view, 
+                      GList               *matches)
+{
+  CodeSlayerRegexViewPrivate *priv;
+  GList *list;
+  GtkTextBuffer *buffer;
+  GString *string;
+  gchar *text;
+  gint count = 1;
+
+  priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
+  
+  string = g_string_new ("");
+  
+  list = matches;
+    
+  while (list != NULL)
+    {
+      Match *match = list->data;
+      gchar **groups = match->groups;
+      
+      if (groups != NULL)
+        {
+          gchar **array = groups;
+          gint i = 0;
+          
+          for (; *array != NULL; i++)
+            {
+              g_string_append_printf (string, "%d.%d: ( %s )\n", count, i, *array);
+              array++;
+            }
+        }
+      
+      count++;
+      list = g_list_next (list);
+    }
+
+  text = g_string_free (string, FALSE);
+
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->groups_text_view));
+  gtk_text_buffer_set_text (buffer, text, -1);
+
+  if (text)
+    g_free (text);
+}
+
 static GList*
 get_matches (CodeSlayerRegexView *regex_view)
 {
@@ -529,6 +589,7 @@ get_matches (CodeSlayerRegexView *regex_view)
       Match *match = g_malloc (sizeof (Match));
       match->find = find_match;
       match->replace = NULL;
+      match->groups = g_match_info_fetch_all (match_info);
       
       if (codeslayer_utils_has_text (priv->replace))
         {
