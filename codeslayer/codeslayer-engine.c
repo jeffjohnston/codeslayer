@@ -885,7 +885,7 @@ regular_expression_action (CodeSlayerEngine *engine)
   registry = codeslayer_profile_get_registry (priv->profile);
 
   regular_expression_view = codeslayer_registry_get_boolean (registry, 
-                                                        CODESLAYER_REGISTRY_REGULAR_EXPRESSION_VIEW);
+                                                        CODESLAYER_REGISTRY_ENABLE_REGULAR_EXPRESSION);
 
   if (regular_expression_view)
     {
@@ -894,7 +894,7 @@ regular_expression_action (CodeSlayerEngine *engine)
       priv->regex_view = NULL;
 
       codeslayer_registry_set_boolean (registry, 
-                                       CODESLAYER_REGISTRY_REGULAR_EXPRESSION_VIEW,
+                                       CODESLAYER_REGISTRY_ENABLE_REGULAR_EXPRESSION,
                                        FALSE);
     }
   else
@@ -909,7 +909,7 @@ regular_expression_action (CodeSlayerEngine *engine)
       gtk_widget_set_visible (gtk_paned_get_child2 (GTK_PANED(priv->vpaned)), TRUE);
       
       codeslayer_registry_set_boolean (registry, 
-                                       CODESLAYER_REGISTRY_REGULAR_EXPRESSION_VIEW,
+                                       CODESLAYER_REGISTRY_ENABLE_REGULAR_EXPRESSION,
                                        TRUE);
     }
 }
@@ -1574,7 +1574,7 @@ load_regular_expression (CodeSlayerEngine *engine)
   registry = codeslayer_profile_get_registry (priv->profile);
 
   regular_expression = codeslayer_registry_get_boolean (registry, 
-                                                        CODESLAYER_REGISTRY_REGULAR_EXPRESSION_VIEW);
+                                                        CODESLAYER_REGISTRY_ENABLE_REGULAR_EXPRESSION);
   if (regular_expression)
     {
       priv->regex_view = codeslayer_regex_view_new (priv->notebook_search, 

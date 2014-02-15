@@ -46,8 +46,8 @@ static void search_changed_action             (CodeSlayerRegexView      *search,
                                                gboolean                  regular_expression);
 static void add_buttons                       (CodeSlayerRegexView      *regex_view);                                               
 static void add_paned                         (CodeSlayerRegexView      *regex_view);
-static void process_action                    (CodeSlayerRegexView      *regex_view);
-static void process_action                    (CodeSlayerRegexView      *regex_view);
+static void execute_action                    (CodeSlayerRegexView      *regex_view);
+static void refresh_action                    (CodeSlayerRegexView      *regex_view);
 static GtkWidget* get_active_source_view      (CodeSlayerRegexView      *regex_view);
 static GList* get_matches                     (CodeSlayerRegexView      *regex_view);
 static void free_match                        (Match                    *match);
@@ -73,9 +73,8 @@ struct _CodeSlayerRegexViewPrivate
   GtkWidget         *paned;  
   GtkWidget         *find_replace_text_view;
   GtkWidget         *groups_text_view;
-  GtkWidget         *distinct_checkbox;
-  GtkWidget         *sort_checkbox;
-  GtkWidget         *auto_sync_checkbox;  
+  GtkWidget         *execute_button;  
+  GtkWidget         *refresh_button;  
   gulong             search_changed_id;
 };
 
@@ -153,16 +152,16 @@ add_buttons (CodeSlayerRegexView *regex_view)
   GtkWidget *hbox;
   GtkWidget *execute_button;
   GtkWidget *execute_image;
-  GtkWidget *distinct_checkbox;
-  GtkWidget *sort_checkbox;
-  GtkWidget *auto_sync_checkbox;
+  
+  GtkWidget *refresh_button;
+  GtkWidget *refresh_image;
   
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
 
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
 
   execute_button = gtk_button_new ();
-  gtk_widget_set_tooltip_text (execute_button, "Execute");
+  gtk_widget_set_tooltip_text (execute_button, _("Execute"));
 
   gtk_button_set_relief (GTK_BUTTON (execute_button), GTK_RELIEF_NONE);
   gtk_button_set_focus_on_click (GTK_BUTTON (execute_button), FALSE);
@@ -170,24 +169,28 @@ add_buttons (CodeSlayerRegexView *regex_view)
   gtk_container_add (GTK_CONTAINER (execute_button), execute_image);
   gtk_widget_set_can_focus (execute_button, FALSE);
 
+  priv->execute_button = execute_button;
   gtk_box_pack_start (GTK_BOX (hbox), execute_button, FALSE, FALSE, 0);  
 
-  distinct_checkbox = gtk_check_button_new_with_label (_("Distinct"));
-  priv->distinct_checkbox = distinct_checkbox;
-  gtk_box_pack_start (GTK_BOX (hbox), distinct_checkbox, FALSE, FALSE, 0);  
-
-  sort_checkbox = gtk_check_button_new_with_label (_("Sort"));
-  priv->sort_checkbox = sort_checkbox;
-  gtk_box_pack_start (GTK_BOX (hbox), sort_checkbox, FALSE, FALSE, 0);  
-
-  auto_sync_checkbox = gtk_check_button_new_with_label (_("Auto Sync"));
-  priv->auto_sync_checkbox = auto_sync_checkbox;
-  gtk_box_pack_start (GTK_BOX (hbox), auto_sync_checkbox, FALSE, FALSE, 0);  
+  refresh_button = gtk_toggle_button_new ();
+  gtk_widget_set_tooltip_text (refresh_button, _("Auto Refresh"));
+  
+  gtk_button_set_relief (GTK_BUTTON (refresh_button), GTK_RELIEF_NONE);
+  gtk_button_set_focus_on_click (GTK_BUTTON (refresh_button), FALSE);
+  refresh_image = gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU);
+  gtk_container_add (GTK_CONTAINER (refresh_button), refresh_image);
+  gtk_widget_set_can_focus (refresh_button, FALSE);
+  
+  priv->refresh_button = refresh_button;
+  gtk_box_pack_start (GTK_BOX (hbox), refresh_button, FALSE, FALSE, 0);  
 
   gtk_box_pack_start (GTK_BOX (regex_view), hbox, FALSE, FALSE, 0);
   
   g_signal_connect_swapped (G_OBJECT (execute_button), "clicked",
-                            G_CALLBACK (process_action), regex_view);
+                            G_CALLBACK (execute_action), regex_view);
+  
+  g_signal_connect_swapped (G_OBJECT (refresh_button), "clicked",
+                            G_CALLBACK (refresh_action), regex_view);
 }
 
 static void
@@ -266,13 +269,13 @@ search_changed_action (CodeSlayerRegexView *regex_view,
   CodeSlayerRegexViewPrivate *priv;
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
   
-  if (priv->find == NULL)
+  if (priv->find != NULL)
     {
       g_free (priv->find);
       priv->find = NULL;    
     }
 
-  if (priv->replace == NULL)
+  if (priv->replace != NULL)
     {
       g_free (priv->replace);
       priv->replace = NULL;    
@@ -284,12 +287,12 @@ search_changed_action (CodeSlayerRegexView *regex_view,
       priv->replace = g_strdup (replace);
     }
     
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->auto_sync_checkbox)))
-    process_action (regex_view);
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->refresh_button)))
+    execute_action (regex_view);
 }
 
 static void
-process_action (CodeSlayerRegexView *regex_view)
+execute_action (CodeSlayerRegexView *regex_view)
 {
   GList *matches;
   
@@ -303,6 +306,22 @@ process_action (CodeSlayerRegexView *regex_view)
     
   g_list_foreach (matches, (GFunc) free_match, NULL);
   g_list_free (matches);
+}
+
+static void
+refresh_action (CodeSlayerRegexView *regex_view)
+{
+  CodeSlayerRegexViewPrivate *priv;
+  gboolean active;
+
+  priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
+  
+  active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->refresh_button));
+
+  gtk_widget_set_sensitive (GTK_WIDGET (priv->execute_button), !active);
+  
+  if (active)
+    execute_action (regex_view);
 }
 
 static void 
@@ -459,6 +478,9 @@ get_matches (CodeSlayerRegexView *regex_view)
     
   if (source_text)
     g_free (source_text);
+    
+  g_match_info_free (match_info);
+  g_regex_unref (regex);    
     
   results = g_list_reverse (results);
   return results;

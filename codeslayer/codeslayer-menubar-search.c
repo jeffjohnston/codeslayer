@@ -169,7 +169,7 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), replace_item);
   
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
-  regular_expression_item = gtk_check_menu_item_new_with_label (_("Regular Expression View"));
+  regular_expression_item = gtk_check_menu_item_new_with_label (_("Regular Expression"));
   priv->regular_expression_item = regular_expression_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), regular_expression_item);
 
@@ -238,7 +238,7 @@ sync_menu_action (CodeSlayerMenuBarSearch *menu_bar_search,
   
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->regular_expression_item),
                                   codeslayer_registry_get_boolean (registry, 
-                                                                   CODESLAYER_REGISTRY_REGULAR_EXPRESSION_VIEW));
+                                                                   CODESLAYER_REGISTRY_ENABLE_REGULAR_EXPRESSION));
 
   g_signal_handler_unblock (priv->regular_expression_item, priv->regular_expression_id);
 
