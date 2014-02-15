@@ -195,9 +195,14 @@ add_paned (CodeSlayerRegexView *regex_view)
 {
   CodeSlayerRegexViewPrivate *priv;
   GtkWidget *paned;
+  CodeSlayerRegistry *registry; 
+  gint width;
 
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
   
+  registry = codeslayer_profile_get_registry (priv->profile);
+  width = codeslayer_registry_get_integer (registry, CODESLAYER_REGISTRY_WINDOW_WIDTH);
+
   paned = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
   priv->paned = paned;
 
@@ -206,7 +211,7 @@ add_paned (CodeSlayerRegexView *regex_view)
 
   gtk_box_pack_start (GTK_BOX (regex_view), paned, TRUE, TRUE, 2);
   
-  gtk_paned_set_position (GTK_PANED (priv->paned), 700);
+  gtk_paned_set_position (GTK_PANED (priv->paned), width * .60);
 }
 
 static void

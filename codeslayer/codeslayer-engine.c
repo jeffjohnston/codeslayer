@@ -878,23 +878,23 @@ regular_expression_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv; 
   CodeSlayerRegistry *registry;
-  gboolean regular_expression;
+  gboolean regular_expression_view;
 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
   registry = codeslayer_profile_get_registry (priv->profile);
 
-  regular_expression = codeslayer_registry_get_boolean (registry, 
-                                                        CODESLAYER_REGISTRY_REGULAR_EXPRESSION);
+  regular_expression_view = codeslayer_registry_get_boolean (registry, 
+                                                        CODESLAYER_REGISTRY_REGULAR_EXPRESSION_VIEW);
 
-  if (regular_expression)
+  if (regular_expression_view)
     {
       codeslayer_abstract_pane_remove (CODESLAYER_ABSTRACT_PANE (priv->bottom_pane), 
                                        priv->regex_view);
       priv->regex_view = NULL;
 
       codeslayer_registry_set_boolean (registry, 
-                                       CODESLAYER_REGISTRY_REGULAR_EXPRESSION,
+                                       CODESLAYER_REGISTRY_REGULAR_EXPRESSION_VIEW,
                                        FALSE);
     }
   else
@@ -909,7 +909,7 @@ regular_expression_action (CodeSlayerEngine *engine)
       gtk_widget_set_visible (gtk_paned_get_child2 (GTK_PANED(priv->vpaned)), TRUE);
       
       codeslayer_registry_set_boolean (registry, 
-                                       CODESLAYER_REGISTRY_REGULAR_EXPRESSION,
+                                       CODESLAYER_REGISTRY_REGULAR_EXPRESSION_VIEW,
                                        TRUE);
     }
 }
@@ -1574,7 +1574,7 @@ load_regular_expression (CodeSlayerEngine *engine)
   registry = codeslayer_profile_get_registry (priv->profile);
 
   regular_expression = codeslayer_registry_get_boolean (registry, 
-                                                        CODESLAYER_REGISTRY_REGULAR_EXPRESSION);
+                                                        CODESLAYER_REGISTRY_REGULAR_EXPRESSION_VIEW);
   if (regular_expression)
     {
       priv->regex_view = codeslayer_regex_view_new (priv->notebook_search, 

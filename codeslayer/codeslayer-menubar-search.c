@@ -238,7 +238,7 @@ sync_menu_action (CodeSlayerMenuBarSearch *menu_bar_search,
   
   gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->regular_expression_item),
                                   codeslayer_registry_get_boolean (registry, 
-                                                                   CODESLAYER_REGISTRY_REGULAR_EXPRESSION));
+                                                                   CODESLAYER_REGISTRY_REGULAR_EXPRESSION_VIEW));
 
   g_signal_handler_unblock (priv->regular_expression_item, priv->regular_expression_id);
 
