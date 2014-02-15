@@ -53,11 +53,7 @@ static GList* get_matches                     (CodeSlayerRegexView      *regex_v
 static void free_match                        (Match                    *match);
 static void add_paned1                        (CodeSlayerRegexView      *regex_view);
 static void add_paned2                        (CodeSlayerRegexView      *regex_view);
-static void add_default_text_view             (CodeSlayerRegexView      *regex_view);
-static void add_grid_view                     (CodeSlayerRegexView      *regex_view);
-static void populate_default_text_view        (CodeSlayerRegexView      *regex_view, 
-                                               GList                    *matches);
-static void populate_grid_view                (CodeSlayerRegexView      *regex_view, 
+static void populate_find_replace_view        (CodeSlayerRegexView      *regex_view, 
                                                GList                    *matches);
 static void populate_groups_view              (CodeSlayerRegexView      *regex_view, 
                                                GList                    *matches);
@@ -75,15 +71,8 @@ struct _CodeSlayerRegexViewPrivate
   gchar             *find;
   gchar             *replace;
   GtkWidget         *paned;  
-  GtkWidget         *hbox;  
-  GtkWidget         *default_text_view;
-  GtkWidget         *default_scrolled_window;
+  GtkWidget         *find_replace_text_view;
   GtkWidget         *groups_text_view;
-  GtkWidget         *grid_tree_view;
-  GtkWidget         *grid_scrolled_window;
-  GtkListStore      *grid_store;
-  GtkWidget         *grid_view_checkbox;
-  GtkWidget         *groups_view_checkbox;
   GtkWidget         *distinct_checkbox;
   GtkWidget         *sort_checkbox;
   GtkWidget         *auto_refresh_checkbox;  
@@ -114,7 +103,6 @@ codeslayer_regex_view_init (CodeSlayerRegexView *regex_view)
   gtk_container_set_border_width (GTK_CONTAINER (regex_view), 4);
   priv->find = NULL;
   priv->replace = NULL;
-  priv->grid_tree_view = NULL;
 }
 
 static void
@@ -165,10 +153,8 @@ add_buttons (CodeSlayerRegexView *regex_view)
   GtkWidget *hbox;
   GtkWidget *execute_button;
   GtkWidget *execute_image;
-  GtkWidget *grid_view_checkbox;
   GtkWidget *distinct_checkbox;
   GtkWidget *sort_checkbox;
-  GtkWidget *groups_view_checkbox;
   GtkWidget *auto_refresh_checkbox;
   
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
@@ -186,10 +172,6 @@ add_buttons (CodeSlayerRegexView *regex_view)
 
   gtk_box_pack_start (GTK_BOX (hbox), execute_button, FALSE, FALSE, 0);  
 
-  grid_view_checkbox = gtk_check_button_new_with_label (_("Grid View"));
-  priv->grid_view_checkbox = grid_view_checkbox;
-  gtk_box_pack_start (GTK_BOX (hbox), grid_view_checkbox, FALSE, FALSE, 0);  
-
   distinct_checkbox = gtk_check_button_new_with_label (_("Distinct"));
   priv->distinct_checkbox = distinct_checkbox;
   gtk_box_pack_start (GTK_BOX (hbox), distinct_checkbox, FALSE, FALSE, 0);  
@@ -198,11 +180,7 @@ add_buttons (CodeSlayerRegexView *regex_view)
   priv->sort_checkbox = sort_checkbox;
   gtk_box_pack_start (GTK_BOX (hbox), sort_checkbox, FALSE, FALSE, 0);  
 
-  groups_view_checkbox = gtk_check_button_new_with_label (_("Show Groups"));
-  priv->groups_view_checkbox = groups_view_checkbox;
-  gtk_box_pack_start (GTK_BOX (hbox), groups_view_checkbox, FALSE, FALSE, 0);  
-
-  auto_refresh_checkbox = gtk_check_button_new_with_label (_("Auto Refresh"));
+  auto_refresh_checkbox = gtk_check_button_new_with_label (_("Auto Sync"));
   priv->auto_refresh_checkbox = auto_refresh_checkbox;
   gtk_box_pack_start (GTK_BOX (hbox), auto_refresh_checkbox, FALSE, FALSE, 0);  
 
@@ -235,80 +213,21 @@ static void
 add_paned1 (CodeSlayerRegexView *regex_view)
 {
   CodeSlayerRegexViewPrivate *priv;
-  GtkWidget *hbox;
-  
-  priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
-
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
-  priv->hbox = hbox;
-
-  add_default_text_view (regex_view);
-  /*add_grid_view (regex_view);*/
-
-  gtk_paned_add1 (GTK_PANED (priv->paned), hbox);
-}
-
-static void
-add_default_text_view (CodeSlayerRegexView *regex_view)
-{
-  CodeSlayerRegexViewPrivate *priv;
   GtkWidget *scrolled_window;
   GtkWidget *text_view;
-
+  
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
 
   text_view = gtk_text_view_new ();
-  priv->default_text_view = text_view;
+  priv->find_replace_text_view = text_view;
   
   scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-  priv->default_scrolled_window = scrolled_window;
   
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                   GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
   gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (text_view));
 
-  gtk_box_pack_start (GTK_BOX (priv->hbox), scrolled_window, TRUE, TRUE, 2);
-}
-
-static void
-add_grid_view (CodeSlayerRegexView *regex_view)
-{
-  CodeSlayerRegexViewPrivate *priv;
-  GtkListStore *grid_store;
-  GtkWidget *tree_view;
-  GtkWidget *scrolled_window;
-  GtkCellRenderer *renderer;
-  GtkTreeViewColumn *column;
-  
-  priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
-  
-  tree_view = gtk_tree_view_new ();
-  priv->grid_tree_view = tree_view;
-  
-  renderer = gtk_cell_renderer_text_new ();
-  column = gtk_tree_view_column_new_with_attributes (_("Find"), renderer, 
-                                                     "text", FIND, NULL);
-  gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
-  
-  renderer = gtk_cell_renderer_text_new ();
-  column = gtk_tree_view_column_new_with_attributes (_("Replace"), renderer, 
-                                                     "text", REPLACE, NULL);
-  gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
-  
-  grid_store = gtk_list_store_new (COLUMNS, G_TYPE_STRING, G_TYPE_STRING);
-  priv->grid_store = grid_store;
-  
-  gtk_tree_view_set_model (GTK_TREE_VIEW (tree_view), GTK_TREE_MODEL (grid_store));
-  g_object_unref (grid_store);
-
-  scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-  priv->grid_scrolled_window = scrolled_window;
-  
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
-                                  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-  gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (tree_view));
-
-  gtk_box_pack_start (GTK_BOX (priv->hbox), scrolled_window, TRUE, TRUE, 2);
+  gtk_paned_add1 (GTK_PANED (priv->paned), scrolled_window);
 }
 
 static void
@@ -372,46 +291,15 @@ static void
 process_action (CodeSlayerRegexView *regex_view)
 {
   GList *matches;
-
-  CodeSlayerRegexViewPrivate *priv;
-  gboolean grid_view;
-  gboolean groups_view;
   
-  priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
-
   matches = get_matches (regex_view);
 
   if (matches == NULL)
     return;
 
-  grid_view = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->grid_view_checkbox));
-  groups_view = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->groups_view_checkbox));
-
-  if (grid_view)
-    {
-      if (priv->grid_tree_view == NULL)
-        add_grid_view (regex_view);
-
-      gtk_widget_show_all (priv->hbox);
-
-      gtk_widget_hide (priv->default_scrolled_window);
-      gtk_widget_show (priv->grid_scrolled_window);
-      
-      populate_grid_view (regex_view, matches);      
-    }
-  else
-    {
-      gtk_widget_show (priv->default_scrolled_window);
-      
-      if (priv->grid_tree_view != NULL)
-        gtk_widget_hide (priv->grid_scrolled_window);
-
-      populate_default_text_view (regex_view, matches);    
-    }
+  populate_find_replace_view (regex_view, matches);    
+  populate_groups_view (regex_view, matches);
     
-  if (groups_view)
-    populate_groups_view (regex_view, matches);
-  
   g_list_foreach (matches, (GFunc) free_match, NULL);
   g_list_free (matches);
 }
@@ -431,7 +319,7 @@ free_match (Match *match)
 }
 
 static void
-populate_default_text_view (CodeSlayerRegexView *regex_view, 
+populate_find_replace_view (CodeSlayerRegexView *regex_view, 
                             GList               *matches)
 {
   CodeSlayerRegexViewPrivate *priv;
@@ -465,46 +353,11 @@ populate_default_text_view (CodeSlayerRegexView *regex_view,
 
   text = g_string_free (string, FALSE);
 
-  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->default_text_view));
+  buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (priv->find_replace_text_view));
   gtk_text_buffer_set_text (buffer, text, -1);
 
   if (text)
     g_free (text);
-}
-
-static void
-populate_grid_view (CodeSlayerRegexView *regex_view, 
-                    GList               *matches)
-{
-  CodeSlayerRegexViewPrivate *priv;
-  GList *list;
-  GtkTreeIter iter;
-
-  priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
-  
-  gtk_list_store_clear (GTK_LIST_STORE (priv->grid_store));
-
-  list = matches;
-    
-  while (list != NULL)
-    {
-      Match *match = list->data;
-      
-      if (match->replace != NULL)
-        {
-          gtk_list_store_append (priv->grid_store, &iter);
-          gtk_list_store_set (priv->grid_store, &iter, 
-                              FIND, match->find, 
-                              REPLACE, match->replace, -1);
-        }
-      else
-        {
-          gtk_list_store_append (priv->grid_store, &iter);
-          gtk_list_store_set (priv->grid_store, &iter, FIND, match->find, -1);
-        }
-      
-      list = g_list_next (list);
-    }
 }
 
 static void
