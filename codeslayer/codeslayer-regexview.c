@@ -75,7 +75,7 @@ struct _CodeSlayerRegexViewPrivate
   GtkWidget         *groups_text_view;
   GtkWidget         *distinct_checkbox;
   GtkWidget         *sort_checkbox;
-  GtkWidget         *auto_refresh_checkbox;  
+  GtkWidget         *auto_sync_checkbox;  
   gulong             search_changed_id;
 };
 
@@ -155,7 +155,7 @@ add_buttons (CodeSlayerRegexView *regex_view)
   GtkWidget *execute_image;
   GtkWidget *distinct_checkbox;
   GtkWidget *sort_checkbox;
-  GtkWidget *auto_refresh_checkbox;
+  GtkWidget *auto_sync_checkbox;
   
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
 
@@ -180,9 +180,9 @@ add_buttons (CodeSlayerRegexView *regex_view)
   priv->sort_checkbox = sort_checkbox;
   gtk_box_pack_start (GTK_BOX (hbox), sort_checkbox, FALSE, FALSE, 0);  
 
-  auto_refresh_checkbox = gtk_check_button_new_with_label (_("Auto Sync"));
-  priv->auto_refresh_checkbox = auto_refresh_checkbox;
-  gtk_box_pack_start (GTK_BOX (hbox), auto_refresh_checkbox, FALSE, FALSE, 0);  
+  auto_sync_checkbox = gtk_check_button_new_with_label (_("Auto Sync"));
+  priv->auto_sync_checkbox = auto_sync_checkbox;
+  gtk_box_pack_start (GTK_BOX (hbox), auto_sync_checkbox, FALSE, FALSE, 0);  
 
   gtk_box_pack_start (GTK_BOX (regex_view), hbox, FALSE, FALSE, 0);
   
@@ -259,8 +259,6 @@ search_changed_action (CodeSlayerRegexView *regex_view,
                        gboolean             regular_expression)
 {
   CodeSlayerRegexViewPrivate *priv;
-  gboolean auto_refresh;
-  
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
   
   if (priv->find == NULL)
@@ -281,9 +279,7 @@ search_changed_action (CodeSlayerRegexView *regex_view,
       priv->replace = g_strdup (replace);
     }
     
-  auto_refresh = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->auto_refresh_checkbox));
-    
-  if (auto_refresh)
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->auto_sync_checkbox)))
     process_action (regex_view);
 }
 
