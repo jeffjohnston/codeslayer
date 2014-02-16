@@ -31,9 +31,6 @@
 #include <codeslayer/codeslayer-preferences-projects.h>
 #include <codeslayer/codeslayer-preferences-theme.h>
 #include <codeslayer/codeslayer-preferences.h>
-#include <codeslayer/codeslayer-process.h>
-#include <codeslayer/codeslayer-processbar.h>
-#include <codeslayer/codeslayer-processes.h>
 #include <codeslayer/codeslayer-profile.h>
 #include <codeslayer/codeslayer-profiles-manager.h>
 #include <codeslayer/codeslayer-profiles.h>
@@ -83,9 +80,6 @@ codeslayer_preferences_misc_get_type
 codeslayer_preferences_projects_get_type
 codeslayer_preferences_theme_get_type
 codeslayer_preferences_get_type
-codeslayer_process_get_type
-codeslayer_process_bar_get_type
-codeslayer_processes_get_type
 codeslayer_profile_get_type
 codeslayer_profiles_manager_get_type
 codeslayer_profiles_get_type

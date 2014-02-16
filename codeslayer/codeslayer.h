@@ -79,7 +79,6 @@ GType codeslayer_get_type (void) G_GNUC_CONST;
   
 CodeSlayer*               codeslayer_new                              (GtkWindow                   *window,
                                                                        CodeSlayerProfile           *profile,
-                                                                       CodeSlayerProcesses         *processes, 
                                                                        CodeSlayerMenuBar           *menu_bar,
                                                                        CodeSlayerNotebook          *notebook,
                                                                        CodeSlayerProjects          *projects,
@@ -159,14 +158,6 @@ CodeSlayerRegistry*        codeslayer_get_registry                    (CodeSlaye
 GList*                     codeslayer_get_projects                    (CodeSlayer                  *codeslayer);
 
 GtkWindow*                 codeslayer_get_toplevel_window             (CodeSlayer                  *codeslayer);
-
-gint                       codeslayer_add_to_process_bar              (CodeSlayer                  *codeslayer,
-                                                                       const gchar                 *name,
-                                                                       StopProcessFunc              func,
-                                                                       gpointer                     data);
-
-void                       codeslayer_remove_from_process_bar         (CodeSlayer                  *codeslayer,
-                                                                       gint                         id);
 
 CodeSlayerDocumentLinker*  codeslayer_create_document_linker          (CodeSlayer                  *codeslayer,
                                                                        GtkTextView                 *text_view);

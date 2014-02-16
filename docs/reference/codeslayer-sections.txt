@@ -663,65 +663,6 @@ codeslayer_preferences_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-process</FILE>
-<TITLE>CodeSlayerProcess</TITLE>
-CodeSlayerProcess
-StopProcessFunc
-codeslayer_process_new
-codeslayer_process_get_id
-codeslayer_process_get_name
-codeslayer_process_set_name
-codeslayer_process_get_func
-codeslayer_process_set_func
-codeslayer_process_get_data
-codeslayer_process_set_data
-codeslayer_process_stop
-<SUBSECTION Standard>
-CODESLAYER_PROCESS_TYPE
-CODESLAYER_PROCESS
-CODESLAYER_PROCESS_CLASS
-IS_CODESLAYER_PROCESS
-IS_CODESLAYER_PROCESS_CLASS
-<SUBSECTION Private>
-CodeSlayerProcessPrivate
-codeslayer_process_get_type
-</SECTION>
-
-<SECTION>
-<FILE>codeslayer-processbar</FILE>
-<TITLE>CodeSlayerProcessBar</TITLE>
-CodeSlayerProcessBar
-codeslayer_process_bar_new
-<SUBSECTION Standard>
-CODESLAYER_PROCESS_BAR_TYPE
-CODESLAYER_PROCESS_BAR
-CODESLAYER_PROCESS_BAR_CLASS
-IS_CODESLAYER_PROCESS_BAR
-IS_CODESLAYER_PROCESS_BAR_CLASS
-<SUBSECTION Private>
-CodeSlayerProcessBarPrivate
-codeslayer_process_bar_get_type
-</SECTION>
-
-<SECTION>
-<FILE>codeslayer-processes</FILE>
-<TITLE>CodeSlayerProcesses</TITLE>
-CodeSlayerProcesses
-codeslayer_processes_new
-codeslayer_processes_add
-codeslayer_processes_remove
-<SUBSECTION Standard>
-CODESLAYER_PROCESSES_TYPE
-CODESLAYER_PROCESSES
-CODESLAYER_PROCESSES_CLASS
-IS_CODESLAYER_PROCESSES
-IS_CODESLAYER_PROCESSES_CLASS
-<SUBSECTION Private>
-CodeSlayerProcessesPrivate
-codeslayer_processes_get_type
-</SECTION>
-
-<SECTION>
 <FILE>codeslayer-profile</FILE>
 <TITLE>CodeSlayerProfile</TITLE>
 CodeSlayerProfile
@@ -954,7 +895,7 @@ CODESLAYER_REGISTRY_SIDE_PANE_TAB_POSITION
 CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION
 CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES
 CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS
-CODESLAYER_REGISTRY_REGULAR_EXPRESSION
+CODESLAYER_REGISTRY_ENABLE_REGULAR_EXPRESSION
 CodeSlayerRegistry
 codeslayer_registry_new
 codeslayer_registry_get_hashtable
@@ -1095,8 +1036,6 @@ codeslayer_get_project_by_file_path
 codeslayer_get_registry
 codeslayer_get_projects
 codeslayer_get_toplevel_window
-codeslayer_add_to_process_bar
-codeslayer_remove_from_process_bar
 codeslayer_create_document_linker
 <SUBSECTION Standard>
 CODESLAYER_TYPE

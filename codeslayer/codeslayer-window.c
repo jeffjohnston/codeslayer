@@ -18,7 +18,6 @@
 
 #include <codeslayer/codeslayer-window.h>
 #include <codeslayer/codeslayer-engine.h>
-#include <codeslayer/codeslayer-processes.h>
 #include <codeslayer/codeslayer-abstract-pane.h>
 #include <codeslayer/codeslayer-side-pane.h>
 #include <codeslayer/codeslayer-bottom-pane.h>
@@ -59,8 +58,6 @@ static void create_projects               (CodeSlayerWindow      *window);
 static void create_project_properties     (CodeSlayerWindow      *window);
 static void create_side_and_bottom_pane   (CodeSlayerWindow      *window);
 static void create_notebook               (CodeSlayerWindow      *window);
-static void create_processes              (CodeSlayerWindow      *window);
-static void create_process_bar            (CodeSlayerWindow      *window);
 static void create_engine                 (CodeSlayerWindow      *window);
 static void create_profiles_manager       (CodeSlayerWindow      *window);
 static void load_plugins                  (CodeSlayerWindow      *window);
@@ -89,9 +86,7 @@ struct _CodeSlayerWindowPrivate
   GtkWidget             *project_properties;
   GtkWidget             *menu_bar;
   CodeSlayerEngine      *engine;
-  CodeSlayerProcesses   *processes;
   CodeSlayer            *codeslayer;
-  GtkWidget             *process_bar;
   GtkWidget             *notebook;
   CodeSlayerPlugins     *plugins;
   GtkWidget             *notebook_pane;
@@ -207,10 +202,6 @@ codeslayer_window_new (GtkApplication *application,
   create_project_properties (CODESLAYER_WINDOW (window));
 
   create_projects (CODESLAYER_WINDOW (window));
-
-  create_processes (CODESLAYER_WINDOW (window));
-  
-  create_process_bar (CODESLAYER_WINDOW (window));
 
   create_side_and_bottom_pane (CODESLAYER_WINDOW (window));  
   
@@ -343,35 +334,11 @@ create_side_and_bottom_pane (CodeSlayerWindow *window)
 
   priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
 
-  side_pane = codeslayer_side_pane_new (priv->profile, priv->process_bar);
+  side_pane = codeslayer_side_pane_new (priv->profile);
   priv->side_pane = side_pane;
   
   bottom_pane = codeslayer_bottom_pane_new (priv->profile);
   priv->bottom_pane = bottom_pane;
-}
-
-static void 
-create_processes (CodeSlayerWindow *window)
-{
-  CodeSlayerWindowPrivate *priv;
-  CodeSlayerProcesses *processes;  
-  
-  priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
-
-  processes = codeslayer_processes_new ();
-  priv->processes = processes;
-}  
-
-static void 
-create_process_bar (CodeSlayerWindow *window)
-{
-  CodeSlayerWindowPrivate *priv;
-  GtkWidget *process_bar;
-  
-  priv = CODESLAYER_WINDOW_GET_PRIVATE (window);
-
-  process_bar = codeslayer_process_bar_new (priv->processes);
-  priv->process_bar = process_bar;
 }
 
 static void 
@@ -424,7 +391,6 @@ load_plugins (CodeSlayerWindow *window)
 
   codeslayer = codeslayer_new (GTK_WINDOW (window), 
                                priv->profile,
-                               priv->processes,
                                CODESLAYER_MENU_BAR (priv->menu_bar), 
                                CODESLAYER_NOTEBOOK (priv->notebook), 
                                CODESLAYER_PROJECTS (priv->projects), 

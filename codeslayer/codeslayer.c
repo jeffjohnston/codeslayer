@@ -19,7 +19,6 @@
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-abstract-pane.h>
 #include <codeslayer/codeslayer-notebook-page.h>
-#include <codeslayer/codeslayer-process.h>
 #include <codeslayer/codeslayer.h>
 #include <codeslayer/codeslayer-marshaller.h>
 
@@ -69,7 +68,6 @@ struct _CodeSlayerPrivate
   GtkWindow                   *window;
   CodeSlayerProfile           *profile;
   CodeSlayerRegistry          *registry;
-  CodeSlayerProcesses         *processes;
   CodeSlayerMenuBar           *menu_bar;
   CodeSlayerNotebook          *notebook;
   CodeSlayerProjects          *projects;
@@ -233,7 +231,6 @@ codeslayer_finalize (CodeSlayer *codeslayer)
 CodeSlayer*
 codeslayer_new (GtkWindow                   *window,
                 CodeSlayerProfile           *profile,
-                CodeSlayerProcesses         *processes, 
                 CodeSlayerMenuBar           *menu_bar,
                 CodeSlayerNotebook          *notebook,
                 CodeSlayerProjects          *projects, 
@@ -247,7 +244,6 @@ codeslayer_new (GtkWindow                   *window,
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   priv->window = window;
   priv->profile = profile;
-  priv->processes = processes;
   priv->menu_bar = menu_bar;
   priv->notebook = notebook;
   priv->projects = projects;
@@ -833,55 +829,6 @@ codeslayer_get_toplevel_window (CodeSlayer *codeslayer)
   CodeSlayerPrivate *priv;
   priv = CODESLAYER_GET_PRIVATE (codeslayer);
   return priv->window;
-}
-
-/**
- * codeslayer_add_to_process_bar:
- * @codeslayer: a #CodeSlayer.
- * @name: the name of the process.
- * @func: a #StopProcessFunc is a callback to request that the process be stopped
- * @data: user data supplied to the #StopProcessFunc
- *
- * Returns: The identifier for the process.
- */
-gint
-codeslayer_add_to_process_bar (CodeSlayer      *codeslayer,
-                               const gchar     *name,
-                               StopProcessFunc  func,
-                               gpointer         data)
-{
-  CodeSlayerPrivate *priv;
-  CodeSlayerProcess *process;
-  gint id;
-
-  priv = CODESLAYER_GET_PRIVATE (codeslayer);
-  
-  id = g_random_int ();
-  
-  process = codeslayer_process_new (id);
-  codeslayer_process_set_name (process, name);
-  codeslayer_process_set_func (process, func);
-  codeslayer_process_set_data (process, data);
-  
-  g_object_force_floating (G_OBJECT (process));
-
-  codeslayer_processes_add (priv->processes, process);
-  
-  return id;
-}
-
-/**
- * codeslayer_remove_from_processes:
- * @codeslayer: a #CodeSlayer.
- * @id: the identifier for the process.
- */
-void 
-codeslayer_remove_from_process_bar (CodeSlayer *codeslayer,
-                                    gint        id)
-{
-  CodeSlayerPrivate *priv;
-  priv = CODESLAYER_GET_PRIVATE (codeslayer);
-  codeslayer_processes_remove (priv->processes, id);
 }
 
 /**

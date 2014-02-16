@@ -60,15 +60,13 @@ codeslayer_side_pane_finalize (CodeSlayerSidePane *side_pane)
 /**
  * codeslayer_side_pane_new:
  * @profile: a #CodeSlayerProfile.
- * @process_bar: a #GtkWidget.
  *
  * Creates a new #CodeSlayerSidePane.
  *
  * Returns: a new #CodeSlayerSidePane. 
  */
 GtkWidget*
-codeslayer_side_pane_new (CodeSlayerProfile *profile,
-                          GtkWidget         *process_bar)
+codeslayer_side_pane_new (CodeSlayerProfile *profile)
 {
   GtkWidget *side_pane;
   CodeSlayerRegistry *registry; 
@@ -79,8 +77,6 @@ codeslayer_side_pane_new (CodeSlayerProfile *profile,
   
   codeslayer_abstract_pane_set_profile (CODESLAYER_ABSTRACT_PANE (side_pane), profile);
   codeslayer_abstract_pane_create_notebook (CODESLAYER_ABSTRACT_PANE (side_pane));
-  
-  gtk_box_pack_start (GTK_BOX (side_pane), process_bar, FALSE, FALSE, 1);
   
   g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
                             G_CALLBACK ( codeslayer_abstract_pane_sync_registry), CODESLAYER_ABSTRACT_PANE (side_pane));
