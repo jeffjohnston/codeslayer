@@ -37,7 +37,6 @@ static void find_action                            (CodeSlayerMenuBarSearch     
 static void find_next_action                       (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void find_previous_action                   (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void replace_action                         (CodeSlayerMenuBarSearch      *menu_bar_search);
-static void regular_expression_action              (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void find_projects_action                   (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void go_to_line_action                      (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void sync_menu_action                       (CodeSlayerMenuBarSearch      *menu_bar_search,
@@ -62,8 +61,6 @@ struct _CodeSlayerMenuBarSearchPrivate
   GtkWidget         *find_projects_item;
   GtkWidget         *find_projects_separator_item;
   GtkWidget         *go_to_line_item;
-  GtkWidget         *regular_expression_item;
-  gulong             regular_expression_id;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarSearch, codeslayer_menu_bar_search, GTK_TYPE_MENU_ITEM)
@@ -137,7 +134,6 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
   GtkWidget *find_next_item;
   GtkWidget *find_previous_item;
   GtkWidget *replace_item;
-  GtkWidget *regular_expression_item;
   GtkWidget *find_projects_item;
   GtkWidget *find_projects_separator_item;
   GtkWidget *go_to_line_item;
@@ -168,11 +164,6 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
                               GDK_KEY_H, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), replace_item);
   
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
-  regular_expression_item = gtk_check_menu_item_new_with_label (_("Regular Expression"));
-  priv->regular_expression_item = regular_expression_item;
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), regular_expression_item);
-
   find_projects_separator_item = gtk_separator_menu_item_new ();
   priv->find_projects_separator_item = find_projects_separator_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_projects_separator_item);
@@ -205,9 +196,6 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
   g_signal_connect_swapped (G_OBJECT (find_previous_item), "activate",
                             G_CALLBACK (find_previous_action), menu_bar_search);
   
-  priv->regular_expression_id = g_signal_connect_swapped (G_OBJECT (regular_expression_item), "activate",
-                                                          G_CALLBACK (regular_expression_action), menu_bar_search);
-  
   g_signal_connect_swapped (G_OBJECT (find_projects_item), "activate",
                             G_CALLBACK (find_projects_action), menu_bar_search);
   
@@ -221,27 +209,15 @@ sync_menu_action (CodeSlayerMenuBarSearch *menu_bar_search,
                     gboolean                 has_open_documents)
 {
   CodeSlayerMenuBarSearchPrivate *priv;
-  CodeSlayerRegistry *registry;
 
   priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
   
-  registry = codeslayer_profile_get_registry (priv->profile);
-
   gtk_widget_set_sensitive (priv->find_item, enable_projects || has_open_documents);  
   gtk_widget_set_sensitive (priv->find_next_item, has_open_documents);
   gtk_widget_set_sensitive (priv->find_previous_item, has_open_documents);
   gtk_widget_set_sensitive (priv->replace_item, has_open_documents);
-  gtk_widget_set_sensitive (priv->regular_expression_item, has_open_documents);
   gtk_widget_set_sensitive (priv->go_to_line_item, has_open_documents);
   
-  g_signal_handler_block (priv->regular_expression_item, priv->regular_expression_id);
-  
-  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (priv->regular_expression_item),
-                                  codeslayer_registry_get_boolean (registry, 
-                                                                   CODESLAYER_REGISTRY_ENABLE_REGULAR_EXPRESSION));
-
-  g_signal_handler_unblock (priv->regular_expression_item, priv->regular_expression_id);
-
   if (enable_projects)
     {
       gtk_widget_show (priv->find_projects_item);
@@ -284,14 +260,6 @@ find_previous_action (CodeSlayerMenuBarSearch *menu_bar_search)
   CodeSlayerMenuBarSearchPrivate *priv;
   priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
   codeslayer_menu_bar_find_previous (CODESLAYER_MENU_BAR (priv->menu_bar));
-}
-
-static void
-regular_expression_action (CodeSlayerMenuBarSearch *menu_bar_search)
-{
-  CodeSlayerMenuBarSearchPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
-  codeslayer_menu_bar_regular_expression (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void
