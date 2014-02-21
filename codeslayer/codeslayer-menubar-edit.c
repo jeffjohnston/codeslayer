@@ -36,7 +36,6 @@ static void add_menu_items                       (CodeSlayerMenuBarEdit      *me
 static void cut_action                           (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void copy_action                          (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void paste_action                         (CodeSlayerMenuBarEdit      *menu_bar_edit);
-static void delete_action                        (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void copy_lines_action                    (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void to_uppercase_action                  (CodeSlayerMenuBarEdit      *menu_bar_edit);
 static void to_lowercase_action                  (CodeSlayerMenuBarEdit      *menu_bar_edit);
@@ -58,7 +57,6 @@ struct _CodeSlayerMenuBarEditPrivate
   GtkWidget     *cut_item;
   GtkWidget     *copy_item;
   GtkWidget     *paste_item;
-  GtkWidget     *delete_item;
   GtkWidget     *copy_lines_item;
   GtkWidget     *to_uppercase_item;
   GtkWidget     *to_lowercase_item;
@@ -131,7 +129,6 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
   GtkWidget *cut_item;
   GtkWidget *copy_item;
   GtkWidget *paste_item;
-  GtkWidget *delete_item;
   GtkWidget *copy_lines_item;
   GtkWidget *to_uppercase_item;
   GtkWidget *to_lowercase_item;
@@ -150,12 +147,6 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
   paste_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_PASTE, priv->accel_group);
   priv->paste_item = paste_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), paste_item);
-  
-  delete_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_DELETE, priv->accel_group);
-  priv->delete_item = delete_item;
-  gtk_widget_add_accelerator (delete_item, "activate", priv->accel_group,
-                              GDK_KEY_Delete, 0, GTK_ACCEL_VISIBLE);
-  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), delete_item);
   
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
 
@@ -194,9 +185,6 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
   g_signal_connect_swapped (G_OBJECT (paste_item), "activate",
                             G_CALLBACK (paste_action), menu_bar_edit);
   
-  g_signal_connect_swapped (G_OBJECT (delete_item), "activate",
-                            G_CALLBACK (delete_action), menu_bar_edit);
-  
   g_signal_connect_swapped (G_OBJECT (copy_lines_item), "activate",
                             G_CALLBACK (copy_lines_action), menu_bar_edit);
   
@@ -221,7 +209,6 @@ sync_menu_action (CodeSlayerMenuBarEdit *menu_bar_edit,
   gtk_widget_set_sensitive (priv->cut_item, enable_projects || has_open_documents);
   gtk_widget_set_sensitive (priv->copy_item, enable_projects || has_open_documents);
   gtk_widget_set_sensitive (priv->paste_item, enable_projects || has_open_documents);
-  gtk_widget_set_sensitive (priv->delete_item, enable_projects || has_open_documents);
   gtk_widget_set_sensitive (priv->copy_lines_item, has_open_documents);
   gtk_widget_set_sensitive (priv->to_lowercase_item, has_open_documents);
   gtk_widget_set_sensitive (priv->to_uppercase_item, has_open_documents);
@@ -249,14 +236,6 @@ paste_action (CodeSlayerMenuBarEdit *menu_bar_edit)
   CodeSlayerMenuBarEditPrivate *priv;
   priv = CODESLAYER_MENU_BAR_EDIT_GET_PRIVATE (menu_bar_edit);
   codeslayer_menu_bar_paste (CODESLAYER_MENU_BAR (priv->menu_bar));
-}
-
-static void
-delete_action (CodeSlayerMenuBarEdit *menu_bar_edit)
-{
-  CodeSlayerMenuBarEditPrivate *priv;
-  priv = CODESLAYER_MENU_BAR_EDIT_GET_PRIVATE (menu_bar_edit);
-  codeslayer_menu_bar_delete (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void

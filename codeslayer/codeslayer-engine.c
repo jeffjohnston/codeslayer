@@ -82,7 +82,6 @@ static void search_replace_action           (CodeSlayerEngine      *engine);
 static void cut_action                      (CodeSlayerEngine      *engine);
 static void copy_action                     (CodeSlayerEngine      *engine);
 static void paste_action                    (CodeSlayerEngine      *engine);
-static void delete_action                   (CodeSlayerEngine      *engine);
 static void copy_lines_action               (CodeSlayerEngine      *engine);
 static void uppercase_action                (CodeSlayerEngine      *engine);
 static void lowercase_action                (CodeSlayerEngine      *engine);
@@ -314,9 +313,6 @@ codeslayer_engine_new (GtkWindow          *window,
 
   g_signal_connect_swapped (G_OBJECT (menu_bar), "paste",
                             G_CALLBACK (paste_action), engine);
-
-  g_signal_connect_swapped (G_OBJECT (menu_bar), "del",
-                            G_CALLBACK (delete_action), engine);
 
   g_signal_connect_swapped (G_OBJECT (menu_bar), "copy-lines",
                             G_CALLBACK (copy_lines_action), engine);
@@ -1109,27 +1105,6 @@ paste_action (CodeSlayerEngine *engine)
             gtk_widget_get_ancestor (focused_window, GTK_TYPE_TEXT_VIEW)))
     {
       g_signal_emit_by_name ((gpointer) focused_window, "paste-clipboard");
-    }
-}
-
-static void
-delete_action (CodeSlayerEngine *engine)
-{
-  CodeSlayerEnginePrivate *priv;  
-  GtkWidget *focused_window;
-  
-  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-
-  focused_window = gtk_window_get_focus (priv->window);
-  if (focused_window != NULL && gtk_widget_get_ancestor (focused_window, CODESLAYER_PROJECTS_TYPE))
-    {
-      g_signal_emit_by_name ((gpointer) priv->projects, "delete-file-folder");
-    }
-  else if (focused_window != NULL && 
-           (gtk_widget_get_ancestor (focused_window, GTK_TYPE_ENTRY) || 
-            gtk_widget_get_ancestor (focused_window, GTK_TYPE_TEXT_VIEW)))
-    {
-      g_signal_emit_by_name ((gpointer) focused_window, "delete-from-cursor", GTK_DELETE_CHARS);
     }
 }
 

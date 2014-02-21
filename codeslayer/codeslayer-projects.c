@@ -300,14 +300,6 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   _codeslayer_marshal_VOID__STRING_STRING, G_TYPE_NONE, 
                   2, G_TYPE_STRING, G_TYPE_STRING);
 
-  codeslayer_projects_signals[DELETE_FILE_FOLDER] =
-    g_signal_new ("delete-file-folder", 
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
-                  G_STRUCT_OFFSET (CodeSlayerProjectsClass, delete_file_folder), 
-                  NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
   codeslayer_projects_signals[CUT_FILE_FOLDER] =
     g_signal_new ("cut-file-folder", 
                   G_TYPE_FROM_CLASS (klass),
@@ -358,12 +350,23 @@ codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
                   NULL, NULL,
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
                   
+  codeslayer_projects_signals[DELETE_FILE_FOLDER] =
+    g_signal_new ("delete-file-folder", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS | G_SIGNAL_ACTION,
+                  G_STRUCT_OFFSET (CodeSlayerProjectsClass, delete_file_folder), 
+                  NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_projects_finalize;
 
   binding_set = gtk_binding_set_by_class (klass);
 
   gtk_binding_entry_add_signal (binding_set, GDK_KEY_R, GDK_CONTROL_MASK,
                                 "rename-file-folder", 0);
+
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_Delete, 0,
+                                "delete-file-folder", 0);
 
   g_type_class_add_private (klass, sizeof (CodeSlayerProjectsPrivate));
 }

@@ -68,7 +68,6 @@ struct _CodeSlayerMenuBarClass
   void (*cut) (CodeSlayerMenuBar *menu_bar);
   void (*copy) (CodeSlayerMenuBar *menu_bar);
   void (*paste) (CodeSlayerMenuBar *menu_bar);
-  void (*del) (CodeSlayerMenuBar *menu_bar);
   void (*to_uppercase) (CodeSlayerMenuBar *menu_bar);
   void (*to_lowercase) (CodeSlayerMenuBar *menu_bar);
   void (*copy_lines) (CodeSlayerMenuBar *menu_bar);
@@ -92,7 +91,6 @@ void            codeslayer_menu_bar_quit_application       (CodeSlayerMenuBar *m
 void            codeslayer_menu_bar_cut                    (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_copy                   (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_paste                  (CodeSlayerMenuBar *menu_bar);
-void            codeslayer_menu_bar_delete                 (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_to_uppercase           (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_to_lowercase           (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_copy_lines             (CodeSlayerMenuBar *menu_bar);
