@@ -326,7 +326,6 @@ codeslayer_menu_bar_quit_application
 codeslayer_menu_bar_cut
 codeslayer_menu_bar_copy
 codeslayer_menu_bar_paste
-codeslayer_menu_bar_delete
 codeslayer_menu_bar_to_uppercase
 codeslayer_menu_bar_to_lowercase
 codeslayer_menu_bar_copy_lines

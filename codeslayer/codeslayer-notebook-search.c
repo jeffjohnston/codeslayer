@@ -38,6 +38,7 @@ static void codeslayer_notebook_search_init        (CodeSlayerNotebookSearch    
 static void codeslayer_notebook_search_finalize    (CodeSlayerNotebookSearch      *notebook_search);
 
 static void sync_notebook_action                   (CodeSlayerNotebookSearch      *notebook_search);
+static void registry_initialized_action            (CodeSlayerNotebookSearch      *notebook_search);
 static void add_close_button                       (CodeSlayerNotebookSearch      *notebook_search);
 static void close_search_action                    (CodeSlayerNotebookSearch      *notebook_search);
 static void add_find_entry                         (CodeSlayerNotebookSearch      *notebook_search);
@@ -61,6 +62,7 @@ static void clear_all_search_marks                 (CodeSlayerNotebookSearch    
 static void replace_action                         (CodeSlayerNotebookSearch      *notebook_search);
 static void replace_all_action                     (CodeSlayerNotebookSearch      *notebook_search);
 static void highlight_all_action                   (CodeSlayerNotebookSearch      *notebook_search);
+static void regular_expression_action              (CodeSlayerNotebookSearch      *notebook_search);
 static gchar* entry_get_current_text               (GtkWidget                     *entry, 
                                                     GtkListStore                  *store);
 static void set_entry_color                        (CodeSlayerNotebookSearch      *notebook_search);
@@ -111,7 +113,7 @@ struct _CodeSlayerNotebookSearchPrivate
   GdkRGBA            entry_error_color;
   GdkRGBA            entry_default_color;
   gulong             find_entry_changed_id;
-  gulong             replace_entry_changed_id;
+  gulong             replace_entry_changed_id;  
   GTimer            *entry_timer;
 };
 
@@ -208,11 +210,14 @@ codeslayer_notebook_search_new (GtkWidget         *notebook,
 {
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *notebook_search;
+  CodeSlayerRegistry *registry; 
   
   notebook_search = g_object_new (codeslayer_notebook_search_get_type (), NULL);
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   priv->notebook = notebook;
   priv->profile = profile;
+  
+  registry = codeslayer_profile_get_registry (profile);
   
   priv->grid = gtk_grid_new ();
   gtk_grid_set_row_spacing (GTK_GRID (priv->grid), 2);
@@ -243,6 +248,9 @@ codeslayer_notebook_search_new (GtkWidget         *notebook,
   
   g_signal_connect_swapped (G_OBJECT (notebook), "notify::page",
                             G_CALLBACK (document_switched_action), notebook_search);
+                            
+  g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
+                            G_CALLBACK (registry_initialized_action), CODESLAYER_NOTEBOOK_SEARCH (notebook_search));
   
   return notebook_search;
 }
@@ -585,7 +593,7 @@ add_regular_expression_checkbox (CodeSlayerNotebookSearch *notebook_search)
                             G_CALLBACK (update_registry_action), notebook_search);
 
   g_signal_connect_swapped (G_OBJECT (regular_expression_checkbox), "clicked",
-                            G_CALLBACK (sync_notebook_action), notebook_search);
+                            G_CALLBACK (regular_expression_action), notebook_search);
 
   gtk_grid_attach_next_to (GTK_GRID (priv->grid), regular_expression_checkbox, priv->highlight_all_checkbox, 
                            GTK_POS_RIGHT, 1, 1);
@@ -679,18 +687,13 @@ static void
 sync_notebook_action (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
-  CodeSlayerRegistry *registry;
-  gboolean match_case_selected;
-  gboolean match_word_selected;
-  gboolean highlight_all_selected;
-  gboolean regular_expression_selected;
   gboolean has_open_documents;
+  gboolean regular_expression_selected;
 
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
   
-  registry = codeslayer_profile_get_registry (priv->profile);
-
   has_open_documents = codeslayer_notebook_has_open_documents (CODESLAYER_NOTEBOOK (priv->notebook));
+  regular_expression_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
   
   gtk_widget_set_sensitive (priv->find_entry, has_open_documents);
   gtk_widget_set_sensitive (priv->replace_entry, has_open_documents);
@@ -701,25 +704,8 @@ sync_notebook_action (CodeSlayerNotebookSearch *notebook_search)
   gtk_widget_set_sensitive (priv->match_case_checkbox, has_open_documents);
   gtk_widget_set_sensitive (priv->match_word_checkbox, has_open_documents);
   gtk_widget_set_sensitive (priv->highlight_all_checkbox, has_open_documents);
-  gtk_widget_set_sensitive (priv->regular_expression_checkbox, has_open_documents);
-    
-  match_case_selected = codeslayer_registry_get_boolean (registry,
-                                                         CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE);
-  match_word_selected = codeslayer_registry_get_boolean (registry,
-                                                         CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD);
-  highlight_all_selected = codeslayer_registry_get_boolean (registry,
-                                                            CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_HIGHLIGHT_ALL);
-  regular_expression_selected = codeslayer_registry_get_boolean (registry,
-                                                                 CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGULAR_EXPRESSION);
+  gtk_widget_set_sensitive (priv->regular_expression_checkbox, has_open_documents);    
 
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox), match_case_selected);
-
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox), match_word_selected);
-
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->highlight_all_checkbox), highlight_all_selected);
-  
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox), regular_expression_selected);
-  
   if (regular_expression_selected)
     {
       gtk_widget_set_sensitive (priv->match_case_checkbox, FALSE);
@@ -745,6 +731,63 @@ close_search_action (CodeSlayerNotebookSearch *notebook_search)
   clear_all_search_marks (notebook_search);
   entry_set_text (priv->replace_entry, priv->replace_store, "");
   g_signal_emit_by_name ((gpointer) notebook_search, "close-search");
+}
+
+static void
+registry_initialized_action (CodeSlayerNotebookSearch *notebook_search)
+{
+  CodeSlayerNotebookSearchPrivate *priv;
+  gboolean match_case_selected;
+  gboolean match_word_selected;
+  gboolean highlight_all_selected;
+  gboolean regular_expression_selected;
+  CodeSlayerRegistry *registry;
+
+  priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+  
+  registry = codeslayer_profile_get_registry (priv->profile);
+  
+  match_case_selected = codeslayer_registry_get_boolean (registry,
+                                                         CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE);
+  match_word_selected = codeslayer_registry_get_boolean (registry,
+                                                         CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD);
+  highlight_all_selected = codeslayer_registry_get_boolean (registry,
+                                                            CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_HIGHLIGHT_ALL);
+  regular_expression_selected = codeslayer_registry_get_boolean (registry,
+                                                                 CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGULAR_EXPRESSION);
+
+  g_signal_handlers_block_by_func (G_OBJECT (priv->match_case_checkbox), update_registry_action, notebook_search);
+  g_signal_handlers_block_by_func (G_OBJECT (priv->match_word_checkbox), update_registry_action, notebook_search);
+  g_signal_handlers_block_by_func (G_OBJECT (priv->highlight_all_checkbox), update_registry_action, notebook_search);
+  g_signal_handlers_block_by_func (G_OBJECT (priv->regular_expression_checkbox), update_registry_action, notebook_search);
+  g_signal_handlers_block_by_func (G_OBJECT (priv->match_case_checkbox), find_changed_action, notebook_search);
+  g_signal_handlers_block_by_func (G_OBJECT (priv->match_word_checkbox), find_changed_action, notebook_search);
+  g_signal_handlers_block_by_func (G_OBJECT (priv->regular_expression_checkbox), find_changed_action, notebook_search);
+  g_signal_handlers_block_by_func (G_OBJECT (priv->regular_expression_checkbox), regular_expression_action, notebook_search);
+  g_signal_handlers_block_by_func (G_OBJECT (priv->highlight_all_checkbox), highlight_all_action, notebook_search);
+  
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->match_case_checkbox), match_case_selected);
+
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox), match_word_selected);
+
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->highlight_all_checkbox), highlight_all_selected);
+  
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox), regular_expression_selected); 
+  
+  if (regular_expression_selected)
+    {
+      gtk_widget_set_sensitive (priv->match_case_checkbox, FALSE);
+      gtk_widget_set_sensitive (priv->match_word_checkbox, FALSE);
+    }
+  
+  g_signal_handlers_unblock_by_func (G_OBJECT (priv->match_case_checkbox), update_registry_action, notebook_search);
+  g_signal_handlers_unblock_by_func (G_OBJECT (priv->match_word_checkbox), update_registry_action, notebook_search);
+  g_signal_handlers_unblock_by_func (G_OBJECT (priv->regular_expression_checkbox), update_registry_action, notebook_search);
+  g_signal_handlers_unblock_by_func (G_OBJECT (priv->match_case_checkbox), find_changed_action, notebook_search);
+  g_signal_handlers_unblock_by_func (G_OBJECT (priv->match_word_checkbox), find_changed_action, notebook_search);
+  g_signal_handlers_unblock_by_func (G_OBJECT (priv->regular_expression_checkbox), find_changed_action, notebook_search);
+  g_signal_handlers_unblock_by_func (G_OBJECT (priv->regular_expression_checkbox), regular_expression_action, notebook_search);
+  g_signal_handlers_unblock_by_func (G_OBJECT (priv->highlight_all_checkbox), highlight_all_action, notebook_search);
 }
 
 static void
@@ -1019,7 +1062,7 @@ highlight_all_action (CodeSlayerNotebookSearch *notebook_search)
  
   source_view = get_source_view (notebook_search);
   search = codeslayer_source_view_get_search (CODESLAYER_SOURCE_VIEW (source_view));
-
+  
   codeslayer_search_clear_highlight (search);
 
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->highlight_all_checkbox)))
@@ -1036,6 +1079,20 @@ highlight_all_action (CodeSlayerNotebookSearch *notebook_search)
       if (find)
         g_free (find);
     }
+}
+
+static void
+regular_expression_action (CodeSlayerNotebookSearch *notebook_search)
+{
+  CodeSlayerNotebookSearchPrivate *priv;
+  gboolean regular_expression_selected;
+
+  priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+  
+  regular_expression_selected = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
+  
+  gtk_widget_set_sensitive (priv->match_case_checkbox, !regular_expression_selected);
+  gtk_widget_set_sensitive (priv->match_word_checkbox, !regular_expression_selected);
 }
 
 static void

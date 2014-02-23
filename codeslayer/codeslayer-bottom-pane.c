@@ -89,7 +89,7 @@ codeslayer_bottom_pane_new (CodeSlayerProfile *profile)
   registry = codeslayer_profile_get_registry (profile);
 
   g_signal_connect_swapped (G_OBJECT (registry), "registry-initialized",
-                            G_CALLBACK ( codeslayer_abstract_pane_sync_registry), CODESLAYER_ABSTRACT_PANE (bottom_pane));
+                            G_CALLBACK (codeslayer_abstract_pane_sync_registry), CODESLAYER_ABSTRACT_PANE (bottom_pane));
 
   g_signal_connect_swapped (G_OBJECT (registry), "registry-changed",
                             G_CALLBACK (codeslayer_abstract_pane_sync_registry), bottom_pane);
