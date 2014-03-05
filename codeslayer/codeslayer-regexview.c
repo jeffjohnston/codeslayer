@@ -318,8 +318,6 @@ refresh_action (CodeSlayerRegexView *regex_view)
   
   active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->refresh_button));
 
-  gtk_widget_set_sensitive (GTK_WIDGET (priv->execute_button), !active);
-  
   if (active)
     execute_action (regex_view);
 }
