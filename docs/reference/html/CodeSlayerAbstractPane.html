@@ -63,6 +63,7 @@ struct              <a class="link" href="CodeSlayerAbstractPane.html#CodeSlayer
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> position</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-remove" title="codeslayer_abstract_pane_remove ()">codeslayer_abstract_pane_remove</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-remove-all" title="codeslayer_abstract_pane_remove_all ()">codeslayer_abstract_pane_remove_all</a> (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-exists" title="codeslayer_abstract_pane_exists ()">codeslayer_abstract_pane_exists</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerAbstractPane.html#codeslayer-abstract-pane-open" title="codeslayer_abstract_pane_open ()">codeslayer_abstract_pane_open</a>       (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>,
@@ -160,7 +161,7 @@ Add the widget to the side pane.
                                                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *title</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> position</code></em>);</pre>
 <p>
-Add the widget to the side pane.
+Add the widget to the pane.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -190,7 +191,7 @@ Add the widget to the side pane.
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_abstract_pane_remove     (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
 <p>
-Remove the widget from the side pane.
+Remove the widget from the pane.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -204,6 +205,21 @@ Remove the widget from the side pane.
 <td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a>.</td>
 </tr>
 </tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-abstract-pane-remove-all"></a><h3>codeslayer_abstract_pane_remove_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_abstract_pane_remove_all (<em class="parameter"><code><a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a> *abstract_pane</code></em>);</pre>
+<p>
+Remove all the widgets from the pane.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>abstract_pane</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerAbstractPane.html" title="CodeSlayerAbstractPane"><span class="type">CodeSlayerAbstractPane</span></a>.</td>
+</tr></tbody>
 </table></div>
 </div>
 <hr>

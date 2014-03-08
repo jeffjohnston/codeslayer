@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerRegexView</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerProjects.html" title="CodeSlayerProjects">
+<link rel="next" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerProjects.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerRegistry.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerRegexView.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerRegexView.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerRegexView.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerRegexView.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="CodeSlayerRegexView"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerRegexView.top_of_page"></a>CodeSlayerRegexView</span></h2>
+<p>CodeSlayerRegexView — The view that contains the additional regular expression tools.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="CodeSlayerRegexView.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-regexview.h&gt;
+
+struct              <a class="link" href="CodeSlayerRegexView.html#CodeSlayerRegexView-struct" title="struct CodeSlayerRegexView">CodeSlayerRegexView</a>;
+<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerRegexView.html#codeslayer-regex-view-new" title="codeslayer_regex_view_new ()">codeslayer_regex_view_new</a>           (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook_search</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerRegexView.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+         +----<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html">GtkWidget</a>
+               +----<a href="/usr/share/gtk-doc/html/gtk3/GtkContainer.html">GtkContainer</a>
+                     +----<a href="/usr/share/gtk-doc/html/gtk3/GtkBox.html">GtkBox</a>
+                           +----<a href="/usr/share/gtk-doc/html/gtk3/GtkVBox.html">GtkVBox</a>
+                                 +----CodeSlayerRegexView
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerRegexView.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+CodeSlayerRegexView implements
+ AtkImplementorIface,  <a href="/usr/share/gtk-doc/html/gtk3/GtkBuildable.html">GtkBuildable</a> and  <a href="/usr/share/gtk-doc/html/gtk3/gtk3-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerRegexView.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerRegexView.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CodeSlayerRegexView-struct"></a><h3>struct CodeSlayerRegexView</h3>
+<pre class="programlisting">struct CodeSlayerRegexView;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-regex-view-new"></a><h3>codeslayer_regex_view_new ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_regex_view_new           (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook_search</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>

@@ -6,7 +6,7 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
-<link rel="prev" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane">
+<link rel="prev" href="CodeSlayerSearch.html" title="CodeSlayerSearch">
 <link rel="next" href="CodeSlayerWindow.html" title="CodeSlayerWindow">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
@@ -14,7 +14,7 @@
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="CodeSlayerSidePane.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="CodeSlayerSearch.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
@@ -53,6 +53,7 @@ struct              <a class="link" href="CodeSlayerSourceView.html#CodeSlayerSo
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="returnvalue">CodeSlayerDocument</span></a> * <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-get-document" title="codeslayer_source_view_get_document ()">codeslayer_source_view_get_document</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>);
+<a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="returnvalue">CodeSlayerSearch</span></a> *  <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-get-search" title="codeslayer_source_view_get_search ()">codeslayer_source_view_get_search</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib-Date-and-Time-Functions.html#GTimeVal"><span class="returnvalue">GTimeVal</span></a> *          <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-get-modification-time" title="codeslayer_source_view_get_modification_time ()">codeslayer_source_view_get_modification_time</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSourceView.html#codeslayer-source-view-set-modification-time" title="codeslayer_source_view_set_modification_time ()">codeslayer_source_view_set_modification_time</a>
@@ -162,6 +163,25 @@ Creates a new <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayer
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>the <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> that represents this source view.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-source-view-get-search"></a><h3>codeslayer_source_view_get_search ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="returnvalue">CodeSlayerSearch</span></a> *  codeslayer_source_view_get_search   (<em class="parameter"><code><a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a> *source_view</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source_view</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerSourceView.html" title="CodeSlayerSourceView"><span class="type">CodeSlayerSourceView</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the <a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> to search the source view.</td>
 </tr>
 </tbody>
 </table></div>

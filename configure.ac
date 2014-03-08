@@ -1,5 +1,5 @@
 AC_PREREQ(2.59)
-AC_INIT([CodeSlayer], [4.0.0], [jeff.johnston.mn@gmail.com], [codeslayer], [http://codeslayer.org])
+AC_INIT([CodeSlayer], [4.1.0], [jeff.johnston.mn@gmail.com], [codeslayer], [http://codeslayer.org])
 AM_INIT_AUTOMAKE
 
 AC_ARG_ENABLE(codeslayer-dev,

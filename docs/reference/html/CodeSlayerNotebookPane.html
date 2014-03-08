@@ -7,7 +7,7 @@
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
 <link rel="prev" href="CodeSlayerNotebookPage.html" title="CodeSlayerNotebookPage">
-<link rel="next" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch">
+<link rel="next" href="CodeSlayerNotebookSearch.html" title="CodeSlayerSearch">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -50,13 +50,9 @@
 
 struct              <a class="link" href="CodeSlayerNotebookPane.html#CodeSlayerNotebookPane-struct" title="struct CodeSlayerNotebookPane">CodeSlayerNotebookPane</a>;
 <a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerNotebookPane.html#codeslayer-notebook-pane-new" title="codeslayer_notebook_pane_new ()">codeslayer_notebook_pane_new</a>        (<em class="parameter"><code><span class="type">void</span></code></em>);
-<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerNotebookPane.html#codeslayer-notebook-pane-get-notebook" title="codeslayer_notebook_pane_get_notebook ()">codeslayer_notebook_pane_get_notebook</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookPane.html#codeslayer-notebook-pane-set-notebook" title="codeslayer_notebook_pane_set_notebook ()">codeslayer_notebook_pane_set_notebook</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook</code></em>);
-<a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         <a class="link" href="CodeSlayerNotebookPane.html#codeslayer-notebook-pane-get-notebook-search" title="codeslayer_notebook_pane_get_notebook_search ()">codeslayer_notebook_pane_get_notebook_search</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookPane.html#codeslayer-notebook-pane-set-notebook-search" title="codeslayer_notebook_pane_set_notebook_search ()">codeslayer_notebook_pane_set_notebook_search</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="type">GtkWidget</span></a> *notebook_search</code></em>);
@@ -67,8 +63,6 @@ struct              <a class="link" href="CodeSlayerNotebookPane.html#CodeSlayer
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookPane.html#codeslayer-notebook-pane-search-find-next" title="codeslayer_notebook_pane_search_find_next ()">codeslayer_notebook_pane_search_find_next</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookPane.html#codeslayer-notebook-pane-search-find-previous" title="codeslayer_notebook_pane_search_find_previous ()">codeslayer_notebook_pane_search_find_previous</a>
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebookPane.html#codeslayer-notebook-pane-sync-with-notebook" title="codeslayer_notebook_pane_sync_with_notebook ()">codeslayer_notebook_pane_sync_with_notebook</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>);
 </pre>
 </div>
@@ -129,25 +123,6 @@ Creates a new <a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlay
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-notebook-pane-get-notebook"></a><h3>codeslayer_notebook_pane_get_notebook ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_notebook_pane_get_notebook
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>);</pre>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>notebook_pane</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the notebook contained with the pane.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
 <a name="codeslayer-notebook-pane-set-notebook"></a><h3>codeslayer_notebook_pane_set_notebook ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_pane_set_notebook
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>,
@@ -168,25 +143,6 @@ Creates a new <a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlay
 </div>
 <hr>
 <div class="refsect2">
-<a name="codeslayer-notebook-pane-get-notebook-search"></a><h3>codeslayer_notebook_pane_get_notebook_search ()</h3>
-<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gtk3/GtkWidget.html"><span class="returnvalue">GtkWidget</span></a> *         codeslayer_notebook_pane_get_notebook_search
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>);</pre>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>notebook_pane</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a>.</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>the notebook search contained with the pane.</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2">
 <a name="codeslayer-notebook-pane-set-notebook-search"></a><h3>codeslayer_notebook_pane_set_notebook_search ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_pane_set_notebook_search
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>,
@@ -200,7 +156,7 @@ Creates a new <a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlay
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>notebook_search</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a>.</td>
+<td>a <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerNotebookSearch</span></a>.</td>
 </tr>
 </tbody>
 </table></div>
@@ -269,22 +225,6 @@ Delegate to the inline search to find the previous search value.
 </tr></tbody>
 </table></div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="codeslayer-notebook-pane-sync-with-notebook"></a><h3>codeslayer_notebook_pane_sync_with_notebook ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_notebook_pane_sync_with_notebook
-                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a> *notebook_pane</code></em>);</pre>
-<p>
-Delegate to the inline search to sync the values.
-</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>notebook_pane</code></em> :</span></p></td>
-<td>a <a class="link" href="CodeSlayerNotebookPane.html" title="CodeSlayerNotebookPane"><span class="type">CodeSlayerNotebookPane</span></a>.</td>
-</tr></tbody>
-</table></div>
-</div>
 </div>
 <div class="refsect1">
 <a name="CodeSlayerNotebookPane.property-details"></a><h2>Property Details</h2>
@@ -300,7 +240,7 @@ A <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><spa
 <a name="CodeSlayerNotebookPane--notebook-search"></a><h3>The <code class="literal">"notebook-search"</code> property</h3>
 <pre class="programlisting">  "notebook-search"          <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write</pre>
 <p>
-A <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerNotebookSearch"><span class="type">CodeSlayerNotebookSearch</span></a> that makes up the bottom of the pane.
+A <a class="link" href="CodeSlayerNotebookSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerNotebookSearch</span></a> that makes up the bottom of the pane.
 </p>
 </div>
 </div>

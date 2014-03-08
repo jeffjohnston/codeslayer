@@ -6,7 +6,7 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
-<link rel="prev" href="CodeSlayerProcesses.html" title="CodeSlayerProcesses">
+<link rel="prev" href="CodeSlayerPreferences.html" title="CodeSlayerPreferences">
 <link rel="next" href="CodeSlayerProfilesManager.html" title="CodeSlayerProfilesManager">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
@@ -14,7 +14,7 @@
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="CodeSlayerProcesses.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="CodeSlayerPreferences.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
@@ -67,6 +67,8 @@ const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span c
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-remove-project" title="codeslayer_profile_remove_project ()">codeslayer_profile_remove_project</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-remove-all-projects" title="codeslayer_profile_remove_all_projects ()">codeslayer_profile_remove_all_projects</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-contains-project" title="codeslayer_profile_contains_project ()">codeslayer_profile_contains_project</a> (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-documents" title="codeslayer_profile_get_documents ()">codeslayer_profile_get_documents</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
@@ -76,6 +78,8 @@ const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span c
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-remove-document" title="codeslayer_profile_remove_document ()">codeslayer_profile_remove_document</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> *document</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-remove-all-documents" title="codeslayer_profile_remove_all_documents ()">codeslayer_profile_remove_all_documents</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="returnvalue">CodeSlayerRegistry</span></a> * <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-registry" title="codeslayer_profile_get_registry ()">codeslayer_profile_get_registry</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-plugins" title="codeslayer_profile_get_plugins ()">codeslayer_profile_get_plugins</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-set-plugins" title="codeslayer_profile_set_plugins ()">codeslayer_profile_set_plugins</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
@@ -318,6 +322,19 @@ project specified is not found.</td>
 </div>
 <hr>
 <div class="refsect2">
+<a name="codeslayer-profile-remove-all-projects"></a><h3>codeslayer_profile_remove_all_projects ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_profile_remove_all_projects
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
 <a name="codeslayer-profile-contains-project"></a><h3>codeslayer_profile_contains_project ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_profile_contains_project (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
                                                          <em class="parameter"><code><a class="link" href="CodeSlayerProject.html" title="CodeSlayerProject"><span class="type">CodeSlayerProject</span></a> *project</code></em>);</pre>
@@ -408,6 +425,19 @@ project specified is not found.</td>
 <td>the <a class="link" href="CodeSlayerDocument.html" title="CodeSlayerDocument"><span class="type">CodeSlayerDocument</span></a> to remove from the profile.</td>
 </tr>
 </tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profile-remove-all-documents"></a><h3>codeslayer_profile_remove_all_documents ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_profile_remove_all_documents
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
+</tr></tbody>
 </table></div>
 </div>
 <hr>

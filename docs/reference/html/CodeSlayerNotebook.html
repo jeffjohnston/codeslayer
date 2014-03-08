@@ -59,6 +59,8 @@ struct              <a class="link" href="CodeSlayerNotebook.html#CodeSlayerNote
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-has-unsaved-documents" title="codeslayer_notebook_has_unsaved_documents ()">codeslayer_notebook_has_unsaved_documents</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-has-open-documents" title="codeslayer_notebook_has_open_documents ()">codeslayer_notebook_has_open_documents</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-close-document" title="codeslayer_notebook_close_document ()">codeslayer_notebook_close_document</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"><span class="type">gint</span></a> page_num</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerNotebook.html#codeslayer-notebook-close-all-documents" title="codeslayer_notebook_close_all_documents ()">codeslayer_notebook_close_all_documents</a>
@@ -92,6 +94,7 @@ CodeSlayerNotebook implements
   "<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-document-saved" title='The "document-saved" signal'>document-saved</a>"                                 : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-documents-all-saved" title='The "documents-all-saved" signal'>documents-all-saved</a>"                            : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-select-document" title='The "select-document" signal'>select-document</a>"                                : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerNotebook.html#CodeSlayerNotebook-sync-notebook" title='The "sync-notebook" signal'>sync-notebook</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
 </pre>
 </div>
 <div class="refsect1">
@@ -225,6 +228,25 @@ for internal use only.
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td>is FALSE unless there are documents that need to saved.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-notebook-has-open-documents"></a><h3>codeslayer_notebook_has_open_documents ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_notebook_has_open_documents
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *notebook</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>notebook</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>is TRUE if there are documents open in the notebook.</td>
 </tr>
 </tbody>
 </table></div>
@@ -367,6 +389,28 @@ The ::documents-all-saved signal is emitted when all the documents have been sav
                                                         <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 <p>
 The ::document-saved signal is emitted when an document is saved successfully
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayernotebook</code></em> :</span></p></td>
+<td>the notebook that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerNotebook-sync-notebook"></a><h3>The <code class="literal">"sync-notebook"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerNotebook.html" title="CodeSlayerNotebook"><span class="type">CodeSlayerNotebook</span></a> *codeslayernotebook,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+The ::sync-notebook signal is emitted when the notebook should sync up.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">

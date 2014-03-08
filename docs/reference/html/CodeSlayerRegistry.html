@@ -6,7 +6,7 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="CodeSlayer Reference Manual">
 <link rel="up" href="ch01.html" title="API Reference">
-<link rel="prev" href="CodeSlayerProjects.html" title="CodeSlayerProjects">
+<link rel="prev" href="CodeSlayerRegexView.html" title="CodeSlayerRegexView">
 <link rel="next" href="CodeSlayerSidePane.html" title="CodeSlayerSidePane">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
@@ -14,7 +14,7 @@
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="CodeSlayerProjects.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="CodeSlayerRegexView.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">CodeSlayer Reference Manual</th>
@@ -58,6 +58,8 @@
 #define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-BOTTOM-PANE-VISIBLE:CAPS" title="CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE">CODESLAYER_REGISTRY_BOTTOM_PANE_VISIBLE</a>
 #define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-MATCH-CASE:CAPS" title="CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE">CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_CASE</a>
 #define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-MATCH-WORD:CAPS" title="CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD">CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_MATCH_WORD</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-HIGHLIGHT-ALL:CAPS" title="CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_HIGHLIGHT_ALL">CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_HIGHLIGHT_ALL</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-REGULAR-EXPRESSION:CAPS" title="CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGULAR_EXPRESSION">CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGULAR_EXPRESSION</a>
 #define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-DRAW-SPACES:CAPS" title="CODESLAYER_REGISTRY_DRAW_SPACES">CODESLAYER_REGISTRY_DRAW_SPACES</a>
 #define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-WORD-WRAP:CAPS" title="CODESLAYER_REGISTRY_WORD_WRAP">CODESLAYER_REGISTRY_WORD_WRAP</a>
 #define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-SYNC-WITH-DOCUMENT:CAPS" title="CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT">CODESLAYER_REGISTRY_SYNC_WITH_DOCUMENT</a>
@@ -78,6 +80,7 @@
 #define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-BOTTOM-PANE-TAB-POSITION:CAPS" title="CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION">CODESLAYER_REGISTRY_BOTTOM_PANE_TAB_POSITION</a>
 #define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-PROJECTS-EXCLUDE-TYPES:CAPS" title="CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES">CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES</a>
 #define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-PROJECTS-EXCLUDE-DIRS:CAPS" title="CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS">CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS</a>
+#define             <a class="link" href="CodeSlayerRegistry.html#CODESLAYER-REGISTRY-ENABLE-REGULAR-EXPRESSION:CAPS" title="CODESLAYER_REGISTRY_ENABLE_REGULAR_EXPRESSION">CODESLAYER_REGISTRY_ENABLE_REGULAR_EXPRESSION</a>
 struct              <a class="link" href="CodeSlayerRegistry.html#CodeSlayerRegistry-struct" title="struct CodeSlayerRegistry">CodeSlayerRegistry</a>;
 <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="returnvalue">CodeSlayerRegistry</span></a> * <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-new" title="codeslayer_registry_new ()">codeslayer_registry_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *        <a class="link" href="CodeSlayerRegistry.html#codeslayer-registry-get-hashtable" title="codeslayer_registry_get_hashtable ()">codeslayer_registry_get_hashtable</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="type">CodeSlayerRegistry</span></a> *registry</code></em>);
@@ -212,6 +215,18 @@ const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span c
 </div>
 <hr>
 <div class="refsect2">
+<a name="CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-HIGHLIGHT-ALL:CAPS"></a><h3>CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_HIGHLIGHT_ALL</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_HIGHLIGHT_ALL "notebook_search_highlight_all"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-NOTEBOOK-SEARCH-REGULAR-EXPRESSION:CAPS"></a><h3>CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGULAR_EXPRESSION</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_NOTEBOOK_SEARCH_REGULAR_EXPRESSION "notebook_search_regular_expression"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="CODESLAYER-REGISTRY-DRAW-SPACES:CAPS"></a><h3>CODESLAYER_REGISTRY_DRAW_SPACES</h3>
 <pre class="programlisting">#define CODESLAYER_REGISTRY_DRAW_SPACES "draw_spaces"
 </pre>
@@ -328,6 +343,12 @@ const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span c
 <div class="refsect2">
 <a name="CODESLAYER-REGISTRY-PROJECTS-EXCLUDE-DIRS:CAPS"></a><h3>CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS</h3>
 <pre class="programlisting">#define CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_DIRS "projects_exclude_dirs"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CODESLAYER-REGISTRY-ENABLE-REGULAR-EXPRESSION:CAPS"></a><h3>CODESLAYER_REGISTRY_ENABLE_REGULAR_EXPRESSION</h3>
+<pre class="programlisting">#define CODESLAYER_REGISTRY_ENABLE_REGULAR_EXPRESSION "enable_regular_expression"
 </pre>
 </div>
 <hr>
