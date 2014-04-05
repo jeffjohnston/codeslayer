@@ -29,7 +29,6 @@
 #include <codeslayer/codeslayer-notebook-search.h>
 #include <codeslayer/codeslayer-notebook-page.h>
 #include <codeslayer/codeslayer-menubar.h>
-#include <codeslayer/codeslayer-processbar.h>
 #include <codeslayer/codeslayer-plugins.h>
 #include <codeslayer/codeslayer-preferences.h>
 #include <codeslayer/codeslayer-profiles.h>

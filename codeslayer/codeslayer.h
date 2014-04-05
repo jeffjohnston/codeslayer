@@ -36,7 +36,6 @@
 #include <codeslayer/codeslayer-completion.h>
 #include <codeslayer/codeslayer-completion-provider.h>
 #include <codeslayer/codeslayer-completion-proposal.h>
-#include <codeslayer/codeslayer-processes.h>
 #include <codeslayer/codeslayer-utils.h>
 #include <codeslayer/codeslayer-xml.h>
 #include <codeslayer/codeslayer-registry.h>

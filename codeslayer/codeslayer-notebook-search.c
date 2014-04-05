@@ -306,6 +306,7 @@ codeslayer_notebook_search_find (CodeSlayerNotebookSearch *notebook_search)
   else
     {
       gtk_widget_grab_focus (GTK_WIDGET (priv->find_entry));
+      highlight_all_action (notebook_search);
     }
   
   entry_set_text (priv->replace_entry, priv->replace_store, "");
