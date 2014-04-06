@@ -748,6 +748,7 @@ codeslayer_menu_bar_save_document (CodeSlayerMenuBar *menu_bar)
 /**
  * codeslayer_menu_bar_recent_document:
  * @menu_bar: a #CodeSlayerMenuBar.
+ * @recent_document: the recent document to load.
  */
 void
 codeslayer_menu_bar_recent_document (CodeSlayerMenuBar *menu_bar, 

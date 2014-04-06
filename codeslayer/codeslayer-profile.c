@@ -523,7 +523,7 @@ codeslayer_profile_remove_recent_document (CodeSlayerProfile *profile,
 /**
  * codeslayer_profile_contains_recent_document:
  * @profile: a #CodeSlayerProfile.
- * @plugin: the recent_document to find.
+ * @recent_document: the recent_document to find.
  *
  * Returns: is TRUE if the recent_document is found in the profile.
  */

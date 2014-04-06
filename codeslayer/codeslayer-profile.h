@@ -86,7 +86,7 @@ void                 codeslayer_profile_remove_document              (CodeSlayer
 void                 codeslayer_profile_remove_all_documents         (CodeSlayerProfile  *profile);
 GList*               codeslayer_profile_get_recent_documents         (CodeSlayerProfile  *profile);
 void                 codeslayer_profile_set_recent_documents         (CodeSlayerProfile  *profile,
-                                                                      GList              *documents);
+                                                                      GList              *recent_documents);
 gboolean             codeslayer_profile_contains_recent_document     (CodeSlayerProfile  *profile, 
                                                                       const gchar        *recent_document);
 void                 codeslayer_profile_add_recent_document          (CodeSlayerProfile  *profile,

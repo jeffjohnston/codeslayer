@@ -103,6 +103,7 @@ codeslayer_menu_bar_file_finalize (CodeSlayerMenuBarFile *menu_bar_file)
  * codeslayer_menu_bar_file_new:
  * @menu_bar: a #CodeSlayerMenuBar.
  * @accel_group: a #GtkAccelGroup.
+ * @profile: a #CodeSlayerProfile.
  *
  * Creates a new #CodeSlayerMenuBarFile.
  *
