@@ -44,6 +44,8 @@ struct _CodeSlayerProfile
 struct _CodeSlayerProfileClass
 {
   GObjectClass parent_class;
+  
+  void (*recent_documents_changed) (CodeSlayerProfile *profile);  
 };
 
 GType
@@ -51,47 +53,56 @@ codeslayer_profile_get_type (void) G_GNUC_CONST;
 
 CodeSlayerProfile*   codeslayer_profile_new (void);
 
-const gchar*         codeslayer_profile_get_name                  (CodeSlayerProfile  *profile);
-void                 codeslayer_profile_set_name                  (CodeSlayerProfile  *profile, 
-                                                                   gchar              *name);
-const gchar*         codeslayer_profile_get_file_path             (CodeSlayerProfile  *profile);
-void                 codeslayer_profile_set_file_path             (CodeSlayerProfile  *profile, 
-                                                                   const gchar        *file_path);
-gboolean             codeslayer_profile_get_enable_projects       (CodeSlayerProfile  *profile);
-void                 codeslayer_profile_set_enable_projects       (CodeSlayerProfile  *profile, 
-                                                                   gboolean            enable_projects);
-GList*               codeslayer_profile_get_projects              (CodeSlayerProfile  *profile);
-void                 codeslayer_profile_set_projects              (CodeSlayerProfile  *profile,
-                                                                   GList              *projects);
-CodeSlayerProject*   codeslayer_profile_find_project              (CodeSlayerProfile  *profile, 
-                                                                   const gchar        *project_key);
-CodeSlayerProject*   codeslayer_profile_get_project_by_file_path  (CodeSlayerProfile  *profile, 
-                                                                   const gchar        *file_path);                                                      
-void                 codeslayer_profile_add_project               (CodeSlayerProfile  *profile,
-                                                                   CodeSlayerProject  *project);
-void                 codeslayer_profile_remove_project            (CodeSlayerProfile  *profile,
-                                                                   CodeSlayerProject  *project);
-gboolean             codeslayer_profile_contains_project          (CodeSlayerProfile  *profile,
-                                                                   CodeSlayerProject  *project);                                                        
-void                 codeslayer_profile_remove_all_projects       (CodeSlayerProfile  *profile);                                                        
-GList*               codeslayer_profile_get_documents             (CodeSlayerProfile  *profile);
-void                 codeslayer_profile_set_documents             (CodeSlayerProfile  *profile,
-                                                                   GList              *documents);
-void                 codeslayer_profile_add_document              (CodeSlayerProfile  *profile,
-                                                                   CodeSlayerDocument *document);
-void                 codeslayer_profile_remove_document           (CodeSlayerProfile  *profile,
-                                                                   CodeSlayerDocument *document);
-void                 codeslayer_profile_remove_all_documents      (CodeSlayerProfile  *profile);
-CodeSlayerRegistry*  codeslayer_profile_get_registry              (CodeSlayerProfile  *profile);
-GList*               codeslayer_profile_get_plugins               (CodeSlayerProfile  *profile);
-void                 codeslayer_profile_set_plugins               (CodeSlayerProfile  *profile, 
-                                                                   GList              *plugins);
-gboolean             codeslayer_profile_contains_plugin           (CodeSlayerProfile  *profile, 
-                                                                   const gchar        *plugin);
-void                 codeslayer_profile_add_plugin                (CodeSlayerProfile  *profile, 
-                                                                   const gchar        *plugin);
-void                 codeslayer_profile_remove_plugin             (CodeSlayerProfile  *profile, 
-                                                                   const gchar        *plugin);
+const gchar*         codeslayer_profile_get_name                     (CodeSlayerProfile  *profile);
+void                 codeslayer_profile_set_name                     (CodeSlayerProfile  *profile, 
+                                                                      gchar              *name);
+const gchar*         codeslayer_profile_get_file_path                (CodeSlayerProfile  *profile);
+void                 codeslayer_profile_set_file_path                (CodeSlayerProfile  *profile, 
+                                                                      const gchar        *file_path);
+gboolean             codeslayer_profile_get_enable_projects          (CodeSlayerProfile  *profile);
+void                 codeslayer_profile_set_enable_projects          (CodeSlayerProfile  *profile, 
+                                                                      gboolean            enable_projects);
+GList*               codeslayer_profile_get_projects                 (CodeSlayerProfile  *profile);
+void                 codeslayer_profile_set_projects                 (CodeSlayerProfile  *profile,
+                                                                      GList              *projects);
+CodeSlayerProject*   codeslayer_profile_find_project                 (CodeSlayerProfile  *profile, 
+                                                                      const gchar        *project_key);
+CodeSlayerProject*   codeslayer_profile_get_project_by_file_path     (CodeSlayerProfile  *profile, 
+                                                                      const gchar        *file_path);                                                      
+void                 codeslayer_profile_add_project                  (CodeSlayerProfile  *profile,
+                                                                      CodeSlayerProject  *project);
+void                 codeslayer_profile_remove_project               (CodeSlayerProfile  *profile,
+                                                                      CodeSlayerProject  *project);
+gboolean             codeslayer_profile_contains_project             (CodeSlayerProfile  *profile,
+                                                                      CodeSlayerProject  *project);                                                        
+void                 codeslayer_profile_remove_all_projects          (CodeSlayerProfile  *profile);                                                        
+GList*               codeslayer_profile_get_documents                (CodeSlayerProfile  *profile);
+void                 codeslayer_profile_set_documents                (CodeSlayerProfile  *profile,
+                                                                      GList              *documents);
+void                 codeslayer_profile_add_document                 (CodeSlayerProfile  *profile,
+                                                                      CodeSlayerDocument *document);
+void                 codeslayer_profile_remove_document              (CodeSlayerProfile  *profile,
+                                                                      CodeSlayerDocument *document);
+void                 codeslayer_profile_remove_all_documents         (CodeSlayerProfile  *profile);
+GList*               codeslayer_profile_get_recent_documents         (CodeSlayerProfile  *profile);
+void                 codeslayer_profile_set_recent_documents         (CodeSlayerProfile  *profile,
+                                                                      GList              *documents);
+gboolean             codeslayer_profile_contains_recent_document     (CodeSlayerProfile  *profile, 
+                                                                      const gchar        *recent_document);
+void                 codeslayer_profile_add_recent_document          (CodeSlayerProfile  *profile,
+                                                                      const gchar        *recent_document);
+void                 codeslayer_profile_remove_recent_document       (CodeSlayerProfile  *profile, 
+                                                                      const gchar        *recent_document);
+CodeSlayerRegistry*  codeslayer_profile_get_registry                 (CodeSlayerProfile  *profile);
+GList*               codeslayer_profile_get_plugins                  (CodeSlayerProfile  *profile);
+void                 codeslayer_profile_set_plugins                  (CodeSlayerProfile  *profile, 
+                                                                      GList              *plugins);
+gboolean             codeslayer_profile_contains_plugin              (CodeSlayerProfile  *profile, 
+                                                                      const gchar        *plugin);
+void                 codeslayer_profile_add_plugin                   (CodeSlayerProfile  *profile, 
+                                                                      const gchar        *plugin);
+void                 codeslayer_profile_remove_plugin                (CodeSlayerProfile  *profile, 
+                                                                      const gchar        *plugin);
 
 G_END_DECLS
 

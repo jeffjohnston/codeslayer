@@ -53,6 +53,7 @@ struct _CodeSlayerMenuBarClass
   void (*new_document) (CodeSlayerMenuBar *menu_bar);
   void (*open_document) (CodeSlayerMenuBar *menu_bar);
   void (*save_document) (CodeSlayerMenuBar *menu_bar);
+  void (*recent_document) (CodeSlayerMenuBar *menu_bar);
   void (*save_all_documents) (CodeSlayerMenuBar *menu_bar);
   void (*close_document) (CodeSlayerMenuBar *menu_bar);
   void (*quit_application) (CodeSlayerMenuBar *menu_bar);
@@ -84,6 +85,8 @@ GtkWidget*      codeslayer_menu_bar_new                    (GtkWidget         *w
 void            codeslayer_menu_bar_new_document           (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_open_document          (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_save_document          (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_recent_document        (CodeSlayerMenuBar *menu_bar, 
+                                                            gchar             *recent_document);
 void            codeslayer_menu_bar_save_all_documents     (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_close_document         (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_quit_application       (CodeSlayerMenuBar *menu_bar);

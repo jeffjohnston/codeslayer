@@ -32,9 +32,10 @@ static void codeslayer_menu_bar_file_init        (CodeSlayerMenuBarFile      *me
 static void codeslayer_menu_bar_file_finalize    (CodeSlayerMenuBarFile      *menu_bar_file);
 
 static void add_menu_items                       (CodeSlayerMenuBarFile      *menu_bar_file);
-
 static void new_document_action                  (CodeSlayerMenuBarFile      *menu_bar_file);
 static void open_document_action                 (CodeSlayerMenuBarFile      *menu_bar_file);
+static void recent_document_action               (GtkMenuItem                *menuitem, 
+                                                  CodeSlayerMenuBarFile      *menu_bar_file);
 static void save_document_action                 (CodeSlayerMenuBarFile      *menu_bar_file);
 static void save_all_documents_action            (CodeSlayerMenuBarFile      *menu_bar_file);
 static void close_document_action                (CodeSlayerMenuBarFile      *menu_bar_file);
@@ -43,6 +44,7 @@ static void show_profiles_action                 (CodeSlayerMenuBarFile      *me
 static void sync_menu_action                     (CodeSlayerMenuBarFile      *menu_bar_file,
                                                   gboolean                    enable_projects,
                                                   gboolean                    has_open_documents);
+static void recent_documents_action              (CodeSlayerMenuBarFile      *menu_bar_file);
 
 #define CODESLAYER_MENU_BAR_FILE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_FILE_TYPE, CodeSlayerMenuBarFilePrivate))
@@ -51,15 +53,18 @@ typedef struct _CodeSlayerMenuBarFilePrivate CodeSlayerMenuBarFilePrivate;
 
 struct _CodeSlayerMenuBarFilePrivate
 {
-  GtkAccelGroup *accel_group;
-  GtkWidget     *menu_bar;
-  GtkWidget     *menu;  
-  GtkWidget     *new_item;
-  GtkWidget     *open_item;
-  GtkWidget     *save_item;
-  GtkWidget     *save_all_item;
-  GtkWidget     *save_separator_item;
-  GtkWidget     *close_tab_item;
+  CodeSlayerProfile *profile;
+  GtkAccelGroup     *accel_group;
+  GtkWidget         *menu_bar;
+  GtkWidget         *menu;  
+  GtkWidget         *new_item;
+  GtkWidget         *open_item;
+  GtkWidget         *save_item;
+  GtkWidget         *save_all_item;
+  GtkWidget         *save_separator_item;
+  GtkWidget         *close_tab_item;
+  GtkWidget         *recent_documents_item;
+  GtkWidget         *recent_documents_separator_item;
 };
 
 G_DEFINE_TYPE (CodeSlayerMenuBarFile, codeslayer_menu_bar_file, GTK_TYPE_MENU_ITEM)
@@ -83,6 +88,8 @@ codeslayer_menu_bar_file_init (CodeSlayerMenuBarFile *menu_bar_file)
   
   menu = gtk_menu_new ();
   priv->menu = menu;
+  priv->recent_documents_item = NULL;
+  priv->recent_documents_separator_item = NULL;
   gtk_menu_item_set_submenu (GTK_MENU_ITEM (menu_bar_file), menu);
 }
 
@@ -102,8 +109,9 @@ codeslayer_menu_bar_file_finalize (CodeSlayerMenuBarFile *menu_bar_file)
  * Returns: a new #CodeSlayerMenuBarFile. 
  */
 GtkWidget*
-codeslayer_menu_bar_file_new (GtkWidget     *menu_bar, 
-                              GtkAccelGroup *accel_group)
+codeslayer_menu_bar_file_new (GtkWidget         *menu_bar, 
+                              GtkAccelGroup     *accel_group, 
+                              CodeSlayerProfile *profile)
 {
   CodeSlayerMenuBarFilePrivate *priv;
   GtkWidget *menu_bar_file;
@@ -113,11 +121,17 @@ codeslayer_menu_bar_file_new (GtkWidget     *menu_bar,
 
   priv->menu_bar = menu_bar;
   priv->accel_group = accel_group;
+  priv->profile = profile;
 
   add_menu_items (CODESLAYER_MENU_BAR_FILE (menu_bar_file));
+  
+  recent_documents_action (CODESLAYER_MENU_BAR_FILE (menu_bar_file));
 
   g_signal_connect_swapped (G_OBJECT (menu_bar), "sync-menu",
                             G_CALLBACK (sync_menu_action), menu_bar_file);
+
+  g_signal_connect_swapped (G_OBJECT (profile), "recent-documents-changed",
+                            G_CALLBACK (recent_documents_action), menu_bar_file);
 
   return menu_bar_file;
 }
@@ -133,6 +147,7 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
   GtkWidget *save_separator_item;
   GtkWidget *close_tab_item;
   GtkWidget *profiles_item;
+  GtkWidget *recent_documents_item;
   GtkWidget *quit_application_item;
   
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
@@ -164,6 +179,14 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
   
   profiles_item = gtk_menu_item_new_with_label (_("Profiles"));
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), profiles_item);
+
+  priv->recent_documents_separator_item = gtk_separator_menu_item_new ();
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->recent_documents_separator_item);
+  recent_documents_item = gtk_menu_item_new_with_label (_("Recent Documents"));
+  priv->recent_documents_item = recent_documents_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), recent_documents_item);
+  gtk_menu_item_set_submenu (GTK_MENU_ITEM (recent_documents_item), gtk_menu_new ());
+
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
     
   close_tab_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_CLOSE, 
@@ -199,10 +222,11 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
 
 static void
 sync_menu_action (CodeSlayerMenuBarFile *menu_bar_file,
-                    gboolean               enable_projects,
-                    gboolean               has_open_documents)
+                  gboolean               enable_projects,
+                  gboolean               has_open_documents)
 {
   CodeSlayerMenuBarFilePrivate *priv;
+  
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
 
   gtk_widget_set_sensitive (priv->save_item, has_open_documents);
@@ -220,6 +244,64 @@ sync_menu_action (CodeSlayerMenuBarFile *menu_bar_file,
       gtk_widget_show (priv->new_item);
       gtk_widget_show (priv->open_item);
       gtk_widget_show (priv->save_separator_item);
+    }
+    
+  if (codeslayer_profile_get_recent_documents (priv->profile) == NULL)
+    {
+      gtk_widget_hide (priv->recent_documents_separator_item);
+      gtk_widget_hide (priv->recent_documents_item);
+    }    
+}
+
+static void
+recent_documents_action (CodeSlayerMenuBarFile *menu_bar_file)
+{
+  CodeSlayerMenuBarFilePrivate *priv;
+  GList *recent_documents;
+  
+  priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
+  
+  recent_documents = codeslayer_profile_get_recent_documents (priv->profile);
+  
+  if (recent_documents != NULL)
+    {
+      GtkWidget *recent_documents_submenu;
+      GList *children;
+      GList *menu_items;
+      
+      recent_documents_submenu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (priv->recent_documents_item));
+      
+      children = gtk_container_get_children (GTK_CONTAINER (recent_documents_submenu));
+      menu_items = children;
+      while (menu_items != NULL)
+        {
+          GtkMenuItem *menu_item = menu_items->data;
+          gtk_container_remove (GTK_CONTAINER (recent_documents_submenu), GTK_WIDGET (menu_item));
+          menu_items = g_list_next (menu_items);
+        }
+      if (children != NULL)
+        g_list_free (children);
+      
+      while (recent_documents != NULL)
+        {
+          gchar *recent_document = recent_documents->data;
+          gchar *recent_document_basename;
+          GtkWidget *recent_document_item;
+          
+          recent_document_basename = g_path_get_basename (recent_document);
+          recent_document_item = gtk_menu_item_new_with_label (recent_document_basename);
+          g_object_set_data (G_OBJECT (recent_document_item), "recent_document", recent_document);
+          gtk_menu_shell_append (GTK_MENU_SHELL (recent_documents_submenu), recent_document_item);
+          
+          g_signal_connect (G_OBJECT (recent_document_item), "activate",
+                            G_CALLBACK (recent_document_action), menu_bar_file);
+          
+          g_free (recent_document_basename);
+          recent_documents = g_list_next (recent_documents);
+        }  
+
+      gtk_widget_show (priv->recent_documents_separator_item);
+      gtk_widget_show_all (priv->recent_documents_item);
     }
 }
 
@@ -261,6 +343,17 @@ close_document_action (CodeSlayerMenuBarFile *menu_bar_file)
   CodeSlayerMenuBarFilePrivate *priv;
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
   codeslayer_menu_bar_close_document (CODESLAYER_MENU_BAR (priv->menu_bar));
+}
+
+static void
+recent_document_action (GtkMenuItem           *menuitem, 
+                        CodeSlayerMenuBarFile *menu_bar_file)
+{
+  CodeSlayerMenuBarFilePrivate *priv;
+  gchar *recent_document;
+  priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
+  recent_document = g_object_get_data (G_OBJECT (menuitem), "recent_document");
+  codeslayer_menu_bar_recent_document (CODESLAYER_MENU_BAR (priv->menu_bar), recent_document);
 }
 
 static void

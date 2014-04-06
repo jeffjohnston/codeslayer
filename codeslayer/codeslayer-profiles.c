@@ -47,6 +47,8 @@ static void build_projects_xml              (CodeSlayerProject       *project,
                                              GString                 **xml);
 static void build_documents_xml             (CodeSlayerDocument      *document,
                                              GString                 **xml);
+static void build_recent_documents_xml      (gchar                   *file_path,
+                                             GString                 **xml);
 static void build_plugins_xml               (gchar                   *name, 
                                              GString                 **xml);
 static void build_registry_xml              (gchar                   *name,
@@ -212,7 +214,7 @@ retrieve_profile (GFile *file)
 
 static void
 load_profile (CodeSlayerProfile *profile, 
-              xmlNode          *a_node)
+              xmlNode           *a_node)
 {
   xmlNode *cur_node = NULL;
   CodeSlayerRegistry *registry;
@@ -263,6 +265,14 @@ load_profile (CodeSlayerProfile *profile,
               
               xmlFree (file_path);
               xmlFree (line_number);
+            }
+          else if (g_strcmp0 ((gchar*)cur_node->name, "recent-document") == 0)
+            {
+              xmlChar *file_path;              
+              file_path = xmlGetProp (cur_node, (const xmlChar*)"file_path");
+              
+              codeslayer_profile_add_recent_document (profile, (gchar*) file_path);
+              xmlFree (file_path);
             }
           else if (g_strcmp0 ((gchar*)cur_node->name, "setting") == 0)
             {
@@ -333,6 +343,16 @@ build_documents_xml (CodeSlayerDocument *document,
 }
 
 static void 
+build_recent_documents_xml (gchar   *file_path,
+                            GString **xml)
+{
+  *xml = g_string_append (*xml, "\n\t\t<recent-document ");
+  *xml = g_string_append (*xml, "file_path=\"");
+  *xml = g_string_append (*xml, file_path);
+  *xml = g_string_append (*xml, "\"/>");
+}
+
+static void 
 build_plugins_xml (gchar   *name, 
                    GString **xml)
 {
@@ -394,12 +414,14 @@ codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles,
   const gchar *file_path;
   GList *projects;
   GList *documents;
+  GList *recent_documents;
   GList *plugins;
   CodeSlayerRegistry *registry;
   GHashTable *hashtable;
   
   projects = codeslayer_profile_get_projects (profile);
   documents = codeslayer_profile_get_documents (profile);
+  recent_documents = codeslayer_profile_get_recent_documents (profile);
   plugins = codeslayer_profile_get_plugins (profile);
   registry = codeslayer_profile_get_registry (profile);
   hashtable = codeslayer_registry_get_hashtable (registry);
@@ -418,6 +440,14 @@ codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles,
       xml = g_string_append (xml, "\n\t<documents>");
       g_list_foreach (documents, (GFunc)build_documents_xml, &xml);
       xml = g_string_append (xml, "\n\t</documents>");    
+    }
+
+  if (recent_documents != NULL)
+    {
+      xml = g_string_append (xml, "\n\t<recent-documents>");
+      recent_documents = g_list_reverse (recent_documents);
+      g_list_foreach (recent_documents, (GFunc)build_recent_documents_xml, &xml);
+      xml = g_string_append (xml, "\n\t</recent-documents>");    
     }
 
   if (plugins != NULL)

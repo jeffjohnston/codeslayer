@@ -239,6 +239,9 @@ codeslayer_engine_new (GtkWindow          *window,
   g_signal_connect_swapped (G_OBJECT (menu_bar), "open-document",
                             G_CALLBACK (open_document_action), engine);
   
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "recent-document",
+                            G_CALLBACK (codeslayer_engine_open_document), engine);
+  
   g_signal_connect_swapped (G_OBJECT (menu_bar), "save-document",
                             G_CALLBACK (save_document_action), engine);
   
@@ -436,6 +439,12 @@ codeslayer_engine_open_document (CodeSlayerEngine *engine,
   CodeSlayerDocument *document;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  
+  if (file_path != NULL && !g_file_test (file_path, G_FILE_TEST_EXISTS))
+    {
+      codeslayer_profile_remove_recent_document (priv->profile, file_path);
+      return;
+    }
   
   close_default_document (engine);
   

@@ -68,6 +68,7 @@ enum
   NEW_DOCUMENT,
   OPEN_DOCUMENT,
   SAVE_DOCUMENT,
+  RECENT_DOCUMENT,
   SAVE_ALL_DOCUMENTS,
   CLOSE_DOCUMENT,
   QUIT_APPLICATION,
@@ -169,6 +170,22 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
                   G_STRUCT_OFFSET (CodeSlayerMenuBarClass, save_document),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  /**
+   * CodeSlayerMenuBar::recent-document
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::recent-document signal is a request to save the active document. 
+   */
+  codeslayer_menu_bar_signals[RECENT_DOCUMENT] =
+    g_signal_new ("recent-document", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, recent_document),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
 
   /**
    * CodeSlayerMenuBar::save-all-documents
@@ -645,7 +662,7 @@ codeslayer_menu_bar_new (GtkWidget         *window,
   menu_bar_edit = codeslayer_menu_bar_edit_new (menu, accel_group);
   priv->menu_bar_edit = menu_bar_edit;
 
-  menu_bar_file = codeslayer_menu_bar_file_new (menu, accel_group);
+  menu_bar_file = codeslayer_menu_bar_file_new (menu, accel_group, profile);
   priv->menu_bar_file = menu_bar_file;
 
   menu_bar_search = codeslayer_menu_bar_search_new (menu, accel_group, profile);
@@ -726,6 +743,17 @@ void
 codeslayer_menu_bar_save_document (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "save-document");
+}
+
+/**
+ * codeslayer_menu_bar_recent_document:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ */
+void
+codeslayer_menu_bar_recent_document (CodeSlayerMenuBar *menu_bar, 
+                                     gchar             *recent_document)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "recent-document", recent_document);
 }
 
 /**
@@ -1021,7 +1049,7 @@ codeslayer_menu_bar_show_plugins (CodeSlayerMenuBar *menu_bar)
  */
 void            
 codeslayer_menu_bar_sync_with_document (CodeSlayerMenuBar *menu_bar, 
-                                      gboolean           sync_with_document)
+                                        gboolean           sync_with_document)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "sync-with-document", sync_with_document);
 }                                               

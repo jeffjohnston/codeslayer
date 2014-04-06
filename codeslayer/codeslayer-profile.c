@@ -29,6 +29,7 @@ static void codeslayer_profile_class_init  (CodeSlayerProfileClass *klass);
 static void codeslayer_profile_init        (CodeSlayerProfile      *profile);
 static void codeslayer_profile_finalize    (CodeSlayerProfile      *profile);
 
+static void remove_all_recent_documents    (CodeSlayerProfile      *profile);
 static void remove_all_plugins             (CodeSlayerProfile      *profile);
 
 #define CODESLAYER_PROFILE_GET_PRIVATE(obj) \
@@ -42,9 +43,18 @@ struct _CodeSlayerProfilePrivate
   gchar              *name;
   GList              *projects;
   GList              *documents;
+  GList              *recent_documents;
   GList              *plugins;
   CodeSlayerRegistry *registry;
 };
+
+enum
+{  
+  RECENT_DOCUMENTS_CHANGED,  
+  LAST_SIGNAL
+};
+
+static guint codeslayer_profile_signals[LAST_SIGNAL] = { 0 };
 
 G_DEFINE_TYPE (CodeSlayerProfile, codeslayer_profile, G_TYPE_OBJECT)
      
@@ -52,6 +62,22 @@ static void
 codeslayer_profile_class_init (CodeSlayerProfileClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+  
+  /**
+   * CodeSlayerMenuBar::recent-documents-changed
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::recent-documents-changed signal is a request to add a new project. 
+   */
+  codeslayer_profile_signals[RECENT_DOCUMENTS_CHANGED] =
+    g_signal_new ("recent-documents-changed", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerProfileClass, recent_documents_changed),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
   
   gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_profile_finalize;
 
@@ -67,6 +93,7 @@ codeslayer_profile_init (CodeSlayerProfile *profile)
   priv->name = NULL;
   priv->projects = NULL;
   priv->documents = NULL;
+  priv->recent_documents = NULL;
   priv->plugins = NULL;
   priv->registry = NULL;
 }
@@ -85,6 +112,7 @@ codeslayer_profile_finalize (CodeSlayerProfile *profile)
 
   codeslayer_profile_remove_all_projects (profile);
   codeslayer_profile_remove_all_documents (profile);
+  remove_all_recent_documents (profile);
   remove_all_plugins (profile);
   g_object_unref (priv->registry);
 
@@ -396,6 +424,132 @@ codeslayer_profile_remove_all_documents (CodeSlayerProfile *profile)
 }
 
 /**
+ * codeslayer_profile_get_recent_documents:
+ * @profile: a #CodeSlayerProfile.
+ *
+ * Returns: The list of recent documents within the profile.
+ */
+GList*
+codeslayer_profile_get_recent_documents (CodeSlayerProfile *profile)
+{
+  return CODESLAYER_PROFILE_GET_PRIVATE (profile)->recent_documents;
+}
+
+/**
+ * codeslayer_profile_set_recent_documents:
+ * @profile: a #CodeSlayerProfile.
+ * @recent_documents: the list of recent documents to add to the profile.
+ */
+void
+codeslayer_profile_set_recent_documents (CodeSlayerProfile *profile, 
+                                         GList             *recent_documents)
+{
+  CodeSlayerProfilePrivate *priv;
+  priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
+  priv->recent_documents = recent_documents;
+}
+
+/**
+ * codeslayer_profile_add_recent_document:
+ * @profile: a #CodeSlayerProfile.
+ * @recent_document: the recent document to add to the profile.
+ */
+void
+codeslayer_profile_add_recent_document (CodeSlayerProfile *profile,
+                                        const gchar       *recent_document)
+{
+  CodeSlayerProfilePrivate *priv;
+  priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
+
+  if (codeslayer_profile_contains_recent_document (profile, recent_document))
+    codeslayer_profile_remove_recent_document (profile, recent_document);
+
+  priv->recent_documents = g_list_prepend (priv->recent_documents, g_strdup (recent_document));
+  
+  if (g_list_length (priv->recent_documents) > 15)
+    {
+      gchar *file_path = g_list_last(priv->recent_documents)->data;
+      priv->recent_documents = g_list_remove (priv->recent_documents, file_path);
+      g_free (file_path);
+    }
+  
+  g_signal_emit_by_name ((gpointer) profile, "recent-documents-changed");
+}
+
+static void
+remove_all_recent_documents (CodeSlayerProfile *profile)
+{
+  CodeSlayerProfilePrivate *priv;
+  priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
+  if (priv->recent_documents)
+    {
+      g_list_foreach (priv->recent_documents, (GFunc) g_free, NULL);
+      priv->recent_documents = g_list_remove_all (priv->recent_documents, NULL);
+      g_list_free (priv->recent_documents);
+      priv->recent_documents = NULL;
+    }
+}
+
+/**
+ * codeslayer_profile_remove_recent_document:
+ * @profile: a #CodeSlayerProfile.
+ * @recent_document: the recent document to remove.
+ */
+void
+codeslayer_profile_remove_recent_document (CodeSlayerProfile *profile, 
+                                           const gchar       *recent_document)
+{
+  CodeSlayerProfilePrivate *priv;
+  GList *recent_documents;
+
+  priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
+
+  recent_documents = priv->recent_documents;
+
+  while (recent_documents != NULL)
+    {
+      gchar *file_path = recent_documents->data;
+      if (g_strcmp0 (file_path, recent_document) == 0)
+        {
+          priv->recent_documents = g_list_remove (priv->recent_documents, file_path);
+          g_free (file_path);
+          g_signal_emit_by_name ((gpointer) profile, "recent-documents-changed");
+          return;
+        }
+      recent_documents = g_list_next (recent_documents);
+    }
+}
+
+/**
+ * codeslayer_profile_contains_recent_document:
+ * @profile: a #CodeSlayerProfile.
+ * @plugin: the recent_document to find.
+ *
+ * Returns: is TRUE if the recent_document is found in the profile.
+ */
+gboolean
+codeslayer_profile_contains_recent_document (CodeSlayerProfile *profile, 
+                                             const gchar       *recent_document)
+{
+  CodeSlayerProfilePrivate *priv;
+  GList *recent_documents;
+
+  priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
+
+  recent_documents = priv->recent_documents;
+
+  while (recent_documents != NULL)
+    {
+      gchar *file_path = recent_documents->data;
+      if (g_strcmp0 (file_path, recent_document) == 0)
+        return TRUE;
+      recent_documents = g_list_next (recent_documents);
+    }
+    
+  return FALSE;
+}
+
+/**
  * codeslayer_profile_get_plugins:
  * @profile: a #CodeSlayerProfile.
  *
@@ -451,7 +605,6 @@ codeslayer_profile_contains_plugin (CodeSlayerProfile *profile,
     }
     
   return FALSE;
-
 }                                                        
 
 /**
