@@ -344,7 +344,6 @@ codeslayer_profile_remove_all_projects (CodeSlayerProfile *profile)
   if (priv->projects)
     {
       g_list_foreach (priv->projects, (GFunc) g_object_unref, NULL);
-      priv->projects = g_list_remove_all (priv->projects, NULL);
       g_list_free (priv->projects);
       priv->projects = NULL;
     }
@@ -417,7 +416,6 @@ codeslayer_profile_remove_all_documents (CodeSlayerProfile *profile)
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   if (priv->documents)
     {
-      priv->documents = g_list_remove_all (priv->documents, NULL);
       g_list_free (priv->documents);
       priv->documents = NULL;
     }  
@@ -459,18 +457,21 @@ codeslayer_profile_add_recent_document (CodeSlayerProfile *profile,
                                         const gchar       *recent_document)
 {
   CodeSlayerProfilePrivate *priv;
+  gchar *current;
+  
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
+  
+  current = g_strdup (recent_document);
+  
+  codeslayer_profile_remove_recent_document (profile, recent_document);
 
-  if (codeslayer_profile_contains_recent_document (profile, recent_document))
-    codeslayer_profile_remove_recent_document (profile, recent_document);
-
-  priv->recent_documents = g_list_prepend (priv->recent_documents, g_strdup (recent_document));
+  priv->recent_documents = g_list_prepend (priv->recent_documents, current);
   
   if (g_list_length (priv->recent_documents) > 15)
     {
-      gchar *file_path = g_list_last(priv->recent_documents)->data;
-      priv->recent_documents = g_list_remove (priv->recent_documents, file_path);
-      g_free (file_path);
+      gchar *last = g_list_last(priv->recent_documents)->data;
+      priv->recent_documents = g_list_remove (priv->recent_documents, last);
+      g_free (last);
     }
   
   g_signal_emit_by_name ((gpointer) profile, "recent-documents-changed");
@@ -481,10 +482,9 @@ remove_all_recent_documents (CodeSlayerProfile *profile)
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  if (priv->recent_documents)
+  if (priv->recent_documents != NULL)
     {
       g_list_foreach (priv->recent_documents, (GFunc) g_free, NULL);
-      priv->recent_documents = g_list_remove_all (priv->recent_documents, NULL);
       g_list_free (priv->recent_documents);
       priv->recent_documents = NULL;
     }
@@ -508,11 +508,11 @@ codeslayer_profile_remove_recent_document (CodeSlayerProfile *profile,
 
   while (recent_documents != NULL)
     {
-      gchar *file_path = recent_documents->data;
-      if (g_strcmp0 (file_path, recent_document) == 0)
+      gchar *current = recent_documents->data;
+      if (g_strcmp0 (current, recent_document) == 0)
         {
-          priv->recent_documents = g_list_remove (priv->recent_documents, file_path);
-          g_free (file_path);
+          priv->recent_documents = g_list_remove (priv->recent_documents, current);
+          g_free (current);
           g_signal_emit_by_name ((gpointer) profile, "recent-documents-changed");
           return;
         }
@@ -540,8 +540,8 @@ codeslayer_profile_contains_recent_document (CodeSlayerProfile *profile,
 
   while (recent_documents != NULL)
     {
-      gchar *file_path = recent_documents->data;
-      if (g_strcmp0 (file_path, recent_document) == 0)
+      gchar *current = recent_documents->data;
+      if (g_strcmp0 (current, recent_document) == 0)
         return TRUE;
       recent_documents = g_list_next (recent_documents);
     }
@@ -626,10 +626,9 @@ remove_all_plugins (CodeSlayerProfile *profile)
 {
   CodeSlayerProfilePrivate *priv;
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  if (priv->plugins)
+  if (priv->plugins != NULL)
     {
       g_list_foreach (priv->plugins, (GFunc) g_free, NULL);
-      priv->plugins = g_list_remove_all (priv->plugins, NULL);
       g_list_free (priv->plugins);
       priv->plugins = NULL;
     }
@@ -657,6 +656,7 @@ codeslayer_profile_remove_plugin (CodeSlayerProfile *profile,
       if (g_strcmp0 (lib, plugin) == 0)
         {
           priv->plugins = g_list_remove (priv->plugins, lib);
+          g_free (lib);
           return;
         }
       plugins = g_list_next (plugins);

@@ -286,18 +286,18 @@ recent_documents_action (CodeSlayerMenuBarFile *menu_bar_file)
       while (recent_documents != NULL)
         {
           gchar *recent_document = recent_documents->data;
-          gchar *recent_document_basename;
+          gchar *basename;
           GtkWidget *recent_document_item;
           
-          recent_document_basename = g_path_get_basename (recent_document);
-          recent_document_item = gtk_menu_item_new_with_label (recent_document_basename);
+          basename = g_path_get_basename (recent_document);
+          recent_document_item = gtk_menu_item_new_with_label (basename);
           g_object_set_data (G_OBJECT (recent_document_item), "recent_document", recent_document);
           gtk_menu_shell_append (GTK_MENU_SHELL (recent_documents_submenu), recent_document_item);
           
           g_signal_connect (G_OBJECT (recent_document_item), "activate",
                             G_CALLBACK (recent_document_action), menu_bar_file);
           
-          g_free (recent_document_basename);
+          g_free (basename);
           recent_documents = g_list_next (recent_documents);
         }  
 
