@@ -473,8 +473,6 @@ codeslayer_profile_add_recent_document (CodeSlayerProfile *profile,
       priv->recent_documents = g_list_remove (priv->recent_documents, last);
       g_free (last);
     }
-  
-  g_signal_emit_by_name ((gpointer) profile, "recent-documents-changed");
 }
 
 static void
@@ -513,11 +511,20 @@ codeslayer_profile_remove_recent_document (CodeSlayerProfile *profile,
         {
           priv->recent_documents = g_list_remove (priv->recent_documents, current);
           g_free (current);
-          g_signal_emit_by_name ((gpointer) profile, "recent-documents-changed");
           return;
         }
       recent_documents = g_list_next (recent_documents);
     }
+}
+
+/**
+ * codeslayer_profile_recent_document_changed:
+ * @profile: a #CodeSlayerProfile.
+ */
+void
+codeslayer_profile_recent_document_changed (CodeSlayerProfile  *profile)
+{
+  g_signal_emit_by_name ((gpointer) profile, "recent-documents-changed");
 }
 
 /**

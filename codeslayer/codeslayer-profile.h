@@ -93,6 +93,7 @@ void                 codeslayer_profile_add_recent_document          (CodeSlayer
                                                                       const gchar        *recent_document);
 void                 codeslayer_profile_remove_recent_document       (CodeSlayerProfile  *profile, 
                                                                       const gchar        *recent_document);
+void                 codeslayer_profile_recent_document_changed      (CodeSlayerProfile  *profile);
 CodeSlayerRegistry*  codeslayer_profile_get_registry                 (CodeSlayerProfile  *profile);
 GList*               codeslayer_profile_get_plugins                  (CodeSlayerProfile  *profile);
 void                 codeslayer_profile_set_plugins                  (CodeSlayerProfile  *profile, 

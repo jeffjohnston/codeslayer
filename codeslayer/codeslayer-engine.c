@@ -442,7 +442,11 @@ codeslayer_engine_open_document (CodeSlayerEngine *engine,
   
   if (file_path != NULL && !g_file_test (file_path, G_FILE_TEST_EXISTS))
     {
-      codeslayer_profile_remove_recent_document (priv->profile, file_path);
+      if (codeslayer_profile_contains_recent_document (priv->profile, file_path))
+        {
+          codeslayer_profile_remove_recent_document (priv->profile, file_path);
+          codeslayer_profile_recent_document_changed (priv->profile);
+        }
       return;
     }
   

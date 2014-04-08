@@ -269,6 +269,7 @@ codeslayer_notebook_add_document (CodeSlayerNotebook *notebook,
     {
       codeslayer_notebook_page_load_source_view (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
       codeslayer_profile_add_recent_document (priv->profile, file_path);
+      codeslayer_profile_recent_document_changed (priv->profile);
     }
 }
 
