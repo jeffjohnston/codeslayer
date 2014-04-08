@@ -456,16 +456,12 @@ void
 codeslayer_profile_add_recent_document (CodeSlayerProfile *profile,
                                         const gchar       *recent_document)
 {
-  CodeSlayerProfilePrivate *priv;
-  gchar *current;
-  
+  CodeSlayerProfilePrivate *priv;  
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  
-  current = g_strdup (recent_document);
   
   codeslayer_profile_remove_recent_document (profile, recent_document);
 
-  priv->recent_documents = g_list_prepend (priv->recent_documents, current);
+  priv->recent_documents = g_list_prepend (priv->recent_documents, g_strdup (recent_document));
   
   if (g_list_length (priv->recent_documents) > 15)
     {
@@ -482,8 +478,7 @@ remove_all_recent_documents (CodeSlayerProfile *profile)
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   if (priv->recent_documents != NULL)
     {
-      g_list_foreach (priv->recent_documents, (GFunc) g_free, NULL);
-      g_list_free (priv->recent_documents);
+      g_list_free_full (priv->recent_documents, (GDestroyNotify) g_free);
       priv->recent_documents = NULL;
     }
 }
@@ -635,8 +630,7 @@ remove_all_plugins (CodeSlayerProfile *profile)
   priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
   if (priv->plugins != NULL)
     {
-      g_list_foreach (priv->plugins, (GFunc) g_free, NULL);
-      g_list_free (priv->plugins);
+      g_list_free_full (priv->plugins, (GDestroyNotify) g_free);
       priv->plugins = NULL;
     }
 }
