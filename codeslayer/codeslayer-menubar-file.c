@@ -45,6 +45,8 @@ static void sync_menu_action                     (CodeSlayerMenuBarFile      *me
                                                   gboolean                    enable_projects,
                                                   gboolean                    has_open_documents);
 static void recent_documents_action              (CodeSlayerMenuBarFile      *menu_bar_file);
+static void clear_recent_documents_submenu       (GtkWidget                  *recent_documents_submenu);
+static void free_recent_document                 (gchar                      *recent_document);
 
 #define CODESLAYER_MENU_BAR_FILE_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_MENU_BAR_FILE_TYPE, CodeSlayerMenuBarFilePrivate))
@@ -267,21 +269,8 @@ recent_documents_action (CodeSlayerMenuBarFile *menu_bar_file)
   if (recent_documents != NULL)
     {
       GtkWidget *recent_documents_submenu;
-      GList *children;
-      GList *menu_items;
-      
       recent_documents_submenu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (priv->recent_documents_item));
-      
-      children = gtk_container_get_children (GTK_CONTAINER (recent_documents_submenu));
-      menu_items = children;
-      while (menu_items != NULL)
-        {
-          GtkMenuItem *menu_item = menu_items->data;
-          gtk_container_remove (GTK_CONTAINER (recent_documents_submenu), GTK_WIDGET (menu_item));
-          menu_items = g_list_next (menu_items);
-        }
-      if (children != NULL)
-        g_list_free (children);
+      clear_recent_documents_submenu (recent_documents_submenu);
       
       while (recent_documents != NULL)
         {
@@ -291,7 +280,8 @@ recent_documents_action (CodeSlayerMenuBarFile *menu_bar_file)
           
           basename = g_path_get_basename (recent_document);
           recent_document_item = gtk_menu_item_new_with_label (basename);
-          g_object_set_data (G_OBJECT (recent_document_item), "recent_document", recent_document);
+          g_object_set_data_full (G_OBJECT (recent_document_item), "recent_document",
+                                  g_strdup (recent_document), (GDestroyNotify) free_recent_document);
           gtk_menu_shell_append (GTK_MENU_SHELL (recent_documents_submenu), recent_document_item);
           
           g_signal_connect (G_OBJECT (recent_document_item), "activate",
@@ -304,6 +294,32 @@ recent_documents_action (CodeSlayerMenuBarFile *menu_bar_file)
       gtk_widget_show (priv->recent_documents_separator_item);
       gtk_widget_show_all (priv->recent_documents_item);
     }
+}
+
+static void
+clear_recent_documents_submenu (GtkWidget *recent_documents_submenu)
+{
+  GList *children;
+  GList *menu_items;
+
+  children = gtk_container_get_children (GTK_CONTAINER (recent_documents_submenu));
+  menu_items = children;
+  
+  while (menu_items != NULL)
+    {
+      GtkMenuItem *menu_item = menu_items->data;
+      gtk_container_remove (GTK_CONTAINER (recent_documents_submenu), GTK_WIDGET (menu_item));
+      menu_items = g_list_next (menu_items);
+    }
+  
+  if (children != NULL)
+    g_list_free (children);
+}
+
+static void
+free_recent_document (gchar *recent_document)
+{
+  g_free (recent_document);
 }
 
 static void
