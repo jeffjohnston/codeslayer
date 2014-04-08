@@ -463,7 +463,7 @@ codeslayer_profile_add_recent_document (CodeSlayerProfile *profile,
 
   priv->recent_documents = g_list_prepend (priv->recent_documents, g_strdup (recent_document));
   
-  if (g_list_length (priv->recent_documents) > 15)
+  if (g_list_length (priv->recent_documents) >= 10)
     {
       gchar *last = g_list_last(priv->recent_documents)->data;
       priv->recent_documents = g_list_remove (priv->recent_documents, last);
