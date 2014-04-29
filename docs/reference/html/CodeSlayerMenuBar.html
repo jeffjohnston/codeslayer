@@ -52,6 +52,8 @@ struct              <a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuB
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-new-document" title="codeslayer_menu_bar_new_document ()">codeslayer_menu_bar_new_document</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-open-document" title="codeslayer_menu_bar_open_document ()">codeslayer_menu_bar_open_document</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-document" title="codeslayer_menu_bar_save_document ()">codeslayer_menu_bar_save_document</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-recent-document" title="codeslayer_menu_bar_recent_document ()">codeslayer_menu_bar_recent_document</a> (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *recent_document</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-all-documents" title="codeslayer_menu_bar_save_all_documents ()">codeslayer_menu_bar_save_all_documents</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-close-document" title="codeslayer_menu_bar_close_document ()">codeslayer_menu_bar_close_document</a>  (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
@@ -134,6 +136,7 @@ CodeSlayerMenuBar implements
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-open-document" title='The "open-document" signal'>open-document</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-paste" title='The "paste" signal'>paste</a>"                                          : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-quit-application" title='The "quit-application" signal'>quit-application</a>"                               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-recent-document" title='The "recent-document" signal'>recent-document</a>"                                : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-regular-expression" title='The "regular-expression" signal'>regular-expression</a>"                             : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-replace" title='The "replace" signal'>replace</a>"                                        : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-all-documents" title='The "save-all-documents" signal'>save-all-documents</a>"                             : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
@@ -220,6 +223,25 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
 <td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
 </tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-menu-bar-recent-document"></a><h3>codeslayer_menu_bar_recent_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_recent_document (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *recent_document</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>recent_document</code></em> :</span></p></td>
+<td>the recent document to load.</td>
+</tr>
+</tbody>
 </table></div>
 </div>
 <hr>
@@ -982,6 +1004,32 @@ Note: for internal use only.
 </p>
 <p>
 The ::quit-application signal is a request to close the application.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
+<td>the menu that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerMenuBar-recent-document"></a><h3>The <code class="literal">"recent-document"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>             *arg1,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::recent-document signal is a request to save the active document.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">

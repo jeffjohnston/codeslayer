@@ -147,6 +147,7 @@
     <keyword type="function" name="codeslayer_menu_bar_new_document ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-new-document"/>
     <keyword type="function" name="codeslayer_menu_bar_open_document ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-open-document"/>
     <keyword type="function" name="codeslayer_menu_bar_save_document ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-document"/>
+    <keyword type="function" name="codeslayer_menu_bar_recent_document ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-recent-document"/>
     <keyword type="function" name="codeslayer_menu_bar_save_all_documents ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-save-all-documents"/>
     <keyword type="function" name="codeslayer_menu_bar_close_document ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-close-document"/>
     <keyword type="function" name="codeslayer_menu_bar_quit_application ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-quit-application"/>
@@ -193,6 +194,7 @@
     <keyword type="signal" name="The &quot;open-document&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-open-document"/>
     <keyword type="signal" name="The &quot;paste&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-paste"/>
     <keyword type="signal" name="The &quot;quit-application&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-quit-application"/>
+    <keyword type="signal" name="The &quot;recent-document&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-recent-document"/>
     <keyword type="signal" name="The &quot;regular-expression&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-regular-expression"/>
     <keyword type="signal" name="The &quot;replace&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-replace"/>
     <keyword type="signal" name="The &quot;save-all-documents&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-all-documents"/>
@@ -346,11 +348,18 @@
     <keyword type="function" name="codeslayer_profile_remove_document ()" link="CodeSlayerProfile.html#codeslayer-profile-remove-document"/>
     <keyword type="function" name="codeslayer_profile_remove_all_documents ()" link="CodeSlayerProfile.html#codeslayer-profile-remove-all-documents"/>
     <keyword type="function" name="codeslayer_profile_get_registry ()" link="CodeSlayerProfile.html#codeslayer-profile-get-registry"/>
+    <keyword type="function" name="codeslayer_profile_get_recent_documents ()" link="CodeSlayerProfile.html#codeslayer-profile-get-recent-documents"/>
+    <keyword type="function" name="codeslayer_profile_set_recent_documents ()" link="CodeSlayerProfile.html#codeslayer-profile-set-recent-documents"/>
+    <keyword type="function" name="codeslayer_profile_add_recent_document ()" link="CodeSlayerProfile.html#codeslayer-profile-add-recent-document"/>
+    <keyword type="function" name="codeslayer_profile_contains_recent_document ()" link="CodeSlayerProfile.html#codeslayer-profile-contains-recent-document"/>
+    <keyword type="function" name="codeslayer_profile_remove_recent_document ()" link="CodeSlayerProfile.html#codeslayer-profile-remove-recent-document"/>
+    <keyword type="function" name="codeslayer_profile_recent_document_changed ()" link="CodeSlayerProfile.html#codeslayer-profile-recent-document-changed"/>
     <keyword type="function" name="codeslayer_profile_get_plugins ()" link="CodeSlayerProfile.html#codeslayer-profile-get-plugins"/>
     <keyword type="function" name="codeslayer_profile_set_plugins ()" link="CodeSlayerProfile.html#codeslayer-profile-set-plugins"/>
     <keyword type="function" name="codeslayer_profile_contains_plugin ()" link="CodeSlayerProfile.html#codeslayer-profile-contains-plugin"/>
     <keyword type="function" name="codeslayer_profile_add_plugin ()" link="CodeSlayerProfile.html#codeslayer-profile-add-plugin"/>
     <keyword type="function" name="codeslayer_profile_remove_plugin ()" link="CodeSlayerProfile.html#codeslayer-profile-remove-plugin"/>
+    <keyword type="signal" name="The &quot;recent-documents-changed&quot; signal" link="CodeSlayerProfile.html#CodeSlayerProfile-recent-documents-changed"/>
     <keyword type="struct" name="struct CodeSlayerProfilesManager" link="CodeSlayerProfilesManager.html#CodeSlayerProfilesManager-struct"/>
     <keyword type="function" name="codeslayer_profiles_manager_new ()" link="CodeSlayerProfilesManager.html#codeslayer-profiles-manager-new"/>
     <keyword type="function" name="codeslayer_profiles_manager_run_dialog ()" link="CodeSlayerProfilesManager.html#codeslayer-profiles-manager-run-dialog"/>

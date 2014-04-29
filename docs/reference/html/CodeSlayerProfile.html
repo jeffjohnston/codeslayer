@@ -26,6 +26,8 @@
                   <a href="#CodeSlayerProfile.description" class="shortcut">Description</a>
                    | 
                   <a href="#CodeSlayerProfile.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#CodeSlayerProfile.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
 <div class="refentry">
@@ -81,6 +83,22 @@ const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span c
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-remove-all-documents" title="codeslayer_profile_remove_all_documents ()">codeslayer_profile_remove_all_documents</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 <a class="link" href="CodeSlayerRegistry.html" title="CodeSlayerRegistry"><span class="returnvalue">CodeSlayerRegistry</span></a> * <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-registry" title="codeslayer_profile_get_registry ()">codeslayer_profile_get_registry</a>    (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-recent-documents" title="codeslayer_profile_get_recent_documents ()">codeslayer_profile_get_recent_documents</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-set-recent-documents" title="codeslayer_profile_set_recent_documents ()">codeslayer_profile_set_recent_documents</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *recent_documents</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-add-recent-document" title="codeslayer_profile_add_recent_document ()">codeslayer_profile_add_recent_document</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *recent_document</code></em>);
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-contains-recent-document" title="codeslayer_profile_contains_recent_document ()">codeslayer_profile_contains_recent_document</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *recent_document</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-remove-recent-document" title="codeslayer_profile_remove_recent_document ()">codeslayer_profile_remove_recent_document</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *recent_document</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-recent-document-changed" title="codeslayer_profile_recent_document_changed ()">codeslayer_profile_recent_document_changed</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 <a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-get-plugins" title="codeslayer_profile_get_plugins ()">codeslayer_profile_get_plugins</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerProfile.html#codeslayer-profile-set-plugins" title="codeslayer_profile_set_plugins ()">codeslayer_profile_set_plugins</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *plugins</code></em>);
@@ -97,6 +115,12 @@ const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span c
 <pre class="synopsis">
   <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----CodeSlayerProfile
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProfile.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="CodeSlayerProfile.html#CodeSlayerProfile-recent-documents-changed" title='The "recent-documents-changed" signal'>recent-documents-changed</a>"                       : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
 </pre>
 </div>
 <div class="refsect1">
@@ -460,6 +484,122 @@ project specified is not found.</td>
 </div>
 <hr>
 <div class="refsect2">
+<a name="codeslayer-profile-get-recent-documents"></a><h3>codeslayer_profile_get_recent_documents ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             codeslayer_profile_get_recent_documents
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The list of recent documents within the profile.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profile-set-recent-documents"></a><h3>codeslayer_profile_set_recent_documents ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_profile_set_recent_documents
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *recent_documents</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>recent_documents</code></em> :</span></p></td>
+<td>the list of recent documents to add to the profile.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profile-add-recent-document"></a><h3>codeslayer_profile_add_recent_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_profile_add_recent_document
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *recent_document</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>recent_document</code></em> :</span></p></td>
+<td>the recent document to add to the profile.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profile-contains-recent-document"></a><h3>codeslayer_profile_contains_recent_document ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_profile_contains_recent_document
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *recent_document</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>recent_document</code></em> :</span></p></td>
+<td>the recent_document to find.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>is TRUE if the recent_document is found in the profile.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profile-remove-recent-document"></a><h3>codeslayer_profile_remove_recent_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_profile_remove_recent_document
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *recent_document</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>recent_document</code></em> :</span></p></td>
+<td>the recent document to remove.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-profile-recent-document-changed"></a><h3>codeslayer_profile_recent_document_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_profile_recent_document_changed
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>profile</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
 <a name="codeslayer-profile-get-plugins"></a><h3>codeslayer_profile_get_plugins ()</h3>
 <pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             codeslayer_profile_get_plugins      (<em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>);</pre>
 <div class="variablelist"><table border="0">
@@ -556,6 +696,14 @@ internal use only.</td>
 </tr>
 </tbody>
 </table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerProfile.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="CodeSlayerProfile-recent-documents-changed"></a><h3>The <code class="literal">"recent-documents-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *codeslayerprofile,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)              : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
 </div>
 </div>
 </div>

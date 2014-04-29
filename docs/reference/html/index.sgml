@@ -203,6 +203,7 @@
 <ANCHOR id="codeslayer-menu-bar-new-document" href="codeslayer/CodeSlayerMenuBar.html#codeslayer-menu-bar-new-document">
 <ANCHOR id="codeslayer-menu-bar-open-document" href="codeslayer/CodeSlayerMenuBar.html#codeslayer-menu-bar-open-document">
 <ANCHOR id="codeslayer-menu-bar-save-document" href="codeslayer/CodeSlayerMenuBar.html#codeslayer-menu-bar-save-document">
+<ANCHOR id="codeslayer-menu-bar-recent-document" href="codeslayer/CodeSlayerMenuBar.html#codeslayer-menu-bar-recent-document">
 <ANCHOR id="codeslayer-menu-bar-save-all-documents" href="codeslayer/CodeSlayerMenuBar.html#codeslayer-menu-bar-save-all-documents">
 <ANCHOR id="codeslayer-menu-bar-close-document" href="codeslayer/CodeSlayerMenuBar.html#codeslayer-menu-bar-close-document">
 <ANCHOR id="codeslayer-menu-bar-quit-application" href="codeslayer/CodeSlayerMenuBar.html#codeslayer-menu-bar-quit-application">
@@ -250,6 +251,7 @@
 <ANCHOR id="CodeSlayerMenuBar-open-document" href="codeslayer/CodeSlayerMenuBar.html#CodeSlayerMenuBar-open-document">
 <ANCHOR id="CodeSlayerMenuBar-paste" href="codeslayer/CodeSlayerMenuBar.html#CodeSlayerMenuBar-paste">
 <ANCHOR id="CodeSlayerMenuBar-quit-application" href="codeslayer/CodeSlayerMenuBar.html#CodeSlayerMenuBar-quit-application">
+<ANCHOR id="CodeSlayerMenuBar-recent-document" href="codeslayer/CodeSlayerMenuBar.html#CodeSlayerMenuBar-recent-document">
 <ANCHOR id="CodeSlayerMenuBar-regular-expression" href="codeslayer/CodeSlayerMenuBar.html#CodeSlayerMenuBar-regular-expression">
 <ANCHOR id="CodeSlayerMenuBar-replace" href="codeslayer/CodeSlayerMenuBar.html#CodeSlayerMenuBar-replace">
 <ANCHOR id="CodeSlayerMenuBar-save-all-documents" href="codeslayer/CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-all-documents">
@@ -488,6 +490,7 @@
 <ANCHOR id="CodeSlayerProfile" href="codeslayer/CodeSlayerProfile.html">
 <ANCHOR id="CodeSlayerProfile.synopsis" href="codeslayer/CodeSlayerProfile.html#CodeSlayerProfile.synopsis">
 <ANCHOR id="CodeSlayerProfile.object-hierarchy" href="codeslayer/CodeSlayerProfile.html#CodeSlayerProfile.object-hierarchy">
+<ANCHOR id="CodeSlayerProfile.signals" href="codeslayer/CodeSlayerProfile.html#CodeSlayerProfile.signals">
 <ANCHOR id="CodeSlayerProfile.description" href="codeslayer/CodeSlayerProfile.html#CodeSlayerProfile.description">
 <ANCHOR id="CodeSlayerProfile.details" href="codeslayer/CodeSlayerProfile.html#CodeSlayerProfile.details">
 <ANCHOR id="CodeSlayerProfile-struct" href="codeslayer/CodeSlayerProfile.html#CodeSlayerProfile-struct">
@@ -512,11 +515,19 @@
 <ANCHOR id="codeslayer-profile-remove-document" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-remove-document">
 <ANCHOR id="codeslayer-profile-remove-all-documents" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-remove-all-documents">
 <ANCHOR id="codeslayer-profile-get-registry" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-get-registry">
+<ANCHOR id="codeslayer-profile-get-recent-documents" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-get-recent-documents">
+<ANCHOR id="codeslayer-profile-set-recent-documents" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-set-recent-documents">
+<ANCHOR id="codeslayer-profile-add-recent-document" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-add-recent-document">
+<ANCHOR id="codeslayer-profile-contains-recent-document" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-contains-recent-document">
+<ANCHOR id="codeslayer-profile-remove-recent-document" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-remove-recent-document">
+<ANCHOR id="codeslayer-profile-recent-document-changed" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-recent-document-changed">
 <ANCHOR id="codeslayer-profile-get-plugins" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-get-plugins">
 <ANCHOR id="codeslayer-profile-set-plugins" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-set-plugins">
 <ANCHOR id="codeslayer-profile-contains-plugin" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-contains-plugin">
 <ANCHOR id="codeslayer-profile-add-plugin" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-add-plugin">
 <ANCHOR id="codeslayer-profile-remove-plugin" href="codeslayer/CodeSlayerProfile.html#codeslayer-profile-remove-plugin">
+<ANCHOR id="CodeSlayerProfile.signal-details" href="codeslayer/CodeSlayerProfile.html#CodeSlayerProfile.signal-details">
+<ANCHOR id="CodeSlayerProfile-recent-documents-changed" href="codeslayer/CodeSlayerProfile.html#CodeSlayerProfile-recent-documents-changed">
 <ANCHOR id="CodeSlayerProfilesManager" href="codeslayer/CodeSlayerProfilesManager.html">
 <ANCHOR id="CodeSlayerProfilesManager.synopsis" href="codeslayer/CodeSlayerProfilesManager.html#CodeSlayerProfilesManager.synopsis">
 <ANCHOR id="CodeSlayerProfilesManager.object-hierarchy" href="codeslayer/CodeSlayerProfilesManager.html#CodeSlayerProfilesManager.object-hierarchy">
