@@ -721,6 +721,12 @@ entry_keypress_action (CodeSlayerNotebookSearch *notebook_search,
   if (event->keyval == GDK_KEY_Escape)
     close_search_action (notebook_search);
 
+  if (event->keyval ==  GDK_KEY_Up || 
+      event->keyval ==  GDK_KEY_Down ||
+      event->keyval ==  GDK_KEY_Page_Up ||
+      event->keyval ==  GDK_KEY_Page_Down)
+    return TRUE;
+
   return FALSE;
 }
 
