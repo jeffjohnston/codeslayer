@@ -647,7 +647,7 @@ codeslayer_menu_bar_new (GtkWidget         *window,
   GtkWidget *menu_bar_view;
   GtkWidget *menu_bar_projects;
   GtkWidget *menu_bar_tools;
-  GtkWidget *menu_help;
+  GtkWidget *menu_bar_help;
   
   GtkAccelGroup *accel_group;
   
@@ -677,7 +677,7 @@ codeslayer_menu_bar_new (GtkWidget         *window,
   menu_bar_tools = codeslayer_menu_bar_tools_new (menu, accel_group);
   priv->menu_bar_tools = menu_bar_tools;
 
-  menu_help = codeslayer_menu_bar_help_new (window, menu, accel_group);
+  menu_bar_help = codeslayer_menu_bar_help_new (window, menu, accel_group);
 
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_file);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_edit);
@@ -685,7 +685,7 @@ codeslayer_menu_bar_new (GtkWidget         *window,
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_search);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_tools);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_help);
+  gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_bar_help);
   
   g_signal_connect_swapped (G_OBJECT (menu), "sync-menu",
                             G_CALLBACK (sync_menu_action), menu);
