@@ -220,8 +220,10 @@ codeslayer_search_find (CodeSlayerSearch *search,
  * @regular_expression: is true if should use regular expression
  *
  * Find the next search value.
+ *
+ * Returns: is TRUE if matches were found. 
  */
-void
+gboolean
 codeslayer_search_find_next (CodeSlayerSearch *search, 
                              gchar            *find, 
                              gboolean          match_case, 
@@ -246,6 +248,7 @@ codeslayer_search_find_next (CodeSlayerSearch *search,
       gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (priv->source_view), 
                                     &begin, .1, FALSE, 0, 0);
       gtk_text_buffer_select_range (buffer, &begin, &end);
+      return TRUE;
     }
   else
     {
@@ -256,8 +259,11 @@ codeslayer_search_find_next (CodeSlayerSearch *search,
           gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (priv->source_view), 
                                         &begin, .1, FALSE, 0, 0);
           gtk_text_buffer_select_range (buffer, &begin, &end);
+          return TRUE;
         }
     }
+
+  return FALSE;
 }
 
 /**
@@ -269,8 +275,10 @@ codeslayer_search_find_next (CodeSlayerSearch *search,
  * @regular_expression: is true if should use regular expression
  *
  * Find the previous search value.
+ *
+ * Returns: is TRUE if matches were found. 
  */
-void
+gboolean
 codeslayer_search_find_previous (CodeSlayerSearch *search, 
                                  gchar            *find, 
                                  gboolean          match_case, 
@@ -295,6 +303,7 @@ codeslayer_search_find_previous (CodeSlayerSearch *search,
       gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (priv->source_view), 
                                     &begin, .1, FALSE, 0, 0);
       gtk_text_buffer_select_range (buffer, &begin, &end);
+      return TRUE;
     }
   else
     {
@@ -305,8 +314,11 @@ codeslayer_search_find_previous (CodeSlayerSearch *search,
           gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (priv->source_view), 
                                         &begin, .1, FALSE, 0, 0);
           gtk_text_buffer_select_range (buffer, &begin, &end);
+          return TRUE;
         }
     }
+
+  return FALSE;
 }
 
 /**

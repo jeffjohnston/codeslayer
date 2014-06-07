@@ -716,10 +716,12 @@ sync_notebook_action (CodeSlayerNotebookSearch *notebook_search)
 
 static gboolean            
 entry_keypress_action (CodeSlayerNotebookSearch *notebook_search,
-                       GdkEventKey              *event)
+                       GdkEventKey              *event)  
 {
-  if (event->keyval == GDK_KEY_Escape)
+  if (event->keyval == GDK_KEY_Escape)  {
     close_search_action (notebook_search);
+    return TRUE;
+  }
 
   if (event->keyval ==  GDK_KEY_Up || 
       event->keyval ==  GDK_KEY_Down ||
@@ -917,6 +919,7 @@ find_next_action (CodeSlayerNotebookSearch *notebook_search)
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *source_view;
   gchar *find;
+  GtkWidget *label;
   CodeSlayerSearch *search;
   gboolean match_case;
   gboolean match_word;
@@ -926,6 +929,7 @@ find_next_action (CodeSlayerNotebookSearch *notebook_search)
 
   source_view = get_source_view (notebook_search);
   find = entry_get_current_text (priv->find_entry, priv->find_store);
+  label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
   
   search = codeslayer_source_view_get_search (CODESLAYER_SOURCE_VIEW (source_view));
 
@@ -933,7 +937,10 @@ find_next_action (CodeSlayerNotebookSearch *notebook_search)
   match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
   regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
 
-  codeslayer_search_find_next (search, find, match_case, match_word, regular_expression);
+  if (codeslayer_search_find_next (search, find, match_case, match_word, regular_expression))
+    gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));
+  else
+    gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_error_color));    
     
   g_signal_handler_block (priv->find_entry, priv->find_entry_changed_id);
   entry_set_text (priv->find_entry, priv->find_store, find);
@@ -949,6 +956,7 @@ find_previous_action (CodeSlayerNotebookSearch *notebook_search)
   CodeSlayerNotebookSearchPrivate *priv;
   GtkWidget *source_view;
   gchar *find;
+  GtkWidget *label;
   CodeSlayerSearch *search;
   gboolean match_case;
   gboolean match_word;
@@ -958,6 +966,7 @@ find_previous_action (CodeSlayerNotebookSearch *notebook_search)
 
   source_view = get_source_view (notebook_search);
   find = entry_get_current_text (priv->find_entry, priv->find_store);
+  label = gtk_bin_get_child (GTK_BIN (priv->find_entry));
   
   search = codeslayer_source_view_get_search (CODESLAYER_SOURCE_VIEW (source_view));
 
@@ -965,7 +974,10 @@ find_previous_action (CodeSlayerNotebookSearch *notebook_search)
   match_word = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->match_word_checkbox));
   regular_expression = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->regular_expression_checkbox));
 
-  codeslayer_search_find_previous (search, find, match_case, match_word, regular_expression);
+  if (codeslayer_search_find_previous (search, find, match_case, match_word, regular_expression))
+    gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_default_color));
+  else
+    gtk_widget_override_color (label, GTK_STATE_FLAG_NORMAL, &(priv->entry_error_color));
     
   g_signal_handler_block (priv->find_entry, priv->find_entry_changed_id);
   entry_set_text (priv->find_entry, priv->find_store, find);

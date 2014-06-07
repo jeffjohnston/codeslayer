@@ -181,6 +181,9 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
   
   profiles_item = gtk_menu_item_new_with_label (_("Profiles"));
+  gtk_widget_add_accelerator (profiles_item, "activate", priv->accel_group,
+                              GDK_KEY_O, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
+                              GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), profiles_item);
 
   priv->recent_documents_separator_item = gtk_separator_menu_item_new ();

@@ -42,6 +42,7 @@ static void add_buttons_pane                        (CodeSlayerProfilesManager  
 static void load_profile_names                      (CodeSlayerProfilesManager      *profiles_manager);
 static void select_row_action                       (GtkTreeSelection               *selection, 
                                                      CodeSlayerProfilesManager      *profiles_manager);
+static gboolean open_profile_action                 (CodeSlayerProfilesManager      *profiles_manager);
 static void select_profile_name                     (CodeSlayerProfilesManager      *profiles_manager);
 static gboolean profile_name_exists                 (CodeSlayerProfilesManager      *profiles_manager, 
                                                      const gchar                    *profile_name);
@@ -177,20 +178,7 @@ codeslayer_profiles_manager_run_dialog (CodeSlayerProfilesManager *profiles_mana
       GtkTreeIter iter;          
       selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
       if (gtk_tree_selection_get_selected (selection, NULL, &iter))
-        {
-          GtkWidget *window;
-          gchar *profile_name;
-                
-          gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, PROFILE_NAME, &profile_name, -1);
-          
-          gtk_widget_hide (priv->dialog);
-          
-          window = codeslayer_window_new (GTK_APPLICATION (priv->application), profile_name);
-          gtk_application_add_window (GTK_APPLICATION (priv->application), GTK_WINDOW (window));
-          gtk_window_present (GTK_WINDOW (window));
-          
-          g_free (profile_name);
-        }
+        open_profile_action (profiles_manager);
     }
 
   gtk_widget_destroy (priv->dialog);
@@ -249,6 +237,9 @@ add_profiles_pane (CodeSlayerProfilesManager *profiles_manager,
   
   g_signal_connect (G_OBJECT (selection), "changed",
                     G_CALLBACK (select_row_action), profiles_manager);
+                    
+  g_signal_connect_swapped (G_OBJECT (priv->tree), "row_activated",
+                            G_CALLBACK (open_profile_action), profiles_manager);
 
   /* pack everything in */  
 
@@ -321,6 +312,35 @@ select_row_action (GtkTreeSelection          *selection,
       
       g_free (profile_name);
     }
+}
+
+static gboolean
+open_profile_action (CodeSlayerProfilesManager *profiles_manager)
+{
+  CodeSlayerProfilesManagerPrivate *priv;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;          
+
+  priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
+
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
+  if (gtk_tree_selection_get_selected (selection, NULL, &iter))
+    {
+      GtkWidget *window;
+      gchar *profile_name;
+            
+      gtk_tree_model_get (GTK_TREE_MODEL (priv->store), &iter, PROFILE_NAME, &profile_name, -1);
+      
+      gtk_widget_hide (priv->dialog);
+      
+      window = codeslayer_window_new (GTK_APPLICATION (priv->application), profile_name);
+      gtk_application_add_window (GTK_APPLICATION (priv->application), GTK_WINDOW (window));
+      gtk_window_present (GTK_WINDOW (window));
+      
+      g_free (profile_name);
+    }
+    
+  return FALSE;
 }
 
 static void
