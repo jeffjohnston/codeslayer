@@ -90,6 +90,7 @@ static void lowercase_action                (CodeSlayerEngine      *engine);
 
 static void search_find_projects_action     (CodeSlayerEngine      *engine,
                                              gchar                 *search_paths);
+static void search_for_document_action      (CodeSlayerEngine      *engine);
 static void add_projects_action             (CodeSlayerEngine      *engine,
                                              GSList                *files);
 static void remove_project_action           (CodeSlayerEngine      *engine,
@@ -337,6 +338,9 @@ codeslayer_engine_new (GtkWindow          *window,
   
   g_signal_connect_swapped (G_OBJECT (projects), "find-projects",
                             G_CALLBACK (search_find_projects_action), engine);
+  
+  g_signal_connect_swapped (G_OBJECT (menu_bar), "search-for-document",
+                            G_CALLBACK (search_for_document_action), engine);
   
   g_signal_connect_swapped (G_OBJECT (menu_bar), "add-projects",
                             G_CALLBACK (add_projects_action), engine);
@@ -1370,6 +1374,12 @@ close_search_action (CodeSlayerEngine *engine,
   gtk_widget_hide (priv->search);
 
   return TRUE;
+}
+
+static void
+search_for_document_action (CodeSlayerEngine *engine)
+{
+  g_print ("search_for_document_action\n");
 }
 
 static void

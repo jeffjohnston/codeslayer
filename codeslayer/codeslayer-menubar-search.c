@@ -38,6 +38,7 @@ static void find_next_action                       (CodeSlayerMenuBarSearch     
 static void find_previous_action                   (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void replace_action                         (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void find_projects_action                   (CodeSlayerMenuBarSearch      *menu_bar_search);
+static void search_for_document_action             (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void go_to_line_action                      (CodeSlayerMenuBarSearch      *menu_bar_search);
 static void sync_menu_action                       (CodeSlayerMenuBarSearch      *menu_bar_search,
                                                     gboolean                      enable_projects,
@@ -59,6 +60,7 @@ struct _CodeSlayerMenuBarSearchPrivate
   GtkWidget         *find_next_item;
   GtkWidget         *find_previous_item;
   GtkWidget         *find_projects_item;
+  GtkWidget         *search_for_document_item;
   GtkWidget         *find_projects_separator_item;
   GtkWidget         *go_to_line_item;
 };
@@ -134,6 +136,7 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
   GtkWidget *find_next_item;
   GtkWidget *find_previous_item;
   GtkWidget *replace_item;
+  GtkWidget *search_for_document_item;
   GtkWidget *find_projects_item;
   GtkWidget *find_projects_separator_item;
   GtkWidget *go_to_line_item;
@@ -176,6 +179,10 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
                               GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_projects_item);
   
+  search_for_document_item = gtk_menu_item_new_with_label (_("Search For Document"));
+  priv->search_for_document_item = search_for_document_item;
+  gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), search_for_document_item);
+
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
 
   go_to_line_item = gtk_menu_item_new_with_label (_("Go To Line"));
@@ -199,6 +206,9 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
   g_signal_connect_swapped (G_OBJECT (find_projects_item), "activate",
                             G_CALLBACK (find_projects_action), menu_bar_search);
   
+  g_signal_connect_swapped (G_OBJECT (search_for_document_item), "activate",
+                            G_CALLBACK (search_for_document_action), menu_bar_search);
+  
   g_signal_connect_swapped (G_OBJECT (go_to_line_item), "activate",
                             G_CALLBACK (go_to_line_action), menu_bar_search);
 }
@@ -221,11 +231,13 @@ sync_menu_action (CodeSlayerMenuBarSearch *menu_bar_search,
   if (enable_projects)
     {
       gtk_widget_show (priv->find_projects_item);
+      gtk_widget_show (priv->search_for_document_item);
       gtk_widget_show (priv->find_projects_separator_item);
     }
   else
     {
       gtk_widget_hide (priv->find_projects_item);
+      gtk_widget_hide (priv->search_for_document_item);
       gtk_widget_hide (priv->find_projects_separator_item);
     }
 }
@@ -268,6 +280,14 @@ find_projects_action (CodeSlayerMenuBarSearch *menu_bar_search)
   CodeSlayerMenuBarSearchPrivate *priv;
   priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
   codeslayer_menu_bar_find_projects (CODESLAYER_MENU_BAR (priv->menu_bar));
+}
+
+static void
+search_for_document_action (CodeSlayerMenuBarSearch *menu_bar_search)
+{
+  CodeSlayerMenuBarSearchPrivate *priv;
+  priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
+  codeslayer_menu_bar_search_for_document (CODESLAYER_MENU_BAR (priv->menu_bar));
 }
 
 static void

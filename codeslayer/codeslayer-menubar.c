@@ -72,7 +72,6 @@ enum
   SAVE_ALL_DOCUMENTS,
   CLOSE_DOCUMENT,
   QUIT_APPLICATION,
-  FIND_GROUP,
   FULLSCREEN_WINDOW,
   SHOW_SIDE_PANE,
   SHOW_BOTTOM_PANE,
@@ -82,6 +81,8 @@ enum
   FIND,
   FIND_NEXT,
   FIND_PREVIOUS,
+  FIND_PROJECTS,
+  SEARCH_FOR_DOCUMENT,
   REGULAR_EXPRESSION,
   GO_TO_LINE,
   FIND_INCREMENTAL,
@@ -241,15 +242,31 @@ codeslayer_menu_bar_class_init (CodeSlayerMenuBarClass *klass)
    *
    * Note: for internal use only.
    *
-   * The ::find-projects signal is a request to open up the search dialog.
+   * The ::find-projects signal is a request to open up the find in projects dialog.
    */
-  codeslayer_menu_bar_signals[FIND_GROUP] =
+  codeslayer_menu_bar_signals[FIND_PROJECTS] =
     g_signal_new ("find-projects", 
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (CodeSlayerMenuBarClass, find_projects),
                   NULL, NULL, 
                   g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
+
+  /**
+   * CodeSlayerMenuBar::search-for-document
+   * @menu: the menu that received the signal
+   *
+   * Note: for internal use only.
+   *
+   * The ::search-for-document signal is a request to open up the search for document dialog.
+   */
+  codeslayer_menu_bar_signals[SEARCH_FOR_DOCUMENT] =
+    g_signal_new ("search-for-document", 
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (CodeSlayerMenuBarClass, search_for_document),
+                  NULL, NULL, 
+                  g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   /**
    * CodeSlayerMenuBar::fullscreen-window
@@ -925,6 +942,16 @@ void
 codeslayer_menu_bar_find_projects (CodeSlayerMenuBar *menu_bar)
 {
   g_signal_emit_by_name ((gpointer) menu_bar, "find-projects", NULL);
+}
+
+/**
+ * codeslayer_menu_bar_search_for_document:
+ * @menu_bar: a #CodeSlayerMenuBar.
+ */
+void            
+codeslayer_menu_bar_search_for_document (CodeSlayerMenuBar *menu_bar)
+{
+  g_signal_emit_by_name ((gpointer) menu_bar, "search-for-document");
 }
 
 /**

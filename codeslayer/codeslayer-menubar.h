@@ -61,6 +61,7 @@ struct _CodeSlayerMenuBarClass
   void (*replace) (CodeSlayerMenuBar *menu_bar);
   void (*find_next) (CodeSlayerMenuBar *menu_bar);
   void (*find_previous) (CodeSlayerMenuBar *menu_bar);
+  void (*search_for_document) (CodeSlayerMenuBar *menu_bar);
   void (*regular_expression) (CodeSlayerMenuBar *menu_bar);
   void (*go_to_line) (CodeSlayerMenuBar *menu_bar);
   void (*show_preferences) (CodeSlayerMenuBar *menu_bar);
@@ -108,6 +109,7 @@ void            codeslayer_menu_bar_replace                (CodeSlayerMenuBar *m
 void            codeslayer_menu_bar_find_next              (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_find_previous          (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_find_projects          (CodeSlayerMenuBar *menu_bar);
+void            codeslayer_menu_bar_search_for_document    (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_regular_expression     (CodeSlayerMenuBar *menu_bar);
 void            codeslayer_menu_bar_go_to_line             (CodeSlayerMenuBar *menu_bar);
 

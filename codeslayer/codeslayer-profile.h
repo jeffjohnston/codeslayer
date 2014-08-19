@@ -59,6 +59,7 @@ void                 codeslayer_profile_set_name                     (CodeSlayer
 const gchar*         codeslayer_profile_get_file_path                (CodeSlayerProfile  *profile);
 void                 codeslayer_profile_set_file_path                (CodeSlayerProfile  *profile, 
                                                                       const gchar        *file_path);
+gchar*               codeslayer_profile_get_config_folder_path       (CodeSlayerProfile *profile);
 gboolean             codeslayer_profile_get_enable_projects          (CodeSlayerProfile  *profile);
 void                 codeslayer_profile_set_enable_projects          (CodeSlayerProfile  *profile, 
                                                                       gboolean            enable_projects);

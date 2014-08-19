@@ -6,6 +6,9 @@ pkginclude_HEADERS = \
     codeslayer-completion.h \
     codeslayer-completion-provider.h \
     codeslayer-completion-proposal.h \
+    codeslayer-documentsearch.h \
+    codeslayer-documentsearch-dialog.h \
+    codeslayer-documentsearch-index.h \
     codeslayer-abstract-pane.h \
     codeslayer-side-pane.h \
     codeslayer-bottom-pane.h \
@@ -61,6 +64,9 @@ libcodeslayer_la_SOURCES = \
     codeslayer-completion.c \
     codeslayer-completion-provider.c \
     codeslayer-completion-proposal.c \
+    codeslayer-documentsearch.c \
+    codeslayer-documentsearch-dialog.c \
+    codeslayer-documentsearch-index.c \
     codeslayer-abstract-pane.c \
     codeslayer-side-pane.c \
     codeslayer-bottom-pane.c \

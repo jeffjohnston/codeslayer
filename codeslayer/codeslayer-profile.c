@@ -204,6 +204,37 @@ codeslayer_profile_set_file_path (CodeSlayerProfile *profile,
   priv->file_path = g_strdup (file_path);
 }
 
+/**
+ * codeslayer_profile_get_config_folder_path:
+ * @codeslayer: a #CodeSlayer.
+ *
+ * The folder path to where you should place profile configuration files.
+ *
+ * Returns: a newly-allocated string that must be freed with g_free().
+ */
+gchar*                    
+codeslayer_profile_get_config_folder_path (CodeSlayerProfile *profile)
+{
+  CodeSlayerProfilePrivate *priv;
+  const gchar *file_path;
+  GFile *file;
+  GFile *parent;
+  gchar *result;
+  
+  priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
+
+  file_path = priv->file_path;
+  file = g_file_new_for_path (file_path);
+  parent = g_file_get_parent (file);
+  
+  result = g_file_get_path (parent);
+  
+  g_object_unref (file);
+  g_object_unref (parent);
+  
+  return result;                           
+}
+
 gboolean
 codeslayer_profile_get_enable_projects (CodeSlayerProfile *profile)
 {
