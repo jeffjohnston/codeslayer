@@ -19,8 +19,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "codeslayer-documentsearch-dialog.h"
-#include "codeslayer-documentsearch-index.h"
+#include <codeslayer/codeslayer-documentsearch-dialog.h>
+#include <codeslayer/codeslayer-documentsearch-index.h>
 #include <codeslayer/codeslayer-utils.h>
 
 static void codeslayer_documentsearch_dialog_class_init  (CodeSlayerDocumentSearchDialogClass *klass);
@@ -333,7 +333,7 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
   priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
 
   profile_folder_path = codeslayer_profile_get_config_folder_path (priv->profile);
-  profile_indexes_file = g_strconcat (profile_folder_path, G_DIR_SEPARATOR_S, "filesearch", NULL);
+  profile_indexes_file = g_strconcat (profile_folder_path, G_DIR_SEPARATOR_S, CODESLAYER_DOCUMENT_SEARCH_FILE, NULL);
   
   channel = g_io_channel_new_file (profile_indexes_file, "r", NULL);
   if (channel == NULL)

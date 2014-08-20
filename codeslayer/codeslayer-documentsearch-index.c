@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include "codeslayer-documentsearch-index.h"
+#include <codeslayer/codeslayer-documentsearch-index.h>
 
 static void codeslayer_documentsearch_index_class_init    (CodeSlayerDocumentSearchIndexClass *klass);
 static void codeslayer_documentsearch_index_init          (CodeSlayerDocumentSearchIndex      *index);

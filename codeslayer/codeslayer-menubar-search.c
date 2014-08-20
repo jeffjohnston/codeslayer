@@ -181,6 +181,10 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
   
   search_for_document_item = gtk_menu_item_new_with_label (_("Search For Document"));
   priv->search_for_document_item = search_for_document_item;
+  gtk_widget_add_accelerator (search_for_document_item, "activate",
+                              priv->accel_group, GDK_KEY_K,
+                              GDK_CONTROL_MASK,
+                              GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), search_for_document_item);
 
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());

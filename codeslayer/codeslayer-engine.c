@@ -33,6 +33,7 @@
 #include <codeslayer/codeslayer-notebook-pane.h>
 #include <codeslayer/codeslayer-regexview.h>
 #include <codeslayer/codeslayer-sourceview.h>
+#include <codeslayer/codeslayer-documentsearch.h>
 
 /**
  * SECTION:codeslayer-engine
@@ -122,28 +123,28 @@ typedef struct _CodeSlayerEnginePrivate CodeSlayerEnginePrivate;
 
 struct _CodeSlayerEnginePrivate
 {
-  GtkWindow             *window;
-  CodeSlayerProfile     *profile;
-  CodeSlayerProfiles    *profiles;
-  CodeSlayerRegistry    *registry;
-  CodeSlayerPreferences *preferences;
-  CodeSlayerPlugins     *plugins;
-  GtkWidget             *projects;
-  GtkWidget             *search;
-  GtkWidget             *menu_bar;
-  GtkWidget             *notebook;
-  GtkWidget             *notebook_search;
-  GtkWidget             *notebook_pane;
-  GtkWidget             *regex_view;
-  GtkWidget             *side_pane;
-  GtkWidget             *bottom_pane;
-  GtkWidget             *hpaned;
-  GtkWidget             *vpaned;
-  GdkWindowState         window_state;
+  GtkWindow                *window;
+  CodeSlayerProfile        *profile;
+  CodeSlayerProfiles       *profiles;
+  CodeSlayerPreferences    *preferences;
+  CodeSlayerPlugins        *plugins;
+  CodeSlayerDocumentSearch *document_search;
+  GtkWidget                *projects;
+  GtkWidget                *search;
+  GtkWidget                *menu_bar;
+  GtkWidget                *notebook;
+  GtkWidget                *notebook_search;
+  GtkWidget                *notebook_pane;
+  GtkWidget                *regex_view;
+  GtkWidget                *side_pane;
+  GtkWidget                *bottom_pane;
+  GtkWidget                *hpaned;
+  GtkWidget                *vpaned;
+  GdkWindowState            window_state;
 
-  GtkWidget             *go_to_line_dialog;
-  GdkRGBA                go_to_line_error_color;
-  GdkRGBA                go_to_line_default_color;  
+  GtkWidget                *go_to_line_dialog;
+  GdkRGBA                   go_to_line_error_color;
+  GdkRGBA                   go_to_line_default_color;  
 };
 
 G_DEFINE_TYPE (CodeSlayerEngine, codeslayer_engine, G_TYPE_OBJECT)
@@ -163,6 +164,7 @@ codeslayer_engine_init (CodeSlayerEngine *engine)
   priv->preferences = NULL;
   priv->search = NULL;
   priv->regex_view = NULL;
+  priv->document_search = NULL;
 }
 
 static void
@@ -170,7 +172,9 @@ codeslayer_engine_finalize (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv;
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  g_object_unref (priv->preferences);  
+  g_object_unref (priv->preferences); 
+  if (priv->document_search) 
+    g_object_unref (priv->document_search);  
   G_OBJECT_CLASS (codeslayer_engine_parent_class)->finalize (G_OBJECT (engine));
 }
 
@@ -233,7 +237,7 @@ codeslayer_engine_new (GtkWindow          *window,
   priv->preferences = codeslayer_preferences_new (GTK_WIDGET (window), profile);
 
   registry = codeslayer_profile_get_registry (profile);
-  
+
   g_signal_connect_swapped (G_OBJECT (menu_bar), "new-document",
                             G_CALLBACK (new_document_action), engine);
   
@@ -414,6 +418,11 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
         }
         
       gtk_widget_show (priv->projects);
+      
+      priv->document_search = codeslayer_documentsearch_new (priv->profile, 
+                                                             CODESLAYER_PROJECTS (priv->projects), 
+                                                             registry);
+      codeslayer_documentsearch_index_files (priv->document_search);
     }
   else
     {
@@ -1379,7 +1388,9 @@ close_search_action (CodeSlayerEngine *engine,
 static void
 search_for_document_action (CodeSlayerEngine *engine)
 {
-  g_print ("search_for_document_action\n");
+  CodeSlayerEnginePrivate *priv; 
+  priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
+  codeslayer_documentsearch_run_dialog (priv->document_search);
 }
 
 static void

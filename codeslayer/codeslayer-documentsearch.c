@@ -16,9 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include "codeslayer-documentsearch.h"
-#include "codeslayer-documentsearch-dialog.h"
-#include "codeslayer-documentsearch-index.h"
+#include <codeslayer/codeslayer-documentsearch.h>
+#include <codeslayer/codeslayer-documentsearch-dialog.h>
+#include <codeslayer/codeslayer-documentsearch-index.h>
 #include <codeslayer/codeslayer-utils.h>
 
 static void codeslayer_documentsearch_class_init  (CodeSlayerDocumentSearchClass *klass);
@@ -61,6 +61,9 @@ codeslayer_documentsearch_class_init (CodeSlayerDocumentSearchClass *klass)
 static void
 codeslayer_documentsearch_init (CodeSlayerDocumentSearch *search) 
 {
+  CodeSlayerDocumentSearchPrivate *priv;
+  priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
+  priv->dialog = NULL;
 }
 
 static void
@@ -68,7 +71,8 @@ codeslayer_documentsearch_finalize (CodeSlayerDocumentSearch *search)
 {
   CodeSlayerDocumentSearchPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
-  g_object_unref (priv->dialog);
+  if (priv->dialog != NULL)
+    g_object_unref (priv->dialog);
   G_OBJECT_CLASS (codeslayer_documentsearch_parent_class)->finalize (G_OBJECT(search));
 }
 
@@ -87,8 +91,6 @@ codeslayer_documentsearch_new (CodeSlayerProfile  *profile,
   priv->projects = projects;
   priv->registry = registry;
   
-  priv->dialog = codeslayer_documentsearch_dialog_new (profile, projects);
-  
   g_signal_connect_swapped (G_OBJECT (projects), "projects-changed",
                             G_CALLBACK (codeslayer_documentsearch_index_files), search);
 
@@ -106,6 +108,10 @@ codeslayer_documentsearch_run_dialog (CodeSlayerDocumentSearch *search)
 {
   CodeSlayerDocumentSearchPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
+  
+  if (priv->dialog == NULL)
+    priv->dialog = codeslayer_documentsearch_dialog_new (priv->profile, priv->projects);
+  
   codeslayer_documentsearch_dialog_run  (priv->dialog);
 }
 
@@ -122,7 +128,7 @@ execute (CodeSlayerDocumentSearch *search)
   priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
 
   profile_folder_path = codeslayer_profile_get_config_folder_path (priv->profile);
-  profile_indexes_file = g_strconcat (profile_folder_path, G_DIR_SEPARATOR_S, "filesearch", NULL);
+  profile_indexes_file = g_strconcat (profile_folder_path, G_DIR_SEPARATOR_S, CODESLAYER_DOCUMENT_SEARCH_FILE, NULL);
   
   channel = g_io_channel_new_file (profile_indexes_file, "w", &error);
   if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS))
