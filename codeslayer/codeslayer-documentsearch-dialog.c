@@ -279,6 +279,9 @@ key_release_action (CodeSlayerDocumentSearchDialog *dialog,
       
       text = gtk_entry_get_text (GTK_ENTRY (priv->entry));
       
+      if (g_strcmp0 (text, "*") == 0)
+        return FALSE;
+      
       if (priv->find_globbing != NULL)
         {
           first_char_changed = text == priv->find_globbing;
