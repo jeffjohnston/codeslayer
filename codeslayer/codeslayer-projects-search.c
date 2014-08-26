@@ -425,7 +425,7 @@ add_results_window (CodeSlayerProjectsSearch *search)
   gtk_box_pack_start (GTK_BOX (priv->vbox), GTK_WIDGET (scrolled_window), 
                       TRUE, TRUE, 2);
 
-  g_signal_connect_swapped (G_OBJECT (treeview), "row_activated",
+  g_signal_connect_swapped (G_OBJECT (treeview), "row-activated",
                             G_CALLBACK (select_document), search);
 }
 
