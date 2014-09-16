@@ -348,7 +348,7 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
       dialog =  gtk_message_dialog_new (NULL, 
                                         GTK_DIALOG_MODAL,
                                         GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
-                                        "The search file does not exist. First index the files in the tools menu.");
+                                        "The search file does not exist.");
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
       g_free (profile_folder_path);

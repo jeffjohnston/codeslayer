@@ -33,7 +33,9 @@ static void get_project_indexes                   (CodeSlayerProject            
                                                    GList                         *exclude_types,
                                                    GList                         *exclude_dirs);
 static void write_indexes                         (GIOChannel                    *channel,
-                                                   GList                         *indexes);                                        
+                                                   GList                         *indexes);   
+static gint sort_indexes                          (CodeSlayerDocumentSearchIndex *a,
+                                                   CodeSlayerDocumentSearchIndex *b);
                             
 #define CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENTSEARCH_TYPE, CodeSlayerDocumentSearchPrivate))
@@ -269,9 +271,12 @@ static void
 write_indexes (GIOChannel *channel, 
                GList      *indexes)
 {
-  while (indexes != NULL)
+  GList *list;  
+  list = g_list_sort (indexes, (GCompareFunc) sort_indexes);
+
+  while (list != NULL)
     {
-      CodeSlayerDocumentSearchIndex *index = indexes->data;
+      CodeSlayerDocumentSearchIndex *index = list->data;
       GIOStatus status;
       gchar *line;
       
@@ -287,8 +292,16 @@ write_indexes (GIOChannel *channel,
       if (status != G_IO_STATUS_NORMAL)
         g_warning ("Error writing to file search file.");
 
-      indexes = g_list_next (indexes);
+      list = g_list_next (list);
     }
     
   g_io_channel_flush (channel, NULL);
+}
+
+static gint 
+sort_indexes (CodeSlayerDocumentSearchIndex *a,
+              CodeSlayerDocumentSearchIndex *b)
+{
+  return g_strcmp0 (codeslayer_documentsearch_index_get_file_name (a),
+                    codeslayer_documentsearch_index_get_file_name (b));
 }
