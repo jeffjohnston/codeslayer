@@ -332,6 +332,7 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
   GIOChannel *channel = NULL;
   gchar *line;
   gsize len;
+  gint count;
 
   gchar *profile_folder_path;
   gchar *profile_indexes_file;
@@ -360,10 +361,19 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
     {
       CodeSlayerDocumentSearchIndex *index = get_index (line);
       if (g_pattern_match_string (priv->find_pattern, codeslayer_documentsearch_index_get_file_name (index)))
-        results = g_list_prepend (results, index);
+        {
+          results = g_list_prepend (results, index);
+          count++;
+        }
       else
-        g_object_unref (index);
+        {
+          g_object_unref (index);        
+        }
+        
       g_free (line);
+      
+      if (count >= 100)
+        break;
     }
     
   g_free (profile_folder_path);
