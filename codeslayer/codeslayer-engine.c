@@ -419,7 +419,8 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
         
       gtk_widget_show (priv->projects);
       
-      priv->document_search = codeslayer_documentsearch_new (priv->profile, 
+      priv->document_search = codeslayer_documentsearch_new (priv->window, 
+                                                             priv->profile, 
                                                              CODESLAYER_PROJECTS (priv->projects), 
                                                              registry);
       codeslayer_documentsearch_index_files (priv->document_search);

@@ -42,6 +42,7 @@ typedef struct _CodeSlayerDocumentSearchPrivate CodeSlayerDocumentSearchPrivate;
 
 struct _CodeSlayerDocumentSearchPrivate
 {
+  GtkWindow                      *window;
   CodeSlayerProfile              *profile;
   CodeSlayerProjects             *projects;
   CodeSlayerRegistry             *registry;
@@ -77,7 +78,8 @@ codeslayer_documentsearch_finalize (CodeSlayerDocumentSearch *search)
 }
 
 CodeSlayerDocumentSearch*
-codeslayer_documentsearch_new (CodeSlayerProfile  *profile, 
+codeslayer_documentsearch_new (GtkWindow          *window, 
+                               CodeSlayerProfile  *profile, 
                                CodeSlayerProjects *projects, 
                                CodeSlayerRegistry *registry)
 {
@@ -87,6 +89,7 @@ codeslayer_documentsearch_new (CodeSlayerProfile  *profile,
   search = CODESLAYER_DOCUMENTSEARCH (g_object_new (codeslayer_documentsearch_get_type (), NULL));
   priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
 
+  priv->window = window;
   priv->profile = profile;
   priv->projects = projects;
   priv->registry = registry;
@@ -110,7 +113,7 @@ codeslayer_documentsearch_run_dialog (CodeSlayerDocumentSearch *search)
   priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
   
   if (priv->dialog == NULL)
-    priv->dialog = codeslayer_documentsearch_dialog_new (priv->profile, priv->projects);
+    priv->dialog = codeslayer_documentsearch_dialog_new (priv->window, priv->profile, priv->projects);
   
   codeslayer_documentsearch_dialog_run  (priv->dialog);
 }

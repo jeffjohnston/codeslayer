@@ -47,7 +47,8 @@ struct _CodeSlayerDocumentSearchClass
 
 GType codeslayer_documentsearch_get_type (void) G_GNUC_CONST;
 
-CodeSlayerDocumentSearch*  codeslayer_documentsearch_new          (CodeSlayerProfile        *profile, 
+CodeSlayerDocumentSearch*  codeslayer_documentsearch_new          (GtkWindow                *window, 
+                                                                   CodeSlayerProfile        *profile, 
                                                                    CodeSlayerProjects       *projects, 
                                                                    CodeSlayerRegistry       *registry);
                                             

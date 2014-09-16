@@ -48,7 +48,8 @@ struct _CodeSlayerDocumentSearchDialogClass
 
 GType codeslayer_documentsearch_dialog_get_type (void) G_GNUC_CONST;
      
-CodeSlayerDocumentSearchDialog*  codeslayer_documentsearch_dialog_new  (CodeSlayerProfile  *profile, 
+CodeSlayerDocumentSearchDialog*  codeslayer_documentsearch_dialog_new  (GtkWindow          *window, 
+                                                                        CodeSlayerProfile  *profile, 
                                                                         CodeSlayerProjects *projects);
 
 void                             codeslayer_documentsearch_dialog_run  (CodeSlayerDocumentSearchDialog *dialog);

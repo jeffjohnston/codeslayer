@@ -27,11 +27,16 @@ static void codeslayer_documentsearch_dialog_class_init  (CodeSlayerDocumentSear
 static void codeslayer_documentsearch_dialog_init        (CodeSlayerDocumentSearchDialog      *dialog);
 static void codeslayer_documentsearch_dialog_finalize    (CodeSlayerDocumentSearchDialog      *dialog);
 
-static void find_action                                  (CodeSlayerDocumentSearchDialog      *dialog);
+static gboolean key_release_action                       (CodeSlayerDocumentSearchDialog      *dialog,
+                                                          GdkEventKey                         *event);
+static gboolean key_press_action                         (CodeSlayerDocumentSearchDialog      *dialog,
+                                                          GdkEventKey                         *event);
 static GList* get_indexes                                (CodeSlayerDocumentSearchDialog      *dialog);
 static CodeSlayerDocumentSearchIndex* get_index          (gchar                               *line);
 static void render_indexes                               (CodeSlayerDocumentSearchDialog      *dialog, 
                                                           GList                               *indexes);
+static void select_tree                                  (CodeSlayerDocumentSearchDialog      *dialog, 
+                                                          GdkEventKey                         *event);
 static void row_activated_action                         (CodeSlayerDocumentSearchDialog      *dialog);
 static gboolean filter_callback                          (GtkTreeModel                        *model,
                                                           GtkTreeIter                         *iter,
@@ -50,6 +55,7 @@ typedef struct _CodeSlayerDocumentSearchDialogPrivate CodeSlayerDocumentSearchDi
 
 struct _CodeSlayerDocumentSearchDialogPrivate
 {
+  GtkWindow          *window;
   CodeSlayerProfile  *profile;
   CodeSlayerProjects *projects;
   GtkWidget          *dialog;
@@ -108,7 +114,8 @@ codeslayer_documentsearch_dialog_finalize (CodeSlayerDocumentSearchDialog *dialo
 }
 
 CodeSlayerDocumentSearchDialog*
-codeslayer_documentsearch_dialog_new (CodeSlayerProfile  *profile, 
+codeslayer_documentsearch_dialog_new (GtkWindow          *window, 
+                                      CodeSlayerProfile  *profile, 
                                       CodeSlayerProjects *projects)
 {
   CodeSlayerDocumentSearchDialogPrivate *priv;
@@ -116,6 +123,7 @@ codeslayer_documentsearch_dialog_new (CodeSlayerProfile  *profile,
 
   dialog = CODESLAYER_DOCUMENTSEARCH_DIALOG (g_object_new (codeslayer_documentsearch_dialog_get_type (), NULL));
   priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  priv->window = window;
   priv->profile = profile;
   priv->projects = projects;
 
@@ -140,7 +148,7 @@ codeslayer_documentsearch_dialog_run (CodeSlayerDocumentSearchDialog *dialog)
       GtkCellRenderer *renderer;
 
       priv->dialog = gtk_dialog_new_with_buttons ("Search For Document", 
-                                                  NULL,
+                                                  GTK_WINDOW (priv->window),
                                                   GTK_DIALOG_MODAL,
                                                   GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
                                                   NULL);
@@ -203,9 +211,12 @@ codeslayer_documentsearch_dialog_run (CodeSlayerDocumentSearchDialog *dialog)
       
       /* hook up the signals */
       
-      g_signal_connect_swapped (G_OBJECT (priv->entry), "activate",
-                                G_CALLBACK (find_action), dialog);
-
+      g_signal_connect_swapped (G_OBJECT (priv->entry), "key-release-event",
+                                G_CALLBACK (key_release_action), dialog);
+                                
+      g_signal_connect_swapped (G_OBJECT (priv->entry), "key-press-event",
+                                G_CALLBACK (key_press_action), dialog);
+                                
       g_signal_connect_swapped (G_OBJECT (priv->tree), "row-activated",
                                 G_CALLBACK (row_activated_action), dialog);                                
       
@@ -225,21 +236,46 @@ codeslayer_documentsearch_dialog_run (CodeSlayerDocumentSearchDialog *dialog)
   gtk_widget_hide (priv->dialog);
 }
 
-static void
-find_action (CodeSlayerDocumentSearchDialog *dialog)
+static gboolean
+key_press_action (CodeSlayerDocumentSearchDialog *dialog,
+                  GdkEventKey                    *event)
+{
+  if (event->keyval == GDK_KEY_Up || event->keyval == GDK_KEY_Down)
+    {
+      select_tree (dialog, event);    
+      return TRUE;    
+    }
+  if (event->keyval == GDK_KEY_Return)
+    {
+      row_activated_action (dialog);
+      return TRUE;    
+    }
+    
+  return FALSE;
+}
+
+static gboolean
+key_release_action (CodeSlayerDocumentSearchDialog *dialog,
+                    GdkEventKey                    *event)
 {
   CodeSlayerDocumentSearchDialogPrivate *priv;
   gint text_length;
   
   priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
   
+  if (event->keyval == GDK_KEY_Up ||
+      event->keyval == GDK_KEY_Down ||
+      event->keyval == GDK_KEY_Left ||
+      event->keyval == GDK_KEY_Right)
+    return FALSE;
+
   text_length = gtk_entry_get_text_length (GTK_ENTRY (priv->entry));
   
   if (text_length == 0)
     {
       gtk_list_store_clear (priv->store);
     }
-  else if (text_length >= 1) 
+  else if (text_length >= 1)
     {
       const gchar *text;
       gboolean first_char_changed = FALSE;
@@ -247,7 +283,7 @@ find_action (CodeSlayerDocumentSearchDialog *dialog)
       text = gtk_entry_get_text (GTK_ENTRY (priv->entry));
       
       if (g_strcmp0 (text, "*") == 0)
-        return;
+        return FALSE;
       
       if (priv->find_globbing != NULL)
         {
@@ -283,6 +319,8 @@ find_action (CodeSlayerDocumentSearchDialog *dialog)
             }      
         }
     }
+
+  return FALSE;
 }
 
 static GList*
@@ -292,8 +330,8 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
   GList *results = NULL;
 
   GIOChannel *channel = NULL;
-  gint line_number;
-  gchar *text;
+  gchar *line;
+  gsize len;
 
   gchar *profile_folder_path;
   gchar *profile_indexes_file;
@@ -318,22 +356,14 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
       return NULL;
     }
   
-  for (line_number = 1; g_io_channel_read_line (channel, &text, NULL, NULL, NULL) == G_IO_STATUS_NORMAL; line_number++)
+  while (g_io_channel_read_line (channel, &line, &len, NULL, NULL) != G_IO_STATUS_EOF)
     {
-      CodeSlayerDocumentSearchIndex *index;
-    
-      if (line_number >= 100)
-        {
-          g_free (text);
-          break;
-        }
-    
-      index = get_index (text);
+      CodeSlayerDocumentSearchIndex *index = get_index (line);
       if (g_pattern_match_string (priv->find_pattern, codeslayer_documentsearch_index_get_file_name (index)))
         results = g_list_prepend (results, index);
       else
         g_object_unref (index);
-      g_free (text);
+      g_free (line);
     }
     
   g_free (profile_folder_path);
@@ -343,16 +373,16 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
 }
 
 static CodeSlayerDocumentSearchIndex*
-get_index (gchar *text)
+get_index (gchar *line)
 {
   CodeSlayerDocumentSearchIndex *index = NULL;
   gchar **split;
   gchar **tmp;
   
-  if (!codeslayer_utils_has_text (text))
+  if (!codeslayer_utils_has_text (line))
     return NULL;
   
-  split = g_strsplit (text, "\t", -1);
+  split = g_strsplit (line, "\t", -1);
   if (split != NULL)
     {
       gchar *file_name;  
@@ -453,6 +483,49 @@ get_globbing (const gchar *entry,
     }
   
   return result;
+}
+
+static void
+select_tree (CodeSlayerDocumentSearchDialog *dialog, 
+             GdkEventKey                    *event)
+{
+  CodeSlayerDocumentSearchDialogPrivate *priv;
+  GtkTreeSelection *selection;
+  GtkTreeIter iter;
+  
+  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  
+  if (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->filter), NULL) <= 0)
+    return;  
+
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
+  
+  if (gtk_tree_selection_get_selected (selection, &priv->filter, &iter))
+    {
+      GtkTreePath *path;
+      path = gtk_tree_model_get_path (GTK_TREE_MODEL (priv->filter), &iter);
+
+      if (event->keyval == GDK_KEY_Up)
+        gtk_tree_path_prev (path);
+      else if (event->keyval == GDK_KEY_Down)
+        gtk_tree_path_next (path);
+
+      if (path != NULL)
+        {
+          if (gtk_tree_model_get_iter (GTK_TREE_MODEL (priv->filter), &iter, path))
+            {
+              gtk_tree_selection_select_iter (selection, &iter);
+              gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (priv->tree), path, 
+                                            NULL, FALSE, 0.0, 0.0);
+            }
+          gtk_tree_path_free (path);
+        }
+    }
+  else
+    {
+      if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->filter), &iter))
+        gtk_tree_selection_select_iter (selection, &iter);
+    }
 }
 
 static void
