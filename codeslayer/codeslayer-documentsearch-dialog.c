@@ -23,6 +23,13 @@
 #include <codeslayer/codeslayer-documentsearch-index.h>
 #include <codeslayer/codeslayer-utils.h>
 
+/**
+ * SECTION:codeslayer-documentsearch-dialog
+ * @short_description: Used to search for documents.
+ * @title: CodeSlayerDocumentSearchDialog
+ * @include: codeslayer/codeslayer-documentsearch-dialog.h
+ */
+
 static void codeslayer_documentsearch_dialog_class_init  (CodeSlayerDocumentSearchDialogClass *klass);
 static void codeslayer_documentsearch_dialog_init        (CodeSlayerDocumentSearchDialog      *dialog);
 static void codeslayer_documentsearch_dialog_finalize    (CodeSlayerDocumentSearchDialog      *dialog);
@@ -113,6 +120,16 @@ codeslayer_documentsearch_dialog_finalize (CodeSlayerDocumentSearchDialog *dialo
   G_OBJECT_CLASS (codeslayer_documentsearch_dialog_parent_class)-> finalize (G_OBJECT (dialog));
 }
 
+/**
+ * codeslayer_documentsearch_index_dialog:
+ * @window: a #GtkWindow.
+ * @profile: a #CodeSlayerProfile.
+ * @projects: a #CodeSlayerProjects.
+ *
+ * Creates a new #CodeSlayerDocumentSearchDialog.
+ *
+ * Returns: a new #CodeSlayerDocumentSearchDialog. 
+ */
 CodeSlayerDocumentSearchDialog*
 codeslayer_documentsearch_dialog_new (GtkWindow          *window, 
                                       CodeSlayerProfile  *profile, 
@@ -130,6 +147,10 @@ codeslayer_documentsearch_dialog_new (GtkWindow          *window,
   return dialog;
 }
 
+/**
+ * codeslayer_documentsearch_dialog_run:
+ * @dialog: a #CodeSlayerDocumentSearchDialog.
+ */
 void
 codeslayer_documentsearch_dialog_run (CodeSlayerDocumentSearchDialog *dialog)
 {

@@ -21,6 +21,13 @@
 #include <codeslayer/codeslayer-documentsearch-index.h>
 #include <codeslayer/codeslayer-utils.h>
 
+/**
+ * SECTION:codeslayer-documentsearch
+ * @short_description: Used to search for documents.
+ * @title: CodeSlayerDocumentSearch
+ * @include: codeslayer/codeslayer-documentsearch.h
+ */
+
 static void codeslayer_documentsearch_class_init  (CodeSlayerDocumentSearchClass *klass);
 static void codeslayer_documentsearch_init        (CodeSlayerDocumentSearch      *search);
 static void codeslayer_documentsearch_finalize    (CodeSlayerDocumentSearch      *search);
@@ -79,6 +86,17 @@ codeslayer_documentsearch_finalize (CodeSlayerDocumentSearch *search)
   G_OBJECT_CLASS (codeslayer_documentsearch_parent_class)->finalize (G_OBJECT(search));
 }
 
+/**
+ * codeslayer_documentsearch_new:
+ * @window: a #GtkWindow.
+ * @profile: a #CodeSlayerProfile.
+ * @projects: a #CodeSlayerProjects.
+ * @registry: a #CodeSlayerRegistry.
+ *
+ * Creates a new #CodeSlayerDocumentSearch.
+ *
+ * Returns: a new #CodeSlayerDocumentSearch. 
+ */
 CodeSlayerDocumentSearch*
 codeslayer_documentsearch_new (GtkWindow          *window, 
                                CodeSlayerProfile  *profile, 
@@ -102,12 +120,20 @@ codeslayer_documentsearch_new (GtkWindow          *window,
   return search;
 }
 
+/**
+ * codeslayer_documentsearch_index_files:
+ * @search: a #CodeSlayerDocumentSearch.
+ */
 void
 codeslayer_documentsearch_index_files (CodeSlayerDocumentSearch *search)
 {
   g_thread_new ("index files", (GThreadFunc) execute, search); 
 }
 
+/**
+ * codeslayer_documentsearch_run_dialog:
+ * @search: a #CodeSlayerDocumentSearch.
+ */
 void
 codeslayer_documentsearch_run_dialog (CodeSlayerDocumentSearch *search)
 {

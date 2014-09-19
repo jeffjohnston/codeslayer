@@ -206,7 +206,7 @@ codeslayer_profile_set_file_path (CodeSlayerProfile *profile,
 
 /**
  * codeslayer_profile_get_config_folder_path:
- * @codeslayer: a #CodeSlayer.
+ * @profile: a #CodeSlayerProfile.
  *
  * The folder path to where you should place profile configuration files.
  *

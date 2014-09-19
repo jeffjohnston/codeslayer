@@ -163,6 +163,64 @@ codeslayer_document_get_type
 </SECTION>
 
 <SECTION>
+<FILE>codeslayer-documentsearch</FILE>
+<TITLE>CodeSlayerDocumentSearch</TITLE>
+CodeSlayerDocumentSearch
+codeslayer_documentsearch_new
+codeslayer_documentsearch_index_files
+codeslayer_documentsearch_run_dialog
+<SUBSECTION Standard>
+CODESLAYER_DOCUMENTSEARCH_TYPE
+CODESLAYER_DOCUMENTSEARCH
+CODESLAYER_DOCUMENTSEARCH_CLASS
+IS_CODESLAYER_DOCUMENTSEARCH
+IS_CODESLAYER_DOCUMENTSEARCH_CLASS
+<SUBSECTION Private>
+CodeSlayerDocumentSearchPrivate
+codeslayer_documentsearch_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-documentsearch-index</FILE>
+<TITLE>CodeSlayerDocumentSearchIndex</TITLE>
+CodeSlayerDocumentSearchIndex
+codeslayer_documentsearch_index_new
+codeslayer_documentsearch_index_get_project_key
+codeslayer_documentsearch_index_set_project_key
+codeslayer_documentsearch_index_get_file_name
+codeslayer_documentsearch_index_set_file_name
+codeslayer_documentsearch_index_get_file_path
+codeslayer_documentsearch_index_set_file_path 
+<SUBSECTION Standard>
+CODESLAYER_DOCUMENTSEARCH_INDEX_TYPE
+CODESLAYER_DOCUMENTSEARCH_INDEX
+CODESLAYER_DOCUMENTSEARCH_INDEX_CLASS
+IS_CODESLAYER_DOCUMENTSEARCH_INDEX
+IS_CODESLAYER_DOCUMENTSEARCH_INDEX_CLASS
+<SUBSECTION Private>
+CodeSlayerDocumentSearchIndexPrivate
+codeslayer_documentsearch_index_get_type
+</SECTION>
+
+<SECTION>
+<FILE>codeslayer-documentsearch-dialog</FILE>
+<TITLE>CodeSlayerDocumentSearchDialog</TITLE>
+CODESLAYER_DOCUMENT_SEARCH_FILE
+CodeSlayerDocumentSearchDialog
+codeslayer_documentsearch_dialog_new
+codeslayer_documentsearch_dialog_run
+<SUBSECTION Standard>
+CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE
+CODESLAYER_DOCUMENTSEARCH_DIALOG
+CODESLAYER_DOCUMENTSEARCH_DIALOG_CLASS
+IS_CODESLAYER_DOCUMENTSEARCH_DIALOG
+IS_CODESLAYER_DOCUMENTSEARCH_DIALOG_CLASS
+<SUBSECTION Private>
+CodeSlayerDocumentSearchDialogPrivate
+codeslayer_documentsearch_dialog_get_type
+</SECTION>
+
+<SECTION>
 <FILE>codeslayer-engine</FILE>
 <TITLE>CodeSlayerEngine</TITLE>
 CodeSlayerEngine
@@ -340,6 +398,7 @@ codeslayer_menu_bar_find_next
 codeslayer_menu_bar_find_previous
 codeslayer_menu_bar_regular_expression
 codeslayer_menu_bar_find_projects
+codeslayer_menu_bar_search_for_document
 codeslayer_menu_bar_go_to_line
 codeslayer_menu_bar_fullscreen_window
 codeslayer_menu_bar_show_side_pane
@@ -677,6 +736,7 @@ codeslayer_profile_get_projects
 codeslayer_profile_set_projects
 codeslayer_profile_find_project
 codeslayer_profile_get_project_by_file_path
+codeslayer_profile_get_config_folder_path
 codeslayer_profile_add_project
 codeslayer_profile_remove_project
 codeslayer_profile_remove_all_projects

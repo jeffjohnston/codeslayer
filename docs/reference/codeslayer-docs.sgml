@@ -21,6 +21,9 @@
     <xi:include href="xml/codeslayer-completion.xml"/>
     <xi:include href="xml/codeslayer-document-linker.xml"/>
     <xi:include href="xml/codeslayer-document.xml"/>
+    <xi:include href="xml/codeslayer-documentsearch.xml"/>
+    <xi:include href="xml/codeslayer-documentsearch-dialog.xml"/>
+    <xi:include href="xml/codeslayer-documentsearch-index.xml"/>
     <xi:include href="xml/codeslayer-engine.xml"/>
     <xi:include href="xml/codeslayer-listview.xml"/>
     <xi:include href="xml/codeslayer-menubar-edit.xml"/>

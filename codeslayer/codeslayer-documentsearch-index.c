@@ -18,6 +18,13 @@
 
 #include <codeslayer/codeslayer-documentsearch-index.h>
 
+/**
+ * SECTION:codeslayer-documentsearch-index
+ * @short_description: Used to search for documents.
+ * @title: CodeSlayerDocumentSearchIndex
+ * @include: codeslayer/codeslayer-documentsearch-index.h
+ */
+
 static void codeslayer_documentsearch_index_class_init    (CodeSlayerDocumentSearchIndexClass *klass);
 static void codeslayer_documentsearch_index_init          (CodeSlayerDocumentSearchIndex      *index);
 static void codeslayer_documentsearch_index_finalize      (CodeSlayerDocumentSearchIndex      *index);
@@ -64,6 +71,11 @@ codeslayer_documentsearch_index_class_init (CodeSlayerDocumentSearchIndexClass *
 
   g_type_class_add_private (klass, sizeof (CodeSlayerDocumentSearchIndexPrivate));
 
+  /**
+   * CodeSlayerDocumentSearchIndex:project_key:
+   *
+   * The project key related to the document.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_PROJECT_KEY,
                                    g_param_spec_string ("project_key", 
@@ -71,6 +83,11 @@ codeslayer_documentsearch_index_class_init (CodeSlayerDocumentSearchIndexClass *
                                                         "Project Key", "",
                                                         G_PARAM_READWRITE));
 
+  /**
+   * CodeSlayerDocumentSearchIndex:file_name:
+   *
+   * The file name of the document.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_FILE_NAME,
                                    g_param_spec_string ("file_name", 
@@ -78,6 +95,11 @@ codeslayer_documentsearch_index_class_init (CodeSlayerDocumentSearchIndexClass *
                                                         "File Name", "",
                                                         G_PARAM_READWRITE));
 
+  /**
+   * CodeSlayerDocumentSearchIndex:file_path:
+   *
+   * The file path to the document.
+   */
   g_object_class_install_property (gobject_class, 
                                    PROP_FILE_PATH,
                                    g_param_spec_string ("file_path",
@@ -175,18 +197,36 @@ codeslayer_documentsearch_index_set_property (GObject      *object,
     }
 }
 
+/**
+ * codeslayer_documentsearch_index_new:
+ *
+ * Creates a new #CodeSlayerDocumentSearchIndex.
+ *
+ * Returns: a new #CodeSlayerDocumentSearchIndex. 
+ */
 CodeSlayerDocumentSearchIndex *
 codeslayer_documentsearch_index_new (void)
 {
   return CODESLAYER_DOCUMENTSEARCH_INDEX (g_object_new (codeslayer_documentsearch_index_get_type (), NULL));
 }
 
+/**
+ * codeslayer_documentsearch_index_get_project_key:
+ * @index: a #CodeSlayerDocumentSearchIndex.
+ *
+ * Returns: the project key related to the document.
+ */
 const gchar *
 codeslayer_documentsearch_index_get_project_key (CodeSlayerDocumentSearchIndex *index)
 {
   return CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index)->project_key;
 }
 
+/**
+ * codeslayer_documentsearch_index_set_project_key:
+ * @index: a #CodeSlayerDocumentSearchIndex.
+ * @project_key: the project key related to the document.
+ */
 void
 codeslayer_documentsearch_index_set_project_key (CodeSlayerDocumentSearchIndex *index, 
                                                  const gchar                   *project_key)
@@ -201,12 +241,23 @@ codeslayer_documentsearch_index_set_project_key (CodeSlayerDocumentSearchIndex *
   priv->project_key = g_strdup (project_key);
 }
 
+/**
+ * codeslayer_documentsearch_index_get_file_name:
+ * @index: a #CodeSlayerDocumentSearchIndex.
+ *
+ * Returns: the file name of the document.
+ */
 const gchar*
 codeslayer_documentsearch_index_get_file_name (CodeSlayerDocumentSearchIndex *index)
 {
   return CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index)->file_name;
 }
 
+/**
+ * codeslayer_documentsearch_index_set_file_name:
+ * @index: a #CodeSlayerDocumentSearchIndex.
+ * @file_name: the file name of the document.
+ */
 void
 codeslayer_documentsearch_index_set_file_name (CodeSlayerDocumentSearchIndex *index, 
                                                const gchar                   *file_name)
@@ -221,12 +272,23 @@ codeslayer_documentsearch_index_set_file_name (CodeSlayerDocumentSearchIndex *in
   priv->file_name = g_strdup (file_name);
 }
 
+/**
+ * codeslayer_documentsearch_index_get_file_path:
+ * @index: a #CodeSlayerDocumentSearchIndex.
+ *
+ * Returns: the file path to the document.
+ */
 const gchar *
 codeslayer_documentsearch_index_get_file_path (CodeSlayerDocumentSearchIndex *index)
 {
   return CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index)->file_path;
 }
 
+/**
+ * codeslayer_documentsearch_index_set_file_path:
+ * @index: a #CodeSlayerDocumentSearchIndex.
+ * @file_path: the file path to the document.
+ */
 void
 codeslayer_documentsearch_index_set_file_path (CodeSlayerDocumentSearchIndex *index,
                                                const gchar                   *file_path)
