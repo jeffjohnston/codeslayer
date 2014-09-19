@@ -19,6 +19,13 @@
 #include <stdlib.h>
 #include <codeslayer/codeslayer.h>
 
+/**
+ * SECTION:codeslayer-document-linker
+ * @short_description: Used to link to documents.
+ * @title: CodeSlayerDocumentLinker
+ * @include: codeslayer/codeslayer-document-linker.h
+ */
+
 typedef struct
 {
   gchar *file_path;
@@ -166,6 +173,15 @@ codeslayer_document_linker_set_property (GObject      *object,
     }
 }
 
+/**
+ * codeslayer_document_linker_new:
+ * @codeslayer: a #CodeSlayer.
+ * @text_view: a #GtkTextView.
+ *
+ * Creates a new #CodeSlayerDocumentLinker.
+ *
+ * Returns: a new #CodeSlayerDocumentLinker. 
+ */
 CodeSlayerDocumentLinker*
 codeslayer_document_linker_new (GObject     *codeslayer, 
                                 GtkTextView *text_view)

@@ -121,7 +121,7 @@ codeslayer_documentsearch_dialog_finalize (CodeSlayerDocumentSearchDialog *dialo
 }
 
 /**
- * codeslayer_documentsearch_index_dialog:
+ * codeslayer_documentsearch_index_dialog_new:
  * @window: a #GtkWindow.
  * @profile: a #CodeSlayerProfile.
  * @projects: a #CodeSlayerProjects.
