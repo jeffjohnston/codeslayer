@@ -38,6 +38,8 @@ static gboolean key_release_action                       (CodeSlayerDocumentSear
                                                           GdkEventKey                         *event);
 static gboolean key_press_action                         (CodeSlayerDocumentSearchDialog      *dialog,
                                                           GdkEventKey                         *event);
+static gboolean can_refilter                           (CodeSlayerDocumentSearchDialog      *dialog, 
+                                                          const gchar                         *text);
 static GList* get_indexes                                (CodeSlayerDocumentSearchDialog      *dialog);
 static CodeSlayerDocumentSearchIndex* get_index          (gchar                               *line);
 static void render_indexes                               (CodeSlayerDocumentSearchDialog      *dialog, 
@@ -57,6 +59,8 @@ static gint sort_compare                                 (GtkTreeModel          
 
 #define CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE, CodeSlayerDocumentSearchDialogPrivate))
+  
+#define MAX_RESULTS 100
 
 typedef struct _CodeSlayerDocumentSearchDialogPrivate CodeSlayerDocumentSearchDialogPrivate;
 
@@ -70,6 +74,7 @@ struct _CodeSlayerDocumentSearchDialogPrivate
   GtkWidget          *tree;
   GtkListStore       *store;
   GtkTreeModel       *filter;
+  gchar              *find_text; 
   gchar              *find_globbing;
   GPatternSpec       *find_pattern; 
 };
@@ -98,6 +103,7 @@ codeslayer_documentsearch_dialog_init (CodeSlayerDocumentSearchDialog *dialog)
   priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
   priv->dialog = NULL;
   priv->filter = NULL;
+  priv->find_text = NULL;
   priv->find_globbing = NULL;
   priv->find_pattern = NULL;
 }
@@ -114,6 +120,9 @@ codeslayer_documentsearch_dialog_finalize (CodeSlayerDocumentSearchDialog *dialo
   if (priv->find_pattern != NULL)
     g_pattern_spec_free (priv->find_pattern);
 
+  if (priv->find_text != NULL)
+    g_free (priv->find_text);
+  
   if (priv->find_globbing != NULL)
     g_free (priv->find_globbing);
   
@@ -287,7 +296,9 @@ key_release_action (CodeSlayerDocumentSearchDialog *dialog,
   if (event->keyval == GDK_KEY_Up ||
       event->keyval == GDK_KEY_Down ||
       event->keyval == GDK_KEY_Left ||
-      event->keyval == GDK_KEY_Right)
+      event->keyval == GDK_KEY_Right ||
+      event->keyval == GDK_KEY_Shift_L || 
+      event->keyval == GDK_KEY_Shift_R)
     return FALSE;
 
   text_length = gtk_entry_get_text_length (GTK_ENTRY (priv->entry));
@@ -299,19 +310,18 @@ key_release_action (CodeSlayerDocumentSearchDialog *dialog,
   else if (text_length >= 1)
     {
       const gchar *text;
-      gboolean first_char_changed = FALSE;
+      gboolean refilter = FALSE;
       
       text = gtk_entry_get_text (GTK_ENTRY (priv->entry));
       
-      if (g_strcmp0 (text, "*") == 0)
+      if (g_strcmp0 (text, "*") == 0 || g_strcmp0 (text, "?") == 0)
         return FALSE;
-      
-      if (priv->find_globbing != NULL)
-        {
-          first_char_changed = text == priv->find_globbing;
-          g_free (priv->find_globbing);
-        }
+        
+      refilter = can_refilter (dialog, text);
 
+      if (priv->find_globbing != NULL)
+        g_free (priv->find_globbing);
+        
       priv->find_globbing = get_globbing (text, TRUE);
       
       if (priv->find_pattern != NULL)
@@ -319,8 +329,7 @@ key_release_action (CodeSlayerDocumentSearchDialog *dialog,
       
       priv->find_pattern = g_pattern_spec_new (priv->find_globbing);
 
-      if (!first_char_changed && 
-          gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->filter), NULL) > 0)
+      if (refilter)
         {
           gtk_tree_model_filter_refilter (GTK_TREE_MODEL_FILTER (priv->filter));
         }
@@ -342,6 +351,26 @@ key_release_action (CodeSlayerDocumentSearchDialog *dialog,
     }
 
   return FALSE;
+}
+
+static gboolean
+can_refilter (CodeSlayerDocumentSearchDialog *dialog,
+              const gchar                    *text)
+{
+  CodeSlayerDocumentSearchDialogPrivate *priv;
+  GtkTreeModel *tree_model;
+  gint count = 0;
+
+  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+
+  if (priv->find_text != NULL && !g_str_has_prefix (text, priv->find_text))
+    return FALSE;
+    
+  tree_model = gtk_tree_model_filter_get_model (GTK_TREE_MODEL_FILTER (priv->filter));
+  
+  count = gtk_tree_model_iter_n_children (tree_model, NULL);
+  
+  return count > 0 && count != MAX_RESULTS;
 }
 
 static GList*
@@ -370,7 +399,7 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
       dialog =  gtk_message_dialog_new (NULL, 
                                         GTK_DIALOG_MODAL,
                                         GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
-                                        "The search file does not exist.");
+                                        "The documentsearch file does not exist.");
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
       g_free (profile_folder_path);
@@ -378,9 +407,15 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
       return NULL;
     }
   
+  if (priv->find_text != NULL)
+    g_free (priv->find_text);
+  
+  priv->find_text = g_strdup (gtk_entry_get_text (GTK_ENTRY (priv->entry)));
+  
   while (g_io_channel_read_line (channel, &line, &len, NULL, NULL) != G_IO_STATUS_EOF)
     {
       CodeSlayerDocumentSearchIndex *index = get_index (line);
+      
       if (g_pattern_match_string (priv->find_pattern, codeslayer_documentsearch_index_get_file_name (index)))
         {
           results = g_list_prepend (results, index);
@@ -388,12 +423,12 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
         }
       else
         {
-          g_object_unref (index);        
+          g_object_unref (index);
         }
         
       g_free (line);
       
-      if (count >= 100)
+      if (count >= MAX_RESULTS)
         break;
     }
     
