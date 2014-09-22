@@ -23,7 +23,7 @@
 
 G_BEGIN_DECLS
 
-#define CODESLAYER_DOCUMENTSEARCH_INDEX_TYPE            (codeslayer_documentsearch_index_get_type ())
+#define CODESLAYER_DOCUMENTSEARCH_INDEX_TYPE            (codeslayer_document_search_index_get_type ())
 #define CODESLAYER_DOCUMENTSEARCH_INDEX(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CODESLAYER_DOCUMENTSEARCH_INDEX_TYPE, CodeSlayerDocumentSearchIndex))
 #define CODESLAYER_DOCUMENTSEARCH_INDEX_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), CODESLAYER_DOCUMENTSEARCH_INDEX_TYPE, CodeSlayerDocumentSearchIndexClass))
 #define IS_CODESLAYER_DOCUMENTSEARCH_INDEX(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_DOCUMENTSEARCH_INDEX_TYPE))
@@ -42,19 +42,19 @@ struct _CodeSlayerDocumentSearchIndexClass
   GObjectClass parent_class;
 };
 
-GType codeslayer_documentsearch_index_get_type (void) G_GNUC_CONST;
+GType codeslayer_document_search_index_get_type (void) G_GNUC_CONST;
 
-CodeSlayerDocumentSearchIndex*  codeslayer_documentsearch_index_new              (void);
+CodeSlayerDocumentSearchIndex*  codeslayer_document_search_index_new              (void);
 
-const gchar*      codeslayer_documentsearch_index_get_project_key  (CodeSlayerDocumentSearchIndex *index);
-void              codeslayer_documentsearch_index_set_project_key  (CodeSlayerDocumentSearchIndex *index,
-                                                                    const gchar                   *project_key);
-const gchar*      codeslayer_documentsearch_index_get_file_name    (CodeSlayerDocumentSearchIndex *index);
-void              codeslayer_documentsearch_index_set_file_name    (CodeSlayerDocumentSearchIndex *index,
-                                                                    const gchar                   *file_name);
-const gchar*      codeslayer_documentsearch_index_get_file_path    (CodeSlayerDocumentSearchIndex *index);
-void              codeslayer_documentsearch_index_set_file_path    (CodeSlayerDocumentSearchIndex *index,
-                                                                    const gchar                   *file_path);
+const gchar*      codeslayer_document_search_index_get_project_key  (CodeSlayerDocumentSearchIndex *index);
+void              codeslayer_document_search_index_set_project_key  (CodeSlayerDocumentSearchIndex *index,
+                                                                     const gchar                   *project_key);
+const gchar*      codeslayer_document_search_index_get_file_name    (CodeSlayerDocumentSearchIndex *index);
+void              codeslayer_document_search_index_set_file_name    (CodeSlayerDocumentSearchIndex *index,
+                                                                     const gchar                   *file_name);
+const gchar*      codeslayer_document_search_index_get_file_path    (CodeSlayerDocumentSearchIndex *index);
+void              codeslayer_document_search_index_set_file_path    (CodeSlayerDocumentSearchIndex *index,
+                                                                     const gchar                   *file_path);
 
 G_END_DECLS
 

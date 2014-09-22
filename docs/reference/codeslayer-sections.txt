@@ -163,12 +163,12 @@ codeslayer_document_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-documentsearch</FILE>
+<FILE>codeslayer-document_search</FILE>
 <TITLE>CodeSlayerDocumentSearch</TITLE>
 CodeSlayerDocumentSearch
-codeslayer_documentsearch_new
-codeslayer_documentsearch_index_files
-codeslayer_documentsearch_run_dialog
+codeslayer_document_search_new
+codeslayer_document_search_index_files
+codeslayer_document_search_run_dialog
 <SUBSECTION Standard>
 CODESLAYER_DOCUMENTSEARCH_TYPE
 CODESLAYER_DOCUMENTSEARCH
@@ -177,20 +177,20 @@ IS_CODESLAYER_DOCUMENTSEARCH
 IS_CODESLAYER_DOCUMENTSEARCH_CLASS
 <SUBSECTION Private>
 CodeSlayerDocumentSearchPrivate
-codeslayer_documentsearch_get_type
+codeslayer_document_search_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-documentsearch-index</FILE>
+<FILE>codeslayer-document_search-index</FILE>
 <TITLE>CodeSlayerDocumentSearchIndex</TITLE>
 CodeSlayerDocumentSearchIndex
-codeslayer_documentsearch_index_new
-codeslayer_documentsearch_index_get_project_key
-codeslayer_documentsearch_index_set_project_key
-codeslayer_documentsearch_index_get_file_name
-codeslayer_documentsearch_index_set_file_name
-codeslayer_documentsearch_index_get_file_path
-codeslayer_documentsearch_index_set_file_path 
+codeslayer_document_search_index_new
+codeslayer_document_search_index_get_project_key
+codeslayer_document_search_index_set_project_key
+codeslayer_document_search_index_get_file_name
+codeslayer_document_search_index_set_file_name
+codeslayer_document_search_index_get_file_path
+codeslayer_document_search_index_set_file_path 
 <SUBSECTION Standard>
 CODESLAYER_DOCUMENTSEARCH_INDEX_TYPE
 CODESLAYER_DOCUMENTSEARCH_INDEX
@@ -199,16 +199,16 @@ IS_CODESLAYER_DOCUMENTSEARCH_INDEX
 IS_CODESLAYER_DOCUMENTSEARCH_INDEX_CLASS
 <SUBSECTION Private>
 CodeSlayerDocumentSearchIndexPrivate
-codeslayer_documentsearch_index_get_type
+codeslayer_document_search_index_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-documentsearch-dialog</FILE>
+<FILE>codeslayer-document_search-dialog</FILE>
 <TITLE>CodeSlayerDocumentSearchDialog</TITLE>
 CODESLAYER_DOCUMENT_SEARCH_FILE
 CodeSlayerDocumentSearchDialog
-codeslayer_documentsearch_dialog_new
-codeslayer_documentsearch_dialog_run
+codeslayer_document_search_dialog_new
+codeslayer_document_search_dialog_run
 <SUBSECTION Standard>
 CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE
 CODESLAYER_DOCUMENTSEARCH_DIALOG
@@ -217,7 +217,7 @@ IS_CODESLAYER_DOCUMENTSEARCH_DIALOG
 IS_CODESLAYER_DOCUMENTSEARCH_DIALOG_CLASS
 <SUBSECTION Private>
 CodeSlayerDocumentSearchDialogPrivate
-codeslayer_documentsearch_dialog_get_type
+codeslayer_document_search_dialog_get_type
 </SECTION>
 
 <SECTION>

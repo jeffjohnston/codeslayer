@@ -33,7 +33,7 @@
 #include <codeslayer/codeslayer-notebook-pane.h>
 #include <codeslayer/codeslayer-regexview.h>
 #include <codeslayer/codeslayer-sourceview.h>
-#include <codeslayer/codeslayer-documentsearch.h>
+#include <codeslayer/codeslayer-document-search.h>
 
 /**
  * SECTION:codeslayer-engine
@@ -419,11 +419,11 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
         
       gtk_widget_show (priv->projects);
       
-      priv->document_search = codeslayer_documentsearch_new (priv->window, 
-                                                             priv->profile, 
-                                                             CODESLAYER_PROJECTS (priv->projects), 
-                                                             registry);
-      codeslayer_documentsearch_index_files (priv->document_search);
+      priv->document_search = codeslayer_document_search_new (priv->window, 
+                                                              priv->profile, 
+                                                              CODESLAYER_PROJECTS (priv->projects), 
+                                                              registry);
+      codeslayer_document_search_index_files (priv->document_search);
     }
   else
     {
@@ -1391,7 +1391,7 @@ search_for_document_action (CodeSlayerEngine *engine)
 {
   CodeSlayerEnginePrivate *priv; 
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
-  codeslayer_documentsearch_run_dialog (priv->document_search);
+  codeslayer_document_search_run_dialog (priv->document_search);
 }
 
 static void

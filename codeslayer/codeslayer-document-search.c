@@ -16,33 +16,33 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <codeslayer/codeslayer-documentsearch.h>
-#include <codeslayer/codeslayer-documentsearch-dialog.h>
-#include <codeslayer/codeslayer-documentsearch-index.h>
+#include <codeslayer/codeslayer-document-search.h>
+#include <codeslayer/codeslayer-document-search-dialog.h>
+#include <codeslayer/codeslayer-document-search-index.h>
 #include <codeslayer/codeslayer-utils.h>
 
 /**
- * SECTION:codeslayer-documentsearch
+ * SECTION:codeslayer-document-search
  * @short_description: Used to search for documents.
  * @title: CodeSlayerDocumentSearch
- * @include: codeslayer/codeslayer-documentsearch.h
+ * @include: codeslayer/codeslayer-document-search.h
  */
 
-static void codeslayer_documentsearch_class_init  (CodeSlayerDocumentSearchClass *klass);
-static void codeslayer_documentsearch_init        (CodeSlayerDocumentSearch      *search);
-static void codeslayer_documentsearch_finalize    (CodeSlayerDocumentSearch      *search);
+static void codeslayer_document_search_class_init  (CodeSlayerDocumentSearchClass *klass);
+static void codeslayer_document_search_init        (CodeSlayerDocumentSearch      *search);
+static void codeslayer_document_search_finalize    (CodeSlayerDocumentSearch      *search);
 
-static void execute                               (CodeSlayerDocumentSearch      *search);
-static GList* get_indexes                         (CodeSlayerDocumentSearch      *search);
-static void get_project_indexes                   (CodeSlayerProject             *project, 
-                                                   GFile                         *file, 
-                                                   GList                         **indexes, 
-                                                   GList                         *exclude_types,
-                                                   GList                         *exclude_dirs);
-static void write_indexes                         (GIOChannel                    *channel,
-                                                   GList                         *indexes);   
-static gint sort_indexes                          (CodeSlayerDocumentSearchIndex *a,
-                                                   CodeSlayerDocumentSearchIndex *b);
+static void execute                                (CodeSlayerDocumentSearch      *search);
+static GList* get_indexes                          (CodeSlayerDocumentSearch      *search);
+static void get_project_indexes                    (CodeSlayerProject             *project, 
+                                                    GFile                         *file, 
+                                                    GList                         **indexes, 
+                                                    GList                         *exclude_types,
+                                                    GList                         *exclude_dirs);
+static void write_indexes                          (GIOChannel                    *channel,
+                                                    GList                         *indexes);   
+static gint sort_indexes                           (CodeSlayerDocumentSearchIndex *a,
+                                                    CodeSlayerDocumentSearchIndex *b);
                             
 #define CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENTSEARCH_TYPE, CodeSlayerDocumentSearchPrivate))
@@ -58,18 +58,18 @@ struct _CodeSlayerDocumentSearchPrivate
   CodeSlayerDocumentSearchDialog *dialog;
 };
 
-G_DEFINE_TYPE (CodeSlayerDocumentSearch, codeslayer_documentsearch, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CodeSlayerDocumentSearch, codeslayer_document_search, G_TYPE_OBJECT)
 
 static void
-codeslayer_documentsearch_class_init (CodeSlayerDocumentSearchClass *klass)
+codeslayer_document_search_class_init (CodeSlayerDocumentSearchClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_documentsearch_finalize;
+  gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_document_search_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerDocumentSearchPrivate));
 }
 
 static void
-codeslayer_documentsearch_init (CodeSlayerDocumentSearch *search) 
+codeslayer_document_search_init (CodeSlayerDocumentSearch *search) 
 {
   CodeSlayerDocumentSearchPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
@@ -77,17 +77,17 @@ codeslayer_documentsearch_init (CodeSlayerDocumentSearch *search)
 }
 
 static void
-codeslayer_documentsearch_finalize (CodeSlayerDocumentSearch *search)
+codeslayer_document_search_finalize (CodeSlayerDocumentSearch *search)
 {
   CodeSlayerDocumentSearchPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
   if (priv->dialog != NULL)
     g_object_unref (priv->dialog);
-  G_OBJECT_CLASS (codeslayer_documentsearch_parent_class)->finalize (G_OBJECT(search));
+  G_OBJECT_CLASS (codeslayer_document_search_parent_class)->finalize (G_OBJECT(search));
 }
 
 /**
- * codeslayer_documentsearch_new:
+ * codeslayer_document_search_new:
  * @window: a #GtkWindow.
  * @profile: a #CodeSlayerProfile.
  * @projects: a #CodeSlayerProjects.
@@ -98,15 +98,15 @@ codeslayer_documentsearch_finalize (CodeSlayerDocumentSearch *search)
  * Returns: a new #CodeSlayerDocumentSearch. 
  */
 CodeSlayerDocumentSearch*
-codeslayer_documentsearch_new (GtkWindow          *window, 
-                               CodeSlayerProfile  *profile, 
-                               CodeSlayerProjects *projects, 
-                               CodeSlayerRegistry *registry)
+codeslayer_document_search_new (GtkWindow          *window, 
+                                CodeSlayerProfile  *profile, 
+                                CodeSlayerProjects *projects, 
+                                CodeSlayerRegistry *registry)
 {
   CodeSlayerDocumentSearchPrivate *priv;
   CodeSlayerDocumentSearch *search;
 
-  search = CODESLAYER_DOCUMENTSEARCH (g_object_new (codeslayer_documentsearch_get_type (), NULL));
+  search = CODESLAYER_DOCUMENTSEARCH (g_object_new (codeslayer_document_search_get_type (), NULL));
   priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
 
   priv->window = window;
@@ -115,35 +115,35 @@ codeslayer_documentsearch_new (GtkWindow          *window,
   priv->registry = registry;
   
   g_signal_connect_swapped (G_OBJECT (projects), "projects-changed",
-                            G_CALLBACK (codeslayer_documentsearch_index_files), search);
+                            G_CALLBACK (codeslayer_document_search_index_files), search);
 
   return search;
 }
 
 /**
- * codeslayer_documentsearch_index_files:
+ * codeslayer_document_search_index_files:
  * @search: a #CodeSlayerDocumentSearch.
  */
 void
-codeslayer_documentsearch_index_files (CodeSlayerDocumentSearch *search)
+codeslayer_document_search_index_files (CodeSlayerDocumentSearch *search)
 {
   g_thread_new ("index files", (GThreadFunc) execute, search); 
 }
 
 /**
- * codeslayer_documentsearch_run_dialog:
+ * codeslayer_document_search_run_dialog:
  * @search: a #CodeSlayerDocumentSearch.
  */
 void
-codeslayer_documentsearch_run_dialog (CodeSlayerDocumentSearch *search)
+codeslayer_document_search_run_dialog (CodeSlayerDocumentSearch *search)
 {
   CodeSlayerDocumentSearchPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
   
   if (priv->dialog == NULL)
-    priv->dialog = codeslayer_documentsearch_dialog_new (priv->window, priv->profile, priv->projects);
+    priv->dialog = codeslayer_document_search_dialog_new (priv->window, priv->profile, priv->projects);
   
-  codeslayer_documentsearch_dialog_run  (priv->dialog);
+  codeslayer_document_search_dialog_run  (priv->dialog);
 }
 
 static void
@@ -276,9 +276,9 @@ get_project_indexes (CodeSlayerProject *project,
                   gchar *file_path;
                   file_path = g_file_get_path (child);
                   
-                  index = codeslayer_documentsearch_index_new ();
-                  codeslayer_documentsearch_index_set_file_name (index, file_name);
-                  codeslayer_documentsearch_index_set_file_path (index, file_path);
+                  index = codeslayer_document_search_index_new ();
+                  codeslayer_document_search_index_set_file_name (index, file_name);
+                  codeslayer_document_search_index_set_file_path (index, file_path);
                   
                   g_free (file_path);
                   
@@ -307,9 +307,9 @@ write_indexes (GIOChannel *channel,
       gchar *line;
       
       line = g_strdup_printf ("%s\t%s\t%s\n", 
-                              codeslayer_documentsearch_index_get_file_name (index), 
-                              codeslayer_documentsearch_index_get_file_path (index), 
-                              codeslayer_documentsearch_index_get_project_key (index));
+                              codeslayer_document_search_index_get_file_name (index), 
+                              codeslayer_document_search_index_get_file_path (index), 
+                              codeslayer_document_search_index_get_project_key (index));
 
       status = g_io_channel_write_chars (channel, line, -1, NULL, NULL);
       
@@ -328,6 +328,6 @@ static gint
 sort_indexes (CodeSlayerDocumentSearchIndex *a,
               CodeSlayerDocumentSearchIndex *b)
 {
-  return g_strcmp0 (codeslayer_documentsearch_index_get_file_name (a),
-                    codeslayer_documentsearch_index_get_file_name (b));
+  return g_strcmp0 (codeslayer_document_search_index_get_file_name (a),
+                    codeslayer_document_search_index_get_file_name (b));
 }

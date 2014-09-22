@@ -16,26 +16,26 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <codeslayer/codeslayer-documentsearch-index.h>
+#include <codeslayer/codeslayer-document-search-index.h>
 
 /**
- * SECTION:codeslayer-documentsearch-index
+ * SECTION:codeslayer-document-search-index
  * @short_description: Used to search for documents.
  * @title: CodeSlayerDocumentSearchIndex
- * @include: codeslayer/codeslayer-documentsearch-index.h
+ * @include: codeslayer/codeslayer-document_search-index.h
  */
 
-static void codeslayer_documentsearch_index_class_init    (CodeSlayerDocumentSearchIndexClass *klass);
-static void codeslayer_documentsearch_index_init          (CodeSlayerDocumentSearchIndex      *index);
-static void codeslayer_documentsearch_index_finalize      (CodeSlayerDocumentSearchIndex      *index);
-static void codeslayer_documentsearch_index_get_property  (GObject                            *object, 
-                                                           guint                               prop_id,
-                                                           GValue                             *value,
-                                                           GParamSpec                         *pspec);
-static void codeslayer_documentsearch_index_set_property  (GObject                            *object, 
-                                                           guint                               prop_id,
-                                                           const GValue                       *value,
-                                                           GParamSpec                         *pspec);
+static void codeslayer_document_search_index_class_init    (CodeSlayerDocumentSearchIndexClass *klass);
+static void codeslayer_document_search_index_init          (CodeSlayerDocumentSearchIndex      *index);
+static void codeslayer_document_search_index_finalize      (CodeSlayerDocumentSearchIndex      *index);
+static void codeslayer_document_search_index_get_property  (GObject                            *object, 
+                                                            guint                               prop_id,
+                                                            GValue                             *value,
+                                                            GParamSpec                         *pspec);
+static void codeslayer_document_search_index_set_property  (GObject                            *object, 
+                                                            guint                               prop_id,
+                                                            const GValue                       *value,
+                                                            GParamSpec                         *pspec);
 
 #define CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENTSEARCH_INDEX_TYPE, CodeSlayerDocumentSearchIndexPrivate))
@@ -57,17 +57,17 @@ enum
   PROP_FILE_PATH
 };
 
-G_DEFINE_TYPE (CodeSlayerDocumentSearchIndex, codeslayer_documentsearch_index, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CodeSlayerDocumentSearchIndex, codeslayer_document_search_index, G_TYPE_OBJECT)
      
 static void 
-codeslayer_documentsearch_index_class_init (CodeSlayerDocumentSearchIndexClass *klass)
+codeslayer_document_search_index_class_init (CodeSlayerDocumentSearchIndexClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
-  gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_documentsearch_index_finalize;
+  gobject_class->finalize = (GObjectFinalizeFunc) codeslayer_document_search_index_finalize;
 
-  gobject_class->get_property = codeslayer_documentsearch_index_get_property;
-  gobject_class->set_property = codeslayer_documentsearch_index_set_property;
+  gobject_class->get_property = codeslayer_document_search_index_get_property;
+  gobject_class->set_property = codeslayer_document_search_index_set_property;
 
   g_type_class_add_private (klass, sizeof (CodeSlayerDocumentSearchIndexPrivate));
 
@@ -110,7 +110,7 @@ codeslayer_documentsearch_index_class_init (CodeSlayerDocumentSearchIndexClass *
 }
 
 static void
-codeslayer_documentsearch_index_init (CodeSlayerDocumentSearchIndex *index)
+codeslayer_document_search_index_init (CodeSlayerDocumentSearchIndex *index)
 {
   CodeSlayerDocumentSearchIndexPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index);
@@ -120,7 +120,7 @@ codeslayer_documentsearch_index_init (CodeSlayerDocumentSearchIndex *index)
 }
 
 static void
-codeslayer_documentsearch_index_finalize (CodeSlayerDocumentSearchIndex *index)
+codeslayer_document_search_index_finalize (CodeSlayerDocumentSearchIndex *index)
 {
   CodeSlayerDocumentSearchIndexPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index);
@@ -139,14 +139,14 @@ codeslayer_documentsearch_index_finalize (CodeSlayerDocumentSearchIndex *index)
       g_free (priv->file_path);
       priv->file_path = NULL;
     }
-  G_OBJECT_CLASS (codeslayer_documentsearch_index_parent_class)->finalize (G_OBJECT (index));
+  G_OBJECT_CLASS (codeslayer_document_search_index_parent_class)->finalize (G_OBJECT (index));
 }
 
 static void
-codeslayer_documentsearch_index_get_property (GObject    *object, 
-                                              guint       prop_id,
-                                              GValue     *value, 
-                                              GParamSpec *pspec)
+codeslayer_document_search_index_get_property (GObject    *object, 
+                                               guint       prop_id,
+                                               GValue     *value, 
+                                               GParamSpec *pspec)
 {
   CodeSlayerDocumentSearchIndex *index;
   CodeSlayerDocumentSearchIndexPrivate *priv;
@@ -172,10 +172,10 @@ codeslayer_documentsearch_index_get_property (GObject    *object,
 }
 
 static void
-codeslayer_documentsearch_index_set_property (GObject      *object, 
-                                              guint         prop_id,
-                                              const GValue *value, 
-                                              GParamSpec   *pspec)
+codeslayer_document_search_index_set_property (GObject      *object, 
+                                               guint         prop_id,
+                                               const GValue *value, 
+                                               GParamSpec   *pspec)
 {
   CodeSlayerDocumentSearchIndex *index;
   index = CODESLAYER_DOCUMENTSEARCH_INDEX (object);
@@ -183,13 +183,13 @@ codeslayer_documentsearch_index_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_PROJECT_KEY:
-      codeslayer_documentsearch_index_set_project_key (index, g_value_get_string (value));
+      codeslayer_document_search_index_set_project_key (index, g_value_get_string (value));
       break;
     case PROP_FILE_NAME:
-      codeslayer_documentsearch_index_set_file_name (index, g_value_get_string (value));
+      codeslayer_document_search_index_set_file_name (index, g_value_get_string (value));
       break;
     case PROP_FILE_PATH:
-      codeslayer_documentsearch_index_set_file_path (index, g_value_get_string (value));
+      codeslayer_document_search_index_set_file_path (index, g_value_get_string (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -198,38 +198,38 @@ codeslayer_documentsearch_index_set_property (GObject      *object,
 }
 
 /**
- * codeslayer_documentsearch_index_new:
+ * codeslayer_document_search_index_new:
  *
  * Creates a new #CodeSlayerDocumentSearchIndex.
  *
  * Returns: a new #CodeSlayerDocumentSearchIndex. 
  */
 CodeSlayerDocumentSearchIndex *
-codeslayer_documentsearch_index_new (void)
+codeslayer_document_search_index_new (void)
 {
-  return CODESLAYER_DOCUMENTSEARCH_INDEX (g_object_new (codeslayer_documentsearch_index_get_type (), NULL));
+  return CODESLAYER_DOCUMENTSEARCH_INDEX (g_object_new (codeslayer_document_search_index_get_type (), NULL));
 }
 
 /**
- * codeslayer_documentsearch_index_get_project_key:
+ * codeslayer_document_search_index_get_project_key:
  * @index: a #CodeSlayerDocumentSearchIndex.
  *
  * Returns: the project key related to the document.
  */
 const gchar *
-codeslayer_documentsearch_index_get_project_key (CodeSlayerDocumentSearchIndex *index)
+codeslayer_document_search_index_get_project_key (CodeSlayerDocumentSearchIndex *index)
 {
   return CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index)->project_key;
 }
 
 /**
- * codeslayer_documentsearch_index_set_project_key:
+ * codeslayer_document_search_index_set_project_key:
  * @index: a #CodeSlayerDocumentSearchIndex.
  * @project_key: the project key related to the document.
  */
 void
-codeslayer_documentsearch_index_set_project_key (CodeSlayerDocumentSearchIndex *index, 
-                                                 const gchar                   *project_key)
+codeslayer_document_search_index_set_project_key (CodeSlayerDocumentSearchIndex *index, 
+                                                  const gchar                   *project_key)
 {
   CodeSlayerDocumentSearchIndexPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index);
@@ -242,25 +242,25 @@ codeslayer_documentsearch_index_set_project_key (CodeSlayerDocumentSearchIndex *
 }
 
 /**
- * codeslayer_documentsearch_index_get_file_name:
+ * codeslayer_document_search_index_get_file_name:
  * @index: a #CodeSlayerDocumentSearchIndex.
  *
  * Returns: the file name of the document.
  */
 const gchar*
-codeslayer_documentsearch_index_get_file_name (CodeSlayerDocumentSearchIndex *index)
+codeslayer_document_search_index_get_file_name (CodeSlayerDocumentSearchIndex *index)
 {
   return CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index)->file_name;
 }
 
 /**
- * codeslayer_documentsearch_index_set_file_name:
+ * codeslayer_document_search_index_set_file_name:
  * @index: a #CodeSlayerDocumentSearchIndex.
  * @file_name: the file name of the document.
  */
 void
-codeslayer_documentsearch_index_set_file_name (CodeSlayerDocumentSearchIndex *index, 
-                                               const gchar                   *file_name)
+codeslayer_document_search_index_set_file_name (CodeSlayerDocumentSearchIndex *index, 
+                                                const gchar                   *file_name)
 {
   CodeSlayerDocumentSearchIndexPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index);
@@ -273,25 +273,25 @@ codeslayer_documentsearch_index_set_file_name (CodeSlayerDocumentSearchIndex *in
 }
 
 /**
- * codeslayer_documentsearch_index_get_file_path:
+ * codeslayer_document_search_index_get_file_path:
  * @index: a #CodeSlayerDocumentSearchIndex.
  *
  * Returns: the file path to the document.
  */
 const gchar *
-codeslayer_documentsearch_index_get_file_path (CodeSlayerDocumentSearchIndex *index)
+codeslayer_document_search_index_get_file_path (CodeSlayerDocumentSearchIndex *index)
 {
   return CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index)->file_path;
 }
 
 /**
- * codeslayer_documentsearch_index_set_file_path:
+ * codeslayer_document_search_index_set_file_path:
  * @index: a #CodeSlayerDocumentSearchIndex.
  * @file_path: the file path to the document.
  */
 void
-codeslayer_documentsearch_index_set_file_path (CodeSlayerDocumentSearchIndex *index,
-                                               const gchar                   *file_path)
+codeslayer_document_search_index_set_file_path (CodeSlayerDocumentSearchIndex *index,
+                                                const gchar                   *file_path)
 {
   CodeSlayerDocumentSearchIndexPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index);

@@ -105,9 +105,9 @@ am_libcodeslayer_la_OBJECTS =  \
 	libcodeslayer_la-codeslayer-completion.lo \
 	libcodeslayer_la-codeslayer-completion-provider.lo \
 	libcodeslayer_la-codeslayer-completion-proposal.lo \
-	libcodeslayer_la-codeslayer-documentsearch.lo \
-	libcodeslayer_la-codeslayer-documentsearch-dialog.lo \
-	libcodeslayer_la-codeslayer-documentsearch-index.lo \
+	libcodeslayer_la-codeslayer-document-search.lo \
+	libcodeslayer_la-codeslayer-document-search-dialog.lo \
+	libcodeslayer_la-codeslayer-document-search-index.lo \
 	libcodeslayer_la-codeslayer-abstract-pane.lo \
 	libcodeslayer_la-codeslayer-side-pane.lo \
 	libcodeslayer_la-codeslayer-bottom-pane.lo \
@@ -364,9 +364,9 @@ pkginclude_HEADERS = \
     codeslayer-completion.h \
     codeslayer-completion-provider.h \
     codeslayer-completion-proposal.h \
-    codeslayer-documentsearch.h \
-    codeslayer-documentsearch-dialog.h \
-    codeslayer-documentsearch-index.h \
+    codeslayer-document-search.h \
+    codeslayer-document-search-dialog.h \
+    codeslayer-document-search-index.h \
     codeslayer-abstract-pane.h \
     codeslayer-side-pane.h \
     codeslayer-bottom-pane.h \
@@ -422,9 +422,9 @@ libcodeslayer_la_SOURCES = \
     codeslayer-completion.c \
     codeslayer-completion-provider.c \
     codeslayer-completion-proposal.c \
-    codeslayer-documentsearch.c \
-    codeslayer-documentsearch-dialog.c \
-    codeslayer-documentsearch-index.c \
+    codeslayer-document-search.c \
+    codeslayer-document-search-dialog.c \
+    codeslayer-document-search-index.c \
     codeslayer-abstract-pane.c \
     codeslayer-side-pane.c \
     codeslayer-bottom-pane.c \
@@ -612,10 +612,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-completion-provider.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-completion.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-document-linker.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-document-search-dialog.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-document-search-index.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-document-search.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-document.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch-dialog.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch-index.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-engine.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-listview.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libcodeslayer_la-codeslayer-marshaller.Plo@am__quote@
@@ -719,26 +719,26 @@ libcodeslayer_la-codeslayer-completion-proposal.lo: codeslayer-completion-propos
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-completion-proposal.lo `test -f 'codeslayer-completion-proposal.c' || echo '$(srcdir)/'`codeslayer-completion-proposal.c
 
-libcodeslayer_la-codeslayer-documentsearch.lo: codeslayer-documentsearch.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-documentsearch.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch.Tpo -c -o libcodeslayer_la-codeslayer-documentsearch.lo `test -f 'codeslayer-documentsearch.c' || echo '$(srcdir)/'`codeslayer-documentsearch.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-documentsearch.c' object='libcodeslayer_la-codeslayer-documentsearch.lo' libtool=yes @AMDEPBACKSLASH@
+libcodeslayer_la-codeslayer-document-search.lo: codeslayer-document-search.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-document-search.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-document-search.Tpo -c -o libcodeslayer_la-codeslayer-document-search.lo `test -f 'codeslayer-document-search.c' || echo '$(srcdir)/'`codeslayer-document-search.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-document-search.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-document-search.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-document-search.c' object='libcodeslayer_la-codeslayer-document-search.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-documentsearch.lo `test -f 'codeslayer-documentsearch.c' || echo '$(srcdir)/'`codeslayer-documentsearch.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-document-search.lo `test -f 'codeslayer-document-search.c' || echo '$(srcdir)/'`codeslayer-document-search.c
 
-libcodeslayer_la-codeslayer-documentsearch-dialog.lo: codeslayer-documentsearch-dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-documentsearch-dialog.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch-dialog.Tpo -c -o libcodeslayer_la-codeslayer-documentsearch-dialog.lo `test -f 'codeslayer-documentsearch-dialog.c' || echo '$(srcdir)/'`codeslayer-documentsearch-dialog.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch-dialog.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch-dialog.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-documentsearch-dialog.c' object='libcodeslayer_la-codeslayer-documentsearch-dialog.lo' libtool=yes @AMDEPBACKSLASH@
+libcodeslayer_la-codeslayer-document-search-dialog.lo: codeslayer-document-search-dialog.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-document-search-dialog.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-document-search-dialog.Tpo -c -o libcodeslayer_la-codeslayer-document-search-dialog.lo `test -f 'codeslayer-document-search-dialog.c' || echo '$(srcdir)/'`codeslayer-document-search-dialog.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-document-search-dialog.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-document-search-dialog.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-document-search-dialog.c' object='libcodeslayer_la-codeslayer-document-search-dialog.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-documentsearch-dialog.lo `test -f 'codeslayer-documentsearch-dialog.c' || echo '$(srcdir)/'`codeslayer-documentsearch-dialog.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-document-search-dialog.lo `test -f 'codeslayer-document-search-dialog.c' || echo '$(srcdir)/'`codeslayer-document-search-dialog.c
 
-libcodeslayer_la-codeslayer-documentsearch-index.lo: codeslayer-documentsearch-index.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-documentsearch-index.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch-index.Tpo -c -o libcodeslayer_la-codeslayer-documentsearch-index.lo `test -f 'codeslayer-documentsearch-index.c' || echo '$(srcdir)/'`codeslayer-documentsearch-index.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch-index.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-documentsearch-index.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-documentsearch-index.c' object='libcodeslayer_la-codeslayer-documentsearch-index.lo' libtool=yes @AMDEPBACKSLASH@
+libcodeslayer_la-codeslayer-document-search-index.lo: codeslayer-document-search-index.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-document-search-index.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-document-search-index.Tpo -c -o libcodeslayer_la-codeslayer-document-search-index.lo `test -f 'codeslayer-document-search-index.c' || echo '$(srcdir)/'`codeslayer-document-search-index.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libcodeslayer_la-codeslayer-document-search-index.Tpo $(DEPDIR)/libcodeslayer_la-codeslayer-document-search-index.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='codeslayer-document-search-index.c' object='libcodeslayer_la-codeslayer-document-search-index.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-documentsearch-index.lo `test -f 'codeslayer-documentsearch-index.c' || echo '$(srcdir)/'`codeslayer-documentsearch-index.c
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libcodeslayer_la-codeslayer-document-search-index.lo `test -f 'codeslayer-document-search-index.c' || echo '$(srcdir)/'`codeslayer-document-search-index.c
 
 libcodeslayer_la-codeslayer-abstract-pane.lo: codeslayer-abstract-pane.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libcodeslayer_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libcodeslayer_la-codeslayer-abstract-pane.lo -MD -MP -MF $(DEPDIR)/libcodeslayer_la-codeslayer-abstract-pane.Tpo -c -o libcodeslayer_la-codeslayer-abstract-pane.lo `test -f 'codeslayer-abstract-pane.c' || echo '$(srcdir)/'`codeslayer-abstract-pane.c

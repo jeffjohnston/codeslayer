@@ -25,13 +25,13 @@
 
 G_BEGIN_DECLS
 
-#define CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE            (codeslayer_documentsearch_dialog_get_type ())
+#define CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE            (codeslayer_document_search_dialog_get_type ())
 #define CODESLAYER_DOCUMENTSEARCH_DIALOG(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE, CodeSlayerDocumentSearchDialog))
 #define CODESLAYER_DOCUMENTSEARCH_DIALOG_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE, CodeSlayerDocumentSearchDialogClass))
 #define IS_CODESLAYER_DOCUMENTSEARCH_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE))
 #define IS_CODESLAYER_DOCUMENTSEARCH_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE))
 
-#define CODESLAYER_DOCUMENT_SEARCH_FILE "documentsearch"
+#define CODESLAYER_DOCUMENT_SEARCH_FILE "document_search"
 
 typedef struct _CodeSlayerDocumentSearchDialog CodeSlayerDocumentSearchDialog;
 typedef struct _CodeSlayerDocumentSearchDialogClass CodeSlayerDocumentSearchDialogClass;
@@ -46,13 +46,13 @@ struct _CodeSlayerDocumentSearchDialogClass
   GObjectClass parent_class;
 };
 
-GType codeslayer_documentsearch_dialog_get_type (void) G_GNUC_CONST;
+GType codeslayer_document_search_dialog_get_type (void) G_GNUC_CONST;
      
-CodeSlayerDocumentSearchDialog*  codeslayer_documentsearch_dialog_new  (GtkWindow          *window, 
-                                                                        CodeSlayerProfile  *profile, 
-                                                                        CodeSlayerProjects *projects);
+CodeSlayerDocumentSearchDialog*  codeslayer_document_search_dialog_new  (GtkWindow          *window, 
+                                                                         CodeSlayerProfile  *profile, 
+                                                                         CodeSlayerProjects *projects);
 
-void                             codeslayer_documentsearch_dialog_run  (CodeSlayerDocumentSearchDialog *dialog);
+void                             codeslayer_document_search_dialog_run  (CodeSlayerDocumentSearchDialog *dialog);
                                      
 G_END_DECLS
 

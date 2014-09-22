@@ -26,7 +26,7 @@
 
 G_BEGIN_DECLS
 
-#define CODESLAYER_DOCUMENTSEARCH_TYPE            (codeslayer_documentsearch_get_type ())
+#define CODESLAYER_DOCUMENTSEARCH_TYPE            (codeslayer_document_search_get_type ())
 #define CODESLAYER_DOCUMENTSEARCH(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CODESLAYER_DOCUMENTSEARCH_TYPE, CodeSlayerDocumentSearch))
 #define CODESLAYER_DOCUMENTSEARCH_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), CODESLAYER_DOCUMENTSEARCH_TYPE, CodeSlayerDocumentSearchClass))
 #define IS_CODESLAYER_DOCUMENTSEARCH(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_DOCUMENTSEARCH_TYPE))
@@ -45,15 +45,15 @@ struct _CodeSlayerDocumentSearchClass
   GObjectClass parent_class;
 };
 
-GType codeslayer_documentsearch_get_type (void) G_GNUC_CONST;
+GType codeslayer_document_search_get_type (void) G_GNUC_CONST;
 
-CodeSlayerDocumentSearch*  codeslayer_documentsearch_new          (GtkWindow                *window, 
-                                                                   CodeSlayerProfile        *profile, 
-                                                                   CodeSlayerProjects       *projects, 
-                                                                   CodeSlayerRegistry       *registry);
+CodeSlayerDocumentSearch*  codeslayer_document_search_new          (GtkWindow                *window, 
+                                                                    CodeSlayerProfile        *profile, 
+                                                                    CodeSlayerProjects       *projects, 
+                                                                    CodeSlayerRegistry       *registry);
                                             
-void                       codeslayer_documentsearch_index_files  (CodeSlayerDocumentSearch *search);
-void                       codeslayer_documentsearch_run_dialog   (CodeSlayerDocumentSearch *search);
+void                       codeslayer_document_search_index_files  (CodeSlayerDocumentSearch *search);
+void                       codeslayer_document_search_run_dialog   (CodeSlayerDocumentSearch *search);
 
 G_END_DECLS
 

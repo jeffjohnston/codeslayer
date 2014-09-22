@@ -6,9 +6,9 @@
 #include <codeslayer/codeslayer-completion.h>
 #include <codeslayer/codeslayer-document-linker.h>
 #include <codeslayer/codeslayer-document.h>
-#include <codeslayer/codeslayer-documentsearch.h>
-#include <codeslayer/codeslayer-documentsearch-dialog.h>
-#include <codeslayer/codeslayer-documentsearch-index.h>
+#include <codeslayer/codeslayer-document-search.h>
+#include <codeslayer/codeslayer-document-search-dialog.h>
+#include <codeslayer/codeslayer-document-search-index.h>
 #include <codeslayer/codeslayer-engine.h>
 #include <codeslayer/codeslayer-listview.h>
 #include <codeslayer/codeslayer-menubar-edit.h>
@@ -58,9 +58,9 @@ codeslayer_completion_provider_get_type
 codeslayer_completion_get_type
 codeslayer_document_linker_get_type
 codeslayer_document_get_type
-codeslayer_documentsearch_get_type
-codeslayer_documentsearch_dialog_get_type
-codeslayer_documentsearch_index_get_type
+codeslayer_document_search_get_type
+codeslayer_document_search_dialog_get_type
+codeslayer_document_search_index_get_type
 codeslayer_engine_get_type
 codeslayer_list_view_get_type
 codeslayer_menu_bar_edit_get_type

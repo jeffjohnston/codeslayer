@@ -19,43 +19,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <codeslayer/codeslayer-documentsearch-dialog.h>
-#include <codeslayer/codeslayer-documentsearch-index.h>
+#include <codeslayer/codeslayer-document-search-dialog.h>
+#include <codeslayer/codeslayer-document-search-index.h>
 #include <codeslayer/codeslayer-utils.h>
 
 /**
- * SECTION:codeslayer-documentsearch-dialog
+ * SECTION:codeslayer-document-search-dialog
  * @short_description: Used to search for documents.
  * @title: CodeSlayerDocumentSearchDialog
- * @include: codeslayer/codeslayer-documentsearch-dialog.h
+ * @include: codeslayer/codeslayer-document-search-dialog.h
  */
 
-static void codeslayer_documentsearch_dialog_class_init  (CodeSlayerDocumentSearchDialogClass *klass);
-static void codeslayer_documentsearch_dialog_init        (CodeSlayerDocumentSearchDialog      *dialog);
-static void codeslayer_documentsearch_dialog_finalize    (CodeSlayerDocumentSearchDialog      *dialog);
+static void codeslayer_document_search_dialog_class_init  (CodeSlayerDocumentSearchDialogClass *klass);
+static void codeslayer_document_search_dialog_init        (CodeSlayerDocumentSearchDialog      *dialog);
+static void codeslayer_document_search_dialog_finalize    (CodeSlayerDocumentSearchDialog      *dialog);
 
-static gboolean key_release_action                       (CodeSlayerDocumentSearchDialog      *dialog,
-                                                          GdkEventKey                         *event);
-static gboolean key_press_action                         (CodeSlayerDocumentSearchDialog      *dialog,
-                                                          GdkEventKey                         *event);
-static gboolean can_refilter                           (CodeSlayerDocumentSearchDialog      *dialog, 
-                                                          const gchar                         *text);
-static GList* get_indexes                                (CodeSlayerDocumentSearchDialog      *dialog);
-static CodeSlayerDocumentSearchIndex* get_index          (gchar                               *line);
-static void render_indexes                               (CodeSlayerDocumentSearchDialog      *dialog, 
-                                                          GList                               *indexes);
-static void select_tree                                  (CodeSlayerDocumentSearchDialog      *dialog, 
-                                                          GdkEventKey                         *event);
-static void row_activated_action                         (CodeSlayerDocumentSearchDialog      *dialog);
-static gboolean filter_callback                          (GtkTreeModel                        *model,
-                                                          GtkTreeIter                         *iter,
-                                                          CodeSlayerDocumentSearchDialog      *dialog);
-static gchar* get_globbing                               (const gchar                         *entry, 
-                                                          gboolean                             match_case);
-static gint sort_compare                                 (GtkTreeModel                        *model, 
-                                                          GtkTreeIter                         *a,
-                                                          GtkTreeIter                         *b, 
-                                                          gpointer                             userdata);
+static gboolean key_release_action                        (CodeSlayerDocumentSearchDialog      *dialog,
+                                                           GdkEventKey                         *event);
+static gboolean key_press_action                          (CodeSlayerDocumentSearchDialog      *dialog,
+                                                           GdkEventKey                         *event);
+static gboolean can_refilter                              (CodeSlayerDocumentSearchDialog      *dialog, 
+                                                           const gchar                         *text);
+static GList* get_indexes                                 (CodeSlayerDocumentSearchDialog      *dialog);
+static CodeSlayerDocumentSearchIndex* get_index           (gchar                               *line);
+static void render_indexes                                (CodeSlayerDocumentSearchDialog      *dialog, 
+                                                           GList                               *indexes);
+static void select_tree                                   (CodeSlayerDocumentSearchDialog      *dialog, 
+                                                           GdkEventKey                         *event);
+static void row_activated_action                          (CodeSlayerDocumentSearchDialog      *dialog);
+static gboolean filter_callback                           (GtkTreeModel                        *model,
+                                                           GtkTreeIter                         *iter,
+                                                           CodeSlayerDocumentSearchDialog      *dialog);
+static gchar* get_globbing                                (const gchar                         *entry, 
+                                                           gboolean                             match_case);
+static gint sort_compare                                  (GtkTreeModel                        *model, 
+                                                           GtkTreeIter                         *a,
+                                                           GtkTreeIter                         *b, 
+                                                           gpointer                             userdata);
 
 #define CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE, CodeSlayerDocumentSearchDialogPrivate))
@@ -87,17 +87,17 @@ enum
   COLUMNS
 };
 
-G_DEFINE_TYPE (CodeSlayerDocumentSearchDialog, codeslayer_documentsearch_dialog, G_TYPE_OBJECT)
+G_DEFINE_TYPE (CodeSlayerDocumentSearchDialog, codeslayer_document_search_dialog, G_TYPE_OBJECT)
 
 static void 
-codeslayer_documentsearch_dialog_class_init (CodeSlayerDocumentSearchDialogClass *klass)
+codeslayer_document_search_dialog_class_init (CodeSlayerDocumentSearchDialogClass *klass)
 {
-  G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_documentsearch_dialog_finalize;
+  G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_document_search_dialog_finalize;
   g_type_class_add_private (klass, sizeof (CodeSlayerDocumentSearchDialogPrivate));
 }
 
 static void
-codeslayer_documentsearch_dialog_init (CodeSlayerDocumentSearchDialog *dialog)
+codeslayer_document_search_dialog_init (CodeSlayerDocumentSearchDialog *dialog)
 {
   CodeSlayerDocumentSearchDialogPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
@@ -109,7 +109,7 @@ codeslayer_documentsearch_dialog_init (CodeSlayerDocumentSearchDialog *dialog)
 }
 
 static void
-codeslayer_documentsearch_dialog_finalize (CodeSlayerDocumentSearchDialog *dialog)
+codeslayer_document_search_dialog_finalize (CodeSlayerDocumentSearchDialog *dialog)
 {
   CodeSlayerDocumentSearchDialogPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
@@ -126,11 +126,11 @@ codeslayer_documentsearch_dialog_finalize (CodeSlayerDocumentSearchDialog *dialo
   if (priv->find_globbing != NULL)
     g_free (priv->find_globbing);
   
-  G_OBJECT_CLASS (codeslayer_documentsearch_dialog_parent_class)-> finalize (G_OBJECT (dialog));
+  G_OBJECT_CLASS (codeslayer_document_search_dialog_parent_class)-> finalize (G_OBJECT (dialog));
 }
 
 /**
- * codeslayer_documentsearch_index_dialog_new:
+ * codeslayer_document_search_index_dialog_new:
  * @window: a #GtkWindow.
  * @profile: a #CodeSlayerProfile.
  * @projects: a #CodeSlayerProjects.
@@ -140,14 +140,14 @@ codeslayer_documentsearch_dialog_finalize (CodeSlayerDocumentSearchDialog *dialo
  * Returns: a new #CodeSlayerDocumentSearchDialog. 
  */
 CodeSlayerDocumentSearchDialog*
-codeslayer_documentsearch_dialog_new (GtkWindow          *window, 
-                                      CodeSlayerProfile  *profile, 
-                                      CodeSlayerProjects *projects)
+codeslayer_document_search_dialog_new (GtkWindow          *window, 
+                                       CodeSlayerProfile  *profile, 
+                                       CodeSlayerProjects *projects)
 {
   CodeSlayerDocumentSearchDialogPrivate *priv;
   CodeSlayerDocumentSearchDialog *dialog;
 
-  dialog = CODESLAYER_DOCUMENTSEARCH_DIALOG (g_object_new (codeslayer_documentsearch_dialog_get_type (), NULL));
+  dialog = CODESLAYER_DOCUMENTSEARCH_DIALOG (g_object_new (codeslayer_document_search_dialog_get_type (), NULL));
   priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
   priv->window = window;
   priv->profile = profile;
@@ -157,11 +157,11 @@ codeslayer_documentsearch_dialog_new (GtkWindow          *window,
 }
 
 /**
- * codeslayer_documentsearch_dialog_run:
+ * codeslayer_document_search_dialog_run:
  * @dialog: a #CodeSlayerDocumentSearchDialog.
  */
 void
-codeslayer_documentsearch_dialog_run (CodeSlayerDocumentSearchDialog *dialog)
+codeslayer_document_search_dialog_run (CodeSlayerDocumentSearchDialog *dialog)
 {
   CodeSlayerDocumentSearchDialogPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
@@ -367,9 +367,7 @@ can_refilter (CodeSlayerDocumentSearchDialog *dialog,
     return FALSE;
     
   tree_model = gtk_tree_model_filter_get_model (GTK_TREE_MODEL_FILTER (priv->filter));
-  
   count = gtk_tree_model_iter_n_children (tree_model, NULL);
-  
   return count > 0 && count != MAX_RESULTS;
 }
 
@@ -399,7 +397,7 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
       dialog =  gtk_message_dialog_new (NULL, 
                                         GTK_DIALOG_MODAL,
                                         GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
-                                        "The documentsearch file does not exist.");
+                                        "The document_search file does not exist.");
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
       g_free (profile_folder_path);
@@ -416,7 +414,7 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
     {
       CodeSlayerDocumentSearchIndex *index = get_index (line);
       
-      if (g_pattern_match_string (priv->find_pattern, codeslayer_documentsearch_index_get_file_name (index)))
+      if (g_pattern_match_string (priv->find_pattern, codeslayer_document_search_index_get_file_name (index)))
         {
           results = g_list_prepend (results, index);
           count++;
@@ -465,10 +463,10 @@ get_index (gchar *line)
           file_path != NULL && 
           project_key != NULL)
         {
-          index = codeslayer_documentsearch_index_new ();
-          codeslayer_documentsearch_index_set_file_name (index, file_name);
-          codeslayer_documentsearch_index_set_file_path (index, file_path);
-          codeslayer_documentsearch_index_set_project_key (index, project_key);
+          index = codeslayer_document_search_index_new ();
+          codeslayer_document_search_index_set_file_name (index, file_name);
+          codeslayer_document_search_index_set_file_path (index, file_path);
+          codeslayer_document_search_index_set_project_key (index, project_key);
         }
 
       g_strfreev (split);
@@ -491,9 +489,9 @@ render_indexes (CodeSlayerDocumentSearchDialog *dialog,
       CodeSlayerDocumentSearchIndex *index = indexes->data;      
       gtk_list_store_append (priv->store, &iter);
       gtk_list_store_set (priv->store, &iter, 
-                          FILE_NAME, codeslayer_documentsearch_index_get_file_name (index), 
-                          FILE_PATH, codeslayer_documentsearch_index_get_file_path (index), 
-                          PROJECT_KEY, codeslayer_documentsearch_index_get_project_key (index), 
+                          FILE_NAME, codeslayer_document_search_index_get_file_name (index), 
+                          FILE_PATH, codeslayer_document_search_index_get_file_path (index), 
+                          PROJECT_KEY, codeslayer_document_search_index_get_project_key (index), 
                           -1);
                           
       indexes = g_list_next (indexes);
