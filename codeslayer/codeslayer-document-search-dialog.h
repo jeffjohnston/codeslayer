@@ -31,7 +31,7 @@ G_BEGIN_DECLS
 #define IS_CODESLAYER_DOCUMENTSEARCH_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE))
 #define IS_CODESLAYER_DOCUMENTSEARCH_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE))
 
-#define CODESLAYER_DOCUMENT_SEARCH_FILE "document_search"
+#define CODESLAYER_DOCUMENT_SEARCH_FILE "documentsearch"
 
 typedef struct _CodeSlayerDocumentSearchDialog CodeSlayerDocumentSearchDialog;
 typedef struct _CodeSlayerDocumentSearchDialogClass CodeSlayerDocumentSearchDialogClass;

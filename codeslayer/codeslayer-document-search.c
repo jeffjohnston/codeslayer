@@ -33,16 +33,13 @@ static void codeslayer_document_search_init        (CodeSlayerDocumentSearch    
 static void codeslayer_document_search_finalize    (CodeSlayerDocumentSearch      *search);
 
 static void execute                                (CodeSlayerDocumentSearch      *search);
-static GList* get_indexes                          (CodeSlayerDocumentSearch      *search);
-static void get_project_indexes                    (CodeSlayerProject             *project, 
+static void write_indexes                          (CodeSlayerDocumentSearch      *search, 
+                                                    GIOChannel                    *channel);
+static void write_project_indexes                  (CodeSlayerProject             *project, 
                                                     GFile                         *file, 
-                                                    GList                         **indexes, 
+                                                    GIOChannel                    *channel,
                                                     GList                         *exclude_types,
                                                     GList                         *exclude_dirs);
-static void write_indexes                          (GIOChannel                    *channel,
-                                                    GList                         *indexes);   
-static gint sort_indexes                           (CodeSlayerDocumentSearchIndex *a,
-                                                    CodeSlayerDocumentSearchIndex *b);
                             
 #define CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENTSEARCH_TYPE, CodeSlayerDocumentSearchPrivate))
@@ -150,7 +147,6 @@ static void
 execute (CodeSlayerDocumentSearch *search)
 {
   CodeSlayerDocumentSearchPrivate *priv;
-  GList *indexes;
   gchar *profile_folder_path;
   gchar *profile_indexes_file;
   GIOChannel *channel;
@@ -164,29 +160,23 @@ execute (CodeSlayerDocumentSearch *search)
   channel = g_io_channel_new_file (profile_indexes_file, "w", &error);
   if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS))
     {
-      g_warning ("Error creating file search file: %s\n", error->message);
+      g_warning ("Error creating documentsearch file: %s\n", error->message);
       g_error_free (error);
     }
 
-  indexes = get_indexes (search);
-  if (indexes != NULL)
-    {
-      write_indexes (channel, indexes);
-      g_io_channel_shutdown (channel, TRUE, NULL);
-      g_list_foreach (indexes, (GFunc) g_object_unref, NULL);
-      g_list_free (indexes);
-      g_io_channel_unref (channel);
-    }
+  write_indexes (search, channel);
+  g_io_channel_shutdown (channel, TRUE, NULL);
+  g_io_channel_unref (channel);
     
   g_free (profile_folder_path);
   g_free (profile_indexes_file);
 }
 
-static GList*
-get_indexes (CodeSlayerDocumentSearch *search)
+static void
+write_indexes (CodeSlayerDocumentSearch *search, 
+               GIOChannel               *channel)
 {
   CodeSlayerDocumentSearchPrivate *priv;
-  GList *results = NULL;
   GList *projects;
   
   gchar *exclude_types_str;
@@ -207,16 +197,13 @@ get_indexes (CodeSlayerDocumentSearch *search)
   while (projects != NULL)
     {
       CodeSlayerProject *project = projects->data;
-      GList *indexes = NULL;
       GFile *file;
       const gchar *folder_path;
       
       folder_path = codeslayer_project_get_folder_path (project);
       file = g_file_new_for_path (folder_path);
       
-      get_project_indexes (project, file, &indexes, exclude_types, exclude_dirs);
-      if (indexes != NULL)
-        results = g_list_concat (results, indexes);
+      write_project_indexes (project, file, channel, exclude_types, exclude_dirs);
         
       g_object_unref (file);
 
@@ -235,16 +222,14 @@ get_indexes (CodeSlayerDocumentSearch *search)
       g_list_foreach (exclude_dirs, (GFunc) g_free, NULL);
       g_list_free (exclude_dirs);
     }    
-    
-  return results;    
 }
 
 static void
-get_project_indexes (CodeSlayerProject *project, 
-                     GFile             *file,
-                     GList             **indexes, 
-                     GList             *exclude_types,
-                     GList             *exclude_dirs)
+write_project_indexes (CodeSlayerProject *project, 
+                       GFile             *file,
+                       GIOChannel        *channel,
+                       GList             *exclude_types,
+                       GList             *exclude_dirs)
 {
   GFileEnumerator *enumerator;
   
@@ -266,68 +251,34 @@ get_project_indexes (CodeSlayerProject *project,
           if (g_file_info_get_file_type (file_info) == G_FILE_TYPE_DIRECTORY)
             {
               if (!codeslayer_utils_contains_element (exclude_dirs, file_name))
-                get_project_indexes (project, child, indexes, exclude_types, exclude_dirs);            
+                write_project_indexes (project, child, channel, exclude_types, exclude_dirs);            
             }
           else
             {
               if (!codeslayer_utils_contains_element_with_suffix (exclude_types, file_name))
                 {
-                  CodeSlayerDocumentSearchIndex *index;
                   gchar *file_path;
+                  GIOStatus status;
+                  gchar *line;
+                  
                   file_path = g_file_get_path (child);
                   
-                  index = codeslayer_document_search_index_new ();
-                  codeslayer_document_search_index_set_file_name (index, file_name);
-                  codeslayer_document_search_index_set_file_path (index, file_path);
+                  line = g_strdup_printf ("%s\t%s\n", file_name, file_path);
                   
+                  status = g_io_channel_write_chars (channel, line, -1, NULL, NULL);
+
+                  if (status != G_IO_STATUS_NORMAL)
+                    g_warning ("Error writing to file documentsearch file.");
+                  
+                  g_free (line);
                   g_free (file_path);
-                  
-                  *indexes = g_list_prepend (*indexes, index);
                 }
             }
 
           g_object_unref(child);
           g_object_unref (file_info);
         }
+      g_io_channel_flush (channel, NULL);
       g_object_unref (enumerator);
     }
-}
-
-static void
-write_indexes (GIOChannel *channel, 
-               GList      *indexes)
-{
-  GList *list;  
-  list = g_list_sort (indexes, (GCompareFunc) sort_indexes);
-
-  while (list != NULL)
-    {
-      CodeSlayerDocumentSearchIndex *index = list->data;
-      GIOStatus status;
-      gchar *line;
-      
-      line = g_strdup_printf ("%s\t%s\t%s\n", 
-                              codeslayer_document_search_index_get_file_name (index), 
-                              codeslayer_document_search_index_get_file_path (index), 
-                              codeslayer_document_search_index_get_project_key (index));
-
-      status = g_io_channel_write_chars (channel, line, -1, NULL, NULL);
-      
-      g_free (line);
-      
-      if (status != G_IO_STATUS_NORMAL)
-        g_warning ("Error writing to file search file.");
-
-      list = g_list_next (list);
-    }
-    
-  g_io_channel_flush (channel, NULL);
-}
-
-static gint 
-sort_indexes (CodeSlayerDocumentSearchIndex *a,
-              CodeSlayerDocumentSearchIndex *b)
-{
-  return g_strcmp0 (codeslayer_document_search_index_get_file_name (a),
-                    codeslayer_document_search_index_get_file_name (b));
 }

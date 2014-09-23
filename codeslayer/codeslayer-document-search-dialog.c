@@ -60,7 +60,7 @@ static gint sort_compare                                  (GtkTreeModel         
 #define CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE, CodeSlayerDocumentSearchDialogPrivate))
   
-#define MAX_RESULTS 100
+#define MAX_RESULTS 50
 
 typedef struct _CodeSlayerDocumentSearchDialogPrivate CodeSlayerDocumentSearchDialogPrivate;
 
@@ -83,7 +83,6 @@ enum
 {
   FILE_NAME = 0,
   FILE_PATH,
-  PROJECT_KEY,
   COLUMNS
 };
 
@@ -202,7 +201,7 @@ codeslayer_document_search_dialog_run (CodeSlayerDocumentSearchDialog *dialog)
       
       /* the tree view */   
          
-      priv->store = gtk_list_store_new (COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+      priv->store = gtk_list_store_new (COLUMNS, G_TYPE_STRING, G_TYPE_STRING);
       priv->tree =  gtk_tree_view_new ();
       gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->tree), FALSE);
       gtk_tree_view_set_enable_search (GTK_TREE_VIEW (priv->tree), FALSE);
@@ -451,22 +450,18 @@ get_index (gchar *line)
     {
       gchar *file_name;  
       gchar *file_path;  
-      gchar *project_key;
       
       tmp = split;
 
       file_name = *tmp;
       file_path = *++tmp;
-      project_key = *++tmp;
       
-      if (file_name != NULL && 
-          file_path != NULL && 
-          project_key != NULL)
+      if (file_name != NULL && file_path != NULL)
         {
+          g_strstrip(file_path);
           index = codeslayer_document_search_index_new ();
           codeslayer_document_search_index_set_file_name (index, file_name);
           codeslayer_document_search_index_set_file_path (index, file_path);
-          codeslayer_document_search_index_set_project_key (index, project_key);
         }
 
       g_strfreev (split);
@@ -491,7 +486,6 @@ render_indexes (CodeSlayerDocumentSearchDialog *dialog,
       gtk_list_store_set (priv->store, &iter, 
                           FILE_NAME, codeslayer_document_search_index_get_file_name (index), 
                           FILE_PATH, codeslayer_document_search_index_get_file_path (index), 
-                          PROJECT_KEY, codeslayer_document_search_index_get_project_key (index), 
                           -1);
                           
       indexes = g_list_next (indexes);

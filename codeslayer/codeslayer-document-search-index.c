@@ -44,7 +44,6 @@ typedef struct _CodeSlayerDocumentSearchIndexPrivate CodeSlayerDocumentSearchInd
 
 struct _CodeSlayerDocumentSearchIndexPrivate
 {
-  gchar *project_key;
   gchar *file_name;
   gchar *file_path;
 };
@@ -52,7 +51,6 @@ struct _CodeSlayerDocumentSearchIndexPrivate
 enum
 {
   PROP_0,
-  PROP_PROJECT_KEY,
   PROP_FILE_NAME,
   PROP_FILE_PATH
 };
@@ -70,18 +68,6 @@ codeslayer_document_search_index_class_init (CodeSlayerDocumentSearchIndexClass 
   gobject_class->set_property = codeslayer_document_search_index_set_property;
 
   g_type_class_add_private (klass, sizeof (CodeSlayerDocumentSearchIndexPrivate));
-
-  /**
-   * CodeSlayerDocumentSearchIndex:project_key:
-   *
-   * The project key related to the document.
-   */
-  g_object_class_install_property (gobject_class, 
-                                   PROP_PROJECT_KEY,
-                                   g_param_spec_string ("project_key", 
-                                                        "Project Key",
-                                                        "Project Key", "",
-                                                        G_PARAM_READWRITE));
 
   /**
    * CodeSlayerDocumentSearchIndex:file_name:
@@ -114,7 +100,6 @@ codeslayer_document_search_index_init (CodeSlayerDocumentSearchIndex *index)
 {
   CodeSlayerDocumentSearchIndexPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index);
-  priv->project_key = NULL;
   priv->file_name = NULL;
   priv->file_path = NULL;
 }
@@ -124,11 +109,6 @@ codeslayer_document_search_index_finalize (CodeSlayerDocumentSearchIndex *index)
 {
   CodeSlayerDocumentSearchIndexPrivate *priv;
   priv = CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index);
-  if (priv->project_key)
-    {
-      g_free (priv->project_key);
-      priv->project_key = NULL;
-    }
   if (priv->file_name)
     {
       g_free (priv->file_name);
@@ -156,9 +136,6 @@ codeslayer_document_search_index_get_property (GObject    *object,
 
   switch (prop_id)
     {
-    case PROP_PROJECT_KEY:
-      g_value_set_string (value, priv->project_key);
-      break;
     case PROP_FILE_NAME:
       g_value_set_string (value, priv->file_name);
       break;
@@ -182,9 +159,6 @@ codeslayer_document_search_index_set_property (GObject      *object,
 
   switch (prop_id)
     {
-    case PROP_PROJECT_KEY:
-      codeslayer_document_search_index_set_project_key (index, g_value_get_string (value));
-      break;
     case PROP_FILE_NAME:
       codeslayer_document_search_index_set_file_name (index, g_value_get_string (value));
       break;
@@ -208,37 +182,6 @@ CodeSlayerDocumentSearchIndex *
 codeslayer_document_search_index_new (void)
 {
   return CODESLAYER_DOCUMENTSEARCH_INDEX (g_object_new (codeslayer_document_search_index_get_type (), NULL));
-}
-
-/**
- * codeslayer_document_search_index_get_project_key:
- * @index: a #CodeSlayerDocumentSearchIndex.
- *
- * Returns: the project key related to the document.
- */
-const gchar *
-codeslayer_document_search_index_get_project_key (CodeSlayerDocumentSearchIndex *index)
-{
-  return CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index)->project_key;
-}
-
-/**
- * codeslayer_document_search_index_set_project_key:
- * @index: a #CodeSlayerDocumentSearchIndex.
- * @project_key: the project key related to the document.
- */
-void
-codeslayer_document_search_index_set_project_key (CodeSlayerDocumentSearchIndex *index, 
-                                                  const gchar                   *project_key)
-{
-  CodeSlayerDocumentSearchIndexPrivate *priv;
-  priv = CODESLAYER_DOCUMENTSEARCH_INDEX_GET_PRIVATE (index);
-  if (priv->project_key)
-    {
-      g_free (priv->project_key);
-      priv->project_key = NULL;
-    }
-  priv->project_key = g_strdup (project_key);
 }
 
 /**

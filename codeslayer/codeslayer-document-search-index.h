@@ -46,9 +46,6 @@ GType codeslayer_document_search_index_get_type (void) G_GNUC_CONST;
 
 CodeSlayerDocumentSearchIndex*  codeslayer_document_search_index_new              (void);
 
-const gchar*      codeslayer_document_search_index_get_project_key  (CodeSlayerDocumentSearchIndex *index);
-void              codeslayer_document_search_index_set_project_key  (CodeSlayerDocumentSearchIndex *index,
-                                                                     const gchar                   *project_key);
 const gchar*      codeslayer_document_search_index_get_file_name    (CodeSlayerDocumentSearchIndex *index);
 void              codeslayer_document_search_index_set_file_name    (CodeSlayerDocumentSearchIndex *index,
                                                                      const gchar                   *file_name);
