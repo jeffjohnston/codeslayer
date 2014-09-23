@@ -40,10 +40,7 @@ static gboolean key_press_action                          (CodeSlayerDocumentSea
                                                            GdkEventKey                         *event);
 static gboolean can_refilter                              (CodeSlayerDocumentSearchDialog      *dialog, 
                                                            const gchar                         *text);
-static GList* get_indexes                                 (CodeSlayerDocumentSearchDialog      *dialog);
-static CodeSlayerDocumentSearchIndex* get_index           (gchar                               *line);
-static void render_indexes                                (CodeSlayerDocumentSearchDialog      *dialog, 
-                                                           GList                               *indexes);
+static void render_indexes                                (CodeSlayerDocumentSearchDialog      *dialog);
 static void select_tree                                   (CodeSlayerDocumentSearchDialog      *dialog, 
                                                            GdkEventKey                         *event);
 static void row_activated_action                          (CodeSlayerDocumentSearchDialog      *dialog);
@@ -334,18 +331,8 @@ key_release_action (CodeSlayerDocumentSearchDialog *dialog,
         }
       else
         {
-          GList *indexes;
-          
           gtk_list_store_clear (priv->store);
-
-          indexes = get_indexes (dialog);
-          
-          if (indexes != NULL)
-            {        
-              render_indexes (dialog, indexes);
-              g_list_foreach (indexes, (GFunc) g_object_unref, NULL);
-              g_list_free (indexes);
-            }      
+          render_indexes (dialog);
         }
     }
 
@@ -370,16 +357,14 @@ can_refilter (CodeSlayerDocumentSearchDialog *dialog,
   return count > 0 && count != MAX_RESULTS;
 }
 
-static GList*
-get_indexes (CodeSlayerDocumentSearchDialog *dialog)
+static void
+render_indexes (CodeSlayerDocumentSearchDialog *dialog)
 {
   CodeSlayerDocumentSearchDialogPrivate *priv;
-  GList *results = NULL;
-
   GIOChannel *channel = NULL;
   gchar *line;
   gsize len;
-  gint count;
+  gint count = 0;
 
   gchar *profile_folder_path;
   gchar *profile_indexes_file;
@@ -396,12 +381,12 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
       dialog =  gtk_message_dialog_new (NULL, 
                                         GTK_DIALOG_MODAL,
                                         GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
-                                        "The document_search file does not exist.");
+                                        "The documentsearch file does not exist.");
       gtk_dialog_run (GTK_DIALOG (dialog));
       gtk_widget_destroy (dialog);
       g_free (profile_folder_path);
       g_free (profile_indexes_file);
-      return NULL;
+      return;
     }
   
   if (priv->find_text != NULL)
@@ -411,18 +396,34 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
   
   while (g_io_channel_read_line (channel, &line, &len, NULL, NULL) != G_IO_STATUS_EOF)
     {
-      CodeSlayerDocumentSearchIndex *index = get_index (line);
+      gchar **split;
+      gchar **tmp;
+      gchar *file_name;  
+      gchar *file_path;  
+
+      if (!codeslayer_utils_has_text (line))
+        continue;
+    
+      split = g_strsplit (line, "\t", -1);
+      if (split == NULL)
+        continue;
       
-      if (g_pattern_match_string (priv->find_pattern, codeslayer_document_search_index_get_file_name (index)))
+      tmp = split;
+      file_name = *tmp;
+      file_path = *++tmp;
+      
+      if (file_path != NULL)
+        g_strstrip(file_path);
+      
+      if (g_pattern_match_string (priv->find_pattern, file_name))
         {
-          results = g_list_prepend (results, index);
+          GtkTreeIter iter;
+          gtk_list_store_append (priv->store, &iter);
+          gtk_list_store_set (priv->store, &iter, FILE_NAME, file_name, FILE_PATH, file_path, -1);
           count++;
         }
-      else
-        {
-          g_object_unref (index);
-        }
         
+      g_strfreev (split);
       g_free (line);
       
       if (count >= MAX_RESULTS)
@@ -431,65 +432,6 @@ get_indexes (CodeSlayerDocumentSearchDialog *dialog)
     
   g_free (profile_folder_path);
   g_free (profile_indexes_file);
-  
-  return results;
-}
-
-static CodeSlayerDocumentSearchIndex*
-get_index (gchar *line)
-{
-  CodeSlayerDocumentSearchIndex *index = NULL;
-  gchar **split;
-  gchar **tmp;
-  
-  if (!codeslayer_utils_has_text (line))
-    return NULL;
-  
-  split = g_strsplit (line, "\t", -1);
-  if (split != NULL)
-    {
-      gchar *file_name;  
-      gchar *file_path;  
-      
-      tmp = split;
-
-      file_name = *tmp;
-      file_path = *++tmp;
-      
-      if (file_name != NULL && file_path != NULL)
-        {
-          g_strstrip(file_path);
-          index = codeslayer_document_search_index_new ();
-          codeslayer_document_search_index_set_file_name (index, file_name);
-          codeslayer_document_search_index_set_file_path (index, file_path);
-        }
-
-      g_strfreev (split);
-    }
-    
-  return index;
-}
-
-static void
-render_indexes (CodeSlayerDocumentSearchDialog *dialog, 
-                GList                          *indexes)
-{
-  CodeSlayerDocumentSearchDialogPrivate *priv;
-  GtkTreeIter iter;
-
-  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
-  
-  while (indexes != NULL)
-    {
-      CodeSlayerDocumentSearchIndex *index = indexes->data;      
-      gtk_list_store_append (priv->store, &iter);
-      gtk_list_store_set (priv->store, &iter, 
-                          FILE_NAME, codeslayer_document_search_index_get_file_name (index), 
-                          FILE_PATH, codeslayer_document_search_index_get_file_path (index), 
-                          -1);
-                          
-      indexes = g_list_next (indexes);
-    }
 }
 
 static gboolean
