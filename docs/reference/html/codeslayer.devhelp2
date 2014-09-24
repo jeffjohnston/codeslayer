@@ -11,6 +11,8 @@
       <sub name="CodeSlayerCompletion" link="CodeSlayerCompletion.html"/>
       <sub name="CodeSlayerDocumentLinker" link="CodeSlayerDocumentLinker.html"/>
       <sub name="CodeSlayerDocument" link="CodeSlayerDocument.html"/>
+      <sub name="CodeSlayerDocumentSearch" link="CodeSlayerDocumentSearch.html"/>
+      <sub name="CodeSlayerDocumentSearchDialog" link="CodeSlayerDocumentSearchDialog.html"/>
       <sub name="CodeSlayerEngine" link="CodeSlayerEngine.html"/>
       <sub name="CodeSlayerListView" link="CodeSlayerListView.html"/>
       <sub name="CodeSlayerMenuBarEdit" link="CodeSlayerMenuBarEdit.html"/>
@@ -117,6 +119,14 @@
     <keyword type="property" name="The &quot;project&quot; property" link="CodeSlayerDocument.html#CodeSlayerDocument--project"/>
     <keyword type="property" name="The &quot;source-view&quot; property" link="CodeSlayerDocument.html#CodeSlayerDocument--source-view"/>
     <keyword type="property" name="The &quot;tree-row-reference&quot; property" link="CodeSlayerDocument.html#CodeSlayerDocument--tree-row-reference"/>
+    <keyword type="struct" name="struct CodeSlayerDocumentSearch" link="CodeSlayerDocumentSearch.html#CodeSlayerDocumentSearch-struct"/>
+    <keyword type="function" name="codeslayer_document_search_new ()" link="CodeSlayerDocumentSearch.html#codeslayer-document-search-new"/>
+    <keyword type="function" name="codeslayer_document_search_index_files ()" link="CodeSlayerDocumentSearch.html#codeslayer-document-search-index-files"/>
+    <keyword type="function" name="codeslayer_document_search_run_dialog ()" link="CodeSlayerDocumentSearch.html#codeslayer-document-search-run-dialog"/>
+    <keyword type="macro" name="CODESLAYER_DOCUMENT_SEARCH_FILE" link="CodeSlayerDocumentSearchDialog.html#CODESLAYER-DOCUMENT-SEARCH-FILE:CAPS"/>
+    <keyword type="struct" name="struct CodeSlayerDocumentSearchDialog" link="CodeSlayerDocumentSearchDialog.html#CodeSlayerDocumentSearchDialog-struct"/>
+    <keyword type="function" name="codeslayer_document_search_dialog_new ()" link="CodeSlayerDocumentSearchDialog.html#codeslayer-document-search-dialog-new"/>
+    <keyword type="function" name="codeslayer_document_search_dialog_run ()" link="CodeSlayerDocumentSearchDialog.html#codeslayer-document-search-dialog-run"/>
     <keyword type="struct" name="struct CodeSlayerEngine" link="CodeSlayerEngine.html#CodeSlayerEngine-struct"/>
     <keyword type="function" name="codeslayer_engine_new ()" link="CodeSlayerEngine.html#codeslayer-engine-new"/>
     <keyword type="function" name="codeslayer_engine_load_profile ()" link="CodeSlayerEngine.html#codeslayer-engine-load-profile"/>
@@ -167,6 +177,7 @@
     <keyword type="function" name="codeslayer_menu_bar_find_previous ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-find-previous"/>
     <keyword type="function" name="codeslayer_menu_bar_regular_expression ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-regular-expression"/>
     <keyword type="function" name="codeslayer_menu_bar_find_projects ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-find-projects"/>
+    <keyword type="function" name="codeslayer_menu_bar_search_for_document ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-search-for-document"/>
     <keyword type="function" name="codeslayer_menu_bar_go_to_line ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-go-to-line"/>
     <keyword type="function" name="codeslayer_menu_bar_fullscreen_window ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-fullscreen-window"/>
     <keyword type="function" name="codeslayer_menu_bar_show_side_pane ()" link="CodeSlayerMenuBar.html#codeslayer-menu-bar-show-side-pane"/>
@@ -200,6 +211,7 @@
     <keyword type="signal" name="The &quot;save-all-documents&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-all-documents"/>
     <keyword type="signal" name="The &quot;save-document&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-document"/>
     <keyword type="signal" name="The &quot;scan-external-changes&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-scan-external-changes"/>
+    <keyword type="signal" name="The &quot;search-for-document&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-search-for-document"/>
     <keyword type="signal" name="The &quot;show-bottom-pane&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-bottom-pane"/>
     <keyword type="signal" name="The &quot;show-plugins&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-plugins"/>
     <keyword type="signal" name="The &quot;show-preferences&quot; signal" link="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-preferences"/>
@@ -338,6 +350,7 @@
     <keyword type="function" name="codeslayer_profile_set_projects ()" link="CodeSlayerProfile.html#codeslayer-profile-set-projects"/>
     <keyword type="function" name="codeslayer_profile_find_project ()" link="CodeSlayerProfile.html#codeslayer-profile-find-project"/>
     <keyword type="function" name="codeslayer_profile_get_project_by_file_path ()" link="CodeSlayerProfile.html#codeslayer-profile-get-project-by-file-path"/>
+    <keyword type="function" name="codeslayer_profile_get_config_folder_path ()" link="CodeSlayerProfile.html#codeslayer-profile-get-config-folder-path"/>
     <keyword type="function" name="codeslayer_profile_add_project ()" link="CodeSlayerProfile.html#codeslayer-profile-add-project"/>
     <keyword type="function" name="codeslayer_profile_remove_project ()" link="CodeSlayerProfile.html#codeslayer-profile-remove-project"/>
     <keyword type="function" name="codeslayer_profile_remove_all_projects ()" link="CodeSlayerProfile.html#codeslayer-profile-remove-all-projects"/>

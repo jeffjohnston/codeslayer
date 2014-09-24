@@ -51,12 +51,12 @@
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> match_case</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> match_word</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> regular_expression</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSearch.html#codeslayer-search-find-next" title="codeslayer_search_find_next ()">codeslayer_search_find_next</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerSearch.html#codeslayer-search-find-next" title="codeslayer_search_find_next ()">codeslayer_search_find_next</a>         (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *find</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> match_case</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> match_word</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> regular_expression</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerSearch.html#codeslayer-search-find-previous" title="codeslayer_search_find_previous ()">codeslayer_search_find_previous</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
+<a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="CodeSlayerSearch.html#codeslayer-search-find-previous" title="codeslayer_search_find_previous ()">codeslayer_search_find_previous</a>     (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *find</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> match_case</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> match_word</code></em>,
@@ -201,7 +201,7 @@ a match is not found then start looking at the start of the buffer.
 <hr>
 <div class="refsect2">
 <a name="codeslayer-search-find-next"></a><h3>codeslayer_search_find_next ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_search_find_next         (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_search_find_next         (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *find</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> match_case</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> match_word</code></em>,
@@ -232,13 +232,17 @@ Find the next search value.
 <td><p><span class="term"><em class="parameter"><code>regular_expression</code></em> :</span></p></td>
 <td>is true if should use regular expression</td>
 </tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>is TRUE if matches were found.</td>
+</tr>
 </tbody>
 </table></div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="codeslayer-search-find-previous"></a><h3>codeslayer_search_find_previous ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_search_find_previous     (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            codeslayer_search_find_previous     (<em class="parameter"><code><a class="link" href="CodeSlayerSearch.html" title="CodeSlayerSearch"><span class="type">CodeSlayerSearch</span></a> *search</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *find</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> match_case</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> match_word</code></em>,
@@ -268,6 +272,10 @@ Find the previous search value.
 <tr>
 <td><p><span class="term"><em class="parameter"><code>regular_expression</code></em> :</span></p></td>
 <td>is true if should use regular expression</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>is TRUE if matches were found.</td>
 </tr>
 </tbody>
 </table></div>

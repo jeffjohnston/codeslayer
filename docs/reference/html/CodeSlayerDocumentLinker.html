@@ -35,13 +35,16 @@
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
 <h2><span class="refentrytitle"><a name="CodeSlayerDocumentLinker.top_of_page"></a>CodeSlayerDocumentLinker</span></h2>
-<p>CodeSlayerDocumentLinker</p>
+<p>CodeSlayerDocumentLinker — Used to link to documents.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
 <div class="refsynopsisdiv">
 <a name="CodeSlayerDocumentLinker.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">struct              <a class="link" href="CodeSlayerDocumentLinker.html#CodeSlayerDocumentLinker-struct" title="struct CodeSlayerDocumentLinker">CodeSlayerDocumentLinker</a>;
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-document-linker.h&gt;
+
+struct              <a class="link" href="CodeSlayerDocumentLinker.html#CodeSlayerDocumentLinker-struct" title="struct CodeSlayerDocumentLinker">CodeSlayerDocumentLinker</a>;
 <a class="link" href="CodeSlayerDocumentLinker.html" title="CodeSlayerDocumentLinker"><span class="returnvalue">CodeSlayerDocumentLinker</span></a> * <a class="link" href="CodeSlayerDocumentLinker.html#codeslayer-document-linker-new" title="codeslayer_document_linker_new ()">codeslayer_document_linker_new</a>
                                                         (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *codeslayer</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>);
@@ -82,6 +85,26 @@ const <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"><span c
 <pre class="programlisting"><a class="link" href="CodeSlayerDocumentLinker.html" title="CodeSlayerDocumentLinker"><span class="returnvalue">CodeSlayerDocumentLinker</span></a> * codeslayer_document_linker_new
                                                         (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *codeslayer</code></em>,
                                                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a> *text_view</code></em>);</pre>
+<p>
+Creates a new <a class="link" href="CodeSlayerDocumentLinker.html" title="CodeSlayerDocumentLinker"><span class="type">CodeSlayerDocumentLinker</span></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>codeslayer</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayer.html" title="CodeSlayer"><span class="type">CodeSlayer</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text_view</code></em> :</span></p></td>
+<td>a <a href="/usr/share/gtk-doc/html/gtk3/GtkTextView.html"><span class="type">GtkTextView</span></a>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="CodeSlayerDocumentLinker.html" title="CodeSlayerDocumentLinker"><span class="type">CodeSlayerDocumentLinker</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <hr>
 <div class="refsect2">

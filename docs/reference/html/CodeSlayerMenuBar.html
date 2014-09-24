@@ -80,6 +80,8 @@ struct              <a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuB
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-regular-expression" title="codeslayer_menu_bar_regular_expression ()">codeslayer_menu_bar_regular_expression</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-find-projects" title="codeslayer_menu_bar_find_projects ()">codeslayer_menu_bar_find_projects</a>   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-search-for-document" title="codeslayer_menu_bar_search_for_document ()">codeslayer_menu_bar_search_for_document</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-go-to-line" title="codeslayer_menu_bar_go_to_line ()">codeslayer_menu_bar_go_to_line</a>      (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="CodeSlayerMenuBar.html#codeslayer-menu-bar-fullscreen-window" title="codeslayer_menu_bar_fullscreen_window ()">codeslayer_menu_bar_fullscreen_window</a>
                                                         (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);
@@ -142,6 +144,7 @@ CodeSlayerMenuBar implements
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-all-documents" title='The "save-all-documents" signal'>save-all-documents</a>"                             : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-save-document" title='The "save-document" signal'>save-document</a>"                                  : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-scan-external-changes" title='The "scan-external-changes" signal'>scan-external-changes</a>"                          : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
+  "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-search-for-document" title='The "search-for-document" signal'>search-for-document</a>"                            : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-bottom-pane" title='The "show-bottom-pane" signal'>show-bottom-pane</a>"                               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-plugins" title='The "show-plugins" signal'>show-plugins</a>"                                   : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
   "<a class="link" href="CodeSlayerMenuBar.html#CodeSlayerMenuBar-show-preferences" title='The "show-preferences" signal'>show-preferences</a>"                               : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a>
@@ -477,6 +480,19 @@ Creates a new <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMen
 <div class="refsect2">
 <a name="codeslayer-menu-bar-find-projects"></a><h3>codeslayer_menu_bar_find_projects ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_find_projects   (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>menu_bar</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-menu-bar-search-for-document"></a><h3>codeslayer_menu_bar_search_for_document ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_menu_bar_search_for_document
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu_bar</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -853,7 +869,7 @@ value using the notebook search.
 Note: for internal use only.
 </p>
 <p>
-The ::find-projects signal is a request to open up the search dialog.
+The ::find-projects signal is a request to open up the find in projects dialog.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -1155,6 +1171,31 @@ Note: for internal use only.
 </p>
 <p>
 The ::scan-external-changes signal is a request to scan for changes outside document.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
+<td>the menu that received the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerMenuBar-search-for-document"></a><h3>The <code class="literal">"search-for-document"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="CodeSlayerMenuBar.html" title="CodeSlayerMenuBar"><span class="type">CodeSlayerMenuBar</span></a> *menu,
+                                                        <a href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)      : <a href="/usr/share/gtk-doc/html/gobject/gobject-Signals.html#G-SIGNAL-NO-HOOKS:CAPS"><code class="literal">No Hooks</code></a></pre>
+<p>
+Note: for internal use only.
+</p>
+<p>
+The ::search-for-document signal is a request to open up the search for document dialog.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">

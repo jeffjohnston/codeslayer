@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CodeSlayerDocumentSearchDialog</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="CodeSlayer Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="CodeSlayerDocumentSearch.html" title="CodeSlayerDocumentSearch">
+<link rel="next" href="CodeSlayerEngine.html" title="CodeSlayerEngine">
+<meta name="generator" content="GTK-Doc V1.18 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="CodeSlayerDocumentSearch.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">CodeSlayer Reference Manual</th>
+<td><a accesskey="n" href="CodeSlayerEngine.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#CodeSlayerDocumentSearchDialog.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#CodeSlayerDocumentSearchDialog.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#CodeSlayerDocumentSearchDialog.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="CodeSlayerDocumentSearchDialog"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CodeSlayerDocumentSearchDialog.top_of_page"></a>CodeSlayerDocumentSearchDialog</span></h2>
+<p>CodeSlayerDocumentSearchDialog — Used to search for documents.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="CodeSlayerDocumentSearchDialog.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;codeslayer/codeslayer-document-search-dialog.h&gt;
+
+#define             <a class="link" href="CodeSlayerDocumentSearchDialog.html#CODESLAYER-DOCUMENT-SEARCH-FILE:CAPS" title="CODESLAYER_DOCUMENT_SEARCH_FILE">CODESLAYER_DOCUMENT_SEARCH_FILE</a>
+struct              <a class="link" href="CodeSlayerDocumentSearchDialog.html#CodeSlayerDocumentSearchDialog-struct" title="struct CodeSlayerDocumentSearchDialog">CodeSlayerDocumentSearchDialog</a>;
+<a class="link" href="CodeSlayerDocumentSearchDialog.html" title="CodeSlayerDocumentSearchDialog"><span class="returnvalue">CodeSlayerDocumentSearchDialog</span></a> * <a class="link" href="CodeSlayerDocumentSearchDialog.html#codeslayer-document-search-dialog-new" title="codeslayer_document_search_dialog_new ()">codeslayer_document_search_dialog_new</a>
+                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="CodeSlayerDocumentSearchDialog.html#codeslayer-document-search-dialog-run" title="codeslayer_document_search_dialog_run ()">codeslayer_document_search_dialog_run</a>
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerDocumentSearchDialog.html" title="CodeSlayerDocumentSearchDialog"><span class="type">CodeSlayerDocumentSearchDialog</span></a> *dialog</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerDocumentSearchDialog.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----CodeSlayerDocumentSearchDialog
+</pre>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerDocumentSearchDialog.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="CodeSlayerDocumentSearchDialog.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="CODESLAYER-DOCUMENT-SEARCH-FILE:CAPS"></a><h3>CODESLAYER_DOCUMENT_SEARCH_FILE</h3>
+<pre class="programlisting">#define CODESLAYER_DOCUMENT_SEARCH_FILE "documentsearch"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CodeSlayerDocumentSearchDialog-struct"></a><h3>struct CodeSlayerDocumentSearchDialog</h3>
+<pre class="programlisting">struct CodeSlayerDocumentSearchDialog;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-document-search-dialog-new"></a><h3>codeslayer_document_search_dialog_new ()</h3>
+<pre class="programlisting"><a class="link" href="CodeSlayerDocumentSearchDialog.html" title="CodeSlayerDocumentSearchDialog"><span class="returnvalue">CodeSlayerDocumentSearchDialog</span></a> * codeslayer_document_search_dialog_new
+                                                        (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gtk3/GtkWindow.html"><span class="type">GtkWindow</span></a> *window</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProfile.html" title="CodeSlayerProfile"><span class="type">CodeSlayerProfile</span></a> *profile</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="CodeSlayerProjects.html" title="CodeSlayerProjects"><span class="type">CodeSlayerProjects</span></a> *projects</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="codeslayer-document-search-dialog-run"></a><h3>codeslayer_document_search_dialog_run ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                codeslayer_document_search_dialog_run
+                                                        (<em class="parameter"><code><a class="link" href="CodeSlayerDocumentSearchDialog.html" title="CodeSlayerDocumentSearchDialog"><span class="type">CodeSlayerDocumentSearchDialog</span></a> *dialog</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>dialog</code></em> :</span></p></td>
+<td>a <a class="link" href="CodeSlayerDocumentSearchDialog.html" title="CodeSlayerDocumentSearchDialog"><span class="type">CodeSlayerDocumentSearchDialog</span></a>.</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.18</div>
+</body>
+</html>
