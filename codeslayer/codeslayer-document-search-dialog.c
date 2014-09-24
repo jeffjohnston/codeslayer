@@ -20,7 +20,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <codeslayer/codeslayer-document-search-dialog.h>
-#include <codeslayer/codeslayer-document-search-index.h>
 #include <codeslayer/codeslayer-utils.h>
 
 /**
@@ -54,8 +53,8 @@ static gint sort_compare                                  (GtkTreeModel         
                                                            GtkTreeIter                         *b, 
                                                            gpointer                             userdata);
 
-#define CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE(obj) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE, CodeSlayerDocumentSearchDialogPrivate))
+#define CODESLAYER_DOCUMENT_SEARCH_DIALOG_GET_PRIVATE(obj) \
+  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENT_SEARCH_DIALOG_TYPE, CodeSlayerDocumentSearchDialogPrivate))
   
 #define MAX_RESULTS 50
 
@@ -96,7 +95,7 @@ static void
 codeslayer_document_search_dialog_init (CodeSlayerDocumentSearchDialog *dialog)
 {
   CodeSlayerDocumentSearchDialogPrivate *priv;
-  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  priv = CODESLAYER_DOCUMENT_SEARCH_DIALOG_GET_PRIVATE (dialog);
   priv->dialog = NULL;
   priv->filter = NULL;
   priv->find_text = NULL;
@@ -108,7 +107,7 @@ static void
 codeslayer_document_search_dialog_finalize (CodeSlayerDocumentSearchDialog *dialog)
 {
   CodeSlayerDocumentSearchDialogPrivate *priv;
-  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  priv = CODESLAYER_DOCUMENT_SEARCH_DIALOG_GET_PRIVATE (dialog);
   
   if (priv->dialog != NULL)
     gtk_widget_destroy (priv->dialog);
@@ -143,8 +142,8 @@ codeslayer_document_search_dialog_new (GtkWindow          *window,
   CodeSlayerDocumentSearchDialogPrivate *priv;
   CodeSlayerDocumentSearchDialog *dialog;
 
-  dialog = CODESLAYER_DOCUMENTSEARCH_DIALOG (g_object_new (codeslayer_document_search_dialog_get_type (), NULL));
-  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  dialog = CODESLAYER_DOCUMENT_SEARCH_DIALOG (g_object_new (codeslayer_document_search_dialog_get_type (), NULL));
+  priv = CODESLAYER_DOCUMENT_SEARCH_DIALOG_GET_PRIVATE (dialog);
   priv->window = window;
   priv->profile = profile;
   priv->projects = projects;
@@ -160,7 +159,7 @@ void
 codeslayer_document_search_dialog_run (CodeSlayerDocumentSearchDialog *dialog)
 {
   CodeSlayerDocumentSearchDialogPrivate *priv;
-  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  priv = CODESLAYER_DOCUMENT_SEARCH_DIALOG_GET_PRIVATE (dialog);
 
   if (priv->dialog == NULL)
     {
@@ -287,7 +286,7 @@ key_release_action (CodeSlayerDocumentSearchDialog *dialog,
   CodeSlayerDocumentSearchDialogPrivate *priv;
   gint text_length;
   
-  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  priv = CODESLAYER_DOCUMENT_SEARCH_DIALOG_GET_PRIVATE (dialog);
   
   if (event->keyval == GDK_KEY_Up ||
       event->keyval == GDK_KEY_Down ||
@@ -347,7 +346,7 @@ can_refilter (CodeSlayerDocumentSearchDialog *dialog,
   GtkTreeModel *tree_model;
   gint count = 0;
 
-  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  priv = CODESLAYER_DOCUMENT_SEARCH_DIALOG_GET_PRIVATE (dialog);
 
   if (priv->find_text != NULL && !g_str_has_prefix (text, priv->find_text))
     return FALSE;
@@ -369,7 +368,7 @@ render_indexes (CodeSlayerDocumentSearchDialog *dialog)
   gchar *profile_folder_path;
   gchar *profile_indexes_file;
   
-  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  priv = CODESLAYER_DOCUMENT_SEARCH_DIALOG_GET_PRIVATE (dialog);
 
   profile_folder_path = codeslayer_profile_get_config_folder_path (priv->profile);
   profile_indexes_file = g_strconcat (profile_folder_path, G_DIR_SEPARATOR_S, CODESLAYER_DOCUMENT_SEARCH_FILE, NULL);
@@ -432,6 +431,8 @@ render_indexes (CodeSlayerDocumentSearchDialog *dialog)
     
   g_free (profile_folder_path);
   g_free (profile_indexes_file);
+  g_io_channel_shutdown (channel, FALSE, NULL);
+  g_io_channel_unref (channel);  
 }
 
 static gboolean
@@ -442,7 +443,7 @@ filter_callback (GtkTreeModel                   *model,
   CodeSlayerDocumentSearchDialogPrivate *priv;
   gchar *value = NULL;
 
-  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  priv = CODESLAYER_DOCUMENT_SEARCH_DIALOG_GET_PRIVATE (dialog);
   
   if (priv->find_pattern == NULL)
     return FALSE;
@@ -493,7 +494,7 @@ select_tree (CodeSlayerDocumentSearchDialog *dialog,
   GtkTreeSelection *selection;
   GtkTreeIter iter;
   
-  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  priv = CODESLAYER_DOCUMENT_SEARCH_DIALOG_GET_PRIVATE (dialog);
   
   if (gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->filter), NULL) <= 0)
     return;  
@@ -537,7 +538,7 @@ row_activated_action (CodeSlayerDocumentSearchDialog  *dialog)
   GList *selected_rows = NULL;
   GList *tmp = NULL;  
   
-  priv = CODESLAYER_DOCUMENTSEARCH_DIALOG_GET_PRIVATE (dialog);
+  priv = CODESLAYER_DOCUMENT_SEARCH_DIALOG_GET_PRIVATE (dialog);
 
   tree_selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->tree));
   tree_model = gtk_tree_view_get_model (GTK_TREE_VIEW (priv->tree));

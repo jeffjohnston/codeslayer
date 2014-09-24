@@ -18,7 +18,6 @@
 
 #include <codeslayer/codeslayer-document-search.h>
 #include <codeslayer/codeslayer-document-search-dialog.h>
-#include <codeslayer/codeslayer-document-search-index.h>
 #include <codeslayer/codeslayer-utils.h>
 
 /**
@@ -41,8 +40,8 @@ static void write_project_indexes                  (CodeSlayerProject           
                                                     GList                         *exclude_types,
                                                     GList                         *exclude_dirs);
                             
-#define CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE(obj) \
-  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENTSEARCH_TYPE, CodeSlayerDocumentSearchPrivate))
+#define CODESLAYER_DOCUMENT_SEARCH_GET_PRIVATE(obj) \
+  (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_DOCUMENT_SEARCH_TYPE, CodeSlayerDocumentSearchPrivate))
 
 typedef struct _CodeSlayerDocumentSearchPrivate CodeSlayerDocumentSearchPrivate;
 
@@ -69,7 +68,7 @@ static void
 codeslayer_document_search_init (CodeSlayerDocumentSearch *search) 
 {
   CodeSlayerDocumentSearchPrivate *priv;
-  priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
+  priv = CODESLAYER_DOCUMENT_SEARCH_GET_PRIVATE (search);
   priv->dialog = NULL;
 }
 
@@ -77,7 +76,7 @@ static void
 codeslayer_document_search_finalize (CodeSlayerDocumentSearch *search)
 {
   CodeSlayerDocumentSearchPrivate *priv;
-  priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
+  priv = CODESLAYER_DOCUMENT_SEARCH_GET_PRIVATE (search);
   if (priv->dialog != NULL)
     g_object_unref (priv->dialog);
   G_OBJECT_CLASS (codeslayer_document_search_parent_class)->finalize (G_OBJECT(search));
@@ -103,8 +102,8 @@ codeslayer_document_search_new (GtkWindow          *window,
   CodeSlayerDocumentSearchPrivate *priv;
   CodeSlayerDocumentSearch *search;
 
-  search = CODESLAYER_DOCUMENTSEARCH (g_object_new (codeslayer_document_search_get_type (), NULL));
-  priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
+  search = CODESLAYER_DOCUMENT_SEARCH (g_object_new (codeslayer_document_search_get_type (), NULL));
+  priv = CODESLAYER_DOCUMENT_SEARCH_GET_PRIVATE (search);
 
   priv->window = window;
   priv->profile = profile;
@@ -135,7 +134,7 @@ void
 codeslayer_document_search_run_dialog (CodeSlayerDocumentSearch *search)
 {
   CodeSlayerDocumentSearchPrivate *priv;
-  priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
+  priv = CODESLAYER_DOCUMENT_SEARCH_GET_PRIVATE (search);
   
   if (priv->dialog == NULL)
     priv->dialog = codeslayer_document_search_dialog_new (priv->window, priv->profile, priv->projects);
@@ -152,7 +151,7 @@ execute (CodeSlayerDocumentSearch *search)
   GIOChannel *channel;
   GError *error = NULL;
   
-  priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
+  priv = CODESLAYER_DOCUMENT_SEARCH_GET_PRIVATE (search);
 
   profile_folder_path = codeslayer_profile_get_config_folder_path (priv->profile);
   profile_indexes_file = g_strconcat (profile_folder_path, G_DIR_SEPARATOR_S, CODESLAYER_DOCUMENT_SEARCH_FILE, NULL);
@@ -184,7 +183,7 @@ write_indexes (CodeSlayerDocumentSearch *search,
   GList *exclude_types = NULL;
   GList *exclude_dirs = NULL;
   
-  priv = CODESLAYER_DOCUMENTSEARCH_GET_PRIVATE (search);
+  priv = CODESLAYER_DOCUMENT_SEARCH_GET_PRIVATE (search);
   
   exclude_types_str = codeslayer_registry_get_string (priv->registry,
                                                       CODESLAYER_REGISTRY_PROJECTS_EXCLUDE_TYPES);

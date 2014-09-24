@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef __CODESLAYER_DOCUMENTSEARCH_DIALOG_H__
-#define	__CODESLAYER_DOCUMENTSEARCH_DIALOG_H__
+#ifndef __CODESLAYER_DOCUMENT_SEARCH_DIALOG_H__
+#define	__CODESLAYER_DOCUMENT_SEARCH_DIALOG_H__
 
 #include <gtk/gtk.h>
 #include <codeslayer/codeslayer-projects.h>
@@ -25,11 +25,11 @@
 
 G_BEGIN_DECLS
 
-#define CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE            (codeslayer_document_search_dialog_get_type ())
-#define CODESLAYER_DOCUMENTSEARCH_DIALOG(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE, CodeSlayerDocumentSearchDialog))
-#define CODESLAYER_DOCUMENTSEARCH_DIALOG_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE, CodeSlayerDocumentSearchDialogClass))
-#define IS_CODESLAYER_DOCUMENTSEARCH_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE))
-#define IS_CODESLAYER_DOCUMENTSEARCH_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE))
+#define CODESLAYER_DOCUMENT_SEARCH_DIALOG_TYPE            (codeslayer_document_search_dialog_get_type ())
+#define CODESLAYER_DOCUMENT_SEARCH_DIALOG(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), CODESLAYER_DOCUMENT_SEARCH_DIALOG_TYPE, CodeSlayerDocumentSearchDialog))
+#define CODESLAYER_DOCUMENT_SEARCH_DIALOG_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), CODESLAYER_DOCUMENT_SEARCH_DIALOG_TYPE, CodeSlayerDocumentSearchDialogClass))
+#define IS_CODESLAYER_DOCUMENT_SEARCH_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CODESLAYER_DOCUMENT_SEARCH_DIALOG_TYPE))
+#define IS_CODESLAYER_DOCUMENT_SEARCH_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), CODESLAYER_DOCUMENT_SEARCH_DIALOG_TYPE))
 
 #define CODESLAYER_DOCUMENT_SEARCH_FILE "documentsearch"
 
@@ -56,4 +56,4 @@ void                             codeslayer_document_search_dialog_run  (CodeSla
                                      
 G_END_DECLS
 
-#endif /* __CODESLAYER_DOCUMENTSEARCH_DIALOG_H__ */
+#endif /* __CODESLAYER_DOCUMENT_SEARCH_DIALOG_H__ */

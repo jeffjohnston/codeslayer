@@ -163,56 +163,36 @@ codeslayer_document_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-document_search</FILE>
+<FILE>codeslayer-document-search</FILE>
 <TITLE>CodeSlayerDocumentSearch</TITLE>
 CodeSlayerDocumentSearch
 codeslayer_document_search_new
 codeslayer_document_search_index_files
 codeslayer_document_search_run_dialog
 <SUBSECTION Standard>
-CODESLAYER_DOCUMENTSEARCH_TYPE
-CODESLAYER_DOCUMENTSEARCH
-CODESLAYER_DOCUMENTSEARCH_CLASS
-IS_CODESLAYER_DOCUMENTSEARCH
-IS_CODESLAYER_DOCUMENTSEARCH_CLASS
+CODESLAYER_DOCUMENT_SEARCH_TYPE
+CODESLAYER_DOCUMENT_SEARCH
+CODESLAYER_DOCUMENT_SEARCH_CLASS
+IS_CODESLAYER_DOCUMENT_SEARCH
+IS_CODESLAYER_DOCUMENT_SEARCH_CLASS
 <SUBSECTION Private>
 CodeSlayerDocumentSearchPrivate
 codeslayer_document_search_get_type
 </SECTION>
 
 <SECTION>
-<FILE>codeslayer-document_search-index</FILE>
-<TITLE>CodeSlayerDocumentSearchIndex</TITLE>
-CodeSlayerDocumentSearchIndex
-codeslayer_document_search_index_new
-codeslayer_document_search_index_get_file_name
-codeslayer_document_search_index_set_file_name
-codeslayer_document_search_index_get_file_path
-codeslayer_document_search_index_set_file_path 
-<SUBSECTION Standard>
-CODESLAYER_DOCUMENTSEARCH_INDEX_TYPE
-CODESLAYER_DOCUMENTSEARCH_INDEX
-CODESLAYER_DOCUMENTSEARCH_INDEX_CLASS
-IS_CODESLAYER_DOCUMENTSEARCH_INDEX
-IS_CODESLAYER_DOCUMENTSEARCH_INDEX_CLASS
-<SUBSECTION Private>
-CodeSlayerDocumentSearchIndexPrivate
-codeslayer_document_search_index_get_type
-</SECTION>
-
-<SECTION>
-<FILE>codeslayer-document_search-dialog</FILE>
+<FILE>codeslayer-document-search-dialog</FILE>
 <TITLE>CodeSlayerDocumentSearchDialog</TITLE>
 CODESLAYER_DOCUMENT_SEARCH_FILE
 CodeSlayerDocumentSearchDialog
 codeslayer_document_search_dialog_new
 codeslayer_document_search_dialog_run
 <SUBSECTION Standard>
-CODESLAYER_DOCUMENTSEARCH_DIALOG_TYPE
-CODESLAYER_DOCUMENTSEARCH_DIALOG
-CODESLAYER_DOCUMENTSEARCH_DIALOG_CLASS
-IS_CODESLAYER_DOCUMENTSEARCH_DIALOG
-IS_CODESLAYER_DOCUMENTSEARCH_DIALOG_CLASS
+CODESLAYER_DOCUMENT_SEARCH_DIALOG_TYPE
+CODESLAYER_DOCUMENT_SEARCH_DIALOG
+CODESLAYER_DOCUMENT_SEARCH_DIALOG_CLASS
+IS_CODESLAYER_DOCUMENT_SEARCH_DIALOG
+IS_CODESLAYER_DOCUMENT_SEARCH_DIALOG_CLASS
 <SUBSECTION Private>
 CodeSlayerDocumentSearchDialogPrivate
 codeslayer_document_search_dialog_get_type
