@@ -445,8 +445,10 @@ codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles,
   if (recent_documents != NULL)
     {
       xml = g_string_append (xml, "\n\t<recent-documents>");
+      recent_documents = g_list_copy (recent_documents);
       recent_documents = g_list_reverse (recent_documents);
       g_list_foreach (recent_documents, (GFunc)build_recent_documents_xml, &xml);
+      g_list_free (recent_documents);
       xml = g_string_append (xml, "\n\t</recent-documents>");    
     }
 
