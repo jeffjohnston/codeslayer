@@ -479,7 +479,7 @@ codeslayer_engine_open_document (CodeSlayerEngine *engine,
       CodeSlayerProject *project;
       project = codeslayer_profile_get_project_by_file_path (priv->profile, file_path);
       codeslayer_document_set_project (document, project);
-      codeslayer_projects_select_document (priv->projects, document);
+      codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), document);
     }
   else
     {
