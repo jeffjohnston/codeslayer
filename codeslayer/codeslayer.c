@@ -804,6 +804,14 @@ codeslayer_get_registry (CodeSlayer *codeslayer)
   return registry;
 }
 
+/**
+ * codeslayer_get_projects:
+ * @codeslayer: a #CodeSlayer.
+ *
+ * The list of #CodeSlayerProject objects within the profile.
+ *
+ * Returns: a newly-allocated list that must be freed with g_list_free().
+ */
 GList*
 codeslayer_get_projects (CodeSlayer *codeslayer)
 {

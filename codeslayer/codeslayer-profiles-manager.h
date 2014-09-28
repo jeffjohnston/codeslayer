@@ -48,10 +48,10 @@ struct _CodeSlayerProfilesManagerClass
 
 GType codeslayer_profiles_manager_get_type (void) G_GNUC_CONST;
 
-GtkWidget*  codeslayer_profiles_manager_new         (GtkWidget          *window, 
-                                                     GtkApplication     *application, 
-                                                     CodeSlayerProfiles *profiles, 
-                                                     CodeSlayerProfile  *profile);
+GtkWidget*  codeslayer_profiles_manager_new         (GtkWidget                 *window, 
+                                                     GtkApplication            *application, 
+                                                     CodeSlayerProfiles        *profiles, 
+                                                     CodeSlayerProfile         *profile);
 
 void        codeslayer_profiles_manager_run_dialog  (CodeSlayerProfilesManager *profiles_manager);
 

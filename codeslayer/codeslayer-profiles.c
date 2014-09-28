@@ -432,6 +432,7 @@ codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles,
     {
       xml = g_string_append (xml, "\n\t<projects>");
       g_list_foreach (projects, (GFunc)build_projects_xml, &xml);
+      g_list_free (projects);
       xml = g_string_append (xml, "\n\t</projects>");    
     }
 
@@ -439,13 +440,13 @@ codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles,
     {
       xml = g_string_append (xml, "\n\t<documents>");
       g_list_foreach (documents, (GFunc)build_documents_xml, &xml);
+      g_list_free (documents);
       xml = g_string_append (xml, "\n\t</documents>");    
     }
 
   if (recent_documents != NULL)
     {
       xml = g_string_append (xml, "\n\t<recent-documents>");
-      recent_documents = g_list_copy (recent_documents);
       recent_documents = g_list_reverse (recent_documents);
       g_list_foreach (recent_documents, (GFunc)build_recent_documents_xml, &xml);
       g_list_free (recent_documents);
@@ -456,6 +457,7 @@ codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles,
     {
       xml = g_string_append (xml, "\n\t<plugins>");
       g_list_foreach (plugins, (GFunc)build_plugins_xml, &xml);
+      g_list_free (plugins);
       xml = g_string_append (xml, "\n\t</plugins>");    
     }
 
@@ -474,6 +476,13 @@ codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles,
   g_free (contents);
 }
 
+/**
+ * codeslayer_profiles_get_profile_names:
+ * @profiles: a #CodeSlayerProfiles.
+ *
+ * Returns: A newly allocated list. You need to call g_list_free_full 
+ * when you are done with the list.
+ */
 GList*
 codeslayer_profiles_get_profile_names (CodeSlayerProfiles *profiles)
 {

@@ -67,9 +67,9 @@ struct _CodeSlayerProjectsClass
 
 GType codeslayer_projects_get_type (void) G_GNUC_CONST;
 
-GtkWidget*  codeslayer_projects_new                (GtkWidget         *window, 
-                                                    CodeSlayerProfile *profile, 
-                                                    GtkWidget         *project_properties);
+GtkWidget*  codeslayer_projects_new                (GtkWidget          *window, 
+                                                    CodeSlayerProfile  *profile, 
+                                                    GtkWidget          *project_properties);
 void        codeslayer_projects_add_project        (CodeSlayerProjects *projects, 
                                                     CodeSlayerProject  *project);
 gboolean    codeslayer_projects_select_document    (CodeSlayerProjects *projects, 

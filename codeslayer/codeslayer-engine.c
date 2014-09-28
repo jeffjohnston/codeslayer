@@ -398,24 +398,29 @@ codeslayer_engine_load_profile (CodeSlayerEngine *engine)
     {
       GList *projects;
       GList *documents;
+      GList *list;
       
       projects = codeslayer_profile_get_projects (priv->profile);
-      while (projects != NULL)
+      list = projects;
+      while (list != NULL)
         {
-          CodeSlayerProject *project = projects->data;
+          CodeSlayerProject *project = list->data;
           codeslayer_projects_add_project (CODESLAYER_PROJECTS (priv->projects), 
                                            project);
-          projects = g_list_next (projects);
+          list = g_list_next (list);
         }
+      g_list_free (projects);
 
       documents = codeslayer_profile_get_documents (priv->profile);
-      while (documents != NULL)
+      list = documents;
+      while (list != NULL)
         {
-          CodeSlayerDocument *document = documents->data;
+          CodeSlayerDocument *document = list->data;
           codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), 
                                                document);
-          documents = g_list_next (documents);
+          list = g_list_next (list);
         }
+      g_list_free (documents);
         
       gtk_widget_show (priv->projects);
       
@@ -1261,12 +1266,14 @@ select_document_action (CodeSlayerEngine *engine,
   CodeSlayerRegistry *registry; 
   GtkWidget *notebook_page;
   gboolean sync_with_document;
+  GList *projects;
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
   registry = codeslayer_profile_get_registry (priv->profile);
   
-  if (codeslayer_profile_get_projects (priv->profile) == NULL)
+  projects = codeslayer_profile_get_projects (priv->profile);
+  if (projects == NULL)
     return;
 
   notebook_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (priv->notebook), page_num);
@@ -1287,6 +1294,8 @@ select_document_action (CodeSlayerEngine *engine,
       if (!codeslayer_projects_select_document (CODESLAYER_PROJECTS (priv->projects), document))
         codeslayer_notebook_page_show_document_not_found_info_bar (CODESLAYER_NOTEBOOK_PAGE (notebook_page));
     }
+
+  g_list_free (projects);
 }
 
 static void

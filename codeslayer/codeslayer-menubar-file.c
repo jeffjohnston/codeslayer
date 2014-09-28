@@ -232,6 +232,7 @@ sync_menu_action (CodeSlayerMenuBarFile *menu_bar_file,
                   gboolean               has_open_documents)
 {
   CodeSlayerMenuBarFilePrivate *priv;
+  GList *recent_documents;
   
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
 
@@ -251,12 +252,14 @@ sync_menu_action (CodeSlayerMenuBarFile *menu_bar_file,
       gtk_widget_show (priv->open_item);
       gtk_widget_show (priv->save_separator_item);
     }
-    
-  if (codeslayer_profile_get_recent_documents (priv->profile) == NULL)
+  
+  recent_documents = codeslayer_profile_get_recent_documents (priv->profile);
+  if (recent_documents == NULL)
     {
       gtk_widget_hide (priv->recent_documents_separator_item);
       gtk_widget_hide (priv->recent_documents_item);
-    }    
+    }
+  g_list_free (recent_documents);  
 }
 
 static void
@@ -264,10 +267,12 @@ recent_documents_action (CodeSlayerMenuBarFile *menu_bar_file)
 {
   CodeSlayerMenuBarFilePrivate *priv;
   GList *recent_documents;
+  GList *list;
   
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
   
   recent_documents = codeslayer_profile_get_recent_documents (priv->profile);
+  list = recent_documents;
   
   if (recent_documents != NULL)
     {
@@ -275,9 +280,9 @@ recent_documents_action (CodeSlayerMenuBarFile *menu_bar_file)
       recent_documents_submenu = gtk_menu_item_get_submenu (GTK_MENU_ITEM (priv->recent_documents_item));
       clear_recent_documents_submenu (recent_documents_submenu);
       
-      while (recent_documents != NULL)
+      while (list != NULL)
         {
-          gchar *recent_document = g_strdup (recent_documents->data);
+          gchar *recent_document = g_strdup (list->data);
           gchar *basename;
           GtkWidget *recent_document_item;
           
@@ -293,9 +298,10 @@ recent_documents_action (CodeSlayerMenuBarFile *menu_bar_file)
                             G_CALLBACK (recent_document_action), menu_bar_file);
           
           g_free (basename);
-          recent_documents = g_list_next (recent_documents);
+          list = g_list_next (list);
         }  
 
+      g_list_free (recent_documents);
       gtk_widget_show (priv->recent_documents_separator_item);
       gtk_widget_show_all (priv->recent_documents_item);
     }

@@ -279,12 +279,13 @@ codeslayer_plugins_deactivate (CodeSlayerPlugins *plugins)
  * codeslayer_plugins_get_list:
  * @plugins: a #CodeSlayerPlugins.
  *
- * Returns: The list of #CodeSlayerPlugin objects.
+ * Returns: The list of #CodeSlayerPlugin objects. Note: 
+ * you need to call g_list_free when you are done with the list.
  */
 GList*
 codeslayer_plugins_get_list (CodeSlayerPlugins *plugins)
 {
-  return CODESLAYER_PLUGINS_GET_PRIVATE (plugins)->list;
+  return codeslayer_utils_list_copy (CODESLAYER_PLUGINS_GET_PRIVATE (plugins)->list);
 }
 
 /**

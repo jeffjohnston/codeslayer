@@ -177,6 +177,7 @@ write_indexes (CodeSlayerDocumentSearch *search,
 {
   CodeSlayerDocumentSearchPrivate *priv;
   GList *projects;
+  GList *list;
   
   gchar *exclude_types_str;
   gchar *exclude_dirs_str;
@@ -193,9 +194,10 @@ write_indexes (CodeSlayerDocumentSearch *search,
   exclude_dirs = codeslayer_utils_string_to_list (exclude_dirs_str);
   
   projects = codeslayer_profile_get_projects (priv->profile);
-  while (projects != NULL)
+  list = projects;
+  while (list != NULL)
     {
-      CodeSlayerProject *project = projects->data;
+      CodeSlayerProject *project = list->data;
       GFile *file;
       const gchar *folder_path;
       
@@ -206,8 +208,9 @@ write_indexes (CodeSlayerDocumentSearch *search,
         
       g_object_unref (file);
 
-      projects = g_list_next (projects);
+      list = g_list_next (list);
     }
+  g_list_free (projects);    
     
   g_free (exclude_types_str);
   g_free (exclude_dirs_str);

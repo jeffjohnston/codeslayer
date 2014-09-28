@@ -55,7 +55,8 @@ codeslayer_completion_provider_class_init (gpointer page)
  * @provider: a #CodeSlayerCompletionProvider.
  * @iter: the place in the source view that the completion window was invoked.
  *
- * Returns: a list of #CodeSlayerCompletionProposal objects.
+ * Returns: a list of #CodeSlayerCompletionProposal objects.  Note: 
+ * you need to call g_list_free when you are done with the list.
  */
 GList*  
 codeslayer_completion_provider_get_proposals (CodeSlayerCompletionProvider *provider, 

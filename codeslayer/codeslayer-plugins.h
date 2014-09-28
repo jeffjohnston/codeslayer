@@ -54,11 +54,11 @@ CodeSlayerPlugins*  codeslayer_plugins_new         (GtkWidget         *window);
 void                codeslayer_plugins_load        (CodeSlayerPlugins *plugins, 
                                                     GObject           *data);
 void                codeslayer_plugins_activate    (CodeSlayerPlugins *plugins, 
-                                                    CodeSlayerProfile  *profile);
+                                                    CodeSlayerProfile *profile);
 void                codeslayer_plugins_deactivate  (CodeSlayerPlugins *plugins);
 GList*              codeslayer_plugins_get_list    (CodeSlayerPlugins *plugins);
 void                codeslayer_plugins_run_dialog  (CodeSlayerPlugins *plugins, 
-                                                    CodeSlayerProfile  *profile);
+                                                    CodeSlayerProfile *profile);
 
 G_END_DECLS
 

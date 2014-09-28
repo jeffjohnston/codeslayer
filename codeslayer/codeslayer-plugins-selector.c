@@ -116,14 +116,16 @@ load_plugins (CodeSlayerPluginsSelector *plugins_selector)
 {
   CodeSlayerPluginsSelectorPrivate *priv;
   GList *list;
+  GList *tmp;
   
   priv = CODESLAYER_PLUGINS_SELECTOR_GET_PRIVATE (plugins_selector);
 
   list = codeslayer_plugins_get_list (priv->plugins);
+  tmp = list;
 
-  while (list != NULL)
+  while (tmp != NULL)
     {
-      CodeSlayerPlugin *plugin = list->data;
+      CodeSlayerPlugin *plugin = tmp->data;
       GtkTreeIter iter;
 
       gtk_list_store_append (priv->store, &iter);
@@ -132,8 +134,9 @@ load_plugins (CodeSlayerPluginsSelector *plugins_selector)
                           TEXT, codeslayer_plugin_get_name (plugin), 
                           PLUGIN, plugin, -1);
 
-      list = g_list_next (list);
+      tmp = g_list_next (tmp);
     }
+  g_list_free (list);    
 }
 
 static void

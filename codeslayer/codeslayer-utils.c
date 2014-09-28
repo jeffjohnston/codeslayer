@@ -530,3 +530,12 @@ codeslayer_utils_save_key_file (GKeyFile    *key_file,
   g_file_set_contents (file_path, data, size, NULL);
   g_free (data);
 }
+
+GList*
+codeslayer_utils_list_copy (GList *list)
+{
+  if (list == NULL)
+    return NULL;
+
+  return g_list_copy (list);
+}

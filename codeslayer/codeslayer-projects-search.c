@@ -731,19 +731,21 @@ search_projects (CodeSlayerProjectsSearch *search,
 {
   CodeSlayerProjectsSearchPrivate *priv;
   GList *projects;
+  GList *list;
   
   priv = CODESLAYER_PROJECTS_SEARCH_GET_PRIVATE (search);
   
   projects = codeslayer_profile_get_projects (priv->profile);
+  list = projects;
   
-  while (projects != NULL)
+  while (list != NULL)
     {
       CodeSlayerProject *project;
       GList *search_files = NULL;
       const gchar *folder_path;
       gchar *folder_path_expanded;
       
-      project = projects->data;
+      project = list->data;
       folder_path = codeslayer_project_get_folder_path (project);
       folder_path_expanded = g_strconcat (folder_path, G_DIR_SEPARATOR_S, NULL);
       
@@ -791,8 +793,10 @@ search_projects (CodeSlayerProjectsSearch *search,
         }
 
       g_free (folder_path_expanded);
-      projects = g_list_next (projects);
+      list = g_list_next (list);
     }
+    
+  g_list_free (projects);
 }
 
 static void

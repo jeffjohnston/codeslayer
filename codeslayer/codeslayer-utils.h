@@ -76,6 +76,7 @@ void codeslayer_utils_save_key_file                      (GKeyFile    *key_file,
 void      codeslayer_utils_style_close_button            (GtkWidget   *widget);
 GTimeVal* codeslayer_utils_get_modification_time         (const gchar *file_path);
 gchar*    codeslayer_utils_get_utf8_text                 (const gchar *file_path);
+GList*    codeslayer_utils_list_copy                     (GList       *list);
 
 G_END_DECLS
 

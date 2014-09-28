@@ -17,6 +17,7 @@
  */
 
 #include <codeslayer/codeslayer-profile.h>
+#include <codeslayer/codeslayer-utils.h>
 
 /**
  * SECTION:codeslayer-profile
@@ -257,12 +258,13 @@ codeslayer_profile_set_enable_projects (CodeSlayerProfile *profile,
  * codeslayer_profile_get_projects:
  * @profile: a #CodeSlayerProfile.
  *
- * Returns: The list of #CodeSlayerProject objects within the profile.
+ * Returns: The list of #CodeSlayerProject objects within the profile. Note: 
+ * you need to call g_list_free when you are done with the list.
  */
 GList*
 codeslayer_profile_get_projects (CodeSlayerProfile *profile)
 {
-  return CODESLAYER_PROFILE_GET_PRIVATE (profile)->projects;
+  return codeslayer_utils_list_copy (CODESLAYER_PROFILE_GET_PRIVATE (profile)->projects);
 }
 
 /**
@@ -384,12 +386,13 @@ codeslayer_profile_remove_all_projects (CodeSlayerProfile *profile)
  * codeslayer_profile_get_documents:
  * @profile: a #CodeSlayerProfile.
  *
- * Returns: The list of #CodeSlayerDocuments objects within the profile.
+ * Returns: The list of #CodeSlayerDocuments objects within the profile. Note: 
+ * you need to call g_list_free when you are done with the list.
  */
-GList *
+GList*
 codeslayer_profile_get_documents (CodeSlayerProfile *profile)
 {
-  return CODESLAYER_PROFILE_GET_PRIVATE (profile)->documents;
+  return codeslayer_utils_list_copy (CODESLAYER_PROFILE_GET_PRIVATE (profile)->documents);
 }
 
 /**
@@ -456,12 +459,13 @@ codeslayer_profile_remove_all_documents (CodeSlayerProfile *profile)
  * codeslayer_profile_get_recent_documents:
  * @profile: a #CodeSlayerProfile.
  *
- * Returns: The list of recent documents within the profile.
+ * Returns: The list of recent documents within the profile. Note: 
+ * you need to call g_list_free when you are done with the list.
  */
 GList*
 codeslayer_profile_get_recent_documents (CodeSlayerProfile *profile)
 {
-  return CODESLAYER_PROFILE_GET_PRIVATE (profile)->recent_documents;
+  return codeslayer_utils_list_copy (CODESLAYER_PROFILE_GET_PRIVATE (profile)->recent_documents);
 }
 
 /**
@@ -587,14 +591,13 @@ codeslayer_profile_contains_recent_document (CodeSlayerProfile *profile,
  * @profile: a #CodeSlayerProfile.
  *
  * Returns: The list of #CodeSlayerPlugin plugin objects within the profile. For
- *          internal use only.
+ *          internal use only.  Note: you need to call g_list_free when you 
+ *          are done with the list.
  */
 GList*
 codeslayer_profile_get_plugins (CodeSlayerProfile *profile)
 {
-  CodeSlayerProfilePrivate *priv;
-  priv = CODESLAYER_PROFILE_GET_PRIVATE (profile);
-  return priv->plugins;
+  return codeslayer_utils_list_copy (CODESLAYER_PROFILE_GET_PRIVATE (profile)->plugins);
 }
 
 /**

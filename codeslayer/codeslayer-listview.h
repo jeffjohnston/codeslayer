@@ -46,7 +46,7 @@ struct _CodeSlayerListViewClass
 
 GType codeslayer_list_view_get_type (void) G_GNUC_CONST;
 
-GtkWidget*  codeslayer_list_view_new        (void);
+GtkWidget*  codeslayer_list_view_new       (void);
 
 void        codeslayer_list_view_add_text  (CodeSlayerListView *list_view,
                                             const gchar        *text);

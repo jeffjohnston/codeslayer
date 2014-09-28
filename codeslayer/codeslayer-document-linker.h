@@ -44,11 +44,11 @@ struct _CodeSlayerDocumentLinkerClass
 
 GType codeslayer_document_linker_get_type (void) G_GNUC_CONST;
 
-CodeSlayerDocumentLinker*  codeslayer_document_linker_new           (GObject                *codeslayer, 
-                                                                     GtkTextView            *text_view);
-const gchar *              codeslayer_document_linker_get_pattern   (CodeSlayerDocumentLinker *linker);
+CodeSlayerDocumentLinker*  codeslayer_document_linker_new           (GObject                  *codeslayer, 
+                                                                     GtkTextView              *text_view);
+const gchar*               codeslayer_document_linker_get_pattern   (CodeSlayerDocumentLinker *linker);
 void                       codeslayer_document_linker_set_pattern   (CodeSlayerDocumentLinker *linker, 
-                                                                     const gchar            *pattern);
+                                                                     const gchar              *pattern);
 gint                       codeslayer_document_linker_create_links  (CodeSlayerDocumentLinker *linker);
 
 G_END_DECLS
