@@ -474,8 +474,18 @@ codeslayer_engine_open_document (CodeSlayerEngine *engine,
   document = codeslayer_document_new ();
   codeslayer_document_set_file_path (document, file_path);
   
-  if (!codeslayer_notebook_select_document (CODESLAYER_NOTEBOOK (priv->notebook), document))
-    codeslayer_notebook_add_document (CODESLAYER_NOTEBOOK (priv->notebook), document);
+  if (codeslayer_profile_get_enable_projects (priv->profile))
+    {
+      CodeSlayerProject *project;
+      project = codeslayer_profile_get_project_by_file_path (priv->profile, file_path);
+      codeslayer_document_set_project (document, project);
+      codeslayer_projects_select_document (priv->projects, document);
+    }
+  else
+    {
+      if (!codeslayer_notebook_select_document (CODESLAYER_NOTEBOOK (priv->notebook), document))
+        codeslayer_notebook_add_document (CODESLAYER_NOTEBOOK (priv->notebook), document);
+    }
   
   g_object_unref (document);
 
