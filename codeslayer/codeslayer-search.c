@@ -22,10 +22,10 @@
 #include <codeslayer/codeslayer-utils.h>
 
 /**
- * SECTION:codeslayer-notebook-search
- * @short_description: The notebook inline search.
+ * SECTION:codeslayer-search
+ * @short_description: The notebook search api.
  * @title: CodeSlayerSearch
- * @include: codeslayer/codeslayer-notebook-search.h
+ * @include: codeslayer/codeslayer-search.h
  */
 
 static void codeslayer_search_class_init  (CodeSlayerSearchClass *klass);

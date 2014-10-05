@@ -17,7 +17,6 @@
  */
 
 #include <gdk/gdkkeysyms.h>
-#include <codeslayer/codeslayer-notebook-search.h>
 #include <codeslayer/codeslayer-notebook.h>
 #include <codeslayer/codeslayer-notebook-search.h>
 #include <codeslayer/codeslayer-notebook-page.h>

@@ -21,10 +21,10 @@
 #include <codeslayer/codeslayer-utils.h>
 
 /**
- * SECTION:codeslayer-menubar-file
- * @short_description: The file menu.
+ * SECTION:codeslayer-menubar-edit
+ * @short_description: The edit menu.
  * @title: CodeSlayerMenuBarEdit
- * @include: codeslayer/codeslayer-menubar-file.h
+ * @include: codeslayer/codeslayer-menubar-edit.h
  */
 
 static void codeslayer_menu_bar_edit_class_init  (CodeSlayerMenuBarEditClass *klass);

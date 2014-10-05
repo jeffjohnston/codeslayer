@@ -400,7 +400,7 @@ codeslayer_completion_hide (CodeSlayerCompletion *completion)
 }
 
 /**
- * codeslayer_completion_hide:
+ * codeslayer_completion_get_visible:
  * @completion: a #CodeSlayerCompletion.
  *
  * Returns: is TRUE if the completion is visible. 
@@ -414,7 +414,7 @@ codeslayer_completion_get_visible (CodeSlayerCompletion *completion)
 }
 
 /**
- * codeslayer_completion_hide:
+ * codeslayer_completion_toggle_up:
  * @completion: a #CodeSlayerCompletion.
  *
  * Returns: is TRUE if able to toggle up. 
@@ -453,7 +453,7 @@ codeslayer_completion_toggle_up (CodeSlayerCompletion *completion)
 }
 
 /**
- * codeslayer_completion_hide:
+ * codeslayer_completion_toggle_down:
  * @completion: a #CodeSlayerCompletion.
  *
  * Returns: is TRUE if able to toggle down. 
@@ -492,7 +492,7 @@ codeslayer_completion_toggle_down (CodeSlayerCompletion *completion)
 }
 
 /**
- * codeslayer_completion_hide:
+ * codeslayer_completion_mouse_within_popup:
  * @completion: a #CodeSlayerCompletion.
  *
  * Returns: is TRUE if the mouse is within the completion window. 

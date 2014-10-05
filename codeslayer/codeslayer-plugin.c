@@ -135,7 +135,7 @@ codeslayer_plugin_class_init (CodeSlayerPluginClass *klass)
                                                         G_PARAM_READWRITE));
 
   /**
-   * CodeSlayerGroup:description:
+   * CodeSlayerGroup:authors:
    *
    * The authors that will be displayed for the plugin.
    */
