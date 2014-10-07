@@ -228,6 +228,19 @@ codeslayer_finalize (CodeSlayer *codeslayer)
   G_OBJECT_CLASS (codeslayer_parent_class)-> finalize (G_OBJECT (codeslayer));
 }
 
+/**
+ * codeslayer_new:
+ * @window: a #GtkWindow.
+ * @profile: a #CodeSlayerProfile.
+ * @menu_bar: a #CodeSlayerMenuBar.
+ * @notebook: a #CodeSlayerNotebook.
+ * @projects: a #CodeSlayerProjects.
+ * @project_properties: a #CodeSlayerProjectProperties.
+ * @side_pane: a #CodeSlayerSidePane.
+ * @bottom_pane: a #CodeSlayerBottomPane.
+ *
+ * Returns: a new #CodeSlayer. 
+ */
 CodeSlayer*
 codeslayer_new (GtkWindow                   *window,
                 CodeSlayerProfile           *profile,
@@ -422,7 +435,7 @@ codeslayer_get_active_document_project (CodeSlayer *codeslayer)
  * codeslayer_get_all_documents:
  *  @codeslayer: a #CodeSlayer.
  *
- * Returns: a #GList of #CodeSlayerSourceView. Note: you need to call g_list_free
+ * Returns: a list of documents. Note: you need to call g_list_free
  * when you are done with the list.
  */
 GList*
