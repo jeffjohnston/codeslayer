@@ -77,6 +77,8 @@ void      codeslayer_utils_style_close_button            (GtkWidget   *widget);
 GTimeVal* codeslayer_utils_get_modification_time         (const gchar *file_path);
 gchar*    codeslayer_utils_get_utf8_text                 (const gchar *file_path);
 GList*    codeslayer_utils_list_copy                     (GList       *list);
+GList*    codeslayer_utils_get_profile_names             (void);
+gboolean  codeslayer_utils_profile_exists                (gchar       *profile_name);
 
 G_END_DECLS
 

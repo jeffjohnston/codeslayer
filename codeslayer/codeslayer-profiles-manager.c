@@ -650,7 +650,7 @@ load_profile_names (CodeSlayerProfilesManager *profiles_manager)
   
   priv = CODESLAYER_PROFILES_MANAGER_GET_PRIVATE (profiles_manager);
 
-  profile_names = codeslayer_profiles_get_profile_names (priv->profiles);
+  profile_names = codeslayer_utils_get_profile_names ();
 
   list = profile_names;
   while (list != NULL)

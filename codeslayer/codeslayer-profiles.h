@@ -57,8 +57,6 @@ CodeSlayerProfile*   codeslayer_profiles_retrieve_profile   (CodeSlayerProfiles 
                                                              const gchar        *name);
 void                 codeslayer_profiles_save_profile       (CodeSlayerProfiles *profiles, 
                                                              CodeSlayerProfile  *profile);
-GList*               codeslayer_profiles_get_profile_names  (CodeSlayerProfiles *profiles);
-
 
 G_END_DECLS
 

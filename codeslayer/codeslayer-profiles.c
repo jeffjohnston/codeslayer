@@ -476,50 +476,6 @@ codeslayer_profiles_save_profile (CodeSlayerProfiles *profiles,
   g_free (contents);
 }
 
-/**
- * codeslayer_profiles_get_profile_names:
- * @profiles: a #CodeSlayerProfiles.
- *
- * Returns: A newly allocated list. You need to call g_list_free_full 
- * when you are done with the list.
- */
-GList*
-codeslayer_profiles_get_profile_names (CodeSlayerProfiles *profiles)
-{
-  GList *results = NULL;
-  gchar *file_path;
-  GFile *file;
-  GFileEnumerator *enumerator;
-  
-  file_path = g_build_filename (g_get_home_dir (),
-                                CODESLAYER_HOME,
-                                CODESLAYER_PROFILES_DIR,
-                                NULL);
-  
-  file = g_file_new_for_path (file_path);
- 
-  enumerator = g_file_enumerate_children (file, "standard::*",
-                                          G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS, 
-                                          NULL, NULL);
-  if (enumerator != NULL)
-    {
-      GFileInfo *file_info;
-      while ((file_info = g_file_enumerator_next_file (enumerator, NULL, NULL)) != NULL)
-        {
-          const char *file_name;
-          file_name = g_file_info_get_name (file_info);
-          results = g_list_append (results, g_strdup (file_name));
-          g_object_unref (file_info);
-        }
-      g_object_unref (enumerator);
-    }
-
-  g_free (file_path);
-  g_object_unref (file);
-  
-  return results;
-}
-
 static void
 verify_directory_exists (const gchar* name)
 {

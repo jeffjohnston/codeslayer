@@ -775,7 +775,6 @@ codeslayer_profiles_new
 codeslayer_profiles_create_profile
 codeslayer_profiles_retrieve_profile
 codeslayer_profiles_save_profile
-codeslayer_profiles_get_profile_names
 <SUBSECTION Standard>
 CODESLAYER_PROFILES_TYPE
 CODESLAYER_PROFILES

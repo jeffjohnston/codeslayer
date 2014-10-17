@@ -35,6 +35,10 @@ static void codeslayer_application_finalize    (CodeSlayerApplication      *appl
 static void codeslayer_application_startup     (GApplication               *application);
 static void codeslayer_application_shutdown    (GApplication               *application);
 static void codeslayer_application_activate    (GApplication               *application);
+static gint codeslayer_application_options     (GApplication               *application,
+                                                GVariantDict               *options);
+
+static void show_profiles                      (void);
 static void codeslayer_application_open        (GApplication               *application,
                                                 GFile                      **files,
                                                 gint                        n_files,
@@ -45,7 +49,23 @@ static void verify_plugins_dir_exists          (void);
 static void verify_plugins_config_dir_exists   (void);
 static void verify_profiles_dir_exists         (void);
 
+#define CODESLAYER_APPLICATION_VERSION "version"
+#define CODESLAYER_APPLICATION_SHOW_PROFILES "show-profiles"
+#define CODESLAYER_APPLICATION_OPEN_PROFILE "open-profile"
+
 G_DEFINE_TYPE (CodeSlayerApplication, codeslayer_application, GTK_TYPE_APPLICATION)
+
+static gboolean version_arg = FALSE;
+static gboolean show_profiles_arg = FALSE;
+static gchar *open_profile_arg = NULL;
+
+static GOptionEntry entries[] =
+{
+{ CODESLAYER_APPLICATION_VERSION, 'v', 0, G_OPTION_ARG_NONE, &version_arg, "The current version", NULL },
+{ CODESLAYER_APPLICATION_SHOW_PROFILES, 's', 0, G_OPTION_ARG_NONE, &show_profiles_arg, "Show all the profiles", NULL },
+{ CODESLAYER_APPLICATION_OPEN_PROFILE, 'p', 0, G_OPTION_ARG_STRING, &open_profile_arg, "Open the named profile (ex: -p test).", NULL },
+{ NULL }
+};
 
 static void 
 codeslayer_application_class_init (CodeSlayerApplicationClass *klass)
@@ -53,21 +73,106 @@ codeslayer_application_class_init (CodeSlayerApplicationClass *klass)
   GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
   application_class->startup = codeslayer_application_startup;
   application_class->shutdown = codeslayer_application_shutdown;
+  application_class->handle_local_options = codeslayer_application_options;
   application_class->activate = codeslayer_application_activate;
   application_class->open = codeslayer_application_open;
-
+  
   G_OBJECT_CLASS (klass)->finalize = (GObjectFinalizeFunc) codeslayer_application_finalize;
 }
 
 static void
 codeslayer_application_init (CodeSlayerApplication *application)
 {
+  g_application_add_main_option_entries (G_APPLICATION (application), entries);
 }
 
 static void
 codeslayer_application_finalize (CodeSlayerApplication *application)
 {
+  if (open_profile_arg != NULL)
+    g_free (open_profile_arg);
+
   G_OBJECT_CLASS (codeslayer_application_parent_class)->finalize (G_OBJECT (application));
+}
+
+/**
+ * codeslayer_application_new:
+ *
+ * Creates a new #CodeSlayerApplication.
+ *
+ * Returns: a new #CodeSlayerApplication. 
+ */
+CodeSlayerApplication*
+codeslayer_application_new (void)
+{
+  CodeSlayerApplication *application;
+  application = CODESLAYER_APPLICATION (g_object_new (codeslayer_application_get_type (), NULL));
+  
+  if (g_strcmp0 (CODESLAYER_HOME, ".codeslayer-dev") == 0)
+    g_application_set_application_id (G_APPLICATION (application), "org.codeslayer.dev");
+  else
+    g_application_set_application_id (G_APPLICATION (application), "org.codeslayer");
+  
+  g_application_set_flags (G_APPLICATION (application), G_APPLICATION_HANDLES_OPEN);
+
+  return application;
+}
+
+static gint
+codeslayer_application_options (GApplication *application,
+                                GVariantDict *dict)
+{
+  if (version_arg)
+    {
+      g_print ("%s\n", PACKAGE_STRING);
+      return 0;
+    }
+
+  if (show_profiles_arg)
+    {
+      show_profiles();
+      return 0;      
+    }
+
+  if (open_profile_arg != NULL)
+    {
+      if (!codeslayer_utils_profile_exists (open_profile_arg))
+        {
+          g_print ("The profile name '%s' is invalid\n", open_profile_arg);
+          return 0;
+        }
+      return -1;      
+    }
+
+  return -1;
+}
+
+static gint
+compare_profiles (gchar *a, 
+                  gchar *b)
+{
+  return g_strcmp0 (a, b);
+}
+
+static void 
+show_profiles ()
+{
+  GList *profile_names;
+  GList *list;
+
+  profile_names = codeslayer_utils_get_profile_names ();
+  list = profile_names;
+  
+  list = g_list_sort (list, (GCompareFunc) compare_profiles);
+
+  while (list != NULL)
+    {
+      gchar *profile_name = list->data;
+      g_print ("%s\n", profile_name);
+      list = g_list_next (list);
+    }
+
+  g_list_free_full (profile_names, g_free);
 }
 
 static void
@@ -85,8 +190,12 @@ codeslayer_application_startup (GApplication *application)
   verify_plugins_dir_exists ();
   verify_plugins_config_dir_exists ();
   verify_profiles_dir_exists ();
+
+  if (open_profile_arg != NULL)
+    window = codeslayer_window_new (GTK_APPLICATION (application), open_profile_arg);
+  else     
+    window = codeslayer_window_new (GTK_APPLICATION (application), CODESLAYER_PROFILES_DEFAULT);
   
-  window = codeslayer_window_new (GTK_APPLICATION (application), CODESLAYER_PROFILES_DEFAULT);
   gtk_application_add_window (GTK_APPLICATION (application), GTK_WINDOW (window));
 }
 
@@ -104,7 +213,7 @@ codeslayer_application_activate (GApplication *application)
 static void
 codeslayer_application_open (GApplication *application,
                              GFile        **files,
-                             gint         n_files,
+                             gint          n_files,
                              const gchar  *hint)
 {
   GtkWindow *window = NULL;
@@ -127,28 +236,6 @@ codeslayer_application_open (GApplication *application,
   
   if (window != NULL)  
     gtk_window_present (window);
-}
-
-/**
- * codeslayer_application_new:
- *
- * Creates a new #CodeSlayerApplication.
- *
- * Returns: a new #CodeSlayerApplication. 
- */
-CodeSlayerApplication*
-codeslayer_application_new (void)
-{
-  CodeSlayerApplication *application;
-  application = CODESLAYER_APPLICATION (g_object_new (codeslayer_application_get_type (), NULL));
-  
-  if (g_strcmp0 (CODESLAYER_HOME, ".codeslayer-dev") == 0)
-    g_application_set_application_id (G_APPLICATION (application), "org.codeslayer.dev");
-  else
-    g_application_set_application_id (G_APPLICATION (application), "org.codeslayer");
-  
-  g_application_set_flags (G_APPLICATION (application), G_APPLICATION_HANDLES_OPEN);
-  return application;
 }
 
 /*
