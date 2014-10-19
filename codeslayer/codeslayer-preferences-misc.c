@@ -42,7 +42,7 @@ struct _CodeSlayerPreferencesMiscPrivate
   GObject *word_wrap_types;
 };
 
-G_DEFINE_TYPE (CodeSlayerPreferencesMisc, codeslayer_preferences_misc, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerPreferencesMisc, codeslayer_preferences_misc, GTK_TYPE_BOX)
 
 static void
 codeslayer_preferences_misc_class_init (CodeSlayerPreferencesMiscClass *klass)
@@ -55,6 +55,7 @@ codeslayer_preferences_misc_class_init (CodeSlayerPreferencesMiscClass *klass)
 static void
 codeslayer_preferences_misc_init (CodeSlayerPreferencesMisc *preferences_search)
 {
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (preferences_search), GTK_ORIENTATION_VERTICAL);
   gtk_box_set_homogeneous (GTK_BOX (preferences_search), FALSE);
   gtk_box_set_spacing (GTK_BOX (preferences_search), 15);
   gtk_container_set_border_width (GTK_CONTAINER (preferences_search), 5);

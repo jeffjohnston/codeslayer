@@ -14128,7 +14128,7 @@ fi
 
 
 # Dependencies
-GTK_REQUIRED_VERSION=3.6.0
+GTK_REQUIRED_VERSION=3.10.0
 
 
 
@@ -14142,12 +14142,12 @@ if test -n "$CODESLAYER_CFLAGS"; then
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"
-    glib-2.0 >= 2.28.0
+    glib-2.0 >= 2.40.0
     gtk+-3.0 >= \$GTK_REQUIRED_VERSION
     gtksourceview-3.0 >= 3.0.0
 \""; } >&5
   ($PKG_CONFIG --exists --print-errors "
-    glib-2.0 >= 2.28.0
+    glib-2.0 >= 2.40.0
     gtk+-3.0 >= $GTK_REQUIRED_VERSION
     gtksourceview-3.0 >= 3.0.0
 ") 2>&5
@@ -14155,7 +14155,7 @@ if test -n "$CODESLAYER_CFLAGS"; then
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
   pkg_cv_CODESLAYER_CFLAGS=`$PKG_CONFIG --cflags "
-    glib-2.0 >= 2.28.0
+    glib-2.0 >= 2.40.0
     gtk+-3.0 >= $GTK_REQUIRED_VERSION
     gtksourceview-3.0 >= 3.0.0
 " 2>/dev/null`
@@ -14171,12 +14171,12 @@ if test -n "$CODESLAYER_LIBS"; then
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"
-    glib-2.0 >= 2.28.0
+    glib-2.0 >= 2.40.0
     gtk+-3.0 >= \$GTK_REQUIRED_VERSION
     gtksourceview-3.0 >= 3.0.0
 \""; } >&5
   ($PKG_CONFIG --exists --print-errors "
-    glib-2.0 >= 2.28.0
+    glib-2.0 >= 2.40.0
     gtk+-3.0 >= $GTK_REQUIRED_VERSION
     gtksourceview-3.0 >= 3.0.0
 ") 2>&5
@@ -14184,7 +14184,7 @@ if test -n "$CODESLAYER_LIBS"; then
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
   pkg_cv_CODESLAYER_LIBS=`$PKG_CONFIG --libs "
-    glib-2.0 >= 2.28.0
+    glib-2.0 >= 2.40.0
     gtk+-3.0 >= $GTK_REQUIRED_VERSION
     gtksourceview-3.0 >= 3.0.0
 " 2>/dev/null`
@@ -14209,13 +14209,13 @@ else
 fi
         if test $_pkg_short_errors_supported = yes; then
 	        CODESLAYER_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "
-    glib-2.0 >= 2.28.0
+    glib-2.0 >= 2.40.0
     gtk+-3.0 >= $GTK_REQUIRED_VERSION
     gtksourceview-3.0 >= 3.0.0
 " 2>&1`
         else
 	        CODESLAYER_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "
-    glib-2.0 >= 2.28.0
+    glib-2.0 >= 2.40.0
     gtk+-3.0 >= $GTK_REQUIRED_VERSION
     gtksourceview-3.0 >= 3.0.0
 " 2>&1`
@@ -14224,7 +14224,7 @@ fi
 	echo "$CODESLAYER_PKG_ERRORS" >&5
 
 	as_fn_error $? "Package requirements (
-    glib-2.0 >= 2.28.0
+    glib-2.0 >= 2.40.0
     gtk+-3.0 >= $GTK_REQUIRED_VERSION
     gtksourceview-3.0 >= 3.0.0
 ) were not met:

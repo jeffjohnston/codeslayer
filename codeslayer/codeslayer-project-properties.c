@@ -42,7 +42,7 @@ struct _CodeSlayerProjectPropertiesPrivate
   GList     *plugins;
 };
 
-G_DEFINE_TYPE (CodeSlayerProjectProperties, codeslayer_project_properties, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerProjectProperties, codeslayer_project_properties, GTK_TYPE_BOX)
 
 static void
 codeslayer_project_properties_class_init (CodeSlayerProjectPropertiesClass *klass)
@@ -57,6 +57,7 @@ codeslayer_project_properties_init (CodeSlayerProjectProperties *project_propert
 {
   CodeSlayerProjectPropertiesPrivate *priv;
   priv = CODESLAYER_PROJECT_PROPERTIES_GET_PRIVATE (project_properties);
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (project_properties), GTK_ORIENTATION_VERTICAL);
   gtk_box_set_homogeneous (GTK_BOX (project_properties), FALSE);
   gtk_box_set_spacing (GTK_BOX (project_properties), 0);
   priv->plugins = NULL;

@@ -151,8 +151,8 @@ codeslayer_profiles_manager_run_dialog (CodeSlayerProfilesManager *profiles_mana
   priv->dialog = gtk_dialog_new_with_buttons (_("Profiles"), 
                                               GTK_WINDOW (priv->window),
                                               GTK_DIALOG_MODAL,
-                                              GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-                                              GTK_STOCK_OPEN, GTK_RESPONSE_OK,
+                                              _("Close"), GTK_RESPONSE_CLOSE,
+                                              _("Open"), GTK_RESPONSE_OK,
                                               NULL);
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (priv->dialog), TRUE);
   gtk_window_set_skip_pager_hint (GTK_WINDOW (priv->dialog), TRUE);
@@ -259,9 +259,9 @@ add_buttons_pane (CodeSlayerProfilesManager *profiles_manager,
 
   vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 4);
   
-  add_button = gtk_button_new_from_stock (GTK_STOCK_ADD);
-  priv->edit_button = gtk_button_new_from_stock (GTK_STOCK_EDIT);
-  priv->delete_button = gtk_button_new_from_stock (GTK_STOCK_DELETE);
+  add_button = gtk_button_new_with_label (_("Add"));
+  priv->edit_button = gtk_button_new_with_label (_("Edit"));
+  priv->delete_button = gtk_button_new_with_label (_("Delete"));
   
   gtk_box_pack_start (GTK_BOX (vbox), add_button, FALSE, FALSE, 2);
   gtk_box_pack_start (GTK_BOX (vbox), priv->edit_button, FALSE, FALSE, 2);
@@ -360,8 +360,8 @@ add_profile_action (CodeSlayerProfilesManager *profiles_manager)
   dialog = gtk_dialog_new_with_buttons (_("Add Profile"), 
                                         GTK_WINDOW (priv->dialog),
                                         GTK_DIALOG_MODAL,
-                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        _("Cancel"), GTK_RESPONSE_CANCEL,
+                                        _("OK"), GTK_RESPONSE_OK,
                                         NULL);
 
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
@@ -448,8 +448,8 @@ edit_profile_action (CodeSlayerProfilesManager *profiles_manager)
   dialog = gtk_dialog_new_with_buttons (_("Edit Profile"), 
                                         GTK_WINDOW (priv->dialog),
                                         GTK_DIALOG_MODAL,
-                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                        GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                        _("Cancel"), GTK_RESPONSE_CANCEL,
+                                        _("OK"), GTK_RESPONSE_OK,
                                         NULL);
 
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);

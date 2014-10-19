@@ -143,8 +143,10 @@ add_menu_items (CodeSlayerMenuBarSearch *menu_bar_search)
   
   priv = CODESLAYER_MENU_BAR_SEARCH_GET_PRIVATE (menu_bar_search);
   
-  find_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_FIND, priv->accel_group);
+  find_item = gtk_menu_item_new_with_label (_("Find"));
   priv->find_item = find_item;
+  gtk_widget_add_accelerator (find_item, "activate", priv->accel_group,
+                              GDK_KEY_F, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), find_item);
 
   find_next_item = gtk_menu_item_new_with_label (_("Find Next"));

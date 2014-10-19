@@ -155,20 +155,26 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
   
   priv = CODESLAYER_MENU_BAR_FILE_GET_PRIVATE (menu_bar_file);
 
-  new_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, priv->accel_group);
+  new_item = gtk_menu_item_new_with_label (_("New"));
   priv->new_item = new_item;
+  gtk_widget_add_accelerator (new_item, "activate", priv->accel_group,
+                              GDK_KEY_N, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), new_item);
 
-  open_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_OPEN, priv->accel_group);
+  open_item = gtk_menu_item_new_with_label (_("Open"));
   priv->open_item = open_item;
+  gtk_widget_add_accelerator (open_item, "activate", priv->accel_group,
+                              GDK_KEY_O, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), open_item);
   
   save_separator_item = gtk_separator_menu_item_new ();
   priv->save_separator_item = save_separator_item;
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu),save_separator_item );
 
-  save_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_SAVE, priv->accel_group);
+  save_item = gtk_menu_item_new_with_label (_("Save"));
   priv->save_item = save_item;
+  gtk_widget_add_accelerator (save_item, "activate", priv->accel_group,
+                              GDK_KEY_S, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), save_item);
 
   save_all_item = gtk_menu_item_new_with_label (_("Save All"));
@@ -195,13 +201,15 @@ add_menu_items (CodeSlayerMenuBarFile *menu_bar_file)
 
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
     
-  close_tab_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_CLOSE, 
-                                                            priv->accel_group);
+  close_tab_item = gtk_menu_item_new_with_label (_("Close"));
   priv->close_tab_item = close_tab_item;
+  gtk_widget_add_accelerator (close_tab_item, "activate", priv->accel_group,
+                              GDK_KEY_W, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), close_tab_item);
 
-  quit_application_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_QUIT, 
-                                                                   priv->accel_group);
+  quit_application_item = gtk_menu_item_new_with_label (_("Quit"));
+  gtk_widget_add_accelerator (quit_application_item, "activate", priv->accel_group,
+                              GDK_KEY_Q, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), quit_application_item);
   
   g_signal_connect_swapped (G_OBJECT (profiles_item), "activate",

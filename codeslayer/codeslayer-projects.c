@@ -186,7 +186,7 @@ enum
 
 static guint codeslayer_projects_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (CodeSlayerProjects, codeslayer_projects, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerProjects, codeslayer_projects, GTK_TYPE_BOX)
 
 static void
 codeslayer_projects_class_init (CodeSlayerProjectsClass *klass)
@@ -376,6 +376,9 @@ codeslayer_projects_init (CodeSlayerProjects *projects)
 {
   CodeSlayerProjectsPrivate *priv;
   priv = CODESLAYER_PROJECTS_GET_PRIVATE (projects);
+  
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (projects), GTK_ORIENTATION_VERTICAL);
+  gtk_box_set_homogeneous (GTK_BOX (projects), TRUE);
 
   priv->plugins = NULL;
 
@@ -489,15 +492,23 @@ create_tree (CodeSlayerProjects *projects)
                                         G_TYPE_STRING, 
                                         G_TYPE_POINTER);
 
-  priv->project_pixbuf = gtk_widget_render_icon_pixbuf (GTK_WIDGET (projects), 
-                                                        GTK_STOCK_HARDDISK, 
-                                                        GTK_ICON_SIZE_BUTTON);
-  priv->folder_pixbuf = gtk_widget_render_icon_pixbuf (GTK_WIDGET (projects), 
-                                                       GTK_STOCK_DIRECTORY,
-                                                       GTK_ICON_SIZE_BUTTON);
-  priv->text_pixbuf = gtk_widget_render_icon_pixbuf (GTK_WIDGET (projects), 
-                                                     GTK_STOCK_FILE,
-                                                     GTK_ICON_SIZE_BUTTON);
+  priv->project_pixbuf  = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
+                                                    _("drive-harddisk"),
+                                                    24,
+                                                    GTK_ICON_LOOKUP_GENERIC_FALLBACK,
+                                                    NULL);                                                        
+                                                        
+  priv->folder_pixbuf  = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
+                                                   _("folder"),
+                                                   24,
+                                                   GTK_ICON_LOOKUP_GENERIC_FALLBACK,
+                                                   NULL);                                                        
+
+  priv->text_pixbuf  = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
+                                                 _("text-x-generic"),
+                                                 24,
+                                                 GTK_ICON_LOOKUP_GENERIC_FALLBACK,
+                                                 NULL);                                                        
 
   sortable = GTK_TREE_SORTABLE (priv->treestore);
   gtk_tree_sortable_set_sort_func (sortable, FILE_NAME, sort_iter_compare_func, 
@@ -600,13 +611,13 @@ create_popup_menu (CodeSlayerProjects *projects)
   priv->project_separator = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->project_separator);
 
-  priv->new_folder_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_ADD, NULL);
+  priv->new_folder_item = gtk_menu_item_new_with_label (_("Add"));
   gtk_menu_item_set_label (GTK_MENU_ITEM (priv->new_folder_item), _("Create Folder"));
   g_signal_connect_swapped (G_OBJECT (priv->new_folder_item), "activate",
                             G_CALLBACK (new_folder_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->new_folder_item);
 
-  priv->new_file_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_NEW, NULL);
+  priv->new_file_item = gtk_menu_item_new_with_label (_("New"));
   gtk_menu_item_set_label (GTK_MENU_ITEM (priv->new_file_item), _("Create File"));
   g_signal_connect_swapped (G_OBJECT (priv->new_file_item), "activate",
                             G_CALLBACK (new_file_action), projects);
@@ -615,17 +626,17 @@ create_popup_menu (CodeSlayerProjects *projects)
   priv->new_separator = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->new_separator);
   
-  priv->cut_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_CUT, NULL);
+  priv->cut_item = gtk_menu_item_new_with_label (_("Cut"));
   g_signal_connect_swapped (G_OBJECT (priv->cut_item), "activate",
                             G_CALLBACK (cut_file_folder_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->cut_item);
 
-  priv->copy_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_COPY, NULL);
+  priv->copy_item = gtk_menu_item_new_with_label (_("Copy"));
   g_signal_connect_swapped (G_OBJECT (priv->copy_item), "activate",
                             G_CALLBACK (copy_file_folder_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->copy_item);
 
-  priv->paste_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_PASTE, NULL);
+  priv->paste_item = gtk_menu_item_new_with_label (_("Paste"));
   g_signal_connect_swapped (G_OBJECT (priv->paste_item), "activate",
                             G_CALLBACK (paste_file_folder_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->paste_item);
@@ -639,7 +650,7 @@ create_popup_menu (CodeSlayerProjects *projects)
   priv->ccp_separator = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->ccp_separator);
 
-  priv->find_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_FIND, NULL);
+  priv->find_item = gtk_menu_item_new_with_label (_("Find"));
   g_signal_connect_swapped (G_OBJECT (priv->find_item), "activate",
                             G_CALLBACK (search_find_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->find_item);
@@ -655,8 +666,7 @@ create_popup_menu (CodeSlayerProjects *projects)
   priv->properties_separator = gtk_separator_menu_item_new ();
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->properties_separator);
 
-  priv->properties_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_PROPERTIES, 
-                                                              NULL);
+  priv->properties_item = gtk_menu_item_new_with_label (_("Properties"));
   g_signal_connect_swapped (G_OBJECT (priv->properties_item), "activate",
                             G_CALLBACK (project_properties_action), projects);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), priv->properties_item);
@@ -680,8 +690,8 @@ create_project_properties_dialog (CodeSlayerProjects *projects)
   properties_dialog = gtk_dialog_new_with_buttons (_("Project Properties"), 
                                                   GTK_WINDOW (priv->window),
                                                   GTK_DIALOG_MODAL,
-                                                  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                                  GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                  _("Cancel"), GTK_RESPONSE_CANCEL,
+                                                  _("OK"), GTK_RESPONSE_OK,
                                                   NULL);
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (properties_dialog), TRUE);
   gtk_window_set_skip_pager_hint (GTK_WINDOW (properties_dialog), TRUE);
@@ -1797,8 +1807,8 @@ create_destination (GFile       *source,
       dialog = gtk_dialog_new_with_buttons (title, 
                                             NULL,
                                             GTK_DIALOG_MODAL,
-                                            GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                            GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                            _("Cancel"), GTK_RESPONSE_CANCEL,
+                                            _("OK"), GTK_RESPONSE_OK,
                                             NULL);
       gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
       gtk_window_set_skip_pager_hint (GTK_WINDOW (dialog), TRUE);

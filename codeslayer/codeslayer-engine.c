@@ -587,11 +587,11 @@ open_document_action (CodeSlayerEngine *engine)
   
   priv = CODESLAYER_ENGINE_GET_PRIVATE (engine);
   
-  dialog = gtk_file_chooser_dialog_new (_("Select File"), 
+  dialog = gtk_file_chooser_dialog_new (_("Select Document"), 
                                         GTK_WINDOW (priv->window),
                                         GTK_FILE_CHOOSER_ACTION_OPEN,
-                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                        GTK_STOCK_OPEN, GTK_RESPONSE_OK, 
+                                        _("Cancel"), GTK_RESPONSE_CANCEL,
+                                        _("Open"), GTK_RESPONSE_OK, 
                                         NULL);
                                         
   gtk_file_chooser_set_select_multiple (GTK_FILE_CHOOSER (dialog), TRUE);;

@@ -72,7 +72,7 @@ enum
 
 static guint codeslayer_notebook_pane_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (CodeSlayerNotebookPane, codeslayer_notebook_pane, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerNotebookPane, codeslayer_notebook_pane, GTK_TYPE_BOX)
 
 static void
 codeslayer_notebook_pane_class_init (CodeSlayerNotebookPaneClass *klass)
@@ -136,6 +136,7 @@ codeslayer_notebook_pane_class_init (CodeSlayerNotebookPaneClass *klass)
 static void
 codeslayer_notebook_pane_init (CodeSlayerNotebookPane *notebook_pane)
 {
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (notebook_pane), GTK_ORIENTATION_VERTICAL);
   gtk_box_set_homogeneous (GTK_BOX (notebook_pane), FALSE);
   gtk_box_set_spacing (GTK_BOX (notebook_pane), 0);
 }

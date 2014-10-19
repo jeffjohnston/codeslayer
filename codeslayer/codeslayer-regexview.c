@@ -85,7 +85,7 @@ enum
   COLUMNS
 };
 
-G_DEFINE_TYPE (CodeSlayerRegexView, codeslayer_regex_view, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerRegexView, codeslayer_regex_view, GTK_TYPE_BOX)
 
 static void
 codeslayer_regex_view_class_init (CodeSlayerRegexViewClass *klass)
@@ -99,6 +99,7 @@ codeslayer_regex_view_init (CodeSlayerRegexView *regex_view)
 {
   CodeSlayerRegexViewPrivate *priv;
   priv = CODESLAYER_REGEX_VIEW_GET_PRIVATE (regex_view);
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (regex_view), GTK_ORIENTATION_VERTICAL);
   gtk_container_set_border_width (GTK_CONTAINER (regex_view), 4);
   priv->find = NULL;
   priv->replace = NULL;
@@ -165,7 +166,7 @@ add_buttons (CodeSlayerRegexView *regex_view)
 
   gtk_button_set_relief (GTK_BUTTON (execute_button), GTK_RELIEF_NONE);
   gtk_button_set_focus_on_click (GTK_BUTTON (execute_button), FALSE);
-  execute_image = gtk_image_new_from_stock (GTK_STOCK_EXECUTE, GTK_ICON_SIZE_MENU);
+  execute_image = gtk_image_new_from_icon_name (_("system-run"), GTK_ICON_SIZE_MENU);
   gtk_container_add (GTK_CONTAINER (execute_button), execute_image);
   gtk_widget_set_can_focus (execute_button, FALSE);
 
@@ -177,7 +178,7 @@ add_buttons (CodeSlayerRegexView *regex_view)
   
   gtk_button_set_relief (GTK_BUTTON (refresh_button), GTK_RELIEF_NONE);
   gtk_button_set_focus_on_click (GTK_BUTTON (refresh_button), FALSE);
-  refresh_image = gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU);
+  refresh_image = gtk_image_new_from_icon_name (_("view-refresh"), GTK_ICON_SIZE_MENU);
   gtk_container_add (GTK_CONTAINER (refresh_button), refresh_image);
   gtk_widget_set_can_focus (refresh_button, FALSE);
   

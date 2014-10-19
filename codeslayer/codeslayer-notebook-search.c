@@ -131,7 +131,7 @@ enum
 
 static guint codeslayer_notebook_search_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (CodeSlayerNotebookSearch, codeslayer_notebook_search, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerNotebookSearch, codeslayer_notebook_search, GTK_TYPE_BOX)
 
 static void
 codeslayer_notebook_search_class_init (CodeSlayerNotebookSearchClass *klass)
@@ -179,6 +179,9 @@ codeslayer_notebook_search_init (CodeSlayerNotebookSearch *notebook_search)
 {
   CodeSlayerNotebookSearchPrivate *priv;
   priv = CODESLAYER_NOTEBOOK_SEARCH_GET_PRIVATE (notebook_search);
+  
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (notebook_search), GTK_ORIENTATION_VERTICAL);
+  
   priv->entry_timer = NULL;
 }
 
@@ -416,7 +419,7 @@ add_close_button (CodeSlayerNotebookSearch *notebook_search)
 
   gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
   gtk_button_set_focus_on_click (GTK_BUTTON (button), FALSE);
-  image = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+  image = gtk_image_new_from_icon_name (_("window-close"), GTK_ICON_SIZE_MENU);
   gtk_container_add (GTK_CONTAINER (button), image);
   gtk_widget_set_can_focus (button, FALSE);
   codeslayer_utils_style_close_button (button);

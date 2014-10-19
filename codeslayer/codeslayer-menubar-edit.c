@@ -136,16 +136,22 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
   
   priv = CODESLAYER_MENU_BAR_EDIT_GET_PRIVATE (menu_bar_edit);
   
-  cut_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_CUT, priv->accel_group);
+  cut_item = gtk_menu_item_new_with_label (_("Cut"));
   priv->cut_item = cut_item;
+  gtk_widget_add_accelerator (cut_item, "activate", priv->accel_group,
+                              GDK_KEY_X, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), cut_item);
   
-  copy_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_COPY, priv->accel_group);
+  copy_item = gtk_menu_item_new_with_label (_("Copy"));
   priv->copy_item = copy_item;
+  gtk_widget_add_accelerator (copy_item, "activate", priv->accel_group,
+                              GDK_KEY_C, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), copy_item);
   
-  paste_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_PASTE, priv->accel_group);
+  paste_item = gtk_menu_item_new_with_label (_("Paste"));
   priv->paste_item = paste_item;
+  gtk_widget_add_accelerator (paste_item, "activate", priv->accel_group,
+                              GDK_KEY_V, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), paste_item);
   
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
@@ -172,8 +178,7 @@ add_menu_items (CodeSlayerMenuBarEdit *menu_bar_edit)
 
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), gtk_separator_menu_item_new ());
   
-  preferences_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_PREFERENCES, 
-                                                              priv->accel_group);
+  preferences_item = gtk_menu_item_new_with_label (_("Preferences"));
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), preferences_item);
   
   g_signal_connect_swapped (G_OBJECT (cut_item), "activate",

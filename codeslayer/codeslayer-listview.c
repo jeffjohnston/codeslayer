@@ -73,7 +73,7 @@ enum
 
 static guint codeslayer_list_view_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (CodeSlayerListView, codeslayer_list_view, GTK_TYPE_HBOX)
+G_DEFINE_TYPE (CodeSlayerListView, codeslayer_list_view, GTK_TYPE_BOX)
 
 static void 
 codeslayer_list_view_class_init (CodeSlayerListViewClass *klass)
@@ -100,6 +100,7 @@ codeslayer_list_view_class_init (CodeSlayerListViewClass *klass)
 static void
 codeslayer_list_view_init (CodeSlayerListView *list_view)
 {
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (list_view), GTK_ORIENTATION_HORIZONTAL);
   gtk_box_set_homogeneous (GTK_BOX (list_view), FALSE);
   gtk_box_set_spacing (GTK_BOX (list_view), 3);
   add_view (list_view);
@@ -182,8 +183,8 @@ add_view (CodeSlayerListView *list_view)
 
   /* create the buttons */
   
-  add_button = gtk_button_new_from_stock (GTK_STOCK_ADD);
-  remove_button = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
+  add_button = gtk_button_new_with_label (_("Add"));
+  remove_button = gtk_button_new_with_label (_("Remove"));
   
   g_signal_connect_swapped (G_OBJECT (add_button), "clicked",
                             G_CALLBACK (tree_add_action), list_view);

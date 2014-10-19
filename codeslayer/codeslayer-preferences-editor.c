@@ -65,7 +65,7 @@ struct _CodeSlayerPreferencesEditorPrivate
   GtkSpinButton         *tab_width;
 };
 
-G_DEFINE_TYPE (CodeSlayerPreferencesEditor, codeslayer_preferences_editor, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerPreferencesEditor, codeslayer_preferences_editor, GTK_TYPE_BOX)
 
 static void
 codeslayer_preferences_editor_class_init (CodeSlayerPreferencesEditorClass *klass)
@@ -78,6 +78,7 @@ codeslayer_preferences_editor_class_init (CodeSlayerPreferencesEditorClass *klas
 static void
 codeslayer_preferences_editor_init (CodeSlayerPreferencesEditor *preferences_editor)
 {
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (preferences_editor), GTK_ORIENTATION_VERTICAL);
   gtk_box_set_homogeneous (GTK_BOX (preferences_editor), FALSE);
   gtk_box_set_spacing (GTK_BOX (preferences_editor), 15);
   gtk_container_set_border_width (GTK_CONTAINER (preferences_editor), 5);

@@ -61,7 +61,7 @@ enum
 
 static guint codeslayer_abstract_pane_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_ABSTRACT_TYPE (CodeSlayerAbstractPane, codeslayer_abstract_pane, GTK_TYPE_VBOX)
+G_DEFINE_ABSTRACT_TYPE (CodeSlayerAbstractPane, codeslayer_abstract_pane, GTK_TYPE_BOX)
 
 static void
 codeslayer_abstract_pane_class_init (CodeSlayerAbstractPaneClass *klass)
@@ -109,6 +109,7 @@ codeslayer_abstract_pane_init (CodeSlayerAbstractPane *abstract_pane)
 {
   CodeSlayerAbstractPanePrivate *priv;
   priv = CODESLAYER_ABSTRACT_PANE_GET_PRIVATE (abstract_pane);
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (abstract_pane), GTK_ORIENTATION_VERTICAL);
   gtk_box_set_homogeneous (GTK_BOX (abstract_pane), FALSE);
   gtk_box_set_spacing (GTK_BOX (abstract_pane), 0);
   priv->plugins = NULL;

@@ -79,7 +79,7 @@ enum
   COLUMNS
 };
 
-G_DEFINE_TYPE (CodeSlayerPreferencesTheme, codeslayer_preferences_theme, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerPreferencesTheme, codeslayer_preferences_theme, GTK_TYPE_BOX)
 
 static void
 codeslayer_preferences_theme_class_init (CodeSlayerPreferencesThemeClass *klass)
@@ -92,6 +92,7 @@ codeslayer_preferences_theme_class_init (CodeSlayerPreferencesThemeClass *klass)
 static void
 codeslayer_preferences_theme_init (CodeSlayerPreferencesTheme *preferences_theme)
 {
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (preferences_theme), GTK_ORIENTATION_VERTICAL);
   gtk_box_set_homogeneous (GTK_BOX (preferences_theme), FALSE);
   gtk_box_set_spacing (GTK_BOX (preferences_theme), 15);
   gtk_container_set_border_width (GTK_CONTAINER (preferences_theme), 5);

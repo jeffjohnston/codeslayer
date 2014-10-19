@@ -68,7 +68,7 @@ enum
   COLUMNS
 };
 
-G_DEFINE_TYPE (CodeSlayerPluginsSelector, codeslayer_plugins_selector, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerPluginsSelector, codeslayer_plugins_selector, GTK_TYPE_BOX)
 
 static void
 codeslayer_plugins_selector_class_init (CodeSlayerPluginsSelectorClass *klass)
@@ -81,6 +81,7 @@ static void
 codeslayer_plugins_selector_init (CodeSlayerPluginsSelector *plugins_selector)
 {
   gtk_container_set_border_width (GTK_CONTAINER (plugins_selector), 2);
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (plugins_selector), GTK_ORIENTATION_VERTICAL);
   gtk_box_set_homogeneous (GTK_BOX (plugins_selector), FALSE);
   gtk_box_set_spacing (GTK_BOX (plugins_selector), 0);
   add_plugins_list (plugins_selector);

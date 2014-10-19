@@ -468,7 +468,7 @@ add_stop_button (CodeSlayerProjectsSearch *search)
 
   gtk_button_set_relief (GTK_BUTTON (stop_button), GTK_RELIEF_NONE);
   gtk_button_set_focus_on_click (GTK_BUTTON (stop_button), FALSE);
-  stop_image = gtk_image_new_from_stock (GTK_STOCK_STOP, GTK_ICON_SIZE_MENU);
+  stop_image = gtk_image_new_from_icon_name (_("process-stop"), GTK_ICON_SIZE_MENU);
   gtk_container_add (GTK_CONTAINER (stop_button), stop_image);
   gtk_widget_set_can_focus (stop_button, FALSE);
 
@@ -567,8 +567,8 @@ add_button_box (CodeSlayerProjectsSearch *search)
   gtk_container_set_border_width (GTK_CONTAINER (button_box), 4);
   gtk_box_set_spacing (GTK_BOX (button_box), 4);
 
-  close_button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
-  find_button = gtk_button_new_from_stock (GTK_STOCK_FIND);
+  close_button = gtk_button_new_with_label (_("Close"));
+  find_button = gtk_button_new_with_label (_("Find"));
   priv->find_button = find_button;
 
   gtk_box_pack_start (GTK_BOX(button_box), close_button, FALSE, FALSE, 0);

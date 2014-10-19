@@ -114,8 +114,7 @@ add_menu_items (CodeSlayerMenuBarHelp *menu_bar_help)
 
   priv = CODESLAYER_MENU_BAR_HELP_GET_PRIVATE (menu_bar_help);
 
-  about_menu_item = gtk_image_menu_item_new_from_stock (GTK_STOCK_ABOUT, 
-                                                        priv->accel_group);
+  about_menu_item = gtk_menu_item_new_with_label (_("About"));
   gtk_menu_shell_append (GTK_MENU_SHELL (priv->menu), about_menu_item);
 
   g_signal_connect_swapped (G_OBJECT (about_menu_item), "activate",

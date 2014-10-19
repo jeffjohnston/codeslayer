@@ -29,8 +29,8 @@
  */
 
 static void codeslayer_preferences_projects_class_init  (CodeSlayerPreferencesProjectsClass *klass);
-static void codeslayer_preferences_projects_init        (CodeSlayerPreferencesProjects      *preferences_search);
-static void codeslayer_preferences_projects_finalize    (CodeSlayerPreferencesProjects      *preferences_search);
+static void codeslayer_preferences_projects_init        (CodeSlayerPreferencesProjects      *preferences_projects);
+static void codeslayer_preferences_projects_finalize    (CodeSlayerPreferencesProjects      *preferences_projects);
 
 #define CODESLAYER_PREFERENCES_PROJECTS_GET_PRIVATE(obj) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CODESLAYER_PREFERENCES_PROJECTS_TYPE, CodeSlayerPreferencesProjectsPrivate))
@@ -43,7 +43,7 @@ struct _CodeSlayerPreferencesProjectsPrivate
   GObject *exclude_directories;
 };
 
-G_DEFINE_TYPE (CodeSlayerPreferencesProjects, codeslayer_preferences_projects, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerPreferencesProjects, codeslayer_preferences_projects, GTK_TYPE_BOX)
 
 static void
 codeslayer_preferences_projects_class_init (CodeSlayerPreferencesProjectsClass *klass)
@@ -54,11 +54,12 @@ codeslayer_preferences_projects_class_init (CodeSlayerPreferencesProjectsClass *
 }
 
 static void
-codeslayer_preferences_projects_init (CodeSlayerPreferencesProjects *preferences_search)
+codeslayer_preferences_projects_init (CodeSlayerPreferencesProjects *preferences_projects)
 {
-  gtk_box_set_homogeneous (GTK_BOX (preferences_search), FALSE);
-  gtk_box_set_spacing (GTK_BOX (preferences_search), 15);
-  gtk_container_set_border_width (GTK_CONTAINER (preferences_search), 5);
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (preferences_projects), GTK_ORIENTATION_VERTICAL);
+  gtk_box_set_homogeneous (GTK_BOX (preferences_projects), FALSE);
+  gtk_box_set_spacing (GTK_BOX (preferences_projects), 15);
+  gtk_container_set_border_width (GTK_CONTAINER (preferences_projects), 5);
 }
 
 static void

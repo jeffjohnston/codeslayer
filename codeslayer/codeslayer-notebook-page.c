@@ -55,7 +55,7 @@ enum
   PROP_EDITOR
 };
 
-G_DEFINE_TYPE (CodeSlayerNotebookPage, codeslayer_notebook_page, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (CodeSlayerNotebookPage, codeslayer_notebook_page, GTK_TYPE_BOX)
 
 static void
 codeslayer_notebook_page_class_init (CodeSlayerNotebookPageClass *klass)
@@ -70,6 +70,9 @@ codeslayer_notebook_page_init (CodeSlayerNotebookPage *notebook_page)
 {
   CodeSlayerNotebookPagePrivate *priv;
   priv = CODESLAYER_NOTEBOOK_PAGE_GET_PRIVATE (notebook_page);
+  
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (notebook_page), GTK_ORIENTATION_VERTICAL);
+  
   priv->document_not_found_info_bar = NULL;
   priv->external_changes_info_bar = NULL;
 }
@@ -184,7 +187,7 @@ codeslayer_notebook_page_show_external_changes_info_bar (CodeSlayerNotebookPage 
       GtkWidget *label;
       
       priv->external_changes_info_bar = gtk_info_bar_new_with_buttons  (_("Reload"), GTK_RESPONSE_OK,
-                                                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+                                                                        _("Cancel"), GTK_RESPONSE_CANCEL, NULL);
       
       gtk_info_bar_set_message_type (GTK_INFO_BAR (priv->external_changes_info_bar), GTK_MESSAGE_WARNING);
 

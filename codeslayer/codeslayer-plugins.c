@@ -309,7 +309,7 @@ codeslayer_plugins_run_dialog (CodeSlayerPlugins *plugins,
   dialog = gtk_dialog_new_with_buttons (_("Plugins"), 
                                         GTK_WINDOW (priv->window),
                                         GTK_DIALOG_MODAL,
-                                        GTK_STOCK_CLOSE, GTK_RESPONSE_OK,
+                                        _("Close"), GTK_RESPONSE_OK,
                                         NULL);
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
   gtk_window_set_skip_pager_hint (GTK_WINDOW (dialog), TRUE);

@@ -95,7 +95,7 @@ enum
 
 static guint codeslayer_notebook_tab_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (CodeSlayerNotebookTab, codeslayer_notebook_tab, GTK_TYPE_HBOX)
+G_DEFINE_TYPE (CodeSlayerNotebookTab, codeslayer_notebook_tab, GTK_TYPE_BOX)
      
 static void
 codeslayer_notebook_tab_class_init (CodeSlayerNotebookTabClass *klass)
@@ -212,6 +212,7 @@ codeslayer_notebook_tab_class_init (CodeSlayerNotebookTabClass *klass)
 static void
 codeslayer_notebook_tab_init (CodeSlayerNotebookTab *notebook_tab)
 {
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (notebook_tab), GTK_ORIENTATION_HORIZONTAL);
   gtk_box_set_homogeneous (GTK_BOX (notebook_tab), FALSE);
   gtk_box_set_spacing (GTK_BOX (notebook_tab), 0);
 }
@@ -302,7 +303,7 @@ codeslayer_notebook_tab_new (GtkWidget   *notebook,
 
   gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
   gtk_button_set_focus_on_click (GTK_BUTTON (button), FALSE);
-  image = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+  image = gtk_image_new_from_icon_name (_("window-close"), GTK_ICON_SIZE_MENU);
   gtk_container_add (GTK_CONTAINER (button), image);
   codeslayer_utils_style_close_button (button);
 

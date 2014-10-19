@@ -441,8 +441,8 @@ save_as_dialog (CodeSlayerNotebook *notebook,
   dialog = gtk_file_chooser_dialog_new (_("Save As"), 
                                         GTK_WINDOW (priv->window),
                                         GTK_FILE_CHOOSER_ACTION_SAVE,
-                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                        GTK_STOCK_SAVE, GTK_RESPONSE_OK, 
+                                        _("Cancel"), GTK_RESPONSE_CANCEL,
+                                        _("Save"), GTK_RESPONSE_OK, 
                                         NULL);
                                         
   gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
@@ -821,13 +821,13 @@ resolve_dirty_buffers (CodeSlayerNotebook *notebook,
       dialog = gtk_message_dialog_new_with_markup (priv->window, GTK_DIALOG_MODAL,
                                                    GTK_MESSAGE_WARNING,
                                                    GTK_BUTTONS_NONE, text, NULL);
-      gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_NO, GTK_RESPONSE_NO);
+      gtk_dialog_add_button (GTK_DIALOG (dialog), _("No"), GTK_RESPONSE_NO);
 
       if (dirty_pages_length > 1)
         gtk_dialog_add_button (GTK_DIALOG (dialog), _("No To All"), 100);
 
-      gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
-      gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_YES, GTK_RESPONSE_YES);
+      gtk_dialog_add_button (GTK_DIALOG (dialog), _("Cancel"), GTK_RESPONSE_CANCEL);
+      gtk_dialog_add_button (GTK_DIALOG (dialog), _("Yes"), GTK_RESPONSE_YES);
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 
       g_free (text);
