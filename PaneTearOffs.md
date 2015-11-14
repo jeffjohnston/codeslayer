@@ -1,0 +1,1 @@
+<img src='http://wiki-images.codeslayer.googlecode.com/git/pane-tear-offs.png' />
